@@ -1,0 +1,126 @@
+Test case:  Simple if with equals
+
+If:
+  object: a value
+  equals: a value
+  then:
+    Output: Match
+
+Expected output: Match
+
+
+---
+Test case:  Simple if with 'in'
+
+If:
+  object: chocolate
+  in:
+  - milk
+  - chocolate
+  - cookies
+  then:
+    ${chocolate}: Found
+
+Assert that:
+- object: ${chocolate}
+  equals: Found
+
+---
+Test case:  If with and / or
+
+If:
+  all:
+  - object: a value
+    equals: a value
+  - any:
+    - object: selection
+      equals: nothing
+    - object: selection
+      equals: selection
+  then:
+    Output: Any Match
+
+Expected output: Any Match
+
+
+---
+Test case:  If matching each item; no break
+
+If:
+- object: one
+  equals: one
+  then:
+    ${one}: 1
+
+- object: two
+  equals: two
+  then:
+    ${two}: 2
+
+Assert equals:
+- actual:
+  - ${one}
+  - ${two}
+  expected:
+  - 1
+  - 2
+
+
+---
+Test case: Switch-like if; break after successful match
+
+If any:
+- object: a value
+  equals: a value
+  then:
+    Output: First match
+
+- object: another value
+  in: another value
+  then:
+    Output: Second match
+
+Expected output: First match
+
+---
+Test case:  Variable resolution in nested Do
+
+${output}: one
+
+If:
+  object: something
+  equals: something
+  then:
+    Do:
+    - ${output}: two
+    - ${var}: ${output}
+
+Assert equals:
+- actual: ${var}
+  expected: two
+
+
+---
+Test case: Test against an empty list
+
+If:
+  object: []
+  equals: []
+  then:
+    Output: Success
+
+Expected output: Success
+
+---
+Test case: Not
+
+Output: Failure
+
+If:
+  not:
+    object: true
+    equals: false
+  then:
+    Output: Success
+
+Expected output: Success

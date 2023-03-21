@@ -1,0 +1,5 @@
+Input:
+  name:
+    default: world
+---
+Output: Hello ${name}!

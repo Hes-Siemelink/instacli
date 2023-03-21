@@ -1,0 +1,110 @@
+Test case: Merge two dicts, second one overwrites properties from the first.
+
+Merge:
+- label: first
+  header: accept
+- label: second
+  content: body
+
+Expected output:
+  label: second
+  header: accept
+  content: body
+
+
+---
+Test case: Merge with variable
+
+${package}:
+  label: second
+  header: accept
+  content: body
+
+Merge:
+- ${package}
+- footer: end
+
+Expected output:
+  label: second
+  header: accept
+  content: body
+  footer: end
+
+
+---
+Test case: Merge two lists
+
+${list1}:
+- 1
+- 2
+- 3
+${list2}:
+- 4
+- 5
+- 6
+
+Merge:
+- ${list1}
+- ${list2}
+
+Expected output:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+
+
+---
+Test case: Extend list with Merge
+
+${list1}:
+- 1
+- 2
+- 3
+
+Merge:
+- ${list1}
+- 4
+- 5
+- 6
+
+Expected output:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+
+---
+Test case: Create list with Merge
+
+Merge:
+  - 1
+  - 4
+  - 5
+  - 6
+
+Expected output:
+  - 1
+  - 4
+  - 5
+  - 6
+
+---
+Test case: Merge object with output variable
+
+Output:
+  one: 1
+  two: 1
+
+Merge:
+  two: 2
+  three: 3
+
+Expected output:
+  one: 1
+  two: 2
+  three: 3

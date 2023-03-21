@@ -1,0 +1,39 @@
+Test case: Variables in nested for each
+
+${nameTags}: []
+
+# Create a flat list of name tags for parents and children
+For each:
+  ${parent}:
+    - name: Mary
+      children:
+      - name: Alice
+    - name: Caroline
+      children: []
+
+  # Create tag for parent
+  ${tag}:
+    - name: ${parent.name}
+
+  # Add tags for children if there are any
+  For each:
+    ${child}: ${parent.children}
+
+    Output:
+      name: ${child.name}
+  As: additionalTags
+
+  # Put tags in the list
+  Merge:
+    - ${nameTags}
+    - ${tag}
+    - ${additionalTags}
+  ${nameTags}: ${output}
+
+# Collect flat list
+Output: ${nameTags}
+
+Expected output:
+- name: Mary
+- name: Alice
+- name: Caroline

@@ -1,0 +1,63 @@
+Http endpoint:
+  url: http://localhost:5000
+  verify certificate: false
+  cookies:
+    maria: biscuit
+
+
+---
+Test case: GET with explicit parameters
+
+Http GET:
+  path: /items
+
+Expected output: ['1', '2', '3']
+
+
+---
+Test case: POST and simple GET
+
+Http POST:
+  path: /items
+  body:
+    '1': One
+    '2': Two
+    '3': Three
+    '4': Four
+
+Expected output: ['1', '2', '3', '4']
+
+
+---
+Test case: Reset data
+
+Http POST:
+  path: /reset
+Http GET: /items
+
+Expected output: ['1', '2', '3']
+
+
+---
+Test case: Send headers
+
+Http GET:
+  path: /echo/header/Test
+  headers:
+    Test: something
+
+Expected output:
+  Test: something
+
+---
+Test case: Send cookie
+
+Http GET:
+  path: /echo/cookies
+  cookies:
+    speculaas: spicy
+
+Expected output:
+  cookies:
+    maria: biscuit
+    speculaas: spicy

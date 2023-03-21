@@ -1,0 +1,50 @@
+Test case: Read file from disk
+
+Read file: test/samples/Simple example.yaml
+
+Expected output:
+  test: true
+  something: else
+
+---
+Test case: Read file with variable syntax
+
+Read file: test/samples/Simple example with variable syntax.yaml
+${raw}: ${output}  # triggers variable substitution
+
+Assert that:
+- object:
+    test: true
+    something: else
+  in:
+    ${output}
+
+---
+Test case: Fill variables in file
+
+Read file: test/samples/Simple example with variable syntax.yaml
+As: raw
+${unknown}: known
+${nested}:
+  something: there
+Apply variables: ${raw}
+
+Expected output:
+  test: true
+  something: else
+  variable: known
+  nested: there
+
+---
+Test case: Read file with variable syntax and multiple documents
+
+Read file: test/samples/Sample example with variable syntax in multiple documents.yaml
+${raw}: ${output}
+
+Assert that:
+  object:
+    test: true
+    something: else
+  in:
+    ${output}
+

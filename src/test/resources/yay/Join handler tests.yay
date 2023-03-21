@@ -1,0 +1,91 @@
+Test case: Join two dicts, second one overwrites properties from the first.
+
+Join:
+  package:
+  - label: first
+    header: accept
+  - label: second
+    content: body
+
+Assert equals:
+  actual: ${package}
+  expected:
+    label: second
+    header: accept
+    content: body
+
+
+---
+Test case: Join into a variable that already exists
+
+Join:
+  package:
+    footer: end
+
+Assert equals:
+  actual: ${package}
+  expected:
+    label: second
+    header: accept
+    content: body
+    footer: end
+
+
+---
+Test case: Join two lists
+
+# Given
+${list1}:
+- 1
+- 2
+- 3
+${list2}:
+- 4
+- 5
+- 6
+
+# When
+Join:
+  completeList:
+  - ${list1}
+  - ${list2}
+
+# Then
+Assert equals:
+  actual: ${completeList}
+  expected:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+
+
+---
+Test case: Join list with more items
+
+# Given
+${list1}:
+- 1
+- 2
+- 3
+
+# When
+Join:
+  newList:
+  - ${list1}
+  - 4
+  - 5
+  - 6
+
+# Then
+Assert equals:
+  actual: ${newList}
+  expected:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6

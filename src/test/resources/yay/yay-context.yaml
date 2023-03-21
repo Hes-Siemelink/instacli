@@ -1,0 +1,7 @@
+variables:
+  contextVariable: unknown
+
+profiles:
+  test:
+    variables:
+      contextVariable: set
