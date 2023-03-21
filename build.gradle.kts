@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("java")
     kotlin("jvm") version "1.8.0"
+    kotlin("plugin.serialization") version "1.8.0"
 }
 
 group = "hes.yak"
@@ -13,10 +14,13 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.+")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.assertj:assertj-core:3.24.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
-    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.getByName<Test>("test") {

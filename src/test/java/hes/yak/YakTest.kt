@@ -7,9 +7,13 @@ class YakTest {
 
     @Test
     fun loadScript() {
-
         val script = YakScript.load("/yay/Assert statement tests.yay")
-
         Assertions.assertThat(script.contents.contains("Test case: Assert equals with nested objects"))
+    }
+
+    @Test
+    fun runScript() {
+        val script = YakScript.load("/yay/Assert statement tests.yay")
+        script.run()
     }
 }
