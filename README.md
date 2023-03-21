@@ -1,2 +1,2 @@
 # Yak
-Light scripting in YAML.
+Light scripting in YAML!
