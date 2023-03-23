@@ -55,3 +55,4 @@ class YakScript(val contents: String) {
     }
 }
 
+class ScriptException(message: String) : Exception(message)
