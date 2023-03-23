@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import hes.yak.commands.AssertEquals
+import hes.yak.commands.AssertThat
 import hes.yak.commands.TestCase
 
 
@@ -31,7 +32,7 @@ class YakScript(val contents: String) {
             if (field.key in commands.keys) {
                 commands.get(field.key)!!.execute(field.value);
             } else {
-                System.out.println("Unknown command: ${field.key}")
+                throw ScriptException("Unknown command: ${field.key}")
             }
 
         }
@@ -44,6 +45,7 @@ class YakScript(val contents: String) {
         init {
             commands.put("Test case", TestCase())
             commands.put("Assert equals", AssertEquals())
+            commands.put("Assert that", AssertThat())
         }
 
         fun load(resource: String): YakScript {
