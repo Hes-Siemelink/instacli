@@ -1,19 +1,21 @@
 package hes.yak
 
-import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 
 class YakTest {
 
     @Test
-    fun loadScript() {
-        val script = YakScript.load("/yay/Assert statement tests.yay")
-        Assertions.assertThat(script.contents.contains("Test case: Assert equals with nested objects"))
+    fun assertStatementTests() {
+        YakScript.run("/yay/Assert statement tests.yay")
     }
 
     @Test
-    fun runScript() {
-        val script = YakScript.load("/yay/Assert statement tests.yay")
-        script.run()
+    fun callAnotherScript() {
+        YakScript.run("/yay/Call another script.yay")
+    }
+
+    @Test
+    fun doTestRoutine() {
+        YakScript.run("/yay/Do-test-routine.yay")
     }
 }

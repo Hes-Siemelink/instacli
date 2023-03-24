@@ -3,6 +3,7 @@ package hes.yak.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import hes.yak.Command
+import hes.yak.ScriptContext
 import hes.yak.ScriptException
 
 interface Condition {
@@ -54,12 +55,14 @@ class Not(val condition: Condition) : Condition {
 
 class AssertThat : Command {
 
-    override fun execute(node: JsonNode) {
-        val condition = parseCondition(node)
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        val condition = parseCondition(data)
 
         if (!condition.isTrue()) {
-            throw AssertionError("Condition is false.\n${node}")
+            throw AssertionError("Condition is false.\n${data}")
         }
+
+        return null
     }
 }
 
@@ -100,11 +103,13 @@ fun parseCondition(node: JsonNode): Condition {
 
 class AssertEquals : Command {
 
-    override fun execute(node: JsonNode) {
-        val actual = node.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
-        val expected = node.get("expected") ?: throw ConditionException("Assert equals needs 'expected' field.")
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        val actual = data.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
+        val expected = data.get("expected") ?: throw ConditionException("Assert equals needs 'expected' field.")
 
         execute(actual, expected)
+
+        return null
     }
 
     private fun execute(

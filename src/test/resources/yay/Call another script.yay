@@ -1,5 +1,5 @@
 Execute yay file:
-  file: test/yay/Do-test-routine.yay
+  file: Do-test-routine.yay
   name: Jay
 
 Expected output: Hello Jay!
