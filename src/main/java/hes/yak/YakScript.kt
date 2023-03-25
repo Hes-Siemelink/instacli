@@ -53,6 +53,10 @@ class YakScript(
             commands["Execute yay file"] = ExecuteYayFile()
         }
 
+        fun run(script: File) {
+            load(script).run()
+        }
+
         fun load(
             source: File,
             scriptContext: ScriptContext = ScriptContext()
@@ -66,27 +70,6 @@ class YakScript(
 
             return YakScript(script, scriptContext)
         }
-
-        // TODO: Move resource loading to test classes and just deal with files here
-        fun load(
-            resource: String,
-            scriptContext: ScriptContext = ScriptContext()): YakScript {
-
-            val resource = YakScript::class.java.getResource(resource)
-            scriptContext.scriptLocation = File(resource.file)
-
-            val yamlParser = factory.createParser(resource.readText())
-            val script = mapper
-                .readValues(yamlParser, JsonNode::class.java)
-                .readAll();
-
-            return YakScript(script, scriptContext)
-        }
-
-        fun run(resource: String) {
-            load(resource).run()
-        }
-
     }
 }
 
