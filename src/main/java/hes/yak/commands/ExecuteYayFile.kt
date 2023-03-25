@@ -12,10 +12,8 @@ class ExecuteYayFile : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.")
         val scriptFile = File(context.scriptLocation?.parent, fileName.asText())
-        System.out.println("Parent: ${context.scriptLocation?.parent}")
-        System.out.println(scriptFile.absolutePath)
-        val script = YakScript.load(scriptFile)
 
+        val script = YakScript.load(scriptFile)
         addVariables(script.context, data)
 
         return script.run()
@@ -25,7 +23,7 @@ class ExecuteYayFile : Command {
 
 fun addVariables(context: ScriptContext, data: JsonNode) {
     for (variable in data.fields()) {
-        context.variables.put(variable.key, variable.value)
+        context.variables[variable.key] = variable.value
     }
 }
 

@@ -2,6 +2,7 @@ package hes.yak
 
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.io.FileNotFoundException
 
 class YakTest {
 
@@ -26,6 +27,6 @@ fun test(resource:String) {
 }
 
 fun toFile(resource: String): File {
-    val resource = YakScript::class.java.getResource(resource).toURI()
-    return File(resource.path)
+    val uri = YakScript::class.java.getResource(resource)?.toURI() ?: throw FileNotFoundException(resource)
+    return File(uri.path)
 }

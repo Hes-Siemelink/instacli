@@ -29,7 +29,7 @@ class YakScript(
                 throw ScriptException("Unknown command: ${command.key}")
             }
 
-            output = commands.get(command.key)!!.execute(command.value, context);
+            output = commands[command.key]!!.execute(command.value, context)
             context.output = output
         }
 
@@ -65,7 +65,7 @@ class YakScript(
             val yamlParser = factory.createParser(source)
             val script = mapper
                 .readValues(yamlParser, JsonNode::class.java)
-                .readAll();
+                .readAll()
             scriptContext.scriptLocation = source
 
             return YakScript(script, scriptContext)

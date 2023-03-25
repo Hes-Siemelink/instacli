@@ -24,7 +24,7 @@ class Contains(
         if (container is ArrayNode) {
             return container.contains(obj)
         } else {
-            throw ConditionException("You can only check if object is in an array.");
+            throw ConditionException("You can only check if object is in an array.")
         }
     }
 }

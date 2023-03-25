@@ -7,7 +7,7 @@ import hes.yak.ScriptContext
 class TestCase : Command {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        System.out.println("Test case: ${data.asText()}")
+        println("Test case: ${data.asText()}")
         return null
     }
 }

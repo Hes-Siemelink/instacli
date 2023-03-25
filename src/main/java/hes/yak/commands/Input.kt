@@ -11,7 +11,7 @@ class Input : Command {
             if (context.variables.contains(inputParameter.key)) continue
 
             if (inputParameter.value.has("default")) {
-                context.variables.put(inputParameter.key, inputParameter.value.get("default"))
+                context.variables[inputParameter.key] = inputParameter.value.get("default")
             } else {
                 throw ScriptException("Variable not provided: " + inputParameter.key)
             }
@@ -24,5 +24,4 @@ class Output : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }
-
 }
