@@ -48,7 +48,8 @@ class ScriptContext {
             "Expected output" to ExpectedOutput(),
             "Input" to Input(),
             "Output" to Output(),
-            "Execute yay file" to ExecuteYayFile()
+            "Execute yay file" to ExecuteYayFile(),
+            "Do" to Do()
         )
     }
 }
