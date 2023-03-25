@@ -25,11 +25,7 @@ class YakScript(
         var output: JsonNode? = null
 
         for (command in block.fields()) {
-            if (command.key !in commands.keys) {
-                throw ScriptException("Unknown command: ${command.key}")
-            }
-
-            val handler = commands[command.key]!!
+            val handler = context.getCommandHandler(command.key)
             output = runCommand(handler, command.value, context)
 
             context.output = output
@@ -52,20 +48,8 @@ class YakScript(
 
     companion object {
 
-        val commands: MutableMap<String, Command> = mutableMapOf()
-
         private val factory = YAMLFactory()
         private val mapper = ObjectMapper(factory).registerKotlinModule()
-
-        init {
-            commands["Test case"] = TestCase()
-            commands["Assert equals"] = AssertEquals()
-            commands["Assert that"] = AssertThat()
-            commands["Expected output"] = ExpectedOutput()
-            commands["Input"] = Input()
-            commands["Output"] = Output()
-            commands["Execute yay file"] = ExecuteYayFile()
-        }
 
         fun run(script: File) {
             load(script).run()

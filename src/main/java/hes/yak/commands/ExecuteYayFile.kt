@@ -13,17 +13,24 @@ class ExecuteYayFile : Command {
         val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.")
         val scriptFile = File(context.scriptLocation?.parent, fileName.asText())
 
-        val script = YakScript.load(scriptFile)
-        addVariables(script.context, data)
-
-        return script.run()
+        return runFile(scriptFile, data)
     }
 
 }
 
-fun addVariables(context: ScriptContext, data: JsonNode) {
-    for (variable in data.fields()) {
-        context.variables[variable.key] = variable.value
+class ExecuteYayFileAsCommand(private val scriptFile: File) : Command {
+
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        return runFile(scriptFile, data)
     }
+}
+
+private fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
+    val script = YakScript.load(scriptFile)
+    for (variable in data.fields()) {
+        script.context.variables[variable.key] = variable.value
+    }
+
+    return script.run()
 }
 

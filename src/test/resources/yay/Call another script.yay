@@ -1,6 +1,7 @@
 Execute yay file:
   file: Do-test-routine.yay
   name: Jay
+  # XXX: input parameters should go under 'input:'. Now we leak the file property
 
 Expected output: Hello Jay!
 
