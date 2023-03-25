@@ -8,23 +8,32 @@ import hes.yak.commands.*
 import java.io.File
 
 class YakScript(
-    val script: List<JsonNode>,
+    private val script: List<JsonNode>,
     val context: ScriptContext = ScriptContext()) {
 
-    fun run() {
+    fun run(): JsonNode? {
+        var output: JsonNode? = null
+
         for (block in script) {
-            runTaskBlock(block, context)
+            output = runTaskBlock(block, context)
         }
+
+        return output
     }
 
-    private fun runTaskBlock(block: JsonNode, context: ScriptContext) {
+    private fun runTaskBlock(block: JsonNode, context: ScriptContext): JsonNode? {
+        var output: JsonNode? = null
+
         for (command in block.fields()) {
-            if (command.key in commands.keys) {
-                commands.get(command.key)!!.execute(command.value, context);
-            } else {
+            if (command.key !in commands.keys) {
                 throw ScriptException("Unknown command: ${command.key}")
             }
+
+            output = commands.get(command.key)!!.execute(command.value, context);
+            context.output = output
         }
+
+        return output
     }
 
     companion object {
@@ -35,12 +44,13 @@ class YakScript(
         private val mapper = ObjectMapper(factory).registerKotlinModule()
 
         init {
-            commands.put("Test case", TestCase())
-            commands.put("Assert equals", AssertEquals())
-            commands.put("Assert that", AssertThat())
-            commands.put("Input", Input())
-            commands.put("Output", Output())
-            commands.put("Execute yay file", ExecuteYayFile())
+            commands["Test case"] = TestCase()
+            commands["Assert equals"] = AssertEquals()
+            commands["Assert that"] = AssertThat()
+            commands["Expected output"] = ExpectedOutput()
+            commands["Input"] = Input()
+            commands["Output"] = Output()
+            commands["Execute yay file"] = ExecuteYayFile()
         }
 
         fun load(
@@ -57,6 +67,7 @@ class YakScript(
             return YakScript(script, scriptContext)
         }
 
+        // TODO: Move resource loading to test classes and just deal with files here
         fun load(
             resource: String,
             scriptContext: ScriptContext = ScriptContext()): YakScript {

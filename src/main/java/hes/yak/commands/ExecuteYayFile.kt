@@ -18,9 +18,7 @@ class ExecuteYayFile : Command {
 
         addVariables(script.context, data)
 
-        script.run()
-
-        return null
+        return script.run()
     }
 
 }
