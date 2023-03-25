@@ -2,6 +2,8 @@ package hes.yak
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
@@ -39,11 +41,45 @@ class YakScript(
         context: ScriptContext
     ): JsonNode? {
 
-        val data = resolveVariables(rawData, context.variables)
+        if (handler is ListProcessor && rawData is ArrayNode) {
+            val result = runCommandOnList(handler, rawData, context)
+            return if (result.isEmpty()) null else result
+        }
 
-        return handler.execute(data, context)
+        return runSingleCommand(handler, rawData, context)
     }
 
+    private fun runCommandOnList(
+        handler: Command,
+        dataList: ArrayNode,
+        context: ScriptContext
+    ): ArrayNode {
+
+        val output = ArrayNode(JsonNodeFactory.instance)
+
+        for (data in dataList) {
+            val result = runSingleCommand(handler, data, context)
+            if (result != null) {
+                output.add(result)
+            }
+        }
+
+        return output
+    }
+
+    private fun runSingleCommand(
+        handler: Command,
+        rawData: JsonNode,
+        context: ScriptContext
+    ): JsonNode? {
+
+        val data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+        val result: JsonNode? = handler.execute(data, context)
+        if (result != null) {
+            context.variables["output"] = result
+        }
+        return result
+    }
 
     companion object {
 

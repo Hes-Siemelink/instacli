@@ -1,14 +1,10 @@
 package hes.yak.commands
 
 import com.fasterxml.jackson.databind.JsonNode
-import hes.yak.Command
-import hes.yak.DelayedVariableResolver
-import hes.yak.ScriptContext
-import hes.yak.YakScript
+import hes.yak.*
 
-class Do : Command, DelayedVariableResolver {
+class Do : Command, DelayedVariableResolver, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        return YakScript(listOf(data), context).run()
         return YakScript(listOf(data), context).run()
     }
 }

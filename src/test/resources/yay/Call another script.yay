@@ -1,3 +1,5 @@
+Test case: Run another yay file from yay
+
 Execute yay file:
   file: Do-test-routine.yay
   name: Jay
@@ -6,6 +8,8 @@ Execute yay file:
 Expected output: Hello Jay!
 
 ---
+Test case: Run another yay file by using a command that has the name of the file
+
 Do test routine:
   name: Kay
 

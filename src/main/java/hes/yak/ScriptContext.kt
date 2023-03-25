@@ -18,7 +18,13 @@ class ScriptContext {
 
     fun getCommandHandler(command: String): Command {
 
-        // Standard commands first
+        // Variable syntax
+        val match = VARIABLE_REGEX.matchEntire(command)
+        if (match != null) {
+            return VariableCommand(match.groupValues[1])
+        }
+
+        // Standard commands
         if (standardCommands.containsKey(command)) {
             return standardCommands[command]!!
         }

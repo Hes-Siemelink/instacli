@@ -1,10 +1,7 @@
 package hes.yak.commands
 
 import com.fasterxml.jackson.databind.JsonNode
-import hes.yak.Command
-import hes.yak.ConditionException
-import hes.yak.ScriptContext
-import hes.yak.parseCondition
+import hes.yak.*
 
 class AssertThat : Command {
 
@@ -19,7 +16,7 @@ class AssertThat : Command {
     }
 }
 
-class AssertEquals : Command {
+class AssertEquals : Command, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val actual = data.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
