@@ -29,12 +29,26 @@ class YakScript(
                 throw ScriptException("Unknown command: ${command.key}")
             }
 
-            output = commands[command.key]!!.execute(command.value, context)
+            val handler = commands[command.key]!!
+            output = runCommand(handler, command.value, context)
+
             context.output = output
         }
 
         return output
     }
+
+    private fun runCommand(
+        handler: Command,
+        rawData: JsonNode,
+        context: ScriptContext
+    ): JsonNode? {
+
+        val data = resolveVariables(rawData, context.variables)
+
+        return handler.execute(data, context)
+    }
+
 
     companion object {
 
