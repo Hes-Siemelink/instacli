@@ -28,10 +28,6 @@ class YakScript(
         for (command in block.fields()) {
             val handler = context.getCommandHandler(command.key)
             output = runCommand(handler, command.value, context)
-
-            if (output != null) {
-                context.variables["output"] = output
-            }
         }
 
         return output
@@ -44,18 +40,17 @@ class YakScript(
     ): JsonNode? {
 
         if (handler is ListProcessor && rawData is ArrayNode) {
-            val result = runCommandOnList(handler, rawData, context)
-            return if (result.isEmpty()) null else result
+            return runCommandOnList(handler, rawData, context)
+        } else {
+            return runSingleCommand(handler, rawData, context)
         }
-
-        return runSingleCommand(handler, rawData, context)
     }
 
     private fun runCommandOnList(
         handler: Command,
         dataList: ArrayNode,
         context: ScriptContext
-    ): ArrayNode {
+    ): ArrayNode? {
 
         val output = ArrayNode(JsonNodeFactory.instance)
 
@@ -66,7 +61,12 @@ class YakScript(
             }
         }
 
-        return output
+        return if (output.isEmpty()) {
+            null
+        } else {
+            context.variables["output"] = output
+            output
+        }
     }
 
     private fun runSingleCommand(
