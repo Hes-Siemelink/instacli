@@ -51,7 +51,7 @@ For each:
     - ${output}
 
 Assert equals:
-- actual: ${test}
+  actual: ${test}
   expected:
     - Mango ice cream
     - Ratatouille

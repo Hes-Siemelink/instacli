@@ -19,8 +19,8 @@ class ForEach: Command, DelayedVariableResolver {
         if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content:\n${data}")
 
         val loopVar: String = getVariableName(data)
-        val items = data.remove(loopVar)
-        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list:\n${data}")
+        val items = resolveVariables(data.remove(loopVar), context.variables)
+        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list:\n${items}")
 
         val output = ArrayNode(JsonNodeFactory.instance)
         for (loopData in items) {
