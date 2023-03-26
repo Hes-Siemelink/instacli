@@ -57,7 +57,8 @@ class ScriptContext {
             "Execute yay file" to ExecuteYayFile(),
             "Do" to Do(),
             "For each" to ForEach(),
-            "Join" to Join()
+            "Join" to Join(),
+            "As" to AssignOutput()
         )
     }
 }

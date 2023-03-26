@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import hes.yak.Command
+import hes.yak.ListProcessor
 import hes.yak.ScriptContext
 import hes.yak.ScriptException
 
@@ -21,6 +22,18 @@ class VariableCommand(val name: String) : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         context.variables[name] = data
         return null;
+    }
+}
+
+class AssignOutput : Command, ListProcessor {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        if (data !is TextNode) throw ScriptException("Command 'As' only takes text.\n$data")
+
+        if (!context.variables.containsKey("output")) throw ScriptException("Can't assign output variable because it is empty.")
+
+        context.variables[data.asText()] = context.variables["output"]!!
+
+        return null
     }
 }
 
