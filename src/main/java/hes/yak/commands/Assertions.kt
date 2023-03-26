@@ -43,3 +43,10 @@ class ExpectedOutput : Command {
         return null
     }
 }
+
+class TestCase : Command {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        println("Test case: ${data.asText()}")
+        return null
+    }
+}
