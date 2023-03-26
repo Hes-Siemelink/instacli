@@ -29,6 +29,7 @@ class YayTests {
     @Test
     fun forEach() {
         test("For each usage.yay")
+        test("For each and merge.yay")
     }
 }
 

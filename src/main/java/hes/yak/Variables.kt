@@ -1,5 +1,6 @@
 package hes.yak
 
+import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -13,7 +14,7 @@ fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode
         val singleVariableMatch = VARIABLE_REGEX.matchEntire(data.textValue())
         if (singleVariableMatch != null) {
             val varName = singleVariableMatch.groupValues[1]
-            return variables[varName] ?: throw ScriptException("Unknown variable: \${${varName}}")
+            return getValue(varName, variables)
         }
 
         // One or more variables mixed in text are replaced with text values
@@ -51,3 +52,38 @@ fun resolve(varName: String, variables: Map<String, JsonNode>): String {
     // TODO pretty print as Yaml when replacing variables in text that ar eobjects or arrays
     return variables[varName]?.asText() ?: throw ScriptException("Unknown variable: \${${varName}}")
 }
+
+fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
+
+    val variableWithPath: VariableWithPath = splitIntoVariableAndPath(varName)
+
+    if (!variables.containsKey(variableWithPath.name)) {
+        throw ScriptException("Unknown variable: \${${varName}}")
+    }
+
+    val value = variables[variableWithPath.name]!!
+
+    if (variableWithPath.path == null) {
+        return value
+    } else {
+        val jsonPointer = JsonPointer.compile(toJsonPointer(variableWithPath.path))
+        return value.at(jsonPointer)
+    }
+}
+
+fun splitIntoVariableAndPath(varName: String): VariableWithPath {
+
+    val split = Regex("(.*?)([\\[.].*\$)")
+    val match = split.find(varName) ?: return VariableWithPath(varName, null)
+
+    return VariableWithPath(match.groupValues[1], match.groupValues[2])
+}
+
+fun toJsonPointer(jsonPath: String): String {
+    var result = jsonPath.replace('.', '/')
+    val index = Regex("\\[(\\d*)]")
+    result = index.replace(result, "/$1")
+    return result
+}
+
+data class VariableWithPath(val name: String, val path: String?)
