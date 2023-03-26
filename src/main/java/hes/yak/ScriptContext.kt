@@ -58,7 +58,8 @@ class ScriptContext {
             "Do" to Do(),
             "For each" to ForEach(),
             "Join" to Join(),
-            "As" to AssignOutput()
+            "As" to AssignOutput(),
+            "Merge" to Merge()
         )
     }
 }

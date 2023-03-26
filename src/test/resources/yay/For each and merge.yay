@@ -18,7 +18,6 @@ For each:
   # Add tags for children if there are any
   For each:
     child: ${parent.children}
-
     Output:
       name: ${child.name}
   As: additionalTags

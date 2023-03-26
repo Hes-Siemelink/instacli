@@ -2,6 +2,7 @@ package hes.yak.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import hes.yak.Command
@@ -40,7 +41,7 @@ class AssignOutput : Command, ListProcessor {
 class Join : Command {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is ObjectNode) throw ScriptException("Join only takes object content, not array or list.\n$data")
+        if (data !is ObjectNode) throw ScriptException("Join only takes object content, not array or text.\n$data")
 
         for (variable in data.fields()) {
             join(variable.key, variable.value, context.variables)
@@ -72,4 +73,46 @@ class Join : Command {
             }
         }
     }
+}
+
+class Merge : Command {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not onject or text.\n$data")
+
+        var result: JsonNode = TextNode("dummy")
+        var first = true
+
+        for (item in data) {
+
+            // Initialize result node based on first entry
+            if (first) {
+                if (item is TextNode) {
+                    result = ArrayNode(JsonNodeFactory.instance)
+                    result.add(item.asText())
+                } else {
+                    result = item
+                }
+                first = false
+                continue
+            }
+
+            // Append to existing node
+            if (result is ObjectNode) {
+                if (item is ObjectNode) {
+                    result.setAll<ObjectNode>(item)
+                } else {
+                    throw ScriptException("Can't merge array or text content with object:\nCurrent: $result\nAdding: $item")
+                }
+            } else if (result is ArrayNode) {
+                if (item is ArrayNode) {
+                    result.addAll(item)
+                } else {
+                    result.add(item)
+                }
+            }
+        }
+
+        return result
+    }
+
 }
