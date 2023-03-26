@@ -8,9 +8,19 @@ import com.fasterxml.jackson.databind.node.TextNode
 val VARIABLE_REGEX = Regex("\\$\\{([^}]+)}")
 
 fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode {
-    // Replace text if it contains a variable
-    if (data is TextNode && VARIABLE_REGEX.containsMatchIn(data.textValue())) {
-        return TextNode(resolveVariablesInText(data.textValue(), variables))
+    if (data is TextNode) {
+        // Single variable reference will return full content of variable as node
+        val singleVariableMatch = VARIABLE_REGEX.matchEntire(data.textValue())
+        if (singleVariableMatch != null) {
+            val varName = singleVariableMatch.groupValues[1]
+            return variables[varName] ?: throw ScriptException("Unknown variable: \${${varName}}")
+        }
+
+        // One or more variables mixed in text are replaced with text values
+        // Only replace the node is there is a variable in it
+        if (VARIABLE_REGEX.containsMatchIn(data.textValue())) {
+            return TextNode(resolveVariablesInText(data.textValue(), variables))
+        }
     }
 
     // Replace elements of a list containing a variable
@@ -37,6 +47,7 @@ fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): Strin
     return replaced
 }
 
-fun resolve(match: String, variables: Map<String, JsonNode>): String {
-    return variables[match]?.asText() ?: throw ScriptException("Unknown variable: \${${match}}")
+fun resolve(varName: String, variables: Map<String, JsonNode>): String {
+    // TODO pretty print as Yaml when replacing variables in text that ar eobjects or arrays
+    return variables[varName]?.asText() ?: throw ScriptException("Unknown variable: \${${varName}}")
 }
