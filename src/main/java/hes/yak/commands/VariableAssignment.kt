@@ -16,14 +16,14 @@ class VariableAssignment : Command {
         for (variable in data.fields()) {
             context.variables[variable.key] = variable.value
         }
-        return null;
+        return null
     }
 }
 
-class VariableCommand(val name: String) : Command {
+class VariableCommand(private val name: String) : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         context.variables[name] = data
-        return null;
+        return null
     }
 }
 
@@ -77,7 +77,7 @@ class Join : Command {
 }
 
 class Merge : Command {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.\n$data")
 
         var result: JsonNode = TextNode("dummy")

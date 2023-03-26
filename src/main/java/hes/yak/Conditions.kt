@@ -41,7 +41,7 @@ class AnyCondition(private val conditions: List<Condition>) : Condition {
     }
 }
 
-class Not(val condition: Condition) : Condition {
+class Not(private val condition: Condition) : Condition {
     override fun isTrue(): Boolean {
         return !condition.isTrue()
     }

@@ -15,7 +15,7 @@ class Do : Command, DelayedVariableResolver, ListProcessor {
 
 class ForEach: Command, DelayedVariableResolver {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content:\n${data}")
 
         val loopVar: String = getVariableName(data)

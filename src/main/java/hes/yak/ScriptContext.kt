@@ -13,7 +13,7 @@ class ScriptContext {
             loadCommands(value!!.parentFile)
         }
 
-    val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommand>()
+    private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommand>()
 
     fun getCommandHandler(command: String): Command {
 
@@ -29,11 +29,11 @@ class ScriptContext {
         }
 
         // File commands
-        return fileCommands[command] ?: throw ScriptException("Unknown command: ${command}")
+        return fileCommands[command] ?: throw ScriptException("Unknown command: $command")
     }
 
     private fun loadCommands(scriptDir: File) {
-        for (file in scriptDir.listFiles()) {
+        for (file in scriptDir.listFiles()!!) {
             if (file == scriptDir) continue
             if (file.isDirectory) continue
             if (!file.name.endsWith(".yay")) continue

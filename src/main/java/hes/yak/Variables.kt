@@ -49,7 +49,7 @@ fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): Strin
 }
 
 fun resolve(varName: String, variables: Map<String, JsonNode>): String {
-    // TODO pretty print as Yaml when replacing variables in text that ar eobjects or arrays
+    // TODO pretty print as Yaml when replacing variables in text that ar objects or arrays
     return variables[varName]?.asText() ?: throw ScriptException("Unknown variable: \${${varName}}")
 }
 
@@ -63,11 +63,11 @@ fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
 
     val value = variables[variableWithPath.name]!!
 
-    if (variableWithPath.path == null) {
-        return value
+    return if (variableWithPath.path == null) {
+        value
     } else {
         val jsonPointer = JsonPointer.compile(toJsonPointer(variableWithPath.path))
-        return value.at(jsonPointer)
+        value.at(jsonPointer)
     }
 }
 
