@@ -100,9 +100,10 @@ Output:
   one: 1
   two: 1
 
-Merge:
-  two: 2
-  three: 3
+Join:
+  output:
+    two: 2
+    three: 3
 
 Expected output:
   one: 1

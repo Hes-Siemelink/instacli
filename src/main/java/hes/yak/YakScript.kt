@@ -29,7 +29,9 @@ class YakScript(
             val handler = context.getCommandHandler(command.key)
             output = runCommand(handler, command.value, context)
 
-            context.output = output
+            if (output != null) {
+                context.variables["output"] = output
+            }
         }
 
         return output

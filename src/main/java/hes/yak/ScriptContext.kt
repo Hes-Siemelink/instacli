@@ -13,7 +13,6 @@ class ScriptContext {
             loadCommands(value!!.parentFile)
         }
 
-    var output: JsonNode? = null
     val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommand>()
 
     fun getCommandHandler(command: String): Command {
@@ -59,7 +58,8 @@ class ScriptContext {
             "For each" to ForEach(),
             "Join" to Join(),
             "As" to AssignOutput(),
-            "Merge" to Merge()
+            "Merge" to Merge(),
+            "Print" to Print()
         )
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.Command
 import hes.yak.ListProcessor
 import hes.yak.ScriptContext
@@ -28,7 +29,7 @@ class VariableCommand(val name: String) : Command {
 
 class AssignOutput : Command, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is TextNode) throw ScriptException("Command 'As' only takes text.\n$data")
+        if (data !is ValueNode) throw ScriptException("Command 'As' only takes text.\n$data")
 
         if (!context.variables.containsKey("output")) throw ScriptException("Can't assign output variable because it is empty.")
 
@@ -53,8 +54,8 @@ class Join : Command {
     private fun join(varName: String, data: JsonNode, variables: Map<String, JsonNode>) {
         val content = variables[varName]
 
-        if (content is TextNode) {
-            throw ScriptException("Can't update text variable $varName with 'Join' command")
+        if (content is ValueNode) {
+            throw ScriptException("Can't update value variable $varName with 'Join' command")
         }
 
         if (content is ArrayNode) {
@@ -77,7 +78,7 @@ class Join : Command {
 
 class Merge : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not onject or text.\n$data")
+        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.\n$data")
 
         var result: JsonNode = TextNode("dummy")
         var first = true
@@ -86,9 +87,9 @@ class Merge : Command {
 
             // Initialize result node based on first entry
             if (first) {
-                if (item is TextNode) {
+                if (item is ValueNode) {
                     result = ArrayNode(JsonNodeFactory.instance)
-                    result.add(item.asText())
+                    addValue(result, item)
                 } else {
                     result = item
                 }
@@ -113,6 +114,16 @@ class Merge : Command {
         }
 
         return result
+    }
+
+    private fun addValue(
+        array: ArrayNode,
+        item: ValueNode
+    ) {
+        if (item.isTextual) array.add(item.textValue())
+        else if (item.isInt) array.add(item.intValue())
+        else if (item.isBoolean) array.add(item.booleanValue())
+        else array.add(item.textValue())
     }
 
 }

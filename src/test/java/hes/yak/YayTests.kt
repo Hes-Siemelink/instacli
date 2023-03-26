@@ -31,6 +31,11 @@ class YayTests {
         test("For each usage.yay")
         test("For each and merge.yay")
     }
+
+    @Test
+    fun merge() {
+        test("Merge data.yay")
+    }
 }
 
 fun test(resource:String) {

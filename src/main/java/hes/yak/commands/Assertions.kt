@@ -37,8 +37,9 @@ class AssertEquals : Command, ListProcessor {
 class ExpectedOutput : Command {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (context.output != data) {
-            throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   ${context.output}")
+        val output: JsonNode? = context.variables["output"]
+        if (output == null || output != data) {
+            throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
         }
         return null
     }
@@ -47,6 +48,13 @@ class ExpectedOutput : Command {
 class TestCase : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         println("Test case: ${data.asText()}")
+        return null
+    }
+}
+
+class Print : Command {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        println(data)
         return null
     }
 }
