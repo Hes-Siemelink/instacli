@@ -4,7 +4,7 @@ ${nameTags}: []
 
 # Create a flat list of name tags for parents and children
 For each:
-  ${parent}:
+  parent:
     - name: Mary
       children:
       - name: Alice
@@ -17,7 +17,7 @@ For each:
 
   # Add tags for children if there are any
   For each:
-    ${child}: ${parent.children}
+    child: ${parent.children}
 
     Output:
       name: ${child.name}

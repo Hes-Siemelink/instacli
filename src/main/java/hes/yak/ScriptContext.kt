@@ -55,7 +55,8 @@ class ScriptContext {
             "Input" to Input(),
             "Output" to Output(),
             "Execute yay file" to ExecuteYayFile(),
-            "Do" to Do()
+            "Do" to Do(),
+            "For each" to ForEach()
         )
     }
 }

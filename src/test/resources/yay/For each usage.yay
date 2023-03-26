@@ -3,7 +3,7 @@ Test case: Output from for each
 Output: something
 
 For each:
-  ${item}:
+  item:
   - one
   - two
   - three
@@ -22,7 +22,7 @@ Test case: Recursive output from for each
 Output: something
 
 For each:
-  ${item}:
+  item:
   - one
   - two
   - three
@@ -41,7 +41,7 @@ ${output}: something else
 ${test}: []
 
 For each:
-  ${recipe}:
+  recipe:
     - Mango ice cream
     - Ratatouille
     - Meatballs
@@ -68,7 +68,7 @@ ${items}:
 ${test_result}: []
 
 For each:
-  ${item}: ${items}
+  item: ${items}
   Join:
     test_result:
     - (${item})
@@ -86,7 +86,7 @@ Test case: For each should replace output variable with empty list
 Output: something to begin with
 
 For each:
-  ${nothing}: []
+  nothing: []
 
   Output: something else
 

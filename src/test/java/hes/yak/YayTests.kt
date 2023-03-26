@@ -25,6 +25,11 @@ class YayTests {
     fun listExecution() {
         test("Do execution tests.yay")
     }
+
+    @Test
+    fun forEach() {
+        test("For each usage.yay")
+    }
 }
 
 fun test(resource:String) {
