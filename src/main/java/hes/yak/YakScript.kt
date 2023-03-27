@@ -33,7 +33,7 @@ class YakScript(
         return output
     }
 
-    private fun runCommand(
+    fun runCommand(
         handler: Command,
         rawData: JsonNode,
         context: ScriptContext

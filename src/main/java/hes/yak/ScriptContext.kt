@@ -62,7 +62,8 @@ class ScriptContext {
             "Merge" to Merge(),
             "Print" to Print(),
             "Read file" to ReadFile(),
-            "Apply variables" to ApplyVariables()
+            "Apply variables" to ApplyVariables(),
+            "Repeat" to Repeat()
         )
     }
 }

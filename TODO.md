@@ -75,8 +75,10 @@ As: all_recipes
 
 # Technical stuff
 * Add ListProcessor to Commands where needed
+* Helper functions to check type of data (Object, Array) and getting parameters 
 * Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected' and 'actual'
 * Exception data in yaml
+* Refactor execution logic / YakScript
 
 # Difference between Python Yay
 * Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and nothing fancy. Reason: using JsonPointer (comes with Jackson) and not JsonPath

@@ -53,6 +53,28 @@ class ForEach: Command, DelayedVariableResolver, ListProcessor {
     }
 }
 
+class Repeat: Command, ListProcessor, DelayedVariableResolver {
+
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        val actions = data.get("Do")!!
+        val until = data.get("Until")!!
+
+        var finished = false
+        while (!finished) {
+            val result = YakScript(listOf(), context).runCommand(Do(), actions, context)
+
+            if (until is ObjectNode) {
+                val conditions = resolveVariables(until.deepCopy(), context.variables)
+                finished = parseCondition(conditions).isTrue()
+            } else {
+                finished = (result == until)
+            }
+        }
+        // TODO Collect results in list like for each
+        return null
+    }
+}
+
 class ExecuteYayFile : Command, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {

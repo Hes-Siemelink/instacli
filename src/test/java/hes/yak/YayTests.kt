@@ -2,6 +2,7 @@ package hes.yak
 
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Timeout
 import java.io.File
 import java.io.FileNotFoundException
 
@@ -53,6 +54,12 @@ class YayTests {
     @Test
     fun files() {
         test("Read file tests.yay")
+    }
+
+    @Test
+    @Timeout(3)
+    fun repeat() {
+        test("Repeat tests.yay")
     }
 }
 
