@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yak.Command
-import hes.yak.ListProcessor
-import hes.yak.ScriptContext
-import hes.yak.ScriptException
+import hes.yak.*
 
 class VariableAssignment : Command {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
@@ -37,6 +34,13 @@ class AssignOutput : Command, ListProcessor {
 
         return null
     }
+}
+
+class ApplyVariables : Command, ListProcessor {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        return resolveVariables(data, context.variables)
+    }
+
 }
 
 class Join : Command {

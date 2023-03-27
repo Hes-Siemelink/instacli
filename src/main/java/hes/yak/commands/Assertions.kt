@@ -3,7 +3,7 @@ package hes.yak.commands
 import com.fasterxml.jackson.databind.JsonNode
 import hes.yak.*
 
-class AssertThat : Command {
+class AssertThat : Command, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val condition = parseCondition(data)
@@ -52,7 +52,7 @@ class TestCase : Command {
     }
 }
 
-class Print : Command {
+class Print : Command, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         println(data)
         return null

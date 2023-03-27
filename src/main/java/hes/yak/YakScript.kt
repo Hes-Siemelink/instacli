@@ -86,7 +86,7 @@ class YakScript(
     companion object {
 
         private val factory = YAMLFactory()
-        private val mapper = ObjectMapper(factory).registerKotlinModule()
+        val mapper = ObjectMapper(factory).registerKotlinModule()
 
         fun run(script: File) {
             load(script).run()

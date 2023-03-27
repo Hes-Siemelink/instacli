@@ -75,7 +75,10 @@ As: all_recipes
 
 # Technical stuff
 * Add ListProcessor to Commands where needed
+* Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected' and 'actual'
+* Exception data in yaml
 
 # Difference between Python Yay
 * Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and nothing fancy. Reason: using JsonPointer (comes with Jackson) and not JsonPath
 * Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'. See `Merge data.yay`
+* If got a 'then'

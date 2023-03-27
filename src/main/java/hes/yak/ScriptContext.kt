@@ -46,6 +46,7 @@ class ScriptContext {
     }
 
     companion object {
+        // TODO Move to commands
         val standardCommands = mapOf(
             "Test case" to TestCase(),
             "Assert equals" to AssertEquals(),
@@ -59,7 +60,9 @@ class ScriptContext {
             "Join" to Join(),
             "As" to AssignOutput(),
             "Merge" to Merge(),
-            "Print" to Print()
+            "Print" to Print(),
+            "Read file" to ReadFile(),
+            "Apply variables" to ApplyVariables()
         )
     }
 }

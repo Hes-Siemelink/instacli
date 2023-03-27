@@ -1,5 +1,6 @@
 package hes.yak
 
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.io.File
 import java.io.FileNotFoundException
@@ -35,6 +36,23 @@ class YayTests {
     @Test
     fun merge() {
         test("Merge data.yay")
+    }
+
+    @Test
+    @Disabled
+    fun python() {
+        test("Python handler tests.yay")
+    }
+
+    @Test
+    @Disabled
+    fun rawAndLive() {
+        test("Raw and live.yay")
+    }
+
+    @Test
+    fun files() {
+        test("Read file tests.yay")
     }
 }
 

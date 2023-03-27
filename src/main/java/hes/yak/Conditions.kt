@@ -2,6 +2,7 @@ package hes.yak
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.ObjectNode
 
 
 interface Condition {
@@ -23,8 +24,22 @@ class Contains(
     override fun isTrue(): Boolean {
         if (container is ArrayNode) {
             return container.contains(obj)
+        } else if (container is ObjectNode) {
+            return inObject(obj, container)
         } else {
-            throw ConditionException("You can only check if object is in an array.")
+            throw ConditionException("You can't check if an object is in an string.")
+        }
+    }
+
+    private fun inObject(obj: JsonNode, container: ObjectNode): Boolean {
+        if (obj is ObjectNode) {
+            for (field in obj.fields()) {
+                if (!container.has(field.key)) return false
+                if (field.value != container.get(field.key)) return false
+            }
+            return true
+        } else {
+            return container.contains(obj)
         }
     }
 }
