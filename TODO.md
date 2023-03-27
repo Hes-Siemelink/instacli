@@ -74,7 +74,6 @@ As: all_recipes
 # Missing features
 
 # Technical stuff
-* Add ListProcessor to Commands where needed
 * Helper functions to check type of data (Object, Array) and getting parameters 
 * Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected' and 'actual'
 * Exception data in yaml
@@ -84,3 +83,28 @@ As: all_recipes
 * Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and nothing fancy. Reason: using JsonPointer (comes with Jackson) and not JsonPath
 * Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'. See `Merge data.yay`
 * If got a 'then'
+* Join behavior is incorrect:
+
+Python:
+```yaml
+Test case: Join two dicts, second one overwrites properties from the first.
+
+Join:
+  package:
+    - label: first
+      header: accept
+    - label: second
+      content: body
+
+Assert equals:
+  actual: ${package}
+  expected:
+    label: second
+    header: accept
+    content: body
+```
+
+Kotlin:
+```yaml
+
+```

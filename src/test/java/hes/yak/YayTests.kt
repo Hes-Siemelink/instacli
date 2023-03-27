@@ -35,7 +35,8 @@ class YayTests {
     }
 
     @Test
-    fun merge() {
+    fun mergeAndJoin() {
+        test("Join handler tests.yay")
         test("Merge data.yay")
     }
 
