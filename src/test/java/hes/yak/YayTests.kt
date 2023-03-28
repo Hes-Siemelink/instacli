@@ -62,6 +62,11 @@ class YayTests {
     fun repeat() {
         test("Repeat tests.yay")
     }
+
+    @Test
+    fun ifStatements() {
+        test("If statements.yay")
+    }
 }
 
 fun test(resource:String) {

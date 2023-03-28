@@ -63,7 +63,9 @@ class ScriptContext {
             "Print" to Print(),
             "Read file" to ReadFile(),
             "Apply variables" to ApplyVariables(),
-            "Repeat" to Repeat()
+            "Repeat" to Repeat(),
+            "If" to If(),
+            "If any" to IfAny()
         )
     }
 }

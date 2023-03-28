@@ -13,6 +13,48 @@ class Do : Command, DelayedVariableResolver, ListProcessor {
     }
 }
 
+class If : Command, ListProcessor, DelayedVariableResolver {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+
+        val then = evaluateCondition(data, context) ?: return null
+
+        return YakScript(listOf(), context).runCommand(Do(), then, context)
+    }
+}
+
+class IfAny : Command, DelayedVariableResolver {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        if (data is ArrayNode) {
+            for (ifStatement in data) {
+                val then = evaluateCondition(ifStatement, context) ?: continue
+                return YakScript(listOf(), context).runCommand(Do(), then, context)
+            }
+            return null
+        } else {
+            throw ScriptException("Command 'If any' only takes arrays.\n${data}")
+        }
+    }
+}
+
+private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
+    if (!data.has("then")) {
+        throw ScriptException("Command 'If' needs a 'then' parameter.\n$data")
+    }
+
+    if (data is ObjectNode) {
+
+        val then = data.remove("then")!!
+        val condition = parseCondition(resolveVariables(data, context.variables))
+        if (condition.isTrue()) {
+            return then
+        } else {
+            return null
+        }
+
+    } else {
+        throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.\n$data}")
+    }
+}
 class ForEach: Command, DelayedVariableResolver, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {

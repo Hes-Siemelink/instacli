@@ -76,7 +76,7 @@ As: all_recipes
 # Technical stuff
 * Helper functions to check type of data (Object, Array) and getting parameters 
 * Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected' and 'actual'
-* Exception data in yaml
+* ScriptException: Exception data in yaml by taking it as a parameter
 * Refactor execution logic / YakScript
 
 # Difference between Python Yay
