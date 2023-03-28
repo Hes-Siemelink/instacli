@@ -22,12 +22,18 @@ class Contains(
     private val container: JsonNode) : Condition {
 
     override fun isTrue(): Boolean {
-        if (container is ArrayNode) {
-            return container.contains(obj)
-        } else if (container is ObjectNode) {
-            return inObject(obj, container)
-        } else {
-            throw ConditionException("You can't check if an object is in an string.")
+        when (container) {
+            is ArrayNode -> {
+                return container.contains(obj)
+            }
+
+            is ObjectNode -> {
+                return inObject(obj, container)
+            }
+
+            else -> {
+                throw ConditionException("You can't check if an object is in an string.")
+            }
         }
     }
 

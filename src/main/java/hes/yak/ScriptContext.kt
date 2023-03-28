@@ -13,14 +13,14 @@ class ScriptContext {
             loadCommands(value!!.parentFile)
         }
 
-    private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommand>()
+    private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
 
-    fun getCommandHandler(command: String): Command {
+    fun getCommandHandler(command: String): CommandHandler {
 
         // Variable syntax
         val match = VARIABLE_REGEX.matchEntire(command)
         if (match != null) {
-            return VariableCommand(match.groupValues[1])
+            return VariableCommandHandler(match.groupValues[1])
         }
 
         // Standard commands
@@ -41,7 +41,7 @@ class ScriptContext {
             // Create command name from file name by stripping extension and converting dashes to spaces
             val name = file.name.substring(0, file.name.length - 4).replace('-', ' ')
 
-            fileCommands[name] = ExecuteYayFileAsCommand(file)
+            fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
         }
     }
 

@@ -2,10 +2,9 @@ package hes.yak
 
 import com.fasterxml.jackson.databind.JsonNode
 
-interface Command {
+interface CommandHandler {
     fun execute(data: JsonNode, context: ScriptContext): JsonNode?
 }
-
 
 interface DelayedVariableResolver
 

@@ -1,10 +1,10 @@
 package hes.yak.commands
 import com.fasterxml.jackson.databind.JsonNode
-import hes.yak.Command
+import hes.yak.CommandHandler
 import hes.yak.ScriptContext
 import hes.yak.ScriptException
 
-class Input : Command {
+class Input : CommandHandler {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         for (inputParameter in data.fields()) {
@@ -20,7 +20,7 @@ class Input : Command {
     }
 }
 
-class Output : Command {
+class Output : CommandHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }

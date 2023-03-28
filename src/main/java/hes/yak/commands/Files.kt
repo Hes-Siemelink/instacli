@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.TextNode
 import hes.yak.*
 import java.io.File
 
-class ReadFile: Command, ListProcessor {
+class ReadFile: CommandHandler, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         if (data is TextNode) {
             return readFile(data.textValue())
