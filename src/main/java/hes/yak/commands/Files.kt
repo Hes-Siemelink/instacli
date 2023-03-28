@@ -10,7 +10,7 @@ class ReadFile: CommandHandler, ListProcessor {
         if (data is TextNode) {
             return readFile(data.textValue())
         } else {
-            throw ScriptException("'Read file' command supports text only.\n$data")
+            throw ScriptException("'Read file' command supports text only.", data)
         }
     }
 

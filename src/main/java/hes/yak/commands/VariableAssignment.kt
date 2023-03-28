@@ -22,9 +22,9 @@ class VariableCommandHandler(private val name: String) : CommandHandler {
 
 class AssignOutput : CommandHandler, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is ValueNode) throw ScriptException("Command 'As' only takes text.\n$data")
+        if (data !is ValueNode) throw ScriptException("Command 'As' only takes text.", data)
 
-        if (!context.variables.containsKey("output")) throw ScriptException("Can't assign output variable because it is empty.")
+        if (!context.variables.containsKey("output")) throw ScriptException("Can't assign output variable because it is empty.", data)
 
         context.variables[data.asText()] = context.variables["output"]!!
 

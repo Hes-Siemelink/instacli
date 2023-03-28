@@ -31,14 +31,14 @@ class IfAny : CommandHandler, DelayedVariableResolver {
             }
             return null
         } else {
-            throw ScriptException("Command 'If any' only takes arrays.\n${data}")
+            throw ScriptException("Command 'If any' only takes arrays.", data)
         }
     }
 }
 
 private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
     if (!data.has("then")) {
-        throw ScriptException("Command 'If' needs a 'then' parameter.\n$data")
+        throw ScriptException("Command 'If' needs a 'then' parameter.", data)
     }
 
     if (data is ObjectNode) {
@@ -52,17 +52,17 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
         }
 
     } else {
-        throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.\n$data}")
+        throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
     }
 }
 class ForEach: CommandHandler, DelayedVariableResolver, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content:\n${data}")
+        if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content.", data)
 
         val loopVar: String = getVariableName(data)
         val items = resolveVariables(data.remove(loopVar), context.variables)
-        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list:\n${items}")
+        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list.", items)
 
         val output = ArrayNode(JsonNodeFactory.instance)
         for (loopData in items) {
@@ -91,7 +91,7 @@ class ForEach: CommandHandler, DelayedVariableResolver, ListProcessor {
             return field.key
         }
 
-        throw ScriptException("For each must contain a field.\n${data}")
+        throw ScriptException("For each must contain a field.", data)
     }
 }
 
@@ -120,7 +120,7 @@ class Repeat: CommandHandler, ListProcessor, DelayedVariableResolver {
 class ExecuteYayFile : CommandHandler, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.")
+        val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.", data)
         val scriptFile = File(context.scriptLocation?.parent, fileName.asText())
 
         return runFile(scriptFile, data)

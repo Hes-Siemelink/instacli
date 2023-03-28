@@ -9,7 +9,7 @@ import hes.yak.ScriptException
 class Join : CommandHandler {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is ObjectNode) throw ScriptException("Join takes object content, not array or text.\n$data")
+        if (data !is ObjectNode) throw ScriptException("Join takes object content, not array or text.", data)
 
         for (variable in data.fields()) {
             join(variable.key, variable.value, context.variables)
@@ -27,7 +27,7 @@ class Join : CommandHandler {
         }
 
         if (content is ValueNode) {
-            throw ScriptException("Can't update value variable $varName with 'Join' command")
+            throw ScriptException("Can't update value variable $varName with 'Join' command", data)
         }
 
         if (content is ArrayNode) {
@@ -42,7 +42,7 @@ class Join : CommandHandler {
             if (data is ObjectNode) {
                 content.setAll<ObjectNode>(data)
             } else {
-                throw ScriptException("Can't update variable $varName that has object content with text or array.")
+                throw ScriptException("Can't update variable $varName that has object content with text or array.", data)
             }
         }
     }
@@ -50,7 +50,7 @@ class Join : CommandHandler {
 
 class Merge : CommandHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.\n$data")
+        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.", data)
 
         var result: JsonNode = TextNode("dummy")
         var first = true

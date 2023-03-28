@@ -80,7 +80,7 @@ fun parseCondition(node: JsonNode): Condition {
             return Contains(obj, node.get("in"))
         }
 
-        throw ScriptException("Condition with 'object' should have either 'equals' or 'in'.\n${node}")
+        throw ScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
     }
     else if (node.has("all")) {
         val conditions = node.get("all")
@@ -95,6 +95,6 @@ fun parseCondition(node: JsonNode): Condition {
         return Not(parseCondition(condition))
     }
     else {
-        throw ScriptException("Condition needs 'object', 'all', 'any' or 'not'.\n${node}")
+        throw ScriptException("Condition needs 'object', 'all', 'any' or 'not'.", node)
     }
 }

@@ -3,6 +3,7 @@ package hes.yak
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 
@@ -18,6 +19,8 @@ class YakScript(
     companion object {
 
         private val factory = YAMLFactory()
+            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
         val mapper = ObjectMapper(factory).registerKotlinModule()
 
         fun run(script: File) {
@@ -40,4 +43,11 @@ class YakScript(
     }
 }
 
-class ScriptException(message: String) : Exception(message)
+class ScriptException(message: String, val data: JsonNode? = null) : Exception(message) {
+    override val message: String?
+        get() = if (data != null) {
+            "${super.message}\n${YakScript.mapper.writeValueAsString(data)}"
+        } else {
+            super.message
+        }
+}
