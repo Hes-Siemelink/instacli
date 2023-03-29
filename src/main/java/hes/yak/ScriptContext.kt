@@ -47,25 +47,29 @@ class ScriptContext {
 
     companion object {
         // TODO Move to commands
-        val standardCommands = mapOf(
-            "Test case" to TestCase(),
-            "Assert equals" to AssertEquals(),
-            "Assert that" to AssertThat(),
-            "Expected output" to ExpectedOutput(),
-            "Input" to Input(),
-            "Output" to Output(),
-            "Execute yay file" to ExecuteYayFile(),
-            "Do" to Do(),
-            "For each" to ForEach(),
-            "Join" to Join(),
-            "As" to AssignOutput(),
-            "Merge" to Merge(),
-            "Print" to Print(),
-            "Read file" to ReadFile(),
-            "Apply variables" to ApplyVariables(),
-            "Repeat" to Repeat(),
-            "If" to If(),
-            "If any" to IfAny()
+        val standardCommands = commandMap(
+            TestCase(),
+            AssertEquals(),
+            AssertThat(),
+            ExpectedOutput(),
+            Input(),
+            Output(),
+            ExecuteYayFile(),
+            Do(),
+            ForEach(),
+            Join(),
+            AssignOutput(),
+            Merge(),
+            Print(),
+            ReadFile(),
+            ApplyVariables(),
+            Repeat(),
+            If(),
+            IfAny()
         )
+
+        private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
+            return commands.associateBy { it.name }
+        }
     }
 }

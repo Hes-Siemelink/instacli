@@ -3,7 +3,7 @@ package hes.yak.commands
 import com.fasterxml.jackson.databind.JsonNode
 import hes.yak.*
 
-class AssertThat : CommandHandler, ListProcessor {
+class AssertThat : CommandHandler("Assert that"), ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val condition = parseCondition(data)
@@ -16,7 +16,7 @@ class AssertThat : CommandHandler, ListProcessor {
     }
 }
 
-class AssertEquals : CommandHandler, ListProcessor {
+class AssertEquals : CommandHandler("Assert equals"), ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val actual = data.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
@@ -34,7 +34,7 @@ class AssertEquals : CommandHandler, ListProcessor {
     }
 }
 
-class ExpectedOutput : CommandHandler {
+class ExpectedOutput : CommandHandler("Expected output") {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val output: JsonNode? = context.variables["output"]
@@ -45,14 +45,14 @@ class ExpectedOutput : CommandHandler {
     }
 }
 
-class TestCase : CommandHandler {
+class TestCase : CommandHandler("Test case") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         println("Test case: ${data.asText()}")
         return null
     }
 }
 
-class Print : CommandHandler, ListProcessor {
+class Print : CommandHandler("Print"), ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         println(data)
         return null

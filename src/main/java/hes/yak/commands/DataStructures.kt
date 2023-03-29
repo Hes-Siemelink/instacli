@@ -6,7 +6,7 @@ import hes.yak.CommandHandler
 import hes.yak.ScriptContext
 import hes.yak.ScriptException
 
-class Join : CommandHandler {
+class Join : CommandHandler("Join") {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         if (data !is ObjectNode) throw ScriptException("Join takes object content, not array or text.", data)
@@ -48,7 +48,7 @@ class Join : CommandHandler {
     }
 }
 
-class Merge : CommandHandler {
+class Merge : CommandHandler("Merge") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.", data)
 

@@ -7,13 +7,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import hes.yak.*
 import java.io.File
 
-class Do : CommandHandler, DelayedVariableResolver, ListProcessor {
+class Do : CommandHandler("Do"), DelayedVariableResolver, ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         return YakScript(listOf(data), context).run()
     }
 }
 
-class If : CommandHandler, ListProcessor, DelayedVariableResolver {
+class If : CommandHandler("If"), ListProcessor, DelayedVariableResolver {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
 
         val then = evaluateCondition(data, context) ?: return null
@@ -22,7 +22,8 @@ class If : CommandHandler, ListProcessor, DelayedVariableResolver {
     }
 }
 
-class IfAny : CommandHandler, DelayedVariableResolver {
+// TODO rename to when
+class IfAny : CommandHandler("If any"), DelayedVariableResolver {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         if (data is ArrayNode) {
             for (ifStatement in data) {
@@ -55,7 +56,7 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
         throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
     }
 }
-class ForEach: CommandHandler, DelayedVariableResolver, ListProcessor {
+class ForEach: CommandHandler("For each"), DelayedVariableResolver, ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content.", data)
@@ -95,7 +96,7 @@ class ForEach: CommandHandler, DelayedVariableResolver, ListProcessor {
     }
 }
 
-class Repeat: CommandHandler, ListProcessor, DelayedVariableResolver {
+class Repeat: CommandHandler("Repeat"), ListProcessor, DelayedVariableResolver {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val actions = data.get("Do")!!
@@ -117,7 +118,7 @@ class Repeat: CommandHandler, ListProcessor, DelayedVariableResolver {
     }
 }
 
-class ExecuteYayFile : CommandHandler, ListProcessor {
+class ExecuteYayFile : CommandHandler("Execute yay file"), ListProcessor {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.", data)
@@ -128,7 +129,7 @@ class ExecuteYayFile : CommandHandler, ListProcessor {
 
 }
 
-class ExecuteYayFileAsCommandHandler(private val scriptFile: File) : CommandHandler {
+class ExecuteYayFileAsCommandHandler(private val scriptFile: File) : CommandHandler("{file}") {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         return runFile(scriptFile, data)

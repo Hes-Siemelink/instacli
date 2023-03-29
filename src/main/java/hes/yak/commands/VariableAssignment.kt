@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.*
 
-class VariableAssignment : CommandHandler {
+class VariableAssignment : CommandHandler("Set") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         for (variable in data.fields()) {
             context.variables[variable.key] = variable.value
@@ -13,14 +13,14 @@ class VariableAssignment : CommandHandler {
     }
 }
 
-class VariableCommandHandler(private val name: String) : CommandHandler {
+class VariableCommandHandler(private val varName: String) : CommandHandler("\${}") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        context.variables[name] = data
+        context.variables[varName] = data
         return null
     }
 }
 
-class AssignOutput : CommandHandler, ListProcessor {
+class AssignOutput : CommandHandler("As"), ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         if (data !is ValueNode) throw ScriptException("Command 'As' only takes text.", data)
 
@@ -32,7 +32,7 @@ class AssignOutput : CommandHandler, ListProcessor {
     }
 }
 
-class ApplyVariables : CommandHandler, ListProcessor {
+class ApplyVariables : CommandHandler("Apply variables"), ListProcessor {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return resolveVariables(data, context.variables)
     }

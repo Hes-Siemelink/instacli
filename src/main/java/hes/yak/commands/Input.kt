@@ -4,7 +4,7 @@ import hes.yak.CommandHandler
 import hes.yak.ScriptContext
 import hes.yak.ScriptException
 
-class Input : CommandHandler {
+class Input : CommandHandler("Input") {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         for (inputParameter in data.fields()) {
@@ -20,7 +20,7 @@ class Input : CommandHandler {
     }
 }
 
-class Output : CommandHandler {
+class Output : CommandHandler("Output") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }
