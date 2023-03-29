@@ -4,18 +4,18 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 
-class Statement(val command: String, val data: JsonNode)
+class Command(val name: String, val data: JsonNode)
 
-fun toStatements(scriptNode: JsonNode): List<Statement> {
-    return scriptNode.fields().asSequence().map { Statement(it.key, it.value) }.toList()
+fun toCommands(scriptNode: JsonNode): List<Command> {
+    return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
 }
 
-fun runScript(script: List<Statement>, context: ScriptContext): JsonNode? {
+fun runScript(script: List<Command>, context: ScriptContext): JsonNode? {
     var output: JsonNode? = null
 
-    for (statement in script) {
-        val handler = context.getCommandHandler(statement.command)
-        output = runCommand(handler, statement.data, context)
+    for (command in script) {
+        val handler = context.getCommandHandler(command.name)
+        output = runCommand(handler, command.data, context)
     }
 
     return output

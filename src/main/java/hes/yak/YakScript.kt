@@ -12,7 +12,7 @@ class YakScript(
     val context: ScriptContext = ScriptContext()) {
 
     fun run(): JsonNode? {
-        val statements = script.map { scriptNode -> toStatements(scriptNode) }.flatten()
+        val statements = script.map { scriptNode -> toCommands(scriptNode) }.flatten()
         return runScript(statements, context)
     }
 
