@@ -18,6 +18,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.+")
     implementation("io.javalin:javalin:5.4.+")
+    implementation("io.ktor:ktor-client-core:2.2.+")
+    implementation("io.ktor:ktor-client-java:2.2+")
+    implementation("io.ktor:ktor-client-content-negotiation:2.2.+")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.+")
     implementation("org.slf4j:slf4j-simple:2.0.+")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")

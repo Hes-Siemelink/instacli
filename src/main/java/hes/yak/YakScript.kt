@@ -18,11 +18,6 @@ class YakScript(
 
     companion object {
 
-        private val factory = YAMLFactory()
-            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-        val mapper = ObjectMapper(factory).registerKotlinModule()
-
         fun run(script: File) {
             load(script).run()
         }
@@ -32,13 +27,40 @@ class YakScript(
             scriptContext: ScriptContext = ScriptContext()
         ): YakScript {
 
-            val yamlParser = factory.createParser(source)
-            val script = mapper
-                .readValues(yamlParser, JsonNode::class.java)
-                .readAll()
+            val script = Yaml.parse(source)
             scriptContext.scriptLocation = source
 
             return YakScript(script, scriptContext)
+        }
+
+    }
+}
+
+class Yaml {
+
+    companion object {
+        private val factory = YAMLFactory()
+            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
+            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
+        private val mapper = ObjectMapper(factory).registerKotlinModule()
+
+        fun readFile(textValue: String): JsonNode? {
+            return mapper.readValue(File(textValue), JsonNode::class.java)
+        }
+
+        fun parse(source: File): List<JsonNode> {
+            val yamlParser = Yaml.factory.createParser(source)
+            return Yaml.mapper
+                .readValues(yamlParser, JsonNode::class.java)
+                .readAll()
+        }
+
+        fun parse(source: String): JsonNode {
+            return Yaml.mapper.readValue(source, JsonNode::class.java)
+        }
+
+        fun toString(node: JsonNode): String {
+            return mapper.writeValueAsString(node)
         }
     }
 }
@@ -46,7 +68,7 @@ class YakScript(
 class ScriptException(message: String, val data: JsonNode? = null) : Exception(message) {
     override val message: String?
         get() = if (data != null) {
-            "${super.message}\n${YakScript.mapper.writeValueAsString(data)}"
+            "${super.message}\n${Yaml.toString(data)}"
         } else {
             super.message
         }

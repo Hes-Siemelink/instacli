@@ -2,6 +2,8 @@ package hes.yak
 
 import com.fasterxml.jackson.databind.JsonNode
 import hes.yak.commands.*
+import hes.yak.http.HttpEndpoint
+import hes.yak.http.HttpGet
 
 abstract class CommandHandler(val name: String) {
 
@@ -34,7 +36,9 @@ object Core {
         ApplyVariables(),
         Repeat(),
         If(),
-        IfAny()
+        IfAny(),
+        HttpEndpoint(),
+        HttpGet()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
