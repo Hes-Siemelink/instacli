@@ -71,15 +71,16 @@ As: all_recipes
 
 # Yay as a cli
 
-# Missing features
+# New features
+* Rethink Join / Merge
 
 # Technical stuff
+
 * Helper functions to check type of data (Object, Array) and getting parameters 
 * Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected' and 'actual'
-* ScriptException: Exception data in yaml by taking it as a parameter
-* Refactor execution logic / YakScript
 
 # Difference between Python Yay
+
 * Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and nothing fancy. Reason: using JsonPointer (comes with Jackson) and not JsonPath
 * Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'. See `Merge data.yay`
 * If got a 'then'

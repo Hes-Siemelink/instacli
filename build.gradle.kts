@@ -17,6 +17,8 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.+")
+    implementation("io.javalin:javalin:5.4.+")
+    implementation("org.slf4j:slf4j-simple:2.0.+")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.assertj:assertj-core:3.24.0")
