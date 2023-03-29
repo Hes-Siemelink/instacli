@@ -24,8 +24,8 @@ class ScriptContext {
         }
 
         // Standard commands
-        if (standardCommands.containsKey(command)) {
-            return standardCommands[command]!!
+        if (Core.commands.containsKey(command)) {
+            return Core.commands[command]!!
         }
 
         // File commands
@@ -42,34 +42,6 @@ class ScriptContext {
             val name = file.name.substring(0, file.name.length - 4).replace('-', ' ')
 
             fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
-        }
-    }
-
-    companion object {
-        // TODO Move to commands
-        val standardCommands = commandMap(
-            TestCase(),
-            AssertEquals(),
-            AssertThat(),
-            ExpectedOutput(),
-            Input(),
-            Output(),
-            ExecuteYayFile(),
-            Do(),
-            ForEach(),
-            Join(),
-            AssignOutput(),
-            Merge(),
-            Print(),
-            ReadFile(),
-            ApplyVariables(),
-            Repeat(),
-            If(),
-            IfAny()
-        )
-
-        private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
-            return commands.associateBy { it.name }
         }
     }
 }
