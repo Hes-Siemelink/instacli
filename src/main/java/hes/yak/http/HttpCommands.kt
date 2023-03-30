@@ -1,7 +1,6 @@
 package hes.yak.http
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.*
@@ -18,7 +17,7 @@ import kotlinx.coroutines.runBlocking
 class HttpEndpoint: CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
     companion object {
-        val HTTP_DEFAULTS = "_http.defaults"
+        const val HTTP_DEFAULTS = "_http.defaults"
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -39,36 +38,65 @@ class HttpGet: CommandHandler("Http GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val path = objectNode("path", data.textValue())
-        return processRequest(path, context)
+        return processRequest(path, context, HttpMethod.Get)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return processRequest(data, context)
+        return processRequest(data, context, HttpMethod.Get)
     }
 }
 
+class HttpPost: CommandHandler("Http POST"), ObjectHandler {
 
-private fun processRequest(data: ObjectNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return processRequest(data, context, HttpMethod.Post)
+    }
+}
+
+data class HttpParameters(val host: String, val path: String, val method: HttpMethod, val body: String?) {
+    val url: String
+        get() = "$host$path"
+
+    companion object {
+        fun create(data: ObjectNode, defaults: JsonNode?, method: HttpMethod): HttpParameters {
+            if (defaults != null) {
+                for (default in defaults.fields()) {
+                    data.putIfAbsent(default.key, default.value)
+                }
+            }
+
+            return HttpParameters(
+                host = data.get("url").textValue(),
+                path = data.get("path").textValue(),
+                method = method,
+                body = data.get("body")?.toString()
+            )
+        }
+    }
+}
+
+private fun processRequest(data: ObjectNode, context: ScriptContext, method:HttpMethod): JsonNode {
+    return processRequest(HttpParameters.create(data, context.variables[HttpEndpoint.HTTP_DEFAULTS], method))
+}
+
+private fun processRequest(parameters: HttpParameters): JsonNode {
     // TODO Cookies
     // TODO Headers
     // TODO Authorization
 
-    // Fill with defaults
-    if (context.variables.containsKey(HttpEndpoint.HTTP_DEFAULTS)) {
-        for (default in context.variables[HttpEndpoint.HTTP_DEFAULTS]!!.fields()) {
-            data.putIfAbsent(default.key, default.value)
-        }
-    }
-    val url = "${data["url"].textValue()}${data["path"].textValue()}"
-    val client = HttpClient() {
+
+    val client = HttpClient {
         install(ContentNegotiation) {
             json()
         }
     }
 
     val response: HttpResponse = runBlocking {
-        client.request(url) {
-            method = HttpMethod.Get
+        client.request(parameters.url) {
+            method = parameters.method
+            if (parameters.body != null) {
+                setBody(parameters.body)
+            }
         }
     }
 

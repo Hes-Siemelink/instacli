@@ -8,43 +8,51 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.commands.*
 import hes.yak.http.HttpEndpoint
 import hes.yak.http.HttpGet
+import hes.yak.http.HttpPost
 
 abstract class CommandHandler(val name: String) {
 
     open fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data is ValueNode) {
-            return if (this is ValueHandler) {
-                execute(data, context)
-            } else {
-                throw ScriptException("Command '$name' does not handle simple text content.", data)
+        when (data) {
+            is ValueNode -> {
+                return if (this is ValueHandler) {
+                    execute(data, context)
+                } else {
+                    throw ScriptException("Command '$name' does not handle simple text content.", data)
+                }
             }
-        } else if (data is ObjectNode) {
-            return if (this is ObjectHandler) {
-                execute(data, context)
-            } else {
-                throw ScriptException("Command '$name' does not handle object content.", data)
+
+            is ObjectNode -> {
+                return if (this is ObjectHandler) {
+                    execute(data, context)
+                } else {
+                    throw ScriptException("Command '$name' does not handle object content.", data)
+                }
             }
-        } else if (data is ArrayNode) {
-            return if (this is ArrayHandler) {
-                execute(data, context)
-            } else {
-                throw ScriptException("Command '$name' does not handle array content.", data)
+
+            is ArrayNode -> {
+                return if (this is ArrayHandler) {
+                    execute(data, context)
+                } else {
+                    throw ScriptException("Command '$name' does not handle array content.", data)
+                }
             }
+
+            else -> throw ScriptException("Unknown content type ${data.javaClass.simpleName} for command '$name'", data)
         }
 
-        throw ScriptException("Unknown content type ${data.javaClass.simpleName} for command '$name'", data)
     }
 }
 
 
 interface ValueHandler {
-    abstract fun execute(data: ValueNode, context: ScriptContext): JsonNode?
+    fun execute(data: ValueNode, context: ScriptContext): JsonNode?
 }
 interface ObjectHandler {
-    abstract fun execute(data: ObjectNode, context: ScriptContext): JsonNode?
+    fun execute(data: ObjectNode, context: ScriptContext): JsonNode?
 }
 interface ArrayHandler {
-    abstract fun execute(data: ArrayNode, context: ScriptContext): JsonNode?
+    fun execute(data: ArrayNode, context: ScriptContext): JsonNode?
 }
 
 interface DelayedVariableResolver
@@ -82,7 +90,8 @@ object Core {
         If(),
         IfAny(),
         HttpEndpoint(),
-        HttpGet()
+        HttpGet(),
+        HttpPost()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
