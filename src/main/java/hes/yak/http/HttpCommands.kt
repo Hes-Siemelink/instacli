@@ -53,7 +53,13 @@ class HttpPost: CommandHandler("Http POST"), ObjectHandler {
     }
 }
 
-data class HttpParameters(val host: String, val path: String, val method: HttpMethod, val body: String?) {
+data class HttpParameters(
+    val host: String,
+    val path: String,
+    val method: HttpMethod,
+    val body: String?,
+    val headers: JsonNode?) {
+
     val url: String
         get() = "$host$path"
 
@@ -69,7 +75,8 @@ data class HttpParameters(val host: String, val path: String, val method: HttpMe
                 host = data.get("url").textValue(),
                 path = data.get("path").textValue(),
                 method = method,
-                body = data.get("body")?.toString()
+                body = data.get("body")?.toString(),
+                headers = data.get("headers")
             )
         }
     }
@@ -94,6 +101,13 @@ private fun processRequest(parameters: HttpParameters): JsonNode {
     val response: HttpResponse = runBlocking {
         client.request(parameters.url) {
             method = parameters.method
+            if (parameters.headers != null) {
+                headers {
+                    for (header in parameters.headers.fields()) {
+                        append(header.key, header.value.textValue())
+                    }
+                }
+            }
             if (parameters.body != null) {
                 setBody(parameters.body)
             }

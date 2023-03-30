@@ -22,13 +22,13 @@ class Contains(
     private val container: JsonNode) : Condition {
 
     override fun isTrue(): Boolean {
-        when (container) {
+        return when (container) {
             is ArrayNode -> {
-                return container.contains(obj)
+                container.contains(obj)
             }
 
             is ObjectNode -> {
-                return inObject(obj, container)
+                inObject(obj, container)
             }
 
             else -> {

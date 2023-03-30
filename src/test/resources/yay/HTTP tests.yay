@@ -46,8 +46,10 @@ Http GET:
   headers:
     Test: something
 
-Expected output:
-  Test: something
+Assert that:
+  object:
+    Test: something
+  in: ${output}
 
 ---
 Test case: Send cookie

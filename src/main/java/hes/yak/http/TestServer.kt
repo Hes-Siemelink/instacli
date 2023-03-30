@@ -19,6 +19,9 @@ class TestServer {
                 val request = Yaml.parse(ctx.body())
                 ctx.json(request.fieldNames().asSequence())
             }
+            app.get("/echo/header/Test") {ctx ->
+                ctx.json(ctx.headerMap())
+            }
         }
 
         fun start() {
