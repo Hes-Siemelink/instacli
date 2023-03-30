@@ -3,7 +3,7 @@ package hes.yak.http
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.*
 import hes.yak.Yaml.Companion.parse
 import io.ktor.client.*
@@ -15,40 +15,35 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.runBlocking
 
-class HttpEndpoint: CommandHandler("Http endpoint") {
+class HttpEndpoint: CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
     companion object {
         val HTTP_DEFAULTS = "_http.defaults"
     }
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        context.variables[HTTP_DEFAULTS] = objectNode("url", data.textValue())
 
-        if (data is TextNode) {
-            val url = ObjectNode(JsonNodeFactory.instance)
-            url.put("url", data.textValue())
-            context.variables.put(HTTP_DEFAULTS, url)
-        } else if (data is ObjectNode) {
-            context.variables.put(HTTP_DEFAULTS, data)
-        } else {
-            throw ScriptException("Unsupported node type for HttpEndpoint: ${data.javaClass}", data)
-        }
+        return null
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        context.variables[HTTP_DEFAULTS] = data
 
         return null
     }
 }
 
 
-class HttpGet: CommandHandler("Http GET"), ListProcessor {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data is TextNode) {
-            val path = ObjectNode(JsonNodeFactory.instance)
-            path.put("path", data.textValue())
-            return processRequest(path, context)
-        } else if (data is ObjectNode) {
-            return processRequest(data, context)
-        } else {
-            throw ScriptException("Unsupported node type for HttpEndpoint: ${data.javaClass}", data)
-        }
+class HttpGet: CommandHandler("Http GET"), ValueHandler, ObjectHandler {
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val path = objectNode("path", data.textValue())
+        return processRequest(path, context)
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return processRequest(data, context)
     }
 }
 

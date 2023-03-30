@@ -2,14 +2,11 @@ package hes.yak.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import hes.yak.CommandHandler
-import hes.yak.ScriptContext
-import hes.yak.ScriptException
+import hes.yak.*
 
-class Join : CommandHandler("Join") {
+class Join : CommandHandler("Join"), ObjectHandler {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data !is ObjectNode) throw ScriptException("Join takes object content, not array or text.", data)
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         for (variable in data.fields()) {
             join(variable.key, variable.value, context.variables)
@@ -48,9 +45,9 @@ class Join : CommandHandler("Join") {
     }
 }
 
-class Merge : CommandHandler("Merge") {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        if (data !is ArrayNode) throw ScriptException("Merge only takes array content, not object or text.", data)
+class Merge : CommandHandler("Merge"), ArrayHandler {
+
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
 
         var result: JsonNode = TextNode("dummy")
         var first = true

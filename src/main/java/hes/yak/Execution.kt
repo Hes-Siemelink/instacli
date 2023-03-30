@@ -27,11 +27,21 @@ fun runCommand(
     context: ScriptContext
 ): JsonNode? {
 
-    if (handler is ListProcessor && rawData is ArrayNode) {
+    if (rawData is ArrayNode && !handlesListItself(handler) ) {
         return runCommandOnList(handler, rawData, context)
     } else {
         return runSingleCommand(handler, rawData, context)
     }
+}
+
+fun handlesListItself(handler: CommandHandler): Boolean {
+    if (handler is ArrayHandler) {
+        return true
+    } else if (handler is ObjectHandler || handler is ValueHandler) {
+        return false
+    }
+
+    return true
 }
 
 private fun runCommandOnList(

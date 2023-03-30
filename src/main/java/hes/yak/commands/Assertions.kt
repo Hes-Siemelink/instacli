@@ -1,11 +1,13 @@
 package hes.yak.commands
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.*
 
-class AssertThat : CommandHandler("Assert that"), ListProcessor {
+class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val condition = parseCondition(data)
 
         if (!condition.isTrue()) {
@@ -16,21 +18,17 @@ class AssertThat : CommandHandler("Assert that"), ListProcessor {
     }
 }
 
-class AssertEquals : CommandHandler("Assert equals"), ListProcessor {
+class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val actual = data.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
         val expected = data.get("expected") ?: throw ConditionException("Assert equals needs 'expected' field.")
 
-        execute(actual, expected)
-
-        return null
-    }
-
-    private fun execute(actual: JsonNode, expected: JsonNode) {
         if (actual != expected) {
             throw AssertionError("Not equal:\n  Expected: $expected\n  Actual:   $actual")
         }
+
+        return null
     }
 }
 
@@ -45,16 +43,22 @@ class ExpectedOutput : CommandHandler("Expected output") {
     }
 }
 
-class TestCase : CommandHandler("Test case") {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+class TestCase : CommandHandler("Test case"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         println("Test case: ${data.asText()}")
         return null
     }
 }
 
-class Print : CommandHandler("Print"), ListProcessor {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         println(data)
+        return null
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        println(Yaml.toString(data))
         return null
     }
 }

@@ -7,14 +7,14 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import hes.yak.*
 import java.io.File
 
-class Do : CommandHandler("Do"), DelayedVariableResolver, ListProcessor {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return YakScript(listOf(data), context).run()
     }
 }
 
-class If : CommandHandler("If"), ListProcessor, DelayedVariableResolver {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val then = evaluateCondition(data, context) ?: return null
 
@@ -23,17 +23,13 @@ class If : CommandHandler("If"), ListProcessor, DelayedVariableResolver {
 }
 
 // TODO rename to when
-class IfAny : CommandHandler("If any"), DelayedVariableResolver {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        if (data is ArrayNode) {
-            for (ifStatement in data) {
-                val then = evaluateCondition(ifStatement, context) ?: continue
-                return runCommand(Do(), then, context)
-            }
-            return null
-        } else {
-            throw ScriptException("Command 'If any' only takes arrays.", data)
+class IfAny : CommandHandler("If any"), ArrayHandler, DelayedVariableResolver {
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+        for (ifStatement in data) {
+            val then = evaluateCondition(ifStatement, context) ?: continue
+            return runCommand(Do(), then, context)
         }
+        return null
     }
 }
 
@@ -56,10 +52,10 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
         throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
     }
 }
-class ForEach: CommandHandler("For each"), DelayedVariableResolver, ListProcessor {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        if (data !is ObjectNode) throw ScriptException("Can not use For Each with text or list content.", data)
+class ForEach: CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
         val loopVar: String = getVariableName(data)
         val items = resolveVariables(data.remove(loopVar), context.variables)
@@ -96,9 +92,9 @@ class ForEach: CommandHandler("For each"), DelayedVariableResolver, ListProcesso
     }
 }
 
-class Repeat: CommandHandler("Repeat"), ListProcessor, DelayedVariableResolver {
+class Repeat: CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val actions = data.get("Do")!!
         val until = data.get("Until")!!
 
@@ -118,9 +114,9 @@ class Repeat: CommandHandler("Repeat"), ListProcessor, DelayedVariableResolver {
     }
 }
 
-class ExecuteYayFile : CommandHandler("Execute yay file"), ListProcessor {
+class ExecuteYayFile : CommandHandler("Execute yay file"), ObjectHandler {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.", data)
         val scriptFile = File(context.scriptLocation?.parent, fileName.asText())
 
