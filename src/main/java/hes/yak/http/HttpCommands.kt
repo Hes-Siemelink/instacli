@@ -88,9 +88,7 @@ private fun processRequest(data: ObjectNode, context: ScriptContext, method:Http
 
 private fun processRequest(parameters: HttpParameters): JsonNode {
     // TODO Cookies
-    // TODO Headers
     // TODO Authorization
-
 
     val client = HttpClient {
         install(ContentNegotiation) {
@@ -102,10 +100,8 @@ private fun processRequest(parameters: HttpParameters): JsonNode {
         client.request(parameters.url) {
             method = parameters.method
             if (parameters.headers != null) {
-                headers {
-                    for (header in parameters.headers.fields()) {
-                        append(header.key, header.value.textValue())
-                    }
+                for (header in parameters.headers.fields()) {
+                    header(header.key, header.value.textValue())
                 }
             }
             if (parameters.body != null) {
