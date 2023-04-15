@@ -22,6 +22,9 @@ class TestServer {
             app.get("/echo/header/Test") {ctx ->
                 ctx.json(ctx.headerMap())
             }
+            app.get("/echo/cookies") {ctx ->
+                ctx.json(mapOf("cookies" to ctx.cookieMap()))
+            }
         }
 
         fun start() {

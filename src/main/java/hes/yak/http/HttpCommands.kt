@@ -8,6 +8,7 @@ import hes.yak.Yaml.Companion.parse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
@@ -58,47 +59,67 @@ data class HttpParameters(
     val path: String,
     val method: HttpMethod,
     val body: String?,
-    val headers: JsonNode?) {
+    val headers: JsonNode?,
+    val cookies: JsonNode?) {
 
     val url: String
         get() = "$host$path"
 
     companion object {
         fun create(data: ObjectNode, defaults: JsonNode?, method: HttpMethod): HttpParameters {
-            if (defaults != null) {
-                for (default in defaults.fields()) {
-                    data.putIfAbsent(default.key, default.value)
-                }
-            }
+            update(data, defaults)
 
             return HttpParameters(
                 host = data.get("url").textValue(),
                 path = data.get("path").textValue(),
                 method = method,
                 body = data.get("body")?.toString(),
-                headers = data.get("headers")
+                headers = data.get("headers"),
+                cookies = data.get("cookies")
             )
+        }
+
+        private fun update(
+            data: ObjectNode,
+            defaults: JsonNode?
+        ) {
+            if (defaults == null || defaults !is ObjectNode) {
+                return
+            }
+
+            for (default in defaults.fields()) {
+                // Add fields that don't exist
+                data.putIfAbsent(default.key, default.value)
+
+                // Merge dictionaries like 'headers' and 'cookies'
+                if (data.has(default.key) && data.get(default.key) is ObjectNode) {
+                    update(data.get(default.key) as ObjectNode, default.value)
+                }
+            }
         }
     }
 }
 
-private fun processRequest(data: ObjectNode, context: ScriptContext, method:HttpMethod): JsonNode {
-    return processRequest(HttpParameters.create(data, context.variables[HttpEndpoint.HTTP_DEFAULTS], method))
+private fun processRequest(data: ObjectNode, context: ScriptContext, method:HttpMethod): JsonNode? {
+    return runBlocking {
+        processRequest(HttpParameters.create(data, context.variables[HttpEndpoint.HTTP_DEFAULTS], method))
+    }
 }
 
-private fun processRequest(parameters: HttpParameters): JsonNode {
-    // TODO Cookies
+private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
     // TODO Authorization
 
     val client = HttpClient {
         install(ContentNegotiation) {
             json()
         }
+        install(HttpCookies)
     }
 
-    val response: HttpResponse = runBlocking {
+    val response: HttpResponse =
         client.request(parameters.url) {
             method = parameters.method
+            contentType(ContentType.Application.Json)
             if (parameters.headers != null) {
                 for (header in parameters.headers.fields()) {
                     header(header.key, header.value.textValue())
@@ -107,9 +128,15 @@ private fun processRequest(parameters: HttpParameters): JsonNode {
             if (parameters.body != null) {
                 setBody(parameters.body)
             }
+            if (parameters.cookies != null) {
+                for (cookie in parameters.cookies.fields()) {
+                    cookie(cookie.key, cookie.value.textValue())
+                }
+            }
         }
-    }
 
-    return runBlocking { parse(response.body<String>()) }
+    val body = response.body<String>()
+    return if (body.isNotEmpty()) parse(body) else null
+
 }
 
