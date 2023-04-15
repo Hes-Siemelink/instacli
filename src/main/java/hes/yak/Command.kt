@@ -40,7 +40,10 @@ abstract class CommandHandler(val name: String) {
 
             else -> throw ScriptException("Unknown content type ${data.javaClass.simpleName} for command '$name'", data)
         }
+    }
 
+    fun getParameter(data: JsonNode, parameter: String): JsonNode {
+        return data.get(parameter) ?: throw ScriptException("Command '$name' needs '$parameter' field.", data)
     }
 }
 
@@ -48,9 +51,11 @@ abstract class CommandHandler(val name: String) {
 interface ValueHandler {
     fun execute(data: ValueNode, context: ScriptContext): JsonNode?
 }
+
 interface ObjectHandler {
     fun execute(data: ObjectNode, context: ScriptContext): JsonNode?
 }
+
 interface ArrayHandler {
     fun execute(data: ArrayNode, context: ScriptContext): JsonNode?
 }
@@ -91,7 +96,8 @@ object Core {
         IfAny(),
         HttpEndpoint(),
         HttpGet(),
-        HttpPost()
+        HttpPost(),
+        Replace()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

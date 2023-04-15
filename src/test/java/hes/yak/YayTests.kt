@@ -67,6 +67,11 @@ class YayTests {
     fun ifStatements() {
         test("If statements.yay")
     }
+
+    @Test
+    fun replace() {
+        test("Replace handler tests.yay")
+    }
 }
 
 fun test(resource:String) {
