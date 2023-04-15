@@ -23,13 +23,11 @@ class HttpEndpoint: CommandHandler("Http endpoint"), ObjectHandler, ValueHandler
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         context.variables[HTTP_DEFAULTS] = objectNode("url", data.textValue())
-
         return null
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         context.variables[HTTP_DEFAULTS] = data
-
         return null
     }
 }
@@ -120,19 +118,10 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
         client.request(parameters.url) {
             method = parameters.method
             contentType(ContentType.Application.Json)
-            if (parameters.headers != null) {
-                for (header in parameters.headers.fields()) {
-                    header(header.key, header.value.textValue())
-                }
-            }
-            if (parameters.body != null) {
-                setBody(parameters.body)
-            }
-            if (parameters.cookies != null) {
-                for (cookie in parameters.cookies.fields()) {
-                    cookie(cookie.key, cookie.value.textValue())
-                }
-            }
+            cookies(parameters)
+            headers(parameters)
+
+            body(parameters)
         }
 
     val body = response.body<String>()
@@ -140,3 +129,21 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
 
 }
 
+private fun HttpRequestBuilder.headers(parameters: HttpParameters) {
+    parameters.headers ?: return
+    for (header in parameters.headers.fields()) {
+        header(header.key, header.value.textValue())
+    }
+}
+
+private fun HttpRequestBuilder.cookies(parameters: HttpParameters) {
+    parameters.cookies ?: return
+    for (cookie in parameters.cookies.fields()) {
+        cookie(cookie.key, cookie.value.textValue())
+    }
+}
+
+private fun HttpRequestBuilder.body(parameters: HttpParameters) {
+    parameters.body ?: return
+    setBody(parameters.body)
+}
