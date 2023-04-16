@@ -9,32 +9,48 @@ import hes.yay.core.CommandHandler
 
 object CoreLibrary {
     val commands = commandMap(
+
+        // Control flow
+        Do(),
+        If(),
+        IfAny(),
+        ForEach(),
+        Repeat(),
+        ExecuteYayFile(),
+
+        // Input and Output
+        Input(),
+        Output(),
+
+        // Variables
+        As(),
+        SetVariable(),
+        Set(),
+        ApplyVariables(),
+
+        // Data manipulation
+        Join(),
+        Merge(),
+        Replace(),
+
+        // HTTP
+        HttpEndpoint(),
+        HttpGet(),
+        HttpPost(),
+
+        // Files
+        ReadFile(),
+
+        // Testing
         TestCase(),
         AssertEquals(),
         AssertThat(),
         ExpectedOutput(),
-        Input(),
-        Output(),
-        ExecuteYayFile(),
-        Do(),
-        ForEach(),
-        Join(),
-        As(),
-        Merge(),
+
+        // Util
         Print(),
-        ReadFile(),
-        ApplyVariables(),
-        Repeat(),
-        If(),
-        IfAny(),
-        HttpEndpoint(),
-        HttpGet(),
-        HttpPost(),
-        Replace(),
-        SetVariable(),
-        Set(),
         Task(),
-        Wait()
+        Wait(),
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
