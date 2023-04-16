@@ -1,10 +1,8 @@
-package hes.yay.commands.http
+package yay.commands.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.core.*
-import hes.yay.core.Yaml.parse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -14,6 +12,8 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.runBlocking
+import yay.core.*
+import yay.core.Yaml.parse
 
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 

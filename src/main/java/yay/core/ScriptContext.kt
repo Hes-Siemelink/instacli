@@ -1,4 +1,4 @@
-package hes.yay.core
+package yay.core
 
 import com.fasterxml.jackson.databind.JsonNode
 import java.io.File

@@ -1,11 +1,11 @@
-package hes.yay.commands
+package yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.core.CommandHandler
-import hes.yay.core.ScriptContext
-import hes.yay.core.ValueHandler
-import hes.yay.core.Yaml
+import yay.core.CommandHandler
+import yay.core.ScriptContext
+import yay.core.ValueHandler
+import yay.core.Yaml
 
 class ReadFile : CommandHandler("Read file"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {

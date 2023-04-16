@@ -1,9 +1,9 @@
-package hes.yay
+package yay
 
-import hes.yay.commands.http.TestServer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
+import yay.commands.http.TestServer
 
 class HttpTests {
 

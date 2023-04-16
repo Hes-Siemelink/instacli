@@ -1,11 +1,11 @@
-package hes.yay
+package yay
 
-import hes.yay.commands.*
-import hes.yay.commands.Set
-import hes.yay.commands.http.HttpEndpoint
-import hes.yay.commands.http.HttpGet
-import hes.yay.commands.http.HttpPost
-import hes.yay.core.CommandHandler
+import yay.commands.*
+import yay.commands.Set
+import yay.commands.http.HttpEndpoint
+import yay.commands.http.HttpGet
+import yay.commands.http.HttpPost
+import yay.core.CommandHandler
 
 object CoreLibrary {
     val commands = commandMap(

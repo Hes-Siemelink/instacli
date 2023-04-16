@@ -1,9 +1,9 @@
-package hes.yay.commands
+package yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.core.*
+import yay.core.*
 
 class Task : CommandHandler("Task"), ValueHandler {
 

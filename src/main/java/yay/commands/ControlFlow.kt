@@ -1,11 +1,11 @@
-package hes.yay.commands
+package yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import hes.yay.YayScript
-import hes.yay.core.*
+import yay.YayScript
+import yay.core.*
 import java.io.File
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {

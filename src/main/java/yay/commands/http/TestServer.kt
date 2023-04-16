@@ -1,10 +1,10 @@
-package hes.yay.commands.http
+package yay.commands.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import hes.yay.core.Yaml
 import io.javalin.Javalin
+import yay.core.Yaml
 
 class TestServer {
 

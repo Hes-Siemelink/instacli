@@ -1,12 +1,12 @@
-package hes.yay.commands
+package yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.core.CommandHandler
-import hes.yay.core.ObjectHandler
-import hes.yay.core.ScriptContext
-import hes.yay.core.ValueHandler
+import yay.core.CommandHandler
+import yay.core.ObjectHandler
+import yay.core.ScriptContext
+import yay.core.ValueHandler
 
 class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 
