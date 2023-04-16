@@ -1,7 +1,6 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.node.TextNode
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -18,7 +17,10 @@ class VariablesTest {
         assertEquals("One", resolveVariablesInText("One", variables))
         assertEquals("There is one", resolveVariablesInText("There is \${1}", variables))
         assertEquals("There is one and one", resolveVariablesInText("There is \${1} and \${1}", variables))
-        assertEquals("There is one and one and two", resolveVariablesInText("There is \${1} and \${1} and \${2}", variables))
+        assertEquals(
+            "There is one and one and two",
+            resolveVariablesInText("There is \${1} and \${1} and \${2}", variables)
+        )
     }
 
     @Test

@@ -1,10 +1,10 @@
-package hes.yak.http
+package hes.yay.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yak.*
-import hes.yak.Yaml.Companion.parse
+import hes.yay.*
+import hes.yay.Yaml.Companion.parse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -15,7 +15,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.runBlocking
 
-class HttpEndpoint: CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
+class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
     companion object {
         const val HTTP_DEFAULTS = "_http.defaults"
@@ -33,7 +33,7 @@ class HttpEndpoint: CommandHandler("Http endpoint"), ObjectHandler, ValueHandler
 }
 
 
-class HttpGet: CommandHandler("Http GET"), ValueHandler, ObjectHandler {
+class HttpGet : CommandHandler("Http GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val path = objectNode("path", data.textValue())
@@ -45,7 +45,7 @@ class HttpGet: CommandHandler("Http GET"), ValueHandler, ObjectHandler {
     }
 }
 
-class HttpPost: CommandHandler("Http POST"), ObjectHandler {
+class HttpPost : CommandHandler("Http POST"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Post)
@@ -58,7 +58,8 @@ data class HttpParameters(
     val method: HttpMethod,
     val body: String?,
     val headers: JsonNode?,
-    val cookies: JsonNode?) {
+    val cookies: JsonNode?
+) {
 
     val url: String
         get() = "$host$path"
@@ -98,7 +99,7 @@ data class HttpParameters(
     }
 }
 
-private fun processRequest(data: ObjectNode, context: ScriptContext, method:HttpMethod): JsonNode? {
+private fun processRequest(data: ObjectNode, context: ScriptContext, method: HttpMethod): JsonNode? {
     return runBlocking {
         processRequest(HttpParameters.create(data, context.variables[HttpEndpoint.HTTP_DEFAULTS], method))
     }

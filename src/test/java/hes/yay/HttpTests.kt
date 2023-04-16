@@ -1,6 +1,6 @@
-package hes.yak
+package hes.yay
 
-import hes.yak.http.TestServer
+import hes.yay.http.TestServer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test

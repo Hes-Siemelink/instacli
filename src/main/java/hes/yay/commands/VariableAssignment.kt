@@ -1,9 +1,9 @@
-package hes.yak.commands
+package hes.yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yak.*
+import hes.yay.*
 
 class SetVariable : CommandHandler("Set variable"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

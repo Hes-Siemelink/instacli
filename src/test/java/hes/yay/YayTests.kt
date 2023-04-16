@@ -1,4 +1,4 @@
-package hes.yak
+package hes.yay
 
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test

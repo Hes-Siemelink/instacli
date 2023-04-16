@@ -1,4 +1,4 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -27,7 +27,7 @@ fun runCommand(
     context: ScriptContext
 ): JsonNode? {
 
-    if (rawData is ArrayNode && !handlesListItself(handler) ) {
+    if (rawData is ArrayNode && !handlesListItself(handler)) {
         return runCommandOnList(handler, rawData, context)
     } else {
         return runSingleCommand(handler, rawData, context)

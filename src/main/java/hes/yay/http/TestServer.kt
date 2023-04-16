@@ -1,9 +1,9 @@
-package hes.yak.http
+package hes.yay.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import hes.yak.Yaml
+import hes.yay.Yaml
 import io.javalin.Javalin
 
 class TestServer {
@@ -15,14 +15,14 @@ class TestServer {
             app.get("/items") { ctx ->
                 ctx.json(toJson(listOf("1", "2", "3")))
             }
-            app.post("/items") {ctx ->
+            app.post("/items") { ctx ->
                 val request = Yaml.parse(ctx.body())
                 ctx.json(request.fieldNames().asSequence())
             }
-            app.get("/echo/header/Test") {ctx ->
+            app.get("/echo/header/Test") { ctx ->
                 ctx.json(ctx.headerMap())
             }
-            app.get("/echo/cookies") {ctx ->
+            app.get("/echo/cookies") { ctx ->
                 ctx.json(mapOf("cookies" to ctx.cookieMap()))
             }
         }

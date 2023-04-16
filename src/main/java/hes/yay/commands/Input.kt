@@ -1,10 +1,11 @@
-package hes.yak.commands
+package hes.yay.commands
+
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import hes.yak.CommandHandler
-import hes.yak.ObjectHandler
-import hes.yak.ScriptContext
-import hes.yak.ScriptException
+import hes.yay.CommandHandler
+import hes.yay.ObjectHandler
+import hes.yay.ScriptContext
+import hes.yay.ScriptException
 
 class Input : CommandHandler("Input"), ObjectHandler {
 

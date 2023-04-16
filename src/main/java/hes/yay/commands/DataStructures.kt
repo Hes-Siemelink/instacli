@@ -1,8 +1,8 @@
-package hes.yak.commands
+package hes.yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import hes.yak.*
+import hes.yay.*
 
 class Join : CommandHandler("Join"), ObjectHandler {
 

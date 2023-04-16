@@ -1,10 +1,10 @@
-package hes.yak.commands
+package hes.yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import hes.yak.*
+import hes.yay.*
 import java.io.File
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
@@ -53,7 +53,7 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
     }
 }
 
-class ForEach: CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
+class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
@@ -92,7 +92,7 @@ class ForEach: CommandHandler("For each"), ObjectHandler, DelayedVariableResolve
     }
 }
 
-class Repeat: CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
+class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val actions = data.get("Do")!!

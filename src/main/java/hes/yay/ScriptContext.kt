@@ -1,7 +1,8 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
-import hes.yak.commands.*
+import hes.yay.commands.ExecuteYayFileAsCommandHandler
+import hes.yay.commands.VariableCommandHandler
 import java.io.File
 
 class ScriptContext {

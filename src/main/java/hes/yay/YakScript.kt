@@ -1,4 +1,4 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -50,14 +50,14 @@ class Yaml {
         }
 
         fun parse(source: File): List<JsonNode> {
-            val yamlParser = Yaml.factory.createParser(source)
-            return Yaml.mapper
+            val yamlParser = factory.createParser(source)
+            return mapper
                 .readValues(yamlParser, JsonNode::class.java)
                 .readAll()
         }
 
         fun parse(source: String): JsonNode {
-            return Yaml.mapper.readValue(source, JsonNode::class.java)
+            return mapper.readValue(source, JsonNode::class.java)
         }
 
         fun toString(node: JsonNode): String {

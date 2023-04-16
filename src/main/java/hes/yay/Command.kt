@@ -1,15 +1,15 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yak.commands.*
-import hes.yak.commands.Set
-import hes.yak.http.HttpEndpoint
-import hes.yak.http.HttpGet
-import hes.yak.http.HttpPost
+import hes.yay.commands.*
+import hes.yay.commands.Set
+import hes.yay.http.HttpEndpoint
+import hes.yay.http.HttpGet
+import hes.yay.http.HttpPost
 
 abstract class CommandHandler(val name: String) {
 

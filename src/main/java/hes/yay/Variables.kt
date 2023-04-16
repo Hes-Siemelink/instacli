@@ -1,4 +1,4 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode

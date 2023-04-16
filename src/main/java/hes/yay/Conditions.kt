@@ -1,4 +1,4 @@
-package hes.yak
+package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -19,7 +19,8 @@ class Equals(val actual: Any, val expected: Any) : Condition {
 
 class Contains(
     private val obj: JsonNode,
-    private val container: JsonNode) : Condition {
+    private val container: JsonNode
+) : Condition {
 
     override fun isTrue(): Boolean {
         return when (container) {
@@ -81,20 +82,16 @@ fun parseCondition(node: JsonNode): Condition {
         }
 
         throw ScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
-    }
-    else if (node.has("all")) {
+    } else if (node.has("all")) {
         val conditions = node.get("all")
         return All(conditions.map { parseCondition(it) })
-    }
-    else if (node.has("any")) {
+    } else if (node.has("any")) {
         val conditions = node.get("any")
         return AnyCondition(conditions.map { parseCondition(it) })
-    }
-    else if (node.has("not")) {
+    } else if (node.has("not")) {
         val condition = node.get("not")
         return Not(parseCondition(condition))
-    }
-    else {
+    } else {
         throw ScriptException("Condition needs 'object', 'all', 'any' or 'not'.", node)
     }
 }
