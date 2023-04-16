@@ -100,7 +100,8 @@ object Core {
         HttpPost(),
         Replace(),
         SetVariable(),
-        Set()
+        Set(),
+        Task()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

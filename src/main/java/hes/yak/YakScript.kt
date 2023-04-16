@@ -9,7 +9,8 @@ import java.io.File
 
 class YakScript(
     private val script: List<JsonNode>,
-    val context: ScriptContext = ScriptContext()) {
+    val context: ScriptContext = ScriptContext()
+) {
 
     fun run(): JsonNode? {
         val statements = script.map { scriptNode -> toCommands(scriptNode) }.flatten()

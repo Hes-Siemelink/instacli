@@ -78,6 +78,11 @@ class YayTests {
         test("Result variable tests.yay")
         test("Set multiple variables from output.yay")
     }
+
+    @Test
+    fun variableReplacement() {
+        test("Variable replacement in text.yay")
+    }
 }
 
 fun test(resource: String) {

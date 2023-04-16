@@ -2,14 +2,13 @@ Task: Set common variables
 
 ${text}: some text
 ${list}:
-- 1
-- 2
-- 3
+  - 1
+  - 2
+  - 3
 ${map}:
-  1st: One
-  2nd: Two
-  3rd: Three
-
+  First: One
+  Second: Two
+  Third: Three
 
 ---
 Test case: Text replacement
@@ -26,7 +25,6 @@ ${list_replacement}: |
   My list:
   ${list}
 
-
 Assert equals:
   actual: ${list_replacement}
   expected: |
@@ -35,18 +33,14 @@ Assert equals:
     - 2
     - 3
 
-
 ---
 Test case: Use map in text
 ${map_replacement}: |
   My map:
-  ${map}
-
+  map
 
 Assert equals:
   actual: ${map_replacement}
   expected: |
     My map:
-    1st: One
-    2nd: Two
-    3rd: Three
+    map

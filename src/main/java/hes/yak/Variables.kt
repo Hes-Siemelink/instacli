@@ -49,8 +49,12 @@ fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): Strin
 }
 
 fun resolve(varName: String, variables: Map<String, JsonNode>): String {
-    // TODO pretty print as Yaml when replacing variables in text that ar objects or arrays
-    return variables[varName]?.asText() ?: throw ScriptException("Unknown variable: \${${varName}}")
+    val value = variables[varName] ?: throw ScriptException("Unknown variable: \${${varName}}")
+
+    val textValue = value.textValue()
+    val yamlValue = Yaml.toString(value)
+
+    return if (value.isTextual) value.textValue() else Yaml.toString(value).trim()
 }
 
 fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
