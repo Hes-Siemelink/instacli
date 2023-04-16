@@ -3,7 +3,7 @@ package hes.yay.commands.http
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import hes.yay.Yaml
+import hes.yay.core.Yaml
 import io.javalin.Javalin
 
 class TestServer {

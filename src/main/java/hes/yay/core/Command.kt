@@ -1,15 +1,10 @@
-package hes.yay
+package hes.yay.core
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.commands.*
-import hes.yay.commands.Set
-import hes.yay.commands.http.HttpEndpoint
-import hes.yay.commands.http.HttpGet
-import hes.yay.commands.http.HttpPost
 
 abstract class CommandHandler(val name: String) {
 
@@ -75,37 +70,3 @@ fun objectNode(key: String, value: String): ObjectNode {
 // Core library
 //
 
-object Core {
-    val commands = commandMap(
-        TestCase(),
-        AssertEquals(),
-        AssertThat(),
-        ExpectedOutput(),
-        Input(),
-        Output(),
-        ExecuteYayFile(),
-        Do(),
-        ForEach(),
-        Join(),
-        As(),
-        Merge(),
-        Print(),
-        ReadFile(),
-        ApplyVariables(),
-        Repeat(),
-        If(),
-        IfAny(),
-        HttpEndpoint(),
-        HttpGet(),
-        HttpPost(),
-        Replace(),
-        SetVariable(),
-        Set(),
-        Task(),
-        Wait()
-    )
-
-    private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
-        return commands.associateBy { it.name }
-    }
-}

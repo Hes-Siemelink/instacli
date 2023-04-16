@@ -1,6 +1,7 @@
-package hes.yay
+package hes.yay.core
 
 import com.fasterxml.jackson.databind.JsonNode
+import hes.yay.CoreLibrary
 import hes.yay.commands.ExecuteYayFileAsCommandHandler
 import hes.yay.commands.VariableCommandHandler
 import java.io.File
@@ -25,8 +26,8 @@ class ScriptContext {
         }
 
         // Standard commands
-        if (Core.commands.containsKey(command)) {
-            return Core.commands[command]!!
+        if (CoreLibrary.commands.containsKey(command)) {
+            return CoreLibrary.commands[command]!!
         }
 
         // File commands

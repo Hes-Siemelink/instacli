@@ -2,7 +2,7 @@ package hes.yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import hes.yay.*
+import hes.yay.core.*
 
 class Join : CommandHandler("Join"), ObjectHandler {
 

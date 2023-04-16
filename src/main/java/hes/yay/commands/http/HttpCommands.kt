@@ -3,8 +3,8 @@ package hes.yay.commands.http
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import hes.yay.*
-import hes.yay.Yaml.Companion.parse
+import hes.yay.core.*
+import hes.yay.core.Yaml.parse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*

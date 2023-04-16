@@ -1,8 +1,9 @@
-package hes.yay
+package hes.yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import hes.yay.core.ScriptException
 
 
 interface Condition {

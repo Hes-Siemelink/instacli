@@ -1,10 +1,10 @@
 package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
-import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import hes.yay.core.ScriptContext
+import hes.yay.core.Yaml
+import hes.yay.core.runScript
+import hes.yay.core.toCommands
 import java.io.File
 
 class YayScript(
@@ -37,40 +37,3 @@ class YayScript(
     }
 }
 
-class Yaml {
-
-    companion object {
-        private val factory = YAMLFactory()
-            .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
-            .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-        private val mapper = ObjectMapper(factory).registerKotlinModule()
-
-        fun readFile(textValue: String): JsonNode? {
-            return mapper.readValue(File(textValue), JsonNode::class.java)
-        }
-
-        fun parse(source: File): List<JsonNode> {
-            val yamlParser = factory.createParser(source)
-            return mapper
-                .readValues(yamlParser, JsonNode::class.java)
-                .readAll()
-        }
-
-        fun parse(source: String): JsonNode {
-            return mapper.readValue(source, JsonNode::class.java)
-        }
-
-        fun toString(node: JsonNode): String {
-            return mapper.writeValueAsString(node)
-        }
-    }
-}
-
-class ScriptException(message: String, val data: JsonNode? = null) : Exception(message) {
-    override val message: String?
-        get() = if (data != null) {
-            "${super.message}\n${Yaml.toString(data)}"
-        } else {
-            super.message
-        }
-}

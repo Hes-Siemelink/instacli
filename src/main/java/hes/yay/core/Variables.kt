@@ -1,4 +1,4 @@
-package hes.yay
+package hes.yay.core
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
@@ -50,9 +50,6 @@ fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): Strin
 
 fun resolve(varName: String, variables: Map<String, JsonNode>): String {
     val value = variables[varName] ?: throw ScriptException("Unknown variable: \${${varName}}")
-
-    val textValue = value.textValue()
-    val yamlValue = Yaml.toString(value)
 
     return if (value.isTextual) value.textValue() else Yaml.toString(value).trim()
 }
