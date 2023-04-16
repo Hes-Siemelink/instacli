@@ -92,10 +92,10 @@ class YayTests {
 
 fun test(resource: String) {
     println("Running tests for ${resource}")
-    YakScript.run(toFile("/yay/${resource}"))
+    YayScript.run(toFile("/yay/${resource}"))
 }
 
 fun toFile(resource: String): File {
-    val uri = YakScript::class.java.getResource(resource)?.toURI() ?: throw FileNotFoundException(resource)
+    val uri = YayScript::class.java.getResource(resource)?.toURI() ?: throw FileNotFoundException(resource)
     return File(uri.path)
 }

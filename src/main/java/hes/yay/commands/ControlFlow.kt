@@ -9,7 +9,7 @@ import java.io.File
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return YakScript(listOf(data), context).run()
+        return YayScript(listOf(data), context).run()
     }
 }
 
@@ -133,7 +133,7 @@ class ExecuteYayFileAsCommandHandler(private val scriptFile: File) : CommandHand
 }
 
 private fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
-    val script = YakScript.load(scriptFile)
+    val script = YayScript.load(scriptFile)
     for (variable in data.fields()) {
         script.context.variables[variable.key] = variable.value
     }

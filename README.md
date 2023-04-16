@@ -1,2 +1,3 @@
-# Yak
+# Yay
+
 Light scripting in YAML!

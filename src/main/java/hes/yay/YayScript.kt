@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 
-class YakScript(
+class YayScript(
     private val script: List<JsonNode>,
     val context: ScriptContext = ScriptContext()
 ) {
@@ -26,12 +26,12 @@ class YakScript(
         fun load(
             source: File,
             scriptContext: ScriptContext = ScriptContext()
-        ): YakScript {
+        ): YayScript {
 
             val script = Yaml.parse(source)
             scriptContext.scriptLocation = source
 
-            return YakScript(script, scriptContext)
+            return YayScript(script, scriptContext)
         }
 
     }
