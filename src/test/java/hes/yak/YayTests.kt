@@ -72,9 +72,15 @@ class YayTests {
     fun replace() {
         test("Replace handler tests.yay")
     }
+
+    @Test
+    fun output() {
+        test("Result variable tests.yay")
+        test("Set multiple variables from output.yay")
+    }
 }
 
-fun test(resource:String) {
+fun test(resource: String) {
     println("Running tests for ${resource}")
     YakScript.run(toFile("/yay/${resource}"))
 }

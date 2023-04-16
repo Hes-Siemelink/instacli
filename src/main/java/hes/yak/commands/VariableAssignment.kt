@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.*
 
-class VariableAssignment : CommandHandler("Set"), ObjectHandler {
+class SetVariable : CommandHandler("Set variable"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for (variable in data.fields()) {
             context.variables[variable.key] = variable.value
@@ -21,7 +21,7 @@ class VariableCommandHandler(private val varName: String) : CommandHandler("\${}
     }
 }
 
-class AssignOutput : CommandHandler("As"), ValueHandler {
+class As : CommandHandler("As"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey("output")) {
@@ -31,6 +31,21 @@ class AssignOutput : CommandHandler("As"), ValueHandler {
         context.variables[data.asText()] = context.variables["output"]!!
 
         return null
+    }
+}
+
+// TODO remove 'Set' from yay
+@Deprecated("Use 'As' or 'Set variable' instead", replaceWith = ReplaceWith("As()"))
+class Set : CommandHandler("Set"), ValueHandler, ObjectHandler {
+    private val singleAssignment = As()
+    private val multipleAssignments = SetVariable()
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        return singleAssignment.execute(data, context)
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return multipleAssignments.execute(data, context)
     }
 }
 

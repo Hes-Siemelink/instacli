@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yak.commands.*
+import hes.yak.commands.Set
 import hes.yak.http.HttpEndpoint
 import hes.yak.http.HttpGet
 import hes.yak.http.HttpPost
@@ -86,7 +87,7 @@ object Core {
         Do(),
         ForEach(),
         Join(),
-        AssignOutput(),
+        As(),
         Merge(),
         Print(),
         ReadFile(),
@@ -97,7 +98,9 @@ object Core {
         HttpEndpoint(),
         HttpGet(),
         HttpPost(),
-        Replace()
+        Replace(),
+        SetVariable(),
+        Set()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
