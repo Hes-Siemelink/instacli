@@ -41,8 +41,8 @@ class DefaultScriptContext : ScriptContext {
     override val variables = mutableMapOf<String, JsonNode>()
     override var scriptLocation: File? = null
         set(value) {
-            field = value
-            loadCommands(value!!.parentFile)
+            field = value?.canonicalFile
+            loadCommands(field!!.parentFile)
         }
 
     private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()

@@ -81,10 +81,6 @@ As: all_recipes
 
 # Technical stuff
 
-* Define accepted type & structure in commands. For example, this command takes text, objects with field 'expected'
-  and 'actual'
-* Rename package 'commands' to 'core'
-
 # Difference between Python Yay
 
 * Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and
