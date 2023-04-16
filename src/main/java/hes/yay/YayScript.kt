@@ -1,15 +1,14 @@
 package hes.yay
 
 import com.fasterxml.jackson.databind.JsonNode
-import hes.yay.core.ScriptContext
-import hes.yay.core.Yaml
-import hes.yay.core.runScript
-import hes.yay.core.toCommands
+import hes.yay.commands.ExecuteYayFileAsCommandHandler
+import hes.yay.commands.VariableCommandHandler
+import hes.yay.core.*
 import java.io.File
 
 class YayScript(
     private val script: List<JsonNode>,
-    val context: ScriptContext = ScriptContext()
+    val context: ScriptContext = DefaultScriptContext()
 ) {
 
     fun run(): JsonNode? {
@@ -25,7 +24,7 @@ class YayScript(
 
         fun load(
             source: File,
-            scriptContext: ScriptContext = ScriptContext()
+            scriptContext: DefaultScriptContext = DefaultScriptContext()
         ): YayScript {
 
             val script = Yaml.parse(source)
@@ -37,3 +36,44 @@ class YayScript(
     }
 }
 
+class DefaultScriptContext : ScriptContext {
+
+    override val variables = mutableMapOf<String, JsonNode>()
+    override var scriptLocation: File? = null
+        set(value) {
+            field = value
+            loadCommands(value!!.parentFile)
+        }
+
+    private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
+
+    override fun getCommandHandler(command: String): CommandHandler {
+
+        // Variable syntax
+        val match = VARIABLE_REGEX.matchEntire(command)
+        if (match != null) {
+            return VariableCommandHandler(match.groupValues[1])
+        }
+
+        // Standard commands
+        if (CoreLibrary.commands.containsKey(command)) {
+            return CoreLibrary.commands[command]!!
+        }
+
+        // File commands
+        return fileCommands[command] ?: throw ScriptException("Unknown command: $command")
+    }
+
+    private fun loadCommands(scriptDir: File) {
+        for (file in scriptDir.listFiles()!!) {
+            if (file == scriptDir) continue
+            if (file.isDirectory) continue
+            if (!file.name.endsWith(".yay")) continue
+
+            // Create command name from file name by stripping extension and converting dashes to spaces
+            val name = file.name.substring(0, file.name.length - 4).replace('-', ' ')
+
+            fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
+        }
+    }
+}
