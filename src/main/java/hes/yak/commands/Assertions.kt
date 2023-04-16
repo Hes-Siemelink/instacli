@@ -50,23 +50,3 @@ class TestCase : CommandHandler("Test case"), ValueHandler {
         return null
     }
 }
-
-class Task : CommandHandler("Task"), ValueHandler {
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return null
-    }
-}
-
-class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        println(data)
-        return null
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        println(Yaml.toString(data))
-        return null
-    }
-}

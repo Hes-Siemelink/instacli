@@ -83,6 +83,11 @@ class YayTests {
     fun variableReplacement() {
         test("Variable replacement in text.yay")
     }
+
+    @Test
+    fun sleep() {
+        test("Wait tests.yay")
+    }
 }
 
 fun test(resource: String) {

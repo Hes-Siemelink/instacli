@@ -101,7 +101,8 @@ object Core {
         Replace(),
         SetVariable(),
         Set(),
-        Task()
+        Task(),
+        Wait()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
