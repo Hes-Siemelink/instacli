@@ -1,4 +1,4 @@
-package hes.yay.http
+package hes.yay.commands.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode

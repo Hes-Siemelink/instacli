@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import hes.yay.commands.*
 import hes.yay.commands.Set
-import hes.yay.http.HttpEndpoint
-import hes.yay.http.HttpGet
-import hes.yay.http.HttpPost
+import hes.yay.commands.http.HttpEndpoint
+import hes.yay.commands.http.HttpGet
+import hes.yay.commands.http.HttpPost
 
 abstract class CommandHandler(val name: String) {
 
