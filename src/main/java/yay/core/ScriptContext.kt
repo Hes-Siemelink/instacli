@@ -5,6 +5,6 @@ import java.io.File
 
 interface ScriptContext {
     val variables: MutableMap<String, JsonNode>
-    var scriptLocation: File?
+    val scriptLocation: File
     fun getCommandHandler(command: String): CommandHandler
 }

@@ -91,8 +91,12 @@ class YayTests {
 }
 
 fun test(resource: String) {
+    testResource("/yay/${resource}")
+}
+
+fun testResource(resource: String) {
     println("Running tests for ${resource}")
-    YayScript.run(toFile("/yay/${resource}"))
+    YayScript.run(toFile(resource))
 }
 
 fun toFile(resource: String): File {

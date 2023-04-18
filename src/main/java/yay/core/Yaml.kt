@@ -14,8 +14,8 @@ object Yaml {
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
     private val mapper = ObjectMapper(factory).registerKotlinModule()
 
-    fun readFile(textValue: String): JsonNode? {
-        return mapper.readValue(File(textValue), JsonNode::class.java)
+    fun readFile(source: File): JsonNode? {
+        return mapper.readValue(source, JsonNode::class.java)
     }
 
     fun parse(source: File): List<JsonNode> {

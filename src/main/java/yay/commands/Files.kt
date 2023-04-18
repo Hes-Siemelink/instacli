@@ -6,9 +6,10 @@ import yay.core.CommandHandler
 import yay.core.ScriptContext
 import yay.core.ValueHandler
 import yay.core.Yaml
+import java.io.File
 
 class ReadFile : CommandHandler("Read file"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return Yaml.readFile(data.textValue())
+        return Yaml.readFile(File(data.textValue()))
     }
 }
