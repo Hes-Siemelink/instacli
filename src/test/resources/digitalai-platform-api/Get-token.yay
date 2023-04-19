@@ -9,7 +9,7 @@ Http POST:
     username: ${endpoint.auth.username}
     password: ${endpoint.auth.password}
     scope: "openid dai-svc"
-
+Print: ${output}
 Output: # To be used in 'Http endpoint'
   url: ${endpoint.api}
   headers:

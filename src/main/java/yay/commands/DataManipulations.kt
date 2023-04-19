@@ -142,10 +142,10 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
 
     private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode? {
         if (part !is TextNode) {
-            throw ScriptException("Replace: not allowed to find JSON content in text $source.", part)
+            throw ScriptException("'Replace: part' may contain text only")
         }
 
-        val replacementText = if (replaceWith.isTextual) replaceWith.textValue() else Yaml.toString(replaceWith)
+        val replacementText = Yaml.toString(replaceWith)
         val replacement = source.replace(part.textValue(), replacementText)
 
         return TextNode(replacement)

@@ -74,21 +74,17 @@ private fun runSingleCommand(
     context: ScriptContext
 ): JsonNode? {
 
-
-    val data = try {
-        if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
-    } catch (e: ScriptException) {
-        val info: ObjectNode = ObjectNode(JsonNodeFactory.instance)
-        info.set<ObjectNode>("data", rawData)
-        val variables = info.putObject("variables")
-        context.variables.entries.forEach {
-            variables.set<JsonNode>(it.key, it.value)
+    try {
+        val data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+        val result: JsonNode? = handler.execute(data, context)
+        if (result != null) {
+            context.variables["output"] = result
         }
-        throw ScriptException(e.message!!, info, e)
+        return result
+    } catch (e: ScriptException) {
+        e.data ?: run {
+            e.data = ObjectNode(JsonNodeFactory.instance, mapOf(handler.name to rawData))
+        }
+        throw e
     }
-    val result: JsonNode? = handler.execute(data, context)
-    if (result != null) {
-        context.variables["output"] = result
-    }
-    return result
 }

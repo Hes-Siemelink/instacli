@@ -39,7 +39,7 @@ class Wait : CommandHandler("Wait"), ValueHandler {
             val duration = data.doubleValue() * 1000
             Thread.sleep(duration.toLong())
         } else {
-            throw ScriptException("Invalid value for 'Wait' command.", data)
+            throw ScriptException("Invalid value for 'Wait' command.")
         }
         return null
     }

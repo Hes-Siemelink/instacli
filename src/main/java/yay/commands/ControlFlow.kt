@@ -37,7 +37,7 @@ class IfAny : CommandHandler("If any"), ArrayHandler, DelayedVariableResolver {
 
 private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
     if (!data.has("then")) {
-        throw ScriptException("Command 'If' needs a 'then' parameter.", data)
+        throw ScriptException("Command 'If' needs a 'then' parameter.")
     }
 
     if (data is ObjectNode) {
@@ -51,7 +51,7 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
         }
 
     } else {
-        throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
+        throw ScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.")
     }
 }
 
@@ -61,7 +61,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
 
         val loopVar: String = getVariableName(data)
         val items = resolveVariables(data.remove(loopVar), context.variables)
-        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list.", items)
+        if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list.")
 
         val output = ArrayNode(JsonNodeFactory.instance)
         for (loopData in items) {
@@ -90,7 +90,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
             return field.key
         }
 
-        throw ScriptException("For each must contain a field.", data)
+        throw ScriptException("For each must contain a field with the loop variable.")
     }
 }
 
@@ -119,7 +119,7 @@ class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver 
 class ExecuteYayFile : CommandHandler("Execute yay file"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.", data)
+        val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.")
         val scriptFile = File(context.scriptLocation.parent, fileName.asText())
 
         return runFile(scriptFile, data)
