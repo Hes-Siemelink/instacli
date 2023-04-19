@@ -120,7 +120,7 @@ class ExecuteYayFile : CommandHandler("Execute yay file"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data.get("file") ?: throw ScriptException("Execute yay file needs 'file' field.", data)
-        val scriptFile = File(context.scriptLocation?.parent, fileName.asText())
+        val scriptFile = File(context.scriptLocation.parent, fileName.asText())
 
         return runFile(scriptFile, data)
     }

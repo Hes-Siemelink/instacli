@@ -17,14 +17,16 @@ class Cli(val scriptFile: File) {
         YayScript.load(scriptFile, scriptContext).run()
     }
 
-}
-
-fun main(args: Array<String>) {
-    try {
-        Cli(File(args[0])).runScript()
-    } catch (e: ScriptException) {
-        System.err.println(e)
-        exitProcess(1)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            try {
+                Cli(File(args[0])).runScript()
+            } catch (e: ScriptException) {
+                System.err.println(e)
+                exitProcess(1)
+            }
+        }
     }
 }
 
