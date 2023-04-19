@@ -1,0 +1,24 @@
+# Ask for name
+Check Input:
+  client_id: Client ID
+
+---
+# Log in to Platform API
+Get token:
+  endpoint: ${digitalaiStaging}
+Http endpoint: ${output}
+
+---
+# Create client
+Http POST:
+  path: /identity/clients/oidc/
+  body:
+    name: ${client_id}
+    client_credentials_grant_enabled: true
+
+Print: "Use these credentials to authenticate:"
+Print as YAML:
+  grant_type: client_credentials
+  client_id: ${client_id}
+  client_secret: ${output.client.client_secret}
+  scope: openid dai-svc

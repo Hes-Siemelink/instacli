@@ -1,0 +1,26 @@
+Get token:
+  endpoint: ${digitalaiStaging}
+Http endpoint: ${output}
+
+---
+Http GET: /identity/clients/
+As: clients
+
+---
+For each:
+  ${client}: ${output.clients}
+  Output:
+    name: ${client.name}
+    value: ${client.id}
+
+User Input:
+  type: checkbox
+  message: Select clients to delete
+  choices: ${output}
+As: client_ids
+
+---
+For each:
+  ${client_id}: ${client_ids}
+  Print: DELETE /identity/v1/clients/${client_id}
+  Http DELETE: /identity/v1/clients/${client_id}

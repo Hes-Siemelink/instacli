@@ -1,0 +1,11 @@
+# Log in to Platform API
+Get token:
+  endpoint: ${digitalaiStaging}
+Http endpoint: ${output}
+
+---
+Http GET:
+  path: /workload/v1/cloud_connector/installer
+  save as: install-cloud-connector.sh
+
+Print: Extract installation files by running 'bash install-cloud-connector.sh'.

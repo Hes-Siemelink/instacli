@@ -1,0 +1,20 @@
+Check Input:
+  name: Account name
+
+---
+Get token:
+  endpoint: ${digitalaiStaging}
+Http endpoint: ${output}
+
+---
+Http GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
+
+For each:
+  ${account}: ${output.accounts}
+  Output:
+    name: ${account.name}
+    vanity_domain: ${account.vanity_domain}
+    id: ${account.id}
+As: accounts
+
+Print as YAML: ${accounts}
