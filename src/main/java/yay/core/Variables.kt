@@ -43,7 +43,7 @@ fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode
 
 fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): String {
     val replaced = VARIABLE_REGEX.replace(raw) {
-        resolve(it.groupValues[1], variables)
+        Yaml.toString(getValue(it.groupValues[1], variables))
     }
     return replaced
 }
@@ -59,7 +59,7 @@ fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
     val variableWithPath: VariableWithPath = splitIntoVariableAndPath(varName)
 
     if (!variables.containsKey(variableWithPath.name)) {
-        throw ScriptException("Unknown variable: \${${varName}}")
+        throw ScriptException("Unknown variable '${variableWithPath.name}' in \${${varName}}")
     }
 
     val value = variables[variableWithPath.name]!!

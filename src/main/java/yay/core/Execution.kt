@@ -3,6 +3,7 @@ package yay.core
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
+import com.fasterxml.jackson.databind.node.ObjectNode
 
 class Command(val name: String, val data: JsonNode)
 
@@ -73,7 +74,18 @@ private fun runSingleCommand(
     context: ScriptContext
 ): JsonNode? {
 
-    val data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+
+    val data = try {
+        if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+    } catch (e: ScriptException) {
+        val info: ObjectNode = ObjectNode(JsonNodeFactory.instance)
+        info.set<ObjectNode>("data", rawData)
+        val variables = info.putObject("variables")
+        context.variables.entries.forEach {
+            variables.set<JsonNode>(it.key, it.value)
+        }
+        throw ScriptException(e.message!!, info, e)
+    }
     val result: JsonNode? = handler.execute(data, context)
     if (result != null) {
         context.variables["output"] = result

@@ -44,3 +44,15 @@ Assert equals:
   expected: |
     My map:
     map
+
+---
+Test case: Replace with variable path
+
+${data}:
+  something:
+    nice: here
+${message}: It is nice ${data.something.nice}
+
+Assert equals:
+  actual: ${message}
+  expected: It is nice here

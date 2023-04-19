@@ -29,7 +29,11 @@ object Yaml {
         return mapper.readValue(source, JsonNode::class.java)
     }
 
-    fun toString(node: JsonNode): String {
-        return mapper.writeValueAsString(node)
+    fun toString(node: JsonNode?): String {
+        node ?: return ""
+        if (node.isTextual) {
+            return node.textValue()
+        }
+        return mapper.writeValueAsString(node).trim()
     }
 }
