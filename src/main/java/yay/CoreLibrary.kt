@@ -48,8 +48,9 @@ object CoreLibrary {
         ExpectedOutput(),
 
         // Util
-        Print(),
         Task(),
+        Print(),
+        PrintAsYaml(),
         Wait(),
     )
 

@@ -25,6 +25,14 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
     }
 }
 
+class PrintAsYaml : CommandHandler("Print as YAML") {
+
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        println(Yaml.toString(data))
+        return null
+    }
+}
+
 class Wait : CommandHandler("Wait"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (data.isNumber) {
