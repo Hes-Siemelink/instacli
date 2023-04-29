@@ -8,6 +8,7 @@ import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -56,7 +57,7 @@ data class HttpParameters(
     val host: String,
     val path: String,
     val method: HttpMethod,
-    val body: String?,
+    val body: JsonNode?,
     val headers: JsonNode?,
     val cookies: JsonNode?
 ) {
@@ -72,7 +73,7 @@ data class HttpParameters(
                 host = data.get("url").textValue(),
                 path = data.get("path").textValue(),
                 method = method,
-                body = data.get("body")?.toString(),
+                body = data.get("body"),
                 headers = data.get("headers"),
                 cookies = data.get("cookies")
             )
@@ -118,9 +119,12 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
     val response: HttpResponse =
         client.request(parameters.url) {
             method = parameters.method
-            contentType(ContentType.Application.Json)
             cookies(parameters)
+
             headers(parameters)
+            if (!headers.contains(HttpHeaders.ContentType)) {
+                contentType(ContentType.Application.Json)
+            }
 
             body(parameters)
         }
@@ -146,5 +150,14 @@ private fun HttpRequestBuilder.cookies(parameters: HttpParameters) {
 
 private fun HttpRequestBuilder.body(parameters: HttpParameters) {
     parameters.body ?: return
-    setBody(parameters.body)
+    if (headers.get(HttpHeaders.ContentType) == ContentType.Application.FormUrlEncoded.toString()) {
+        val formData = Parameters.build {
+            parameters.body.fields().forEach {
+                append(it.key, Yaml.toString(it.value))
+            }
+        }
+        setBody(FormDataContent(formData))
+    } else {
+        setBody(parameters.body.toString())  // TODO Check if we can omit the 'toString()'
+    }
 }

@@ -1,6 +1,5 @@
 Get token:
   endpoint: ${digitalaiStaging}
-Print: ${output}
 Http endpoint: ${output}
 
 ---

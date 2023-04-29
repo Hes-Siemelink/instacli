@@ -23,7 +23,7 @@ After:
 
 ```yaml
 For each:
-  recipe:
+  ${recipe} in:
     - Mango ice cream
     - Ratatouille
     - Meatballs
@@ -75,6 +75,9 @@ As: all_recipes
 
 # Yay as a cli
 
+* Cross compile to native using GraalVM, gradle and GitHub actions  
+  https://katmatt.github.io/posts/graalvm-cross-compile-gh-actions/
+
 # New features
 
 * Rethink Join / Merge
@@ -83,8 +86,13 @@ As: all_recipes
 
 # Difference between Python Yay
 
-* Very lightweight variable path implementation, basically just dot-referencing and array indees are supported and
-  nothing fancy. Reason: using JsonPointer (comes with Jackson) and not JsonPath
+* Variable path implementation with the simpler JsonPointer (comes with Jackson) and not JsonPath
+  JsonPointer is basically just dot-referencing and array indexing and that's it.
 * Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'.
   See `Merge data.yay`
 * If got a 'then'
+* `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
+
+# Rethinking
+
+* Instacli!
