@@ -1,0 +1,11 @@
+[
+  {
+    "name": "io.ktor.utils.io.pool.DefaultPool",
+    "fields": [
+      {
+        "name": "top",
+        "allowUnsafeAccess": true
+      }
+    ]
+  }
+]

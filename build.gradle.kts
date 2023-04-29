@@ -1,10 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java")
     kotlin("jvm") version "1.8.0"
     kotlin("plugin.serialization") version "1.8.0"
+    id("com.palantir.graal") version "0.12.0"
 }
+
 
 group = "hes.yak"
 version = "0.0.1-SNAPSHOT"
@@ -49,4 +50,13 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+graal {
+    outputName("yay-native")
+    mainClass("yay.Cli")
+    javaVersion("11")
+    option("--no-fallback")
+    option("--enable-https")
+    option("-H:ReflectionConfigurationResources=reflect-config.json")
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 
 object Yaml {
@@ -12,7 +11,9 @@ object Yaml {
     private val factory = YAMLFactory()
         .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
-    private val mapper = ObjectMapper(factory).registerKotlinModule()
+
+    private val mapper = ObjectMapper(factory)
+    // Not using ObjectMapper(factory).registerKotlinModule() because it trips up Graal native image
 
     fun readFile(source: File): JsonNode? {
         return mapper.readValue(source, JsonNode::class.java)
