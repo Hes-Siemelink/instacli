@@ -53,6 +53,33 @@ class HttpPost : CommandHandler("Http POST"), ObjectHandler {
     }
 }
 
+class HttpPut : CommandHandler("Http PUT"), ObjectHandler {
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return processRequest(data, context, HttpMethod.Put)
+    }
+}
+
+class HttpPatch : CommandHandler("Http PATCH"), ObjectHandler {
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return processRequest(data, context, HttpMethod.Patch)
+    }
+}
+
+class HttpDelete : CommandHandler("Http DELETE"), ValueHandler, ObjectHandler {
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val path = objectNode("path", data.textValue())
+        return processRequest(path, context, HttpMethod.Delete)
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return processRequest(data, context, HttpMethod.Delete)
+    }
+}
+
+
 data class HttpParameters(
     val host: String,
     val path: String,

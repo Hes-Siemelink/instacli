@@ -2,9 +2,7 @@ package yay
 
 import yay.commands.*
 import yay.commands.Set
-import yay.commands.http.HttpEndpoint
-import yay.commands.http.HttpGet
-import yay.commands.http.HttpPost
+import yay.commands.http.*
 import yay.core.CommandHandler
 
 object CoreLibrary {
@@ -39,6 +37,9 @@ object CoreLibrary {
         HttpEndpoint(),
         HttpGet(),
         HttpPost(),
+        HttpPut(),
+        HttpPatch(),
+        HttpDelete(),
 
         // Files
         ReadFile(),
