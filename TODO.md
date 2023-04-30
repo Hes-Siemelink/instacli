@@ -92,6 +92,7 @@ As: all_recipes
   See `Merge data.yay`
 * If got a 'then'
 * `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
+* `User Input` (current) vs `User input` (consistent with other commands)
 
 # Rethinking
 

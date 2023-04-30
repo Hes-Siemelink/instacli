@@ -22,6 +22,7 @@ object CoreLibrary {
         Input(),
         Output(),
         CheckInput(),
+        UserInput(),
 
         // Variables
         As(),

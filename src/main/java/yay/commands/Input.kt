@@ -1,10 +1,13 @@
 package yay.commands
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.github.kinquirer.KInquirer
+import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
+import com.github.kinquirer.core.Choice
 import yay.core.*
 
 class Input : CommandHandler("Input"), ObjectHandler {
@@ -39,5 +42,27 @@ class CheckInput : CommandHandler("Check Input"), ObjectHandler {
         }
         return null
     }
+}
 
+class UserInput : CommandHandler("User Input"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
+        val type = getParameter(data, "type")
+        val message = Yaml.toString(getParameter(data, "message"))
+        val choices = getParameter(data, "choices") as ArrayNode
+
+        when (type.textValue()) {
+            "checkbox" -> {
+                val choicesDisplay = choices.map {
+                    Choice(it.get("name").textValue(), it.get("value"))
+                }
+                val answers = KInquirer.promptCheckboxObject(message, choicesDisplay)
+                return Yaml.mapper.valueToTree(answers)
+            }
+
+            else -> {
+                throw ScriptException("Unsupported type for User Input", data)
+            }
+        }
+    }
 }

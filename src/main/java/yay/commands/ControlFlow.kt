@@ -59,17 +59,17 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
-        val loopVar: String = getVariableName(data)
-        val items = resolveVariables(data.remove(loopVar), context.variables)
+        val (loopVar, itemList) = removeLoopVariable(data)
+        val items = resolveVariables(itemList, context.variables)
         if (items !is ArrayNode) throw ScriptException("First field in For Each must be a list.")
 
         val output = ArrayNode(JsonNodeFactory.instance)
-        for (loopData in items) {
+        for (item in items) {
 
             // Set variable
             // XXX The loop variable is NOT removed after use.
             // TODO Add a proper stack to hold the temporary variable.
-            context.variables[loopVar] = loopData
+            context.variables[loopVar] = item
 
             // Copy the body statement because variable resolution is in-place and modifies the data
             val copy = data.deepCopy()
@@ -85,14 +85,21 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
         return output
     }
 
-    private fun getVariableName(data: ObjectNode): String {
+    private fun removeLoopVariable(data: ObjectNode): Pair<String, JsonNode> {
         for (field in data.fields()) {
-            return field.key
+            data.remove(field.key)
+            val match = VARIABLE_REGEX.matchEntire(field.key)
+            if (match != null) {
+                return Pair(match.groupValues[1], field.value)
+            }
+
+            return Pair(field.key, field.value)
         }
 
         throw ScriptException("For each must contain a field with the loop variable.")
     }
 }
+
 
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 

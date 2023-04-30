@@ -1,0 +1,11 @@
+User Input:
+  type: checkbox
+  message: Select ingredients
+  choices:
+    - Apple
+    - Banana
+    - Cake
+    - Drizzle
+
+Print:
+  Your choices: ${output}

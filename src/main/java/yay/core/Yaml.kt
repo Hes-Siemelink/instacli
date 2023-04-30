@@ -12,7 +12,7 @@ object Yaml {
         .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
 
-    private val mapper = ObjectMapper(factory)
+    val mapper = ObjectMapper(factory)
     // Not using ObjectMapper(factory).registerKotlinModule() because it trips up Graal native image
 
     fun readFile(source: File): JsonNode? {

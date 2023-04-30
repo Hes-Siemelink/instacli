@@ -4,9 +4,9 @@ Output: something
 
 For each:
   item:
-  - one
-  - two
-  - three
+    - one
+    - two
+    - three
   Output:
     item: ${item}
 
@@ -17,28 +17,44 @@ Expected output:
 
 
 ---
+Test case: For each with variable syntax
+
+For each:
+  ${item}:
+    - one
+    - two
+    - three
+  Output:
+    item: ${item}
+
+Expected output:
+  - item: one
+  - item: two
+  - item: three
+
+---
 Test case: Recursive output from for each
 
 Output: something
 
 For each:
   item:
-  - one
-  - two
-  - three
+    - one
+    - two
+    - three
   Output: ${output} ${item}
 
 Expected output:
-- something one
-- something one two
-- something one two three
+  - something one
+  - something one two
+  - something one two three
 
 
 ---
 Test case: Make sure variables are resolved at right time in Do command
 
 ${output}: something else
-${test}: []
+${test}: [ ]
 
 For each:
   recipe:
@@ -48,7 +64,7 @@ For each:
   ${output}: ${recipe}
   Join:
     test:
-    - ${output}
+      - ${output}
 
 Assert equals:
   actual: ${test}
@@ -65,13 +81,13 @@ ${items}:
   - One
   - Two
   - Three
-${test_result}: []
+${test_result}: [ ]
 
 For each:
   item: ${items}
   Join:
     test_result:
-    - (${item})
+      - (${item})
 
 Assert equals:
   - actual: ${test_result}
@@ -86,8 +102,8 @@ Test case: For each should replace output variable with empty list
 Output: something to begin with
 
 For each:
-  nothing: []
+  nothing: [ ]
 
   Output: something else
 
-Expected output: []
+Expected output: [ ]
