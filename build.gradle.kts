@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0"
-    kotlin("plugin.serialization") version "1.8.0"
+    kotlin("jvm") version "1.8.21"
+    kotlin("plugin.serialization") version "1.8.21"
     id("com.palantir.graal") version "0.12.0"
 }
 
@@ -12,6 +12,9 @@ version = "0.0.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
 dependencies {
@@ -25,6 +28,10 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.2.+")
     implementation("org.slf4j:slf4j-simple:2.0.+")
 
+    implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")
+    implementation("org.jline:jline:3.22.0")
+    implementation("org.fusesource.jansi:jansi:2.4.0")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.assertj:assertj-core:3.24.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
@@ -35,11 +42,11 @@ tasks.getByName<Test>("test") {
 }
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
 }
 
 tasks.jar {
@@ -56,7 +63,14 @@ graal {
     outputName("yay-native")
     mainClass("yay.Cli")
     javaVersion("11")
+    graalVersion("22.3.2")
     option("--no-fallback")
+    option("--enable-http")
     option("--enable-https")
+    option("--report-unsupported-elements-at-runtime")
     option("-H:ReflectionConfigurationResources=reflect-config.json")
+    option("-H:ReflectionConfigurationResources=META-INF/native-image/jansi/jni-config.json")
+    option("-H:ResourceConfigurationFiles=src/main/resources/resource-config.json")
+    option("-H:IncludeResources=org/fusesource/jansi/jansi.properties")
+//    option("-Djava.util.logging.config.file=/logging.properties")
 }
