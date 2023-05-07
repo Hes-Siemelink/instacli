@@ -2,19 +2,21 @@ package yay.commands.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.util.cio.*
+import io.ktor.utils.io.*
 import kotlinx.coroutines.runBlocking
 import yay.core.*
 import yay.core.Yaml.parse
+import java.io.File
 
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
@@ -86,7 +88,8 @@ data class HttpParameters(
     val method: HttpMethod,
     val body: JsonNode?,
     val headers: JsonNode?,
-    val cookies: JsonNode?
+    val cookies: JsonNode?,
+    val saveAs: String?
 ) {
 
     val url: String
@@ -102,7 +105,8 @@ data class HttpParameters(
                 method = method,
                 body = data.get("body"),
                 headers = data.get("headers"),
-                cookies = data.get("cookies")
+                cookies = data.get("cookies"),
+                saveAs = data.get("save as")?.textValue()
             )
         }
 
@@ -137,9 +141,6 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
     // TODO Authorization
 
     val client = HttpClient {
-        install(ContentNegotiation) {
-            json()
-        }
         install(HttpCookies)
     }
 
@@ -153,13 +154,13 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
                 contentType(ContentType.Application.Json)
             }
 
+            accept(ContentType.Any)
             body(parameters)
         }
 
-    val body = response.body<String>()
-    return if (body.isNotEmpty()) parse(body) else null
-
+    return parseResponse(response, parameters)
 }
+
 
 private fun HttpRequestBuilder.headers(parameters: HttpParameters) {
     parameters.headers ?: return
@@ -177,7 +178,7 @@ private fun HttpRequestBuilder.cookies(parameters: HttpParameters) {
 
 private fun HttpRequestBuilder.body(parameters: HttpParameters) {
     parameters.body ?: return
-    if (headers.get(HttpHeaders.ContentType) == ContentType.Application.FormUrlEncoded.toString()) {
+    if (headers[HttpHeaders.ContentType] == ContentType.Application.FormUrlEncoded.toString()) {
         val formData = Parameters.build {
             parameters.body.fields().forEach {
                 append(it.key, Yaml.toString(it.value))
@@ -185,6 +186,37 @@ private fun HttpRequestBuilder.body(parameters: HttpParameters) {
         }
         setBody(FormDataContent(formData))
     } else {
-        setBody(parameters.body.toString())  // TODO Check if we can omit the 'toString()'
+        setBody(parameters.body.toString())
     }
 }
+
+private suspend fun parseResponse(
+    response: HttpResponse,
+    parameters: HttpParameters
+): JsonNode? {
+
+    // No content
+    if (response.contentLength() == 0.toLong()) return null
+
+    // Save to file
+    if (parameters.saveAs != null) {
+        streamBodyToFile(response, File(parameters.saveAs))
+        return null
+    }
+
+    // Parse body
+    return try {
+        // Parse result as JSON node
+        val body = response.body<String>()
+        parse(body)
+    } catch (e: Exception) {
+        // If there are any parsing or encoding errors, just return a String in TextNode
+        val byteArrayBody: ByteArray = response.body()
+        TextNode(String(byteArrayBody))
+    }
+}
+
+suspend fun streamBodyToFile(response: HttpResponse, file: File) {
+    response.bodyAsChannel().copyTo(file.writeChannel())
+}
+

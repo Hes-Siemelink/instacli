@@ -7,8 +7,8 @@ class DigitalAiApiTests {
 
     @Test
     @Disabled
-    fun getAgents() {
-        test("/digitalai-platform-api/get-agents.yay")
+    fun getInstaller() {
+        test("/digitalai-platform-api/get-installer.yay")
     }
 
     private fun test(resource: String) {
