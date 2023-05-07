@@ -1,6 +1,6 @@
 Test case: Read file from disk
 
-Read file: src/test/resources/samples/Simple example.yaml
+Read file: src/test/resources/yay/Read file samples/plain.yaml
 
 Expected output:
   test: true
@@ -9,20 +9,20 @@ Expected output:
 ---
 Test case: Read file with variable syntax
 
-Read file: src/test/resources/samples/Simple example with variable syntax.yaml
+Read file: src/test/resources/yay/Read file samples/with variables.yaml
 ${raw}: ${output}  # triggers variable substitution
 
 Assert that:
-- object:
-    test: true
-    something: else
-  in:
-    ${output}
+  - object:
+      test: true
+      something: else
+    in:
+      ${output}
 
 ---
 Test case: Fill variables in file
 
-Read file: src/test/resources/samples/Simple example with variable syntax.yaml
+Read file: src/test/resources/yay/Read file samples/with variables.yaml
 As: raw
 ${unknown}: known
 ${nested}:
@@ -38,7 +38,7 @@ Expected output:
 ---
 Test case: Read file with variable syntax and multiple documents
 
-Read file: src/test/resources/samples/Sample example with variable syntax in multiple documents.yaml
+Read file: src/test/resources/yay/Read file samples/multiple documents.yaml
 ${raw}: ${output}
 
 Assert that:

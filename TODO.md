@@ -1,8 +1,7 @@
 # Where to take it
 
-* Run all Digital.ai examples
-* Instacli!
 * Run Release templates
+* Instacli!
 * Plaxolotl - yay is just an interface to a portable execution format. This format has all the metadata in the defined
   explicitly. For example: content type, variable replacement yes/no, etc.
 * Evaluate like a lisp
@@ -21,7 +20,7 @@
 * Raw and live / Apply variables
 * Print as JSON / Print as YAML
 * Write file / Read file
-* Http: save as / verify certificate
+* Http: verify certificate
 * Test server demo data
 * Webhook: On Http request
 
@@ -124,7 +123,7 @@ For each:
     - Mango ice cream
     - Ratatouille
     - Meatballs
-  Add to vairable: all_recipes
+  Add to variable: all_recipes
 ```
 
 (Wait, that is the single item invocation of Merge?)
