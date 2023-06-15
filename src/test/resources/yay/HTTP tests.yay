@@ -1,3 +1,10 @@
+Test case: GET with complete URL
+
+Http GET: http://localhost:25125/items
+
+Expected output: [ '1', '2', '3' ]
+
+---
 Http endpoint:
   url: http://localhost:25125
   verify certificate: false
@@ -6,16 +13,16 @@ Http endpoint:
 
 
 ---
-Test case: GET with explicit parameters
+Test case: GET with explicit path parameter
 
 Http GET:
   path: /items
 
-Expected output: ['1', '2', '3']
+Expected output: [ '1', '2', '3' ]
 
 
 ---
-Test case: POST and simple GET
+Test case: Http POST
 
 Http POST:
   path: /items
@@ -25,7 +32,7 @@ Http POST:
     '3': Three
     '4': Four
 
-Expected output: ['1', '2', '3', '4']
+Expected output: [ '1', '2', '3', '4' ]
 
 
 ---
@@ -35,7 +42,7 @@ Http POST:
   path: /reset
 Http GET: /items
 
-Expected output: ['1', '2', '3']
+Expected output: [ '1', '2', '3' ]
 
 
 ---

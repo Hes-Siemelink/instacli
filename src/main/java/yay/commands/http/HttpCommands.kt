@@ -17,6 +17,7 @@ import kotlinx.coroutines.runBlocking
 import yay.core.*
 import yay.core.Yaml.parse
 import java.io.File
+import java.net.URI
 
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
@@ -39,8 +40,14 @@ class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandle
 class HttpGet : CommandHandler("Http GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val path = objectNode("path", data.textValue())
-        return processRequest(path, context, HttpMethod.Get)
+        val uri = URI(data.textValue())
+        val parsedData = objectNode("path", uri.path)
+
+        val url = uri.toString().substring(0, data.textValue().indexOf(uri.path))
+        if (url.isNotEmpty()) {
+            parsedData.put("url", url)
+        }
+        return processRequest(parsedData, context, HttpMethod.Get)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
