@@ -12,34 +12,58 @@ abstract class CommandHandler(val name: String) {
         when (data) {
             is ValueNode -> {
                 return if (this is ValueHandler) {
-                    execute(data, context)
+                    try {
+                        execute(data, context)
+                    } catch (e: Exception) {
+                        throw ScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                    }
                 } else {
-                    throw ScriptException("Command '$name' does not handle simple text content.", data)
+                    throw ScriptException("Command: '$name' does not handle simple text content.", getCommand(data))
                 }
             }
 
             is ObjectNode -> {
                 return if (this is ObjectHandler) {
-                    execute(data, context)
+                    try {
+                        execute(data, context)
+                    } catch (e: Exception) {
+                        throw ScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                    }
                 } else {
-                    throw ScriptException("Command '$name' does not handle object content.", data)
+                    throw ScriptException("Command '$name' does not handle object content.", getCommand(data))
                 }
             }
 
             is ArrayNode -> {
                 return if (this is ArrayHandler) {
-                    execute(data, context)
+                    try {
+                        execute(data, context)
+                    } catch (e: Exception) {
+                        throw ScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                    }
                 } else {
-                    throw ScriptException("Command '$name' does not handle array content.", data)
+                    throw ScriptException("Command '$name' does not handle array content.", getCommand(data))
                 }
             }
 
-            else -> throw ScriptException("Unknown content type ${data.javaClass.simpleName} for command '$name'", data)
+            else -> throw ScriptException(
+                "Unknown content type ${data.javaClass.simpleName} for command '$name'",
+                getCommand(data)
+            )
         }
     }
 
     fun getParameter(data: JsonNode, parameter: String): JsonNode {
-        return data.get(parameter) ?: throw ScriptException("Command '$name' needs '$parameter' field.", data)
+        return data.get(parameter) ?: throw ScriptException(
+            "Command '$name' needs '$parameter' field.",
+            getCommand(data)
+        )
+    }
+
+    fun getCommand(data: JsonNode): JsonNode {
+        val node = ObjectNode(JsonNodeFactory.instance);
+        node.set<JsonNode>(name, data)
+        return node
     }
 }
 
@@ -65,8 +89,3 @@ interface DelayedVariableResolver
 fun objectNode(key: String, value: String): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance).put(key, value)
 }
-
-//
-// Core library
-//
-

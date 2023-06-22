@@ -11,6 +11,9 @@ val YAY_DIR = File(File(System.getProperty("user.home")), ".yay")
 class Cli(val scriptFile: File) {
 
     fun runScript() {
+        if (!scriptFile.exists()) {
+            throw ScriptException("Could not find file: ${scriptFile}")
+        }
         val scriptContext = DefaultScriptContext(scriptFile)
         scriptContext.addVariables(loadDefaultVariables())
 
@@ -23,7 +26,9 @@ class Cli(val scriptFile: File) {
             try {
                 Cli(File(args[0])).runScript()
             } catch (e: ScriptException) {
-                System.err.println(e)
+                System.err.println("Yay scripting error")
+                System.err.println("\n${e.message}\n")
+                e.cause?.printStackTrace()
                 exitProcess(1)
             }
         }
