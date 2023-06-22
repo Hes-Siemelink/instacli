@@ -91,7 +91,7 @@ class HttpDelete : CommandHandler("Http DELETE"), ValueHandler, ObjectHandler {
 
 data class HttpParameters(
     val host: String,
-    val path: String,
+    val path: String?,
     val method: HttpMethod,
     val body: JsonNode?,
     val headers: JsonNode?,
@@ -100,7 +100,7 @@ data class HttpParameters(
 ) {
 
     val url: String
-        get() = "$host$path"
+        get() = "$host${(path ?: "")}"
 
     companion object {
         fun create(data: ObjectNode, defaults: JsonNode?, method: HttpMethod): HttpParameters {
@@ -108,7 +108,7 @@ data class HttpParameters(
 
             return HttpParameters(
                 host = data.get("url").textValue(),
-                path = data.get("path").textValue(),
+                path = data.get("path")?.textValue(),
                 method = method,
                 body = data.get("body"),
                 headers = data.get("headers"),

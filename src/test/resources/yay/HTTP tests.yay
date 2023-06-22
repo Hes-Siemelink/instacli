@@ -1,4 +1,4 @@
-Test case: GET with complete URL
+Test case: GET with URL
 
 Http GET: http://localhost:25125/items
 
@@ -13,7 +13,7 @@ Http endpoint:
 
 
 ---
-Test case: GET with explicit path parameter
+Test case: GET with implicit url and explicit path parameter
 
 Http GET:
   path: /items
@@ -26,6 +26,19 @@ Test case: Http POST
 
 Http POST:
   path: /items
+  body:
+    '1': One
+    '2': Two
+    '3': Three
+    '4': Four
+
+Expected output: [ '1', '2', '3', '4' ]
+
+---
+Test case: Http POST without path parameter
+
+Http POST:
+  url: http://localhost:25125/items
   body:
     '1': One
     '2': Two
