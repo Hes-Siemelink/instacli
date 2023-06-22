@@ -88,6 +88,11 @@ class YayTests {
     fun sleep() {
         test("Wait tests.yay")
     }
+
+    @Test
+    fun objectCreation() {
+        test("Object tests.yaml")
+    }
 }
 
 fun test(resource: String) {

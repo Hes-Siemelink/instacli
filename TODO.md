@@ -41,6 +41,7 @@
 * If got a 'then'
 * `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
 * `User Input` (current) vs `User input` (consistent with other commands)
+* On Http commands, `path` is optional and will be appended to `url`
 
 ## Join and Merge
 

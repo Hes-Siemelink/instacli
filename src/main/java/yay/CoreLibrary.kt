@@ -29,6 +29,7 @@ object CoreLibrary {
         ApplyVariables(),
 
         // Data manipulation
+        CreateObject(),
         Join(),
         Merge(),
         Replace(),
