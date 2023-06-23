@@ -1,8 +1,13 @@
-Print: Connecting to '${endpoint.realm}' on Digital.ai Platform
+Print: Accessing ${endpoint.id} as ${endpoint.auth.username}
 
+Http GET:
+  url: https://api.staging.digital.ai
+  path: /identity/v1/accounts/auth/configuration?hint=${endpoint.id}
+${token_endpoint}: ${output.configuration.token_endpoint}
+
+---
 Http POST:
-  url: ${endpoint.url}
-  path: /auth/realms/${endpoint.realm}/protocol/openid-connect/token
+  url: ${token_endpoint}
   headers:
     Content-Type: application/x-www-form-urlencoded
   body:
@@ -16,3 +21,4 @@ Output: # To be used in 'Http endpoint'
   url: ${endpoint.api}
   headers:
     Authorization: Bearer ${output.access_token}
+
