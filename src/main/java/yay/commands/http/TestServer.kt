@@ -25,6 +25,10 @@ class TestServer {
             app.get("/echo/cookies") { ctx ->
                 ctx.json(mapOf("cookies" to ctx.cookieMap()))
             }
+            app.get("/echo/query") { ctx ->
+                val content = ctx.queryParam("content")
+                ctx.json(mapOf("content" to content))
+            }
         }
 
         fun start() {

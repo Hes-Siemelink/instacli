@@ -41,9 +41,10 @@ class HttpGet : CommandHandler("Http GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val uri = URI(data.textValue())
-        val parsedData = objectNode("path", uri.path)
+        val separator = data.textValue().indexOf(uri.path)
+        val parsedData = objectNode("path", uri.toString().substring(separator))
 
-        val url = uri.toString().substring(0, data.textValue().indexOf(uri.path))
+        val url = uri.toString().substring(0, separator)
         if (url.isNotEmpty()) {
             parsedData.put("url", url)
         }
