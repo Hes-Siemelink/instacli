@@ -96,15 +96,17 @@ class YayTests {
 }
 
 fun test(resource: String) {
-    testResource("/yay/${resource}")
-}
-
-fun testResource(resource: String) {
     println("Running tests for ${resource}")
     YayScript.run(toFile(resource))
 }
 
 fun toFile(resource: String): File {
-    val uri = YayScript::class.java.getResource(resource)?.toURI() ?: throw FileNotFoundException(resource)
-    return File(uri.path)
+    val testDir = File("yay-spec/test")
+    val testFile = File(testDir, resource)
+    if (!testFile.exists()) {
+        throw FileNotFoundException(testFile.absolutePath)
+    }
+
+    return testFile
 }
+

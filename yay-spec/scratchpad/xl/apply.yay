@@ -1,6 +1,5 @@
 Meta:
   summary: Apply configuration changes
-
   parameters:
 
     file:
@@ -11,6 +10,7 @@ Meta:
         type: array
         items:
           type: string
+
     detach:
       description: Detach xl client when starting a deployment or release
       type: boolean

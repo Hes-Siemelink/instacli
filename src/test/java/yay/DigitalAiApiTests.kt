@@ -8,7 +8,7 @@ class DigitalAiApiTests {
     @Test
     @Disabled
     fun getInstaller() {
-        test("/digitalai-platform-api/get-installer.yay")
+        test("../samples/digitalai-platform-api/get-installer.yay")
     }
 
     private fun test(resource: String) {
