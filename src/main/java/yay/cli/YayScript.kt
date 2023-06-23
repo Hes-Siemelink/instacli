@@ -1,4 +1,4 @@
-package yay
+package yay.cli
 
 import com.fasterxml.jackson.databind.JsonNode
 import yay.commands.ExecuteYayFileAsCommandHandler

@@ -55,7 +55,7 @@ class VariablesTest {
     }
 
     @Test
-    fun testFromSimpleJsonPathToJsonPointer() {
+    fun fromSimpleJsonPathToJsonPointer() {
         assertEquals(
             "/0",
             toJsonPointer("[0]")

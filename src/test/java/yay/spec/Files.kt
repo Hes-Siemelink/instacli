@@ -6,7 +6,7 @@ import yay.test
 class Files {
 
     @Test
-    fun files() {
+    fun readFiles() {
         test("files/Read file tests.yay")
     }
 }

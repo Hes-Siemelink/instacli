@@ -49,7 +49,7 @@ compileTestKotlin.kotlinOptions {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "yay.Cli"
+        attributes["Main-Class"] = "yay.cli.Yay"
     }
     configurations["compileClasspath"].forEach { file: File ->
         from(zipTree(file.absoluteFile))

@@ -1,4 +1,4 @@
-package yay
+package yay.cli
 
 import com.fasterxml.jackson.databind.JsonNode
 import yay.core.ScriptException
@@ -8,7 +8,7 @@ import kotlin.system.exitProcess
 
 val YAY_DIR = File(File(System.getProperty("user.home")), ".yay")
 
-class Cli(val scriptFile: File) {
+class Yay(val scriptFile: File) {
 
     fun runScript() {
         if (!scriptFile.exists()) {
@@ -24,7 +24,7 @@ class Cli(val scriptFile: File) {
         @JvmStatic
         fun main(args: Array<String>) {
             try {
-                Cli(File(args[0])).runScript()
+                Yay(File(args[0])).runScript()
             } catch (e: ScriptException) {
                 System.err.println("Yay scripting error")
                 System.err.println("\n${e.message}\n")

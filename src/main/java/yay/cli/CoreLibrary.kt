@@ -1,4 +1,4 @@
-package yay
+package yay.cli
 
 import yay.commands.*
 import yay.commands.Set
