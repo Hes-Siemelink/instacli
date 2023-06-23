@@ -1,7 +1,9 @@
-package yay
+package yay.samples
 
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import yay.Cli
+import yay.toFile
 
 class DigitalAiApiTests {
 

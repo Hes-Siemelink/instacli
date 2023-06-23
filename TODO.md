@@ -1,7 +1,6 @@
 # On my mind
 
 * Create Instacli based on OpenAPI metadata
-* Create a 'spec' folder for Yay
 * Http Session management
 * Error handling
 

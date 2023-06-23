@@ -1,10 +1,9 @@
-package yay
+package yay.core
 
 import com.fasterxml.jackson.databind.node.TextNode
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import yay.core.*
 
 class VariablesTest {
 

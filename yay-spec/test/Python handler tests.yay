@@ -1,5 +1,0 @@
-${greeting}: Hello
-Python: |
-  output = greeting + ' World!'
-
-Expected output: Hello World!

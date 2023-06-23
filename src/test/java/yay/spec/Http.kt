@@ -1,15 +1,16 @@
-package yay
+package yay.spec
 
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import yay.commands.http.TestServer
+import yay.test
 
-class HttpTests {
+class Http {
 
     @Test
     fun httpTests() {
-        test("HTTP tests.yay")
+        test("http/HTTP tests.yay")
     }
 
 
