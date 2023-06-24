@@ -2,7 +2,7 @@ package yay.samples
 
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import yay.cli.Yay
+import yay.cli.runYayScript
 import yay.toFile
 
 class DigitalAiApiTests {
@@ -14,6 +14,6 @@ class DigitalAiApiTests {
     }
 
     private fun test(resource: String) {
-        Yay(toFile(resource)).runScript()
+        runYayScript(toFile(resource))
     }
 }

@@ -5,16 +5,17 @@ import yay.commands.ExecuteYayFileAsCommandHandler
 import yay.commands.VariableCommandHandler
 import yay.core.*
 import java.io.File
+import java.util.*
 
 val YAY_DIR = File(File(System.getProperty("user.home")), ".yay")
 
 class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
-    private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
+    val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
 
     init {
-        loadCommands(scriptLocation.canonicalFile.parentFile)
+        loadCommands()
     }
 
     override fun getCommandHandler(command: String): CommandHandler {
@@ -34,18 +35,25 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
         return fileCommands[command] ?: throw ScriptException("Unknown command: $command")
     }
 
-    private fun loadCommands(scriptDir: File) {
+    private fun loadCommands() {
+        val scriptDir = if (scriptLocation.isDirectory) {
+            scriptLocation
+        } else {
+            scriptLocation.canonicalFile.parentFile
+        }
+
         for (file in scriptDir.listFiles()!!) {
             if (file == scriptDir) continue
             if (file.isDirectory) continue
             if (!file.name.endsWith(".yay")) continue
 
             // Create command name from file name by stripping extension and converting dashes to spaces
-            val name = file.name.substring(0, file.name.length - 4).replace('-', ' ')
+            val name = asYayCommand(file.name)
 
             fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
         }
     }
+
 
     fun addVariables(node: JsonNode?) {
         node ?: return
@@ -54,6 +62,41 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
             variables[defaultVariable.key] = defaultVariable.value
         }
     }
+}
+
+fun asYayCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip .yay
+    if (command.endsWith(".yay")) {
+        command = command.substring(0, commandName.length - 4)
+    }
+
+    // Spaces for dashes
+    command = command.replace('-', ' ')
+
+    // Start with a capital
+    command =
+        command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
+    return command
+}
+
+fun asCliCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip .yay
+    if (command.endsWith(".yay")) {
+        command = command.substring(0, commandName.length - 4)
+    }
+
+    // Dashes for spaces
+    command = command.replace(' ', '-')
+
+    // All lower case
+    command = command.lowercase(Locale.getDefault())
+
+    return command
 }
 
 fun loadDefaultVariables(): JsonNode? {
