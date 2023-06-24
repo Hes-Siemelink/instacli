@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 
-abstract class CommandHandler(val name: String) {
+abstract class CommandHandler(open val name: String) {
 
     open fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         when (data) {

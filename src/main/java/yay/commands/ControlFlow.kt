@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import yay.cli.DirectoryScriptContext
+import yay.cli.asYayCommand
 import yay.core.*
 import java.io.File
 
@@ -133,7 +134,10 @@ class ExecuteYayFile : CommandHandler("Execute yay file"), ObjectHandler {
 
 }
 
-class ExecuteYayFileAsCommandHandler(private val scriptFile: File) : CommandHandler("{file}") {
+class ExecuteYayFileAsCommandHandler(val scriptFile: File) : CommandHandler("{file}") {
+
+    override val name: String
+        get() = asYayCommand(scriptFile.name)
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         return runFile(scriptFile, data)

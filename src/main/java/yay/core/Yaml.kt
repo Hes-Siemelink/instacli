@@ -2,6 +2,8 @@ package yay.core
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
+import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import java.io.File
@@ -36,5 +38,9 @@ object Yaml {
             return node.textValue()
         }
         return mapper.writeValueAsString(node).trim()
+    }
+
+    fun emptyNode(): ObjectNode {
+        return ObjectNode(JsonNodeFactory.instance);
     }
 }
