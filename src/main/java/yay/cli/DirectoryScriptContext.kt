@@ -6,33 +6,9 @@ import yay.commands.VariableCommandHandler
 import yay.core.*
 import java.io.File
 
-class YayScript(
-    private val script: List<JsonNode>,
-    val context: ScriptContext
-) {
+val YAY_DIR = File(File(System.getProperty("user.home")), ".yay")
 
-    fun run(): JsonNode? {
-        val statements = script.map { scriptNode -> toCommands(scriptNode) }.flatten()
-        return runScript(statements, context)
-    }
-
-    companion object {
-
-        fun run(script: File) {
-            load(script, DefaultScriptContext(script)).run()
-        }
-
-        fun load(source: File, scriptContext: ScriptContext): YayScript {
-
-            val script = Yaml.parse(source)
-
-            return YayScript(script, scriptContext)
-        }
-
-    }
-}
-
-class DefaultScriptContext(override val scriptLocation: File) : ScriptContext {
+class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
     private val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
@@ -78,4 +54,8 @@ class DefaultScriptContext(override val scriptLocation: File) : ScriptContext {
             variables[defaultVariable.key] = defaultVariable.value
         }
     }
+}
+
+fun loadDefaultVariables(): JsonNode? {
+    return Yaml.readFile(File(YAY_DIR, "default-variables.yaml"))
 }

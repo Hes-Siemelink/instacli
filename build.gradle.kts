@@ -49,7 +49,7 @@ compileTestKotlin.kotlinOptions {
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "yay.cli.Yay"
+        attributes["Main-Class"] = "yay.cli.YayKt"
     }
     configurations["compileClasspath"].forEach { file: File ->
         from(zipTree(file.absoluteFile))
@@ -59,7 +59,7 @@ tasks.jar {
 
 graal {
     outputName("yay-native")
-    mainClass("yay.Cli")
+    mainClass("yay.cli.Yay")
     javaVersion("11")
     graalVersion("22.3.2")
     option("--no-fallback")

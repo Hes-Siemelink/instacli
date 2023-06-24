@@ -1,6 +1,6 @@
 package yay
 
-import yay.cli.YayScript
+import yay.core.YayScript
 import java.io.File
 import java.io.FileNotFoundException
 

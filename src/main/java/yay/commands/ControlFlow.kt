@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import yay.cli.DefaultScriptContext
-import yay.cli.YayScript
+import yay.cli.DirectoryScriptContext
 import yay.core.*
 import java.io.File
 
@@ -142,7 +141,7 @@ class ExecuteYayFileAsCommandHandler(private val scriptFile: File) : CommandHand
 }
 
 private fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
-    val script = YayScript.load(scriptFile, DefaultScriptContext(scriptFile))
+    val script = YayScript.load(scriptFile, DirectoryScriptContext(scriptFile))
     for (variable in data.fields()) {
         script.context.variables[variable.key] = variable.value
     }
