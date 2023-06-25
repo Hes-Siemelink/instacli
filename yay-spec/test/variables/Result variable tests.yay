@@ -15,25 +15,14 @@ Expected output: something
 
 
 ---
-Test case: Set variable with 'Set'
-
-Output: a different result
-Set: var
-
-Assert equals:
-- actual: ${var}
-  expected: a different result
-
-
----
 Test case: Set variable with 'As'
 
 Output: some more contents
 As: var3
 
 Assert equals:
-- actual: ${var3}
-  expected: some more contents
+  - actual: ${var3}
+    expected: some more contents
 
 
 ---

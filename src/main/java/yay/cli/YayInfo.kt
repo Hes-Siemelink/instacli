@@ -5,6 +5,7 @@ import yay.core.Yaml.mapper
 import java.io.File
 
 class YayInfo {
+    
     val imports = mutableListOf<String>()
 
     companion object {

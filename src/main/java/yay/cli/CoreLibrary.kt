@@ -1,7 +1,6 @@
 package yay.cli
 
 import yay.commands.*
-import yay.commands.Set
 import yay.commands.http.*
 import yay.core.CommandHandler
 
@@ -25,7 +24,6 @@ object CoreLibrary {
         // Variables
         As(),
         SetVariable(),
-        Set(),
         ApplyVariables(),
 
         // Data manipulation

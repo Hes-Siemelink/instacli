@@ -34,21 +34,6 @@ class As : CommandHandler("As"), ValueHandler {
     }
 }
 
-// TODO remove 'Set' from yay
-@Deprecated("Use 'As' or 'Set variable' instead", replaceWith = ReplaceWith("As()"))
-class Set : CommandHandler("Set"), ValueHandler, ObjectHandler {
-    private val singleAssignment = As()
-    private val multipleAssignments = SetVariable()
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return singleAssignment.execute(data, context)
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return multipleAssignments.execute(data, context)
-    }
-}
-
 class ApplyVariables : CommandHandler("Apply variables") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return resolveVariables(data, context.variables)

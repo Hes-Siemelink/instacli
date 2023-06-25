@@ -4,21 +4,21 @@ Output:
   data:
     item1: one
     item2: two
-Set:
+Set variable:
   stuff: ${output.data.item1}
   all: ${output}
 
 
 Assert equals:
 
-- actual: ${stuff}
-  expected: one
+  - actual: ${stuff}
+    expected: one
 
-- actual: ${all}
-  expected:
-    data:
-      item1: one
-      item2: two
+  - actual: ${all}
+    expected:
+      data:
+        item1: one
+        item2: two
 
 
 ---
@@ -34,11 +34,11 @@ ${all}: ${output}
 
 Assert equals:
 
-- actual: ${stuff}
-  expected: one
+  - actual: ${stuff}
+    expected: one
 
-- actual: ${all}
-  expected:
-    data:
-      item1: one
-      item2: two
+  - actual: ${all}
+    expected:
+      data:
+        item1: one
+        item2: two
