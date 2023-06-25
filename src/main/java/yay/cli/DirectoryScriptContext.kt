@@ -7,8 +7,13 @@ import yay.core.*
 import java.io.File
 import java.util.*
 
-val YAY_DIR = File(File(System.getProperty("user.home")), ".yay")
+const val YAY_EXTENSION = ".yay"
+val YAY_DIR = File(File(System.getProperty("user.home")), YAY_EXTENSION)
 
+/**
+ * Context for running a Yay script inside a directory.
+ * It will scan the directory for other scripts and expose them as commands.
+ */
 class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
@@ -45,7 +50,7 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
         for (file in scriptDir.listFiles()!!) {
             if (file == scriptDir) continue
             if (file.isDirectory) continue
-            if (!file.name.endsWith(".yay")) continue
+            if (!file.name.endsWith(YAY_EXTENSION)) continue
 
             // Create command name from file name by stripping extension and converting dashes to spaces
             val name = asYayCommand(file.name)
@@ -68,8 +73,8 @@ fun asYayCommand(commandName: String): String {
     var command = commandName
 
     // Strip .yay
-    if (command.endsWith(".yay")) {
-        command = command.substring(0, commandName.length - 4)
+    if (command.endsWith(YAY_EXTENSION)) {
+        command = command.substring(0, commandName.length - YAY_EXTENSION.length)
     }
 
     // Spaces for dashes
@@ -86,8 +91,8 @@ fun asCliCommand(commandName: String): String {
     var command = commandName
 
     // Strip .yay
-    if (command.endsWith(".yay")) {
-        command = command.substring(0, commandName.length - 4)
+    if (command.endsWith(YAY_EXTENSION)) {
+        command = command.substring(0, commandName.length - YAY_EXTENSION.length)
     }
 
     // Dashes for spaces
