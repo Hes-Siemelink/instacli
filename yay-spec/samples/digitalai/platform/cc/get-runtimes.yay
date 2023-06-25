@@ -9,15 +9,7 @@ For each:
   ${runtime}: ${output.agent_runtimes}
   Output:
     name: ${runtime.name}
-    value: ${runtime.id}
-As: runtimes
+    description: ${runtime.description}
+    id: ${runtime.id}
 
----
-User Input:
-  type: checkbox
-  message: Select runtime to add
-  choices: ${runtimes}
-As: runtime_id
-
-Print as YAML:
-  Runtime ID: ${runtime_id}
+Print as YAML: ${output}
