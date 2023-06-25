@@ -18,6 +18,11 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
 
     override val variables = mutableMapOf<String, JsonNode>()
     val fileCommands = mutableMapOf<String, ExecuteYayFileAsCommandHandler>()
+    val subcommands: Map<String, File> by lazy { findSubcommands() }
+
+    val scriptDir: File
+        get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
+
 
     init {
         loadCommands()
@@ -41,11 +46,6 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
     }
 
     private fun loadCommands() {
-        val scriptDir = if (scriptLocation.isDirectory) {
-            scriptLocation
-        } else {
-            scriptLocation.canonicalFile.parentFile
-        }
 
         for (file in scriptDir.listFiles()!!) {
             if (file == scriptDir) continue
@@ -67,6 +67,47 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
             variables[defaultVariable.key] = defaultVariable.value
         }
     }
+
+    private fun findSubcommands(): Map<String, File> {
+        val subcommands = mutableMapOf<String, File>()
+
+        for (file in scriptDir.listFiles()!!) {
+            if (file.isDirectory) {
+                if (hasYayCommands(file)) {
+                    subcommands.put(asCliCommand(file.name), file)
+                }
+            }
+        }
+
+        return subcommands
+    }
+
+    fun getAllCommands(): List<String> {
+        val commands = mutableListOf<String>()
+        commands.addAll(fileCommands.keys)
+        commands.addAll(subcommands.keys)
+
+        return commands
+    }
+}
+
+private fun hasYayCommands(dir: File): Boolean {
+
+    // Check for Yay files
+    for (file in dir.listFiles()!!) {
+        if (!file.isDirectory && file.name.endsWith(YAY_EXTENSION)) {
+            return true
+        }
+    }
+
+    // Check for subcommands
+    for (file in dir.listFiles()!!) {
+        if (file.isDirectory) {
+            return hasYayCommands(file)
+        }
+    }
+
+    return false
 }
 
 fun asYayCommand(commandName: String): String {

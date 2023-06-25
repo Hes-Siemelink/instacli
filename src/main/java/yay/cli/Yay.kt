@@ -49,7 +49,7 @@ fun runYayDirectory(yayDir: File, args: List<String>) {
     val context = DirectoryScriptContext(yayDir)
 
     // No Yay scripts in directory
-    if (context.fileCommands.isEmpty()) {
+    if (context.getAllCommands().isEmpty()) {
         println("No Yay commands in ${yayDir.absolutePath}")
         return
     }
@@ -57,21 +57,28 @@ fun runYayDirectory(yayDir: File, args: List<String>) {
     // No command specified -- list all Yay scripts as commands
     if (args.isEmpty()) {
         println("Available commands:")
-        context.fileCommands.keys.sorted().forEach {
+        context.getAllCommands().sorted().forEach {
             println("  ${asCliCommand(it)}")
         }
         return
     }
 
-    // Check if specified command exists
-    val command = asYayCommand(args.get(0))
-    if (!context.fileCommands.containsKey(command)) {
-        throw CliException("Command '${args.get(0)} 'not found in ${yayDir.name}")
-    }
-
     // Run command
-    context.addVariables(loadDefaultVariables())
+    val rawCommand = args.get(0)
 
-    val scriptFile = context.fileCommands[command]!!.scriptFile
-    YayScript.load(scriptFile, context).run()
+    // Local script
+    if (context.fileCommands.containsKey(asYayCommand(rawCommand))) {
+        context.addVariables(loadDefaultVariables())
+
+        val scriptFile = context.fileCommands[asYayCommand(rawCommand)]!!.scriptFile
+        YayScript.load(scriptFile, context).run()
+    }
+    // Subcommand
+    else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
+        runYayDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1))
+    }
+    // Command not found
+    else {
+        throw CliException("Command '$rawCommand' not found in ${yayDir.name}")
+    }
 }
