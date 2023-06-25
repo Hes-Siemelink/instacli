@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.serialization") version "1.8.21"
@@ -38,14 +36,45 @@ dependencies {
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "11"
+
+
+//
+// Integration tests
+//
+
+sourceSets {
+    create("testIntegration") {
+        kotlin {
+            compileClasspath += main.get().output + configurations.testRuntimeClasspath
+            runtimeClasspath += output + compileClasspath
+        }
+    }
 }
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "11"
+
+val testIntegration = task<Test>("testIntegration") {
+    description = "Runs the integration tests"
+    group = "verification"
+    testClassesDirs = sourceSets["testIntegration"].output.classesDirs
+    classpath = sourceSets["testIntegration"].runtimeClasspath
+    mustRunAfter(tasks["test"])
 }
+
+tasks.getByName<Test>("testIntegration") {
+    useJUnitPlatform()
+}
+
+//
+// Java version
+//
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
+
+//
+// Executable jar file
+//
 
 tasks.jar {
     manifest {
@@ -56,6 +85,10 @@ tasks.jar {
     }
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+//
+// Graal
+//
 
 graal {
     outputName("yay-native")
