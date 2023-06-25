@@ -48,15 +48,22 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
     private fun loadCommands() {
 
         for (file in scriptDir.listFiles()!!) {
-            if (file == scriptDir) continue
-            if (file.isDirectory) continue
-            if (!file.name.endsWith(YAY_EXTENSION)) continue
-
-            // Create command name from file name by stripping extension and converting dashes to spaces
-            val name = asYayCommand(file.name)
-
-            fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
+            loadCommand(file)
         }
+
+        val yayInfo = YayInfo.load(scriptDir)
+        for (file in yayInfo.imports) {
+            loadCommand(File(scriptDir, file))
+        }
+    }
+
+    private fun loadCommand(file: File) {
+        if (file.isDirectory) return
+        if (!file.name.endsWith(YAY_EXTENSION)) return
+
+        val name = asYayCommand(file.name)
+
+        fileCommands[name] = ExecuteYayFileAsCommandHandler(file)
     }
 
 
@@ -110,6 +117,9 @@ private fun hasYayCommands(dir: File): Boolean {
     return false
 }
 
+/**
+ * Creates command name from file name by stripping extension and converting dashes to spaces.
+ */
 fun asYayCommand(commandName: String): String {
     var command = commandName
 

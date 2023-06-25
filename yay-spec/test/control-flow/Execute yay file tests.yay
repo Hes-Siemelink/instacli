@@ -16,10 +16,20 @@ Do test routine:
 Expected output: Hello Kay!
 
 ---
-Test case: another script inside Do
+Test case: A script pointing to another Yay file inside Do
 
 Do:
   Do test routine:
-    name: Kay
+    name: May
 
-Expected output: Hello Kay!
+Expected output: Hello May!
+
+---
+Test case: Run a script from another directory as a command
+
+Do:
+  Helper function:
+    name: Ray
+
+Expected output: Thanks for your help, Ray!
+
