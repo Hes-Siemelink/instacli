@@ -2,3 +2,5 @@
 /.gradle
 /build
 /out
+
+install-cloud-connector.sh
