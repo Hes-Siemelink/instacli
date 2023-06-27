@@ -1,3 +1,3 @@
-# Yay
+# Instacli
 
-Light scripting in YAML!
+Instantly create CLI applications with light scripting in YAML!

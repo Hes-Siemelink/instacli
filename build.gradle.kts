@@ -78,7 +78,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
 
 tasks.jar {
     manifest {
-        attributes["Main-Class"] = "yay.cli.YayKt"
+        attributes["Main-Class"] = "instacli.cli.MainKt"
     }
     configurations["compileClasspath"].forEach { file: File ->
         from(zipTree(file.absoluteFile))
@@ -91,8 +91,8 @@ tasks.jar {
 //
 
 graal {
-    outputName("yay-native")
-    mainClass("yay.cli.Yay")
+    outputName("instacli-native")
+    mainClass("instacli.cli.MainKt")
     javaVersion("11")
     graalVersion("22.3.2")
     option("--no-fallback")

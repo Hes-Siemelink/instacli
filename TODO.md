@@ -6,8 +6,8 @@
 
 # Where to take it
 
-* Run Release templates
 * Instacli!
+* Run Release templates
 * Plaxolotl - yay is just an interface to a portable execution format. This format has all the metadata in the defined
   explicitly. For example: content type, variable replacement yes/no, etc.
 * Evaluate like a lisp
@@ -43,7 +43,7 @@
 * Variable path implementation with the simpler JsonPointer (comes with Jackson) and not JsonPath
   JsonPointer is basically just dot-referencing and array indexing and that's it.
 * Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'.
-  See `Merge data.yay`
+  See `Merge data.cli`
 * If got a 'then'
 * `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
 * `User Input` (current) vs `User input` (consistent with other commands)
