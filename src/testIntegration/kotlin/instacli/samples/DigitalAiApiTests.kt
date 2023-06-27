@@ -1,6 +1,6 @@
 package instacli.samples
 
-import instacli.cli.runCliScript
+import instacli.cli.runCliScriptFile
 import org.junit.jupiter.api.Test
 
 class DigitalAiApiTests {
@@ -11,6 +11,6 @@ class DigitalAiApiTests {
     }
 
     private fun test(resource: String) {
-        runCliScript(toFile(resource))
+        runCliScriptFile(toFile(resource))
     }
 }

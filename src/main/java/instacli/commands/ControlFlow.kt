@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.cli.DirectoryScriptContext
 import instacli.cli.asScriptCommand
+import instacli.cli.loadCliScriptFile
 import instacli.core.*
 import java.io.File
 
@@ -145,7 +145,7 @@ class ExecuteCliFileAsCommandHandler(val scriptFile: File) : CommandHandler("{fi
 }
 
 private fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
-    val script = CliScript.load(scriptFile, DirectoryScriptContext(scriptFile))
+    val script = loadCliScriptFile(scriptFile)
     for (variable in data.fields()) {
         script.context.variables[variable.key] = variable.value
     }

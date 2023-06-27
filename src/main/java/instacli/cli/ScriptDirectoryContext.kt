@@ -14,7 +14,7 @@ val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
  * Context for running an Instacli script inside a directory.
  * It will scan the directory for other scripts and expose them as commands.
  */
-class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext {
+class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
     val fileCommands = mutableMapOf<String, ExecuteCliFileAsCommandHandler>()
@@ -96,6 +96,15 @@ class DirectoryScriptContext(override val scriptLocation: File) : ScriptContext 
 
         return commands
     }
+}
+
+fun runCliScriptFile(scriptFile: File, context: ScriptContext = ScriptDirectoryContext(scriptFile)) {
+    loadCliScriptFile(scriptFile, context).run()
+}
+
+fun loadCliScriptFile(scriptFile: File, scriptContext: ScriptContext = ScriptDirectoryContext(scriptFile)): CliScript {
+    val script = Yaml.parse(scriptFile)
+    return CliScript(script, scriptContext)
 }
 
 private fun hasCliCommands(dir: File): Boolean {

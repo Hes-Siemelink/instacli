@@ -1,13 +1,13 @@
 package instacli
 
-import instacli.core.CliScript
+import instacli.cli.runCliScriptFile
 import java.io.File
 import java.io.FileNotFoundException
 
 fun test(resource: String) {
     println("Running tests for ${resource}")
 
-    CliScript.run(toFile(resource))
+    runCliScriptFile(toFile(resource))
 
     println()
 }

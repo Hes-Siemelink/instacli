@@ -2,7 +2,6 @@ package instacli.cli
 
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptList
-import instacli.core.CliScript
 import instacli.core.CliScriptException
 import java.io.File
 import kotlin.system.exitProcess
@@ -21,9 +20,9 @@ fun main(args: Array<String>) {
 
         // Run script directly or a command from a directory
         if (file.isDirectory) {
-            runCliDirectory(file, options.args.drop(1), options.interactive)
+            runDirectory(file, options.args.drop(1), options.interactive)
         } else {
-            runCliScript(file)
+            runFile(file)
         }
     } catch (e: CliException) {
         System.err.println(e.message)
@@ -41,15 +40,15 @@ fun main(args: Array<String>) {
     }
 }
 
-fun runCliScript(scriptFile: File) {
-    val scriptContext = DirectoryScriptContext(scriptFile)
+private fun runFile(scriptFile: File) {
+    val scriptContext = ScriptDirectoryContext(scriptFile)
     scriptContext.addVariables(loadDefaultVariables())
 
-    CliScript.load(scriptFile, scriptContext).run()
+    runCliScriptFile(scriptFile, scriptContext)
 }
 
-fun runCliDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
-    val context = DirectoryScriptContext(cliDir)
+private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
+    val context = ScriptDirectoryContext(cliDir)
 
     // No Instacli scripts in directory
     if (context.getAllCommands().isEmpty()) {
@@ -66,11 +65,11 @@ fun runCliDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
         context.addVariables(loadDefaultVariables())
 
         val scriptFile = context.fileCommands[asScriptCommand(rawCommand)]!!.scriptFile
-        CliScript.load(scriptFile, context).run()
+        runCliScriptFile(scriptFile, context)
     }
     // Run subcommand
     else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
-        runCliDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1), interactive)
+        runDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1), interactive)
     }
     // Command not found
     else {
@@ -78,7 +77,7 @@ fun runCliDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
     }
 }
 
-fun getCommand(args: List<String>, context: DirectoryScriptContext, interactive: Boolean): String? {
+fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive: Boolean): String? {
 
     // Return the command if specified
     if (args.isNotEmpty()) {
