@@ -27,7 +27,7 @@ fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode
     // Replace elements of a list containing a variable
     if (data is ArrayNode) {
         for (i in 0 until data.size()) {
-            data.set(i, resolveVariables(data.get(i), variables))
+            data[i] = resolveVariables(data[i], variables)
         }
     }
 
