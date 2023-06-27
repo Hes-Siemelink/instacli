@@ -14,7 +14,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for (inputParameter in data.fields()) {
-            if (context.variables.contains(inputParameter.key)) continue
+            if (inputParameter.key in context.variables) continue
 
             if (inputParameter.value.has("default")) {
                 context.variables[inputParameter.key] = inputParameter.value.get("default")

@@ -1,5 +1,7 @@
 package instacli.cli
 
+import com.github.kinquirer.KInquirer
+import com.github.kinquirer.components.promptList
 import instacli.core.CliScript
 import instacli.core.CliScriptException
 import java.io.File
@@ -9,16 +11,17 @@ class CliException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
     try {
+        val options = CliCommandLineOptions(args)
 
         // First argument should be a valid file
-        val file = File(args[0])
+        val file = File(options.args[0])
         if (!file.exists()) {
             throw CliException("Could not find file: ${file.absolutePath}")
         }
 
         // Run script directly or a command from a directory
         if (file.isDirectory) {
-            runCliDirectory(file, args.drop(1))
+            runCliDirectory(file, options.args.drop(1), options.interactive)
         } else {
             runCliScript(file)
         }
@@ -45,7 +48,7 @@ fun runCliScript(scriptFile: File) {
     CliScript.load(scriptFile, scriptContext).run()
 }
 
-fun runCliDirectory(cliDir: File, args: List<String>) {
+fun runCliDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
     val context = DirectoryScriptContext(cliDir)
 
     // No Instacli scripts in directory
@@ -54,31 +57,56 @@ fun runCliDirectory(cliDir: File, args: List<String>) {
         return
     }
 
-    // No command specified -- list all Instacli scripts as commands
-    if (args.isEmpty()) {
-        println("Available commands:")
-        context.getAllCommands().sorted().forEach {
-            println("  ${asCliCommand(it)}")
-        }
-        return
-    }
+    // Parse command
 
-    // Run command
-    val rawCommand = args.get(0)
+    val rawCommand = getCommand(args, context, interactive) ?: return
 
-    // Local script
+    // Run script
     if (context.fileCommands.containsKey(asScriptCommand(rawCommand))) {
         context.addVariables(loadDefaultVariables())
 
         val scriptFile = context.fileCommands[asScriptCommand(rawCommand)]!!.scriptFile
         CliScript.load(scriptFile, context).run()
     }
-    // Subcommand
+    // Run subcommand
     else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
-        runCliDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1))
+        runCliDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1), interactive)
     }
     // Command not found
     else {
         throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
+    }
+}
+
+fun getCommand(args: List<String>, context: DirectoryScriptContext, interactive: Boolean): String? {
+
+    // Return the command if specified
+    if (args.isNotEmpty()) {
+        return args.get(0)
+    }
+
+    if (interactive) {
+        // Ask for the command
+        return KInquirer.promptList(
+            message = "Subcommand",
+            choices = context.getAllCommands().sorted()
+        )
+    } else {
+        // Print the list of available commands
+        println("Available commands:")
+        context.getAllCommands().sorted().forEach {
+            println("  ${asCliCommand(it)}")
+        }
+        return null;
+    }
+}
+
+class CliCommandLineOptions {
+    var interactive = false
+    val args = mutableListOf<String>()
+
+    constructor(args: Array<String>) {
+        this.args.addAll(args.filter { !it.startsWith('-') })
+        interactive = args.contains("-i")
     }
 }
