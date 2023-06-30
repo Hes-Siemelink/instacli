@@ -10,7 +10,7 @@ object CoreLibrary {
         // Control flow
         Do(),
         If(),
-        IfAny(),
+        When(),
         ForEach(),
         Repeat(),
         ExecuteCliScriptFile(),

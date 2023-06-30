@@ -69,7 +69,7 @@ Assert equals:
 ---
 Test case: Switch-like if; break after successful match
 
-If any:
+When:
 - object: a value
   equals: a value
   then:

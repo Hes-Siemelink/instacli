@@ -25,7 +25,7 @@ class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
 }
 
 // TODO rename to when
-class IfAny : CommandHandler("If any"), ArrayHandler, DelayedVariableResolver {
+class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
             val then = evaluateCondition(ifStatement, context) ?: continue
