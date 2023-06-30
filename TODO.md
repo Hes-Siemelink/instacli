@@ -6,37 +6,32 @@
 
 # Where to take it
 
-* Instacli!
 * Run Release templates
 * Plaxolotl - yay is just an interface to a portable execution format. This format has all the metadata in the defined
   explicitly. For example: content type, variable replacement yes/no, etc.
 * Evaluate like a lisp
 
-# Yay as a cli
+# Command-line support
 
 * Cross compile to native using GraalVM, gradle and GitHub actions  
   https://katmatt.github.io/posts/graalvm-cross-compile-gh-actions/
 * Parse command line
 * yay-context.yaml
 
-# From Yay to Yak
 
-* Do in parallel
-* Repeat - Until
-* Raw and live / Apply variables
-* Print as JSON / Print as YAML
-* Write file / Read file
-* Http: verify certificate
-* Test server demo data
-* Webhook: On Http request
-
-# Yay as glue
+# Instacli as glue
 
 * Shell and pipe support
 * Database support (SQLlite or something)
 * Web server support
+* Write file / Read file
+* Http: verify certificate
+* Webhook (Web server): On Http request
 
-# Yay language
+# Instacli language
+
+* Raw and live / Apply variables
+* Evaluate liek a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc.
 
 ## Difference between Python Yay
 
@@ -135,7 +130,4 @@ For each:
 
 (Wait, that is the single item invocation of Merge?)
 
-# Fork or not
 
-* Will I ever add code to Python yay? => No
-* Need to check reference implementation? => Only a bit

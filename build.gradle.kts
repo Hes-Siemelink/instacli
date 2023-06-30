@@ -5,7 +5,7 @@ plugins {
 }
 
 
-group = "hes.yak"
+group = "hes.instacli"
 version = "0.0.1-SNAPSHOT"
 
 repositories {

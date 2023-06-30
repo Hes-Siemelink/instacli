@@ -1,2 +1,2 @@
-rootProject.name = "Yak"
+rootProject.name = "instacli"
 
