@@ -1,4 +1,4 @@
-package commands.shell
+package instacli.commands.shell
 
 import com.lordcodes.turtle.shellRun
 import org.junit.jupiter.api.Assertions.assertEquals
