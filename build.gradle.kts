@@ -27,6 +27,7 @@ dependencies {
     implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")
     implementation("org.jline:jline:3.22.0")
     implementation("org.fusesource.jansi:jansi:2.4.0")
+    implementation("com.lordcodes.turtle:turtle:0.8.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.assertj:assertj-core:3.24.0")
