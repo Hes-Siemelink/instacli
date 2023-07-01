@@ -9,6 +9,7 @@ import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
 import com.github.kinquirer.core.Choice
 import instacli.core.*
+import instacli.util.Yaml
 
 class Input : CommandHandler("Input"), ObjectHandler {
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.core.*
+import instacli.util.Yaml
 
 class Task : CommandHandler("Task"), ValueHandler {
 

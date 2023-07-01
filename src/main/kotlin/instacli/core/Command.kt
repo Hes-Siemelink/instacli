@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
+import instacli.cli.CLI_FILE_EXTENSION
+import java.util.*
 
 abstract class CommandHandler(open val name: String) {
 
@@ -80,12 +82,50 @@ interface ArrayHandler {
     fun execute(data: ArrayNode, context: ScriptContext): JsonNode?
 }
 
+/**
+ * Marker interface that indicates that variables should not be expanded.
+ * The CommmandHandler will expand the variables at the time needed.
+ */
 interface DelayedVariableResolver
 
 //
-// Helper functions
+// Command names
 //
 
-fun objectNode(key: String, value: String): ObjectNode {
-    return ObjectNode(JsonNodeFactory.instance).put(key, value)
+/**
+ * Creates command name from file name by stripping extension and converting dashes to spaces.
+ */
+fun asScriptCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip extension
+    if (command.endsWith(CLI_FILE_EXTENSION)) {
+        command = command.substring(0, commandName.length - CLI_FILE_EXTENSION.length)
+    }
+
+    // Spaces for dashes
+    command = command.replace('-', ' ')
+
+    // Start with a capital
+    command =
+        command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
+    return command
+}
+
+fun asCliCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip extension
+    if (command.endsWith(CLI_FILE_EXTENSION)) {
+        command = command.substring(0, commandName.length - CLI_FILE_EXTENSION.length)
+    }
+
+    // Dashes for spaces
+    command = command.replace(' ', '-')
+
+    // All lower case
+    command = command.lowercase(Locale.getDefault())
+
+    return command
 }

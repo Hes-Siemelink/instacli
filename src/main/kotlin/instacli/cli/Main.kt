@@ -3,6 +3,8 @@ package instacli.cli
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptList
 import instacli.core.CliScriptException
+import instacli.core.asCliCommand
+import instacli.core.asScriptCommand
 import java.io.File
 import kotlin.system.exitProcess
 

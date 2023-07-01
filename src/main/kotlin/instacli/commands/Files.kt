@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.core.CommandHandler
 import instacli.core.ScriptContext
 import instacli.core.ValueHandler
-import instacli.core.Yaml
+import instacli.util.Yaml
 import java.io.File
 
 class ReadFile : CommandHandler("Read file"), ValueHandler {

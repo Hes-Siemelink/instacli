@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.ExecuteCliFileAsCommandHandler
 import instacli.commands.VariableCommandHandler
 import instacli.core.*
+import instacli.util.Yaml
 import java.io.File
-import java.util.*
 
-const val CLI_EXTENSION = ".cli"
+const val CLI_FILE_EXTENSION = ".cli"
 val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 
 /**
@@ -23,7 +23,6 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
     val scriptDir: File
         get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
 
-
     init {
         loadCommands()
     }
@@ -37,8 +36,8 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         }
 
         // Standard commands
-        if (instacli.cli.CoreLibrary.commands.containsKey(command)) {
-            return instacli.cli.CoreLibrary.commands[command]!!
+        if (CoreLibrary.commands.containsKey(command)) {
+            return CoreLibrary.commands[command]!!
         }
 
         // File commands
@@ -51,7 +50,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
             loadCommand(file)
         }
 
-        val info = InstacliInfo.load(scriptDir)
+        val info = DirectoryInfo.load(scriptDir)
         for (file in info.imports) {
             loadCommand(File(scriptDir, file))
         }
@@ -59,7 +58,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
 
     private fun loadCommand(file: File) {
         if (file.isDirectory) return
-        if (!file.name.endsWith(CLI_EXTENSION)) return
+        if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
 
@@ -111,7 +110,7 @@ private fun hasCliCommands(dir: File): Boolean {
 
     // Check for Instacli files
     for (file in dir.listFiles()!!) {
-        if (!file.isDirectory && file.name.endsWith(CLI_EXTENSION)) {
+        if (!file.isDirectory && file.name.endsWith(CLI_FILE_EXTENSION)) {
             return true
         }
     }
@@ -124,44 +123,6 @@ private fun hasCliCommands(dir: File): Boolean {
     }
 
     return false
-}
-
-/**
- * Creates command name from file name by stripping extension and converting dashes to spaces.
- */
-fun asScriptCommand(commandName: String): String {
-    var command = commandName
-
-    // Strip extension
-    if (command.endsWith(CLI_EXTENSION)) {
-        command = command.substring(0, commandName.length - CLI_EXTENSION.length)
-    }
-
-    // Spaces for dashes
-    command = command.replace('-', ' ')
-
-    // Start with a capital
-    command =
-        command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
-
-    return command
-}
-
-fun asCliCommand(commandName: String): String {
-    var command = commandName
-
-    // Strip extension
-    if (command.endsWith(CLI_EXTENSION)) {
-        command = command.substring(0, commandName.length - CLI_EXTENSION.length)
-    }
-
-    // Dashes for spaces
-    command = command.replace(' ', '-')
-
-    // All lower case
-    command = command.lowercase(Locale.getDefault())
-
-    return command
 }
 
 fun loadDefaultVariables(): JsonNode? {

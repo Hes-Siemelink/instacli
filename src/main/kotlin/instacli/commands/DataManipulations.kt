@@ -3,6 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.core.*
+import instacli.util.Yaml
 
 class CreateObject : CommandHandler("Create object"), ArrayHandler {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {

@@ -3,7 +3,7 @@ package instacli.commands.http
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import instacli.core.Yaml
+import instacli.util.Yaml
 import io.javalin.Javalin
 
 class TestServer {

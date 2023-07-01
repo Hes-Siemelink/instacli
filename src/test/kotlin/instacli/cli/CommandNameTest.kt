@@ -1,5 +1,7 @@
 package instacli.cli
 
+import instacli.core.asCliCommand
+import instacli.core.asScriptCommand
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

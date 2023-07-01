@@ -1,4 +1,4 @@
-package instacli.core
+package instacli.util
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -43,4 +43,11 @@ object Yaml {
     fun emptyNode(): ObjectNode {
         return ObjectNode(JsonNodeFactory.instance);
     }
+}
+
+/**
+ * Factory method for JSON objects with single field.
+ */
+fun objectNode(key: String, value: String): ObjectNode {
+    return ObjectNode(JsonNodeFactory.instance).put(key, value)
 }
