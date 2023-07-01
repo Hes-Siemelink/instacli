@@ -84,7 +84,7 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
 
     // Return the command if specified
     if (args.isNotEmpty()) {
-        return args.get(0)
+        return args[0]
     }
 
     // Print command info
@@ -96,34 +96,39 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
     println()
 
     // Select command or print options
-    if (interactive) {
-        // Ask for the command
-        val selectedCommand =  KInquirer.promptList(
-                message = "Select a subcommand",
-                choices = context.getAllCommands().sorted(),
-                viewOptions = ListViewOptions(
-                        questionMarkPrefix = "",
-                        cursor = " > ",
-                        nonCursor = "   ",
-                )
-        )
-        println()
-        return selectedCommand
-    } else {
-        // Print the list of available commands
-        println("Available commands:")
-        context.getAllCommands().sorted().forEach {
-            println("  ${asCliCommand(it)}")
+    return when {
+        interactive -> {
+            // Ask for the command
+            val selectedCommand =  KInquirer.promptList(
+                    message = "Select a subcommand",
+                    choices = context.getAllCommands().sorted(),
+                    viewOptions = ListViewOptions(
+                            questionMarkPrefix = "",
+                            cursor = " > ",
+                            nonCursor = "   ",
+                    )
+            )
+            println("---")
+
+            selectedCommand
         }
-        return null;
+        else -> {
+            // Print the list of available commands
+            println("Available commands:")
+            context.getAllCommands().sorted().forEach {
+                println("  ${asCliCommand(it)}")
+            }
+
+            null;
+        }
     }
 }
 
-class CliCommandLineOptions {
+class CliCommandLineOptions(args: Array<String>) {
     var interactive = false
     val args = mutableListOf<String>()
 
-    constructor(args: Array<String>) {
+    init {
         this.args.addAll(args.filter { !it.startsWith('-') })
         interactive = args.contains("-i")
     }
