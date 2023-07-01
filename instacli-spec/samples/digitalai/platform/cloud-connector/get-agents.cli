@@ -1,3 +1,7 @@
+Meta:
+  summary: Lists the available agents
+
+---
 Get token:
   endpoint: ${digitalaiStaging}
 Http endpoint: ${output}

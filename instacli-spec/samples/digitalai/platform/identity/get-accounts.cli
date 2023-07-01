@@ -1,3 +1,7 @@
+Meta:
+  summary: Lists accounts in Digital.ai Platform
+
+---
 Check Input:
   name: Account name
 

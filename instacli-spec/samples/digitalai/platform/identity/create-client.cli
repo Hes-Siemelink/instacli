@@ -1,3 +1,7 @@
+Meta:
+  summary: Creates a new OIDC client
+
+---
 # Ask for name
 Check Input:
   client_id: Client ID

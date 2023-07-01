@@ -1,3 +1,7 @@
+Meta:
+  summary: Gets a login token
+
+---
 Print: Accessing ${endpoint.id} as ${endpoint.auth.username}
 
 Http GET:

@@ -1,3 +1,7 @@
+Meta:
+  summary: Downloads the installer script for the logged in user
+
+---
 # Log in to Platform API
 Get token:
   endpoint: ${digitalaiStaging}

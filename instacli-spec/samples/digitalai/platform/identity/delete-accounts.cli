@@ -1,3 +1,7 @@
+Meta:
+  summary: Deletes accounts from Digital.ai Platform
+
+---
 Check Input:
   name: Find account
 

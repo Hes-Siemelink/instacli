@@ -1,7 +1,6 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.CliScriptFileCommand
 import instacli.commands.VariableCommandHandler
 import instacli.core.*
 import instacli.util.Yaml
@@ -17,7 +16,7 @@ val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
-    val fileCommands = mutableMapOf<String, CliScriptFileCommand>()
+    val fileCommands = mutableMapOf<String, FileCommandInfo>()
     val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -66,7 +65,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
-        fileCommands[name] = CliScriptFileCommand(file)
+        fileCommands[name] = FileCommandInfo(file)
     }
 
 

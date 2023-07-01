@@ -4,10 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.core.asScriptCommand
 import instacli.cli.loadCliScriptFile
 import instacli.core.*
 import java.io.File
+
+class Meta : CommandHandler("Meta"), ObjectHandler, DelayedVariableResolver {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return null
+    }
+}
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -134,18 +139,7 @@ class ExecuteCliScriptFile : CommandHandler("Run Instacli file"), ObjectHandler 
 
 }
 
-class CliScriptFileCommand(val scriptFile: File) : CommandHandler("{file}"), CommandInfo {
-
-    override val name: String
-        get() = asScriptCommand(scriptFile.name)
-    override val summary by lazy { "Summary for $name" }
-
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        return runFile(scriptFile, data)
-    }
-}
-
-private fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
+fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
     val script = loadCliScriptFile(scriptFile)
     for (variable in data.fields()) {
         script.context.variables[variable.key] = variable.value

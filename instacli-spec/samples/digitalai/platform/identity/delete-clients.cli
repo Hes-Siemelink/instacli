@@ -1,3 +1,7 @@
+Meta:
+  summary: Deletes OIDC clients
+
+---
 Get token:
   endpoint: ${digitalaiStaging}
 Http endpoint: ${output}

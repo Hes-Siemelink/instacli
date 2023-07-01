@@ -14,6 +14,7 @@ object CoreLibrary {
         ForEach(),
         Repeat(),
         ExecuteCliScriptFile(),
+        Meta(),
 
         // Input and Output
         Input(),
