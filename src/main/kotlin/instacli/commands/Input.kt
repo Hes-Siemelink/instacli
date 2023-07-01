@@ -18,7 +18,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
             if (inputParameter.key in context.variables) continue
 
             if (inputParameter.value.has("default")) {
-                context.variables[inputParameter.key] = inputParameter.value.get("default")
+                context.variables[inputParameter.key] = inputParameter.value["default"]
             } else {
                 throw CliScriptException("Variable not provided: " + inputParameter.key)
             }
@@ -38,7 +38,7 @@ class CheckInput : CommandHandler("Check Input"), ObjectHandler {
         for (variable in data.fields()) {
             if (variable.key in context.variables.keys) continue
 
-            val answer = KInquirer.promptInput(Yaml.toString(data.get(variable.key)))
+            val answer = KInquirer.promptInput(Yaml.toString(data[variable.key]))
             context.variables[variable.key] = TextNode(answer)
         }
         return null
@@ -55,7 +55,7 @@ class UserInput : CommandHandler("User Input"), ObjectHandler {
         when (type.textValue()) {
             "checkbox" -> {
                 val choicesDisplay = choices.map {
-                    Choice(it.get("name").textValue(), it.get("value"))
+                    Choice(it["name"].textValue(), it["value"])
                 }
                 val answers = KInquirer.promptCheckboxObject(message, choicesDisplay)
                 return Yaml.mapper.valueToTree(answers)

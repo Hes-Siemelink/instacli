@@ -49,12 +49,6 @@ fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): Strin
     return replaced
 }
 
-fun resolve(varName: String, variables: Map<String, JsonNode>): String {
-    val value = variables[varName] ?: throw CliScriptException("Unknown variable: \${${varName}}")
-
-    return if (value.isTextual) value.textValue() else Yaml.toString(value).trim()
-}
-
 fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
 
     val variableWithPath: VariableWithPath = splitIntoVariableAndPath(varName)

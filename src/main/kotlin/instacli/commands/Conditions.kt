@@ -6,13 +6,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.core.CliScriptException
 
 
-interface Condition {
+fun interface Condition {
     fun isTrue(): Boolean
 }
 
 class ConditionException(message: String) : Exception(message)
 
-class Equals(val actual: Any, val expected: Any) : Condition {
+class Equals(private val actual: Any, private val expected: Any) : Condition {
     override fun isTrue(): Boolean {
         return actual == expected
     }
@@ -43,7 +43,7 @@ class Contains(
         if (obj is ObjectNode) {
             for (field in obj.fields()) {
                 if (!container.has(field.key)) return false
-                if (field.value != container.get(field.key)) return false
+                if (field.value != container[field.key]) return false
             }
             return true
         } else {
@@ -71,28 +71,34 @@ class Not(private val condition: Condition) : Condition {
 }
 
 fun parseCondition(node: JsonNode): Condition {
-    if (node.has("object")) {
-        val obj = node.get("object")
+    when {
+        node.has("object") -> {
+            val obj = node["object"]
 
-        if (node.has("equals")) {
-            return Equals(obj, node.get("equals"))
+            if (node.has("equals")) {
+                return Equals(obj, node["equals"])
+            }
+
+            if (node.has("in")) {
+                return Contains(obj, node["in"])
+            }
+
+            throw CliScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
         }
-
-        if (node.has("in")) {
-            return Contains(obj, node.get("in"))
+        node.has("all") -> {
+            val conditions = node["all"]
+            return All(conditions.map { parseCondition(it) })
         }
-
-        throw CliScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
-    } else if (node.has("all")) {
-        val conditions = node.get("all")
-        return All(conditions.map { parseCondition(it) })
-    } else if (node.has("any")) {
-        val conditions = node.get("any")
-        return AnyCondition(conditions.map { parseCondition(it) })
-    } else if (node.has("not")) {
-        val condition = node.get("not")
-        return Not(parseCondition(condition))
-    } else {
-        throw CliScriptException("Condition needs 'object', 'all', 'any' or 'not'.", node)
+        node.has("any") -> {
+            val conditions = node["any"]
+            return AnyCondition(conditions.map { parseCondition(it) })
+        }
+        node.has("not") -> {
+            val condition = node["not"]
+            return Not(parseCondition(condition))
+        }
+        else -> {
+            throw CliScriptException("Condition needs 'object', 'all', 'any' or 'not'.", node)
+        }
     }
 }

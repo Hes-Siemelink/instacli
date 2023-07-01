@@ -40,9 +40,10 @@ object Yaml {
         return mapper.writeValueAsString(node).trim()
     }
 
-    fun emptyNode(): ObjectNode {
-        return ObjectNode(JsonNodeFactory.instance);
-    }
+}
+
+fun emptyNode(): ObjectNode {
+    return ObjectNode(JsonNodeFactory.instance)
 }
 
 /**

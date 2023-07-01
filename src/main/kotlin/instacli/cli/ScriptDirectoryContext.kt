@@ -83,7 +83,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
 
         for (file in scriptDir.listFiles()!!) {
             if (file.isDirectory && hasCliCommands(file)) {
-                subcommands.put(asCliCommand(file.name), DirectoryInfo.load(file))
+                subcommands[asCliCommand(file.name)] = DirectoryInfo.load(file)
             }
         }
 

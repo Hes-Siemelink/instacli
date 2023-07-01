@@ -104,8 +104,8 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val actions = data.get("Do")!!
-        val until = data.get("Until")!!
+        val actions = data["Do"]!!
+        val until = data["Until"]!!
 
         var finished = false
         while (!finished) {
@@ -126,7 +126,7 @@ class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver 
 class ExecuteCliScriptFile : CommandHandler("Run Instacli file"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data.get("file") ?: throw CliScriptException("Run Instacli file needs 'file' field.")
+        val fileName = data["file"] ?: throw CliScriptException("Run Instacli file needs 'file' field.")
         val scriptFile = File(context.scriptLocation.parent, fileName.asText())
 
         return runFile(scriptFile, data)

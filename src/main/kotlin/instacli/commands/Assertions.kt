@@ -24,8 +24,8 @@ class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val actual = data.get("actual") ?: throw ConditionException("Assert equals needs 'actual' field.")
-        val expected = data.get("expected") ?: throw ConditionException("Assert equals needs 'expected' field.")
+        val actual = data["actual"] ?: throw ConditionException("Assert equals needs 'actual' field.")
+        val expected = data["expected"] ?: throw ConditionException("Assert equals needs 'expected' field.")
 
         if (actual != expected) {
             throw AssertionError("Not equal:\n  Expected: $expected\n  Actual:   $actual")

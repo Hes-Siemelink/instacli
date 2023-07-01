@@ -4,14 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.core.*
 import instacli.util.Yaml
+import instacli.util.emptyNode
 
 class CreateObject : CommandHandler("Create object"), ArrayHandler {
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
-        val output = ObjectNode(JsonNodeFactory.instance)
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
+        val output = emptyNode()
 
         for (field in data) {
             // TODO data validation. Maybe use ObjectMapper and value classes?
-            output.set<JsonNode>(field.get("key").textValue(), field.get("value"))
+            output.set<JsonNode>(field["key"].textValue(), field["value"])
         }
 
         return output
@@ -107,10 +108,12 @@ class Merge : CommandHandler("Merge"), ArrayHandler {
         array: ArrayNode,
         item: ValueNode
     ) {
-        if (item.isTextual) array.add(item.textValue())
-        else if (item.isInt) array.add(item.intValue())
-        else if (item.isBoolean) array.add(item.booleanValue())
-        else array.add(item.textValue())
+        when {
+            item.isTextual -> array.add(item.textValue())
+            item.isInt -> array.add(item.intValue())
+            item.isBoolean -> array.add(item.booleanValue())
+            else -> array.add(item.textValue())
+        }
     }
 }
 
@@ -121,7 +124,7 @@ class Merge : CommandHandler("Merge"), ArrayHandler {
 //  replace with: World
 
 class Replace : CommandHandler("Replace"), ObjectHandler {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val source = getParameter(data, "in")
         val part = getParameter(data, "part")
         val replaceWith = getParameter(data, "with")
@@ -137,25 +140,25 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
         replaceWith: JsonNode
     ): JsonNode? {
 
-        when (source) {
+        return when (source) {
             is TextNode -> {
-                return replaceText(source.textValue(), part, replaceWith)
+                replaceText(source.textValue(), part, replaceWith)
             }
 
             is ArrayNode -> {
-                return replaceArray(source, part, replaceWith)
+                replaceArray(source, part, replaceWith)
             }
 
             is ObjectNode -> {
-                return replaceObject(source, part, replaceWith)
+                replaceObject(source, part, replaceWith)
             }
 
-            else -> return null
+            else -> null
         }
 
     }
 
-    private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode? {
+    private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode {
         if (part !is TextNode) {
             throw CliScriptException("'Replace: part' may contain text only")
         }
@@ -166,7 +169,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
         return TextNode(replacement)
     }
 
-    private fun replaceArray(source: ArrayNode, part: JsonNode, replaceWith: JsonNode): JsonNode? {
+    private fun replaceArray(source: ArrayNode, part: JsonNode, replaceWith: JsonNode): JsonNode {
         val replacement = ArrayNode(JsonNodeFactory.instance)
         for (node in source) {
             replacement.add(replace(node, part, replaceWith))
@@ -174,8 +177,8 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
         return replacement
     }
 
-    private fun replaceObject(source: ObjectNode, part: JsonNode, replaceWith: JsonNode): JsonNode? {
-        val replacement = ObjectNode(JsonNodeFactory.instance)
+    private fun replaceObject(source: ObjectNode, part: JsonNode, replaceWith: JsonNode): JsonNode {
+        val replacement = emptyNode()
         for (field in source.fields()) {
             replacement.set<JsonNode>(field.key, replace(field.value, part, replaceWith))
         }

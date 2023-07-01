@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.CLI_FILE_EXTENSION
+import instacli.util.emptyNode
 import java.util.*
 
 abstract class CommandHandler(open val name: String) {
@@ -17,7 +18,7 @@ abstract class CommandHandler(open val name: String) {
                     try {
                         execute(data, context)
                     } catch (e: Exception) {
-                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e)
                     }
                 } else {
                     throw CliScriptException("Command: '$name' does not handle simple text content.", getCommand(data))
@@ -29,7 +30,7 @@ abstract class CommandHandler(open val name: String) {
                     try {
                         execute(data, context)
                     } catch (e: Exception) {
-                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e)
                     }
                 } else {
                     throw CliScriptException("Command '$name' does not handle object content.", getCommand(data))
@@ -41,7 +42,7 @@ abstract class CommandHandler(open val name: String) {
                     try {
                         execute(data, context)
                     } catch (e: Exception) {
-                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e);
+                        throw CliScriptException("An error occurred evaluating this command:", getCommand(data), e)
                     }
                 } else {
                     throw CliScriptException("Command '$name' does not handle array content.", getCommand(data))
@@ -56,35 +57,35 @@ abstract class CommandHandler(open val name: String) {
     }
 
     fun getParameter(data: JsonNode, parameter: String): JsonNode {
-        return data.get(parameter) ?: throw CliScriptException(
+        return data[parameter] ?: throw CliScriptException(
             "Command '$name' needs '$parameter' field.",
             getCommand(data)
         )
     }
 
     fun getCommand(data: JsonNode): JsonNode {
-        val node = ObjectNode(JsonNodeFactory.instance);
+        val node = emptyNode()
         node.set<JsonNode>(name, data)
         return node
     }
 }
 
 
-interface ValueHandler {
+fun interface ValueHandler {
     fun execute(data: ValueNode, context: ScriptContext): JsonNode?
 }
 
-interface ObjectHandler {
+fun interface ObjectHandler {
     fun execute(data: ObjectNode, context: ScriptContext): JsonNode?
 }
 
-interface ArrayHandler {
+fun interface ArrayHandler {
     fun execute(data: ArrayNode, context: ScriptContext): JsonNode?
 }
 
 /**
  * Marker interface that indicates that variables should not be expanded.
- * The CommmandHandler will expand the variables at the time needed.
+ * The CommandHandler will expand the variables at the time needed.
  */
 interface DelayedVariableResolver
 

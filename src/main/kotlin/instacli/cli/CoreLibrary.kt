@@ -5,7 +5,7 @@ import instacli.commands.http.*
 import instacli.core.CommandHandler
 
 object CoreLibrary {
-    val commands = instacli.cli.CoreLibrary.commandMap(
+    val commands = commandMap(
 
         // Control flow
         Do(),

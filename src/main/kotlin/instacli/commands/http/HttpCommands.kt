@@ -110,13 +110,13 @@ data class HttpParameters(
             update(data, defaults)
 
             return HttpParameters(
-                host = data.get("url").textValue(),
-                path = data.get("path")?.textValue(),
+                host = data["url"].textValue(),
+                path = data["path"]?.textValue(),
                 method = method,
-                body = data.get("body"),
-                headers = data.get("headers"),
-                cookies = data.get("cookies"),
-                saveAs = data.get("save as")?.textValue()
+                body = data["body"],
+                headers = data["headers"],
+                cookies = data["cookies"],
+                saveAs = data["save as"]?.textValue()
             )
         }
 
@@ -133,8 +133,8 @@ data class HttpParameters(
                 data.putIfAbsent(default.key, default.value)
 
                 // Merge dictionaries like 'headers' and 'cookies'
-                if (data.has(default.key) && data.get(default.key) is ObjectNode) {
-                    update(data.get(default.key) as ObjectNode, default.value)
+                if (data.has(default.key) && data[default.key] is ObjectNode) {
+                    update(data[default.key] as ObjectNode, default.value)
                 }
             }
         }

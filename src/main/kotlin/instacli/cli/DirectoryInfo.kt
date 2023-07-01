@@ -5,13 +5,13 @@ import instacli.core.CommandInfo
 import instacli.util.Yaml.mapper
 import java.io.File
 
-class DirectoryInfo() : CommandInfo {
+class DirectoryInfo : CommandInfo {
 
     var dir: File = File(".")
 
-    val imports = mutableListOf<String>()
-    override var summary: String = ""
     override var name: String = ""
+    override var summary: String = ""
+    val imports = mutableListOf<String>()
 
     companion object {
         fun load(dir: File): DirectoryInfo {
