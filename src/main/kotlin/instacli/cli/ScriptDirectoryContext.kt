@@ -19,6 +19,10 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
     override val variables = mutableMapOf<String, JsonNode>()
     val fileCommands = mutableMapOf<String, ExecuteCliFileAsCommandHandler>()
     val subcommands: Map<String, File> by lazy { findSubcommands() }
+    val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
+    val name: String
+        get() = scriptDir.name
+
 
     val scriptDir: File
         get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
@@ -46,11 +50,12 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
 
     private fun loadCommands() {
 
+        // Commands in directory
         for (file in scriptDir.listFiles()!!) {
             loadCommand(file)
         }
 
-        val info = DirectoryInfo.load(scriptDir)
+        // Imported commands
         for (file in info.imports) {
             loadCommand(File(scriptDir, file))
         }
@@ -94,6 +99,10 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         commands.addAll(subcommands.keys)
 
         return commands
+    }
+
+    fun getInfo(): String {
+        return info.summary
     }
 }
 

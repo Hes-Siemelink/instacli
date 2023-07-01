@@ -7,6 +7,7 @@ import java.io.File
 class DirectoryInfo {
 
     val imports = mutableListOf<String>()
+    var summary: String = ""
 
     companion object {
         fun load(dir: File): DirectoryInfo {

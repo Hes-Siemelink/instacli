@@ -1,6 +1,7 @@
 package instacli.cli
 
 import com.github.kinquirer.KInquirer
+import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptList
 import instacli.core.CliScriptException
 import instacli.core.asCliCommand
@@ -86,12 +87,28 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
         return args.get(0)
     }
 
+    // Print command info
+    if (context.getInfo().isNotEmpty()) {
+        println(context.getInfo())
+    } else {
+        println("${context.name} has several subcommands.")
+    }
+    println()
+
+    // Select command or print options
     if (interactive) {
         // Ask for the command
-        return KInquirer.promptList(
-            message = "Subcommand",
-            choices = context.getAllCommands().sorted()
+        val selectedCommand =  KInquirer.promptList(
+                message = "Select a subcommand",
+                choices = context.getAllCommands().sorted(),
+                viewOptions = ListViewOptions(
+                        questionMarkPrefix = "",
+                        cursor = " > ",
+                        nonCursor = "   ",
+                )
         )
+        println()
+        return selectedCommand
     } else {
         // Print the list of available commands
         println("Available commands:")
