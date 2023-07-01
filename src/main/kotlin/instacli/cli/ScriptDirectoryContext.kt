@@ -1,7 +1,7 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.ExecuteCliFileAsCommandHandler
+import instacli.commands.CliScriptFileCommand
 import instacli.commands.VariableCommandHandler
 import instacli.core.*
 import instacli.util.Yaml
@@ -17,8 +17,8 @@ val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
-    val fileCommands = mutableMapOf<String, ExecuteCliFileAsCommandHandler>()
-    val subcommands: Map<String, File> by lazy { findSubcommands() }
+    val fileCommands = mutableMapOf<String, CliScriptFileCommand>()
+    val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
         get() = scriptDir.name
@@ -66,8 +66,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
-
-        fileCommands[name] = ExecuteCliFileAsCommandHandler(file)
+        fileCommands[name] = CliScriptFileCommand(file)
     }
 
 
@@ -79,26 +78,24 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         }
     }
 
-    private fun findSubcommands(): Map<String, File> {
-        val subcommands = mutableMapOf<String, File>()
+    private fun findSubcommands(): Map<String, DirectoryInfo> {
+        val subcommands = mutableMapOf<String, DirectoryInfo>()
 
         for (file in scriptDir.listFiles()!!) {
-            if (file.isDirectory) {
-                if (hasCliCommands(file)) {
-                    subcommands.put(asCliCommand(file.name), file)
-                }
+            if (file.isDirectory && hasCliCommands(file)) {
+                subcommands.put(asCliCommand(file.name), DirectoryInfo.load(file))
             }
         }
 
         return subcommands
     }
 
-    fun getAllCommands(): List<String> {
-        val commands = mutableListOf<String>()
-        commands.addAll(fileCommands.keys)
-        commands.addAll(subcommands.keys)
+    fun getAllCommands(): List<CommandInfo> {
+        val commands = mutableListOf<CommandInfo>()
+        commands.addAll(fileCommands.values)
+        commands.addAll(subcommands.values)
 
-        return commands
+        return commands.sortedBy { it.name }
     }
 
     fun getInfo(): String {

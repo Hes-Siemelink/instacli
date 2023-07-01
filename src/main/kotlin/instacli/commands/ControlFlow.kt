@@ -134,10 +134,11 @@ class ExecuteCliScriptFile : CommandHandler("Run Instacli file"), ObjectHandler 
 
 }
 
-class ExecuteCliFileAsCommandHandler(val scriptFile: File) : CommandHandler("{file}") {
+class CliScriptFileCommand(val scriptFile: File) : CommandHandler("{file}"), CommandInfo {
 
     override val name: String
         get() = asScriptCommand(scriptFile.name)
+    override val summary by lazy { "Summary for $name" }
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         return runFile(scriptFile, data)

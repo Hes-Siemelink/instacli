@@ -2,7 +2,8 @@ package instacli.cli
 
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
-import com.github.kinquirer.components.promptList
+import com.github.kinquirer.components.promptListObject
+import com.github.kinquirer.core.Choice
 import instacli.core.CliScriptException
 import instacli.core.asCliCommand
 import instacli.core.asScriptCommand
@@ -72,7 +73,7 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     }
     // Run subcommand
     else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
-        runDirectory(context.subcommands[asCliCommand(rawCommand)]!!, args.drop(1), interactive)
+        runDirectory(context.subcommands[asCliCommand(rawCommand)]!!.dir, args.drop(1), interactive)
     }
     // Command not found
     else {
@@ -89,21 +90,24 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
 
     // Print command info
     if (context.getInfo().isNotEmpty()) {
-        println(context.getInfo())
+        println(context.getInfo().trim())
     } else {
         println("${context.name} has several subcommands.")
     }
     println()
 
-    // Select command or print options
+
+    // Select command
+    val commands = context.getAllCommands()
+    val width = commands.maxOf { it.name.length }
     return when {
         interactive -> {
             // Ask for the command
-            val selectedCommand =  KInquirer.promptList(
-                    message = "Select a subcommand",
-                    choices = context.getAllCommands().sorted(),
+            val selectedCommand = KInquirer.promptListObject(
+                    message = "Available commands:",
+                    choices = commands.map { Choice(it.infoString(width), it.name) },
                     viewOptions = ListViewOptions(
-                            questionMarkPrefix = "",
+                            questionMarkPrefix = "*",
                             cursor = " > ",
                             nonCursor = "   ",
                     )
@@ -112,16 +116,18 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
 
             selectedCommand
         }
+
         else -> {
             // Print the list of available commands
             println("Available commands:")
-            context.getAllCommands().sorted().forEach {
-                println("  ${asCliCommand(it)}")
+            commands.forEach {
+                println("  ${it.infoString(width)}")
             }
 
-            null;
+            null
         }
     }
+
 }
 
 class CliCommandLineOptions(args: Array<String>) {
