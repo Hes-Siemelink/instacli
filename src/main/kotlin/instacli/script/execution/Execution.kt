@@ -1,4 +1,4 @@
-package instacli.core
+package instacli.script.execution
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -23,9 +23,9 @@ fun runScript(script: List<Command>, context: ScriptContext): JsonNode? {
 }
 
 fun runCommand(
-    handler: CommandHandler,
-    rawData: JsonNode,
-    context: ScriptContext
+        handler: CommandHandler,
+        rawData: JsonNode,
+        context: ScriptContext
 ): JsonNode? {
 
     if (rawData is ArrayNode && !handlesListItself(handler)) {
@@ -46,9 +46,9 @@ fun handlesListItself(handler: CommandHandler): Boolean {
 }
 
 private fun runCommandOnList(
-    handler: CommandHandler,
-    dataList: ArrayNode,
-    context: ScriptContext
+        handler: CommandHandler,
+        dataList: ArrayNode,
+        context: ScriptContext
 ): ArrayNode? {
 
     val output = ArrayNode(JsonNodeFactory.instance)
@@ -69,9 +69,9 @@ private fun runCommandOnList(
 }
 
 private fun runSingleCommand(
-    handler: CommandHandler,
-    rawData: JsonNode,
-    context: ScriptContext
+        handler: CommandHandler,
+        rawData: JsonNode,
+        context: ScriptContext
 ): JsonNode? {
 
     try {

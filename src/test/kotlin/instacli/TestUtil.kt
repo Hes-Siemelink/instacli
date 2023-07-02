@@ -1,6 +1,6 @@
 package instacli
 
-import instacli.cli.runCliScriptFile
+import instacli.script.files.runCliScriptFile
 import java.io.File
 import java.io.FileNotFoundException
 

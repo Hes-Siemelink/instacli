@@ -1,10 +1,13 @@
-package instacli.commands.http
+package instacli.script.commands.http
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.core.*
+import instacli.script.execution.CommandHandler
+import instacli.script.execution.ObjectHandler
+import instacli.script.execution.ScriptContext
+import instacli.script.execution.ValueHandler
 import instacli.util.Yaml
 import instacli.util.Yaml.parse
 import instacli.util.objectNode

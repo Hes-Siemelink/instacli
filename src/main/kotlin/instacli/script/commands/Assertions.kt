@@ -1,12 +1,12 @@
-package instacli.commands
+package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.core.CommandHandler
-import instacli.core.ObjectHandler
-import instacli.core.ScriptContext
-import instacli.core.ValueHandler
+import instacli.script.execution.CommandHandler
+import instacli.script.execution.ObjectHandler
+import instacli.script.execution.ScriptContext
+import instacli.script.execution.ValueHandler
 
 class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 

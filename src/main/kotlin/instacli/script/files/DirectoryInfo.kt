@@ -1,7 +1,7 @@
-package instacli.cli
+package instacli.script.files
 
 import com.fasterxml.jackson.module.kotlin.readValue
-import instacli.core.CommandInfo
+import instacli.script.execution.CommandInfo
 import instacli.util.Yaml.mapper
 import java.io.File
 

@@ -1,4 +1,4 @@
-package instacli.commands
+package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
@@ -8,7 +8,10 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
 import com.github.kinquirer.core.Choice
-import instacli.core.*
+import instacli.script.execution.CliScriptException
+import instacli.script.execution.CommandHandler
+import instacli.script.execution.ObjectHandler
+import instacli.script.execution.ScriptContext
 import instacli.util.Yaml
 
 class Input : CommandHandler("Input"), ObjectHandler {

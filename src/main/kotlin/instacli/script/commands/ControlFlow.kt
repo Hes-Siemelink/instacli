@@ -1,11 +1,11 @@
-package instacli.commands
+package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.cli.loadCliScriptFile
-import instacli.core.*
+import instacli.script.files.loadCliScriptFile
+import instacli.script.execution.*
 import java.io.File
 
 class Meta : CommandHandler("Meta"), ObjectHandler, DelayedVariableResolver {

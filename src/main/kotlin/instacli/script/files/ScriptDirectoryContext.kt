@@ -1,13 +1,13 @@
-package instacli.cli
+package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.VariableCommandHandler
-import instacli.core.*
+import instacli.cli.CommandLibrary
+import instacli.script.commands.VariableCommandHandler
+import instacli.script.execution.*
 import instacli.util.Yaml
 import java.io.File
 
 const val CLI_FILE_EXTENSION = ".cli"
-val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 
 /**
  * Context for running an Instacli script inside a directory.
@@ -39,8 +39,8 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         }
 
         // Standard commands
-        if (CoreLibrary.commands.containsKey(command)) {
-            return CoreLibrary.commands[command]!!
+        if (CommandLibrary.commands.containsKey(command)) {
+            return CommandLibrary.commands[command]!!
         }
 
         // File commands
@@ -130,6 +130,3 @@ private fun hasCliCommands(dir: File): Boolean {
     return false
 }
 
-fun loadDefaultVariables(): JsonNode? {
-    return Yaml.readFile(File(INSTACLI_HOME, "default-variables.yaml"))
-}

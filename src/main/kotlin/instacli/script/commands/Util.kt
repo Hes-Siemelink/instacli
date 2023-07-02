@@ -1,9 +1,9 @@
-package instacli.commands
+package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.core.*
+import instacli.script.execution.*
 import instacli.util.Yaml
 
 class Task : CommandHandler("Task"), ValueHandler {

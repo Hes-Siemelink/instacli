@@ -1,14 +1,21 @@
 package instacli.cli
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
-import instacli.core.CliScriptException
-import instacli.core.asCliCommand
-import instacli.core.asScriptCommand
+import instacli.script.execution.CliScriptException
+import instacli.script.execution.CommandInfo
+import instacli.script.execution.asCliCommand
+import instacli.script.execution.asScriptCommand
+import instacli.script.files.ScriptDirectoryContext
+import instacli.script.files.runCliScriptFile
+import instacli.util.Yaml
 import java.io.File
 import kotlin.system.exitProcess
+
+val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 
 class CliException(message: String) : Exception(message)
 
@@ -61,7 +68,6 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     }
 
     // Parse command
-
     val rawCommand = getCommand(args, context, interactive) ?: return
 
     // Run script
@@ -81,14 +87,14 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     }
 }
 
-fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive: Boolean): String? {
+private fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive: Boolean): String? {
 
     // Return the command if specified
     if (args.isNotEmpty()) {
         return args[0]
     }
 
-    // Print command info
+    // Print info
     if (context.getInfo().isNotEmpty()) {
         println(context.getInfo().trim())
     } else {
@@ -99,43 +105,41 @@ fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive:
 
     // Select command
     val commands = context.getAllCommands()
-    val width = commands.maxOf { it.name.length }
     return when {
         interactive -> {
-            // Ask for the command
-            val selectedCommand = KInquirer.promptListObject(
-                    message = "Available commands:",
-                    choices = commands.map { Choice(it.infoString(width), it.name) },
-                    viewOptions = ListViewOptions(
-                            questionMarkPrefix = "*",
-                            cursor = " > ",
-                            nonCursor = "   ",
-                    )
-            )
-            println("---")
-
-            selectedCommand
+            askForCommand(commands)
         }
-
         else -> {
-            // Print the list of available commands
-            println("Available commands:")
-            commands.forEach {
-                println("  ${it.infoString(width)}")
-            }
-
+            printCommands(commands)
             null
         }
     }
-
 }
 
-class CliCommandLineOptions(args: Array<String>) {
-    var interactive = false
-    val args = mutableListOf<String>()
+private fun askForCommand(commands: List<CommandInfo>): String {
+    val width = commands.maxOf { it.name.length }
+    val selectedCommand = KInquirer.promptListObject(
+            message = "Available commands:",
+            choices = commands.map { Choice(it.infoString(width), it.name) },
+            viewOptions = ListViewOptions(
+                    questionMarkPrefix = "*",
+                    cursor = " > ",
+                    nonCursor = "   ",
+            )
+    )
+    println("---")
+    return selectedCommand
+}
 
-    init {
-        this.args.addAll(args.filter { !it.startsWith('-') })
-        interactive = args.contains("-i")
+private fun printCommands(commands: List<CommandInfo>) {
+    println("Available commands:")
+
+    val width = commands.maxOf { it.name.length }
+    commands.forEach {
+        println("  ${it.infoString(width)}")
     }
+}
+
+private fun loadDefaultVariables(): JsonNode? {
+    return Yaml.readFile(File(INSTACLI_HOME, "default-variables.yaml"))
 }

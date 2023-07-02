@@ -1,4 +1,4 @@
-package instacli.core
+package instacli.script.execution
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode

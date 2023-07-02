@@ -1,8 +1,8 @@
-package instacli.commands
+package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import instacli.core.*
+import instacli.script.execution.*
 import instacli.util.Yaml
 import instacli.util.emptyNode
 

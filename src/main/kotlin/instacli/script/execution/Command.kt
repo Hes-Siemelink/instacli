@@ -1,11 +1,10 @@
-package instacli.core
+package instacli.script.execution
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.cli.CLI_FILE_EXTENSION
+import instacli.script.files.CLI_FILE_EXTENSION
 import instacli.util.emptyNode
 import java.util.*
 

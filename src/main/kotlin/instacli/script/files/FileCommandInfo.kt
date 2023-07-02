@@ -1,8 +1,8 @@
-package instacli.cli
+package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.runFile
-import instacli.core.*
+import instacli.script.commands.runFile
+import instacli.script.execution.*
 import instacli.util.Yaml
 import java.io.File
 

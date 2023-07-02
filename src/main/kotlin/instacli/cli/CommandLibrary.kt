@@ -1,10 +1,10 @@
 package instacli.cli
 
-import instacli.commands.*
-import instacli.commands.http.*
-import instacli.core.CommandHandler
+import instacli.script.commands.*
+import instacli.script.commands.http.*
+import instacli.script.execution.CommandHandler
 
-object CoreLibrary {
+object CommandLibrary {
     val commands = commandMap(
 
         // Control flow
