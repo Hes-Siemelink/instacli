@@ -9,8 +9,8 @@ import instacli.script.execution.CliScriptException
 import instacli.script.execution.CommandInfo
 import instacli.script.execution.asCliCommand
 import instacli.script.execution.asScriptCommand
+import instacli.script.files.CliScriptFile
 import instacli.script.files.ScriptDirectoryContext
-import instacli.script.files.runCliScriptFile
 import instacli.util.Yaml
 import java.io.File
 import kotlin.system.exitProcess
@@ -51,11 +51,10 @@ fun main(args: Array<String>) {
     }
 }
 
-private fun runFile(scriptFile: File) {
-    val scriptContext = ScriptDirectoryContext(scriptFile)
-    scriptContext.addVariables(loadDefaultVariables())
-
-    runCliScriptFile(scriptFile, scriptContext)
+private fun runFile(scriptFile: File, context: ScriptDirectoryContext = ScriptDirectoryContext(scriptFile)) {
+    context.addVariables(loadDefaultVariables())
+    
+    CliScriptFile(scriptFile).run(context)
 }
 
 private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
@@ -72,11 +71,10 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
 
     // Run script
     if (context.fileCommands.containsKey(asScriptCommand(rawCommand))) {
-        context.addVariables(loadDefaultVariables())
-
         val scriptFile = context.fileCommands[asScriptCommand(rawCommand)]!!.scriptFile
-        runCliScriptFile(scriptFile, context)
+        runFile(scriptFile, context)
     }
+
     // Run subcommand
     else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
         runDirectory(context.subcommands[asCliCommand(rawCommand)]!!.dir, args.drop(1), interactive)

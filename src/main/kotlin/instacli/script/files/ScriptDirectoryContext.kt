@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.CommandLibrary
 import instacli.script.commands.VariableCommandHandler
 import instacli.script.execution.*
-import instacli.util.Yaml
 import java.io.File
 
 const val CLI_FILE_EXTENSION = ".cli"
@@ -16,7 +15,7 @@ const val CLI_FILE_EXTENSION = ".cli"
 class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
     override val variables = mutableMapOf<String, JsonNode>()
-    val fileCommands = mutableMapOf<String, FileCommandInfo>()
+    val fileCommands = mutableMapOf<String, CliScriptFile>()
     val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -65,7 +64,7 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
-        fileCommands[name] = FileCommandInfo(file)
+        fileCommands[name] = CliScriptFile(file)
     }
 
 
@@ -100,15 +99,6 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
     fun getInfo(): String {
         return info.summary
     }
-}
-
-fun runCliScriptFile(scriptFile: File, context: ScriptContext = ScriptDirectoryContext(scriptFile)) {
-    loadCliScriptFile(scriptFile, context).run()
-}
-
-fun loadCliScriptFile(scriptFile: File, scriptContext: ScriptContext = ScriptDirectoryContext(scriptFile)): CliScript {
-    val script = Yaml.parse(scriptFile)
-    return CliScript(script, scriptContext)
 }
 
 private fun hasCliCommands(dir: File): Boolean {

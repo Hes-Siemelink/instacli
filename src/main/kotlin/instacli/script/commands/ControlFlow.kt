@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.script.files.loadCliScriptFile
 import instacli.script.execution.*
-import java.io.File
 
 class Meta : CommandHandler("Meta"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -16,7 +14,7 @@ class Meta : CommandHandler("Meta"), ObjectHandler, DelayedVariableResolver {
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return CliScript(listOf(data), context).run()
+        return CliScript(listOf(data)).run(context)
     }
 }
 
@@ -105,7 +103,6 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
     }
 }
 
-
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -126,24 +123,4 @@ class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver 
         // TODO Collect results in list like for each
         return null
     }
-}
-
-class ExecuteCliScriptFile : CommandHandler("Run Instacli file"), ObjectHandler {
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data["file"] ?: throw CliScriptException("Run Instacli file needs 'file' field.")
-        val scriptFile = File(context.scriptLocation.parent, fileName.asText())
-
-        return runFile(scriptFile, data)
-    }
-
-}
-
-fun runFile(scriptFile: File, data: JsonNode): JsonNode? {
-    val script = loadCliScriptFile(scriptFile)
-    for (variable in data.fields()) {
-        script.context.variables[variable.key] = variable.value
-    }
-
-    return script.run()
 }

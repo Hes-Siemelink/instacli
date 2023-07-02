@@ -40,6 +40,14 @@ object Yaml {
         return mapper.writeValueAsString(node).trim()
     }
 
+    fun mutableMapOf(data: JsonNode): MutableMap<String, JsonNode> {
+        val map = mutableMapOf<String, JsonNode>()
+        for (field in data.fields()) {
+            map[field.key] = field.value
+        }
+        return map
+    }
+
 }
 
 fun emptyNode(): ObjectNode {

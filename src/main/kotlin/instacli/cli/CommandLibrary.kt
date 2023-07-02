@@ -3,6 +3,7 @@ package instacli.cli
 import instacli.script.commands.*
 import instacli.script.commands.http.*
 import instacli.script.execution.CommandHandler
+import instacli.script.files.ExecuteCliScriptFile
 
 object CommandLibrary {
     val commands = commandMap(
@@ -13,7 +14,6 @@ object CommandLibrary {
         When(),
         ForEach(),
         Repeat(),
-        ExecuteCliScriptFile(),
         Meta(),
 
         // Input and Output
@@ -32,6 +32,9 @@ object CommandLibrary {
         Join(),
         Merge(),
         Replace(),
+
+        // Call other files
+        ExecuteCliScriptFile(),
 
         // HTTP
         HttpEndpoint(),
