@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.execution.*
 import instacli.util.Yaml
-import instacli.util.Yaml.mutableMapOf
 import java.io.File
 
 class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCommand(scriptFile.name)) {
@@ -27,12 +26,11 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCom
     }
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val fileContext = VariableScopeContext(mutableMapOf(data), context)
-        return run(fileContext)
+        return run(VariableScope(data, context))
     }
 
     fun run(context: ScriptContext = ScriptDirectoryContext(scriptFile)): JsonNode? {
-        return CliScript(scriptNodes).run(context)
+        return CliScript.from(scriptNodes).run(context)
     }
 }
 

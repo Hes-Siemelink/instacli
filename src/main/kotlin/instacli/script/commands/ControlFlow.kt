@@ -14,7 +14,7 @@ class Meta : CommandHandler("Meta"), ObjectHandler, DelayedVariableResolver {
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return CliScript(listOf(data)).run(context)
+        return CliScript.from(data).run(context)
     }
 }
 

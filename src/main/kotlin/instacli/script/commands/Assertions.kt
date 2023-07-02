@@ -3,10 +3,7 @@ package instacli.script.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.execution.CommandHandler
-import instacli.script.execution.ObjectHandler
-import instacli.script.execution.ScriptContext
-import instacli.script.execution.ValueHandler
+import instacli.script.execution.*
 
 class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 
@@ -38,7 +35,7 @@ class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
 class ExpectedOutput : CommandHandler("Expected output") {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val output: JsonNode? = context.variables["output"]
+        val output: JsonNode? = context.variables[OUTPUT_VARIABLE]
         if (output == null || output != data) {
             throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
         }

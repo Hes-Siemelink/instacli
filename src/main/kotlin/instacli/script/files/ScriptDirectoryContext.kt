@@ -2,9 +2,10 @@ package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.CommandLibrary
-import instacli.script.commands.VariableCommandHandler
+import instacli.script.commands.AssignVariable
 import instacli.script.execution.*
 import java.io.File
+import java.util.*
 
 const val CLI_FILE_EXTENSION = ".cli"
 
@@ -14,27 +15,24 @@ const val CLI_FILE_EXTENSION = ".cli"
  */
 class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
+    private val scriptDir: File
+        get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
+
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
         get() = scriptDir.name
 
-    val scriptDir: File
-        get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
-
     override val variables = mutableMapOf<String, JsonNode>()
+
     private val fileCommands: Map<String, CliScriptFile> by lazy { findFileCommands() }
     private val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
-
-    init {
-        findFileCommands()
-    }
 
     override fun getCommandHandler(command: String): CommandHandler {
 
         // Variable syntax
         val match = VARIABLE_REGEX.matchEntire(command)
         if (match != null) {
-            return VariableCommandHandler(match.groupValues[1])
+            return AssignVariable(match.groupValues[1])
         }
 
         // Standard commands
@@ -128,5 +126,47 @@ private fun hasCliCommands(dir: File): Boolean {
     }
 
     return false
+}
+
+//
+// Command names
+//
+
+/**
+ * Creates command name from file name by stripping extension and converting dashes to spaces.
+ */
+fun asScriptCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip extension
+    if (command.endsWith(CLI_FILE_EXTENSION)) {
+        command = command.substring(0, commandName.length - CLI_FILE_EXTENSION.length)
+    }
+
+    // Spaces for dashes
+    command = command.replace('-', ' ')
+
+    // Start with a capital
+    command =
+            command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+
+    return command
+}
+
+fun asCliCommand(commandName: String): String {
+    var command = commandName
+
+    // Strip extension
+    if (command.endsWith(CLI_FILE_EXTENSION)) {
+        command = command.substring(0, commandName.length - CLI_FILE_EXTENSION.length)
+    }
+
+    // Dashes for spaces
+    command = command.replace(' ', '-')
+
+    // All lower case
+    command = command.lowercase(Locale.getDefault())
+
+    return command
 }
 

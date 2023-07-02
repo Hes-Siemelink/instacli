@@ -14,7 +14,7 @@ class SetVariable : CommandHandler("Set variable"), ObjectHandler {
     }
 }
 
-class VariableCommandHandler(private val varName: String) : CommandHandler("\${}") {
+class AssignVariable(private val varName: String) : CommandHandler("\${}") {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         context.variables[varName] = data
         return null
@@ -24,11 +24,11 @@ class VariableCommandHandler(private val varName: String) : CommandHandler("\${}
 class As : CommandHandler("As"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
-        if (!context.variables.containsKey("output")) {
+        if (!context.variables.containsKey(OUTPUT_VARIABLE)) {
             throw CliScriptException("Can't assign output variable because it is empty.")
         }
 
-        context.variables[data.asText()] = context.variables["output"]!!
+        context.variables[data.asText()] = context.variables.getValue(OUTPUT_VARIABLE)
 
         return null
     }
