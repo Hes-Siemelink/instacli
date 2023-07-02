@@ -7,8 +7,6 @@ import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.script.execution.CliScriptException
 import instacli.script.execution.CommandInfo
-import instacli.script.execution.asCliCommand
-import instacli.script.execution.asScriptCommand
 import instacli.script.files.CliScriptFile
 import instacli.script.files.ScriptDirectoryContext
 import instacli.util.Yaml
@@ -53,7 +51,7 @@ fun main(args: Array<String>) {
 
 private fun runFile(scriptFile: File, context: ScriptDirectoryContext = ScriptDirectoryContext(scriptFile)) {
     context.addVariables(loadDefaultVariables())
-    
+
     CliScriptFile(scriptFile).run(context)
 }
 
@@ -70,19 +68,22 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     val rawCommand = getCommand(args, context, interactive) ?: return
 
     // Run script
-    if (context.fileCommands.containsKey(asScriptCommand(rawCommand))) {
-        val scriptFile = context.fileCommands[asScriptCommand(rawCommand)]!!.scriptFile
-        runFile(scriptFile, context)
+    val script = context.getCliScriptFile(rawCommand)
+    if (script != null) {
+        context.addVariables(loadDefaultVariables())
+        script.run(context)
+        return
     }
 
     // Run subcommand
-    else if (context.subcommands.containsKey(asCliCommand(rawCommand))) {
-        runDirectory(context.subcommands[asCliCommand(rawCommand)]!!.dir, args.drop(1), interactive)
+    val subcommand = context.getSubcommand(rawCommand)
+    if (subcommand != null) {
+        runDirectory(subcommand.dir, args.drop(1), interactive)
+        return
     }
+
     // Command not found
-    else {
-        throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
-    }
+    throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
 }
 
 private fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive: Boolean): String? {
@@ -93,8 +94,8 @@ private fun getCommand(args: List<String>, context: ScriptDirectoryContext, inte
     }
 
     // Print info
-    if (context.getInfo().isNotEmpty()) {
-        println(context.getInfo().trim())
+    if (context.info.summary.isNotEmpty()) {
+        println(context.info.summary.trim())
     } else {
         println("${context.name} has several subcommands.")
     }

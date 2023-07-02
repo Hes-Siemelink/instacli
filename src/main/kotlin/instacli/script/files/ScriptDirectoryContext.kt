@@ -14,19 +14,19 @@ const val CLI_FILE_EXTENSION = ".cli"
  */
 class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
 
-    override val variables = mutableMapOf<String, JsonNode>()
-    val fileCommands = mutableMapOf<String, CliScriptFile>()
-    val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
         get() = scriptDir.name
 
-
     val scriptDir: File
         get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
 
+    override val variables = mutableMapOf<String, JsonNode>()
+    private val fileCommands: Map<String, CliScriptFile> by lazy { findFileCommands() }
+    private val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
+
     init {
-        loadCommands()
+        findFileCommands()
     }
 
     override fun getCommandHandler(command: String): CommandHandler {
@@ -46,25 +46,29 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         return fileCommands[command] ?: throw CliScriptException("Unknown command: $command")
     }
 
-    private fun loadCommands() {
+    private fun findFileCommands(): Map<String, CliScriptFile> {
+
+        val commands = mutableMapOf<String, CliScriptFile>()
 
         // Commands in directory
         for (file in scriptDir.listFiles()!!) {
-            loadCommand(file)
+            addCommand(commands, file)
         }
 
         // Imported commands
         for (file in info.imports) {
-            loadCommand(File(scriptDir, file))
+            addCommand(commands, File(scriptDir, file))
         }
+
+        return commands
     }
 
-    private fun loadCommand(file: File) {
+    private fun addCommand(commands: MutableMap<String, CliScriptFile>, file: File) {
         if (file.isDirectory) return
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
-        fileCommands[name] = CliScriptFile(file)
+        commands[name] = CliScriptFile(file)
     }
 
 
@@ -96,8 +100,14 @@ class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext 
         return commands.sortedBy { it.name }
     }
 
-    fun getInfo(): String {
-        return info.summary
+    fun getCliScriptFile(rawCommand: String): CliScriptFile? {
+        val command = asScriptCommand(rawCommand)
+        return fileCommands[command]
+    }
+
+    fun getSubcommand(rawCommand: String): DirectoryInfo? {
+        val command = asCliCommand(rawCommand)
+        return subcommands[command]
     }
 }
 
