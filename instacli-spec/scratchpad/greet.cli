@@ -1,0 +1,7 @@
+Header:
+  summary: Creates a greeting
+  input parameters:
+    name:
+      default: world
+---
+Output: Hello ${name}!

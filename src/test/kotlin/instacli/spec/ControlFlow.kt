@@ -28,15 +28,10 @@ class ControlFlow {
     }
 
     @Test
-    fun doTestRoutine() {
-        test("control-flow/Do-test-routine.cli")
-    }
-
-    @Test
-    fun executeInstacliFile() {
+    fun executeScriptFile() {
+        test("control-flow/greet.cli")
         test("control-flow/Run Instacli file tests.cli")
     }
-
 }
 
 

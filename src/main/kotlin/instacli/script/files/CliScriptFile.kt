@@ -9,14 +9,14 @@ import java.io.File
 class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCommand(scriptFile.name)) {
 
     override val name: String = asCliCommand(scriptFile.name)
-    override val summary: String  by lazy { findSummary() }
+    override val summary: String by lazy { findSummary() }
 
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(scriptFile) }
 
     private fun findSummary(): String {
         for (node in scriptNodes) {
-            if (node.has("Meta")) {
-                val value = node.get("Meta")?.get("summary")?.textValue()
+            if (node.has("Header")) {
+                val value = node.get("Header")?.get("summary")?.textValue()
                 if (value != null) {
                     return value
                 }
@@ -34,10 +34,10 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCom
     }
 }
 
-class ExecuteCliScriptFile : CommandHandler("Run Instacli file"), ObjectHandler {
+class ExecuteCliScriptFile : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data["file"] ?: throw CliScriptException("Run Instacli file needs 'file' field.")
+        val fileName = data["file"] ?: throw CliScriptException("Run script needs 'file' field.")
         val scriptFile = File(context.scriptLocation.parent, fileName.asText())
 
         return CliScriptFile(scriptFile).execute(data, context)
