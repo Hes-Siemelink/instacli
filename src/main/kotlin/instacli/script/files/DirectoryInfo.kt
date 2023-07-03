@@ -15,7 +15,7 @@ class DirectoryInfo : CommandInfo {
 
     companion object {
         fun load(dir: File): DirectoryInfo {
-            val infoFile = File(dir, "instacli-info.yaml")
+            val infoFile = File(dir, "script-info.yaml")
             val info = if (infoFile.exists()) {
                 mapper.readValue(infoFile)
             } else {

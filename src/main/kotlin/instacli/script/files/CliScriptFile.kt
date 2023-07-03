@@ -2,11 +2,12 @@ package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import instacli.script.commands.ScriptInfo
 import instacli.script.execution.*
 import instacli.util.Yaml
 import java.io.File
 
-class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCommand(scriptFile.name)) {
+class CliScriptFile(private val scriptFile: File) : CommandInfo, CommandHandler(asScriptCommand(scriptFile.name)) {
 
     override val name: String = asCliCommand(scriptFile.name)
     override val summary: String by lazy { findSummary() }
@@ -15,8 +16,8 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asCliCom
 
     private fun findSummary(): String {
         for (node in scriptNodes) {
-            if (node.has("Header")) {
-                val value = node.get("Header")?.get("summary")?.textValue()
+            if (node.has(ScriptInfo().name)) {
+                val value = node.get(ScriptInfo().name)?.get("summary")?.textValue()
                 if (value != null) {
                     return value
                 }

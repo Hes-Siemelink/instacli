@@ -25,7 +25,7 @@ Do:
 Expected output: Hello May!
 
 ---
-Test case: Run a script from another directory that was imported by instacli-info.yaml
+Test case: Run a script from another directory that was imported by script-info.yaml
 
 Do:
   Helper function:

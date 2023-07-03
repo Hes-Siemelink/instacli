@@ -1,6 +1,6 @@
-Header:
+Script info:
   summary: Creates a greeting
-  input parameters:
+  input:
     name:
       default: world
 ---

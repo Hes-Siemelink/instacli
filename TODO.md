@@ -1,5 +1,6 @@
 # On my mind
 
+* Define and validate input
 * Create Instacli based on OpenAPI metadata
 * Http Session management
 * Error handling
