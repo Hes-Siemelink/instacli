@@ -1,5 +1,5 @@
 # Ask where Release is running
-Check Input:
+Check input:
   host: Release URL
   token: Access token for Remote Runner
 
@@ -20,7 +20,7 @@ For each:
 Print as YAML: ${output}
 
 #---
-## Format runtimes for User Input
+## Format runtimes for User input
 ## 'For each' collects returns all outputs as a list, so you can do a list comprehension
 #For each:
 #  ${runtime}: ${output.agent_runtimes}
@@ -31,7 +31,7 @@ Print as YAML: ${output}
 #
 #---
 ## Let user select runtime interactively
-#User Input:
+#User input:
 #  type: checkbox
 #  message: Select runtime to add
 #  choices: ${runtimes}

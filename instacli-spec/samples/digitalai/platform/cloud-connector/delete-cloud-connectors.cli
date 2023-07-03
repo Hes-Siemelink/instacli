@@ -15,7 +15,7 @@ For each:
     name: ${connector.name}
     value: ${connector.cloud_connector_id}
 
-User Input:
+User input:
   message: Select cloud connectors to delete
   choices: ${output}
   type: checkbox

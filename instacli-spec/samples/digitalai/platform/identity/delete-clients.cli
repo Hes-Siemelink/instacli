@@ -17,7 +17,7 @@ For each:
     name: ${client.name}
     value: ${client.id}
 
-User Input:
+User input:
   type: checkbox
   message: Select clients to delete
   choices: ${output}

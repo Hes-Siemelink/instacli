@@ -3,7 +3,7 @@ Meta:
 
 ---
 # Ask for name
-Check Input:
+Check input:
   client_id: Client ID
 
 ---

@@ -15,7 +15,7 @@ For each:
     name: ${agent.alias} (${agent.description})
     value: ${agent.id}
 
-User Input:
+User input:
   message: Select agents to delete
   choices: ${output}
   type: checkbox

@@ -14,6 +14,20 @@ import instacli.script.execution.ObjectHandler
 import instacli.script.execution.ScriptContext
 import instacli.util.Yaml
 
+/**
+ * Returns the input as output.
+ */
+class Output : CommandHandler("Output") {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
+        return data
+    }
+}
+
+/**
+ * Checks if a variable is set.
+ * If not, assigns the default value.
+ * Throws exception if there is no default value.
+ */
 class Input : CommandHandler("Input"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -30,13 +44,11 @@ class Input : CommandHandler("Input"), ObjectHandler {
     }
 }
 
-class Output : CommandHandler("Output") {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        return data
-    }
-}
-
-class CheckInput : CommandHandler("Check Input"), ObjectHandler {
+/**
+ * Checks if a variable is set.
+ * If not, asks the user through a prompt.
+ */
+class CheckInput : CommandHandler("Check input"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for (variable in data.fields()) {
             if (variable.key in context.variables.keys) continue
@@ -48,7 +60,10 @@ class CheckInput : CommandHandler("Check Input"), ObjectHandler {
     }
 }
 
-class UserInput : CommandHandler("User Input"), ObjectHandler {
+/**
+ * Asks User input through interactive prompt.
+ */
+class UserInput : CommandHandler("User input"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val type = getParameter(data, "type")
@@ -65,7 +80,7 @@ class UserInput : CommandHandler("User Input"), ObjectHandler {
             }
 
             else -> {
-                throw CliScriptException("Unsupported type for User Input", data)
+                throw CliScriptException("Unsupported type for User input", data)
             }
         }
     }

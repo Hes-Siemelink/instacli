@@ -18,7 +18,6 @@
 * Parse command line
 * yay-context.yaml
 
-
 # Instacli as glue
 
 * Shell and pipe support
@@ -41,7 +40,7 @@
   See `Merge data.cli`
 * If got a 'then'
 * `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
-* `User Input` (current) vs `User input` (consistent with other commands)
+* Renamed `User Input` to `User input`  to be consistent with other commands. Same for `Check input`.
 * On Http commands, `path` is optional and will be appended to `url`
 
 ## Join and Merge

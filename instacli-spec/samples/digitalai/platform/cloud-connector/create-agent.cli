@@ -3,7 +3,7 @@ Meta:
 
 ---
 # Ask where Release is running
-Check Input:
+Check input:
   host: Release URL
   token: Access token for Remote Runner
   alias: Alias for agent (unique per Digital.ai Platform user)
@@ -20,7 +20,7 @@ Print: Getting available runtimes from ${digitalaiStaging.url}
 Http GET: /workload/v1/agent_runtimes/
 
 ---
-# Format runtimes for User Input
+# Format runtimes for User input
 # 'For each' collects returns all outputs as a list, so you can do a list comprehension
 For each:
   ${runtime}: ${output.agent_runtimes}
@@ -31,7 +31,7 @@ As: runtimes
 
 ---
 # Let user select runtime interactively
-User Input:
+User input:
   type: checkbox
   message: Select runtime to add
   choices: ${runtimes}
@@ -46,9 +46,9 @@ Http POST:
     alias: ${alias}
     description: Remote runner
     variables:
-        RELEASE_URL: ${host}
-        RUNNER_REGISTRATION_TOKEN: ${token}
-        RUNNER_VOLUME_BASE_HOST_PATH: "/.dai-agent-storage"
+      RELEASE_URL: ${host}
+      RUNNER_REGISTRATION_TOKEN: ${token}
+      RUNNER_VOLUME_BASE_HOST_PATH: "/.dai-agent-storage"
 
 ---
 # Display the ID of the agent that was just created
