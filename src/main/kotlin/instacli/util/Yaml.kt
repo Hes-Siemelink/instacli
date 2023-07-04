@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import java.io.File
+import java.io.FileNotFoundException
 
 object Yaml {
 
@@ -19,6 +20,13 @@ object Yaml {
 
     fun readFile(source: File): JsonNode? {
         return mapper.readValue(source, JsonNode::class.java)
+    }
+
+    fun readResource(classpathResource: String): JsonNode {
+        val stream = object {}.javaClass.getResourceAsStream("/$classpathResource")
+            ?: throw FileNotFoundException("Resource not found: $classpathResource")
+
+        return mapper.readTree(stream)
     }
 
     fun parse(source: File): List<JsonNode> {
@@ -50,7 +58,7 @@ object Yaml {
 
 }
 
-fun emptyNode(): ObjectNode {
+fun objectNode(): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance)
 }
 
@@ -60,3 +68,4 @@ fun emptyNode(): ObjectNode {
 fun objectNode(key: String, value: String): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance).put(key, value)
 }
+

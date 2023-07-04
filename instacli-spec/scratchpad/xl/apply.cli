@@ -1,5 +1,5 @@
-Meta:
-  summary: Apply configuration changes
+Script info:
+  description: Apply configuration changes
   parameters:
 
     file:

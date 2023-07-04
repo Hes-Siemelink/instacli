@@ -1,5 +1,5 @@
-Meta:
-  summary: Deletes Cloud Connectors, that may be running
+Script info:
+  description: Deletes Cloud Connectors, that may be running
 
 ---
 Get token:

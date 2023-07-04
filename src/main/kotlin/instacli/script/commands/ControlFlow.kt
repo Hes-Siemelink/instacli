@@ -6,12 +6,6 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.execution.*
 
-class ScriptInfo : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return null
-    }
-}
-
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return CliScript.from(data).run(context)

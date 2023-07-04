@@ -1,5 +1,5 @@
-Meta:
-  summary: Lists the available agents
+Script info:
+  description: Lists the available agents
 
 ---
 Get token:

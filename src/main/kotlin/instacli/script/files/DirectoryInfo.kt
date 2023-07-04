@@ -10,7 +10,7 @@ class DirectoryInfo : CommandInfo {
     var dir: File = File(".")
 
     override var name: String = ""
-    override var summary: String = ""
+    override var description: String = ""
     val imports = mutableListOf<String>()
 
     companion object {

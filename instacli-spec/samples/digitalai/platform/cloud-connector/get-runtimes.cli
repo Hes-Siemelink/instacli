@@ -1,5 +1,5 @@
-Meta:
-  summary: Lists the available runtimes for use in the agents
+Script info:
+  description: Lists the available runtimes for use in the agents
 
 ---
 Get token:

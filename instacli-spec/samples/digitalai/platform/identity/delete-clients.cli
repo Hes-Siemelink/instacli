@@ -1,5 +1,5 @@
-Meta:
-  summary: Deletes OIDC clients
+Script info:
+  description: Deletes OIDC clients
 
 ---
 Get token:

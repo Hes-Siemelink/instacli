@@ -94,8 +94,8 @@ private fun getCommand(args: List<String>, context: ScriptDirectoryContext, inte
     }
 
     // Print info
-    if (context.info.summary.isNotEmpty()) {
-        println(context.info.summary.trim())
+    if (context.info.description.isNotEmpty()) {
+        println(context.info.description.trim())
     } else {
         println("${context.name} has several subcommands.")
     }
@@ -108,6 +108,7 @@ private fun getCommand(args: List<String>, context: ScriptDirectoryContext, inte
         interactive -> {
             askForCommand(commands)
         }
+
         else -> {
             printCommands(commands)
             null
@@ -118,13 +119,13 @@ private fun getCommand(args: List<String>, context: ScriptDirectoryContext, inte
 private fun askForCommand(commands: List<CommandInfo>): String {
     val width = commands.maxOf { it.name.length }
     val selectedCommand = KInquirer.promptListObject(
-            message = "Available commands:",
-            choices = commands.map { Choice(it.infoString(width), it.name) },
-            viewOptions = ListViewOptions(
-                    questionMarkPrefix = "*",
-                    cursor = " > ",
-                    nonCursor = "   ",
-            )
+        message = "Available commands:",
+        choices = commands.map { Choice(it.infoString(width), it.name) },
+        viewOptions = ListViewOptions(
+            questionMarkPrefix = "*",
+            cursor = " > ",
+            nonCursor = "   ",
+        )
     )
     println("---")
     return selectedCommand

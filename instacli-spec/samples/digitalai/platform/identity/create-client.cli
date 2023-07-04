@@ -1,5 +1,5 @@
-Meta:
-  summary: Creates a new OIDC client
+Script info:
+  description: Creates a new OIDC client
 
 ---
 # Ask for name

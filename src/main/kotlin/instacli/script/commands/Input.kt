@@ -8,18 +8,28 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
 import com.github.kinquirer.core.Choice
-import instacli.script.execution.CliScriptException
-import instacli.script.execution.CommandHandler
-import instacli.script.execution.ObjectHandler
-import instacli.script.execution.ScriptContext
+import instacli.script.execution.*
 import instacli.util.Yaml
 
-/**
- * Returns the input as output.
- */
-class Output : CommandHandler("Output") {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        return data
+class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val scriptInfo = CliScriptInfo.from(data)
+
+        for (inputParameter in scriptInfo.input) when {
+            inputParameter.key in context.variables -> {
+                continue
+            }
+
+            inputParameter.value.default.isNotEmpty() -> {
+                context.variables[inputParameter.key] = TextNode(inputParameter.value.default)
+            }
+
+            else -> {
+                throw CliScriptException("Variable not provided: " + inputParameter.key)
+            }
+        }
+
+        return null
     }
 }
 
@@ -83,5 +93,14 @@ class UserInput : CommandHandler("User input"), ObjectHandler {
                 throw CliScriptException("Unsupported type for User input", data)
             }
         }
+    }
+}
+
+/**
+ * Returns the input as output.
+ */
+class Output : CommandHandler("Output") {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
+        return data
     }
 }

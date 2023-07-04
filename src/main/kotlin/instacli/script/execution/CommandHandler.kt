@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.util.emptyNode
+import instacli.util.objectNode
 
 abstract class CommandHandler(open val name: String) {
 
@@ -56,13 +56,13 @@ abstract class CommandHandler(open val name: String) {
 
     fun getParameter(data: JsonNode, parameter: String): JsonNode {
         return data[parameter] ?: throw CliScriptException(
-                "Command '$name' needs '$parameter' field.",
-                getCommand(data)
+            "Command '$name' needs '$parameter' field.",
+            getCommand(data)
         )
     }
 
     fun getCommand(data: JsonNode): JsonNode {
-        val node = emptyNode()
+        val node = objectNode()
         node.set<JsonNode>(name, data)
         return node
     }

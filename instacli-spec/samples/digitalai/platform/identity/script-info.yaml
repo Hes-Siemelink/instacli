@@ -1,4 +1,4 @@
-summary: |
+description: |
   Services for Identity Management
 imports:
   - ../get-token.cli

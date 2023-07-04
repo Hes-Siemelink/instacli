@@ -16,7 +16,7 @@ object CommandLibrary {
         Repeat(),
 
         // Input and Output
-        ScriptInfo(),
+        ScriptInfoHandler(),
         Input(),
         Output(),
         CheckInput(),

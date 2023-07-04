@@ -1,5 +1,5 @@
-Meta:
-  summary: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+Script info:
+  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
 
 ---
 # Ask where Release is running

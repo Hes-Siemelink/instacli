@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.script.execution.*
 import instacli.util.Yaml
-import instacli.util.emptyNode
+import instacli.util.objectNode
 
 class CreateObject : CommandHandler("Create object"), ArrayHandler {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
-        val output = emptyNode()
+        val output = objectNode()
 
         for (field in data) {
             // TODO data validation. Maybe use ObjectMapper and value classes?
@@ -178,7 +178,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
     }
 
     private fun replaceObject(source: ObjectNode, part: JsonNode, replaceWith: JsonNode): JsonNode {
-        val replacement = emptyNode()
+        val replacement = objectNode()
         for (field in source.fields()) {
             replacement.set<JsonNode>(field.key, replace(field.value, part, replaceWith))
         }

@@ -1,5 +1,5 @@
-Meta:
-  summary: Delete agents, also from running Cloud Connectors
+Script info:
+  description: Delete agents, also from running Cloud Connectors
 
 ---
 Get token:

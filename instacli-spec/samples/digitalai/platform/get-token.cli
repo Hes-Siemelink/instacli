@@ -1,5 +1,5 @@
-Meta:
-  summary: Gets a login token
+Script info:
+  description: Gets a login token
 
 ---
 Print: Accessing ${endpoint.id} as ${endpoint.auth.username}

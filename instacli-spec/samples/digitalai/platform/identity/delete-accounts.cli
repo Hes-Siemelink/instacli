@@ -1,5 +1,5 @@
-Meta:
-  summary: Deletes accounts from Digital.ai Platform
+Script info:
+  description: Deletes accounts from Digital.ai Platform
 
 ---
 Check input:
