@@ -28,10 +28,11 @@ fun main(args: Array<String>) {
         }
 
         // Run script directly or a command from a directory
+        val context = ScriptDirectoryContext(file, options.interactive)
         if (file.isDirectory) {
-            runDirectory(file, options.args.drop(1), options.interactive)
+            runDirectory(file, options.args.drop(1), context)
         } else {
-            runFile(file)
+            runFile(file, context)
         }
     } catch (e: CliException) {
         System.err.println(e.message)
@@ -49,14 +50,13 @@ fun main(args: Array<String>) {
     }
 }
 
-private fun runFile(scriptFile: File, context: ScriptDirectoryContext = ScriptDirectoryContext(scriptFile)) {
+private fun runFile(scriptFile: File, context: ScriptDirectoryContext) {
     context.addVariables(loadDefaultVariables())
 
     CliScriptFile(scriptFile).run(context)
 }
 
-private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean) {
-    val context = ScriptDirectoryContext(cliDir)
+private fun runDirectory(cliDir: File, args: List<String>, context: ScriptDirectoryContext) {
 
     // No Instacli scripts in directory
     if (context.getAllCommands().isEmpty()) {
@@ -65,7 +65,7 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     }
 
     // Parse command
-    val rawCommand = getCommand(args, context, interactive) ?: return
+    val rawCommand = getCommand(args, context, context.interactive) ?: return
 
     // Run script
     val script = context.getCliScriptFile(rawCommand)
@@ -78,7 +78,7 @@ private fun runDirectory(cliDir: File, args: List<String>, interactive: Boolean)
     // Run subcommand
     val subcommand = context.getSubcommand(rawCommand)
     if (subcommand != null) {
-        runDirectory(subcommand.dir, args.drop(1), interactive)
+        runDirectory(subcommand.dir, args.drop(1), ScriptDirectoryContext(subcommand.dir, context.interactive))
         return
     }
 

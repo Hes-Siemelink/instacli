@@ -5,6 +5,7 @@ import instacli.util.Yaml
 import java.io.File
 
 interface ScriptContext {
+    val interactive: Boolean
     val variables: MutableMap<String, JsonNode>
     val scriptLocation: File
     fun getCommandHandler(command: String): CommandHandler

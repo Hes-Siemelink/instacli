@@ -13,7 +13,10 @@ const val CLI_FILE_EXTENSION = ".cli"
  * Context for running an Instacli script inside a directory.
  * It will scan the directory for other scripts and expose them as commands.
  */
-class ScriptDirectoryContext(override val scriptLocation: File) : ScriptContext {
+class ScriptDirectoryContext(
+    override val scriptLocation: File,
+    override val interactive: Boolean = false
+) : ScriptContext {
 
     private val scriptDir: File
         get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
@@ -148,7 +151,7 @@ fun asScriptCommand(commandName: String): String {
 
     // Start with a capital
     command =
-            command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+        command.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
     return command
 }
