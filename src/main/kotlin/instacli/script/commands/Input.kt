@@ -24,6 +24,11 @@ class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedV
                 context.variables[inputParameter.key] = TextNode(inputParameter.value.default)
             }
 
+            context.interactive -> {
+                val answer = KInquirer.promptInput(inputParameter.value.description)
+                context.variables[inputParameter.key] = TextNode(answer)
+            }
+
             else -> {
                 throw CliScriptException("Variable not provided: " + inputParameter.key)
             }
