@@ -6,7 +6,7 @@ Input:
   token: Access token for Remote Runner
   alias: Alias for agent (unique per Digital.ai Platform user)
   platformEndpoint:
-    type: digitalai.platform.Endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API

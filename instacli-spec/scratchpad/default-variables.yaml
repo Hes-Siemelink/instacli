@@ -21,7 +21,7 @@ exampleUrl: http://user:pass@localhost:5000
 
 # Release Nightly admin 'Hes'
 digitalaiStaging:
-  .type: digitalai.platform.Endpoint
+  .tag: digitalai.platform.Endpoint
   url: https://identity.staging.digital.ai
   auth:
     username: hes

@@ -12,7 +12,6 @@ import instacli.script.execution.*
 import instacli.util.Yaml
 
 class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
-
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return null
     }
@@ -53,23 +52,23 @@ class Input : CommandHandler("Input"), ObjectHandler {
         info: InputParameterInfo,
         context: ScriptContext
     ): JsonNode {
-        if (info.type == TYPE_STRING) {
+        if (info.tag.isEmpty()) {
             val answer = KInquirer.promptInput(info.description)
             return TextNode(answer)
         } else {
-            // For non-string types, pick one from the preconfigured variables with the same type
-            val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.type)
+            // For tagged parameters, pick one from the preconfigured variables with the same type
+            val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.tag)
             when (matchingTypes.size) {
                 1 -> {
                     return matchingTypes[0]
                 }
 
                 0 -> {
-                    throw CliScriptException("No variables found for ${info.type}")
+                    throw CliScriptException("No variables found for ${info.tag}")
                 }
 
                 else -> {
-                    throw CliScriptException("Multiple variables match ${info.type}")
+                    throw CliScriptException("Multiple variables match ${info.tag}")
                 }
             }
         }

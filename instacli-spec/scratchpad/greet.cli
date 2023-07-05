@@ -4,7 +4,6 @@ Script info:
 Input:
   name:
     description: The name to greet
-    type: text
     default: world
 
 Output: Hello ${name}!

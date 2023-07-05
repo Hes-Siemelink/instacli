@@ -5,7 +5,7 @@ Input:
   host: Release URL
   token: Access token for Remote Runner
   platformEndpoint:
-    type: digitalai.platform.Endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API

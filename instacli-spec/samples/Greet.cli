@@ -4,7 +4,6 @@ Script info:
 Input:
   name:
     description: Your name
-    type: text
     default: World
 
 ---

@@ -27,8 +27,8 @@ class CliScriptInfoTest {
         assertTrue("name" in input.parameters.keys)
         val name = input.parameters["name"]
         assertEquals("The name to greet", name?.description)
-        assertEquals("text", name?.type)
         assertEquals("world", name?.default)
+        assertEquals("text", name?.tag)
 
         assertTrue("language" in input.parameters.keys)
         val language = input.parameters["language"]

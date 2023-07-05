@@ -4,7 +4,7 @@ Script info:
 Input:
   name: Find account
   platformEndpoint:
-    type: digitalai.platform.Endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 Get token:

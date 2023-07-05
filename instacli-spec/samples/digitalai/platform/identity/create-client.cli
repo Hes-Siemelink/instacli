@@ -4,7 +4,7 @@ Script info:
 Input:
   client_id: Client ID
   platformEndpoint:
-    type: digitalai.platform.Endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API

@@ -64,8 +64,6 @@ class CliScriptInfo : CommandInfo {
     }
 }
 
-const val TYPE_STRING = "string"
-
 class InputInfo {
 
     @JsonAnySetter
@@ -80,7 +78,7 @@ class InputInfo {
 
 data class InputParameterInfo(
     var description: String = "",
-    val type: String = TYPE_STRING,
+    val tag: String = "",
     val default: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)
