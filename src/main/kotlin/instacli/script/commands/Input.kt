@@ -12,6 +12,7 @@ import instacli.script.execution.*
 import instacli.util.Yaml
 
 class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
+    
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val scriptInfo = CliScriptInfo.from(data)
 
@@ -25,16 +26,47 @@ class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedV
             }
 
             context.interactive -> {
-                val answer = KInquirer.promptInput(inputParameter.value.description)
-                context.variables[inputParameter.key] = TextNode(answer)
+                context.variables[inputParameter.key] = promptInput(inputParameter.value, context)
             }
 
             else -> {
-                throw CliScriptException("Variable not provided: " + inputParameter.key)
+                throw CliScriptException("Value not provided for: " + inputParameter.key)
             }
         }
 
         return null
+    }
+
+    private fun promptInput(
+        info: InputInfo,
+        context: ScriptContext
+    ): JsonNode {
+        if (info.type == "string") {
+            val answer = KInquirer.promptInput(info.description)
+            return TextNode(answer)
+        } else {
+            // For non-string types, pick one from the preconfigured variables with the same type
+            val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.type)
+            when (matchingTypes.size) {
+                1 -> {
+                    return matchingTypes[0]
+                }
+
+                0 -> {
+                    throw CliScriptException("No variables found for ${info.type}")
+                }
+
+                else -> {
+                    throw CliScriptException("Multiple variables match ${info.type}")
+                }
+            }
+        }
+    }
+
+    private fun findMatchingTypes(variables: Collection<JsonNode>, type: String): List<JsonNode> {
+        return variables.filter {
+            it[".type"]?.textValue() == type
+        }
     }
 }
 

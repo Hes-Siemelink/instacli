@@ -1,0 +1,31 @@
+exampleUrl: http://user:pass@localhost:5000
+
+# Platform admin 'Hes'
+# digitalaiStaging:
+#   url: https://identity.staging.digital.ai
+#   auth:
+#     username: hes
+#     password: ThisIsAPassword12!!!
+#   api: https://api.staging.digitalai.cloud
+#   id: digitalai
+
+# Acme admin
+# digitalaiStaging:
+#   url: https://identity.staging.digital.ai
+#   auth:
+#     username: admin-acme3.digital.ai
+#     password: ThisIsAPassword12!!!
+#   api: https://api.staging.digitalai.cloud
+#   id: acme3
+
+
+# Release Nightly admin 'Hes'
+digitalaiStaging:
+  .type: digitalai.platform.Endpoint
+  url: https://identity.staging.digital.ai
+  auth:
+    username: hes
+    password: ThisIsAPassword12!!!
+  api: https://api.staging.digitalai.cloud
+  id: release-staging
+

@@ -67,7 +67,7 @@ class CliScriptInfo : CommandInfo {
 
 data class InputInfo(
     var description: String = "",
-    val type: String = "text",
+    val type: String = "string",
     val default: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)
