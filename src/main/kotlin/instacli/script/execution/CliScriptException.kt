@@ -8,7 +8,8 @@ class CliScriptException(message: String, var data: JsonNode? = null, cause: Thr
 
     override val message: String?
         get() = if (data != null) {
-            "${super.message}\n${Yaml.toString(data)}"
+            val yaml = Yaml.toString(data).prependIndent("  ")
+            "${super.message}\n${yaml}"
         } else {
             super.message
         }

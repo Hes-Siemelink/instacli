@@ -39,12 +39,9 @@ fun main(args: Array<String>) {
 
         exitProcess(1)
     } catch (e: CliScriptException) {
-        System.err.println("Instacli scripting error")
+        val cause = e.cause?.message ?: ""
+        System.err.println("Instacli scripting error\n\n  $cause")
         System.err.println("\n${e.message}")
-        if (e.cause != null) {
-            System.err.println()
-            e.cause?.printStackTrace()
-        }
 
         exitProcess(1)
     }
