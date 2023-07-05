@@ -1,5 +1,6 @@
 package instacli.script.execution
 
+import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.commands.ScriptInfoHandler
@@ -56,8 +57,6 @@ class CliScriptInfo : CommandInfo {
     override var name: String = ""
     override var description: String = ""
 
-    var input: Map<String, InputInfo> = mutableMapOf()
-
     companion object {
         fun from(data: JsonNode): CliScriptInfo {
             return Yaml.mapper.treeToValue(data, CliScriptInfo::class.java)
@@ -65,10 +64,26 @@ class CliScriptInfo : CommandInfo {
     }
 }
 
-data class InputInfo(
+const val TYPE_STRING = "string"
+
+class InputInfo {
+
+    @JsonAnySetter
+    var parameters: Map<String, InputParameterInfo> = mutableMapOf()
+
+    companion object {
+        fun from(data: JsonNode): InputInfo {
+            return Yaml.mapper.treeToValue(data, InputInfo::class.java)
+        }
+    }
+}
+
+data class InputParameterInfo(
     var description: String = "",
-    val type: String = "string",
+    val type: String = TYPE_STRING,
     val default: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)
+
 }
+

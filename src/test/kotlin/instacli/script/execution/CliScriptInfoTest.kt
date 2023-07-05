@@ -9,20 +9,29 @@ import org.junit.jupiter.api.Test
 class CliScriptInfoTest {
 
     @Test
-    fun loadScriptInfoInput() {
+    fun scriptInfo() {
         val script = Yaml.readResource("script-info/greet.cli")
         assertTrue("Script info" in script)
 
         val scriptInfo = CliScriptInfo.from(script.get("Script info"))
+        assertEquals("Creates a greeting", scriptInfo.description)
+    }
 
-        assertTrue("name" in scriptInfo.input.keys)
-        val name = scriptInfo.input["name"]
+    @Test
+    fun input() {
+        val script = Yaml.readResource("script-info/greet.cli")
+        assertTrue("Input" in script)
+
+        val input = InputInfo.from(script.get("Input"))
+
+        assertTrue("name" in input.parameters.keys)
+        val name = input.parameters["name"]
         assertEquals("The name to greet", name?.description)
         assertEquals("text", name?.type)
         assertEquals("world", name?.default)
 
-        assertTrue("language" in scriptInfo.input.keys)
-        val language = scriptInfo.input["language"]
+        assertTrue("language" in input.parameters.keys)
+        val language = input.parameters["language"]
         assertEquals("en", language?.description)
     }
 }

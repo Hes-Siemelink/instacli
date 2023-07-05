@@ -19,7 +19,6 @@ object CommandLibrary {
         ScriptInfoHandler(),
         Input(),
         Output(),
-        CheckInput(),
         UserInput(),
 
         // Variables

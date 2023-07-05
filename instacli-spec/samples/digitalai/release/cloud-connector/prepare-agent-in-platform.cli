@@ -1,12 +1,16 @@
-# Ask where Release is running
-Check input:
+Script info:
+  description: Creates a Remote Runner agent in Platform
+
+Input:
   host: Release URL
   token: Access token for Remote Runner
+  platformEndpoint:
+    type: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${platformEndpoint}
 Http endpoint: ${output}
 
 ---

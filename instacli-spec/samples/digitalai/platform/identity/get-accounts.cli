@@ -1,9 +1,10 @@
 Script info:
   description: Lists accounts in Digital.ai Platform
 
----
-Check input:
+Input:
   name: Account name
+  platformEndpoint:
+    type: digitalai.platform.Endpoint
 
 ---
 Get token:

@@ -1,7 +1,6 @@
 Script info:
   description: Creates a greeting
 
----
 Input:
   name:
     default: world

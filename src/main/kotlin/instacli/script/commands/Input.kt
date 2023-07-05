@@ -12,25 +12,37 @@ import instacli.script.execution.*
 import instacli.util.Yaml
 
 class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
-    
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val scriptInfo = CliScriptInfo.from(data)
 
-        for (inputParameter in scriptInfo.input) when {
-            inputParameter.key in context.variables -> {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return null
+    }
+}
+
+/**
+ * Checks if a variable is set.
+ * If not, assigns the default value.
+ * Throws exception if there is no default value.
+ */
+class Input : CommandHandler("Input"), ObjectHandler {
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val input = InputInfo.from(data)
+
+        for (parameter in input.parameters) when {
+            parameter.key in context.variables -> {
                 continue
             }
 
-            inputParameter.value.default.isNotEmpty() -> {
-                context.variables[inputParameter.key] = TextNode(inputParameter.value.default)
+            parameter.value.default.isNotEmpty() -> {
+                context.variables[parameter.key] = TextNode(parameter.value.default)
             }
 
             context.interactive -> {
-                context.variables[inputParameter.key] = promptInput(inputParameter.value, context)
+                context.variables[parameter.key] = promptInput(parameter.value, context)
             }
 
             else -> {
-                throw CliScriptException("Value not provided for: " + inputParameter.key)
+                throw CliScriptException("Value not provided for: " + parameter.key)
             }
         }
 
@@ -38,10 +50,10 @@ class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedV
     }
 
     private fun promptInput(
-        info: InputInfo,
+        info: InputParameterInfo,
         context: ScriptContext
     ): JsonNode {
-        if (info.type == "string") {
+        if (info.type == TYPE_STRING) {
             val answer = KInquirer.promptInput(info.description)
             return TextNode(answer)
         } else {
@@ -67,43 +79,6 @@ class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedV
         return variables.filter {
             it[".type"]?.textValue() == type
         }
-    }
-}
-
-/**
- * Checks if a variable is set.
- * If not, assigns the default value.
- * Throws exception if there is no default value.
- */
-class Input : CommandHandler("Input"), ObjectHandler {
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        for (inputParameter in data.fields()) {
-            if (inputParameter.key in context.variables) continue
-
-            if (inputParameter.value.has("default")) {
-                context.variables[inputParameter.key] = inputParameter.value["default"]
-            } else {
-                throw CliScriptException("Variable not provided: " + inputParameter.key)
-            }
-        }
-        return null
-    }
-}
-
-/**
- * Checks if a variable is set.
- * If not, asks the user through a prompt.
- */
-class CheckInput : CommandHandler("Check input"), ObjectHandler {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        for (variable in data.fields()) {
-            if (variable.key in context.variables.keys) continue
-
-            val answer = KInquirer.promptInput(Yaml.toString(data[variable.key]))
-            context.variables[variable.key] = TextNode(answer)
-        }
-        return null
     }
 }
 

@@ -3,7 +3,6 @@ Test case: Run another Instacli file
 Run script:
   file: greet.cli
   name: Jay
-  # XXX: input parameters should go under 'input:'. Now we leak the file property
 
 Expected output: Hello Jay!
 
