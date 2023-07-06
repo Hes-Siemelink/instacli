@@ -1,6 +1,7 @@
 package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
+import instacli.cli.CliCommandLineOptions
 import instacli.cli.CommandLibrary
 import instacli.script.commands.AssignVariable
 import instacli.script.execution.*
@@ -15,7 +16,7 @@ const val CLI_FILE_EXTENSION = ".cli"
  */
 class ScriptDirectoryContext(
     override val scriptLocation: File,
-    override val interactive: Boolean = false
+    val options: CliCommandLineOptions = CliCommandLineOptions()
 ) : ScriptContext {
 
     private val scriptDir: File
@@ -26,7 +27,9 @@ class ScriptDirectoryContext(
         get() = scriptDir.name
 
     override val variables = mutableMapOf<String, JsonNode>()
-
+    override val interactive: Boolean
+        get() = options.interactive
+    
     private val fileCommands: Map<String, CliScriptFile> by lazy { findFileCommands() }
     private val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 

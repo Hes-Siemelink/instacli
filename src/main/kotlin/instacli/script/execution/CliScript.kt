@@ -8,7 +8,10 @@ import instacli.util.Yaml
 
 class CliScript(val commands: List<Command>) {
 
-    val description: String? by lazy { findDescription() }
+    val description: String?
+            by lazy { findDescription() }
+    val input: Command?
+            by lazy { commands.first { it.name == "Input" } }
 
     fun run(context: ScriptContext): JsonNode? {
         var output: JsonNode? = null
@@ -82,6 +85,5 @@ data class InputParameterInfo(
     val default: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)
-
 }
 

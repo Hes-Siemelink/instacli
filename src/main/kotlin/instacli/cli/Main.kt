@@ -5,8 +5,10 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
+import instacli.script.execution.CliScript
 import instacli.script.execution.CliScriptException
 import instacli.script.execution.CommandInfo
+import instacli.script.execution.InputInfo
 import instacli.script.files.CliScriptFile
 import instacli.script.files.ScriptDirectoryContext
 import instacli.util.Yaml
@@ -28,7 +30,7 @@ fun main(args: Array<String>) {
         }
 
         // Run script directly or a command from a directory
-        val context = ScriptDirectoryContext(file, options.interactive)
+        val context = ScriptDirectoryContext(file, options)
         if (file.isDirectory) {
             runDirectory(file, options.args.drop(1), context)
         } else {
@@ -50,7 +52,16 @@ fun main(args: Array<String>) {
 private fun runFile(scriptFile: File, context: ScriptDirectoryContext) {
     context.addVariables(loadDefaultVariables())
 
-    CliScriptFile(scriptFile).run(context)
+    val script = CliScriptFile(scriptFile)
+    when {
+        context.options.help -> {
+            printCommandInfo(script.cliScript)
+        }
+
+        else -> {
+            script.run(context)
+        }
+    }
 }
 
 private fun runDirectory(cliDir: File, args: List<String>, context: ScriptDirectoryContext) {
@@ -75,7 +86,7 @@ private fun runDirectory(cliDir: File, args: List<String>, context: ScriptDirect
     // Run subcommand
     val subcommand = context.getSubcommand(rawCommand)
     if (subcommand != null) {
-        runDirectory(subcommand.dir, args.drop(1), ScriptDirectoryContext(subcommand.dir, context.interactive))
+        runDirectory(subcommand.dir, args.drop(1), ScriptDirectoryContext(subcommand.dir, context.options))
         return
     }
 
@@ -117,7 +128,7 @@ private fun askForCommand(commands: List<CommandInfo>): String {
     val width = commands.maxOf { it.name.length }
     val selectedCommand = KInquirer.promptListObject(
         message = "Available commands:",
-        choices = commands.map { Choice(it.infoString(width), it.name) },
+        choices = commands.map { Choice(infoString(it.name, it.description, width), it.name) },
         viewOptions = ListViewOptions(
             questionMarkPrefix = "*",
             cursor = " > ",
@@ -133,8 +144,33 @@ private fun printCommands(commands: List<CommandInfo>) {
 
     val width = commands.maxOf { it.name.length }
     commands.forEach {
-        println("  ${it.infoString(width)}")
+        println("  ${infoString(it.name, it.description, width)}")
     }
+}
+
+private fun printCommandInfo(script: CliScript) {
+
+    if (script.description != null) {
+        println(script.description)
+    }
+
+    printInputParameters(script)
+}
+
+private fun printInputParameters(script: CliScript) {
+
+    val inputInfo = InputInfo.from(script.input?.data ?: return)
+
+    println("\nInput parameters:")
+
+    val width = inputInfo.parameters.maxOf { it.key.length }
+    inputInfo.parameters.forEach {
+        println("  ${infoString(it.key, it.value.description, width)}")
+    }
+}
+
+fun infoString(key: String, value: String, width: Int = 10): String {
+    return String.format("%-${width}s   ${value.trim()}", key)
 }
 
 private fun loadDefaultVariables(): JsonNode? {
