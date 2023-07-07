@@ -3,12 +3,12 @@ Script info:
 
 Input:
   name: Find account
-  platformEndpoint:
+  endpoint:
     tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${platformEndpoint}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

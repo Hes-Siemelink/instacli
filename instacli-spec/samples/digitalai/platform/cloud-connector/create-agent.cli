@@ -5,18 +5,19 @@ Input:
   host: Release URL
   token: Access token for Remote Runner
   alias: Alias for agent (unique per Digital.ai Platform user)
-  platformEndpoint:
+  endpoint:
+    description: Digital.ai Platform API endpoint
     tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API
 Get token:
-  endpoint: ${platformEndpoint}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---
 # Get available runtimes
-Print: Getting available runtimes from ${platformEndpoint.url}
+Print: Getting available runtimes from ${endpoint.url}
 Http GET: /workload/v1/agent_runtimes/
 
 ---

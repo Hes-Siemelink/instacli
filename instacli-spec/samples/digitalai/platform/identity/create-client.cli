@@ -3,13 +3,13 @@ Script info:
 
 Input:
   client_id: Client ID
-  platformEndpoint:
+  endpoint:
     tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API
 Get token:
-  endpoint: ${platformEndpoint}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

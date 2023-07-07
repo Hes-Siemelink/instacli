@@ -28,29 +28,55 @@ class Input : CommandHandler("Input"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val input = InputInfo.from(data)
 
-        for (parameter in input.parameters) when {
-            parameter.key in context.variables -> {
+        for ((name, info) in input.parameters) when {
+
+            // Already exists
+            name in context.variables -> {
+
+                // Tag hack: expand variable with type tag
+                if (info.tag.isNotEmpty()) {
+                    val value = findMatchingValueByTag(context.variables, name, info.tag)
+                    if (value != null) {
+                        context.variables[name] = value
+                    }
+                }
+
+                // Leave existing variables as-is
                 continue
             }
 
-            parameter.value.default.isNotEmpty() -> {
-                context.variables[parameter.key] = TextNode(parameter.value.default)
+            // Use default value
+            info.default.isNotEmpty() -> {
+                context.variables[name] = TextNode(info.default)
             }
 
-            parameter.value.tag.isNotEmpty() -> {
-                context.variables[parameter.key] = findByTag(parameter.value, context)
+            // Find by tag
+            info.tag.isNotEmpty() -> {
+                context.variables[name] = findByTag(context, info.tag)
             }
 
+            // Ask user
             context.interactive -> {
-                context.variables[parameter.key] = promptInput(parameter.value)
+                context.variables[name] = promptInput(info)
             }
 
             else -> {
-                throw CliScriptException("No value provided for: " + parameter.key)
+                throw CliScriptException("No value provided for: $name")
             }
         }
 
         return null
+    }
+
+    private fun findMatchingValueByTag(
+        variables: MutableMap<String, JsonNode>,
+        variableName: String,
+        tag: String
+    ): JsonNode? {
+        val matchingVars = filterByTag(variables, tag)
+        val targetVariable = variables[variableName]?.textValue()
+
+        return matchingVars[targetVariable]
     }
 
     private fun promptInput(info: InputParameterInfo): JsonNode {
@@ -58,30 +84,27 @@ class Input : CommandHandler("Input"), ObjectHandler {
         return TextNode(answer)
     }
 
-    private fun findByTag(
-        info: InputParameterInfo,
-        context: ScriptContext
-    ): JsonNode {
+    private fun findByTag(context: ScriptContext, tag: String): JsonNode {
         // For tagged parameters, pick one from the preconfigured variables with the same type
-        val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.tag)
+        val matchingTypes = filterByTag(context.variables, tag)
         when (matchingTypes.size) {
             1 -> {
-                return matchingTypes[0]
+                return matchingTypes.values.first()
             }
 
             0 -> {
-                throw CliScriptException("No variables found for ${info.tag}")
+                throw CliScriptException("No variables found for $tag")
             }
 
             else -> {
-                throw CliScriptException("Multiple variables match ${info.tag}")
+                throw CliScriptException("Multiple variables match $tag")
             }
         }
     }
 
-    private fun findMatchingTypes(variables: Collection<JsonNode>, tag: String): List<JsonNode> {
+    private fun filterByTag(variables: Map<String, JsonNode>, tag: String): Map<String, JsonNode> {
         return variables.filter {
-            it[".tag"]?.textValue() == tag
+            it.value[".tag"]?.textValue() == tag
         }
     }
 }

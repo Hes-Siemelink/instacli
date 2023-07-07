@@ -4,13 +4,13 @@ Script info:
 Input:
   host: Release URL
   token: Access token for Remote Runner
-  platformEndpoint:
+  endpoint:
     tag: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API
 Get token:
-  endpoint: ${platformEndpoint}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---
