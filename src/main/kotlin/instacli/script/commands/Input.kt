@@ -20,6 +20,7 @@ class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedV
 /**
  * Checks if a variable is set.
  * If not, assigns the default value.
+ * Ask for a value if there is no default value and running in interactive mode.
  * Throws exception if there is no default value.
  */
 class Input : CommandHandler("Input"), ObjectHandler {
@@ -36,47 +37,51 @@ class Input : CommandHandler("Input"), ObjectHandler {
                 context.variables[parameter.key] = TextNode(parameter.value.default)
             }
 
+            parameter.value.tag.isNotEmpty() -> {
+                context.variables[parameter.key] = findByTag(parameter.value, context)
+            }
+
             context.interactive -> {
-                context.variables[parameter.key] = promptInput(parameter.value, context)
+                context.variables[parameter.key] = promptInput(parameter.value)
             }
 
             else -> {
-                throw CliScriptException("Value not provided for: " + parameter.key)
+                throw CliScriptException("No value provided for: " + parameter.key)
             }
         }
 
         return null
     }
 
-    private fun promptInput(
+    private fun promptInput(info: InputParameterInfo): JsonNode {
+        val answer = KInquirer.promptInput(info.description)
+        return TextNode(answer)
+    }
+
+    private fun findByTag(
         info: InputParameterInfo,
         context: ScriptContext
     ): JsonNode {
-        if (info.tag.isEmpty()) {
-            val answer = KInquirer.promptInput(info.description)
-            return TextNode(answer)
-        } else {
-            // For tagged parameters, pick one from the preconfigured variables with the same type
-            val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.tag)
-            when (matchingTypes.size) {
-                1 -> {
-                    return matchingTypes[0]
-                }
+        // For tagged parameters, pick one from the preconfigured variables with the same type
+        val matchingTypes: List<JsonNode> = findMatchingTypes(context.variables.values, info.tag)
+        when (matchingTypes.size) {
+            1 -> {
+                return matchingTypes[0]
+            }
 
-                0 -> {
-                    throw CliScriptException("No variables found for ${info.tag}")
-                }
+            0 -> {
+                throw CliScriptException("No variables found for ${info.tag}")
+            }
 
-                else -> {
-                    throw CliScriptException("Multiple variables match ${info.tag}")
-                }
+            else -> {
+                throw CliScriptException("Multiple variables match ${info.tag}")
             }
         }
     }
 
-    private fun findMatchingTypes(variables: Collection<JsonNode>, type: String): List<JsonNode> {
+    private fun findMatchingTypes(variables: Collection<JsonNode>, tag: String): List<JsonNode> {
         return variables.filter {
-            it[".type"]?.textValue() == type
+            it[".tag"]?.textValue() == tag
         }
     }
 }
