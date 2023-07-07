@@ -1,9 +1,13 @@
-Script info:
-  description: Deletes Cloud Connectors, that may be running
+Script info: Deletes Cloud Connectors, that may be running
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

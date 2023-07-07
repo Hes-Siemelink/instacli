@@ -1,9 +1,13 @@
-Script info:
-  description: Lists the available agents
+Script info: Lists the available agents
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

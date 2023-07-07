@@ -55,10 +55,14 @@ private fun toCommandList(scriptNode: JsonNode): List<Command> {
     return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
 }
 
-class CliScriptInfo : CommandInfo {
+class CliScriptInfo() : CommandInfo {
 
     override var name: String = ""
     override var description: String = ""
+
+    constructor(textValue: String) : this() {
+        description = textValue
+    }
 
     companion object {
         fun from(data: JsonNode): CliScriptInfo {

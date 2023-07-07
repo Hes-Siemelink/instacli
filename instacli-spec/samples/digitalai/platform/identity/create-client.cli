@@ -1,13 +1,12 @@
-Script info:
-  description: Creates a new OIDC client
+Script info: Creates a new OIDC client
 
 Input:
   client_id: Client ID
   endpoint:
+    description: Digital.ai Platform API endpoint
     tag: digitalai.platform.Endpoint
 
 ---
-# Log in to Platform API
 Get token:
   endpoint: ${endpoint}
 Http endpoint: ${output}

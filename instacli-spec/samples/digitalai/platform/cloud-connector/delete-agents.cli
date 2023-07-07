@@ -1,9 +1,13 @@
-Script info:
-  description: Delete agents, also from running Cloud Connectors
+Script info: Delete agents, also from running Cloud Connectors
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

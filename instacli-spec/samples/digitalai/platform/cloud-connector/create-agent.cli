@@ -1,5 +1,4 @@
-Script info:
-  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+Script info: Creates a new agent to run in the Cloud Connector, based on a runtime definition
 
 Input:
   host: Release URL

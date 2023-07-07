@@ -1,14 +1,14 @@
-Script info:
-  description: Lists accounts in Digital.ai Platform
+Script info: Lists accounts in Digital.ai Platform
 
 Input:
   name: Account name
   endpoint:
+    description: Digital.ai Platform API endpoint
     tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---

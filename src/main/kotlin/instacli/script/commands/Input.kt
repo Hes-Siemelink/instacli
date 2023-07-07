@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
@@ -11,8 +12,12 @@ import com.github.kinquirer.core.Choice
 import instacli.script.execution.*
 import instacli.util.Yaml
 
-class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, DelayedVariableResolver {
+class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        return null
+    }
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
 }

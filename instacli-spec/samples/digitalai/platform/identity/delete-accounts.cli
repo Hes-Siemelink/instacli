@@ -1,9 +1,9 @@
-Script info:
-  description: Deletes accounts from Digital.ai Platform
+Script info: Deletes accounts from Digital.ai Platform
 
 Input:
   name: Find account
   endpoint:
+    description: Digital.ai Platform API endpoint
     tag: digitalai.platform.Endpoint
 
 ---

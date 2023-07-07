@@ -1,10 +1,13 @@
-Script info:
-  description: Downloads the installer script for the logged in user
+Script info: Downloads the installer script for the logged in user
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
 
 ---
-# Log in to Platform API
 Get token:
-  endpoint: ${digitalaiStaging}
+  endpoint: ${endpoint}
 Http endpoint: ${output}
 
 ---
