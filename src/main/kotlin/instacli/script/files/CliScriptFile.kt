@@ -6,7 +6,7 @@ import instacli.script.execution.*
 import instacli.util.Yaml
 import java.io.File
 
-class CliScriptFile(private val scriptFile: File) : CommandInfo, CommandHandler(asScriptCommand(scriptFile.name)) {
+class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asScriptCommand(scriptFile.name)) {
 
     override val name: String = asCliCommand(scriptFile.name)
     override val description: String by lazy { cliScript.description ?: asScriptCommand(name) }

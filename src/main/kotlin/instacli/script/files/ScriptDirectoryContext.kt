@@ -1,6 +1,7 @@
 package instacli.script.files
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.TextNode
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.CommandLibrary
 import instacli.script.commands.AssignVariable
@@ -29,7 +30,7 @@ class ScriptDirectoryContext(
     override val variables = mutableMapOf<String, JsonNode>()
     override val interactive: Boolean
         get() = options.interactive
-    
+
     private val fileCommands: Map<String, CliScriptFile> by lazy { findFileCommands() }
     private val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
@@ -81,6 +82,12 @@ class ScriptDirectoryContext(
 
         for (defaultVariable in node.fields()) {
             variables[defaultVariable.key] = defaultVariable.value
+        }
+    }
+
+    fun addVariables(vars: Map<String, String>) {
+        for (variable in vars) {
+            variables[variable.key] = TextNode(variable.value)
         }
     }
 

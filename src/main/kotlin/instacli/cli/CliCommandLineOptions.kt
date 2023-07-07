@@ -1,13 +1,93 @@
 package instacli.cli
 
-class CliCommandLineOptions(args: Array<String> = arrayOf<String>()) {
-    val args = mutableListOf<String>()
-    var interactive = false
-    var help = false
+import instacli.cli.ArgType.*
 
-    init {
-        this.args.addAll(args.filter { !it.startsWith('-') })
-        interactive = args.contains("-i")
-        help = args.contains("--help")
+class CliCommandLineOptions private constructor(
+    val interactive: Boolean,
+    val help: Boolean,
+    val commands: List<String>,
+    private val commandArgs: List<String>
+
+) {
+    val commandParameters by lazy { toParameterMap(commandArgs) }
+
+    companion object {
+        operator fun invoke(args: Array<String> = arrayOf<String>()): CliCommandLineOptions {
+            val (globalArgs, commands, commandArgs) = splitArguments(args)
+            val interactive = globalArgs.contains("-i")
+            val help = globalArgs.contains("--help")
+
+            return CliCommandLineOptions(
+                interactive,
+                help,
+                commands,
+                commandArgs
+            )
+        }
     }
+}
+
+private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
+
+private fun splitArguments(args: Array<String>): Triple<List<String>, List<String>, List<String>> {
+    val globalArgs = mutableListOf<String>()
+    val commands = mutableListOf<String>()
+    val commandArgs = mutableListOf<String>()
+
+    var state = GLOBAL
+
+    for (argument in args) {
+        if (state == GLOBAL) {
+            if (isFlag(argument)) {
+                globalArgs.add(argument)
+            } else {
+                state = COMMAND
+            }
+        }
+
+        if (state == COMMAND) {
+            if (isFlag(argument)) {
+                state = COMMAND_ARGS
+            } else {
+                commands.add(argument)
+            }
+        }
+
+        if (state == COMMAND_ARGS) {
+            commandArgs.add(argument)
+        }
+    }
+
+    return Triple(globalArgs, commands, commandArgs)
+}
+
+internal fun toParameterMap(args: List<String>): Map<String, String> {
+    val parameters = mutableMapOf<String, String>()
+    var currentArgument: String? = "default"
+    for (argument in args) {
+        if (isFlag(argument)) {
+            currentArgument = noFlag(argument)
+        } else {
+            currentArgument ?: throw IllegalArgumentException("First element can't be a flag in $args")
+            parameters[currentArgument] = argument
+        }
+    }
+    return parameters
+}
+
+internal fun isFlag(item: String): Boolean {
+    return item.startsWith('-')
+}
+
+internal fun noFlag(text: String): String {
+    var start = 0
+    for (character in text) {
+        if (character == '-') {
+            start++
+        } else {
+            break;
+        }
+    }
+
+    return text.substring(start)
 }

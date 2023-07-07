@@ -24,7 +24,7 @@ fun main(args: Array<String>) {
         val options = CliCommandLineOptions(args)
 
         // First argument should be a valid file
-        val file = File(options.args[0])
+        val file = File(options.commands[0])
         if (!file.exists()) {
             throw CliException("Could not find file: ${file.absolutePath}")
         }
@@ -32,9 +32,9 @@ fun main(args: Array<String>) {
         // Run script directly or a command from a directory
         val context = ScriptDirectoryContext(file, options)
         if (file.isDirectory) {
-            runDirectory(file, options.args.drop(1), context)
+            runDirectory(file, options.commands.drop(1), context)
         } else {
-            runFile(file, context)
+            runFile(CliScriptFile(file), context)
         }
     } catch (e: CliException) {
         System.err.println(e.message)
@@ -49,18 +49,13 @@ fun main(args: Array<String>) {
     }
 }
 
-private fun runFile(scriptFile: File, context: ScriptDirectoryContext) {
+private fun runFile(script: CliScriptFile, context: ScriptDirectoryContext) {
     context.addVariables(loadDefaultVariables())
+    context.addVariables(context.options.commandParameters)
 
-    val script = CliScriptFile(scriptFile)
     when {
-        context.options.help -> {
-            printCommandInfo(script.cliScript)
-        }
-
-        else -> {
-            script.run(context)
-        }
+        context.options.help -> printCommandInfo(script.cliScript)
+        else -> script.run(context)
     }
 }
 
@@ -78,8 +73,7 @@ private fun runDirectory(cliDir: File, args: List<String>, context: ScriptDirect
     // Run script
     val script = context.getCliScriptFile(rawCommand)
     if (script != null) {
-        context.addVariables(loadDefaultVariables())
-        script.run(context)
+        runFile(script, context)
         return
     }
 
@@ -113,10 +107,7 @@ private fun getCommand(args: List<String>, context: ScriptDirectoryContext, inte
     // Select command
     val commands = context.getAllCommands()
     return when {
-        interactive -> {
-            askForCommand(commands)
-        }
-
+        interactive -> askForCommand(commands)
         else -> {
             printCommands(commands)
             null
@@ -163,9 +154,9 @@ private fun printInputParameters(script: CliScript) {
 
     println("\nInput parameters:")
 
-    val width = inputInfo.parameters.maxOf { it.key.length }
+    val width = inputInfo.parameters.maxOf { it.key.length } + 2
     inputInfo.parameters.forEach {
-        println("  ${infoString(it.key, it.value.description, width)}")
+        println("  ${infoString("--" + it.key, it.value.description, width)}")
     }
 }
 
