@@ -1,0 +1,7 @@
+Script info: Echos the input
+
+Input:
+  input: Input that becomes output
+
+---
+Output: ${input}

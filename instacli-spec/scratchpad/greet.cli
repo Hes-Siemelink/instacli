@@ -1,8 +1,0 @@
-Script info: Creates a greeting
-
-Input:
-  name:
-    description: The name to greet
-    default: world
-
-Output: Hello ${name}!
