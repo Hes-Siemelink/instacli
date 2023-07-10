@@ -3,7 +3,7 @@ Do:
       releaseServer: ${releaseEndpoint}
     As: runner
 
-  - Prepare Agent in Staging:
+  - Prepare Agent in Platform:
       host: ${releaseEndpoint.url}
       token: ${runner.token}
     As: agent

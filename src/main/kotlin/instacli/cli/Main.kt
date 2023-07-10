@@ -14,6 +14,12 @@ val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
 class CliException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
+
+    if (args.isEmpty()) {
+        printUsage()
+        exitProcess(0)
+    }
+
     try {
         InstacliInvocation(args).run()
     } catch (e: CliException) {
@@ -27,6 +33,13 @@ fun main(args: Array<String>) {
 
         exitProcess(1)
     }
+}
+
+fun printUsage() {
+    println("Instacli -- Instantly create CLI applications with light scripting!")
+    println()
+    println("Usage:\n   cli [-i] [--help] file | directory")
+    println()
 }
 
 class InstacliInvocation(
