@@ -7,15 +7,17 @@ import com.github.kinquirer.core.Choice
 import instacli.script.execution.CliScript
 import instacli.script.execution.CommandInfo
 import instacli.script.execution.InputInfo
+import instacli.script.files.DirectoryInfo
 
 interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String
 }
 
 interface UserOutput {
-    fun printCommands(commands: List<CommandInfo>)
+    fun printUsage()
     fun printScriptInfo(script: CliScript)
-
+    fun printCommands(commands: List<CommandInfo>)
+    fun printDirectoryInfo(info: DirectoryInfo)
 }
 
 object ConsoleInput : UserInput {
@@ -45,6 +47,15 @@ object ConsoleOutput : UserOutput {
         }
     }
 
+    override fun printDirectoryInfo(info: DirectoryInfo) {
+        if (info.description.isNotEmpty()) {
+            println(info.description.trim())
+        } else {
+            println("${info.name} has several subcommands.")
+        }
+        println()
+    }
+
     override fun printScriptInfo(script: CliScript) {
 
         if (script.description != null) {
@@ -66,6 +77,12 @@ object ConsoleOutput : UserOutput {
         }
     }
 
+    override fun printUsage() {
+        println("Instacli -- Instantly create CLI applications with light scripting!")
+        println()
+        println("Usage:\n   cli [-i] [--help] file | directory")
+        println()
+    }
 }
 
 

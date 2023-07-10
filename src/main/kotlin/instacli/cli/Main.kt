@@ -15,11 +15,6 @@ class CliException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
 
-    if (args.isEmpty()) {
-        printUsage()
-        exitProcess(0)
-    }
-
     try {
         InstacliInvocation(args).run()
     } catch (e: CliException) {
@@ -35,12 +30,6 @@ fun main(args: Array<String>) {
     }
 }
 
-fun printUsage() {
-    println("Instacli -- Instantly create CLI applications with light scripting!")
-    println()
-    println("Usage:\n   cli [-i] [--help] file | directory")
-    println()
-}
 
 class InstacliInvocation(
     private val args: Array<String>,
@@ -50,6 +39,11 @@ class InstacliInvocation(
 ) {
 
     fun run() {
+        if (args.isEmpty()) {
+            out.printUsage()
+            return
+        }
+
         val options = CliCommandLineOptions(args)
 
         // First argument should be a valid file
@@ -114,13 +108,7 @@ class InstacliInvocation(
         }
 
         // Print info
-        if (context.info.description.isNotEmpty()) {
-            println(context.info.description.trim())
-        } else {
-            println("${context.name} has several subcommands.")
-        }
-        println()
-
+        out.printDirectoryInfo(context.info)
 
         // Select command
         val commands = context.getAllCommands()
