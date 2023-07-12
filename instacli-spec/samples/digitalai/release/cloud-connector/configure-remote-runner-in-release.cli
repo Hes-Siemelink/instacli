@@ -1,0 +1,24 @@
+Script info: Prepares a Remote Runner user in Release
+
+Input:
+  #  password: Remote Runner password
+  release:
+    description: Digital.ai Release endpoint
+    tag: digitalai.release.endpoint
+
+---
+Xl apply:
+  endpoint: ${release}
+  version: 23.1.0
+  file: remote-runner-user.yaml
+
+---
+Http endpoint: ${release}
+
+Http POST:
+  path: /tokens/users
+  body:
+    tokenNote: cloud-connector-token
+
+Output:
+  token: ${output.token}

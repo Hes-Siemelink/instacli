@@ -3,13 +3,13 @@ Script info: Creates a Remote Runner agent in Platform
 Input:
   host: Release URL
   token: Access token for Remote Runner
-  endpoint:
+  platform:
     description: Digital.ai Platform API endpoint
     tag: digitalai.platform.Endpoint
 
 ---
 Get token:
-  endpoint: ${endpoint}
+  endpoint: ${platform}
 Http endpoint: ${output}
 
 ---

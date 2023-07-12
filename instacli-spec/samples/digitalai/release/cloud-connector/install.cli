@@ -1,7 +1,6 @@
 Do:
-  - Configure Remote Runner in Release:
-      releaseServer: ${releaseEndpoint}
-    As: runner
+  - Configure Remote Runner in Release
+  - As: runner
 
   - Prepare Agent in Platform:
       host: ${releaseEndpoint.url}
