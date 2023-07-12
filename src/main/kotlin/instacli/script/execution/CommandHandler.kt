@@ -61,6 +61,14 @@ abstract class CommandHandler(open val name: String) {
         )
     }
 
+    fun getTextParameter(data: JsonNode, parameter: String): String {
+        val value = getParameter(data, parameter)
+        if (value !is ValueNode) {
+            throw CliScriptException("Parameter $parameter in command '$name' needs to be a text value.", getCommand(data))
+        }
+        return value.textValue()
+    }
+
     fun getCommand(data: JsonNode): JsonNode {
         val node = objectNode()
         node.set<JsonNode>(name, data)

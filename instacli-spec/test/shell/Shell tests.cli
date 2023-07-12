@@ -1,0 +1,12 @@
+Test case: Run command
+
+Shell: echo Hello
+Expected output: Hello
+
+---
+Test case: Run shell script
+
+Shell:
+  script: hello.sh
+Expected output: Hello World
+
