@@ -14,9 +14,9 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
-        val (command, arguments) = parseCommand(data.textValue())
+        val arguments = tokenizeCommandLine(data.textValue())
 
-        val output = shellRun(command, arguments)
+        val output = shellRun(arguments[0], arguments.drop(1))
 
         // TODO check if we can parse this into Yaml
         return TextNode(output)
@@ -30,16 +30,20 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
     }
 }
 
-internal fun parseCommand(line: String): Pair<String, List<String>> {
-    val spaceIndex = line.indexOf(' ')
 
-    return when {
-        spaceIndex < 0 -> {
-            Pair(line, listOf())
-        }
-
-        else -> {
-            Pair(line.substring(0, spaceIndex), listOf(line.substring(spaceIndex + 1)))
-        }
+internal fun tokenizeCommandLine(line: String): List<String> {
+    val arguments = mutableListOf<String>()
+    var lastWord = ""
+    var quote = false
+    for (ch in line) {
+        if (ch == '"') quote = !quote
+        if (ch == ' ' && !quote) {
+            arguments.add(lastWord)
+            lastWord = ""
+        } else
+            lastWord += ch
     }
+    arguments.add(lastWord)
+
+    return arguments
 }

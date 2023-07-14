@@ -4,15 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.execution.CommandHandler
-import instacli.script.execution.ObjectHandler
-import instacli.script.execution.ScriptContext
-import instacli.script.execution.ValueHandler
+import instacli.script.execution.*
 import instacli.util.Yaml
 import instacli.util.Yaml.parse
 import instacli.util.objectNode
 import io.ktor.client.*
 import io.ktor.client.call.*
+import io.ktor.client.plugins.auth.*
+import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
@@ -102,7 +101,9 @@ data class HttpParameters(
     val body: JsonNode?,
     val headers: JsonNode?,
     val cookies: JsonNode?,
-    val saveAs: String?
+    val saveAs: String?,
+    val username: String?,
+    val password: String?,
 ) {
 
     val url: String
@@ -119,7 +120,9 @@ data class HttpParameters(
                 body = data["body"],
                 headers = data["headers"],
                 cookies = data["cookies"],
-                saveAs = data["save as"]?.textValue()
+                saveAs = data["save as"]?.textValue(),
+                username = data["auth"]?.get("username")?.textValue(),
+                password = data["auth"]?.get("password")?.textValue(),
             )
         }
 
@@ -151,10 +154,20 @@ private fun processRequest(data: ObjectNode, context: ScriptContext, method: Htt
 }
 
 private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
-    // TODO Authorization
 
     val client = HttpClient {
         install(HttpCookies)
+        if (parameters.username != null) {
+            install(Auth) {
+                basic {
+                    credentials {
+                        println("Basic auhUsername: ${parameters.username}")
+                        BasicAuthCredentials(username = parameters.username, password = parameters.password ?: "")
+                    }
+                    realm = "Access to the '/' path"
+                }
+            }
+        }
     }
 
     val response: HttpResponse =
@@ -208,6 +221,11 @@ private suspend fun parseResponse(
     parameters: HttpParameters
 ): JsonNode? {
 
+    // Error
+    if (!response.status.isSuccess()) {
+        throw CliScriptException(response.toString())
+    }
+
     // No content
     if (response.contentLength() == 0.toLong()) return null
 
@@ -232,4 +250,3 @@ private suspend fun parseResponse(
 suspend fun streamBodyToFile(response: HttpResponse, file: File) {
     response.bodyAsChannel().copyTo(file.writeChannel())
 }
-

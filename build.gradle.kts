@@ -22,6 +22,7 @@ dependencies {
     implementation("io.javalin:javalin:5.4.+")
     implementation("io.ktor:ktor-client-core:2.2.+")
     implementation("io.ktor:ktor-client-java:2.2+")
+    implementation("io.ktor:ktor-client-auth:2.2+")
     implementation("org.slf4j:slf4j-simple:2.0.+")
 
     implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")

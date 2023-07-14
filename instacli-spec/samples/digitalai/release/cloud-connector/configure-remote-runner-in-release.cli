@@ -7,10 +7,12 @@ Input:
     tag: digitalai.release.endpoint
 
 ---
-Xl apply:
-  endpoint: ${release}
-  version: 23.1.0
-  file: remote-runner-user.yaml
+#Xl apply:
+#  endpoint: ${release}
+#  version: 23.1.0
+#  file: remote-runner-user.yaml
+
+Shell: ./xlw apply -f remote-runner-user.yaml
 
 ---
 Http endpoint: ${release}
@@ -19,6 +21,8 @@ Http POST:
   path: /tokens/users
   body:
     tokenNote: cloud-connector-token
+
+Print: ${output}
 
 Output:
   token: ${output.token}

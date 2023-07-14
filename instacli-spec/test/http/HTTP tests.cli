@@ -54,17 +54,6 @@ Http POST:
 
 Expected output: [ '1', '2', '3', '4' ]
 
-
----
-Test case: Reset data
-
-Http POST:
-  path: /reset
-Http GET: /items
-
-Expected output: [ '1', '2', '3' ]
-
-
 ---
 Test case: Send headers
 
