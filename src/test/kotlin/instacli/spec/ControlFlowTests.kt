@@ -4,31 +4,31 @@ import instacli.test
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 
-class ControlFlow {
+object ControlFlowTests {
 
     @Test
-    fun `do`() {
+    fun `Do`() {
         test("control-flow/Do tests.cli")
     }
 
     @Test
-    fun `if`() {
+    fun `If`() {
         test("control-flow/If tests.cli")
     }
 
     @Test
-    fun forEach() {
+    fun `For each`() {
         test("control-flow/For each tests.cli")
     }
 
     @Test
     @Timeout(3)
-    fun repeat() {
+    fun `Repeat`() {
         test("control-flow/Repeat tests.cli")
     }
 
     @Test
-    fun executeScriptFile() {
+    fun `Run script`() {
         test("control-flow/greet.cli")
         test("control-flow/Run Instacli file tests.cli")
     }
