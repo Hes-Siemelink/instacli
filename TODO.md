@@ -1,5 +1,11 @@
 # On my mind
 
+* User interaction:
+    * Add 'Prompt' that does not do all the spooky stuff Input does
+    * Add support for default values
+    * Add option to ask for single answer
+    * Rename 'User input' to 'Choice' or 'Prompt'
+    * Write tests for user input
 * Create Instacli based on OpenAPI metadata
 * Http Session management
 * Error handling
