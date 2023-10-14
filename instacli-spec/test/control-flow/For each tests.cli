@@ -107,3 +107,18 @@ For each:
   Output: something else
 
 Expected output: [ ]
+
+---
+Test case: For each on object
+
+For each:
+  ${entry}:
+    1: one
+    2: two
+  Output: ${entry.key} - ${entry.value}
+
+Expected output:
+  [
+    "1 - one",
+    "2 - two"
+  ]

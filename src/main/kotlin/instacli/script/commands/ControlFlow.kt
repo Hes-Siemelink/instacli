@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.execution.*
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
@@ -57,8 +58,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
         val (loopVar, itemList) = removeLoopVariable(data)
-        val items = resolveVariables(itemList, context.variables)
-        if (items !is ArrayNode) throw CliScriptException("First field in For Each must be a list.")
+        val items = toArrayNode(resolveVariables(itemList, context.variables))
 
         val output = ArrayNode(JsonNodeFactory.instance)
         for (item in items) {
@@ -96,6 +96,25 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
         throw CliScriptException("For each must contain a field with the loop variable.")
     }
 }
+
+fun toArrayNode(node: JsonNode): ArrayNode {
+    when {
+        node is ArrayNode -> return node
+        node is ValueNode -> return ArrayNode(JsonNodeFactory.instance).add(node)
+        node is ObjectNode -> {
+            val array = ArrayNode(JsonNodeFactory.instance)
+            for (field in node.fields()) {
+                val obj: ObjectNode = array.objectNode()
+                obj.set<JsonNode>("key", array.textNode(field.key))
+                obj.set<JsonNode>("value", field.value)
+                array.add(obj)
+            }
+            return array
+        }
+    }
+    throw AssertionError("Unsupported node type ${node.javaClass}")
+}
+
 
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
