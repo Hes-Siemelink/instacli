@@ -20,7 +20,10 @@ object CommandLibrary {
         ScriptInfoHandler(),
         Input(),
         Output(),
+        AskUser(),
+        AskAll(),
         UserInput(),
+        MockAnswers(),
 
         // Variables
         As(),

@@ -6,6 +6,7 @@
     * Add option to ask for single answer
     * Rename 'User input' to 'Choice' or 'Prompt'
     * Write tests for user input
+    * Rename test classes
 * Create Instacli based on OpenAPI metadata
 * Http Session management
 * Error handling

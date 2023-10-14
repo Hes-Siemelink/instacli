@@ -1,0 +1,80 @@
+Test case: Simple question
+
+Mock answers:
+  "What is your name?": Instacli
+
+Ask user: What is your name?
+
+Expected output: Instacli
+
+---
+Test case: Default answer
+
+Ask user:
+  message: How much is 1 + 1?
+  default: 2
+
+Expected output: "2"
+
+---
+Test case: Multiple questions
+
+Mock answers:
+  - "What is your name?": Instacli
+
+Ask all:
+  name: What is your name?
+  sum:
+    message: How much is 1 + 1?
+    default: 2
+
+Expected output:
+  name: Instacli
+  sum: "2"
+
+---
+Test case: Select object from list
+
+Mock answers:
+  Select account: dev
+
+Ask user:
+  message: Select account
+  type: select one
+  choices:
+    - name: dev
+      id: 123
+      password: xxxx
+    - name: test
+      id: 456
+      password: xxxx
+    - name: prod
+      id: 789
+      password: xxxx
+  display: name
+
+Expected output:
+  name: dev
+  id: 123
+  password: xxxx
+
+---
+Test case: Select multiple items from list
+
+Mock answers:
+  What flavors do you like?:
+    - Coco
+    - Piña
+
+Ask user:
+  message: What flavors do you like?
+  type: select multiple
+  choices:
+    - Vainilla
+    - Mango
+    - Coco
+    - Piña
+
+Expected output:
+  - Coco
+  - Piña
