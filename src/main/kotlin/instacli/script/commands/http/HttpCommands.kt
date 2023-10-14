@@ -223,7 +223,7 @@ private suspend fun parseResponse(
 
     // Error
     if (!response.status.isSuccess()) {
-        throw CliScriptException(response.toString())
+        throw CliScriptException("$response\n${response.bodyAsText()}")
     }
 
     // No content
