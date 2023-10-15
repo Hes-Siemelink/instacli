@@ -1,18 +1,19 @@
 package instacli.spec
 
+import instacli.loadTestCases
 import instacli.script.commands.http.TestServer
-import instacli.test
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.TestFactory
 
 class HttpTests {
 
-    @Test
-    fun httpTests() {
-        test("http/HTTP tests.cli")
+    @TestFactory
+    fun `Cli scripts`(): List<DynamicNode> {
+        return loadTestCases("http/HTTP tests.cli")
     }
-    
+
     companion object {
         @BeforeAll
         @JvmStatic

@@ -1,35 +1,20 @@
 package instacli.spec
 
-import instacli.test
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.Test
+import instacli.loadTestCases
+import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.TestFactory
 
 class DataManipulationTests {
 
-    @Test
-    fun forEachAndMerge() {
-        test("data-manipulation/For each and merge.cli")
-    }
-
-    @Test
-    fun merge() {
-        test("data-manipulation/Merge data.cli")
-    }
-
-    @Test
-    @Disabled
-    fun join() {
-        test("data-manipulation/Join handler tests.cli")
-    }
-
-    @Test
-    fun replace() {
-        test("data-manipulation/Replace handler tests.cli")
-    }
-
-    @Test
-    fun objectCreation() {
-        test("data-manipulation/Object tests.yaml")
+    @TestFactory
+    fun `Cli scripts`(): List<DynamicNode> {
+        return loadTestCases(
+            "data-manipulation/For each and merge.cli",
+            "data-manipulation/Merge data.cli",
+            "data-manipulation/Replace handler tests.cli",
+            "data-manipulation/Object tests.yaml",
+//            "data-manipulation/Join handler tests.cli",
+        )
     }
 }
 

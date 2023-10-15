@@ -1,12 +1,14 @@
 package instacli.spec
 
-import instacli.test
-import org.junit.jupiter.api.Test
+import instacli.loadTestCases
+import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.TestFactory
 
 class FileTests {
 
-    @Test
-    fun readFiles() {
-        test("files/Read file tests.cli")
+    @TestFactory
+    fun `Cli scripts`(): List<DynamicNode> {
+        return loadTestCases("files/Read file tests.cli")
     }
+
 }

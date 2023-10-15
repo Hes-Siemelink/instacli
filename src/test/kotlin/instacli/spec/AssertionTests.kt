@@ -1,12 +1,13 @@
 package instacli.spec
 
-import instacli.test
-import org.junit.jupiter.api.Test
+import instacli.loadTestCases
+import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.TestFactory
 
 class AssertionTests {
 
-    @Test
-    fun assertStatementTests() {
-        test("assert/Assert statement tests.cli")
+    @TestFactory
+    fun `Cli scripts`(): List<DynamicNode> {
+        return loadTestCases("assert/Assert statement tests.cli")
     }
 }

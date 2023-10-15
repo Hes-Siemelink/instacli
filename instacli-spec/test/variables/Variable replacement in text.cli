@@ -1,26 +1,20 @@
-Task: Set common variables
+Test case: Text replacement
 
 ${text}: some text
-${list}:
-  - 1
-  - 2
-  - 3
-${map}:
-  First: One
-  Second: Two
-  Third: Three
-
----
-Test case: Text replacement
 ${text_replacement}: Here is ${text}
 
 Assert equals:
   actual: ${text_replacement}
   expected: Here is some text
 
-
 ---
 Test case: Use list in text
+
+${list}:
+  - 1
+  - 2
+  - 3
+
 ${list_replacement}: |
   My list:
   ${list}
