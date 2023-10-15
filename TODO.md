@@ -1,8 +1,7 @@
 # On my mind
 
 * User interaction:
-    * Remove 'User input' to 'Choice' or 'Prompt'
-    * Rename test classes
+    * Remove 'User input'
 * Http Session management
 
 # Code cleanup

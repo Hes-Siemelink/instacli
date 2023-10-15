@@ -28,7 +28,6 @@ fun toFile(resource: String): File {
     return testFile
 }
 
-
 private val TEST_CASE = TestCase().name
 
 /**

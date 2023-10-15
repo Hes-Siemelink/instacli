@@ -4,11 +4,16 @@ import instacli.loadTestCases
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
 
-class FileTests {
+class IOTests {
 
     @TestFactory
-    fun `Cli scripts`(): List<DynamicNode> {
+    fun `Files`(): List<DynamicNode> {
         return loadTestCases("files/Read file tests.cli")
+    }
+
+    @TestFactory
+    fun `Shell`(): List<DynamicNode> {
+        return loadTestCases("shell/Shell tests.cli")
     }
 
 }

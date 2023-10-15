@@ -29,7 +29,7 @@ Expected output:
 
 
 ---
-Test case: Http POST
+Test case: POST
 
 Http POST:
   path: /items
@@ -42,7 +42,7 @@ Http POST:
 Expected output: [ '1', '2', '3', '4' ]
 
 ---
-Test case: Http POST without path parameter
+Test case: POST without path parameter
 
 Http POST:
   url: http://localhost:25125/items
@@ -55,7 +55,7 @@ Http POST:
 Expected output: [ '1', '2', '3', '4' ]
 
 ---
-Test case: Send headers
+Test case: Headers
 
 Http GET:
   path: /echo/header/Test
@@ -68,7 +68,7 @@ Assert that:
   in: ${output}
 
 ---
-Test case: Send cookie
+Test case: Cookies
 
 Http GET:
   path: /echo/cookies
