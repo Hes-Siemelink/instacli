@@ -6,7 +6,7 @@ import instacli.util.MockUser
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-class UserInput {
+class UserInputTests {
 
     @BeforeEach
     fun setup() {

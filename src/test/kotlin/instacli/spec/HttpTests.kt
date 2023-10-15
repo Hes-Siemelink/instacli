@@ -6,14 +6,13 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class Http {
+class HttpTests {
 
     @Test
     fun httpTests() {
         test("http/HTTP tests.cli")
     }
-
-
+    
     companion object {
         @BeforeAll
         @JvmStatic

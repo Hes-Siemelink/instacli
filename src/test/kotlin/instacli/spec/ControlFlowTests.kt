@@ -4,7 +4,7 @@ import instacli.test
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 
-object ControlFlowTests {
+class ControlFlowTests {
 
     @Test
     fun `Do`() {

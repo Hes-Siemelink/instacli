@@ -4,7 +4,7 @@ import instacli.test
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-class DataManipulation {
+class DataManipulationTests {
 
     @Test
     fun forEachAndMerge() {

@@ -3,7 +3,7 @@ package instacli.spec
 import instacli.test
 import org.junit.jupiter.api.Test
 
-class Files {
+class FileTests {
 
     @Test
     fun readFiles() {
