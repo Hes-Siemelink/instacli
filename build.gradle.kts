@@ -30,8 +30,8 @@ dependencies {
     implementation("org.fusesource.jansi:jansi:2.4.0")
     implementation("com.lordcodes.turtle:turtle:0.8.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
 }
 

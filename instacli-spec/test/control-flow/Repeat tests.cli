@@ -1,4 +1,4 @@
-Test case:  Only once do
+Test case: Only once do
 
 Output: one
 
@@ -19,20 +19,21 @@ Repeat:
     object: ${output}
     equals: one one one
 
-#Expected output: one one one
+Expected output: one one one
+
 ---
 Test case: Repeat checks a list result
 
 Output: one
 
 Do:
-- Output: a
-- Output: b
-Expected output: [a, b]
+  - Output: a
+  - Output: b
+Expected output: [ a, b ]
 
 Repeat:
   Do:
-  - Output: one
-  - Output: two
-  Until: [one, two]
+    - Output: one
+    - Output: two
+  Until: [ one, two ]
 
