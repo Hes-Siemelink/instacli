@@ -115,10 +115,27 @@ For each:
   ${entry}:
     1: one
     2: two
-  Output: ${entry.key} - ${entry.value}
+  Output: ${entry.value} indeed
 
 Expected output:
-  [
-    "1 - one",
-    "2 - two"
-  ]
+  1: one indeed
+  2: two indeed
+
+---
+Test case: For each with variables resolution
+
+Output:
+  agents:
+    - id: 123
+      alias: runner
+      description: Remote runner
+
+For each:
+  ${agent}: ${output.agents}
+  Output:
+    name: ${agent.alias} (${agent.description})
+    value: ${agent.id}
+
+Expected output:
+  - name: runner (Remote runner)
+    value: 123

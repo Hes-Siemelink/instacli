@@ -1,6 +1,7 @@
 package instacli.script.commands
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.execution.*
@@ -13,7 +14,8 @@ class Task : CommandHandler("Task"), ValueHandler {
     }
 }
 
-class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
+// TODO Just have one method here but move error handling on CommondHandler.execute one level up
+class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         println(data.textValue())
@@ -21,6 +23,11 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        println(Yaml.toString(data))
+        return null
+    }
+
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         println(Yaml.toString(data))
         return null
     }

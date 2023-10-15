@@ -1,15 +1,13 @@
 # On my mind
 
 * User interaction:
-    * Add 'Prompt' that does not do all the spooky stuff Input does
-    * Add support for default values
-    * Add option to ask for single answer
-    * Rename 'User input' to 'Choice' or 'Prompt'
-    * Write tests for user input
+    * Remove 'User input' to 'Choice' or 'Prompt'
     * Rename test classes
-* Create Instacli based on OpenAPI metadata
 * Http Session management
-* Error handling
+
+# Code cleanup
+
+* Report nested exceptions
 
 # Where to take it
 
@@ -17,6 +15,7 @@
 * Plaxolotl - yay is just an interface to a portable execution format. This format has all the metadata in the defined
   explicitly. For example: content type, variable replacement yes/no, etc.
 * Evaluate like a lisp
+* Create Instacli based on OpenAPI metadata
 
 # Command-line support
 

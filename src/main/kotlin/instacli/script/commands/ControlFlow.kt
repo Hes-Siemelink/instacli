@@ -22,7 +22,6 @@ class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
     }
 }
 
-// TODO rename to when
 class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
@@ -58,9 +57,10 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
         val (loopVar, itemList) = removeLoopVariable(data)
-        val items = toArrayNode(resolveVariables(itemList, context.variables))
+        val itemListExpanded = resolveVariables(itemList, context.variables)
+        val items = toArrayNode(itemListExpanded)
 
-        val output = ArrayNode(JsonNodeFactory.instance)
+        val output: JsonNode = if (itemListExpanded is ArrayNode) data.arrayNode() else data.objectNode()
         for (item in items) {
 
             // Set variable
@@ -75,7 +75,11 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
             val result = Do().execute(copy, context)
 
             if (result != null) {
-                output.add(result)
+                if (output is ArrayNode) {
+                    output.add(result)
+                } else if (output is ObjectNode) {
+                    output.set<JsonNode>(item["key"].textValue(), result)
+                }
             }
         }
 
