@@ -31,8 +31,8 @@ dependencies {
     implementation("com.lordcodes.turtle:turtle:0.8.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testImplementation("org.assertj:assertj-core:3.24.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("io.kotest:kotest-assertions-core:5.7.2")
 }
 
 tasks.test {

@@ -1,42 +1,40 @@
 package instacli.cli
 
-import org.junit.jupiter.api.Assertions.*
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class CliCommandLineOptionsTest {
 
     @Test
     fun noFlag() {
-        assertEquals("home", noFlag("-home"))
-        assertEquals("home", noFlag("--home"))
-        assertEquals("home", noFlag("---home"))
-        assertEquals("home-dir", noFlag("---home-dir"))
-        assertEquals("home-dir", noFlag("home-dir"))
+        noFlag("-home") shouldBe "home"
+        noFlag("--home") shouldBe "home"
+        noFlag("---home") shouldBe "home"
+        noFlag("---home-dir") shouldBe "home-dir"
+        noFlag("home-dir") shouldBe "home-dir"
     }
 
     @Test
     fun isFlag() {
-        assertTrue(isFlag("-h"))
-        assertTrue(isFlag("--home"))
-        assertFalse(isFlag("home"))
-        assertFalse(isFlag("home-dir"))
+        isFlag("-h") shouldBe true
+        isFlag("--home") shouldBe true
+        isFlag("home") shouldBe false
+        isFlag("home-dir") shouldBe false
     }
 
     @Test
     fun toParameterMap() {
-        assertEquals(
-            mapOf(
-                "home" to "~",
-                "target" to "/tmp"
-            ),
-            toParameterMap(
-                listOf(
-                    "--home",
-                    "~",
-                    "--target",
-                    "/tmp"
-                )
+        toParameterMap(
+            listOf(
+                "--home",
+                "~",
+                "--target",
+                "/tmp"
             )
-        )
+        ) shouldBe
+                mapOf(
+                    "home" to "~",
+                    "target" to "/tmp"
+                )
     }
 }
