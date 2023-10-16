@@ -1,4 +1,4 @@
-Test case:  Simple if with equals
+Test case: Simple if with equals
 
 If:
   object: a value
@@ -8,35 +8,34 @@ If:
 
 Expected output: Match
 
-
 ---
-Test case:  Simple if with 'in'
+Test case: Simple if with 'in'
 
 If:
   object: chocolate
   in:
-  - milk
-  - chocolate
-  - cookies
+    - milk
+    - chocolate
+    - cookies
   then:
     ${chocolate}: Found
 
 Assert that:
-- object: ${chocolate}
-  equals: Found
+  - object: ${chocolate}
+    equals: Found
 
 ---
-Test case:  If with and / or
+Test case: If with and / or
 
 If:
   all:
-  - object: a value
-    equals: a value
-  - any:
-    - object: selection
-      equals: nothing
-    - object: selection
-      equals: selection
+    - object: a value
+      equals: a value
+    - any:
+        - object: selection
+          equals: nothing
+        - object: selection
+          equals: selection
   then:
     Output: Any Match
 
@@ -44,46 +43,46 @@ Expected output: Any Match
 
 
 ---
-Test case:  If matching each item; no break
+Test case: If matching each item; no break
 
 If:
-- object: one
-  equals: one
-  then:
-    ${one}: 1
+  - object: one
+    equals: one
+    then:
+      ${one}: 1
 
-- object: two
-  equals: two
-  then:
-    ${two}: 2
+  - object: two
+    equals: two
+    then:
+      ${two}: 2
 
 Assert equals:
-- actual:
-  - ${one}
-  - ${two}
-  expected:
-  - 1
-  - 2
+  - actual:
+      - ${one}
+      - ${two}
+    expected:
+      - 1
+      - 2
 
 
 ---
 Test case: Switch-like if; break after successful match
 
 When:
-- object: a value
-  equals: a value
-  then:
-    Output: First match
+  - object: a value
+    equals: a value
+    then:
+      Output: First match
 
-- object: another value
-  in: another value
-  then:
-    Output: Second match
+  - object: another value
+    in: another value
+    then:
+      Output: Second match
 
 Expected output: First match
 
 ---
-Test case:  Variable resolution in nested Do
+Test case: Variable resolution in nested Do
 
 ${output}: one
 
@@ -92,20 +91,20 @@ If:
   equals: something
   then:
     Do:
-    - ${output}: two
-    - ${var}: ${output}
+      - ${output}: two
+      - ${var}: ${output}
 
 Assert equals:
-- actual: ${var}
-  expected: two
+  - actual: ${var}
+    expected: two
 
 
 ---
 Test case: Test against an empty list
 
 If:
-  object: []
-  equals: []
+  object: [ ]
+  equals: [ ]
   then:
     Output: Success
 
@@ -124,3 +123,39 @@ If:
     Output: Success
 
 Expected output: Success
+
+---
+Test case: Empty list
+
+Output: [ ]
+
+If:
+  empty: ${output}
+  then:
+    Output: empty list detected
+
+Expected output: empty list detected
+
+---
+Test case: Empty object
+
+Output: { }
+
+If:
+  empty: ${output}
+  then:
+    Output: empty object detected
+
+Expected output: empty object detected
+
+---
+Test case: Empty string
+
+Output: ""
+
+If:
+  empty: ${output}
+  then:
+    Output: empty string detected
+
+Expected output: empty string detected

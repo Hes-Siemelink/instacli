@@ -3,6 +3,7 @@ package instacli.script.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.execution.CliScriptException
 
 
@@ -19,18 +20,18 @@ class Equals(private val actual: Any, private val expected: Any) : Condition {
 }
 
 class Contains(
-    private val obj: JsonNode,
+    private val node: JsonNode,
     private val container: JsonNode
 ) : Condition {
 
     override fun isTrue(): Boolean {
         return when (container) {
             is ArrayNode -> {
-                container.contains(obj)
+                container.contains(node)
             }
 
             is ObjectNode -> {
-                inObject(obj, container)
+                inObject(node, container)
             }
 
             else -> {
@@ -49,6 +50,17 @@ class Contains(
         } else {
             return container.contains(obj)
         }
+    }
+}
+
+class Empty(private val node: JsonNode) : Condition {
+    override fun isTrue(): Boolean {
+        when (node) {
+            is ArrayNode -> return node.isEmpty()
+            is ObjectNode -> return node.isEmpty()
+            is ValueNode -> return node.textValue().isEmpty()
+        }
+        return node.isEmpty
     }
 }
 
@@ -85,20 +97,28 @@ fun parseCondition(node: JsonNode): Condition {
 
             throw CliScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
         }
+
         node.has("all") -> {
             val conditions = node["all"]
             return All(conditions.map { parseCondition(it) })
         }
+
         node.has("any") -> {
             val conditions = node["any"]
             return AnyCondition(conditions.map { parseCondition(it) })
         }
+
         node.has("not") -> {
             val condition = node["not"]
             return Not(parseCondition(condition))
         }
+
+        node.has("empty") -> {
+            return Empty(node["empty"])
+        }
+
         else -> {
-            throw CliScriptException("Condition needs 'object', 'all', 'any' or 'not'.", node)
+            throw CliScriptException("Condition needs 'object', 'all', 'any', 'not' or empty.", node)
         }
     }
 }
