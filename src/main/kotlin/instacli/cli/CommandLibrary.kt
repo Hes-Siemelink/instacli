@@ -11,6 +11,7 @@ object CommandLibrary {
 
         // Control flow
         Do(),
+        Exit(),
         If(),
         When(),
         ForEach(),

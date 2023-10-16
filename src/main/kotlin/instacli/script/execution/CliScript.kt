@@ -17,7 +17,12 @@ class CliScript(val commands: List<Command>) {
 
         for (command in commands) {
             val handler = context.getCommandHandler(command.name)
-            output = command.run(handler, context)
+            try {
+                output = command.run(handler, context)
+            } catch (exit: Break) {
+                output = exit.output
+                break
+            }
         }
 
         return output
@@ -53,6 +58,8 @@ private fun toCommandList(script: List<JsonNode>): List<Command> {
 private fun toCommandList(scriptNode: JsonNode): List<Command> {
     return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
 }
+
+class Break(val output: JsonNode) : Exception()
 
 class CliScriptInfo() : CommandInfo {
 

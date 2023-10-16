@@ -25,6 +25,8 @@ abstract class CommandHandler(open val name: String) {
 
                 else -> throw IllegalArgumentException("Unknown content type ${data.javaClass.simpleName} for command '$name'")
             }
+        } catch (a: Break) {
+            throw a
         } catch (e: Exception) {
             throw CliScriptException("In command\n", getCommand(data), e)
         }

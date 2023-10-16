@@ -15,6 +15,7 @@ class CoreTests {
     fun `Control flow`(): List<DynamicNode> {
         return loadTestCases(
             "control-flow/Do tests.cli",
+            "control-flow/Exit tests.cli",
             "control-flow/If tests.cli",
             "control-flow/For each tests.cli",
             "control-flow/Repeat tests.cli",
