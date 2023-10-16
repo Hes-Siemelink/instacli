@@ -122,7 +122,6 @@ class InstacliInvocation(
     }
 }
 
-
 private fun loadDefaultVariables(): JsonNode {
     return Yaml.readFile(File(INSTACLI_HOME, "default-variables.yaml")) ?: objectNode()
 }
