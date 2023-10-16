@@ -40,9 +40,27 @@ cd instacli-spec/samples
 cli hello
 ```
 
-Interactive example:
+## Interactive example
+
+This example will connect to the Digital.ai Platform API and provide an interactive menu.
+
+In order to be able to connect, put the following in `~/instacli/default-variables.yaml`:
+
+```yaml
+digitalaiStaging:
+  .tag: digitalai.platform.Endpoint
+  url: https://identity.staging.digital.ai
+  auth:
+    username: <USERNAME>
+    password: <PASSWORD>
+  api: https://api.staging.digitalai.cloud
+  id: <TENANT> # For example 'digitalai' or 'acme' 
+```
+
+Then start the cli with
 
 ```commandline
 cd instacli-spec/samples
 cli -i digitalai
 ```
+
