@@ -12,9 +12,17 @@ Http endpoint: ${output}
 
 ---
 Http GET: /workload/v1/agent_instances/
+${agents}: ${output.agent_instances}
 
+If:
+  empty: ${agents}
+  then:
+    Print: No agents available.
+    Exit: 0
+
+---
 For each:
-  ${agent}: ${output.agent_instances}
+  ${agent}: ${agents}
   Output:
     name: ${agent.alias} (${agent.description})
     value: ${agent.id}

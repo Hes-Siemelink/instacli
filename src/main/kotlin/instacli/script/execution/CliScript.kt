@@ -17,12 +17,7 @@ class CliScript(val commands: List<Command>) {
 
         for (command in commands) {
             val handler = context.getCommandHandler(command.name)
-            try {
-                output = command.run(handler, context)
-            } catch (exit: Break) {
-                output = exit.output
-                break
-            }
+            output = command.run(handler, context)
         }
 
         return output

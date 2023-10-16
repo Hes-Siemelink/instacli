@@ -1,6 +1,7 @@
 package instacli
 
 import instacli.script.commands.TestCase
+import instacli.script.execution.Break
 import instacli.script.execution.CliScript
 import instacli.script.execution.Command
 import instacli.script.files.CliScriptFile
@@ -36,7 +37,13 @@ private val TEST_CASE = TestCase().name
 fun CliScriptFile.getTestCases(): List<DynamicTest> {
     val context = ScriptDirectoryContext(scriptFile)
     return cliScript.getTestCases().map() {
-        dynamicTest(it.getTestName()) { it.run(context) }
+        dynamicTest(it.getTestName()) {
+            try {
+                it.run(context)
+            } catch (a: Break) {
+                a.output
+            }
+        }
     }
 }
 

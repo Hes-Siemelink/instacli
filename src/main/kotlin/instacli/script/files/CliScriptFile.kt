@@ -19,7 +19,11 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asScript
     }
 
     fun run(context: ScriptContext = ScriptDirectoryContext(scriptFile)): JsonNode? {
-        return cliScript.run(context)
+        try {
+            return cliScript.run(context)
+        } catch (a: Break) {
+            return a.output
+        }
     }
 }
 
