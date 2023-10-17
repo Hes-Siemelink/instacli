@@ -17,7 +17,7 @@ Ask user:
 As: favorite
 
 Http POST:
-  path: /flavor/favorit
+  path: /flavor/favorite
   body:
     flavor: ${favorite}
 ```
