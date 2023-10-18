@@ -1,6 +1,6 @@
-User input:
-  type: checkbox
+Ask user:
   message: Select ingredients
+  type: select multiple
   choices:
     - Apple
     - Banana
