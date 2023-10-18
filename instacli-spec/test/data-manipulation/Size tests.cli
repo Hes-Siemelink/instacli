@@ -1,0 +1,52 @@
+Test case: Array size
+
+Size:
+  - one
+  - two
+  - three
+
+Expected output: 3
+
+---
+Test case: Object size
+
+Size:
+  1: one
+  2: two
+
+Expected output: 2
+
+---
+Test case: String size
+
+Size: internationalization
+
+Expected output: 20
+
+---
+Test case: Number size
+
+Size: 12
+
+Expected output: 12
+
+---
+Test case: Float size
+
+Size: 1.2
+
+Expected output: 1.2
+
+---
+Test case: Boolean size of true
+
+Size: true
+
+Expected output: 1
+
+---
+Test case: Boolean size of false
+
+Size: false
+
+Expected output: 0

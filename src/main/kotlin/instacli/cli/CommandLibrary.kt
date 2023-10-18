@@ -36,6 +36,7 @@ object CommandLibrary {
         Join(),
         Merge(),
         Replace(),
+        Size(),
 
         // Call other files
         ExecuteCliScriptFile(),

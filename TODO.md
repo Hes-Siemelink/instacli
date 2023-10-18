@@ -1,8 +1,10 @@
 # On my mind
 
 * User interaction:
-    * Remove 'User input'
+    * Remove `User input`
 * Http Session management
+* Combine `If` and `When`. Introduce `else`
+* Spec in JSON Schema
 
 # Code cleanup
 
@@ -10,18 +12,18 @@
 
 # Where to take it
 
-* Run Release templates
-* Plaxolotl - yay is just an interface to a portable execution format. This format has all the metadata in the defined
-  explicitly. For example: content type, variable replacement yes/no, etc.
+* Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined explicitly. For example: content type,
+  variable replacement yes/no, etc.
 * Evaluate like a lisp
-* Create Instacli based on OpenAPI metadata
+* Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
+* Run Release templates
 
 # Command-line support
 
+* Parse command line properly
+* yay-context.yaml
 * Cross compile to native using GraalVM, gradle and GitHub actions  
   https://katmatt.github.io/posts/graalvm-cross-compile-gh-actions/
-* Parse command line
-* yay-context.yaml
 
 # Instacli as glue
 
@@ -35,7 +37,11 @@
 # Instacli language
 
 * Raw and live / Apply variables
-* Evaluate liek a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc.
+* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc. Or backtic syntax
+
+```
+  `Load file`: something
+```
 
 ## Difference between Python Yay
 
