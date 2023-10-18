@@ -2,12 +2,9 @@ package instacli.script.commands
 
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import com.github.kinquirer.KInquirer
-import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.core.Choice
 import instacli.script.execution.*
 import instacli.util.KInquirerPrompt
@@ -169,32 +166,6 @@ class AskAll : CommandHandler("Ask all"), ObjectHandler {
         }
 
         return answers
-    }
-}
-
-/**
- * Asks User input through interactive prompt.
- */
-class UserInput : CommandHandler("User input"), ObjectHandler {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-
-        val type = getParameter(data, "type")
-        val message = Yaml.toString(getParameter(data, "message"))
-        val choices = getParameter(data, "choices") as ArrayNode
-
-        when (type.textValue()) {
-            "checkbox" -> {
-                val choicesDisplay = choices.map {
-                    Choice(it["name"].textValue(), it["value"])
-                }
-                val answers = KInquirer.promptCheckboxObject(message, choicesDisplay)
-                return Yaml.mapper.valueToTree(answers)
-            }
-
-            else -> {
-                throw CliScriptException("Unsupported type for User input", data)
-            }
-        }
     }
 }
 

@@ -1,7 +1,6 @@
 package instacli.cli
 
 import instacli.script.commands.*
-import instacli.script.commands.UserInput
 import instacli.script.commands.http.*
 import instacli.script.execution.CommandHandler
 import instacli.script.files.ExecuteCliScriptFile
@@ -23,7 +22,6 @@ object CommandLibrary {
         Output(),
         AskUser(),
         AskAll(),
-        UserInput(),
         MockAnswers(),
 
         // Variables

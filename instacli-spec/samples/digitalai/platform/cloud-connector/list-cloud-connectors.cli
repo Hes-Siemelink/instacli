@@ -1,0 +1,16 @@
+Script info: Lists the available Cloud Connectors
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
+
+---
+Get token:
+  endpoint: ${endpoint}
+Http endpoint: ${output}
+
+---
+Http GET: /workload/v1/cloud_connectors/
+
+Print as YAML: ${output}

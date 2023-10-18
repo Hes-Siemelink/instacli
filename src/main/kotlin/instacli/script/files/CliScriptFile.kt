@@ -22,6 +22,7 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asScript
         try {
             return cliScript.run(context)
         } catch (a: Break) {
+            println(a.output.textValue())
             return a.output
         }
     }

@@ -63,18 +63,18 @@ Test case: Select multiple items from list
 
 Mock answers:
   What flavors do you like?:
-    - Coco
-    - Piña
+    - Coconut
+    - Pineapple
 
 Ask user:
   message: What flavors do you like?
   type: select multiple
   choices:
-    - Vainilla
+    - Vanilla
     - Mango
-    - Coco
-    - Piña
+    - Coconut
+    - Pineapple
 
 Expected output:
-  - Coco
-  - Piña
+  - Coconut
+  - Pineapple

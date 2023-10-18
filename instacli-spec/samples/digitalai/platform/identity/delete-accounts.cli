@@ -14,20 +14,15 @@ Http endpoint: ${output}
 ---
 Http GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
 
-For each:
-  ${account}: ${output.accounts}
-  Output:
-    name: ${account.name}
-    value: ${account.id}
-
-User input:
-  type: checkbox
-  message: Select accounts to delete
-  choices: ${output}
-As: account_ids
+Ask user:
+  message: Select agents to delete
+  choices: ${output.accounts}
+  type: select multiple
+  display: name
+As: selected_accounts
 
 ---
 For each:
-  ${account_id}: ${account_ids}
-  Print: DELETE /identity/v1/accounts/${account_id}
-  Http DELETE: /identity/v1/accounts/${account_id}
+  ${account}: ${selected_accounts}
+  Print: DELETE /identity/v1/accounts/${account.id}
+  Http DELETE: /identity/v1/accounts/${account.id}

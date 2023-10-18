@@ -11,30 +11,25 @@ Get token:
 Http endpoint: ${output}
 
 ---
+# Select agents to delete
 Http GET: /workload/v1/agent_instances/
 ${agents}: ${output.agent_instances}
 
 If:
-  empty: ${agents}
-  then:
-    Print: No agents available.
-    Exit: 0
+  - empty: ${agents}
+    then:
+      Exit: No agents available.
 
----
-For each:
-  ${agent}: ${agents}
-  Output:
-    name: ${agent.alias} (${agent.description})
-    value: ${agent.id}
-
-User input:
+Ask user:
   message: Select agents to delete
-  choices: ${output}
-  type: checkbox
-As: agent_id
+  choices: ${agents}
+  type: select multiple
+  display: alias
+As: selected_agents
 
 ---
+# Delete selected agents
 For each:
-  ${agent_instance_id}: ${agent_id}
-  Print: DELETE /workload/v1/agent_instances/${agent_instance_id}
-  Http DELETE: /workload/v1/agent_instances/${agent_instance_id}
+  ${agent}: ${selected_agents}
+  Print: DELETE /workload/v1/agent_instances/${agent.id}
+  Http DELETE: /workload/v1/agent_instances/${agent.id}

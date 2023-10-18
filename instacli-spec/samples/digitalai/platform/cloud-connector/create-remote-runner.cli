@@ -15,34 +15,25 @@ Get token:
 Http endpoint: ${output}
 
 ---
-# Get available runtimes
-Print: Getting available runtimes from ${endpoint.url}
+# Select runtime
+Print: Getting available runtimes for ${endpoint.id}
 Http GET: /workload/v1/agent_runtimes/
+${runtimes}: ${output.agent_runtimes}
 
 ---
-# Format runtimes for User input
-# 'For each' collects returns all outputs as a list, so you can do a list comprehension
-For each:
-  ${runtime}: ${output.agent_runtimes}
-  Output:
-    name: ${runtime.name}
-    value: ${runtime.id}
-As: runtimes
-
----
-# Let user select runtime interactively
-User input:
-  type: checkbox
+Ask user:
   message: Select runtime to add
+  type: select one
   choices: ${runtimes}
-As: runtime_ids
+  display: name
+As: runtime
 
 ---
 # Register agent
 Http POST:
   path: /workload/v1/agent_instances/
   body:
-    agent_id: ${runtime_ids[0]}
+    agent_id: ${runtime.id}
     alias: ${alias}
     description: Remote runner
     variables:
@@ -52,4 +43,4 @@ Http POST:
 
 ---
 # Display the ID of the agent that was just created
-Print: "Added agent ${alias} with runtime id: ${runtime_ids[0]}"
+Print: Added agent ${alias} with runtime id ${runtime.id}

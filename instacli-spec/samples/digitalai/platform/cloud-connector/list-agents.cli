@@ -13,4 +13,12 @@ Http endpoint: ${output}
 ---
 Http GET: /workload/v1/agent_instances/
 
+For each:
+  ${agent}: ${output.agent_instances}
+  Output:
+    description: ${agent.description}
+    alias: ${agent.alias}
+    agent_id: ${agent.agent_id}
+    variables: ${agent.variables}
+
 Print as YAML: ${output}

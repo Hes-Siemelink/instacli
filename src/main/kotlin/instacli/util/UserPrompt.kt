@@ -23,7 +23,7 @@ class KInquirerPrompt : UserPrompt {
 
     override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
         if (multiple) {
-            val answers = KInquirer.promptCheckboxObject(message, choices, maxNumOfSelection = 1, minNumOfSelection = 1)
+            val answers = KInquirer.promptCheckboxObject(message, choices, minNumOfSelection = 1)
             return Yaml.mapper.valueToTree(answers)
         } else {
             return KInquirer.promptListObject(message, choices)

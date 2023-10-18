@@ -1,0 +1,31 @@
+Script info: Creates a new Cloud Connector
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    tag: digitalai.platform.Endpoint
+
+---
+# Log in to Platform API
+Get token:
+  endpoint: ${endpoint}
+Http endpoint: ${output}
+
+---
+
+---
+# Create Cloud Connector
+Http POST:
+  path: /workload/v1/cloud_connectors/
+  body:
+    #    cloud_connector_definition:
+    #      account_id: "string"
+    #      created_date: "string"
+    #      id: "string"
+    #      modified_date: "string"
+    name: My Cloud Connector
+
+Print: ${output}
+---
+# Display the ID of the agent that was just created
+#Print: "Added agent ${alias} with runtime id: ${runtime.id}"

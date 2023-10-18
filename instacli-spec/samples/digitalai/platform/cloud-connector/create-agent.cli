@@ -12,14 +12,32 @@ Get token:
 Http endpoint: ${output}
 
 ---
-# Get available runtimes
-Print: Getting available runtimes from ${endpoint.url}
+# Select Cloud Connector
+Print: Getting Cloud Connectors for ${endpoint.id}
+
+Http GET: /workload/v1/cloud_connectors/
+Print as YAML: ${output}
+${cloud_connectors}: ${output.cloud_connector_definitions}
+
+If:
+  empty: ${cloud_connectors}
+  then:
+    Exit: No cloud connectors available
+
+Ask user:
+  message: Select Cloud Connector
+  type: select one
+  choices: ${cloud_connectors}
+  display: name
+As: cloud_connector
+
+---
+# Select runtime
+Print: Getting available runtimes for ${endpoint.id}
 
 Http GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
 
----
-# Select runtime
 Ask user:
   message: Select runtime to add
   type: select one
@@ -55,4 +73,4 @@ Http POST:
 
 ---
 # Display the ID of the agent that was just created
-Print: "Added agent ${alias} with runtime id: ${runtime.id}"
+Print: Added agent ${alias} with runtime id ${runtime.id}

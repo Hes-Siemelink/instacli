@@ -1,7 +1,5 @@
 # On my mind
 
-* User interaction:
-    * Remove `User input`
 * Http Session management
 * Combine `If` and `When`. Introduce `else`
 * Spec in JSON Schema
@@ -51,7 +49,8 @@
   See `Merge data.cli`
 * If got a 'then'
 * `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
-* Renamed `User Input` to `User input`  to be consistent with other commands. Same for `Check input`.
+* Replaced `User Input` with `Ask user` that has a slightly different syntax
+* Replaced `Check input` with `Input`
 * On Http commands, `path` is optional and will be appended to `url`
 
 ## Join and Merge

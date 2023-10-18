@@ -12,23 +12,16 @@ Http endpoint: ${output}
 
 ---
 Http GET: /identity/clients/
-As: clients
 
----
-For each:
-  ${client}: ${output.clients}
-  Output:
-    name: ${client.name}
-    value: ${client.id}
-
-User input:
-  type: checkbox
+Ask user:
   message: Select clients to delete
-  choices: ${output}
-As: client_ids
+  choices: ${output.clients}
+  type: select multiple
+  display: name
+As: selected_clients
 
 ---
 For each:
-  ${client_id}: ${client_ids}
-  Print: DELETE /identity/v1/clients/${client_id}
-  Http DELETE: /identity/v1/clients/${client_id}
+  ${client}: ${selected_clients}
+  Print: DELETE /identity/v1/clients/${client.id}
+  Http DELETE: /identity/v1/clients/${client.id}
