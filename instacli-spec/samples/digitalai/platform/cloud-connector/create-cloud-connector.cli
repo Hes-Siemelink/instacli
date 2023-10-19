@@ -7,8 +7,7 @@ Input:
 
 ---
 # Log in to Platform API
-Get token:
-  endpoint: ${endpoint}
+Get token: ${endpoint}
 Http endpoint: ${output}
 
 ---

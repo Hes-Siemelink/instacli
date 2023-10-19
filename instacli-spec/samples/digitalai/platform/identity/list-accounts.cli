@@ -7,8 +7,7 @@ Input:
     tag: digitalai.platform.Endpoint
 
 ---
-Get token:
-  endpoint: ${endpoint}
+Get token: ${endpoint}
 Http endpoint: ${output}
 
 ---

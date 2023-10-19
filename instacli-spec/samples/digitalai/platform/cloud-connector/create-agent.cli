@@ -7,8 +7,7 @@ Input:
 
 ---
 # Log in to Platform API
-Get token:
-  endpoint: ${endpoint}
+Get token: ${endpoint}
 Http endpoint: ${output}
 
 ---
@@ -16,7 +15,6 @@ Http endpoint: ${output}
 Print: Getting Cloud Connectors for ${endpoint.id}
 
 Http GET: /workload/v1/cloud_connectors/
-Print as YAML: ${output}
 ${cloud_connectors}: ${output.cloud_connector_definitions}
 
 If:
@@ -26,8 +24,8 @@ If:
 
 Ask user:
   message: Select Cloud Connector
-  type: select one
   choices: ${cloud_connectors}
+  type: select one
   display: name
 As: cloud_connector
 
@@ -40,8 +38,8 @@ ${runtimes}: ${output.agent_runtimes}
 
 Ask user:
   message: Select runtime to add
-  type: select one
   choices: ${runtimes}
+  type: select one
   display: name
 As: runtime
 
@@ -62,8 +60,6 @@ As: variables
 ---
 # Register agent
 Http POST:
-  # Uses default Cloud Connector (backwards compatible).
-  # Better to use /workload/v1/cloud_connectors/{cloud_connector_id}/agent_instances/
   path: /workload/v1/agent_instances/
   body:
     agent_id: ${runtime.id}

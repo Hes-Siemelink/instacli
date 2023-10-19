@@ -1,14 +1,22 @@
 Script info: Gets a login token
 
+Input:
+  id: ID of the tenant
+  username: Username
+  password: Password
+  url: The actual endpoint
+
 ---
-Print: Accessing ${endpoint.id} as ${endpoint.auth.username}
+# Get authorization URL
+Print: Accessing ${id} as ${username} on ${url}
 
 Http GET:
-  url: https://api.staging.digital.ai
-  path: /identity/v1/accounts/auth/configuration?hint=${endpoint.id}
+  url: ${url}
+  path: /identity/v1/accounts/auth/configuration?hint=${id}
 ${token_endpoint}: ${output.configuration.token_endpoint}
 
 ---
+# Get token
 Http POST:
   url: ${token_endpoint}
   headers:
@@ -16,12 +24,13 @@ Http POST:
   body:
     grant_type: password
     client_id: dai-svc-consumer
-    username: ${endpoint.auth.username}
-    password: ${endpoint.auth.password}
+    username: ${username}
+    password: ${password}
     scope: "openid dai-svc"
 
-Output: # To be used in 'Http endpoint'
-  url: ${endpoint.api}
+---
+# Use output in Http endpoint
+Output:
+  url: ${url}
   headers:
     Authorization: Bearer ${output.access_token}
-
