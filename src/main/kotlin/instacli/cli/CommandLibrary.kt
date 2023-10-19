@@ -31,7 +31,6 @@ object CommandLibrary {
 
         // Data manipulation
         CreateObject(),
-        Join(),
         Merge(),
         Replace(),
         Size(),

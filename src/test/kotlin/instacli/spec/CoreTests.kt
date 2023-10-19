@@ -28,7 +28,6 @@ class CoreTests {
     fun `Data manipulation`(): List<DynamicNode> {
         return loadTestCases(
             "data-manipulation/For each and merge.cli",
-//            "data-manipulation/Join handler tests.cli",
             "data-manipulation/Merge data.cli",
             "data-manipulation/Object tests.cli",
             "data-manipulation/Replace handler tests.cli",

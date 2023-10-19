@@ -1,10 +1,10 @@
 Test case: Merge two dicts, second one overwrites properties from the first.
 
 Merge:
-- label: first
-  header: accept
-- label: second
-  content: body
+  - label: first
+    header: accept
+  - label: second
+    content: body
 
 Expected output:
   label: second
@@ -21,8 +21,8 @@ ${package}:
   content: body
 
 Merge:
-- ${package}
-- footer: end
+  - ${package}
+  - footer: end
 
 Expected output:
   label: second
@@ -35,17 +35,17 @@ Expected output:
 Test case: Merge two lists
 
 ${list1}:
-- 1
-- 2
-- 3
+  - 1
+  - 2
+  - 3
 ${list2}:
-- 4
-- 5
-- 6
+  - 4
+  - 5
+  - 6
 
 Merge:
-- ${list1}
-- ${list2}
+  - ${list1}
+  - ${list2}
 
 Expected output:
   - 1
@@ -60,15 +60,15 @@ Expected output:
 Test case: Extend list with Merge
 
 ${list1}:
-- 1
-- 2
-- 3
+  - 1
+  - 2
+  - 3
 
 Merge:
-- ${list1}
-- 4
-- 5
-- 6
+  - ${list1}
+  - 4
+  - 5
+  - 6
 
 Expected output:
   - 1
@@ -100,9 +100,9 @@ Output:
   one: 1
   two: 1
 
-Join:
-  output:
-    two: 2
+Merge:
+  - ${output}
+  - two: 2
     three: 3
 
 Expected output:
