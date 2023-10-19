@@ -12,9 +12,9 @@ class Command(val name: String, val data: JsonNode) {
 }
 
 fun runCommand(
-        handler: CommandHandler,
-        rawData: JsonNode,
-        context: ScriptContext
+    handler: CommandHandler,
+    rawData: JsonNode,
+    context: ScriptContext
 ): JsonNode? {
 
     if (rawData is ArrayNode && !handler.handlesListsItself()) {
@@ -25,9 +25,9 @@ fun runCommand(
 }
 
 private fun runCommandOnList(
-        handler: CommandHandler,
-        dataList: ArrayNode,
-        context: ScriptContext
+    handler: CommandHandler,
+    dataList: ArrayNode,
+    context: ScriptContext
 ): ArrayNode? {
 
     val output = ArrayNode(JsonNodeFactory.instance)
@@ -48,13 +48,16 @@ private fun runCommandOnList(
 }
 
 private fun runSingleCommand(
-        handler: CommandHandler,
-        rawData: JsonNode,
-        context: ScriptContext
+    handler: CommandHandler,
+    rawData: JsonNode,
+    context: ScriptContext
 ): JsonNode? {
 
     try {
         val data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+
+        handler.validate(data)
+
         val result: JsonNode? = handler.execute(data, context)
         if (result != null) {
             context.variables[OUTPUT_VARIABLE] = result

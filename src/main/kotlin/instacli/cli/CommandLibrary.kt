@@ -17,7 +17,7 @@ object CommandLibrary {
         Repeat(),
 
         // Input and Output
-        ScriptInfoHandler(),
+        ScriptInfo(),
         Input(),
         Output(),
         AskUser(),

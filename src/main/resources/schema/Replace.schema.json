@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "in": {
+      "type": [
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "part": {
+      "type": "string"
+    },
+    "with": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

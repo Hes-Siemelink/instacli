@@ -6,8 +6,12 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.networknt.schema.JsonSchema
+import com.networknt.schema.JsonSchemaFactory
+import com.networknt.schema.SpecVersion
 import java.io.File
-import java.io.FileNotFoundException
+import java.io.InputStream
+import java.net.URI
 
 object Yaml {
 
@@ -23,8 +27,7 @@ object Yaml {
     }
 
     fun readResource(classpathResource: String): JsonNode {
-        val stream = object {}.javaClass.getResourceAsStream("/$classpathResource")
-            ?: throw FileNotFoundException("Resource not found: $classpathResource")
+        val stream = getResourceAsStream(classpathResource)
 
         return mapper.readTree(stream)
     }
@@ -56,6 +59,12 @@ object Yaml {
         return map
     }
 
+    fun getSchema(schemaFile: String): JsonSchema? {
+        val factory = JsonSchemaFactory.builder(JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012))
+            .objectMapper(Yaml.mapper).build()
+        val resource = getResource(schemaFile) ?: return null
+        return factory.getSchema(resource)
+    }
 }
 
 fun objectNode(): ObjectNode {
@@ -69,3 +78,10 @@ fun objectNode(key: String, value: String): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance).put(key, value)
 }
 
+fun getResourceAsStream(classpathResource: String): InputStream? {
+    return object {}.javaClass.getResourceAsStream("/$classpathResource")
+}
+
+fun getResource(classpathResource: String): URI? {
+    return object {}.javaClass.getResource("/$classpathResource")?.toURI()
+}

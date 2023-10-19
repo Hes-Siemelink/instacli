@@ -1,0 +1,296 @@
+{
+  "$id": "//digital.ai/release/type-definitions",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/TypeDefinitions",
+  "$defs": {
+    "TypeDefinitions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "types": {
+          "$ref": "#/$defs/Types"
+        }
+      },
+      "required": [
+        "types"
+      ],
+      "title": "Synthetic Type Definitions"
+    },
+    "Types": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/TypeSpecification"
+        }
+      }
+    },
+    "TypeSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "extends": {
+          "$ref": "#/$defs/TypeName"
+        },
+        "virtual": {
+          "type": "boolean"
+        },
+        "versioned": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "inspectable": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "root": {
+          "type": "string"
+        },
+        "properties": {
+          "$ref": "#/$defs/Properties"
+        },
+        "input-properties": {
+          "$ref": "#/$defs/Properties"
+        },
+        "output-properties": {
+          "$ref": "#/$defs/Properties"
+        },
+        "hidden-properties": {
+          "$ref": "#/$defs/Properties"
+        },
+        "methods": {
+          "$ref": "#/$defs/Methods"
+        },
+        "rules": {
+          "type": "array",
+          "prefixItems": {
+            "$ref": "#/$defs/RuleSpecification"
+          }
+        }
+      }
+    },
+    "Properties": {
+      "type": "object",
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/PropertySpecification"
+        }
+      }
+    },
+    "PropertySpecification": {
+      "type": [
+        "object",
+        "string",
+        "integer",
+        "boolean"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "enum",
+            "boolean",
+            "integer",
+            "string",
+            "date",
+            "ci",
+            "set_of_ci",
+            "set_of_string",
+            "map_string_string",
+            "list_of_ci",
+            "list_of_string"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "password": {
+          "type": "boolean"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "default": {
+          "type": [
+            "integer",
+            "string",
+            "boolean",
+            "object",
+            "array"
+          ],
+          "patternProperties": {
+            ".*": {
+              "type": "string"
+            }
+          },
+          "prefixItems": {
+            "type": "string"
+          }
+        },
+        "size": {
+          "type": "string",
+          "enum": [
+            "default",
+            "small",
+            "medium",
+            "large"
+          ]
+        },
+        "enum-class": {
+          "type": "string"
+        },
+        "referenced-type": {
+          "$ref": "#/$defs/TypeName"
+        },
+        "as-containment": {
+          "type": "boolean"
+        },
+        "nested": {
+          "type": "boolean"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "transient": {
+          "type": "boolean"
+        },
+        "readonly": {
+          "type": "boolean"
+        },
+        "inspection-property": {
+          "type": "boolean"
+        },
+        "candidate-values-filter": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "prefixItems": {
+            "type": "string"
+          }
+        },
+        "enum-values": {
+          "type": "array",
+          "prefixItems": {
+            "type": "string"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "prefixItems": {
+            "$ref": "#/$defs/RuleSpecification"
+          }
+        },
+        "input-hint": {
+          "$ref": "#/$defs/InputHintSpecification"
+        }
+      }
+    },
+    "Methods": {
+      "type": "object",
+      "patternProperties": {
+        ".*": {
+          "$ref": "#/$defs/MethodSpecification"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MethodSpecification": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "parameters": {
+          "$ref": "#/$defs/Properties"
+        },
+        "description": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "delegate": {
+          "type": "string"
+        },
+        "parameters-type": {
+          "$ref": "#/$defs/TypeName"
+        }
+      },
+      "title": "MethodSpecification"
+    },
+    "InputHintSpecification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rules": {
+          "type": "array",
+          "prefixItems": {
+            "$ref": "#/$defs/RuleSpecification"
+          }
+        },
+        "values": {
+          "type": "array",
+          "prefixItems": {
+            "$ref": "#/$defs/ValueSpecification"
+          }
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "copy-from-property": {
+          "type": "string"
+        },
+        "enabled-by-property": {
+          "type": "string"
+        },
+        "referenced-type": {
+          "$ref": "#/$defs/TypeName"
+        },
+        "method-ref": {
+          "type": "string"
+        },
+        "dynamic-lookup": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ValueSpecification": {
+      "type": [
+        "object",
+        "string",
+        "integer",
+        "boolean"
+      ],
+      "additionalProperties": true,
+      "minProperties": 1,
+      "maxProperties": 1
+    },
+    "RuleSpecification": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "TypeName": {
+      "type": "string",
+      "pattern": "[a-zA-Z0-9.-]+\\.[a-zA-Z0-9-]+"
+    }
+  }
+}

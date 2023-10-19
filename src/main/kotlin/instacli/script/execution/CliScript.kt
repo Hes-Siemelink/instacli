@@ -2,7 +2,7 @@ package instacli.script.execution
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.script.commands.ScriptInfoHandler
+import instacli.script.commands.ScriptInfo
 import instacli.util.Yaml
 
 class CliScript(val commands: List<Command>) {
@@ -25,7 +25,7 @@ class CliScript(val commands: List<Command>) {
 
     private fun findDescription(): String? {
         for (command in commands) {
-            if (command.name == ScriptInfoHandler().name) {
+            if (command.name == ScriptInfo().name) {
                 val info = CliScriptInfo.from(command.data)
                 if (info.description.isNotEmpty()) {
                     return info.description

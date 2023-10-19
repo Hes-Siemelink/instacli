@@ -15,7 +15,7 @@ import instacli.util.Yaml
 
 var USER_INPUT_HANDLER: UserPrompt = KInquirerPrompt()
 
-class ScriptInfoHandler : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
+class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return null
     }
