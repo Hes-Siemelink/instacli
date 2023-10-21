@@ -1,38 +1,39 @@
 Test case: Variables in nested for each
 
-${nameTags}: []
-
-# Create a flat list of name tags for parents and children
-For each:
-  parent:
-    - name: Mary
-      children:
+${family}:
+  - name: Mary
+    children:
       - name: Alice
-    - name: Caroline
-      children: []
+  - name: Caroline
+    children: [ ]
+${allNames}: [ ]
 
-  # Create tag for parent
-  ${tag}:
+# Get a list of all names
+For each:
+  ${parent}: ${family}
+
+  # Create name object for parent
+  ${parentName}:
     - name: ${parent.name}
 
-  # Add tags for children if there are any
+  # Create list of name objects for children
   For each:
     child: ${parent.children}
     Output:
       name: ${child.name}
-  As: additionalTags
+  As: childNames
 
-  # Put tags in the list
+  # Add them to the list of all names
   Merge:
-    - ${nameTags}
-    - ${tag}
-    - ${additionalTags}
-  ${nameTags}: ${output}
+    - ${allNames}
+    - ${parentName}
+    - ${childNames}
+  ${allNames}: ${output}
 
-# Collect flat list
-Output: ${nameTags}
 
-Expected output:
-- name: Mary
-- name: Alice
-- name: Caroline
+Assert equals:
+  actual: ${allNames}
+  expected:
+    - name: Mary
+    - name: Alice
+    - name: Caroline

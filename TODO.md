@@ -2,7 +2,6 @@
 
 * Http Session management
 * Combine `If` and `When`. Introduce `else`
-* Spec in JSON Schema
 
 # Code cleanup
 
@@ -35,7 +34,8 @@
 # Instacli language
 
 * Raw and live / Apply variables
-* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc. Or backtic syntax
+* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc. Well, that won't work in Yaml!
+  Backtic syntax maybe:
 
 ```
   `Load file`: something
