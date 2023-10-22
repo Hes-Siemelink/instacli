@@ -3,7 +3,7 @@ Script info: Delete agents, also from running Cloud Connectors
 Input:
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 Get token: ${endpoint}

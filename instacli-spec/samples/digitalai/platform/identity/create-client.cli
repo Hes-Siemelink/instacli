@@ -4,7 +4,7 @@ Input:
   client_id: Client ID
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 Get token: ${endpoint}

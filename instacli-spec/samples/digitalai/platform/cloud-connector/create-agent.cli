@@ -3,7 +3,7 @@ Script info: Creates a new agent to run in the Cloud Connector, based on a runti
 Input:
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API

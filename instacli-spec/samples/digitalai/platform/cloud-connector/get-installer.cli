@@ -3,7 +3,7 @@ Script info: Downloads the installer script for the logged in user
 Input:
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 Get token: ${endpoint}

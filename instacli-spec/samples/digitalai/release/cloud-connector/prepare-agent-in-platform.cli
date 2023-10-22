@@ -5,7 +5,7 @@ Input:
   token: Access token for Remote Runner
   platform:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 TODO: implement

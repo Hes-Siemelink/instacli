@@ -41,9 +41,9 @@ class Input : CommandHandler("Input"), ObjectHandler {
             // Already exists
             name in context.variables -> {
 
-                // Tag hack: expand variable with type tag
-                if (info.tag.isNotEmpty()) {
-                    val value = findMatchingValueByTag(context.variables, name, info.tag)
+                // Type hack: expand variable with type
+                if (info.type.isNotEmpty()) {
+                    val value = findByType(context.variables, name, info.type)
                     if (value != null) {
                         context.variables[name] = value
                     }
@@ -58,9 +58,9 @@ class Input : CommandHandler("Input"), ObjectHandler {
                 context.variables[name] = TextNode(info.default)
             }
 
-            // Find by tag
-            info.tag.isNotEmpty() -> {
-                context.variables[name] = findByTag(context, info.tag)
+            // Find by type
+            info.type.isNotEmpty() -> {
+                context.variables[name] = findByType(context, info.type)
             }
 
             // Ask user
@@ -76,38 +76,38 @@ class Input : CommandHandler("Input"), ObjectHandler {
         return null
     }
 
-    private fun findMatchingValueByTag(
+    private fun findByType(
         variables: MutableMap<String, JsonNode>,
         variableName: String,
-        tag: String
+        type: String
     ): JsonNode? {
-        val matchingVars = filterByTag(variables, tag)
+        val matchingVars = filterByType(variables, type)
         val targetVariable = variables[variableName]?.textValue()
 
         return matchingVars[targetVariable]
     }
 
-    private fun findByTag(context: ScriptContext, tag: String): JsonNode {
-        // For tagged parameters, pick one from the preconfigured variables with the same type
-        val matchingTypes = filterByTag(context.variables, tag)
+    private fun findByType(context: ScriptContext, type: String): JsonNode {
+        // Pick one from the preconfigured variables with the same type
+        val matchingTypes = filterByType(context.variables, type)
         when (matchingTypes.size) {
             1 -> {
                 return matchingTypes.values.first()
             }
 
             0 -> {
-                throw CliScriptException("No variables found for $tag")
+                throw CliScriptException("No variables found for $type")
             }
 
             else -> {
-                throw CliScriptException("Multiple variables match $tag")
+                throw CliScriptException("Multiple variables match $type")
             }
         }
     }
 
-    private fun filterByTag(variables: Map<String, JsonNode>, tag: String): Map<String, JsonNode> {
+    private fun filterByType(variables: Map<String, JsonNode>, type: String): Map<String, JsonNode> {
         return variables.filter {
-            it.value[".tag"]?.textValue() == tag
+            it.value["\$type"]?.textValue() == type
         }
     }
 }
@@ -209,7 +209,7 @@ class InputInfo {
 
 data class InputParameterInfo(
     var description: String = "",
-    val tag: String = "",
+    val type: String = "",
     val default: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)

@@ -6,7 +6,7 @@ Input:
   alias: Alias for agent (unique per Digital.ai Platform user)
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 # Log in to Platform API

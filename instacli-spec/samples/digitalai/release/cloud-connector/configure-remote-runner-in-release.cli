@@ -4,7 +4,7 @@ Input:
   #  password: Remote Runner password
   release:
     description: Digital.ai Release endpoint
-    tag: digitalai.release.endpoint
+    type: digitalai.release.endpoint
 
 ---
 #Xl apply:

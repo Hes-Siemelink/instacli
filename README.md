@@ -48,7 +48,7 @@ In order to be able to connect, put the following in `~/instacli/default-variabl
 
 ```yaml
 digitalaiStaging:
-  .tag: digitalai.platform.Endpoint
+  $type: digitalai.platform.Endpoint
   url: https://identity.staging.digital.ai
   auth:
     username: <USERNAME>

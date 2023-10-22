@@ -4,7 +4,7 @@ Input:
   name:
     description: The name to greet
     default: world
-    tag: text
+    type: text
   language: en
 
 Output: Hello ${name}!

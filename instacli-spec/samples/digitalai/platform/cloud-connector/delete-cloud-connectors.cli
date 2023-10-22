@@ -3,7 +3,7 @@ Script info: Deletes Cloud Connectors, that may be running
 Input:
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 Get token: ${endpoint}

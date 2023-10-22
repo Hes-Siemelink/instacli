@@ -3,7 +3,7 @@ Script info: Lists the available runtimes for use in the agents
 Input:
   endpoint:
     description: Digital.ai Platform API endpoint
-    tag: digitalai.platform.Endpoint
+    type: digitalai.platform.Endpoint
 
 ---
 Get token: ${endpoint}
