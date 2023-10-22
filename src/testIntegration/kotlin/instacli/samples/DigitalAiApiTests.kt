@@ -1,6 +1,6 @@
 package instacli.samples
 
-import instacli.script.files.CliScriptFile
+import instacli.cli.CliScriptFile
 import org.junit.jupiter.api.Test
 
 class DigitalAiApiTests {

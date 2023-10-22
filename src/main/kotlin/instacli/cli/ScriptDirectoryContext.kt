@@ -1,11 +1,9 @@
-package instacli.script.files
+package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.cli.CliCommandLineOptions
-import instacli.cli.CommandLibrary
-import instacli.script.commands.AssignVariable
-import instacli.script.execution.*
+import instacli.commands.AssignVariable
+import instacli.engine.*
 import java.io.File
 import java.util.*
 

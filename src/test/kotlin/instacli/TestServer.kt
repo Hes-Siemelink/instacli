@@ -1,4 +1,4 @@
-package instacli.script.commands.http
+package instacli
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode

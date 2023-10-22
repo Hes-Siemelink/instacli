@@ -1,11 +1,11 @@
 package instacli
 
-import instacli.script.commands.TestCase
-import instacli.script.execution.Break
-import instacli.script.execution.CliScript
-import instacli.script.execution.Command
-import instacli.script.files.CliScriptFile
-import instacli.script.files.ScriptDirectoryContext
+import instacli.cli.CliScriptFile
+import instacli.cli.ScriptDirectoryContext
+import instacli.commands.TestCase
+import instacli.engine.Break
+import instacli.engine.CliScript
+import instacli.engine.Command
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicTest

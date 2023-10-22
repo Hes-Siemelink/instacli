@@ -1,8 +1,7 @@
 package instacli.cli
 
-import instacli.script.execution.CliScript
-import instacli.script.execution.CommandInfo
-import instacli.script.files.DirectoryInfo
+import instacli.engine.CliScript
+import instacli.engine.CommandInfo
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.io.File

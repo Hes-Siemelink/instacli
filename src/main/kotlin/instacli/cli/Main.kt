@@ -1,9 +1,7 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.script.execution.CliScriptException
-import instacli.script.files.CliScriptFile
-import instacli.script.files.ScriptDirectoryContext
+import instacli.engine.CliScriptException
 import instacli.util.Yaml
 import instacli.util.objectNode
 import java.io.File

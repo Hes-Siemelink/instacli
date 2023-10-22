@@ -1,7 +1,7 @@
-package instacli.script.execution
+package instacli.engine
 
 import com.fasterxml.jackson.module.kotlin.contains
-import instacli.script.commands.InputInfo
+import instacli.commands.InputInfo
 import instacli.util.Yaml
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue

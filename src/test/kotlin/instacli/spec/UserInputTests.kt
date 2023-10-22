@@ -1,7 +1,7 @@
 package instacli.spec
 
+import instacli.commands.USER_INPUT_HANDLER
 import instacli.loadTestCases
-import instacli.script.commands.USER_INPUT_HANDLER
 import instacli.util.MockUser
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DynamicNode

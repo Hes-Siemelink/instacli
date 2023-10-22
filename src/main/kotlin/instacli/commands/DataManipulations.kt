@@ -1,8 +1,8 @@
-package instacli.script.commands
+package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import instacli.script.execution.*
+import instacli.engine.*
 import instacli.util.Yaml
 
 class CreateObject : CommandHandler("Create object"), ArrayHandler {

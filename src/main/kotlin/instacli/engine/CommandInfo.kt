@@ -1,4 +1,4 @@
-package instacli.script.execution
+package instacli.engine
 
 interface CommandInfo {
     val name: String

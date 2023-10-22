@@ -1,4 +1,4 @@
-package instacli.script.commands
+package instacli.commands
 
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.github.kinquirer.core.Choice
-import instacli.script.execution.*
+import instacli.engine.*
 import instacli.util.KInquirerPrompt
 import instacli.util.MOCK_ANSWERS
 import instacli.util.UserPrompt

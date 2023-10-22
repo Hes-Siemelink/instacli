@@ -1,7 +1,7 @@
 package instacli.spec
 
+import instacli.TestServer
 import instacli.loadTestCases
-import instacli.script.commands.http.TestServer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DynamicNode

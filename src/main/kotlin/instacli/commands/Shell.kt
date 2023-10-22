@@ -1,14 +1,14 @@
-package instacli.script.commands
+package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.lordcodes.turtle.shellRun
-import instacli.script.execution.CommandHandler
-import instacli.script.execution.ObjectHandler
-import instacli.script.execution.ScriptContext
-import instacli.script.execution.ValueHandler
+import instacli.engine.CommandHandler
+import instacli.engine.ObjectHandler
+import instacli.engine.ScriptContext
+import instacli.engine.ValueHandler
 
 class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 

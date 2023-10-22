@@ -1,9 +1,7 @@
 package instacli.cli
 
-import instacli.script.commands.*
-import instacli.script.commands.http.*
-import instacli.script.execution.CommandHandler
-import instacli.script.files.ExecuteCliScriptFile
+import instacli.commands.*
+import instacli.engine.CommandHandler
 
 object CommandLibrary {
     val commands = commandMap(

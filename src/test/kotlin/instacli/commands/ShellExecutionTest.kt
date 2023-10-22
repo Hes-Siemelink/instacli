@@ -1,4 +1,4 @@
-package instacli.script.commands.shell
+package instacli.commands
 
 import com.lordcodes.turtle.shellRun
 import io.kotest.assertions.throwables.shouldThrow
