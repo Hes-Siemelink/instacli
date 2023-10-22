@@ -161,7 +161,6 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
             install(Auth) {
                 basic {
                     credentials {
-                        println("Basic auhUsername: ${parameters.username}")
                         BasicAuthCredentials(username = parameters.username, password = parameters.password ?: "")
                     }
                     realm = "Access to the '/' path"
