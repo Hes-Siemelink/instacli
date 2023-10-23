@@ -49,4 +49,11 @@ class CoreTests {
         )
     }
 
+    @TestFactory
+    fun `Eval`(): List<DynamicNode> {
+        return loadTestCases(
+            "eval/Eval tests.cli",
+        )
+    }
+
 }

@@ -18,7 +18,7 @@ class Task : CommandHandler("Task"), ValueHandler {
 class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        println(data.textValue())
+        println(data.asText())
         return null
     }
 

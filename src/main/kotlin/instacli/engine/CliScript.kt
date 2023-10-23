@@ -16,8 +16,9 @@ class CliScript(val commands: List<Command>) {
         var output: JsonNode? = null
 
         for (command in commands) {
-            val handler = context.getCommandHandler(command.name)
-            output = command.run(handler, context)
+            val evaluatedCommand = Command(command.name, eval(command.data, context))
+            val handler = context.getCommandHandler(evaluatedCommand.name)
+            output = evaluatedCommand.run(handler, context)
         }
 
         return output

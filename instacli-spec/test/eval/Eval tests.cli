@@ -1,0 +1,31 @@
+Test case: Evaluate a command inside data
+
+Output:
+  :Size: four
+
+Expected output: 4
+
+---
+Test case: Evaluate an array
+
+Output:
+  - :Size: one
+  - :Size: two
+  - :Size: three
+
+Expected output:
+  - 3
+  - 3
+  - 5
+
+---
+Test case: Evaluate a command nested in another command
+
+Output:
+  :Size:
+    :Output:
+      - 1
+      - 2
+      - 3
+
+Expected output: 3

@@ -23,7 +23,7 @@ If:
 # Delete selected agents
 For each:
   ${agent} in:
-    🪄Ask user:
+    :Ask user:
       message: Select agents to delete
       choices: ${agents}
       type: select multiple
