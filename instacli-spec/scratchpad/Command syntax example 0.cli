@@ -1,0 +1,34 @@
+Script info: Delete agents, also from running Cloud Connectors
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    type: digitalai.platform.Endpoint
+
+---
+Get token: ${endpoint}
+Http endpoint: ${output}
+
+---
+# Select agents to delete
+Http GET: /workload/v1/agent_instances/
+${agents}: ${output.agent_instances}
+
+If:
+  - empty: ${agents}
+    then:
+      Exit: No agents available.
+
+Ask user:
+  message: Select agents to delete
+  choices: ${agents}
+  type: select multiple
+  display: alias
+As: selected_agents
+
+---
+# Delete selected agents
+For each:
+  ${agent}: ${selected_agents}
+  Print: DELETE /workload/v1/agent_instances/${agent.id}
+  Http DELETE: /workload/v1/agent_instances/${agent.id}

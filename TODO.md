@@ -34,12 +34,7 @@
 # Instacli language
 
 * Raw and live / Apply variables
-* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc. Well, that won't work in Yaml!
-  Backtic syntax maybe:
-
-```
-  `Load file`: something
-```
+* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc.
 
 ## Difference between Python Yay
 
