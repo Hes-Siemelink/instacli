@@ -22,6 +22,7 @@ import io.ktor.utils.io.*
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.net.URI
+import kotlin.collections.set
 
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
@@ -179,7 +180,9 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
                 contentType(ContentType.Application.Json)
             }
 
-            accept(ContentType.Any)
+            if (!headers.contains(HttpHeaders.Accept)) {
+                accept(ContentType.Any)
+            }
             body(parameters)
         }
 
