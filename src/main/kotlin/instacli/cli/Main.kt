@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
     } catch (e: CliScriptException) {
         val cause = e.cause?.message ?: ""
         System.err.println("Instacli scripting error\n\n  $cause")
-        System.err.println("\n${e.message}")
+        System.err.println("\n  ${e.message}")
 
         exitProcess(1)
     }

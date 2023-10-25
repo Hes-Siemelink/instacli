@@ -12,7 +12,6 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
-import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
@@ -157,7 +156,7 @@ private fun processRequest(data: ObjectNode, context: ScriptContext, method: Htt
 private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
 
     val client = HttpClient {
-        install(HttpCookies)
+//        install(HttpCookies)  // Tripped up by dates in Spotify cookies. 
         if (parameters.username != null) {
             install(Auth) {
                 basic {

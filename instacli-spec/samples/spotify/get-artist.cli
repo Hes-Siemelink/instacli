@@ -1,0 +1,11 @@
+Input:
+  app:
+    type: spotify.app
+Authorize:
+  app: ${app}
+Http endpoint: ${output}
+
+---
+Http GET: /artists/0TnOYISbd1XYRBk9myaseg
+
+Print: ${output}
