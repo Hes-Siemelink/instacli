@@ -3,6 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.engine.*
 import instacli.util.Yaml
@@ -50,5 +51,17 @@ class Wait : CommandHandler("Wait"), ValueHandler {
             throw CliScriptException("Invalid value for 'Wait' command.")
         }
         return null
+    }
+}
+
+class Base64Encode : CommandHandler("Base64 encode"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
+        return TextNode(java.util.Base64.getEncoder().encodeToString(data.asText().toByteArray()))
+    }
+}
+
+class Base64Decode : CommandHandler("Base64 decode"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        return TextNode(String(java.util.Base64.getDecoder().decode(data.asText())))
     }
 }

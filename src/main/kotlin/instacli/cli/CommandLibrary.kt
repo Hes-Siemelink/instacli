@@ -61,6 +61,8 @@ object CommandLibrary {
         Print(),
         PrintAsYaml(),
         Wait(),
+        Base64Encode(),
+        Base64Decode()
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

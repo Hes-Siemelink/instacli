@@ -37,7 +37,10 @@ class CoreTests {
 
     @TestFactory
     fun `Util`(): List<DynamicNode> {
-        return loadTestCases("util/Wait tests.cli")
+        return loadTestCases(
+            "util/Wait tests.cli",
+            "util/Base64 tests.cli"
+        )
     }
 
     @TestFactory
