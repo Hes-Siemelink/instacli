@@ -15,9 +15,9 @@ Http GET: /workload/v1/agent_instances/
 ${agents}: ${output.agent_instances}
 
 If:
-  - empty: ${agents}
-    then:
-      Exit: No agents available.
+  empty: ${agents}
+  then:
+    Exit: No agents available.
 
 ---
 # Delete selected agents

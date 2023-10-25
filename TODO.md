@@ -1,7 +1,7 @@
 # On my mind
 
 * Http Session management
-* Combine `If` and `When`. Introduce `else`
+* Combine `If` and `When`? Introduce `else`
 
 # Code cleanup
 
@@ -11,7 +11,6 @@
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined explicitly. For example: content type,
   variable replacement yes/no, etc.
-* Evaluate like a lisp
 * Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
 * Run Release templates
 

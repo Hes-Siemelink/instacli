@@ -49,12 +49,10 @@ In order to be able to connect, put the following in `~/instacli/default-variabl
 ```yaml
 digitalaiStaging:
   $type: digitalai.platform.Endpoint
-  url: https://identity.staging.digital.ai
-  auth:
-    username: <USERNAME>
-    password: <PASSWORD>
-  api: https://api.staging.digitalai.cloud
-  id: <TENANT> # For example 'digitalai' or 'acme' 
+  url: https://api.staging.digitalai.cloud
+  username: <USERNAME>
+  password: <PASSWORD>
+  id: acme  
 ```
 
 Then start the cli with
