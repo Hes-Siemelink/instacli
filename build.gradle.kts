@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.8.21"
-    kotlin("plugin.serialization") version "1.8.21"
+    kotlin("jvm") version "1.9.20"
+    kotlin("plugin.serialization") version "1.9.20"
     id("com.palantir.graal") version "0.12.0"
 }
 
@@ -70,7 +70,7 @@ tasks.getByName<Test>("testIntegration") {
 //
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 }
 
@@ -95,7 +95,7 @@ tasks.jar {
 graal {
     outputName("instacli-native")
     mainClass("instacli.cli.MainKt")
-    javaVersion("11")
+    javaVersion("17")
     graalVersion("22.3.2")
     option("--no-fallback")
     option("--enable-http")
