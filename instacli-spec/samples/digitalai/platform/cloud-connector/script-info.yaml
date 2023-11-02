@@ -1,4 +1,4 @@
 description: |
   Manage Cloud Connector installations.
 imports:
-  - ../get-token.cli
+  - ../connect-to.cli

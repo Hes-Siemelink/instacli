@@ -1,13 +1,6 @@
 Script info: Deletes OIDC clients
 
-Input:
-  endpoint:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
-
----
-Get token: ${endpoint}
-Http endpoint: ${output}
+Connect to: Digital.ai Platform API
 
 ---
 Http GET: /identity/clients/

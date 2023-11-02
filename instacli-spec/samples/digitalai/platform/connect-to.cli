@@ -1,0 +1,43 @@
+Script info: Gets a login token
+
+Input:
+  endpoint:
+    description: Digital.ai Platform API endpoint
+    type: digitalai.platform.Endpoint
+
+#Input:
+#  id: ID of the tenant
+#  username: Username
+#  password: Password
+#  url: The actual endpoint
+
+---
+# Get authorization URL
+Print: Accessing ${endpoint.id} as ${endpoint.username} on ${endpoint.url}
+
+Http GET:
+  url: ${endpoint.url}
+  path: /identity/v1/accounts/auth/configuration?hint=${endpoint.id}
+${token_endpoint}: ${output.configuration.token_endpoint}
+
+---
+# Get token
+Http POST:
+  url: ${token_endpoint}
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    grant_type: password
+    client_id: dai-svc-consumer
+    username: ${endpoint.username}
+    password: ${endpoint.password}
+    scope: "openid dai-svc"
+
+---
+# Use output in Http endpoint
+Output:
+  url: ${endpoint.url}
+  headers:
+    Authorization: Bearer ${output.access_token}
+
+Http endpoint: ${output}

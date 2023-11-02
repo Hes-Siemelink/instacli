@@ -1,14 +1,6 @@
 Script info: Creates a new OIDC client
 
-Input:
-  client_id: Client ID
-  endpoint:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
-
----
-Get token: ${endpoint}
-Http endpoint: ${output}
+Connect to: Digital.ai Platform API
 
 ---
 # Create client

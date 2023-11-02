@@ -26,16 +26,16 @@ import kotlin.collections.set
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
     companion object {
-        const val HTTP_DEFAULTS = "_http.defaults"
+        const val HTTP_DEFAULTS = "http.defaults"
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        context.variables[HTTP_DEFAULTS] = objectNode("url", data.textValue())
+        context.session[HTTP_DEFAULTS] = objectNode("url", data.textValue())
         return null
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        context.variables[HTTP_DEFAULTS] = data
+        context.session[HTTP_DEFAULTS] = data
         return null
     }
 }
@@ -149,14 +149,14 @@ data class HttpParameters(
 
 private fun processRequest(data: ObjectNode, context: ScriptContext, method: HttpMethod): JsonNode? {
     return runBlocking {
-        processRequest(HttpParameters.create(data, context.variables[HttpEndpoint.HTTP_DEFAULTS], method))
+        processRequest(HttpParameters.create(data, context.session[HttpEndpoint.HTTP_DEFAULTS], method))
     }
 }
 
 private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
 
     val client = HttpClient {
-//        install(HttpCookies)  // Tripped up by dates in Spotify cookies. 
+//        install(HttpCookies)  // Tripped up by dates in Spotify cookies.
         if (parameters.username != null) {
             install(Auth) {
                 basic {

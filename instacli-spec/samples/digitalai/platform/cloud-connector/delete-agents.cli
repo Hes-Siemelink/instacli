@@ -1,13 +1,6 @@
 Script info: Delete agents, also from running Cloud Connectors
 
-Input:
-  endpoint:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
-
----
-Get token: ${endpoint}
-Http endpoint: ${output}
+Connect to: Digital.ai Platform API
 
 ---
 # Select agents to delete

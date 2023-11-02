@@ -44,7 +44,7 @@ cli hello
 
 This example will connect to the Digital.ai Platform API and provide an interactive menu.
 
-In order to be able to connect, put the following in `~/instacli/default-variables.yaml`:
+In order to be able to connect, put the following in `~/instacli/connections.yaml`:
 
 ```yaml
 digitalaiStaging:

@@ -1,6 +1,7 @@
 # On my mind
 
 * Http Session management
+* Update Kotlin Gradle: https://kotlinlang.org/docs/gradle-configure-project.html
 * Combine `If` and `When`? Introduce `else`
 
 # Code cleanup

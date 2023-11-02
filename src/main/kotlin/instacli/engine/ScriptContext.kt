@@ -6,7 +6,9 @@ import java.io.File
 
 interface ScriptContext {
     val interactive: Boolean
+    val connections: MutableMap<String, JsonNode>
     val variables: MutableMap<String, JsonNode>
+    val session: MutableMap<String, JsonNode>
     val scriptLocation: File
     fun getCommandHandler(command: String): CommandHandler
 }

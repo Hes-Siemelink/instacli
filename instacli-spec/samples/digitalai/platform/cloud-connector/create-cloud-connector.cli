@@ -1,16 +1,6 @@
 Script info: Creates a new Cloud Connector
 
-Input:
-  endpoint:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
-
----
-# Log in to Platform API
-Get token: ${endpoint}
-Http endpoint: ${output}
-
----
+Connect to: Digital.ai Platform API
 
 ---
 # Create Cloud Connector

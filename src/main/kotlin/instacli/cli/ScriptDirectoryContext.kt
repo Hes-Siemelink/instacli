@@ -25,7 +25,9 @@ class ScriptDirectoryContext(
     val name: String
         get() = scriptDir.name
 
+    override val connections = mutableMapOf<String, JsonNode>()
     override val variables = mutableMapOf<String, JsonNode>()
+    override val session = mutableMapOf<String, JsonNode>()
     override val interactive: Boolean
         get() = options.interactive
 
@@ -75,13 +77,13 @@ class ScriptDirectoryContext(
     }
 
 
-    fun addVariables(node: JsonNode?) {
-        node ?: return
-
-        for (defaultVariable in node.fields()) {
-            variables[defaultVariable.key] = defaultVariable.value
-        }
-    }
+//    fun addVariables(node: JsonNode?) {
+//        node ?: return
+//
+//        for (defaultVariable in node.fields()) {
+//            variables[defaultVariable.key] = defaultVariable.value
+//        }
+//    }
 
     fun addVariables(vars: Map<String, String>) {
         for (variable in vars) {
@@ -181,3 +183,10 @@ fun asCliCommand(commandName: String): String {
     return command
 }
 
+fun MutableMap<String, JsonNode>.add(node: JsonNode?) {
+    node ?: return
+
+    for (defaultVariable in node.fields()) {
+        this[defaultVariable.key] = defaultVariable.value
+    }
+}

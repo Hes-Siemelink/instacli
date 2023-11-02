@@ -60,7 +60,7 @@ class InstacliInvocation(
     }
 
     private fun runFile(script: CliScriptFile, context: ScriptDirectoryContext) {
-        context.addVariables(loadDefaultVariables())
+        context.connections.add(loadConnections())
         context.addVariables(context.options.commandParameters)
 
         when {
@@ -120,6 +120,12 @@ class InstacliInvocation(
     }
 }
 
-private fun loadDefaultVariables(): JsonNode {
-    return Yaml.readFile(File(INSTACLI_HOME, "default-variables.yaml")) ?: objectNode()
+private fun loadConnections(): JsonNode {
+    // Warn users that have old configuraiton
+    // XXX Remove this check at some point
+    if (File(INSTACLI_HOME, "default-variables.yaml").exists()) {
+        println("Please rename ~/.instacli/default-variables.yaml to connections.yaml")
+        exitProcess(1)
+    }
+    return Yaml.readFile(File(INSTACLI_HOME, "connections.yaml")) ?: objectNode()
 }

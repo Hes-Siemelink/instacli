@@ -43,7 +43,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
                 // Type hack: expand variable with type
                 if (info.type.isNotEmpty()) {
-                    val value = findByType(context.variables, name, info.type)
+                    val value = findByType(context.connections, name, info.type)
                     if (value != null) {
                         context.variables[name] = value
                     }
@@ -89,7 +89,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
     private fun findByType(context: ScriptContext, type: String): JsonNode {
         // Pick one from the preconfigured variables with the same type
-        val matchingTypes = filterByType(context.variables, type)
+        val matchingTypes = filterByType(context.connections, type)
         when (matchingTypes.size) {
             1 -> {
                 return matchingTypes.values.first()
