@@ -1,0 +1,8 @@
+Script info: Lists the available Cloud Connector instances
+
+Connect to: Digital.ai Platform API
+
+---
+Http GET: /workload/v1/cloud_connector_instances
+
+Print as YAML: ${output}

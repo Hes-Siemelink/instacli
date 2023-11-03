@@ -34,10 +34,8 @@ Http POST:
     scope: "openid dai-svc"
 
 ---
-# Use output in Http endpoint
-Output:
+# Set endpoint and token for other scripts
+Http endpoint:
   url: ${endpoint.url}
   headers:
     Authorization: Bearer ${output.access_token}
-
-Http endpoint: ${output}
