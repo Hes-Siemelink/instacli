@@ -2,19 +2,14 @@ Script info: Creates a new Cloud Connector
 
 Connect to: Digital.ai Platform API
 
+Input:
+  name: Cloud Connector name
+
 ---
 # Create Cloud Connector
 Http POST:
   path: /workload/v1/cloud_connectors/
   body:
-    #    cloud_connector_definition:
-    #      account_id: "string"
-    #      created_date: "string"
-    #      id: "string"
-    #      modified_date: "string"
-    name: My Cloud Connector
+    name: ${name}
 
-Print: ${output}
----
-# Display the ID of the agent that was just created
-#Print: "Added agent ${alias} with runtime id: ${runtime.id}"
+Print: Created '${name}' with id ${output.cloud_connector_definition.id}
