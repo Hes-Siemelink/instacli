@@ -3,30 +3,9 @@ Script info: Deletes Cloud Connectors, that may be running
 Connect to: Digital.ai Platform API
 
 ---
-#Http GET: /workload/v1/cloud_connector_instances/
-#
-#For each:
-#  ${connector}: ${output.cloud_connector_instances}
-#  Output:
-#    name: ${connector.name}
-#    value: ${connector.cloud_connector_id}
-#
-#User input:
-#  message: Select cloud connectors to delete
-#  choices: ${output}
-#  type: checkbox
-#As: selection
-#
-#---
-#For each:
-#  ${cloud_connector_id}: ${selection}
-#  Print: DELETE /workload/v1/cloud_connectors/${cloud_connector_id}
-#  Http DELETE: /workload/v1/cloud_connectors/${cloud_connector_id}
-
----
 # Select Cloud Connectors to delete
-Http GET: /workload/v1/cloud_connector_instances/
-${cloud_connectors}: ${output.cloud_connector_instances}
+Http GET: /workload/v1/cloud_connectors/
+${cloud_connectors}: ${output.cloud_connector_definitions}
 
 If:
   empty: ${cloud_connectors}
@@ -37,12 +16,12 @@ Ask user:
   message: Select Cloud Connector to delete
   choices: ${cloud_connectors}
   type: select multiple
-  display: description
+  display: name
 As: selected_cloud_connectors
 
 ---
 # Delete selection
 For each:
   ${cloud_connector}: ${selected_cloud_connectors}
-  Print: DELETE /workload/v1/agent_instances/${cloud_connector.cloud_connector_id}
-  Http DELETE: /workload/v1/agent_instances/${cloud_connector.cloud_connector_id}
+  Print: DELETE /workload/v1/cloud_connectors/${cloud_connector.id}
+  Http DELETE: /workload/v1/cloud_connectors/${cloud_connector.id}
