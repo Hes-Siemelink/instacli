@@ -11,7 +11,7 @@ class ExceptionTest {
     fun `Comand format exception`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("exceptions", "command-format-exception.cli"), workingDir = testDir)
+        val session = InstacliInvocation(arrayOf("-q", "exceptions", "command-format-exception.cli"), workingDir = testDir)
 
         // Then
         shouldThrow<CommandFormatException> {

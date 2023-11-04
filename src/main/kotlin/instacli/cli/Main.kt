@@ -37,13 +37,14 @@ class InstacliInvocation(
 ) {
 
     fun run() {
-        if (args.isEmpty()) {
-            out.printUsage()
-            return
-        }
 
         val options = CliCommandLineOptions(args)
 
+        if (options.commands.isEmpty()) {
+            out.printUsage()
+            return
+        }
+        
         // First argument should be a valid file
         val file = File(workingDir, options.commands[0])
         if (!file.exists()) {

@@ -79,7 +79,7 @@ object ConsoleOutput : UserOutput {
     override fun printUsage() {
         println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
-        println("Usage:\n   cli [-i] [--help] file | directory")
+        println("Usage:\n   cli [-q] [--help] file | directory")
         println()
     }
 }

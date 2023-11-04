@@ -14,8 +14,14 @@ class CliCommandLineOptions private constructor(
     companion object {
         operator fun invoke(args: Array<String> = arrayOf<String>()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
-            val interactive = globalArgs.contains("-i")
+            val interactive = !globalArgs.contains("-q")
             val help = globalArgs.contains("--help")
+
+            // Warn about change in command line options
+            // XXX Remove this check at some point
+            if (globalArgs.contains("-i")) {
+                println("⚠️   -i for interactive mode is now the default and the flag is replaced by -q for non-interactive mode. ")
+            }
 
             return CliCommandLineOptions(
                 interactive,

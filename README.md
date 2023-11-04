@@ -59,6 +59,6 @@ Then start the cli with
 
 ```commandline
 cd instacli-spec/samples
-cli -i digitalai
+cli digitalai
 ```
 
