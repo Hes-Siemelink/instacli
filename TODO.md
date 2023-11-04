@@ -2,7 +2,6 @@
 
 * Http Session management
 * Update Kotlin Gradle: https://kotlinlang.org/docs/gradle-configure-project.html
-* Combine `If` and `When`? Introduce `else`
 
 # Code cleanup
 
@@ -33,6 +32,7 @@
 
 # Instacli language
 
+* Combine `If` and `When`? Introduce `else`
 * Raw and live / Apply variables
 * Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc.
 
