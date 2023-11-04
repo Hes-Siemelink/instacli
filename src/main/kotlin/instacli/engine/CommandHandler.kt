@@ -27,8 +27,11 @@ abstract class CommandHandler(open val name: String) {
             }
         } catch (a: Break) {
             throw a
+        } catch (e: InstacliException) {
+            throw e
         } catch (e: Exception) {
-            throw CliScriptException("In command\n", getCommand(data), e)
+            println(e)
+            throw InstacliInternalException("In command\n", getCommand(data), e)
         }
     }
 
@@ -37,7 +40,7 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CliScriptException("Command: '$name' does not handle simple text content.", getCommand(data))
+        throw CommandFormatException("Command: '$name' does not handle simple text content.", getCommand(data))
     }
 
     private fun handleObjectNode(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -45,7 +48,7 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CliScriptException("Command '$name' does not handle object content.", getCommand(data))
+        throw CommandFormatException("Command '$name' does not handle object content.", getCommand(data))
     }
 
     private fun handleArrayNode(data: ArrayNode, context: ScriptContext): JsonNode? {
@@ -53,11 +56,11 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CliScriptException("Command '$name' does not handle array content.", getCommand(data))
+        throw CommandFormatException("Command '$name' does not handle array content.", getCommand(data))
     }
 
     fun getParameter(data: JsonNode, parameter: String): JsonNode {
-        return data[parameter] ?: throw CliScriptException(
+        return data[parameter] ?: throw CommandFormatException(
             "Command '$name' needs '$parameter' field.",
             getCommand(data)
         )
@@ -66,7 +69,7 @@ abstract class CommandHandler(open val name: String) {
     fun getTextParameter(data: JsonNode, parameter: String): String {
         val value = getParameter(data, parameter)
         if (value !is ValueNode) {
-            throw CliScriptException("Parameter $parameter in command '$name' needs to be a text value.", getCommand(data))
+            throw CommandFormatException("Parameter $parameter in command '$name' needs to be a text value.", getCommand(data))
         }
         return value.textValue()
     }

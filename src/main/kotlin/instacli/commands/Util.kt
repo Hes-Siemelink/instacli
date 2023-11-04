@@ -44,12 +44,13 @@ class PrintAsYaml : CommandHandler("Print as YAML") {
 
 class Wait : CommandHandler("Wait"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        if (data.isNumber) {
-            val duration = data.doubleValue() * 1000
-            Thread.sleep(duration.toLong())
-        } else {
-            throw CliScriptException("Invalid value for 'Wait' command.")
+        if (!data.isNumber) {
+            throw CommandFormatException("Invalid value for 'Wait' command.", data)
         }
+
+        val duration = data.doubleValue() * 1000
+        Thread.sleep(duration.toLong())
+
         return null
     }
 }

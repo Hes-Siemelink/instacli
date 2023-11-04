@@ -1,0 +1,2 @@
+Assert that:
+  unknown field: causes format exception

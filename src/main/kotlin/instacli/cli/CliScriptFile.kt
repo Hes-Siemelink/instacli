@@ -31,7 +31,7 @@ class CliScriptFile(val scriptFile: File) : CommandInfo, CommandHandler(asScript
 class ExecuteCliScriptFile : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data["file"] ?: throw CliScriptException("Run script needs 'file' field.")
+        val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.", data)
         val scriptFile = File(context.scriptLocation.parent, fileName.asText())
 
         return CliScriptFile(scriptFile).execute(data, context)

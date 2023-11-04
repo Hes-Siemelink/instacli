@@ -63,7 +63,7 @@ private fun runSingleCommand(
             context.variables[OUTPUT_VARIABLE] = result
         }
         return result
-    } catch (e: CliScriptException) {
+    } catch (e: InstacliException) {
         e.data ?: run {
             e.data = ObjectNode(JsonNodeFactory.instance, mapOf(handler.name to rawData))
         }

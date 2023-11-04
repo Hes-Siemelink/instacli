@@ -25,7 +25,7 @@ class As : CommandHandler("As"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey(OUTPUT_VARIABLE)) {
-            throw CliScriptException("Can't assign output variable because it is empty.")
+            throw CommandFormatException("Can't assign output variable because it is empty.", data)
         }
 
         context.variables[data.asText()] = context.variables.getValue(OUTPUT_VARIABLE)

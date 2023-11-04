@@ -48,21 +48,21 @@ class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
 
 private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
     if (!data.has("then")) {
-        throw CliScriptException("Command 'If' needs a 'then' parameter.")
+        throw CommandFormatException("Command 'If' needs a 'then' parameter.", data)
     }
 
     if (data is ObjectNode) {
 
         val then = data.remove("then")!!
         val condition = parseCondition(resolveVariables(data, context.variables))
-        if (condition.isTrue()) {
-            return then
+        return if (condition.isTrue()) {
+            then
         } else {
-            return null
+            null
         }
 
     } else {
-        throw CliScriptException("Unsupported data type for if statement: ${data.javaClass.simpleName}.")
+        throw CommandFormatException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
     }
 }
 
@@ -111,7 +111,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
             return Pair(field.key, field.value)
         }
 
-        throw CliScriptException("For each must contain a field with the loop variable.")
+        throw CommandFormatException("For each must contain a field with the loop variable.", data)
     }
 }
 

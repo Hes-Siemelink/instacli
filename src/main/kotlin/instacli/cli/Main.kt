@@ -1,7 +1,7 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.engine.CliScriptException
+import instacli.engine.InstacliException
 import instacli.util.Yaml
 import instacli.util.objectNode
 import java.io.File
@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
         System.err.println(e.message)
 
         exitProcess(1)
-    } catch (e: CliScriptException) {
+    } catch (e: InstacliException) {
         val cause = e.cause?.message ?: ""
         System.err.println("Instacli scripting error\n\n  $cause")
         System.err.println("\n  ${e.message}")

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.engine.CliScriptException
+import instacli.engine.CommandFormatException
 
 
 fun interface Condition {
@@ -95,7 +95,7 @@ fun parseCondition(node: JsonNode): Condition {
                 return Contains(obj, node["in"])
             }
 
-            throw CliScriptException("Condition with 'object' should have either 'equals' or 'in'", node)
+            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'", node)
         }
 
         node.has("all") -> {
@@ -118,7 +118,7 @@ fun parseCondition(node: JsonNode): Condition {
         }
 
         else -> {
-            throw CliScriptException("Condition needs 'object', 'all', 'any', 'not' or empty.", node)
+            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty.", node)
         }
     }
 }

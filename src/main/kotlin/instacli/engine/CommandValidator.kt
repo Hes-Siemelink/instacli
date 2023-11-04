@@ -11,7 +11,7 @@ fun CommandHandler.validate(data: JsonNode) {
 
     val messages = schema.validate(data)
     if (messages.isNotEmpty()) {
-        throw CliScriptException("Validation errors:\n$messages")
+        throw CommandFormatException("Schema validation errors:\n$messages", data)
     }
 }
 

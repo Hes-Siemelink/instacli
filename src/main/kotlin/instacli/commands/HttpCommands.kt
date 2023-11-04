@@ -224,7 +224,7 @@ private suspend fun parseResponse(
 
     // Error
     if (!response.status.isSuccess()) {
-        throw CliScriptException("$response\n${response.bodyAsText()}")
+        throw InstacliException("$response\n${response.bodyAsText()}")
     }
 
     // No content
