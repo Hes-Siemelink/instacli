@@ -44,7 +44,7 @@ class InstacliInvocation(
             out.printUsage()
             return
         }
-        
+
         // First argument should be a valid file
         val file = File(workingDir, options.commands[0])
         if (!file.exists()) {
@@ -52,25 +52,25 @@ class InstacliInvocation(
         }
 
         // Run script directly or a command from a directory
-        val context = ScriptDirectoryContext(file, options)
+        val context = ScriptFileContext(file, interactive = options.interactive)
         if (file.isDirectory) {
-            runDirectory(file, options.commands.drop(1), context)
+            runDirectory(file, options.commands.drop(1), context, options)
         } else {
-            runFile(CliScriptFile(file), context)
+            runFile(CliScriptFile(file), context, options)
         }
     }
 
-    private fun runFile(script: CliScriptFile, context: ScriptDirectoryContext) {
+    private fun runFile(script: CliScriptFile, context: ScriptFileContext, options: CliCommandLineOptions) {
         context.connections.add(loadConnections())
-        context.addVariables(context.options.commandParameters)
+        context.addVariables(options.commandParameters)
 
         when {
-            context.options.help -> out.printScriptInfo(script.cliScript)
+            options.help -> out.printScriptInfo(script.cliScript)
             else -> script.run(context)
         }
     }
 
-    private fun runDirectory(cliDir: File, args: List<String>, context: ScriptDirectoryContext) {
+    private fun runDirectory(cliDir: File, args: List<String>, context: ScriptFileContext, options: CliCommandLineOptions) {
 
         // No Instacli scripts in directory
         if (context.getAllCommands().isEmpty()) {
@@ -84,14 +84,14 @@ class InstacliInvocation(
         // Run script
         val script = context.getCliScriptFile(rawCommand)
         if (script != null) {
-            runFile(script, context)
+            runFile(script, context, options)
             return
         }
 
         // Run subcommand
         val subcommand = context.getSubcommand(rawCommand)
         if (subcommand != null) {
-            runDirectory(subcommand.dir, args.drop(1), ScriptDirectoryContext(subcommand.dir, context.options))
+            runDirectory(subcommand.dir, args.drop(1), ScriptFileContext(subcommand.dir, context), options)
             return
         }
 
@@ -99,7 +99,7 @@ class InstacliInvocation(
         throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
     }
 
-    private fun getCommand(args: List<String>, context: ScriptDirectoryContext, interactive: Boolean): String? {
+    private fun getCommand(args: List<String>, context: ScriptFileContext, interactive: Boolean): String? {
 
         // Return the command if specified
         if (args.isNotEmpty()) {
@@ -122,7 +122,7 @@ class InstacliInvocation(
 }
 
 private fun loadConnections(): JsonNode {
-    // Warn users that have old configuraiton
+    // Warn users that have old configuration
     // XXX Remove this check at some point
     if (File(INSTACLI_HOME, "default-variables.yaml").exists()) {
         println("Please rename ~/.instacli/default-variables.yaml to connections.yaml")

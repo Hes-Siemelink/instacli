@@ -1,7 +1,7 @@
 package instacli
 
 import instacli.cli.CliScriptFile
-import instacli.cli.ScriptDirectoryContext
+import instacli.cli.ScriptFileContext
 import instacli.commands.TestCase
 import instacli.engine.Break
 import instacli.engine.CliScript
@@ -35,7 +35,7 @@ private val TEST_CASE = TestCase().name
  * Gets all individual test cases in a script file as a dynamic tests.
  */
 fun CliScriptFile.getTestCases(): List<DynamicTest> {
-    val context = ScriptDirectoryContext(scriptFile)
+    val context = ScriptFileContext(scriptFile)
     return cliScript.getTestCases().map() {
         dynamicTest(it.getTestName()) {
             try {

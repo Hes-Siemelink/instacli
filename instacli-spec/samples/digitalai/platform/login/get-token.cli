@@ -1,0 +1,36 @@
+Script info: Gets a login token
+
+Input:
+  id: ID of the tenant
+  username: Username
+  password: Password
+  url: The actual endpoint
+
+---
+# Get authorization URL
+Print: Accessing ${id} as ${username} on ${url}
+
+Http GET:
+  url: ${url}
+  path: /identity/v1/accounts/auth/configuration?hint=${id}
+${token_endpoint}: ${output.configuration.token_endpoint}
+
+---
+# Get token
+Http POST:
+  url: ${token_endpoint}
+  headers:
+    Content-Type: application/x-www-form-urlencoded
+  body:
+    grant_type: password
+    client_id: dai-svc-consumer
+    username: ${username}
+    password: ${password}
+    scope: "openid dai-svc"
+
+---
+# Use output in Http endpoint
+Output:
+  url: ${url}
+  headers:
+    Authorization: Bearer ${output.access_token}

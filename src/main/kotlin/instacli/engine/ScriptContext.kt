@@ -10,6 +10,7 @@ interface ScriptContext {
     val variables: MutableMap<String, JsonNode>
     val session: MutableMap<String, JsonNode>
     val scriptLocation: File
+
     fun getCommandHandler(command: String): CommandHandler
 }
 

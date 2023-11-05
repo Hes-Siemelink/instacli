@@ -13,10 +13,21 @@ const val CLI_FILE_EXTENSION = ".cli"
  * Context for running an Instacli script inside a directory.
  * It will scan the directory for other scripts and expose them as commands.
  */
-class ScriptDirectoryContext(
+class ScriptFileContext(
     override val scriptLocation: File,
-    val options: CliCommandLineOptions = CliCommandLineOptions()
+    override val variables: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
+    override val session: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
+    override val connections: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
+    override val interactive: Boolean = false
 ) : ScriptContext {
+
+    constructor(scriptLocation: File, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
+        scriptLocation,
+        variables,
+        parent.session,
+        parent.connections,
+        parent.interactive
+    )
 
     private val scriptDir: File
         get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
@@ -25,14 +36,10 @@ class ScriptDirectoryContext(
     val name: String
         get() = scriptDir.name
 
-    override val connections = mutableMapOf<String, JsonNode>()
-    override val variables = mutableMapOf<String, JsonNode>()
-    override val session = mutableMapOf<String, JsonNode>()
-    override val interactive: Boolean
-        get() = options.interactive
+    private val localFileCommands: Map<String, CliScriptFile> by lazy { findLocalFileCommands() }
+    private val importedFileCommands: Map<String, CliScriptFile> by lazy { findImportedCommands() }
+    private val subdirectoryCommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
-    private val fileCommands: Map<String, CliScriptFile> by lazy { findFileCommands() }
-    private val subcommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
     override fun getCommandHandler(command: String): CommandHandler {
 
@@ -43,24 +50,39 @@ class ScriptDirectoryContext(
         }
 
         // Standard commands
-        if (CommandLibrary.commands.containsKey(command)) {
-            return CommandLibrary.commands[command]!!
+        CommandLibrary.commands[command]?.let { handler ->
+            return handler
         }
 
         // File commands
-        return fileCommands[command] ?: throw CliScriptException("Unknown command: $command")
+        localFileCommands[command]?.let { handler ->
+            return handler
+        }
+
+        // Imported commands
+        importedFileCommands[command]?.let { handler ->
+            return handler
+        }
+
+        // No handler found for command
+        throw CliScriptException("Unknown command: $command")
     }
 
-    private fun findFileCommands(): Map<String, CliScriptFile> {
+    private fun findLocalFileCommands(): Map<String, CliScriptFile> {
 
         val commands = mutableMapOf<String, CliScriptFile>()
 
-        // Commands in directory
         for (file in scriptDir.listFiles()!!) {
             addCommand(commands, file)
         }
 
-        // Imported commands
+        return commands
+    }
+
+    private fun findImportedCommands(): Map<String, CliScriptFile> {
+
+        val commands = mutableMapOf<String, CliScriptFile>()
+
         for (file in info.imports) {
             addCommand(commands, File(scriptDir, file))
         }
@@ -75,15 +97,6 @@ class ScriptDirectoryContext(
         val name = asScriptCommand(file.name)
         commands[name] = CliScriptFile(file)
     }
-
-
-//    fun addVariables(node: JsonNode?) {
-//        node ?: return
-//
-//        for (defaultVariable in node.fields()) {
-//            variables[defaultVariable.key] = defaultVariable.value
-//        }
-//    }
 
     fun addVariables(vars: Map<String, String>) {
         for (variable in vars) {
@@ -105,20 +118,20 @@ class ScriptDirectoryContext(
 
     fun getAllCommands(): List<CommandInfo> {
         val commands = mutableListOf<CommandInfo>()
-        commands.addAll(fileCommands.values)
-        commands.addAll(subcommands.values)
+        commands.addAll(localFileCommands.values)
+        commands.addAll(subdirectoryCommands.values)
 
         return commands.sortedBy { it.name }
     }
 
     fun getCliScriptFile(rawCommand: String): CliScriptFile? {
         val command = asScriptCommand(rawCommand)
-        return fileCommands[command]
+        return localFileCommands[command]
     }
 
     fun getSubcommand(rawCommand: String): DirectoryInfo? {
         val command = asCliCommand(rawCommand)
-        return subcommands[command]
+        return subdirectoryCommands[command]
     }
 }
 
