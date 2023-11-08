@@ -7,17 +7,23 @@ import com.fasterxml.jackson.databind.node.TextNode
 import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.promptCheckboxObject
 import com.github.kinquirer.components.promptInput
+import com.github.kinquirer.components.promptInputPassword
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 
 interface UserPrompt {
-    fun prompt(message: String, default: String = ""): JsonNode
+    fun prompt(message: String, default: String = "", password: Boolean = false): JsonNode
     fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean = false): JsonNode
 }
 
 class KInquirerPrompt : UserPrompt {
-    override fun prompt(message: String, default: String): JsonNode {
-        val answer = KInquirer.promptInput(message, default)
+    override fun prompt(message: String, default: String, password: Boolean): JsonNode {
+
+        val answer = if (password) {
+            KInquirer.promptInputPassword(message, default)
+        } else {
+            KInquirer.promptInput(message, default)
+        }
         return TextNode(answer)
     }
 
@@ -34,7 +40,7 @@ class KInquirerPrompt : UserPrompt {
 val MOCK_ANSWERS = mutableMapOf<String, JsonNode>()
 
 class MockUser : UserPrompt {
-    override fun prompt(message: String, default: String): JsonNode {
+    override fun prompt(message: String, default: String, password: Boolean): JsonNode {
         var answer = MOCK_ANSWERS[message]
         if (answer == null && default.isNotEmpty()) {
             answer = TextNode(default)

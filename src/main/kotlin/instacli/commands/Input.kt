@@ -50,7 +50,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
             // Ask user
             context.interactive -> {
-                context.variables[name] = USER_INPUT_HANDLER.prompt(info.description)
+                context.variables[name] = prompt(info)
             }
 
             else -> {
@@ -58,7 +58,11 @@ class Input : CommandHandler("Input"), ObjectHandler {
             }
         }
 
-        return null
+        val output = data.objectNode()
+        for (name in input.parameters.keys) {
+            output.set<JsonNode>(name, context.variables[name])
+        }
+        return output
     }
 
 }
@@ -73,32 +77,38 @@ class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = InputParameterInfo.from(data)
+        val info = InputParameterInfo.from(data)
 
-        when (input.type) {
-            "select one" -> return promptChoice(input)
-            "select multiple" -> return promptChoice(input, true)
-            else -> return promptText(input)
-        }
-    }
-
-    private fun promptText(input: InputParameterInfo): JsonNode {
-        return USER_INPUT_HANDLER.prompt(input.description, input.default)
-    }
-
-    private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
-
-        val choices = input.choices.map {
-            if (input.display == null) {
-                Choice(it.textValue(), it)
-            } else {
-                Choice(it[input.display].textValue(), it)
-            }
-        }
-
-        return USER_INPUT_HANDLER.select(input.description, choices, multiple)
+        return prompt(info)
     }
 }
+
+private fun prompt(input: InputParameterInfo): JsonNode {
+    return when (input.type) {
+        "select one" -> promptChoice(input)
+        "select multiple" -> promptChoice(input, true)
+        "password" -> promptText(input, password = true)
+        else -> promptText(input)
+    }
+}
+
+private fun promptText(input: InputParameterInfo, password: Boolean = false): JsonNode {
+    return USER_INPUT_HANDLER.prompt(input.description, input.default, password)
+}
+
+private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
+
+    val choices = input.choices.map {
+        if (input.display == null) {
+            Choice(it.textValue(), it)
+        } else {
+            Choice(it[input.display].textValue(), it)
+        }
+    }
+
+    return USER_INPUT_HANDLER.select(input.description, choices, multiple)
+}
+
 
 /**
  * Asks multiple questions at once
@@ -175,7 +185,8 @@ data class InputParameterInfo(
     val default: String = "",
     val type: String = "",
     val choices: List<JsonNode> = emptyList(),
-    val display: String? = null
+    val display: String? = null,
+    val value: String? = null
 ) {
     constructor(textValue: String) : this(description = textValue)
 
