@@ -4,7 +4,7 @@ Connect to: Digital.ai Platform API
 
 ---
 # Select Cloud Connector
-Print: Getting Cloud Connectors for ${endpoint.id}
+Print: Getting Cloud Connectors
 
 Http GET: /workload/v1/cloud_connectors/
 ${cloud_connectors}: ${output.cloud_connector_definitions}
@@ -23,7 +23,7 @@ As: cloud_connector
 
 ---
 # Select runtime
-Print: Getting available runtimes for ${endpoint.id}
+Print: Getting available runtimes for
 
 Http GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
