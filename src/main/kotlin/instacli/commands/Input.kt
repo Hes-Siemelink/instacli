@@ -190,6 +190,18 @@ class MockAnswers : CommandHandler("Mock answers"), ObjectHandler {
     }
 }
 
+class Connection : CommandHandler("Connection"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val target = data.asText() ?: throw CommandFormatException("Specify connection", data)
+        val connections = context.connections[target] ?: throw CliScriptException("No connections for $target")
+        return if (connections.has("Default")) {
+            val default = connections.get("Default").asText()
+            connections.get("Connections").get(default)
+        } else {
+            connections.get("Connections").first()
+        }
+    }
+}
 
 //
 // Data model
@@ -210,7 +222,8 @@ class InputInfo {
 data class InputParameterInfo(
     var description: String = "",
     val type: String = "",
-    val default: String = ""
+    val default: String = "",
+    val connection: String = ""
 ) {
     constructor(textValue: String) : this(description = textValue)
 }

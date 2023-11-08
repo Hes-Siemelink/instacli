@@ -47,12 +47,13 @@ This example will connect to the Digital.ai Platform API and provide an interact
 In order to be able to connect, put the following in `~/instacli/connections.yaml`:
 
 ```yaml
-digitalaiStaging:
-  $type: digitalai.platform.Endpoint
-  url: https://api.staging.digitalai.cloud
-  username: <USERNAME>
-  password: <PASSWORD>
-  id: acme  
+Digital.ai Platform:
+  Connections:
+    Staging:
+      url: https://api.staging.digitalai.cloud
+      username: <USERNAME>
+      password: <PASSWORD>
+      id: acme  
 ```
 
 Then start the cli with

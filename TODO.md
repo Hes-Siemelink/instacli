@@ -1,7 +1,7 @@
 # On my mind
 
-* Http Session management
-* Update Kotlin Gradle: https://kotlinlang.org/docs/gradle-configure-project.html
+* Http Connection management
+* `cli -o` prints output
 
 # Code cleanup
 

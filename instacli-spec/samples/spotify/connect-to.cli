@@ -1,7 +1,7 @@
-Input:
-  app:
-    type: spotify.app
+Connection: Spotify
+As: app
 
+---
 Base64 encode: ${app.client_id}:${app.client_secret}
 As: auth_string
 
@@ -14,8 +14,7 @@ Http POST:
   body:
     grant_type: client_credentials
 
-Output:
+Http endpoint:
   url: https://api.spotify.com/v1
   headers:
     Authorization: Bearer ${output.access_token}
-

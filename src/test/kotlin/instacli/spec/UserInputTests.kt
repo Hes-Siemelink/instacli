@@ -18,4 +18,9 @@ class UserInputTests {
     fun `Cli scripts`(): List<DynamicNode> {
         return loadTestCases("input/User input tests.cli")
     }
+
+    @TestFactory
+    fun `Connections`(): List<DynamicNode> {
+        return loadTestCases("input/Connections.cli")
+    }
 }

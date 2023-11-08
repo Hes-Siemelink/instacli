@@ -21,6 +21,7 @@ object CommandLibrary {
         AskUser(),
         AskAll(),
         MockAnswers(),
+        Connection(),
 
         // Variables
         As(),

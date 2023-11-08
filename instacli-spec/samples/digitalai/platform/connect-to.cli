@@ -1,11 +1,9 @@
 Script info: Logs in to Digital.ai Platform
 
-Input:
-  endpoint:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
-
 ---
+Connection: Digital.ai Platform
+As: endpoint
+
 # Set endpoint and token for other scripts
 Get token: ${endpoint}
 Http endpoint: ${output}

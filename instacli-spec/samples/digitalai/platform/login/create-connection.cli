@@ -1,0 +1,18 @@
+Input:
+  url:
+    message: Digital.ai Platform target
+    choices:
+      - name: Staging
+        url: https://api.staging.digitalai.cloud
+      - name: Production
+        url: https://api.us.digitalai.cloud
+    type: select one
+    display: name
+    value: url
+  username: Username
+  password:
+    message: Password
+    type: password
+  id: Tenant ID
+
+Print: ${output}

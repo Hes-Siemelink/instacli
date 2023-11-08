@@ -1,0 +1,12 @@
+Default server:
+  Default: Acme
+  Connections:
+    Acme:
+      name: Default connection
+
+Test server:
+  Connections:
+    First:
+      name: First connection
+    Second:
+      name: Second connection
