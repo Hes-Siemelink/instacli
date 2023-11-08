@@ -40,27 +40,12 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
             // Already exists
             name in context.variables -> {
-
-                // Type hack: expand variable with type
-                if (info.type.isNotEmpty()) {
-                    val value = findByType(context.connections, name, info.type)
-                    if (value != null) {
-                        context.variables[name] = value
-                    }
-                }
-
-                // Leave existing variables as-is
                 continue
             }
 
             // Use default value
             info.default.isNotEmpty() -> {
                 context.variables[name] = TextNode(info.default)
-            }
-
-            // Find by type
-            info.type.isNotEmpty() -> {
-                context.variables[name] = findByType(context, info.type)
             }
 
             // Ask user
@@ -76,40 +61,6 @@ class Input : CommandHandler("Input"), ObjectHandler {
         return null
     }
 
-    private fun findByType(
-        variables: MutableMap<String, JsonNode>,
-        variableName: String,
-        type: String
-    ): JsonNode? {
-        val matchingVars = filterByType(variables, type)
-        val targetVariable = variables[variableName]?.textValue()
-
-        return matchingVars[targetVariable]
-    }
-
-    private fun findByType(context: ScriptContext, type: String): JsonNode {
-        // Pick one from the preconfigured variables with the same type
-        val matchingTypes = filterByType(context.connections, type)
-        when (matchingTypes.size) {
-            1 -> {
-                return matchingTypes.values.first()
-            }
-
-            0 -> {
-                throw CliScriptException("No variables found for $type")
-            }
-
-            else -> {
-                throw CliScriptException("Multiple variables match $type")
-            }
-        }
-    }
-
-    private fun filterByType(variables: Map<String, JsonNode>, type: String): Map<String, JsonNode> {
-        return variables.filter {
-            it.value["\$type"]?.textValue() == type
-        }
-    }
 }
 
 /**
@@ -122,7 +73,7 @@ class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = QuestionInfo.from(data)
+        val input = InputParameterInfo.from(data)
 
         when (input.type) {
             "select one" -> return promptChoice(input)
@@ -131,11 +82,11 @@ class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
         }
     }
 
-    private fun promptText(input: QuestionInfo): JsonNode {
-        return USER_INPUT_HANDLER.prompt(input.message, input.default)
+    private fun promptText(input: InputParameterInfo): JsonNode {
+        return USER_INPUT_HANDLER.prompt(input.description, input.default)
     }
 
-    private fun promptChoice(input: QuestionInfo, multiple: Boolean = false): JsonNode {
+    private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
 
         val choices = input.choices.map {
             if (input.display == null) {
@@ -145,7 +96,7 @@ class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
             }
         }
 
-        return USER_INPUT_HANDLER.select(input.message, choices, multiple)
+        return USER_INPUT_HANDLER.select(input.description, choices, multiple)
     }
 }
 
@@ -155,13 +106,13 @@ class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
 class AskAll : CommandHandler("Ask all"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = MultipleQuestions.from(data)
+        val input = InputInfo.from(data)
 
         val answers = data.objectNode()
-        for ((field, info) in input.fields) {
+        for ((field, info) in input.parameters) {
 
             // Ask user
-            val answer = USER_INPUT_HANDLER.prompt(info.message, info.default)
+            val answer = USER_INPUT_HANDLER.prompt(info.description, info.default)
             answers.set<JsonNode>(field, answer)
         }
 
@@ -221,38 +172,16 @@ class InputInfo {
 
 data class InputParameterInfo(
     var description: String = "",
-    val type: String = "",
-    val default: String = "",
-    val connection: String = ""
-) {
-    constructor(textValue: String) : this(description = textValue)
-}
-
-
-class MultipleQuestions {
-
-    @JsonAnySetter
-    var fields: Map<String, QuestionInfo> = mutableMapOf()
-
-    companion object {
-        fun from(data: JsonNode): MultipleQuestions {
-            return Yaml.mapper.treeToValue(data, MultipleQuestions::class.java)
-        }
-    }
-}
-
-data class QuestionInfo(
-    var message: String = "",
     val default: String = "",
     val type: String = "",
     val choices: List<JsonNode> = emptyList(),
     val display: String? = null
 ) {
-    constructor(textValue: String) : this(message = textValue)
+    constructor(textValue: String) : this(description = textValue)
 
     companion object {
-        fun from(data: JsonNode): QuestionInfo {
-            return Yaml.mapper.treeToValue(data, QuestionInfo::class.java)
+        fun from(data: JsonNode): InputParameterInfo {
+            return Yaml.mapper.treeToValue(data, InputParameterInfo::class.java)
         }
     }
 }

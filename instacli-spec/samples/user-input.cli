@@ -1,5 +1,5 @@
 Ask user:
-  message: Select ingredients
+  description: Select ingredients
   type: select multiple
   choices:
     - Apple

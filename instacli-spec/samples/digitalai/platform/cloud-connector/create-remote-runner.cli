@@ -15,7 +15,7 @@ ${runtimes}: ${output.agent_runtimes}
 
 ---
 Ask user:
-  message: Select runtime to add
+  description: Select runtime to add
   type: select one
   choices: ${runtimes}
   display: name

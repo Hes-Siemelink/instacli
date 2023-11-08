@@ -1,6 +1,6 @@
 Input:
   url:
-    message: Digital.ai Platform target
+    description: Digital.ai Platform target
     choices:
       - name: Staging
         url: https://api.staging.digitalai.cloud
@@ -11,7 +11,7 @@ Input:
     value: url
   username: Username
   password:
-    message: Password
+    description: Password
     type: password
   id: Tenant ID
 

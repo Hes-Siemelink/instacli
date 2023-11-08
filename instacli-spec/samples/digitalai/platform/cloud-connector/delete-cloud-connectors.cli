@@ -13,7 +13,7 @@ If:
     Exit: No Cloud Connectors available.
 
 Ask user:
-  message: Select Cloud Connector to delete
+  description: Select Cloud Connector to delete
   choices: ${cloud_connectors}
   type: select multiple
   display: name

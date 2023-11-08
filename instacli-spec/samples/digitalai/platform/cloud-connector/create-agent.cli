@@ -15,7 +15,7 @@ If:
     Exit: No cloud connectors available
 
 Ask user:
-  message: Select Cloud Connector
+  description: Select Cloud Connector
   choices: ${cloud_connectors}
   type: select one
   display: name
@@ -23,13 +23,13 @@ As: cloud_connector
 
 ---
 # Select runtime
-Print: Getting available runtimes for
+Print: Getting available runtimes
 
 Http GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
 
 Ask user:
-  message: Select runtime to add
+  description: Select runtime to add
   choices: ${runtimes}
   type: select one
   display: name
@@ -45,7 +45,7 @@ As: alias
 For each:
   ${variable}: ${runtime.variables}
   Ask user:
-    message: ${variable.key}
+    description: ${variable.key}
     default: ${variable.value}
 As: variables
 

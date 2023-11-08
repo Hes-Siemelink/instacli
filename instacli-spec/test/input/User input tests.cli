@@ -11,7 +11,7 @@ Expected output: Instacli
 Test case: Default answer
 
 Ask user:
-  message: How much is 1 + 1?
+  description: How much is 1 + 1?
   default: 2
 
 Expected output: "2"
@@ -25,7 +25,7 @@ Mock answers:
 Ask all:
   name: What is your name?
   sum:
-    message: How much is 1 + 1?
+    description: How much is 1 + 1?
     default: 2
 
 Expected output:
@@ -39,7 +39,7 @@ Mock answers:
   Select account: dev
 
 Ask user:
-  message: Select account
+  description: Select account
   type: select one
   choices:
     - name: dev
@@ -67,7 +67,7 @@ Mock answers:
     - Pineapple
 
 Ask user:
-  message: What flavors do you like?
+  description: What flavors do you like?
   type: select multiple
   choices:
     - Vanilla

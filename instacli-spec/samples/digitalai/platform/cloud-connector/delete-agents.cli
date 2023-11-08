@@ -13,7 +13,7 @@ If:
       Exit: No agents available.
 
 Ask user:
-  message: Select agents to delete
+  description: Select agents to delete
   choices: ${agents}
   type: select multiple
   display: alias

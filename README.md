@@ -11,7 +11,7 @@ Http GET: /flavor/options
 As: flavors
 
 Ask user:
-  message: Select your favorite flavor
+  description: Select your favorite flavor
   choices: ${flavors}
   type: select one
 As: favorite

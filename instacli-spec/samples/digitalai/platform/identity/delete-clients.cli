@@ -6,7 +6,7 @@ Connect to: Digital.ai Platform API
 Http GET: /identity/clients/
 
 Ask user:
-  message: Select clients to delete
+  description: Select clients to delete
   choices: ${output.clients}
   type: select multiple
   display: name
