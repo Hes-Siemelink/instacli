@@ -30,9 +30,3 @@ Http POST:
     password: ${password}
     scope: "openid dai-svc"
 
----
-# Use output in Http endpoint
-Output:
-  url: ${url}
-  headers:
-    Authorization: Bearer ${output.access_token}
