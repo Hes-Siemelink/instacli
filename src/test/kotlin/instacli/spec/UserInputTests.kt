@@ -1,6 +1,6 @@
 package instacli.spec
 
-import instacli.commands.USER_INPUT_HANDLER
+import instacli.commands.userPrompt
 import instacli.loadTestCases
 import instacli.util.MockUser
 import org.junit.jupiter.api.BeforeEach
@@ -11,7 +11,7 @@ class UserInputTests {
 
     @BeforeEach
     fun setup() {
-        USER_INPUT_HANDLER = MockUser()
+        userPrompt = MockUser()
     }
 
     @TestFactory

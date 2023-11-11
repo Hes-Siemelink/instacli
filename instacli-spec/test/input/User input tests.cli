@@ -78,3 +78,47 @@ Ask user:
 Expected output:
   - Coconut
   - Pineapple
+
+---
+Test case: Select value field only
+
+Mock answers:
+  Favorite channel: The News
+
+Ask user:
+  description: Favorite channel
+  type: select one
+  choices:
+    - name: The News
+      preset: 1
+    - name: Sports Unlimited
+      preset: 2
+  display: name
+  value: preset
+
+Expected output: 1
+
+---
+Test case: Select multiple value fields
+
+Mock answers:
+  Favorite channel:
+    - The News
+    - Sports Unlimited
+
+Ask user:
+  description: Favorite channel
+  type: select multiple
+  choices:
+    - name: The News
+      preset: 1
+    - name: Sports Unlimited
+      preset: 2
+    - name: Cartoon Channel
+      preset: 3
+  display: name
+  value: preset
+
+Expected output:
+  - 1
+  - 2

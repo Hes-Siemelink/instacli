@@ -14,5 +14,3 @@ Input:
     description: Password
     type: password
   id: Tenant ID
-
-Print: ${output}

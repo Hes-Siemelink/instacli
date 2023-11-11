@@ -2,6 +2,7 @@ package instacli.commands
 
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
@@ -13,7 +14,7 @@ import instacli.util.UserPrompt
 import instacli.util.Yaml
 
 
-var USER_INPUT_HANDLER: UserPrompt = KInquirerPrompt()
+var userPrompt: UserPrompt = KInquirerPrompt()
 
 class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -73,7 +74,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return USER_INPUT_HANDLER.prompt(data.textValue())
+        return userPrompt.prompt(data.textValue())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -93,7 +94,7 @@ private fun prompt(input: InputParameterInfo): JsonNode {
 }
 
 private fun promptText(input: InputParameterInfo, password: Boolean = false): JsonNode {
-    return USER_INPUT_HANDLER.prompt(input.description, input.default, password)
+    return userPrompt.prompt(input.description, input.default, password)
 }
 
 private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
@@ -106,7 +107,28 @@ private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): 
         }
     }
 
-    return USER_INPUT_HANDLER.select(input.description, choices, multiple)
+    val answer = userPrompt.select(input.description, choices, multiple)
+
+    return onlyWithField(answer, input.value)
+}
+
+private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
+    if (field == null) {
+        return node
+    }
+
+    return when (node) {
+        is ObjectNode -> node[field]
+        is ArrayNode -> {
+            val copy = node.arrayNode()
+            for (item in node) {
+                copy.add(item[field])
+            }
+            copy
+        }
+
+        else -> node
+    }
 }
 
 
@@ -122,7 +144,7 @@ class AskAll : CommandHandler("Ask all"), ObjectHandler {
         for ((field, info) in input.parameters) {
 
             // Ask user
-            val answer = USER_INPUT_HANDLER.prompt(info.description, info.default)
+            val answer = userPrompt.prompt(info.description, info.default)
             answers.set<JsonNode>(field, answer)
         }
 
