@@ -17,6 +17,7 @@ interface UserOutput {
     fun printScriptInfo(script: CliScript)
     fun printCommands(commands: List<CommandInfo>)
     fun printDirectoryInfo(info: DirectoryInfo)
+    fun println(message: String)
 }
 
 object ConsoleInput : UserInput {
@@ -38,19 +39,19 @@ object ConsoleInput : UserInput {
 
 object ConsoleOutput : UserOutput {
     override fun printCommands(commands: List<CommandInfo>) {
-        println("Available commands:")
+        kotlin.io.println("Available commands:")
 
         val width = commands.maxOf { it.name.length }
         commands.forEach {
-            println("  ${infoString(it.name, it.description, width)}")
+            kotlin.io.println("  ${infoString(it.name, it.description, width)}")
         }
     }
 
     override fun printDirectoryInfo(info: DirectoryInfo) {
         if (info.description.isNotEmpty()) {
-            println(info.description.trim())
+            kotlin.io.println(info.description.trim())
         } else {
-            println("${info.name} has several subcommands.")
+            kotlin.io.println("${info.name} has several subcommands.")
         }
         println()
     }
@@ -68,19 +69,23 @@ object ConsoleOutput : UserOutput {
 
         val inputInfo = InputInfo.from(script.input?.data ?: return)
 
-        println("\nInput parameters:")
+        kotlin.io.println("\nInput parameters:")
 
         val width = inputInfo.parameters.maxOf { it.key.length } + 2
         inputInfo.parameters.forEach {
-            println("  ${infoString("--" + it.key, it.value.description, width)}")
+            kotlin.io.println("  ${infoString("--" + it.key, it.value.description, width)}")
         }
     }
 
     override fun printUsage() {
-        println("Instacli -- Instantly create CLI applications with light scripting!")
+        kotlin.io.println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
-        println("Usage:\n   cli [-q] [--help] file | directory")
+        kotlin.io.println("Usage:\n   cli [-q] [--help] file | directory")
         println()
+    }
+
+    override fun println(message: String) {
+        kotlin.io.println(message)
     }
 }
 

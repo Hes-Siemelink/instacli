@@ -2,7 +2,8 @@ package instacli.cli
 
 import instacli.engine.CliScript
 import instacli.engine.CommandInfo
-import org.junit.jupiter.api.Assertions.*
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -10,7 +11,12 @@ val testDir: File = File("src/test/resources")
 
 class CliInvocationTest {
 
-    val out = MockOutput()
+    private var out = MockOutput()
+
+    @BeforeEach
+    fun resetOutput() {
+        out = MockOutput()
+    }
 
     @Test
     fun `Print usage`() {
@@ -22,7 +28,7 @@ class CliInvocationTest {
         session.run()
 
         // Then
-        assertTrue(out.usagePrinted)
+        out.usagePrinted shouldBe true
     }
 
     @Test
@@ -35,12 +41,11 @@ class CliInvocationTest {
         session.run()
 
         // Then
-        assertNotNull(out.directoryInfoPrinted)
-        assertEquals("sample", out.directoryInfoPrinted?.name)
+        out.directoryInfoPrinted?.name shouldBe "sample"
 
-        assertEquals(1, out.commandsPrinted.size)
-        assertEquals("simple", out.commandsPrinted[0].name)
-        assertEquals("Simple test cases", out.commandsPrinted[0].description)
+        out.commandsPrinted.size shouldBe 1
+        out.commandsPrinted[0].name shouldBe "simple"
+        out.commandsPrinted[0].description shouldBe "Simple test cases"
     }
 
     @Test
@@ -53,9 +58,9 @@ class CliInvocationTest {
         session.run()
 
         // Then
-        assertEquals(1, out.commandsPrinted.size)
-        assertEquals("echo", out.commandsPrinted[0].name)
-        assertEquals("Echos the input", out.commandsPrinted[0].description)
+        out.commandsPrinted.size shouldBe 1
+        out.commandsPrinted[0].name shouldBe "echo"
+        out.commandsPrinted[0].description shouldBe "Echos the input"
     }
 
     @Test
@@ -68,11 +73,35 @@ class CliInvocationTest {
         session.run()
 
         // Then
-        assertNotNull(out.scriptInfoPrinted)
-        assertEquals("Echos the input", out.scriptInfoPrinted?.description)
-        assertEquals("Input that becomes output", out.scriptInfoPrinted?.input?.data?.get("input")?.textValue())
+        out.scriptInfoPrinted?.description shouldBe "Echos the input"
+        out.scriptInfoPrinted?.input?.data?.get("input")?.textValue() shouldBe "Input that becomes output"
     }
 
+    @Test
+    fun `Print output - yes`() {
+
+        // Given
+        val session = InstacliInvocation(arrayOf("-q", "-o", "sample", "simple", "echo", "--input", "Script output"), workingDir = testDir, out = out)
+
+        // When
+        session.run()
+
+        // Then
+        out.messagePrinted shouldBe "Script output"
+    }
+
+    @Test
+    fun `Print output - no`() {
+
+        // Given
+        val session = InstacliInvocation(arrayOf("-q", "sample", "simple", "echo", "--input", "Script output"), workingDir = testDir, out = out)
+
+        // When
+        session.run()
+
+        // Then
+        out.messagePrinted shouldBe null
+    }
 }
 
 class MockOutput : UserOutput {
@@ -81,6 +110,7 @@ class MockOutput : UserOutput {
     var commandsPrinted = listOf<CommandInfo>()
     var directoryInfoPrinted: DirectoryInfo? = null
     var scriptInfoPrinted: CliScript? = null
+    var messagePrinted: String? = null
 
     override fun printUsage() {
         usagePrinted = true
@@ -96,5 +126,9 @@ class MockOutput : UserOutput {
 
     override fun printDirectoryInfo(info: DirectoryInfo) {
         directoryInfoPrinted = info
+    }
+
+    override fun println(message: String) {
+        messagePrinted = message
     }
 }

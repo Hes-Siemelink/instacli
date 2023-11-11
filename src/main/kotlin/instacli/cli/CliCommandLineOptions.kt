@@ -4,6 +4,7 @@ import instacli.cli.ArgType.*
 
 class CliCommandLineOptions private constructor(
     val interactive: Boolean,
+    val printOutput: Boolean,
     val help: Boolean,
     val commands: List<String>,
     private val commandArgs: List<String>
@@ -15,6 +16,7 @@ class CliCommandLineOptions private constructor(
         operator fun invoke(args: Array<String> = arrayOf<String>()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
             val interactive = !globalArgs.contains("-q")
+            val printOutput = globalArgs.contains("-o")
             val help = globalArgs.contains("--help")
 
             // Warn about change in command line options
@@ -25,6 +27,7 @@ class CliCommandLineOptions private constructor(
 
             return CliCommandLineOptions(
                 interactive,
+                printOutput,
                 help,
                 commands,
                 commandArgs

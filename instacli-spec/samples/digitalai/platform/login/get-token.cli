@@ -3,7 +3,9 @@ Script info: Gets a login token
 Input:
   id: ID of the tenant
   username: Username
-  password: Password
+  password:
+    description: Password
+    type: password
   url: The actual endpoint
 
 ---

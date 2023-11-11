@@ -3,6 +3,25 @@ Script info: Downloads the installer script for the logged in user
 Connect to: Digital.ai Platform API
 
 ---
+# Select Cloud Connector
+Print: Getting Cloud Connectors
+
+Http GET: /workload/v1/cloud_connectors/
+${cloud_connectors}: ${output.cloud_connector_definitions}
+
+If:
+  empty: ${cloud_connectors}
+  then:
+    Exit: No cloud connectors available
+
+Ask user:
+  description: Select Cloud Connector
+  choices: ${cloud_connectors}
+  type: select one
+  display: name
+As: cloud_connector
+
+---
 Http GET:
   path: /workload/v1/cloud_connector/installer
   save as: install-cloud-connector.sh
