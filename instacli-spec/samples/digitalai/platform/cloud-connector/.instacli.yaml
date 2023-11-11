@@ -1,4 +1,4 @@
-description: |
+Script info: |
   Manage Cloud Connector installations.
 imports:
-  - ../connect-to.cli
+  - ../login/connect-to.cli

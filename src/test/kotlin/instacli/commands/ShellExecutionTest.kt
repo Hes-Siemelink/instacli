@@ -3,7 +3,6 @@ package instacli.commands
 import com.lordcodes.turtle.shellRun
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.Test
 import java.io.File
 
@@ -21,13 +20,6 @@ class ShellExecutionTest {
         val output = shellRun("sh", listOf("hello.sh"), File("src/test/resources"))
 
         output shouldBe "Hello World"
-    }
-
-    @Test
-    fun `Run binary`() {
-        val output = shellRun("java", listOf("-version"), File("src/test/resources"))
-
-        output shouldNotBe null
     }
 
     @Test

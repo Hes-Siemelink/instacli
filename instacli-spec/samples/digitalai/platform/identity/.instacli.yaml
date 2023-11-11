@@ -1,4 +1,4 @@
-description: |
+Script info: |
   Services for Identity Management
 imports:
-  - ../connect-to.cli
+  - ../login/connect-to.cli

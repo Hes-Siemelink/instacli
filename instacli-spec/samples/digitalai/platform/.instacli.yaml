@@ -1,4 +1,2 @@
-description: |
+Script info: |
   Digital.ai Platform provides services for Identity Management and other common services
-imports:
-  - login/get-token.cli
