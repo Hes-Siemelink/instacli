@@ -1,11 +1,11 @@
 Default server:
-  Default: Acme
-  Connections:
+  default: Acme
+  connections:
     Acme:
       name: Default connection
 
 Test server:
-  Connections:
+  connections:
     First:
       name: First connection
     Second:

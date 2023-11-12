@@ -14,3 +14,15 @@ Input:
     description: Password
     type: password
   id: Tenant ID
+As: connection
+
+---
+Input:
+  name: Connection name
+As: title
+
+---
+Add connection:
+  target: Digital.ai
+  name: ${name}
+  properties: ${connection}

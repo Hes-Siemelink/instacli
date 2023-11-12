@@ -3,6 +3,7 @@ package instacli.cli
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.AssignVariable
+import instacli.commands.Connections
 import instacli.engine.*
 import java.io.File
 import java.util.*
@@ -17,7 +18,7 @@ class ScriptFileContext(
     override val scriptLocation: File,
     override val variables: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
     override val session: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
-    override val connections: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
+    override var connections: Connections = Connections(),
     override val interactive: Boolean = false
 ) : ScriptContext {
 

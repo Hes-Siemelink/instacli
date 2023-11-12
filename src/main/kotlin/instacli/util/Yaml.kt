@@ -1,5 +1,6 @@
 package instacli.util
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
@@ -21,6 +22,10 @@ object Yaml {
 
     val mapper = ObjectMapper(factory)
     // Not using ObjectMapper(factory).registerKotlinModule() because it trips up Graal native image
+
+    init {
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    }
 
     fun readFile(source: File): JsonNode? {
         return mapper.readValue(source, JsonNode::class.java)

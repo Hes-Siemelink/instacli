@@ -2,12 +2,11 @@ package instacli
 
 import instacli.cli.CliScriptFile
 import instacli.cli.ScriptFileContext
-import instacli.cli.add
+import instacli.commands.Connections
 import instacli.commands.TestCase
 import instacli.engine.Break
 import instacli.engine.CliScript
 import instacli.engine.Command
-import instacli.util.Yaml
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicTest
@@ -32,14 +31,19 @@ fun toFile(resource: String): File {
 }
 
 private val TEST_CASE = TestCase().name
-private val TEST_CONNECTIONS by lazy { Yaml.readResource("instacli-home/connections.yaml") }
+private const val TEST_CONNECTIONS = "instacli-home/connections.yaml"
 
 /**
  * Gets all individual test cases in a script file as a dynamic tests.
  */
 fun CliScriptFile.getTestCases(): List<DynamicTest> {
     val context = ScriptFileContext(scriptFile)
-    context.connections.add(TEST_CONNECTIONS)
+
+    context.connections = Connections.load(TEST_CONNECTIONS)
+    var tempFile = File.createTempFile("instacli-connections-", ".yaml")
+    tempFile.deleteOnExit()
+    context.connections.file = tempFile
+
     return cliScript.getTestCases().map() {
         dynamicTest(it.getTestName()) {
             try {

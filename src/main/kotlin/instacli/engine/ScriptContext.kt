@@ -1,26 +1,17 @@
 package instacli.engine
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.util.Yaml
+import instacli.commands.Connections
 import java.io.File
 
 interface ScriptContext {
     val interactive: Boolean
-    val connections: MutableMap<String, JsonNode>
     val variables: MutableMap<String, JsonNode>
     val session: MutableMap<String, JsonNode>
+    val connections: Connections
     val scriptLocation: File
 
     fun getCommandHandler(command: String): CommandHandler
-}
-
-class VariableScope(override val variables: MutableMap<String, JsonNode>, private val parent: ScriptContext) : ScriptContext by parent {
-
-    override val scriptLocation: File
-        get() = parent.scriptLocation
-
-    constructor(data: JsonNode, parent: ScriptContext) :
-            this(Yaml.mutableMapOf(data), parent)
 }
 
 const val OUTPUT_VARIABLE = "output"

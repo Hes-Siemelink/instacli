@@ -13,3 +13,16 @@ Connection: Test server
 Expected output:
   name: First connection
 
+---
+Test case: Add connection
+
+Add connection:
+  target: New target
+  name: Test connection
+  properties:
+    url: http://example.com
+
+Connection: New target
+
+Expected output:
+  url: http://example.com

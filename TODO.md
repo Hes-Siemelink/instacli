@@ -1,5 +1,6 @@
 # On my mind
 
+* Create Connection interactively so we can remove config it from the readme
 * Http Connection management
 
 # Code cleanup

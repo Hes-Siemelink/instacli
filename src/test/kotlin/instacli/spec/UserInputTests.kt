@@ -21,6 +21,6 @@ class UserInputTests {
 
     @TestFactory
     fun `Connections`(): List<DynamicNode> {
-        return loadTestCases("input/Connections.cli")
+        return loadTestCases("input/Connection tests.cli")
     }
 }

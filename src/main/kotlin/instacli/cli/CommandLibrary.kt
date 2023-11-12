@@ -21,7 +21,6 @@ object CommandLibrary {
         AskUser(),
         AskAll(),
         MockAnswers(),
-        Connection(),
 
         // Variables
         As(),
@@ -36,6 +35,10 @@ object CommandLibrary {
 
         // Call other files
         ExecuteCliScriptFile(),
+
+        // Connections
+        Connection(),
+        AddConnection(),
 
         // HTTP
         HttpEndpoint(),

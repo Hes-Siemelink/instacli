@@ -1,6 +1,7 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
+import instacli.commands.Connections
 import instacli.engine.InstacliException
 import instacli.util.Yaml
 import instacli.util.objectNode
@@ -21,8 +22,8 @@ fun main(args: Array<String>) {
         exitProcess(1)
     } catch (e: InstacliException) {
         val cause = e.cause?.message ?: ""
-        System.err.println("Instacli scripting error\n\n  $cause")
-        System.err.println("\n  ${e.message}")
+        System.err.println("\nInstacli scripting error\n  $cause")
+        System.err.println("  ${e.message}")
 
         exitProcess(1)
     }
@@ -67,7 +68,7 @@ class InstacliInvocation(
             return
         }
 
-        context.connections.add(loadConnections())
+        context.connections = Connections.load()
         context.addVariables(options.commandParameters)
 
         val output = script.run(context)
