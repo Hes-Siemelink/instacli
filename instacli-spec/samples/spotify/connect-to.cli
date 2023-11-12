@@ -5,7 +5,7 @@ As: app
 Base64 encode: ${app.client_id}:${app.client_secret}
 As: auth_string
 
-Http POST:
+POST:
   url: https://accounts.spotify.com
   path: /api/token
   headers:

@@ -6,7 +6,7 @@ Input:
 Connect to: Digital.ai Platform API
 
 ---
-Http GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
+GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
 
 Ask user:
   description: Select agents to delete
@@ -19,4 +19,4 @@ As: selected_accounts
 For each:
   ${account}: ${selected_accounts}
   Print: DELETE /identity/v1/accounts/${account.id}
-  Http DELETE: /identity/v1/accounts/${account.id}
+  DELETE: /identity/v1/accounts/${account.id}

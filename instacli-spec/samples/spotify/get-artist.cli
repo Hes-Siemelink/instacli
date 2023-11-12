@@ -1,6 +1,6 @@
 Connect to: Spotify
 
 ---
-Http GET: /artists/0TnOYISbd1XYRBk9myaseg
+GET: /artists/0TnOYISbd1XYRBk9myaseg
 
 Print: ${output}

@@ -4,7 +4,7 @@ Connect to: Digital.ai Platform API
 
 ---
 # Select agents to delete
-Http GET: /workload/v1/agent_instances/
+GET: /workload/v1/agent_instances/
 ${agents}: ${output.agent_instances}
 
 If:
@@ -24,4 +24,4 @@ As: selected_agents
 For each:
   ${agent}: ${selected_agents}
   Print: DELETE /workload/v1/agent_instances/${agent.id}
-  Http DELETE: /workload/v1/agent_instances/${agent.id}
+  DELETE: /workload/v1/agent_instances/${agent.id}

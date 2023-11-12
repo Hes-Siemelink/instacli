@@ -7,7 +7,7 @@ Input:
 
 ---
 # Create Cloud Connector
-Http POST:
+POST:
   path: /workload/v1/cloud_connectors/
   body:
     name: ${name}

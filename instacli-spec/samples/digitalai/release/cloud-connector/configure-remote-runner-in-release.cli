@@ -17,7 +17,7 @@ Shell: ./xlw apply -f remote-runner-user.yaml
 ---
 Http endpoint: ${release}
 
-Http POST:
+POST:
   path: /tokens/users
   body:
     tokenNote: cloud-connector-token

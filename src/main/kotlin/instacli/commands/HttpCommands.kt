@@ -41,7 +41,7 @@ class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandle
 }
 
 
-class HttpGet : CommandHandler("Http GET"), ValueHandler, ObjectHandler {
+class HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val uri = URI(data.textValue())
@@ -60,28 +60,28 @@ class HttpGet : CommandHandler("Http GET"), ValueHandler, ObjectHandler {
     }
 }
 
-class HttpPost : CommandHandler("Http POST"), ObjectHandler {
+class HttpPost : CommandHandler("POST"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Post)
     }
 }
 
-class HttpPut : CommandHandler("Http PUT"), ObjectHandler {
+class HttpPut : CommandHandler("PUT"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Put)
     }
 }
 
-class HttpPatch : CommandHandler("Http PATCH"), ObjectHandler {
+class HttpPatch : CommandHandler("PATCH"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Patch)
     }
 }
 
-class HttpDelete : CommandHandler("Http DELETE"), ValueHandler, ObjectHandler {
+class HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val path = objectNode("path", data.textValue())

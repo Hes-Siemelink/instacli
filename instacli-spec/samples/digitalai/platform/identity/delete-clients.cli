@@ -3,7 +3,7 @@ Script info: Deletes OIDC clients
 Connect to: Digital.ai Platform API
 
 ---
-Http GET: /identity/clients/
+GET: /identity/clients/
 
 Ask user:
   description: Select clients to delete
@@ -16,4 +16,4 @@ As: selected_clients
 For each:
   ${client}: ${selected_clients}
   Print: DELETE /identity/v1/clients/${client.id}
-  Http DELETE: /identity/v1/clients/${client.id}
+  DELETE: /identity/v1/clients/${client.id}

@@ -6,7 +6,7 @@ Connect to: Digital.ai Platform API
 # Select Cloud Connector
 Print: Getting Cloud Connectors
 
-Http GET: /workload/v1/cloud_connectors/
+GET: /workload/v1/cloud_connectors/
 ${cloud_connectors}: ${output.cloud_connector_definitions}
 
 If:
@@ -22,7 +22,7 @@ Ask user:
 As: cloud_connector
 
 ---
-Http GET:
+GET:
   path: /workload/v1/cloud_connector/installer
   save as: install-cloud-connector.sh
 

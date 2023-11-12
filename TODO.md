@@ -1,7 +1,6 @@
 # On my mind
 
 * Http Connection management
-* `cli -o` prints output
 
 # Code cleanup
 
@@ -17,7 +16,6 @@
 # Command-line support
 
 * Parse command line properly
-* yay-context.yaml
 * Cross compile to native using GraalVM, gradle and GitHub actions  
   https://katmatt.github.io/posts/graalvm-cross-compile-gh-actions/
 

@@ -3,7 +3,7 @@ Script info: Lists the available agents
 Connect to: Digital.ai Platform API
 
 ---
-Http GET: /workload/v1/agent_instances/
+GET: /workload/v1/agent_instances/
 
 For each:
   ${agent}: ${output.agent_instances}

@@ -1,6 +1,6 @@
 Test case: GET with full URL
 
-Http GET: http://localhost:25125/items
+GET: http://localhost:25125/items
 
 Expected output: [ '1', '2', '3' ]
 
@@ -14,7 +14,7 @@ Http endpoint:
 ---
 Test case: GET with implicit url and explicit path parameter
 
-Http GET:
+GET:
   path: /items
 
 Expected output: [ '1', '2', '3' ]
@@ -22,7 +22,7 @@ Expected output: [ '1', '2', '3' ]
 ---
 Test case: GET with query parameters
 
-Http GET: /echo/query?content=hello
+GET: /echo/query?content=hello
 
 Expected output:
   content: hello
@@ -31,7 +31,7 @@ Expected output:
 ---
 Test case: POST
 
-Http POST:
+POST:
   path: /items
   body:
     '1': One
@@ -44,7 +44,7 @@ Expected output: [ '1', '2', '3', '4' ]
 ---
 Test case: POST without path parameter
 
-Http POST:
+POST:
   url: http://localhost:25125/items
   body:
     '1': One
@@ -57,7 +57,7 @@ Expected output: [ '1', '2', '3', '4' ]
 ---
 Test case: Headers
 
-Http GET:
+GET:
   path: /echo/header/Test
   headers:
     Test: something
@@ -70,7 +70,7 @@ Assert that:
 ---
 Test case: Cookies
 
-Http GET:
+GET:
   path: /echo/cookies
   cookies:
     speculaas: spicy

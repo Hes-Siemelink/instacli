@@ -3,6 +3,6 @@ Script info: Lists the available Cloud Connectors
 Connect to: Digital.ai Platform API
 
 ---
-Http GET: /workload/v1/cloud_connectors/
+GET: /workload/v1/cloud_connectors/
 
 Print as YAML: ${output}

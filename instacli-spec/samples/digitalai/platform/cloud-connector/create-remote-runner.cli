@@ -10,7 +10,7 @@ Connect to: Digital.ai Platform API
 ---
 # Select runtime
 Print: Getting available runtimes
-Http GET: /workload/v1/agent_runtimes/
+GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
 
 ---
@@ -23,7 +23,7 @@ As: runtime
 
 ---
 # Register agent
-Http POST:
+POST:
   path: /workload/v1/agent_instances/
   body:
     agent_id: ${runtime.id}

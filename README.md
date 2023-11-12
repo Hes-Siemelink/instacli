@@ -7,7 +7,7 @@ Instantly create CLI applications with light scripting in Yaml!
 Get a flavor of instacli with this example that does a small interaction between user and server.
 
 ```yaml
-Http GET: /flavor/options
+GET: /flavor/options
 As: flavors
 
 Ask user:
@@ -16,7 +16,7 @@ Ask user:
   type: select one
 As: favorite
 
-Http POST:
+POST:
   path: /flavor/favorite
   body:
     flavor: ${favorite}

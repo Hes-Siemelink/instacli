@@ -4,7 +4,7 @@ Connect to: Digital.ai Platform API
 
 ---
 # Select Cloud Connectors to delete
-Http GET: /workload/v1/cloud_connectors/
+GET: /workload/v1/cloud_connectors/
 ${cloud_connectors}: ${output.cloud_connector_definitions}
 
 If:
@@ -24,4 +24,4 @@ As: selected_cloud_connectors
 For each:
   ${cloud_connector}: ${selected_cloud_connectors}
   Print: DELETE /workload/v1/cloud_connectors/${cloud_connector.id}
-  Http DELETE: /workload/v1/cloud_connectors/${cloud_connector.id}
+  DELETE: /workload/v1/cloud_connectors/${cloud_connector.id}

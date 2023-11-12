@@ -4,7 +4,7 @@ Connect to: Digital.ai Platform API
 
 ---
 # Create client
-Http POST:
+POST:
   path: /identity/clients/oidc/
   body:
     name: ${client_id}
