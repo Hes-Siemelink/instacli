@@ -1,14 +1,22 @@
 Script info: Select or configure an account to log in
 
 Get accounts: Digital.ai Platform
+Add:
+  - name: ">> Create new account"
 As: accounts
 
 ---
-# Set endpoint and token for other scripts
-Get token: ${endpoint}
+Ask user:
+  description: Select account to log in with
+  choices: ${accounts}
+  type: select one
+As: account
 
-Http endpoint:
-  url: ${endpoint.url}
-  headers:
-    Authorization: Bearer ${output.access_token}
+---
+If:
+  empty: ${account}
+  then:
+    Create account: null
+    As: account
 
+Output: ${account}

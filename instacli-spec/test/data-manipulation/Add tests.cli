@@ -1,0 +1,42 @@
+Test case: Add to empty output
+
+Add: one item
+
+Expected output: one item
+
+---
+Test case: Add to list
+
+Output:
+  - One
+  - Two
+Add: Three
+
+Expected output:
+  - One
+  - Two
+  - Three
+
+---
+Test case: Add to object
+
+Output:
+  1: one
+  2: dos
+
+Add:
+  2: two
+  3: three
+
+Expected output:
+  1: one
+  2: two
+  3: three
+
+---
+Test case: Add to string
+
+Output: one two
+Add: " three"
+
+Expected output: one two three

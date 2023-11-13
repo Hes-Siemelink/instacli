@@ -70,6 +70,45 @@ class Merge : CommandHandler("Merge"), ArrayHandler {
     }
 }
 
+class Add : CommandHandler("Add"), ArrayHandler, ObjectHandler, ValueHandler {
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+        val output = context.variables[OUTPUT_VARIABLE] ?: return data
+
+        when (output) {
+            is ArrayNode -> output.addAll(data)
+            else ->
+                throw CliScriptException("Can't add an array to output of type ${output.javaClass.simpleName}")
+        }
+
+        return output
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val output = context.variables[OUTPUT_VARIABLE] ?: return data
+
+        when (output) {
+            is ObjectNode -> output.setAll<ObjectNode>(data)
+            is ArrayNode -> output.add(data)
+            else ->
+                throw CliScriptException("Can't add an object to output of type ${output.javaClass.simpleName}")
+        }
+
+        return output
+    }
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        var output = context.variables[OUTPUT_VARIABLE] ?: return data
+
+        when (output) {
+            is TextNode -> output = TextNode(output.asText() + data.asText())
+            is ArrayNode -> output.add(data)
+            else ->
+                throw CliScriptException("Can't add $data to output of type ${output.javaClass.simpleName}")
+        }
+        return output
+    }
+}
+
 // TODO: Rename fields in 'Replace'.
 // Replace:
 //  in: Hello me

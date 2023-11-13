@@ -29,6 +29,7 @@ class CoreTests {
         return loadTestCases(
             "data-manipulation/For each and merge.cli",
             "data-manipulation/Merge data.cli",
+            "data-manipulation/Add tests.cli",
             "data-manipulation/Object tests.cli",
             "data-manipulation/Replace handler tests.cli",
             "data-manipulation/Size tests.cli",
