@@ -1,12 +1,12 @@
 Default server:
-  default: Acme
+  default: Default account
   accounts:
-    Acme:
-      name: Default connection
+    - name: Default account
+      description: The one and only
 
 Test server:
   accounts:
-    First:
-      name: First connection
-    Second:
-      name: Second connection
+    - name: First
+      description: First connection
+    - name: Second
+      description: Second connection

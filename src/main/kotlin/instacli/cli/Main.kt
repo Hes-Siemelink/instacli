@@ -1,10 +1,8 @@
 package instacli.cli
 
-import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.Connections
 import instacli.engine.InstacliException
 import instacli.util.Yaml
-import instacli.util.objectNode
 import java.io.File
 import kotlin.system.exitProcess
 
@@ -126,14 +124,4 @@ class InstacliInvocation(
             }
         }
     }
-}
-
-private fun loadConnections(): JsonNode {
-    // Warn users that have old configuration
-    // XXX Remove this check at some point
-    if (File(INSTACLI_HOME, "default-variables.yaml").exists()) {
-        println("Please rename ~/.instacli/default-variables.yaml to connections.yaml")
-        exitProcess(1)
-    }
-    return Yaml.readFile(File(INSTACLI_HOME, "connections.yaml")) ?: objectNode()
 }

@@ -40,6 +40,7 @@ object CommandLibrary {
         // Connections
         Connection(),
         AddConnection(),
+        GetAccounts(),
 
         // HTTP
         HttpEndpoint(),

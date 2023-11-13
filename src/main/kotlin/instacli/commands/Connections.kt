@@ -3,6 +3,8 @@ package instacli.commands
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.INSTACLI_HOME
@@ -18,11 +20,11 @@ class Connection : CommandHandler("Connection"), ValueHandler {
         val target = context.connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
         return when {
             target.default != null -> {
-                target.accounts[target.default]
+                target.defaultAccount()
             }
 
             target.accounts.isNotEmpty() -> {
-                target.accounts.iterator().next().value
+                target.accounts.first()
             }
 
             else -> throw CliScriptException("No connections defined for $targetName")
@@ -32,17 +34,26 @@ class Connection : CommandHandler("Connection"), ValueHandler {
 
 
 class AddConnection : CommandHandler("Add connection"), ObjectHandler {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val newConnection = AddConnectionInfo.from(data)
         val target = context.connections.targets.getOrPut(newConnection.target) {
             ConnectionTarget()
         }
 
-        target.accounts[newConnection.name] = newConnection.properties
+        target.accounts.add(newConnection.properties)
 
         context.connections.save()
 
         return newConnection.properties
+    }
+}
+
+class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
+        val targetName = data.asText()
+        val target = context.connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
+
+        return target.accounts()
     }
 }
 
@@ -55,7 +66,7 @@ class Connections {
     var file: File? = null
 
     fun save() {
-        if (file == null) throw IllegalStateException("Can't save Connections object because there is no file associated with it.")
+        checkNotNull(file) { "Can't save Connections object because there is no file associated with it." }
 
         Yaml.mapper.writeValue(file, this.targets)
     }
@@ -67,7 +78,9 @@ class Connections {
 
         fun load(file: File = File(INSTACLI_HOME, "connections.yaml")): Connections {
             val node = Yaml.readFile(file) ?: throw IllegalArgumentException("Connections file not found : $file")
-            return from(node)
+            val instance = from(node)
+            instance.file = file
+            return instance
         }
 
         fun load(resource: String): Connections {
@@ -78,8 +91,20 @@ class Connections {
 }
 
 class ConnectionTarget {
-    var accounts: MutableMap<String, ObjectNode> = mutableMapOf()
+    var accounts: MutableList<ObjectNode> = mutableListOf()
     var default: String? = null
+
+    fun defaultAccount(): ObjectNode? {
+        return accounts.find { it["name"]?.textValue() == default }
+    }
+
+    fun accounts(): ArrayNode {
+        val list = ArrayNode(JsonNodeFactory.instance)
+        for (item in accounts) {
+            list.add(item)
+        }
+        return list
+    }
 }
 
 class AddConnectionInfo {

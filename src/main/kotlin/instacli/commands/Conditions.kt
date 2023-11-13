@@ -2,6 +2,7 @@ package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.NullNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.engine.CommandFormatException
@@ -56,9 +57,10 @@ class Contains(
 class Empty(private val node: JsonNode) : Condition {
     override fun isTrue(): Boolean {
         when (node) {
+            is NullNode -> return true
             is ArrayNode -> return node.isEmpty()
             is ObjectNode -> return node.isEmpty()
-            is ValueNode -> return node.textValue().isEmpty()
+            is ValueNode -> return node.textValue() == null || node.textValue().isEmpty()
         }
         return node.isEmpty
     }

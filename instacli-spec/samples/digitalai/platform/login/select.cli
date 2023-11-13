@@ -2,7 +2,7 @@ Script info: Select or configure an account to log in
 
 Get accounts: Digital.ai Platform
 Add:
-  - name: ">> Create new account"
+  name: "* Create new account"
 As: accounts
 
 ---
@@ -10,13 +10,14 @@ Ask user:
   description: Select account to log in with
   choices: ${accounts}
   type: select one
+  display: name
 As: account
 
 ---
 If:
-  empty: ${account}
+  empty: ${account.url}
   then:
-    Create account: null
+    Create account: ""
     As: account
 
 Output: ${account}

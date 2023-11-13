@@ -14,15 +14,10 @@ Input:
     description: Password
     type: password
   id: Tenant ID
+  name: Account name
 As: connection
 
----
-Input:
-  name: Connection name
-As: title
-
----
 Add connection:
-  target: Digital.ai
+  target: Digital.ai Platform
   name: ${name}
   properties: ${connection}

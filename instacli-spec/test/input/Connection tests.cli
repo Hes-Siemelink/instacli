@@ -1,9 +1,10 @@
-Test case: Get default connection
+Test case: Get default account
 
 Connection: Default server
 
 Expected output:
-  name: Default connection
+  name: Default account
+  description: The one and only
 
 ---
 Test case: First connection if there is no default
@@ -11,14 +12,15 @@ Test case: First connection if there is no default
 Connection: Test server
 
 Expected output:
-  name: First connection
+  name: First
+  description: First connection
 
 ---
 Test case: Add connection
 
 Add connection:
   target: New target
-  name: Test connection
+  name: Test account
   properties:
     url: http://example.com
 
