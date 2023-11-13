@@ -48,7 +48,7 @@ In order to be able to connect, put the following in `~/instacli/connections.yam
 
 ```yaml
 Digital.ai Platform:
-  connections:
+  accounts:
     Staging:
       url: https://api.staging.digitalai.cloud
       username: <USERNAME>

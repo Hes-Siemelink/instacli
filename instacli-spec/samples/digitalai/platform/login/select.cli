@@ -1,0 +1,14 @@
+Script info: Select or configure an account to log in
+
+Get accounts: Digital.ai Platform
+As: accounts
+
+---
+# Set endpoint and token for other scripts
+Get token: ${endpoint}
+
+Http endpoint:
+  url: ${endpoint.url}
+  headers:
+    Authorization: Bearer ${output.access_token}
+

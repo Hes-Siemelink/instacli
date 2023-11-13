@@ -16,7 +16,7 @@ class ConnectionsTest {
         val defaultServer = connections.targets["Default server"]
         defaultServer?.default shouldBe "Acme"
 
-        val acme = defaultServer?.connections?.get("Acme")
+        val acme = defaultServer?.accounts?.get("Acme")
         acme?.get("name")?.asText() shouldBe "Default connection"
     }
 

@@ -18,11 +18,11 @@ class Connection : CommandHandler("Connection"), ValueHandler {
         val target = context.connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
         return when {
             target.default != null -> {
-                target.connections[target.default]
+                target.accounts[target.default]
             }
 
-            target.connections.isNotEmpty() -> {
-                target.connections.iterator().next().value
+            target.accounts.isNotEmpty() -> {
+                target.accounts.iterator().next().value
             }
 
             else -> throw CliScriptException("No connections defined for $targetName")
@@ -38,7 +38,7 @@ class AddConnection : CommandHandler("Add connection"), ObjectHandler {
             ConnectionTarget()
         }
 
-        target.connections[newConnection.name] = newConnection.properties
+        target.accounts[newConnection.name] = newConnection.properties
 
         context.connections.save()
 
@@ -78,7 +78,7 @@ class Connections {
 }
 
 class ConnectionTarget {
-    var connections: MutableMap<String, ObjectNode> = mutableMapOf()
+    var accounts: MutableMap<String, ObjectNode> = mutableMapOf()
     var default: String? = null
 }
 

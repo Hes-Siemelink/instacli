@@ -196,11 +196,3 @@ fun asCliCommand(commandName: String): String {
 
     return command
 }
-
-fun MutableMap<String, JsonNode>.add(node: JsonNode?) {
-    node ?: return
-
-    for (defaultVariable in node.fields()) {
-        this[defaultVariable.key] = defaultVariable.value
-    }
-}
