@@ -1,0 +1,59 @@
+Test case: Get default account
+
+Connection: Default server
+
+Expected output:
+  name: Default account
+  description: The one and only
+
+---
+Test case: First connection if there is no default
+
+Connection: Test server
+
+Expected output:
+  name: First
+  description: First connection
+
+---
+Test case: Select default
+
+Set default account:
+  target: Test server
+  name: Second
+
+Connection: Test server
+
+Expected output:
+  name: Second
+  description: Second connection
+
+---
+Test case: Add and delete connections
+
+Create account:
+  - target: New target
+    account:
+      name: Test account 1
+      url: http://example.com
+  - target: New target
+    account:
+      name: Test account 2
+      url: http://example.com
+
+Connection: New target
+
+Expected output:
+  name: Test account 1
+  url: http://example.com
+
+---
+Delete account:
+  target: New target
+  name: Test account 1
+
+Connection: New target
+
+Expected output:
+  name: Test account 2
+  url: http://example.com

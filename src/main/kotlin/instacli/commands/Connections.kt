@@ -24,24 +24,24 @@ class Connection : CommandHandler("Connection"), ValueHandler {
                 target.accounts.first()
             }
 
-            else -> throw CliScriptException("No connections defined for $targetName")
+            else -> throw CliScriptException("No accounts defined for $targetName")
         }
     }
 }
 
 
-class AddConnection : CommandHandler("Add connection"), ObjectHandler {
+class CreateAccount : CommandHandler("Create account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
-        val newConnection = AddConnectionInfo.from(data)
-        val target = context.connections.targets.getOrPut(newConnection.target) {
+        val newAccount = CreateAccountInfo.from(data)
+        val target = context.connections.targets.getOrPut(newAccount.target) {
             ConnectionTarget()
         }
 
-        target.accounts.add(newConnection.properties)
+        target.accounts.add(newAccount.account)
 
         context.connections.save()
 
-        return newConnection.properties
+        return newAccount.account
     }
 }
 
@@ -57,7 +57,7 @@ class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
 class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = getTextParameter(data, "target")
-        val account = getTextParameter(data, "account")
+        val account = getTextParameter(data, "name")
 
         val target = context.connections.targets[targetName] ?: return null
         target.default = account
@@ -66,9 +66,22 @@ class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
 
         return null
     }
-
 }
 
+class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val targetName = getTextParameter(data, "target")
+        val account = getTextParameter(data, "name")
+
+        val target = context.connections.targets[targetName] ?: return null
+        target.accounts.removeIf { it["name"]?.textValue() == account }
+
+        context.connections.save()
+
+        return null
+    }
+
+}
 //
 // Data model
 //
@@ -123,14 +136,13 @@ class ConnectionTarget {
     }
 }
 
-class AddConnectionInfo {
+class CreateAccountInfo {
     var target: String = "Default"
-    var name: String = "default"
-    var properties: ObjectNode = objectNode()
+    var account: ObjectNode = objectNode()
 
     companion object {
-        fun from(data: JsonNode): AddConnectionInfo {
-            return Yaml.mapper.treeToValue(data, AddConnectionInfo::class.java)
+        fun from(data: JsonNode): CreateAccountInfo {
+            return Yaml.mapper.treeToValue(data, CreateAccountInfo::class.java)
         }
     }
 }

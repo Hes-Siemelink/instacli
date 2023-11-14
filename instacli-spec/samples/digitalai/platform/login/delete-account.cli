@@ -1,0 +1,24 @@
+Script info: Deletes an account
+
+Input:
+  target:
+    description: Target service
+    default: Digital.ai Platform
+
+---
+Get accounts: ${target}
+As: accounts
+
+---
+Ask user:
+  description: Select account to delete
+  choices: ${accounts}
+  type: select one
+  display: name
+As: account
+
+Delete account:
+  target: ${target}
+  name: ${account.name}
+
+Print: Deleted ${account.name} in ${target}

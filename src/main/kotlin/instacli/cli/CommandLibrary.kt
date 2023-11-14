@@ -39,9 +39,10 @@ object CommandLibrary {
 
         // Connections
         Connection(),
-        AddConnection(),
+        CreateAccount(),
         GetAccounts(),
         SetDefaultAccount(),
+        DeleteAccount(),
 
         // HTTP
         HttpEndpoint(),

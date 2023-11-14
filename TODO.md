@@ -1,8 +1,6 @@
 # On my mind
 
-* Create Connection interactively so we can remove config it from the readme
-* Http Connection management
-* Get rid of 'value' in Ask user?
+* Http Connection management out-of-the-box
 
 # Code cleanup
 

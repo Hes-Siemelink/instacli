@@ -1,3 +1,5 @@
+Script info: Creates a new account
+
 Input:
   url:
     description: Digital.ai Platform target
@@ -15,9 +17,8 @@ Input:
     type: password
   id: Tenant ID
   name: Account name
-As: connection
+As: account
 
-Add connection:
+Create account:
   target: Digital.ai Platform
-  name: ${name}
-  properties: ${connection}
+  account: ${account}

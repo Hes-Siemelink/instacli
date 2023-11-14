@@ -29,7 +29,7 @@ If:
 ---
 Set default account:
   target: ${target}
-  account: ${account.name}
+  name: ${account.name}
 
 Print: Using ${account.name} to log in to ${target}
 

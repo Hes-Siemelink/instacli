@@ -42,24 +42,14 @@ cli hello
 
 ## Interactive example
 
-This example will connect to the Digital.ai Platform API and provide an interactive menu.
+This example will connect to the Digital.ai Platform API and provide an interactive experience.
 
-In order to be able to connect, put the following in `~/instacli/connections.yaml`:
-
-```yaml
-Digital.ai Platform:
-  accounts:
-    Staging:
-      url: https://api.staging.digitalai.cloud
-      username: <USERNAME>
-      password: <PASSWORD>
-      id: acme  
-```
-
-Then start the cli with
+Start the cli with
 
 ```commandline
 cd instacli-spec/samples
 cli digitalai
 ```
 
+When connecting to Digital.ai Platform for the first time, the script will ask you for your login credentials. These will be stored
+in `~/.instacli/connections.yaml` and will be used for subsequent invocations.
