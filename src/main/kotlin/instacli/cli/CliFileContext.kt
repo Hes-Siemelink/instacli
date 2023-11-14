@@ -14,8 +14,8 @@ const val CLI_FILE_EXTENSION = ".cli"
  * Context for running an Instacli script inside a directory.
  * It will scan the directory for other scripts and expose them as commands.
  */
-class ScriptFileContext(
-    override val scriptLocation: File,
+class CliFileContext(
+    override val cliFile: File,
     override val variables: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
     override val session: MutableMap<String, JsonNode> = mutableMapOf<String, JsonNode>(),
     override var connections: Connections = Connections(),
@@ -31,14 +31,14 @@ class ScriptFileContext(
     )
 
     private val scriptDir: File
-        get() = if (scriptLocation.isDirectory) scriptLocation else scriptLocation.canonicalFile.parentFile
+        get() = if (cliFile.isDirectory) cliFile else cliFile.canonicalFile.parentFile
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
         get() = scriptDir.name
 
-    private val localFileCommands: Map<String, CliScriptFile> by lazy { findLocalFileCommands() }
-    private val importedFileCommands: Map<String, CliScriptFile> by lazy { findImportedCommands() }
+    private val localFileCommands: Map<String, CliFile> by lazy { findLocalFileCommands() }
+    private val importedFileCommands: Map<String, CliFile> by lazy { findImportedCommands() }
     private val subdirectoryCommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
 
@@ -69,9 +69,9 @@ class ScriptFileContext(
         throw CliScriptException("Unknown command: $command")
     }
 
-    private fun findLocalFileCommands(): Map<String, CliScriptFile> {
+    private fun findLocalFileCommands(): Map<String, CliFile> {
 
-        val commands = mutableMapOf<String, CliScriptFile>()
+        val commands = mutableMapOf<String, CliFile>()
 
         for (file in scriptDir.listFiles()!!) {
             addCommand(commands, file)
@@ -80,23 +80,23 @@ class ScriptFileContext(
         return commands
     }
 
-    private fun findImportedCommands(): Map<String, CliScriptFile> {
+    private fun findImportedCommands(): Map<String, CliFile> {
 
-        val commands = mutableMapOf<String, CliScriptFile>()
+        val commands = mutableMapOf<String, CliFile>()
 
-        for (file in info.imports) {
-            addCommand(commands, File(scriptDir, file))
+        for (cliFile in info.imports) {
+            addCommand(commands, File(scriptDir, cliFile))
         }
 
         return commands
     }
 
-    private fun addCommand(commands: MutableMap<String, CliScriptFile>, file: File) {
+    private fun addCommand(commands: MutableMap<String, CliFile>, file: File) {
         if (file.isDirectory) return
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
-        commands[name] = CliScriptFile(file)
+        commands[name] = CliFile(file)
     }
 
     fun addVariables(vars: Map<String, String>) {
@@ -125,7 +125,7 @@ class ScriptFileContext(
         return commands.sortedBy { it.name }
     }
 
-    fun getCliScriptFile(rawCommand: String): CliScriptFile? {
+    fun getCliScriptFile(rawCommand: String): CliFile? {
         val command = asScriptCommand(rawCommand)
         return localFileCommands[command]
     }

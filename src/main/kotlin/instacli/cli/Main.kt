@@ -51,18 +51,18 @@ class InstacliInvocation(
         }
 
         // Run script directly or a command from a directory
-        val context = ScriptFileContext(file, interactive = options.interactive)
+        val context = CliFileContext(file, interactive = options.interactive)
         if (file.isDirectory) {
             runDirectory(file, options.commands.drop(1), context, options)
         } else {
-            runFile(CliScriptFile(file), context, options)
+            runFile(CliFile(file), context, options)
         }
     }
 
-    private fun runFile(script: CliScriptFile, context: ScriptFileContext, options: CliCommandLineOptions) {
+    private fun runFile(script: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
 
         if (options.help) {
-            out.printScriptInfo(script.cliScript)
+            out.printScriptInfo(script.script)
             return
         }
 
@@ -75,7 +75,7 @@ class InstacliInvocation(
         }
     }
 
-    private fun runDirectory(cliDir: File, args: List<String>, context: ScriptFileContext, options: CliCommandLineOptions) {
+    private fun runDirectory(cliDir: File, args: List<String>, context: CliFileContext, options: CliCommandLineOptions) {
 
         // No Instacli scripts in directory
         if (context.getAllCommands().isEmpty()) {
@@ -96,7 +96,7 @@ class InstacliInvocation(
         // Run subcommand
         val subcommand = context.getSubcommand(rawCommand)
         if (subcommand != null) {
-            runDirectory(subcommand.dir, args.drop(1), ScriptFileContext(subcommand.dir, context), options)
+            runDirectory(subcommand.dir, args.drop(1), CliFileContext(subcommand.dir, context), options)
             return
         }
 
@@ -104,7 +104,7 @@ class InstacliInvocation(
         throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
     }
 
-    private fun getCommand(args: List<String>, context: ScriptFileContext, interactive: Boolean): String? {
+    private fun getCommand(args: List<String>, context: CliFileContext, interactive: Boolean): String? {
 
         // Return the command if specified
         if (args.isNotEmpty()) {

@@ -35,7 +35,7 @@ object CommandLibrary {
         Size(),
 
         // Call other files
-        ExecuteCliScriptFile(),
+        RunCliFile(),
 
         // Connections
         Connection(),

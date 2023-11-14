@@ -24,7 +24,7 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val script = getTextParameter(data, "script")
-        val output = shellRun("sh", listOf(script), workingDirectory = context.scriptLocation.parentFile)
+        val output = shellRun("sh", listOf(script), workingDirectory = context.cliFile.parentFile)
 
         return TextNode(output)
     }

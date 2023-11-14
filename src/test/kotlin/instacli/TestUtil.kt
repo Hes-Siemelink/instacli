@@ -1,7 +1,7 @@
 package instacli
 
-import instacli.cli.CliScriptFile
-import instacli.cli.ScriptFileContext
+import instacli.cli.CliFile
+import instacli.cli.CliFileContext
 import instacli.commands.Connections
 import instacli.commands.TestCase
 import instacli.engine.Break
@@ -16,7 +16,7 @@ import java.io.FileNotFoundException
 
 fun loadTestCases(vararg cliScripts: String): List<DynamicContainer> {
     return cliScripts.map() { scriptFileName ->
-        dynamicContainer(scriptFileName, CliScriptFile(toFile(scriptFileName)).getTestCases())
+        dynamicContainer(scriptFileName, CliFile(toFile(scriptFileName)).getTestCases())
     }
 }
 
@@ -36,15 +36,15 @@ private const val TEST_CONNECTIONS = "instacli-home/connections.yaml"
 /**
  * Gets all individual test cases in a script file as a dynamic tests.
  */
-fun CliScriptFile.getTestCases(): List<DynamicTest> {
-    val context = ScriptFileContext(scriptFile)
+fun CliFile.getTestCases(): List<DynamicTest> {
+    val context = CliFileContext(cliFile)
 
     context.connections = Connections.load(TEST_CONNECTIONS)
     var tempFile = File.createTempFile("instacli-connections-", ".yaml")
     tempFile.deleteOnExit()
     context.connections.file = tempFile
 
-    return cliScript.getTestCases().map() {
+    return script.getTestCases().map() {
         dynamicTest(it.getTestName()) {
             try {
                 it.run(context)

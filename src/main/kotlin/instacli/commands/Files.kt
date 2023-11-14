@@ -10,6 +10,6 @@ import java.io.File
 
 class ReadFile : CommandHandler("Read file"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return Yaml.readFile(File(context.scriptLocation.parent, data.textValue()))
+        return Yaml.readFile(File(context.cliFile.parent, data.textValue()))
     }
 }
