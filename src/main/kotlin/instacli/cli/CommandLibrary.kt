@@ -41,6 +41,7 @@ object CommandLibrary {
         Connection(),
         AddConnection(),
         GetAccounts(),
+        SetDefaultAccount(),
 
         // HTTP
         HttpEndpoint(),

@@ -22,8 +22,8 @@ class CliFileContext(
     override val interactive: Boolean = false
 ) : ScriptContext {
 
-    constructor(scriptLocation: File, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
-        scriptLocation,
+    constructor(cliFile: File, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
+        cliFile,
         variables,
         parent.session,
         parent.connections,

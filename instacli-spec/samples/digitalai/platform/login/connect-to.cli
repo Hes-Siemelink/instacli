@@ -3,6 +3,13 @@ Script info: Logs in to Digital.ai Platform
 Connection: Digital.ai Platform
 As: endpoint
 
+If:
+  empty: ${endpoint}
+  then:
+    Print: Please configure a connection to Digital.ai Platform
+    Create account: true
+    As: endpoint
+
 ---
 # Set endpoint and token for other scripts
 Get token: ${endpoint}

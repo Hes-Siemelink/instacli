@@ -1,7 +1,7 @@
 Script info: Gets a login token
 
 Input:
-  id: ID of the tenant
+  id: Tenant ID
   username: Username
   password:
     description: Password

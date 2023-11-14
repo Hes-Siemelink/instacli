@@ -3,10 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.ValueNode
+import com.fasterxml.jackson.databind.node.*
 import instacli.cli.INSTACLI_HOME
 import instacli.engine.*
 import instacli.util.Yaml
@@ -17,7 +14,7 @@ class Connection : CommandHandler("Connection"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify connection", data)
 
-        val target = context.connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
+        val target = context.connections.targets[targetName] ?: return TextNode("")
         return when {
             target.default != null -> {
                 target.defaultAccount()
@@ -56,6 +53,25 @@ class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
         return target.accounts()
     }
 }
+
+class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val targetName = getTextParameter(data, "target")
+        val account = getTextParameter(data, "account")
+
+        val target = context.connections.targets[targetName] ?: return null
+        target.default = account
+
+        context.connections.save()
+
+        return null
+    }
+
+}
+
+//
+// Data model
+//
 
 class Connections {
 
