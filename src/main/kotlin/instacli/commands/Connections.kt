@@ -12,8 +12,7 @@ import instacli.util.Yaml
 import instacli.util.objectNode
 import java.io.File
 
-// TODO Rename to 'Get account'
-class Connection : CommandHandler("Connection"), ValueHandler {
+class GetAccount : CommandHandler("Get account"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify connection", data)
 

@@ -1,6 +1,6 @@
 Test case: Get default account
 
-Connection: Default server
+Get account: Default server
 
 Expected output:
   name: Default account
@@ -9,7 +9,7 @@ Expected output:
 ---
 Test case: First connection if there is no default
 
-Connection: Test server
+Get account: Test server
 
 Expected output:
   name: First
@@ -22,7 +22,7 @@ Set default account:
   target: Test server
   name: Second
 
-Connection: Test server
+Get account: Test server
 
 Expected output:
   name: Second
@@ -41,7 +41,7 @@ Create account:
       name: Test account 2
       url: http://example.com
 
-Connection: New target
+Get account: New target
 
 Expected output:
   name: Test account 1
@@ -52,7 +52,7 @@ Delete account:
   target: New target
   name: Test account 1
 
-Connection: New target
+Get account: New target
 
 Expected output:
   name: Test account 2

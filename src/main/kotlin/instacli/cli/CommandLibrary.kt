@@ -38,7 +38,7 @@ object CommandLibrary {
         RunScript(),
 
         // Connections
-        Connection(),
+        GetAccount(),
         ConnectTo(),
         CreateAccount(),
         GetAccounts(),
