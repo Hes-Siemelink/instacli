@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 class ExceptionTest {
 
     @Test
-    fun `Comand format exception`() {
+    fun `Command format exception`() {
 
         // Given
         val session = InstacliInvocation(arrayOf("-q", "exceptions", "command-format-exception.cli"), workingDir = testDir)

@@ -19,7 +19,7 @@
 # Instacli as glue
 
 * Shell and pipe support
-* Database support (SQLlite or something)
+* Database support (SQLite or something)
 * Web server support
 * Write file / Read file
 * Http: verify certificate

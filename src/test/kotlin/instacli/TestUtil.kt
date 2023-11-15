@@ -15,7 +15,7 @@ import java.io.File
 import java.io.FileNotFoundException
 
 fun loadTestCases(vararg cliScripts: String): List<DynamicContainer> {
-    return cliScripts.map() { scriptFileName ->
+    return cliScripts.map { scriptFileName ->
         dynamicContainer(scriptFileName, CliFile(toFile(scriptFileName)).getTestCases())
     }
 }
@@ -40,11 +40,11 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     val context = CliFileContext(cliFile)
 
     context.connections = Connections.load(TEST_CONNECTIONS)
-    var tempFile = File.createTempFile("instacli-connections-", ".yaml")
+    val tempFile = File.createTempFile("instacli-connections-", ".yaml")
     tempFile.deleteOnExit()
     context.connections.file = tempFile
 
-    return script.getTestCases().map() {
+    return script.getTestCases().map {
         dynamicTest(it.getTestName()) {
             try {
                 it.run(context)

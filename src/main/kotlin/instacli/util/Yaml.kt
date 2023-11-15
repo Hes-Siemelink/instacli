@@ -24,7 +24,7 @@ object Yaml {
     // Not using ObjectMapper(factory).registerKotlinModule() because it trips up Graal native image
 
     init {
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
     }
 
     fun readFile(source: File): JsonNode? {
@@ -66,7 +66,7 @@ object Yaml {
 
     fun getSchema(schemaFile: String): JsonSchema? {
         val factory = JsonSchemaFactory.builder(JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012))
-            .objectMapper(Yaml.mapper).build()
+            .objectMapper(mapper).build()
         val resource = getResource(schemaFile) ?: return null
         return factory.getSchema(resource)
     }

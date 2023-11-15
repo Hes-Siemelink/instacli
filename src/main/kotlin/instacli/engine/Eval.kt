@@ -7,7 +7,7 @@ fun eval(data: JsonNode, context: ScriptContext): JsonNode {
     return when (data) {
         is ValueNode -> data
         is ArrayNode -> {
-            val result = data.map { eval(it, context) };
+            val result = data.map { eval(it, context) }
             ArrayNode(JsonNodeFactory.instance, result)
         }
 

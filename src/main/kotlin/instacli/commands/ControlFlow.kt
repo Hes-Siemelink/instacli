@@ -116,10 +116,10 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
 }
 
 fun toArrayNode(node: JsonNode): ArrayNode {
-    when {
-        node is ArrayNode -> return node
-        node is ValueNode -> return ArrayNode(JsonNodeFactory.instance).add(node)
-        node is ObjectNode -> {
+    when (node) {
+        is ArrayNode -> return node
+        is ValueNode -> return ArrayNode(JsonNodeFactory.instance).add(node)
+        is ObjectNode -> {
             val array = ArrayNode(JsonNodeFactory.instance)
             for (field in node.fields()) {
                 val obj: ObjectNode = array.objectNode()

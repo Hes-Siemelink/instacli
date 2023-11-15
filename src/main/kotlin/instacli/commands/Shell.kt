@@ -10,6 +10,7 @@ import instacli.engine.ObjectHandler
 import instacli.engine.ScriptContext
 import instacli.engine.ValueHandler
 
+// TODO: Support two options: 1) Command relative to script; 2) Command relative to invocation dir
 class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -18,7 +19,6 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
         val output = shellRun(arguments[0], arguments.drop(1), workingDirectory = context.cliFile.parentFile)
 
-        // TODO check if we can parse this into Yaml
         return TextNode(output)
     }
 

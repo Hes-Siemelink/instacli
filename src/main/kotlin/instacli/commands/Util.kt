@@ -15,7 +15,7 @@ class Task : CommandHandler("Task"), ValueHandler {
     }
 }
 
-// TODO Just have one method here but move error handling on CommondHandler.execute one level up
+// TODO Just have one method here but move error handling on CommandHandler.execute one level up
 class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {

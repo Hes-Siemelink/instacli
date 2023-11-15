@@ -13,7 +13,7 @@ class CliCommandLineOptions private constructor(
     val commandParameters by lazy { toParameterMap(commandArgs) }
 
     companion object {
-        operator fun invoke(args: Array<String> = arrayOf<String>()): CliCommandLineOptions {
+        operator fun invoke(args: Array<String> = arrayOf()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
             val interactive = !globalArgs.contains("-q")
             val printOutput = globalArgs.contains("-o")
@@ -94,7 +94,7 @@ internal fun noFlag(text: String): String {
         if (character == '-') {
             start++
         } else {
-            break;
+            break
         }
     }
 
