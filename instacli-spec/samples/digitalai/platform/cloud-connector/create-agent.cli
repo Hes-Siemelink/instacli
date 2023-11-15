@@ -1,4 +1,4 @@
-Script info: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+Script info: Creates a new agent instance for the Cloud Connector
 
 Connect to: Digital.ai Platform API
 
@@ -22,28 +22,28 @@ Ask user:
 As: cloud_connector
 
 ---
-# Select runtime
-Print: Getting available runtimes
+# Select agent definition
+Print: Getting available agent definitions
 
 GET: /workload/v1/agent_runtimes/
-${runtimes}: ${output.agent_runtimes}
+${agent_definitions}: ${output.agent_runtimes}
 
 Ask user:
-  description: Select runtime to add
-  choices: ${runtimes}
+  description: Select agent definition
+  choices: ${agent_definitions}
   type: select one
   display: name
-As: runtime
+As: agent_definition
 
 ---
 # Agent alias
-Ask user: Alias for agent (unique per Digital.ai Platform user)
+Ask user: Alias for agent instance (unique per Digital.ai Platform user)
 As: alias
 
 ---
 # Variable values
 For each:
-  ${variable}: ${runtime.variables}
+  ${variable}: ${agent_definition.variables}
   Ask user:
     description: ${variable.key}
     default: ${variable.value}
@@ -54,11 +54,11 @@ As: variables
 POST:
   path: /workload/v1/agent_instances/
   body:
-    agent_id: ${runtime.id}
+    agent_id: ${agent_definition.id}
     alias: ${alias}
     description: Remote runner
     variables: ${variables}
 
 ---
 # Display the ID of the agent that was just created
-Print: Added agent ${alias} with runtime id ${runtime.id}
+Print: Created agent instance '${alias}' from ${agent_definition.name} for ${cloud_connector.name}
