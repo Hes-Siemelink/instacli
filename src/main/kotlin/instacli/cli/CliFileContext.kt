@@ -30,7 +30,7 @@ class CliFileContext(
         parent.interactive
     )
 
-    private val scriptDir: File
+    val scriptDir: File
         get() = if (cliFile.isDirectory) cliFile else cliFile.canonicalFile.parentFile
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }

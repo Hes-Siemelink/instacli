@@ -13,7 +13,7 @@ class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(c
 
     val script by lazy { CliScript.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
-
+    
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val localContext = CliFileContext(cliFile, context, variables = Yaml.mutableMapOf(data))
         return run(localContext)
@@ -29,7 +29,7 @@ class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(c
     }
 }
 
-class RunCliFile : CommandHandler("Run script"), ObjectHandler {
+class RunScript : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.", data)

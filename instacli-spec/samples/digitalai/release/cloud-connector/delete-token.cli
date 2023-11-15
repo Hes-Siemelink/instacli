@@ -1,6 +1,6 @@
 Script info: Prepares a Remote Runner user in Release
 
-Connect to: Digital.ai Release endpoint
+Connect to: Digital.ai Release
 
 Input:
   token_id: Token UID

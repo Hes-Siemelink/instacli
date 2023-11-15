@@ -1,0 +1,5 @@
+Script info: |
+  Connect to Spotify!
+
+connections:
+  Spotify: connect.cli

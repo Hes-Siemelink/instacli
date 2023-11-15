@@ -1,6 +1,6 @@
 Script info: Prepares a Remote Runner user in Release
 
-Connect: Digital.ai Release endpoint
+Connect to: Digital.ai Release
 
 ---
 Shell: ./xlw apply -f remote-runner-user.yaml

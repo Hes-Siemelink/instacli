@@ -14,11 +14,11 @@ class ConnectionsTest {
         connections.targets shouldHaveSize 2
 
         val defaultServer = connections.targets["Default server"]
-        checkNotNull(defaultServer)
+        checkNotNull(defaultServer) { "Connections should contain 'Default server'" }
         defaultServer.default shouldBe "Default account"
 
         val defaultAccount = defaultServer.defaultAccount()
-        checkNotNull(defaultAccount)
+        checkNotNull(defaultAccount) { "Default server should have a default account" }
         defaultAccount.get("name").asText() shouldBe "Default account"
         defaultAccount.get("description").asText() shouldBe "The one and only"
     }

@@ -1,9 +1,7 @@
 # On my mind
 
 * Http Connection management out-of-the-box
-
-# Code cleanup
-
+* Use Kotlin Json
 * Report nested exceptions
 
 # Where to take it
@@ -16,8 +14,7 @@
 # Command-line support
 
 * Parse command line properly
-* Cross compile to native using GraalVM, gradle and GitHub actions  
-  https://katmatt.github.io/posts/graalvm-cross-compile-gh-actions/
+* Kotlin native?
 
 # Instacli as glue
 

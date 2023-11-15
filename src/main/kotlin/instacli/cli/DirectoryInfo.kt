@@ -14,7 +14,10 @@ class DirectoryInfo : CommandInfo {
 
     @JsonProperty("Script info")
     override var description: String = ""
+
     val imports = mutableListOf<String>()
+    val connections = mutableMapOf<String, String>()
+
 
     companion object {
         fun load(dir: File): DirectoryInfo {

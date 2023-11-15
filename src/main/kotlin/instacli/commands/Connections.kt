@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
+import instacli.cli.CliFile
+import instacli.cli.CliFileContext
 import instacli.cli.INSTACLI_HOME
 import instacli.engine.*
 import instacli.util.Yaml
 import instacli.util.objectNode
 import java.io.File
 
+// TODO Rename to 'Get account'
 class Connection : CommandHandler("Connection"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify connection", data)
@@ -79,6 +82,20 @@ class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
         context.connections.save()
 
         return null
+    }
+}
+
+class ConnectTo : CommandHandler("Connect to"), ValueHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val targetName = data.textValue()
+        if (context is CliFileContext) {
+            val connectScript = context.info.connections[targetName]
+                ?: throw IllegalArgumentException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
+
+            return CliFile(File(context.scriptDir, connectScript)).run(context)
+        } else {
+            error("'Connect to' is only supported when running files.")
+        }
     }
 
 }

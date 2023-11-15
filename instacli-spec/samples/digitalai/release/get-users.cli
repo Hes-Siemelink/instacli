@@ -1,5 +1,9 @@
 Script info: Lists all users
 
-Connect to: Digital.ai Release endpoint
+Connect to: Digital.ai Release
 
 GET: /api/v1/users
+
+For each:
+  ${user}: ${output}
+  Output: ${user.fullName} (${user.username})

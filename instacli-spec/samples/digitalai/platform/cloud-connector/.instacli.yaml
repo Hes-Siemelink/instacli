@@ -1,4 +1,5 @@
 Script info: |
   Manage Cloud Connector installations.
-imports:
-  - ../login/connect-to.cli
+
+connections:
+  Digital.ai Platform API: ../login/connect.cli

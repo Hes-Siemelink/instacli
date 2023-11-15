@@ -35,10 +35,11 @@ object CommandLibrary {
         Size(),
 
         // Call other files
-        RunCliFile(),
+        RunScript(),
 
         // Connections
         Connection(),
+        ConnectTo(),
         CreateAccount(),
         GetAccounts(),
         SetDefaultAccount(),

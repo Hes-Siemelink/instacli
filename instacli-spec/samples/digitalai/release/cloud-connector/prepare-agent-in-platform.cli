@@ -1,6 +1,6 @@
 Script info: Creates a Remote Runner agent in Platform
 
-Connect to: Digital.ai Platform
+Connect to: Digital.ai Platform API
 
 Input:
   host: Release URL
