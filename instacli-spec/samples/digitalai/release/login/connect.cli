@@ -1,0 +1,18 @@
+Script info: Logs in to Digital.ai Platform
+
+Connection: Digital.ai Release
+As: endpoint
+
+---
+If:
+  empty: ${endpoint}
+  then:
+    Print: Please configure a connection to Digital.ai Release
+    Create account: true
+    As: endpoint
+
+---
+Http endpoint:
+  url: ${endpoint.url}
+  username: ${endpoint.username}
+  password: ${endpoint.password}

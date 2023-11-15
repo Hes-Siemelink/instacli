@@ -16,7 +16,7 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
         val arguments = tokenizeCommandLine(data.textValue())
 
-        val output = shellRun(arguments[0], arguments.drop(1))
+        val output = shellRun(arguments[0], arguments.drop(1), workingDirectory = context.cliFile.parentFile)
 
         // TODO check if we can parse this into Yaml
         return TextNode(output)

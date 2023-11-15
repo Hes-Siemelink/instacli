@@ -1,4 +1,5 @@
 Script info: |
   Commands for setting up Cloud Connector in Digital.ai Release
 imports:
-  - ../../platform/get-token.cli
+  - ../login/connect.cli
+  - ../../platform/login/connect-to.cli

@@ -1,0 +1,5 @@
+Script info: Lists all users
+
+Connect to: Digital.ai Release endpoint
+
+GET: /api/v1/users

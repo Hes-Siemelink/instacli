@@ -1,0 +1,12 @@
+Script info: Prepares a Remote Runner user in Release
+
+Connect to: Digital.ai Release endpoint
+
+Input:
+  token_id: Token UID
+
+---
+DELETE:
+  path: /tokens/users/${token_id}
+
+Print: Token ${token_id} deleted

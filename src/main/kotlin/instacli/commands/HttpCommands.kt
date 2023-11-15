@@ -121,8 +121,8 @@ data class HttpParameters(
                 headers = data["headers"],
                 cookies = data["cookies"],
                 saveAs = data["save as"]?.textValue(),
-                username = data["auth"]?.get("username")?.textValue(),
-                password = data["auth"]?.get("password")?.textValue(),
+                username = data["username"]?.textValue(),
+                password = data["password"]?.textValue(),
             )
         }
 
@@ -156,17 +156,16 @@ private fun processRequest(data: ObjectNode, context: ScriptContext, method: Htt
 private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
 
     val client = HttpClient {
-//        install(HttpCookies)  // Tripped up by dates in Spotify cookies.
         if (parameters.username != null) {
             install(Auth) {
                 basic {
                     credentials {
                         BasicAuthCredentials(username = parameters.username, password = parameters.password ?: "")
                     }
-                    realm = "Access to the '/' path"
                 }
             }
         }
+        // install(HttpCookies)  // Tripped up by dates in Spotify cookies.
     }
 
     val response: HttpResponse =

@@ -23,7 +23,7 @@ As: cloud_connector
 
 ---
 GET:
-  path: /workload/v1/cloud_connector/installer
+  path: /workload/v1/cloud_connectors/${cloud_connector.id}/installer
   save as: install-cloud-connector.sh
 
 Print: Extract installation files by running 'bash install-cloud-connector.sh'.

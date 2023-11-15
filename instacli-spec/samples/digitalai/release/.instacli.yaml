@@ -1,2 +1,5 @@
 Script info: |
   Digital.ai Release commands
+
+imports:
+  - login/connect-to.cli

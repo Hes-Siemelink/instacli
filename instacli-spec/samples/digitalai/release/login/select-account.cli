@@ -1,0 +1,36 @@
+Script info: Select or configure the account to use
+
+Input:
+  target:
+    description: Target service
+    default: Digital.ai Release
+
+---
+Get accounts: ${target}
+Add:
+  name: "* Create new account"
+As: accounts
+
+---
+Ask user:
+  description: Select account to log in with
+  choices: ${accounts}
+  type: select one
+  display: name
+As: account
+
+---
+If:
+  empty: ${account.url}
+  then:
+    Create account: ""
+    As: account
+
+---
+Set default account:
+  target: ${target}
+  name: ${account.name}
+
+Print: Using ${account.name} to log in to ${target}
+
+Output: ${account}

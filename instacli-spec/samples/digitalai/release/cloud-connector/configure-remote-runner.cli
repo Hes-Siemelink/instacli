@@ -1,0 +1,19 @@
+Script info: Prepares a Remote Runner user in Release
+
+Connect: Digital.ai Release endpoint
+
+---
+Shell: ./xlw apply -f remote-runner-user.yaml
+
+---
+POST:
+  path: /tokens/users/remote-runner
+  body:
+    tokenNote: cloud-connector-token
+
+Print:
+  Remote Runner token: ${output.token}
+  Token ID: ${output.ciUid}
+
+Output:
+  token: ${output.token}

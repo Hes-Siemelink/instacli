@@ -1,0 +1,14 @@
+Script info: Creates a new account
+
+Input:
+  url: Digital.ai Release URL
+  username: Username
+  password:
+    description: Password
+    type: password
+  name: Account name
+As: account
+
+Create account:
+  target: Digital.ai Release
+  account: ${account}

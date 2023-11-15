@@ -1,11 +1,38 @@
 Script info: Creates a Remote Runner agent in Platform
 
+Connect to: Digital.ai Platform
+
 Input:
   host: Release URL
   token: Access token for Remote Runner
-  platform:
-    description: Digital.ai Platform API endpoint
-    type: digitalai.platform.Endpoint
 
 ---
-TODO: implement
+# Create Cloud Connector
+
+POST:
+  path: /workload/v1/cloud_connectors/
+  body:
+    name: Cloud Connector for ${host}
+${cloud_connector}: ${output.cloud_connector_definition}
+
+---
+# Register agent
+
+POST:
+  path: /workload/v1/cloud_connectors/${cloud_connector.id}/agent_instances/
+  body:
+    agent_id: 21ce1891-2e51-4d63-86c7-83565c6301a6
+    alias: demo-rr
+    description: Remote runner
+    variables:
+      RELEASE_URL: ${host}
+      RUNNER_REGISTRATION_TOKEN: ${token}
+
+---
+# Get installer
+
+GET:
+  path: /workload/v1/cloud_connectors/${cloud_connector.id}/installer
+  save as: install-cloud-connector.sh
+
+Print: Extract installation files by running 'bash install-cloud-connector.sh'.
