@@ -37,9 +37,8 @@ private const val TEST_CONNECTIONS = "instacli-home/connections.yaml"
  * Gets all individual test cases in a script file as a dynamic tests.
  */
 fun CliFile.getTestCases(): List<DynamicTest> {
-    val context = CliFileContext(cliFile)
+    val context = CliFileContext(cliFile, connections = Connections.load(TEST_CONNECTIONS))
 
-    context.connections = Connections.load(TEST_CONNECTIONS)
     val tempFile = File.createTempFile("instacli-connections-", ".yaml")
     tempFile.deleteOnExit()
     context.connections.file = tempFile

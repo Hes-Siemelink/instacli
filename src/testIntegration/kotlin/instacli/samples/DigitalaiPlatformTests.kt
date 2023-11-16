@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test
 class DigitalaiPlatformTests {
 
     @Test
-    fun getInstaller() {
-        test("digitalai/platform/cloud-connector/get-installer.cli")
+    fun listCloudConnectors() {
+        test("digitalai/platform/cloud-connector/list-cloud-connectors.cli")
     }
 
     private fun test(resource: String) {

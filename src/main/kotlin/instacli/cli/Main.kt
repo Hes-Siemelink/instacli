@@ -51,7 +51,7 @@ class InstacliInvocation(
         }
 
         // Run script directly or a command from a directory
-        val context = CliFileContext(file, interactive = options.interactive)
+        val context = CliFileContext(file, interactive = options.interactive, connections = Connections.load())
         if (file.isDirectory) {
             runDirectory(file, options.commands.drop(1), context, options)
         } else {
@@ -66,7 +66,6 @@ class InstacliInvocation(
             return
         }
 
-        context.connections = Connections.load()
         context.addVariables(options.commandParameters)
 
         val output = script.run(context)

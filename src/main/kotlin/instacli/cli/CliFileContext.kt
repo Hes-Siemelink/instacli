@@ -18,7 +18,7 @@ class CliFileContext(
     override val cliFile: File,
     override val variables: MutableMap<String, JsonNode> = mutableMapOf(),
     override val session: MutableMap<String, JsonNode> = mutableMapOf(),
-    override var connections: Connections = Connections(),
+    override val connections: Connections = Connections(),
     override val interactive: Boolean = false
 ) : ScriptContext {
 
