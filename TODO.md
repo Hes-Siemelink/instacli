@@ -1,6 +1,5 @@
 # On my mind
 
-* Http Connection management out-of-the-box
 * Use Kotlin Json
 * Report nested exceptions
 

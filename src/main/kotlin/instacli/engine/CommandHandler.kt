@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
+import instacli.util.JsonSchemas
 import instacli.util.objectNode
 
 abstract class CommandHandler(open val name: String) {
@@ -94,6 +95,14 @@ abstract class CommandHandler(open val name: String) {
         }
     }
 
+    open fun validate(data: JsonNode) {
+        val schema = JsonSchemas.getSchema(name) ?: return
+
+        val messages = schema.validate(data)
+        if (messages.isNotEmpty()) {
+            throw CommandFormatException("Schema validation errors:\n$messages", data)
+        }
+    }
 }
 
 

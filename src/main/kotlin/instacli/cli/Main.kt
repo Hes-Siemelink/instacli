@@ -69,6 +69,7 @@ class InstacliInvocation(
         context.addVariables(options.commandParameters)
 
         val output = script.run(context)
+
         if (options.printOutput && output != null) {
             out.println(Yaml.toString(output))
         }
