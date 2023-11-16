@@ -6,6 +6,7 @@ class CliCommandLineOptions private constructor(
     val interactive: Boolean,
     val printOutput: Boolean,
     val help: Boolean,
+    val debug: Boolean,
     val commands: List<String>,
     private val commandArgs: List<String>
 
@@ -18,6 +19,7 @@ class CliCommandLineOptions private constructor(
             val interactive = !globalArgs.contains("-q")
             val printOutput = globalArgs.contains("-o")
             val help = globalArgs.contains("--help")
+            val debug = globalArgs.contains("-d")
 
             // Warn about change in command line options
             // XXX Remove this check at some point
@@ -29,6 +31,7 @@ class CliCommandLineOptions private constructor(
                 interactive,
                 printOutput,
                 help,
+                debug,
                 commands,
                 commandArgs
             )

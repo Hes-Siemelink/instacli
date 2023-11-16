@@ -43,7 +43,7 @@ class Merge : CommandHandler("Merge"), ArrayHandler {
                 if (item is ObjectNode) {
                     result.setAll<ObjectNode>(item)
                 } else {
-                    throw CommandFormatException("Can't merge array or text content with object:\nCurrent: $result\nAdding: $item", data)
+                    throw CommandFormatException("Can't merge array or text content with object:\nCurrent: $result\nAdding: $item")
                 }
             } else if (result is ArrayNode) {
                 if (item is ArrayNode) {
@@ -152,7 +152,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
 
     private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode {
         if (part !is TextNode) {
-            throw CommandFormatException("'Replace: part' may contain text only", part)
+            throw CommandFormatException("'Replace: part' may contain text only")
         }
 
         val replacementText = Yaml.toString(replaceWith)

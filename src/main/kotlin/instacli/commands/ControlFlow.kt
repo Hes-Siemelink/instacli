@@ -9,7 +9,7 @@ import instacli.engine.*
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return Script.from(data).run(context)
+        return Script.from(data).runScript(context)
     }
 }
 
@@ -48,7 +48,7 @@ class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
 
 private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
     if (!data.has("then")) {
-        throw CommandFormatException("Command 'If' needs a 'then' parameter.", data)
+        throw CommandFormatException("Command 'If' needs a 'then' parameter.")
     }
 
     if (data is ObjectNode) {
@@ -62,7 +62,7 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
         }
 
     } else {
-        throw CommandFormatException("Unsupported data type for if statement: ${data.javaClass.simpleName}.", data)
+        throw CommandFormatException("Unsupported data type for if statement: ${data.javaClass.simpleName}.")
     }
 }
 
@@ -111,7 +111,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
             return Pair(field.key, field.value)
         }
 
-        throw CommandFormatException("For each must contain a field with the loop variable.", data)
+        throw CommandFormatException("For each must contain a field with the loop variable.")
     }
 }
 

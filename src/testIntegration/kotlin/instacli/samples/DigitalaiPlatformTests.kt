@@ -11,6 +11,6 @@ class DigitalaiPlatformTests {
     }
 
     private fun test(resource: String) {
-        InstacliInvocation(arrayOf("-q", toFile(resource).path)).run()
+        InstacliInvocation(arrayOf("-q", toFile(resource).path)).invoke()
     }
 }

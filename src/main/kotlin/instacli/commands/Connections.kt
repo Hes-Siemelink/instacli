@@ -14,7 +14,7 @@ import java.io.File
 
 class GetAccount : CommandHandler("Get account"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val targetName = data.asText() ?: throw CommandFormatException("Specify connection", data)
+        val targetName = data.asText() ?: throw CommandFormatException("Specify connection")
 
         val target = context.connections.targets[targetName] ?: return TextNode("")
         return when {
@@ -92,7 +92,7 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
                 ?: throw IllegalArgumentException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
 
             val cliFile = File(context.scriptDir, connectScript)
-            return CliFile(cliFile).run(CliFileContext(cliFile, context))
+            return CliFile(cliFile).runFile(CliFileContext(cliFile, context))
         } else {
             error("'Connect to' is only supported when running files.")
         }

@@ -6,81 +6,84 @@ import instacli.util.Yaml
 import java.io.File
 import kotlin.system.exitProcess
 
-val INSTACLI_HOME = File(File(System.getProperty("user.home")), ".instacli")
+val INSTACLI_HOME = File(System.getProperty("user.home"), ".instacli")
 
-class CliException(message: String) : Exception(message)
+class InvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
 
+    val options = CliCommandLineOptions(args)
+
     try {
-        InstacliInvocation(args).run()
-    } catch (e: CliException) {
+        InstacliInvocation(options).invoke()
+    } catch (e: InvocationException) {
         System.err.println(e.message)
 
         exitProcess(1)
     } catch (e: InstacliException) {
-        val cause = e.cause?.message ?: ""
-        System.err.println("\nInstacli scripting error\n  $cause")
-        System.err.println("  ${e.message}")
+        reportError(e, options.debug)
 
         exitProcess(1)
     }
 }
 
-
 class InstacliInvocation(
-    private val args: Array<String>,
+    private val options: CliCommandLineOptions,
     private val workingDir: File = File("."),
-    private val user: UserInput = ConsoleInput,
-    private val out: UserOutput = ConsoleOutput
+    private val input: UserInput = ConsoleInput,
+    private val output: UserOutput = ConsoleOutput
 ) {
 
-    fun run() {
+    constructor(
+        args: Array<String>,
+        workingDir: File = File("."),
+        input: UserInput = ConsoleInput,
+        output: UserOutput = ConsoleOutput
+    ) : this(CliCommandLineOptions(args), workingDir, input, output)
 
-        val options = CliCommandLineOptions(args)
+    fun invoke() {
 
         if (options.commands.isEmpty()) {
-            out.printUsage()
+            output.printUsage()
             return
         }
 
         // First argument should be a valid file
         val file = File(workingDir, options.commands[0])
         if (!file.exists()) {
-            throw CliException("Could not find file: ${file.absolutePath}")
+            throw InvocationException("Could not find file: ${file.absolutePath}")
         }
 
         // Run script directly or a command from a directory
         val context = CliFileContext(file, interactive = options.interactive, connections = Connections.load())
         if (file.isDirectory) {
-            runDirectory(file, options.commands.drop(1), context, options)
+            invokeDirectory(file, options.commands.drop(1), context, options)
         } else {
-            runFile(CliFile(file), context, options)
+            invokeFile(CliFile(file), context, options)
         }
     }
 
-    private fun runFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
+    private fun invokeFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
 
         if (options.help) {
-            out.printScriptInfo(cliFile.script)
+            output.printScriptInfo(cliFile.script)
             return
         }
 
         context.addVariables(options.commandParameters)
 
-        val output = cliFile.run(context)
+        val output = cliFile.runFile(context)
 
         if (options.printOutput && output != null) {
-            out.println(Yaml.toString(output))
+            this.output.println(Yaml.toString(output))
         }
     }
 
-    private fun runDirectory(cliDir: File, args: List<String>, context: CliFileContext, options: CliCommandLineOptions) {
+    private fun invokeDirectory(cliDir: File, args: List<String>, context: CliFileContext, options: CliCommandLineOptions) {
 
         // No Instacli scripts in directory
         if (context.getAllCommands().isEmpty()) {
-            println("No Instacli commands in ${cliDir.absolutePath}")
-            return
+            throw InvocationException("No Instacli commands in ${cliDir.absolutePath}")
         }
 
         // Parse command
@@ -89,19 +92,19 @@ class InstacliInvocation(
         // Run script
         val script = context.getCliScriptFile(rawCommand)
         if (script != null) {
-            runFile(script, context, options)
+            invokeFile(script, context, options)
             return
         }
 
         // Run subcommand
         val subcommand = context.getSubcommand(rawCommand)
         if (subcommand != null) {
-            runDirectory(subcommand.dir, args.drop(1), CliFileContext(subcommand.dir, context), options)
+            invokeDirectory(subcommand.dir, args.drop(1), CliFileContext(subcommand.dir, context), options)
             return
         }
 
         // Command not found
-        throw CliException("Command '$rawCommand' not found in ${cliDir.name}")
+        throw InvocationException("Command '$rawCommand' not found in ${cliDir.name}")
     }
 
     private fun getCommand(args: List<String>, context: CliFileContext, interactive: Boolean): String? {
@@ -112,16 +115,40 @@ class InstacliInvocation(
         }
 
         // Print info
-        out.printDirectoryInfo(context.info)
+        output.printDirectoryInfo(context.info)
 
         // Select command
         val commands = context.getAllCommands()
         return when {
-            interactive -> user.askForCommand(commands)
+            interactive -> input.askForCommand(commands)
             else -> {
-                out.printCommands(commands)
+                output.printCommands(commands)
                 null
             }
         }
+    }
+}
+
+private fun reportError(e: InstacliException, printStackTrace: Boolean) {
+    System.err.println("\nInstacli scripting error")
+
+    // Exception caused by wrong instacli usage
+    if (e.cause == null || e.cause is InstacliException) {
+        System.err.println("\n${e.message}")
+    } else {
+        // Internal exception
+        if (printStackTrace) {
+            System.err.print("\nCaused by: ")
+            e.cause?.printStackTrace()
+        } else {
+            System.err.println("\nCaused by: ${e.cause}")
+        }
+    }
+
+    // Print Instacli context
+    e.data?.let {
+        val yaml = Yaml.toString(e.data).prependIndent("  ")
+        val message = "In ${e.context ?: "command"}:"
+        System.err.println("\n\n$message\n\n${yaml}".trimMargin())
     }
 }

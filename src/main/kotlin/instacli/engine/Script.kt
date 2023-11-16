@@ -12,7 +12,7 @@ class Script(val commands: List<Command>) {
     val input: Command?
             by lazy { commands.first { it.name == "Input" } }
 
-    fun run(context: ScriptContext): JsonNode? {
+    fun runScript(context: ScriptContext): JsonNode? {
         var output: JsonNode? = null
 
         for (command in commands) {

@@ -36,7 +36,7 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler
 
 class PrintAsYaml : CommandHandler("Print as YAML") {
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
         println(Yaml.toString(data))
         return null
     }
@@ -45,7 +45,7 @@ class PrintAsYaml : CommandHandler("Print as YAML") {
 class Wait : CommandHandler("Wait"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (!data.isNumber) {
-            throw CommandFormatException("Invalid value for 'Wait' command.", data)
+            throw CommandFormatException("Invalid value for 'Wait' command.")
         }
 
         val duration = data.doubleValue() * 1000

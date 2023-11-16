@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.NullNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.engine.CommandFormatException
+import instacli.util.toDisplayString
 
 
 fun interface Condition {
@@ -97,7 +98,7 @@ fun parseCondition(node: JsonNode): Condition {
                 return Contains(obj, node["in"])
             }
 
-            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'", node)
+            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'. Was:\n\n  ${node.toDisplayString()}")
         }
 
         node.has("all") -> {
@@ -120,7 +121,7 @@ fun parseCondition(node: JsonNode): Condition {
         }
 
         else -> {
-            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty.", node)
+            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayString()}")
         }
     }
 }

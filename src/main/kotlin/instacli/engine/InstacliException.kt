@@ -3,19 +3,17 @@ package instacli.engine
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.util.Yaml
 
-open class InstacliException(message: String, var data: JsonNode? = null, cause: Throwable? = null) :
+open class InstacliException(message: String, var data: JsonNode? = null, cause: Throwable? = null, var context: String? = null) :
     Exception(message, cause) {
 
-    override val message: String?
-        get() = if (data != null) {
+    val details: String?
+        get() = data?.let {
             val yaml = Yaml.toString(data).prependIndent("  ")
-            "${super.message}\n${yaml}"
-        } else {
-            super.message
+            "In command:\n\n${yaml}".trimMargin()
         }
 }
 
-class CommandFormatException(message: String, data: JsonNode) : InstacliException(message, data)
+class CommandFormatException(message: String) : InstacliException(message)
 
 class CliScriptException(message: String) : InstacliException(message)
 

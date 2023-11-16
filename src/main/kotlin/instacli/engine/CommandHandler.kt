@@ -9,7 +9,7 @@ import instacli.util.objectNode
 
 abstract class CommandHandler(open val name: String) {
 
-    open fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    open fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
         try {
             return when (data) {
                 is ValueNode -> {
@@ -29,9 +29,10 @@ abstract class CommandHandler(open val name: String) {
         } catch (a: Break) {
             throw a
         } catch (e: InstacliException) {
+            e.data = getCommand(data)
             throw e
         } catch (e: Exception) {
-            throw InstacliInternalException("In command\n", getCommand(data), e)
+            throw InstacliInternalException("", getCommand(data), e)
         }
     }
 
@@ -40,7 +41,7 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CommandFormatException("Command: '$name' does not handle simple text content.", getCommand(data))
+        throw CommandFormatException("Command: '$name' does not handle simple text content.")
     }
 
     private fun handleObjectNode(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -48,7 +49,7 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CommandFormatException("Command '$name' does not handle object content.", getCommand(data))
+        throw CommandFormatException("Command '$name' does not handle object content.")
     }
 
     private fun handleArrayNode(data: ArrayNode, context: ScriptContext): JsonNode? {
@@ -56,20 +57,17 @@ abstract class CommandHandler(open val name: String) {
             return execute(data, context)
         }
 
-        throw CommandFormatException("Command '$name' does not handle array content.", getCommand(data))
+        throw CommandFormatException("Command '$name' does not handle array content.")
     }
 
     fun getParameter(data: JsonNode, parameter: String): JsonNode {
-        return data[parameter] ?: throw CommandFormatException(
-            "Command '$name' needs '$parameter' field.",
-            getCommand(data)
-        )
+        return data[parameter] ?: throw CommandFormatException("Command '$name' needs '$parameter' field.")
     }
 
     fun getTextParameter(data: JsonNode, parameter: String): String {
         val value = getParameter(data, parameter)
         if (value !is ValueNode) {
-            throw CommandFormatException("Parameter $parameter in command '$name' needs to be a text value.", getCommand(data))
+            throw CommandFormatException("Parameter $parameter in command '$name' needs to be a text value.")
         }
         return value.textValue()
     }
@@ -80,7 +78,7 @@ abstract class CommandHandler(open val name: String) {
         return node
     }
 
-    fun handlesListsItself(): Boolean {
+    fun handlesLists(): Boolean {
         return when (this) {
             is ArrayHandler -> {
                 true
@@ -99,7 +97,7 @@ abstract class CommandHandler(open val name: String) {
 
         val messages = schema.validate(data)
         if (messages.isNotEmpty()) {
-            throw CommandFormatException("Schema validation errors:\n$messages", data)
+            throw CommandFormatException("Schema validation errors:\n$messages")
         }
     }
 }

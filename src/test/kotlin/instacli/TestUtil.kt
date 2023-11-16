@@ -46,7 +46,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     return script.getTestCases().map {
         dynamicTest(it.getTestName()) {
             try {
-                it.run(context)
+                it.runScript(context)
             } catch (a: Break) {
                 a.output
             }

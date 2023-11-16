@@ -12,7 +12,7 @@ fun runCommand(
     context: ScriptContext
 ): JsonNode? {
 
-    if (rawData is ArrayNode && !handler.handlesListsItself()) {
+    if (rawData is ArrayNode && !handler.handlesLists()) {
         return runCommandOnList(handler, rawData, context)
     } else {
         return runSingleCommand(handler, rawData, context)
@@ -54,7 +54,7 @@ private fun runSingleCommand(
 
         handler.validate(data)
 
-        val result: JsonNode? = handler.execute(data, context)
+        val result: JsonNode? = handler.handleCommand(data, context)
 
         if (result != null) {
             context.variables[OUTPUT_VARIABLE] = result

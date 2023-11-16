@@ -81,3 +81,10 @@ fun getResourceAsStream(classpathResource: String): InputStream? {
 fun getResource(classpathResource: String): URI? {
     return object {}.javaClass.getResource("/$classpathResource")?.toURI()
 }
+
+fun JsonNode.toDisplayString(): String {
+    if (isTextual) {
+        return textValue()
+    }
+    return Yaml.mapper.writeValueAsString(this).trim()
+}

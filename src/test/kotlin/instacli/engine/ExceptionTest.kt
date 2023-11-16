@@ -17,7 +17,7 @@ class ExceptionTest {
         shouldThrow<CommandFormatException> {
 
             // When
-            session.run()
+            session.invoke()
         }
     }
 }
