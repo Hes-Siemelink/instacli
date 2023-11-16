@@ -91,7 +91,8 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
             val connectScript = context.info.connections[targetName]
                 ?: throw IllegalArgumentException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
 
-            return CliFile(File(context.scriptDir, connectScript)).run(context)
+            val cliFile = File(context.scriptDir, connectScript)
+            return CliFile(cliFile).run(CliFileContext(cliFile, context))
         } else {
             error("'Connect to' is only supported when running files.")
         }
