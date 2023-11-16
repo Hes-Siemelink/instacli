@@ -11,7 +11,7 @@ class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(c
     override val name: String = asCliCommand(cliFile.name)
     override val description: String by lazy { script.description ?: asScriptCommand(name) }
 
-    val script by lazy { CliScript.from(scriptNodes) }
+    val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {

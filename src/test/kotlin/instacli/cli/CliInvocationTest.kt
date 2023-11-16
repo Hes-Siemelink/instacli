@@ -1,7 +1,7 @@
 package instacli.cli
 
-import instacli.engine.CliScript
 import instacli.engine.CommandInfo
+import instacli.engine.Script
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -109,14 +109,14 @@ class MockOutput : UserOutput {
     var usagePrinted: Boolean = false
     var commandsPrinted = listOf<CommandInfo>()
     var directoryInfoPrinted: DirectoryInfo? = null
-    var scriptInfoPrinted: CliScript? = null
+    var scriptInfoPrinted: Script? = null
     var messagePrinted: String? = null
 
     override fun printUsage() {
         usagePrinted = true
     }
 
-    override fun printScriptInfo(script: CliScript) {
+    override fun printScriptInfo(script: Script) {
         scriptInfoPrinted = script
     }
 

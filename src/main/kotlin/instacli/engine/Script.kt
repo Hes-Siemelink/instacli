@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.commands.ScriptInfo
 import instacli.util.Yaml
 
-class CliScript(val commands: List<Command>) {
+class Script(val commands: List<Command>) {
 
     val description: String?
             by lazy { findDescription() }
@@ -16,9 +16,10 @@ class CliScript(val commands: List<Command>) {
         var output: JsonNode? = null
 
         for (command in commands) {
-            val evaluatedCommand = Command(command.name, eval(command.data, context))
-            val handler = context.getCommandHandler(evaluatedCommand.name)
-            output = evaluatedCommand.run(handler, context)
+            val handler = context.getCommandHandler(command.name)
+            val evaluatedData = eval(command.data, context)
+
+            output = runCommand(handler, evaluatedData, context)
         }
 
         return output
@@ -37,11 +38,11 @@ class CliScript(val commands: List<Command>) {
     }
 
     companion object {
-        fun from(script: List<JsonNode>): CliScript {
-            return CliScript(toCommandList(script))
+        fun from(script: List<JsonNode>): Script {
+            return Script(toCommandList(script))
         }
 
-        fun from(data: ObjectNode): CliScript {
+        fun from(data: ObjectNode): Script {
             return from(listOf(data))
         }
     }

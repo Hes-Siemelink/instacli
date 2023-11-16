@@ -9,7 +9,7 @@ import instacli.engine.*
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return CliScript.from(data).run(context)
+        return Script.from(data).run(context)
     }
 }
 

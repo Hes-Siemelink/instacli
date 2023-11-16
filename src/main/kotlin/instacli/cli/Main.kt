@@ -59,16 +59,16 @@ class InstacliInvocation(
         }
     }
 
-    private fun runFile(script: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
+    private fun runFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
 
         if (options.help) {
-            out.printScriptInfo(script.script)
+            out.printScriptInfo(cliFile.script)
             return
         }
 
         context.addVariables(options.commandParameters)
 
-        val output = script.run(context)
+        val output = cliFile.run(context)
 
         if (options.printOutput && output != null) {
             out.println(Yaml.toString(output))

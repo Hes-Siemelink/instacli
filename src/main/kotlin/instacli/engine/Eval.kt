@@ -25,8 +25,7 @@ fun evalObject(node: ObjectNode, context: ScriptContext): JsonNode {
             val name = key.substring(1)
             val handler = context.getCommandHandler(name)
             val evaluatedData = eval(data, context)
-            val command = Command(name, evaluatedData)
-            return command.run(handler, context) ?: TextNode("")
+            return runCommand(handler, evaluatedData, context) ?: TextNode("")
         }
     }
     return node

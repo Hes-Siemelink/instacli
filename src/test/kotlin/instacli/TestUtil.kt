@@ -5,8 +5,8 @@ import instacli.cli.CliFileContext
 import instacli.commands.Connections
 import instacli.commands.TestCase
 import instacli.engine.Break
-import instacli.engine.CliScript
 import instacli.engine.Command
+import instacli.engine.Script
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicTest
@@ -57,9 +57,9 @@ fun CliFile.getTestCases(): List<DynamicTest> {
 /**
  * Gets all test cases in a script as a separate CliScript.
  */
-fun CliScript.getTestCases(): List<CliScript> {
+fun Script.getTestCases(): List<Script> {
 
-    val allTests = mutableListOf<CliScript>()
+    val allTests = mutableListOf<Script>()
 
     var currentCase = mutableListOf<Command>()
     var first = true
@@ -70,19 +70,19 @@ fun CliScript.getTestCases(): List<CliScript> {
                 first = false
             } else {
                 // Adds everything that was recorded since the 'Test case' command
-                allTests.add(CliScript(currentCase))
+                allTests.add(Script(currentCase))
             }
             currentCase = mutableListOf()
         }
         currentCase.add(command)
     }
     // Add the last command
-    allTests.add(CliScript(currentCase))
+    allTests.add(Script(currentCase))
 
     return allTests
 }
 
-fun CliScript.getTestName(): String {
+fun Script.getTestName(): String {
     val testCaseCommand = commands.find {
         it.name == TEST_CASE
     }

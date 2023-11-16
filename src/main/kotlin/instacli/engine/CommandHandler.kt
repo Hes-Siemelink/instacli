@@ -31,7 +31,6 @@ abstract class CommandHandler(open val name: String) {
         } catch (e: InstacliException) {
             throw e
         } catch (e: Exception) {
-            println(e)
             throw InstacliInternalException("In command\n", getCommand(data), e)
         }
     }

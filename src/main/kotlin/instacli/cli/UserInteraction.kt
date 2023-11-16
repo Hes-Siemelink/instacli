@@ -5,8 +5,8 @@ import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.commands.InputInfo
-import instacli.engine.CliScript
 import instacli.engine.CommandInfo
+import instacli.engine.Script
 
 interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String
@@ -14,7 +14,7 @@ interface UserInput {
 
 interface UserOutput {
     fun printUsage()
-    fun printScriptInfo(script: CliScript)
+    fun printScriptInfo(script: Script)
     fun printCommands(commands: List<CommandInfo>)
     fun printDirectoryInfo(info: DirectoryInfo)
     fun println(message: String)
@@ -56,7 +56,7 @@ object ConsoleOutput : UserOutput {
         println()
     }
 
-    override fun printScriptInfo(script: CliScript) {
+    override fun printScriptInfo(script: Script) {
 
         if (script.description != null) {
             println(script.description)
@@ -65,7 +65,7 @@ object ConsoleOutput : UserOutput {
         printInputParameters(script)
     }
 
-    private fun printInputParameters(script: CliScript) {
+    private fun printInputParameters(script: Script) {
 
         val inputInfo = InputInfo.from(script.input?.data ?: return)
 

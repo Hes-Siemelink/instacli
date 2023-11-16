@@ -3,13 +3,8 @@ package instacli.engine
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import com.fasterxml.jackson.databind.node.ObjectNode
 
-class Command(val name: String, val data: JsonNode) {
-    fun run(handler: CommandHandler, context: ScriptContext): JsonNode? {
-        return runCommand(handler, data, context)
-    }
-}
+data class Command(val name: String, val data: JsonNode)
 
 fun runCommand(
     handler: CommandHandler,
@@ -53,19 +48,21 @@ private fun runSingleCommand(
     context: ScriptContext
 ): JsonNode? {
 
+    var data = rawData
     try {
-        val data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+        data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
 
         handler.validate(data)
 
         val result: JsonNode? = handler.execute(data, context)
+
         if (result != null) {
             context.variables[OUTPUT_VARIABLE] = result
         }
         return result
     } catch (e: InstacliException) {
         e.data ?: run {
-            e.data = ObjectNode(JsonNodeFactory.instance, mapOf(handler.name to rawData))
+            e.data = handler.getCommand(data)
         }
         throw e
     }
