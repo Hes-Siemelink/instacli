@@ -5,5 +5,4 @@ Connect to: Digital.ai Release
 GET: /api/v1/users
 
 For each:
-  ${user} in: ${output}
-  Output: ${user.fullName} (${user.username})
+  Output: ${item.fullName} (${item.username})

@@ -72,7 +72,8 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
-        val (loopVar, itemList) = removeLoopVariable(data)
+        val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.variables[OUTPUT_VARIABLE])
+        checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
         val itemListExpanded = resolveVariables(itemList, context.variables)
         val items = toArrayNode(itemListExpanded)
 
@@ -102,15 +103,12 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
         return output
     }
 
-    private fun removeLoopVariable(data: ObjectNode): Pair<String, JsonNode> {
+    private fun removeLoopVariable(data: ObjectNode): Pair<String, JsonNode>? {
         val first = data.fieldNames().next()
-        val match = FOR_EACH_VARIABLE.matchEntire(first)
-        if (match != null) {
-            val items = data.remove(first)
-            return Pair(match.groupValues[1], items)
-        }
+        val match = FOR_EACH_VARIABLE.matchEntire(first) ?: return null
+        val items = data.remove(first)
 
-        throw CommandFormatException("'For each' must contain the loop variable in '\${...} in' syntax as the first field.")
+        return Pair(match.groupValues[1], items)
     }
 }
 

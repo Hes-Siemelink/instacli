@@ -3,7 +3,6 @@ Script info: Deletes Cloud Connectors, that may be running
 Connect to: Digital.ai Platform API
 
 ---
-# Select Cloud Connectors to delete
 GET: /workload/v1/cloud_connectors/
 ${cloud_connectors}: ${output.cloud_connector_definitions}
 
@@ -17,11 +16,7 @@ Ask user:
   choices: ${cloud_connectors}
   type: select multiple
   display: name
-As: selected_cloud_connectors
 
----
-# Delete selection
 For each:
-  ${cloud_connector} in: ${selected_cloud_connectors}
-  Print: DELETE /workload/v1/cloud_connectors/${cloud_connector.id}
-  DELETE: /workload/v1/cloud_connectors/${cloud_connector.id}
+  Print: DELETE /workload/v1/cloud_connectors/${item.id}
+  DELETE: /workload/v1/cloud_connectors/${item.id}

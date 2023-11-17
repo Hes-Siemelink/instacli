@@ -10,10 +10,7 @@ Ask user:
   choices: ${output.clients}
   type: select multiple
   display: name
-As: selected_clients
 
----
 For each:
-  ${client} in: ${selected_clients}
-  Print: DELETE /identity/v1/clients/${client.id}
-  DELETE: /identity/v1/clients/${client.id}
+  Print: DELETE /identity/v1/clients/${item.id}
+  DELETE: /identity/v1/clients/${item.id}

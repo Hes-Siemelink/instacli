@@ -33,21 +33,21 @@ Expected output:
   - item: three
 
 ---
-#Test case: Loop over existing output variable
-#
-#Output:
-#  - one
-#  - two
-#  - three
-#
-#For each:
-#  Output:
-#    item: ${item}
-#
-#Expected output:
-#  - item: one
-#  - item: two
-#  - item: three
+Test case: Use Output if there is no loop variable
+
+Output:
+  - one
+  - two
+  - three
+
+For each:
+  Output:
+    item: ${item}
+
+Expected output:
+  - item: one
+  - item: two
+  - item: three
 
 ---
 Test case: Use output inside for each
