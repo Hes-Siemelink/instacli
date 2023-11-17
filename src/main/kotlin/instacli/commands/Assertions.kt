@@ -3,7 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.engine.*
+import instacli.script.*
 
 class AssertThat : CommandHandler("Assert that"), ObjectHandler {
 

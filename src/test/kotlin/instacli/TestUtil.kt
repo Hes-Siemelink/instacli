@@ -4,9 +4,9 @@ import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.commands.Connections
 import instacli.commands.TestCase
-import instacli.engine.Break
-import instacli.engine.Command
-import instacli.engine.Script
+import instacli.script.Break
+import instacli.script.Command
+import instacli.script.Script
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicTest

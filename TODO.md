@@ -1,7 +1,7 @@
 # On my mind
 
+* Documentation
 * Use Kotlin Json
-* Report nested exceptions
 
 # Where to take it
 
@@ -28,7 +28,6 @@
 
 * Combine `If` and `When`? Introduce `else`
 * Raw and live / Apply variables
-* Evaluate like a lisp. For example with exclamation point in syntax: `!Do`, `!For each`, `!Load file`, etc.
 
 ## Difference between Python Yay
 

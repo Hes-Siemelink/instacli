@@ -5,8 +5,8 @@ import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.commands.InputInfo
-import instacli.engine.CommandInfo
-import instacli.engine.Script
+import instacli.script.CommandInfo
+import instacli.script.Script
 
 interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String

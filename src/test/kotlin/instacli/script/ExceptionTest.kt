@@ -1,4 +1,4 @@
-package instacli.engine
+package instacli.script
 
 import instacli.cli.InstacliInvocation
 import instacli.cli.testDir

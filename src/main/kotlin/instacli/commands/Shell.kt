@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.lordcodes.turtle.shellRun
-import instacli.engine.CommandHandler
-import instacli.engine.ObjectHandler
-import instacli.engine.ScriptContext
-import instacli.engine.ValueHandler
+import instacli.script.CommandHandler
+import instacli.script.ObjectHandler
+import instacli.script.ScriptContext
+import instacli.script.ValueHandler
 
 // TODO: Support two options: 1) Command relative to script; 2) Command relative to invocation dir
 class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {

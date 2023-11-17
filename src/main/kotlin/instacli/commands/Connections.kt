@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.*
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.INSTACLI_HOME
-import instacli.engine.*
+import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.objectNode
 import java.io.File

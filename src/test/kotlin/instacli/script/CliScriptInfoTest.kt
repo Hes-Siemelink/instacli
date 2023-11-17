@@ -1,4 +1,4 @@
-package instacli.engine
+package instacli.script
 
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.commands.InputInfo

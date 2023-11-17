@@ -1,7 +1,7 @@
 package instacli.cli
 
 import instacli.commands.Connections
-import instacli.engine.InstacliException
+import instacli.script.InstacliException
 import instacli.util.Yaml
 import java.io.File
 import kotlin.system.exitProcess
@@ -132,11 +132,11 @@ class InstacliInvocation(
 private fun reportError(e: InstacliException, printStackTrace: Boolean) {
     System.err.println("\nInstacli scripting error")
 
-    // Exception caused by wrong instacli usage
+    // Exception caused by incorrect instacli script
     if (e.cause == null || e.cause is InstacliException) {
         System.err.println("\n${e.message}")
     } else {
-        // Internal exception
+        // Unexpected exception from command handler implementation
         if (printStackTrace) {
             System.err.print("\nCaused by: ")
             e.cause?.printStackTrace()
