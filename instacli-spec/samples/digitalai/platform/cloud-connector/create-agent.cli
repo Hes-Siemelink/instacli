@@ -43,7 +43,7 @@ As: alias
 ---
 # Variable values
 For each:
-  ${variable}: ${agent_definition.variables}
+  ${variable} in: ${agent_definition.variables}
   Ask user:
     description: ${variable.key}
     default: ${variable.value}

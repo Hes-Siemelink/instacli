@@ -17,6 +17,6 @@ As: selected_accounts
 
 ---
 For each:
-  ${account}: ${selected_accounts}
+  ${account} in: ${selected_accounts}
   Print: DELETE /identity/v1/accounts/${account.id}
   DELETE: /identity/v1/accounts/${account.id}

@@ -10,7 +10,7 @@ ${allNames}: [ ]
 
 # Get a list of all names
 For each:
-  ${parent}: ${family}
+  ${parent} in: ${family}
 
   # Create name object for parent
   ${parentName}:
@@ -18,7 +18,7 @@ For each:
 
   # Create list of name objects for children
   For each:
-    child: ${parent.children}
+    ${child} in: ${parent.children}
     Output:
       name: ${child.name}
   As: childNames

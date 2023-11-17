@@ -22,6 +22,6 @@ As: selected_cloud_connectors
 ---
 # Delete selection
 For each:
-  ${cloud_connector}: ${selected_cloud_connectors}
+  ${cloud_connector} in: ${selected_cloud_connectors}
   Print: DELETE /workload/v1/cloud_connectors/${cloud_connector.id}
   DELETE: /workload/v1/cloud_connectors/${cloud_connector.id}

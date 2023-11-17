@@ -22,6 +22,6 @@ As: selected_agents
 ---
 # Delete selected agents
 For each:
-  ${agent}: ${selected_agents}
+  ${agent} in: ${selected_agents}
   Print: DELETE /workload/v1/agent_instances/${agent.id}
   DELETE: /workload/v1/agent_instances/${agent.id}

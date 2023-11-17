@@ -3,7 +3,7 @@ Test case: Output from for each
 Output: something
 
 For each:
-  item:
+  ${item} in:
     - one
     - two
     - three
@@ -20,7 +20,7 @@ Expected output:
 Test case: For each with variable syntax
 
 For each:
-  ${item}:
+  ${item} in:
     - one
     - two
     - three
@@ -33,12 +33,29 @@ Expected output:
   - item: three
 
 ---
-Test case: Recursive output from for each
+#Test case: Loop over existing output variable
+#
+#Output:
+#  - one
+#  - two
+#  - three
+#
+#For each:
+#  Output:
+#    item: ${item}
+#
+#Expected output:
+#  - item: one
+#  - item: two
+#  - item: three
+
+---
+Test case: Use output inside for each
 
 Output: something
 
 For each:
-  item:
+  ${item} in:
     - one
     - two
     - three
@@ -57,7 +74,7 @@ ${output}: something else
 ${test}: [ ]
 
 For each:
-  recipe:
+  ${recipe} in:
     - Mango ice cream
     - Ratatouille
     - Meatballs
@@ -72,7 +89,7 @@ Assert equals:
     - Meatballs
 
 ---
-Test case: variable in For each
+Test case: Use variable in For each
 
 ${items}:
   - One
@@ -81,7 +98,7 @@ ${items}:
 ${test_result}: [ ]
 
 For each:
-  item: ${items}
+  ${item} in: ${items}
   Output: (${item})
 As: test_result
 
@@ -93,12 +110,12 @@ Assert equals:
       - (Three)
 
 ---
-Test case: For each should replace output variable with empty list
+Test case: For each should output empty list when looping over an empty list
 
 Output: something to begin with
 
 For each:
-  nothing: [ ]
+  ${nothing} in: [ ]
 
   Output: something else
 
@@ -108,7 +125,7 @@ Expected output: [ ]
 Test case: For each on object
 
 For each:
-  ${entry}:
+  ${entry} in:
     1: one
     2: two
   Output: ${entry.value} indeed
@@ -127,7 +144,7 @@ Output:
       description: Remote runner
 
 For each:
-  ${agent}: ${output.agents}
+  ${agent} in: ${output.agents}
   Output:
     name: ${agent.alias} (${agent.description})
     value: ${agent.id}
@@ -135,3 +152,4 @@ For each:
 Expected output:
   - name: runner (Remote runner)
     value: 123
+

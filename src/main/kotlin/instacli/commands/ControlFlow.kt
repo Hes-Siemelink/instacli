@@ -66,6 +66,8 @@ private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode?
     }
 }
 
+private val FOR_EACH_VARIABLE = Regex(VARIABLE_REGEX.pattern + " in")
+
 class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
@@ -101,19 +103,17 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
     }
 
     private fun removeLoopVariable(data: ObjectNode): Pair<String, JsonNode> {
-        for (field in data.fields()) {
-            data.remove(field.key)
-            val match = VARIABLE_REGEX.matchEntire(field.key)
-            if (match != null) {
-                return Pair(match.groupValues[1], field.value)
-            }
-
-            return Pair(field.key, field.value)
+        val first = data.fieldNames().next()
+        val match = FOR_EACH_VARIABLE.matchEntire(first)
+        if (match != null) {
+            val items = data.remove(first)
+            return Pair(match.groupValues[1], items)
         }
 
-        throw CommandFormatException("For each must contain a field with the loop variable.")
+        throw CommandFormatException("'For each' must contain the loop variable in '\${...} in' syntax as the first field.")
     }
 }
+
 
 fun toArrayNode(node: JsonNode): ArrayNode {
     when (node) {

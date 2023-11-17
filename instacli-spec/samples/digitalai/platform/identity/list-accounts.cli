@@ -9,7 +9,7 @@ Connect to: Digital.ai Platform API
 GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
 
 For each:
-  ${account}: ${output.accounts}
+  ${account} in: ${output.accounts}
   Output:
     name: ${account.name}
     vanity_domain: ${account.vanity_domain}
