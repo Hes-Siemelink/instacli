@@ -155,8 +155,8 @@ class AskAll : CommandHandler("Ask all"), ObjectHandler {
 /**
  * Returns the input as output.
  */
-class Output : CommandHandler("Output") {
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode {
+class Output : CommandHandler("Output"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }
 }

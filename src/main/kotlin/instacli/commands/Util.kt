@@ -34,9 +34,9 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler
     }
 }
 
-class PrintAsYaml : CommandHandler("Print as YAML") {
+class PrintAsYaml : CommandHandler("Print as YAML"), AnyHandler {
 
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         println(Yaml.toString(data))
         return null
     }

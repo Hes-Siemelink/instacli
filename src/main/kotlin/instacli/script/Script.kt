@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.commands.ScriptInfo
 import instacli.util.Yaml
 
+data class Command(val name: String, val data: JsonNode)
+
 class Script(val commands: List<Command>) {
 
     val description: String?

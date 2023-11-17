@@ -14,8 +14,8 @@ class SetVariable : CommandHandler("Set variable"), ObjectHandler {
     }
 }
 
-class AssignVariable(private val varName: String) : CommandHandler("\${}") {
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
+class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         context.variables[varName] = data
         return null
     }
@@ -34,8 +34,8 @@ class As : CommandHandler("As"), ValueHandler {
     }
 }
 
-class ApplyVariables : CommandHandler("Apply variables") {
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode {
+class ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return resolveVariables(data, context.variables)
     }
 }

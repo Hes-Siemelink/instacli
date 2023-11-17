@@ -6,7 +6,7 @@ import instacli.script.*
 import instacli.util.Yaml
 import java.io.File
 
-class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(cliFile.name)) {
+class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(cliFile.name)), AnyHandler {
 
     override val name: String = asCliCommand(cliFile.name)
     override val description: String by lazy { script.description ?: asScriptCommand(name) }
@@ -14,7 +14,7 @@ class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(c
     val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
 
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val localContext = CliFileContext(cliFile, context, variables = Yaml.mutableMapOf(data))
         return runFile(localContext)
     }
@@ -37,6 +37,6 @@ class RunScript : CommandHandler("Run script"), ObjectHandler {
         val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.")
         val cliFile = File(context.cliFile.parent, fileName.asText())
 
-        return CliFile(cliFile).handleCommand(data, context)
+        return handleCommand(CliFile(cliFile), data, context)
     }
 }

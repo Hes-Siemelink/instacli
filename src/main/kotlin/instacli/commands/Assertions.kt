@@ -32,9 +32,9 @@ class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
     }
 }
 
-class ExpectedOutput : CommandHandler("Expected output") {
+class ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
 
-    override fun handleCommand(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val output: JsonNode? = context.variables[OUTPUT_VARIABLE]
         if (output == null || output != data) {
             throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
