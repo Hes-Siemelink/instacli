@@ -21,7 +21,7 @@ fun loadTestCases(vararg cliScripts: String): List<DynamicContainer> {
 }
 
 fun toFile(resource: String): File {
-    val testDir = File("instacli-spec/test")
+    val testDir = File("instacli-spec/test-suite")
     val testFile = File(testDir, resource)
     if (!testFile.exists()) {
         throw FileNotFoundException(testFile.absolutePath)
