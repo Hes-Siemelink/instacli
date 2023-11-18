@@ -13,16 +13,8 @@ class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     }
 }
 
-class Exit : CommandHandler("Exit"), ValueHandler, ArrayHandler, ObjectHandler {
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        throw Break(data)
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        throw Break(data)
-    }
-
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+class Exit : CommandHandler("Exit"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         throw Break(data)
     }
 }
