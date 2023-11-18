@@ -50,3 +50,10 @@ class TestCase : CommandHandler("Test case"), ValueHandler {
         return null
     }
 }
+
+class CodeExample : CommandHandler("Code example"), ValueHandler {
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        return null
+    }
+}

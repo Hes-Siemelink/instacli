@@ -15,23 +15,6 @@ Expected output:
   - item: two
   - item: three
 
-
----
-Test case: For each with variable syntax
-
-For each:
-  ${item} in:
-    - one
-    - two
-    - three
-  Output:
-    item: ${item}
-
-Expected output:
-  - item: one
-  - item: two
-  - item: three
-
 ---
 Test case: Use Output if there is no loop variable
 

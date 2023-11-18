@@ -13,7 +13,8 @@
 # Command-line support
 
 * Parse command line properly
-* Kotlin native?
+* Kotlin native? => Use Pure Kotlin libraries
+* Go?
 
 # Instacli as glue
 

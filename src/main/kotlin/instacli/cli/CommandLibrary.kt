@@ -59,8 +59,9 @@ object CommandLibrary {
         // Shell execution
         Shell(),
 
-        // Testing
+        // Testing & Documentation
         TestCase(),
+        CodeExample(),
         AssertEquals(),
         AssertThat(),
         ExpectedOutput(),

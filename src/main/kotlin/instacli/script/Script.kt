@@ -47,6 +47,10 @@ class Script(val commands: List<Command>) {
         fun from(data: ObjectNode): Script {
             return from(listOf(data))
         }
+
+        fun from(source: String): Script {
+            return from(Yaml.parse(source) as ObjectNode)
+        }
     }
 }
 
