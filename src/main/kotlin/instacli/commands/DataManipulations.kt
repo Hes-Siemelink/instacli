@@ -102,6 +102,7 @@ class Add : CommandHandler("Add"), ArrayHandler, ObjectHandler, ValueHandler {
         when (output) {
             is TextNode -> output = TextNode(output.asText() + data.asText())
             is ArrayNode -> output.add(data)
+            is IntNode -> output = IntNode(output.asInt() + data.asInt())
             else ->
                 throw CliScriptException("Can't add $data to output of type ${output.javaClass.simpleName}")
         }

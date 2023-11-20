@@ -2,7 +2,7 @@
 
 `When` executes a single command from a list of conditions
 
-| Name             | `Exit`     |
+| Name             | `When`     |
 |------------------|------------|
 | Value content    | no         |
 | List content     | yes        |

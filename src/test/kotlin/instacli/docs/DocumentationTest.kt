@@ -30,6 +30,12 @@ class DocumentationTest {
     }
 
     @Test
+    fun `Repeat_md`() {
+        val file = getDocFile("Repeat.md")
+        validateCodeSnippets(file)
+    }
+
+    @Test
     fun `When_md`() {
         val file = getDocFile("When.md")
         validateCodeSnippets(file)

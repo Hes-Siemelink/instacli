@@ -3,9 +3,17 @@ Test case: Only once do
 Output: one
 
 Repeat:
-  Do:
-    Output: done
+  Output: done
   Until: done
+
+---
+Test case: Counting
+
+Output: 1
+
+Repeat:
+  Add: 1
+  Until: 10
 
 ---
 Test case: Append output
@@ -13,8 +21,7 @@ Test case: Append output
 Output: one
 
 Repeat:
-  Do:
-    Output: ${output} one
+  Output: ${output} one
   Until:
     object: ${output}
     equals: one one one
@@ -25,11 +32,6 @@ Expected output: one one one
 Test case: Repeat checks a list result
 
 Output: one
-
-Do:
-  - Output: a
-  - Output: b
-Expected output: [ a, b ]
 
 Repeat:
   Do:

@@ -127,12 +127,11 @@ fun toArrayNode(node: JsonNode): ArrayNode {
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val actions = data["Do"]!!
-        val until = data["Until"]!!
+        val until = data.remove("Until") ?: throw CommandFormatException("Repeat needs 'Until'")
 
         var finished = false
         while (!finished) {
-            val result = runCommand(Do(), actions, context)
+            val result = runCommand(Do(), data, context)
 
             if (until is ObjectNode) {
                 val conditions = resolveVariables(until.deepCopy(), context.variables)

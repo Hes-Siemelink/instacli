@@ -2,7 +2,7 @@
 
 `If` exectues commands if a condition holds
 
-| Name             | `Exit`     |
+| Name             | `If`       |
 |------------------|------------|
 | Value content    | no         |
 | List content     | no         |

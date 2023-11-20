@@ -12,6 +12,17 @@ Use `For each` to loop over a list and do stuff.
 
 ### Basic example
 
+**For each** always takes an object.
+
+In the first field you can declare the loop variable.
+The variable is defined in the field name with syntax
+
+    ${variable_name} in
+
+The field value contains the list of items to loop over.
+
+The remaining fields in **For each** must be commands. They are executed by Instacli for each item in the list.
+
 Here's a simple example:
 
 ```yaml
@@ -24,17 +35,6 @@ For each:
     - Carol
   Print: Hello ${name}!
 ```
-
-**For each** always takes an object.
-
-In the first field you can declare the loop variable.
-The variable is defined in the field name with syntax
-
-    ${variable_name} in
-
-The field value contains the list of items to loop over.
-
-The remaining fields in **For each** must be commands. They are executed by Instacli for each item in the list.
 
 The console output of the above example would be:
 
@@ -76,11 +76,11 @@ Output:
   - three
 
 For each:
-  Output:
-    item: ${item}
-
-Expected output:
-  - item: one
-  - item: two
-  - item: three
+  Print: ${item}
 ```
+
+This will print:
+
+    one
+    two
+    three
