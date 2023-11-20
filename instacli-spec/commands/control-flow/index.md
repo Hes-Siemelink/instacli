@@ -4,6 +4,6 @@
 
 * [Do](Do.md)
 * [Exit](Exit.md)
-* [For each](For%20each.md)
+* [For each](For each.md)
 * [If](If.md)
 * [When](When.md)
