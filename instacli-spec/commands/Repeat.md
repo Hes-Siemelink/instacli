@@ -14,15 +14,20 @@
 **Repeat** repeats a bunch of commands until the condition specified in `Until` is reached. See conditions in [Assert that]
 
 ```yaml
-Test case: Count to ten
+Code example: Count to five
 
 Output: 0
 
 Repeat:
   Add: 1
   Print: ${output}
-  Until:
-    object: ${output}
-    equals: 10
-
+  Until: 5
 ```
+
+Prints:
+
+    1
+    2
+    3
+    4
+    5

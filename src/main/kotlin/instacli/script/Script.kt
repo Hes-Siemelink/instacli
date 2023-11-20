@@ -21,7 +21,7 @@ class Script(val commands: List<Command>) {
             val handler = context.getCommandHandler(command.name)
             val evaluatedData = eval(command.data, context)
 
-            output = runCommand(handler, evaluatedData, context)
+            output = runCommand(handler, evaluatedData, context) ?: output
         }
 
         return output
