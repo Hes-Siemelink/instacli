@@ -12,10 +12,10 @@
 
 ## Basic example
 
-**When** is a special case of **If**, working on a list of [conditions](../testing/Assert%20that.md#conditions) defined
+**When** is a special case of [If](If.md), working on a list of [conditions](../testing/Assert%20that.md#conditions) defined
 in [Assert that](../testing/Assert%20that.md).
 
-**When** behaves different from **If**, because it will only execute the first matching conditions. When the condition holds, the commands under `then` are
+**When** behaves different from **If**, because it will only execute the first matching condition. When that condition holds, the commands under `then` are
 executed.
 
 ```yaml
@@ -55,6 +55,3 @@ Expected output:
   - 1
   - 2
 ```
-
-If you only want to match one, use [When]
-

@@ -50,7 +50,7 @@ Expected output:
   - 2
 ```
 
-If you only want to match one, use [When]
+If you only want to match one, use [When](When.md)
 
 ```yaml
 Code example: Multiple conditions in When
