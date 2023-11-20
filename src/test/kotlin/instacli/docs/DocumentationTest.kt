@@ -40,5 +40,11 @@ class DocumentationTest {
         val file = getDocFile("control-flow/When.md")
         validateCodeSnippets(file)
     }
+
+    @Test
+    fun `Assert that_md`() {
+        val file = getDocFile("testing/Assert that.md")
+        validateCodeSnippets(file)
+    }
 }
 

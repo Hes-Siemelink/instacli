@@ -12,7 +12,8 @@
 
 ## Basic example
 
-**When** is a special case of **If**, working on a list of conditions (defined in [Assert that]).
+**When** is a special case of **If**, working on a list of [conditions](../testing/Assert%20that.md#conditions) defined
+in [Assert that](../testing/Assert%20that.md).
 
 **When** behaves different from **If**, because it will only execute the first matching conditions. When the condition holds, the commands under `then` are
 executed.

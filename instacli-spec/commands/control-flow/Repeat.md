@@ -6,12 +6,13 @@
 |------------------|----------|
 | Value content    | no       |
 | List content     | no       |
-| Object content   | no       |
+| Object content   | yes      |
 | Field (required) | Until    |
 
 ## Basic example
 
-**Repeat** repeats a bunch of commands until the condition specified in `Until` is reached. See conditions in [Assert that]
+**Repeat** repeats a bunch of commands until the condition specified in `Until` is reached. See [conditions](../testing/Assert%20that.md#conditions)
+in [Assert that](../testing/Assert%20that.md)
 
 ```yaml
 Code example: Count to five

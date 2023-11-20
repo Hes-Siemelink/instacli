@@ -12,7 +12,8 @@
 
 ## Basic example
 
-**If** is used with the Conditions defined in [Assert that] and if a condition holds, the commands under `then` are executed
+**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
+commands under `then` are executed
 
 ```yaml
 Code example: Simple if

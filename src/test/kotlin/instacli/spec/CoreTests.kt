@@ -8,7 +8,7 @@ class CoreTests {
 
     @TestFactory
     fun `Assertions`(): List<DynamicNode> {
-        return loadTestCases("assert/Assert statement tests.cli")
+        return loadTestCases("testing/Assert statement tests.cli")
     }
 
     @TestFactory
