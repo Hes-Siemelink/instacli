@@ -1,6 +1,7 @@
 package instacli.docs
 
 import instacli.cli.CliFileContext
+import instacli.script.Break
 import instacli.script.Script
 import java.io.File
 import java.io.FileNotFoundException
@@ -25,7 +26,11 @@ fun validateCodeSnippets(file: File) {
 
     scripts.forEach {
         val testContext = CliFileContext(file)
-        it.runScript(testContext)
+        try {
+            it.runScript(testContext)
+        } catch (a: Break) {
+            // Exit was called from the test script
+        }
     }
 }
 

@@ -49,7 +49,7 @@ class Script(val commands: List<Command>) {
         }
 
         fun from(source: String): Script {
-            return from(Yaml.parse(source) as ObjectNode)
+            return from(Yaml.parseAsFile(source))
         }
     }
 }

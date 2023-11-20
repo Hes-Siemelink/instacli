@@ -45,7 +45,7 @@ The console output of the above example would be:
 ### Transform a list
 
 **For each** will store the output of the last command for each item in a list. You can use this feature to transform a list into something else, like
-the `map()` function of programming languages.
+the `map()` function in some programming languages.
 
 ```yaml
 Code example: Transform a list
@@ -61,4 +61,26 @@ Expected output:
   - Hello Alice!
   - Hello Bob!
   - Hello Carol!
+```
+
+### Loop over the output variable
+
+If you don't specify a loop variable in **For each**, it will loop over the current value of `${output}`, with loop variable `${item}`.
+
+```yaml
+Code example: For each on output
+
+Output:
+  - one
+  - two
+  - three
+
+For each:
+  Output:
+    item: ${item}
+
+Expected output:
+  - item: one
+  - item: two
+  - item: three
 ```

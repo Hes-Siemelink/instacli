@@ -41,6 +41,13 @@ object Yaml {
             .readAll()
     }
 
+    fun parseAsFile(source: String): List<JsonNode> {
+        val yamlParser = factory.createParser(source)
+        return mapper
+            .readValues(yamlParser, JsonNode::class.java)
+            .readAll()
+    }
+
     fun parse(source: String): JsonNode {
         return mapper.readValue(source, JsonNode::class.java)
     }

@@ -64,6 +64,23 @@ Assert equals:
       - 1
       - 2
 
+---
+Test case: If returns the result of then
+
+If:
+  - object: one
+    equals: one
+    then:
+      Output: 1
+
+  - object: two
+    equals: two
+    then:
+      Output: 2
+
+Expected output:
+  - 1
+  - 2
 
 ---
 Test case: Switch-like if; break after successful match
