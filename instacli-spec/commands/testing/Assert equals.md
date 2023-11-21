@@ -18,6 +18,8 @@ in tests.
 It works for simple values
 
 ```yaml
+Code example: Values should be equal
+
 Assert equals:
   actual: one
   expected: one
@@ -26,6 +28,8 @@ Assert equals:
 and also for complex objects
 
 ```yaml
+Code example: Compare complex objects
+
 Assert equals:
   actual:
     something:

@@ -1,38 +1,16 @@
 package instacli.docs
 
 import instacli.cli.CliFileContext
+import instacli.commands.CodeExample
+import instacli.getTestName
 import instacli.script.Break
 import instacli.script.Script
+import org.junit.jupiter.api.DynamicContainer
+import org.junit.jupiter.api.DynamicTest
 import java.io.File
-import java.io.FileNotFoundException
 
 const val START_LINE = "```yaml"
 const val END_LINE = "```"
-
-fun getDocFile(filename: String): File {
-    val testDir = File("instacli-spec/commands")
-    val testFile = File(testDir, filename)
-    if (!testFile.exists()) {
-        throw FileNotFoundException(testFile.absolutePath)
-    }
-
-    return testFile
-}
-
-fun validateCodeSnippets(file: File) {
-
-    val codeBlocks = readCodeBlocks(file)
-    val scripts = codeBlocks.map { Script.from(it) }
-
-    scripts.forEach {
-        val testContext = CliFileContext(file)
-        try {
-            it.runScript(testContext)
-        } catch (a: Break) {
-            // Exit was called from the test script
-        }
-    }
-}
 
 fun readCodeBlocks(file: File): List<String> {
 
@@ -59,4 +37,26 @@ fun readCodeBlocks(file: File): List<String> {
     return blocks
 }
 
+fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
+    val testContext = CliFileContext(file)
+
+    return readCodeBlocks(file)
+        .map { Script.from(it) }
+        .map {
+            DynamicTest.dynamicTest(it.getTestName(CodeExample().name), file.toURI()) {
+                try {
+                    it.runScript(testContext)
+                } catch (a: Break) {
+                    a.output
+                }
+            }
+        }
+}
+
+fun getCodeExamplesInAllFiles(directory: File): List<DynamicContainer> {
+    val pages = directory.walkTopDown().filter { it.name.endsWith(".md") }
+    return pages.mapNotNull { file ->
+        DynamicContainer.dynamicContainer(file.name, getCodeExamplesInDocument(file))
+    }.toList()
+}
 

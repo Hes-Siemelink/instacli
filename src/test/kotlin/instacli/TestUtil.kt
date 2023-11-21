@@ -44,7 +44,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     context.connections.file = tempFile
 
     return script.getTestCases().map {
-        dynamicTest(it.getTestName()) {
+        dynamicTest(it.getTestName(), cliFile.toURI()) {
             try {
                 it.runScript(context)
             } catch (a: Break) {
@@ -82,9 +82,9 @@ fun Script.getTestCases(): List<Script> {
     return allTests
 }
 
-fun Script.getTestName(): String {
+fun Script.getTestName(nameCommand: String = TEST_CASE): String {
     val testCaseCommand = commands.find {
-        it.name == TEST_CASE
+        it.name == nameCommand
     }
-    return testCaseCommand?.data?.textValue() ?: TEST_CASE
+    return testCaseCommand?.data?.textValue() ?: nameCommand
 }
