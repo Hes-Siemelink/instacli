@@ -2,13 +2,13 @@
 
 `When` executes a single command from a list of conditions
 
-| Name             | `When`     |
-|------------------|------------|
-| Value content    | no         |
-| List content     | yes        |
-| Object content   | no         |
-| Field (required) | Conditions |
-| Field (required) | `then`     |
+| Content type                | Supported |
+|-----------------------------|-----------|
+| Value                       | no        |
+| List                        | yes       |
+| Object                      | no        |
+| _[Conditions](#Conditions)_ | required  |
+| `then`                      | required  |
 
 ## Basic example
 

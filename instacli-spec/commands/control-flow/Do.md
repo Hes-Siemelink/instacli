@@ -2,11 +2,12 @@
 
 Use `Do` to execute one or more other commands.
 
-| Name           | `Do` |
-|----------------|------|
-| Value content  | no   |
-| List content   | no   |
-| Object content | yes  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+| _Actions_    | optional  |
 
 ## Basic example
 

@@ -2,13 +2,13 @@
 
 `If` exectues commands if a condition holds
 
-| Name             | `If`       |
-|------------------|------------|
-| Value content    | no         |
-| List content     | no         |
-| Object content   | yes        |
-| Field (required) | Conditions |
-| Field (required) | `then`     |
+| Content type                | Supported |
+|-----------------------------|-----------|
+| Value                       | no        |
+| List                        | implicit  |
+| Object                      | yes       |
+| _[Conditions](#Conditions)_ | required  |
+| `then`                      | required  |
 
 ## Basic example
 

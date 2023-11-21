@@ -2,11 +2,13 @@
 
 Use `For each` to loop over a list and do stuff.
 
-| Name           | `For each` |
-|----------------|------------|
-| Value content  | no         |
-| List content   | no         |
-| Object content | yes        |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+| `${...} in`  | optional  |
+| _Actions_    | optional  |
 
 ## Usage
 

@@ -2,11 +2,11 @@
 
 `Exit` stops running the current script.
 
-| Name           | `Exit` |
-|----------------|--------|
-| Value content  | yes    |
-| List content   | yes    |
-| Object content | yes    |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | yes       |
+| Object       | yes       |
 
 ## Basic example
 

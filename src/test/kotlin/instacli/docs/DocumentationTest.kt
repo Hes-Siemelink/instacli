@@ -46,5 +46,11 @@ class DocumentationTest {
         val file = getDocFile("testing/Assert that.md")
         validateCodeSnippets(file)
     }
+
+    @Test
+    fun `Assert equals_md`() {
+        val file = getDocFile("testing/Assert equals.md")
+        validateCodeSnippets(file)
+    }
 }
 

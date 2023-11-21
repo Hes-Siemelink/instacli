@@ -2,11 +2,12 @@
 
 `Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.md) and [Repeat](../control-flow/Repeat.md)
 
-| Name           | `Assert that` |
-|----------------|---------------|
-| Value content  | no            |
-| List content   | no            |
-| Object content | yes           |
+| Content type                | Supported |
+|-----------------------------|-----------|
+| Value                       | no        |
+| List                        | implicit  |
+| Object                      | yes       |
+| _[Conditions](#Conditions)_ | required  |
 
 ## Basic usage
 

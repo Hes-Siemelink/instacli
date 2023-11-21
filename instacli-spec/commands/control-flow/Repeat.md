@@ -2,12 +2,13 @@
 
 `When` executes a single command from a list of conditions
 
-| Name             | `Repeat` |
-|------------------|----------|
-| Value content    | no       |
-| List content     | no       |
-| Object content   | yes      |
-| Field (required) | Until    |
+| Content type                         | Supported |
+|--------------------------------------|-----------|
+| Value                                | no        |
+| List                                 | implicit  |
+| Object                               | yes       |
+| _Actions_                            | optional  |
+| `until`: _[Conditions](#Conditions)_ | required  |
 
 ## Basic example
 
