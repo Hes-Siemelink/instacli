@@ -127,7 +127,7 @@ fun toArrayNode(node: JsonNode): ArrayNode {
 class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val until = data.remove("Until") ?: throw CommandFormatException("Repeat needs 'Until'")
+        val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'Until'")
 
         var finished = false
         while (!finished) {

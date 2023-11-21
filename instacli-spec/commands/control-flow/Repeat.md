@@ -23,7 +23,7 @@ Output: 0
 Repeat:
   Add: 1
   Print: ${output}
-  Until: 5
+  until: 5
 ```
 
 Prints:

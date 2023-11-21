@@ -4,7 +4,7 @@ Output: one
 
 Repeat:
   Output: done
-  Until: done
+  until: done
 
 ---
 Test case: Counting
@@ -13,7 +13,7 @@ Output: 1
 
 Repeat:
   Add: 1
-  Until: 10
+  until: 10
 
 ---
 Test case: Append output
@@ -22,7 +22,7 @@ Output: one
 
 Repeat:
   Output: ${output} one
-  Until:
+  until:
     object: ${output}
     equals: one one one
 
@@ -37,5 +37,5 @@ Repeat:
   Do:
     - Output: one
     - Output: two
-  Until: [ one, two ]
+  until: [ one, two ]
 

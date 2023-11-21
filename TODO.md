@@ -2,7 +2,6 @@
 
 * Documentation
 * Use Kotlin Json
-* Rename `Until` to `until`
 
 # Where to take it
 
