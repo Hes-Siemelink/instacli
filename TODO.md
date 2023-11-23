@@ -2,6 +2,8 @@
 
 * Documentation
 * Use Kotlin Json
+* Rename 'Mock answer' to 'Stock answer'
+* Rename 'Ask user' to 'Prompt'
 
 # Where to take it
 

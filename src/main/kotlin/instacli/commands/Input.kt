@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.github.kinquirer.core.Choice
 import instacli.script.*
@@ -45,8 +44,8 @@ class Input : CommandHandler("Input"), ObjectHandler {
             }
 
             // Use default value
-            info.default.isNotEmpty() -> {
-                context.variables[name] = TextNode(info.default)
+            info.default != null -> {
+                context.variables[name] = info.default
             }
 
             // Ask user
@@ -94,7 +93,7 @@ private fun prompt(input: InputParameterInfo): JsonNode {
 }
 
 private fun promptText(input: InputParameterInfo, password: Boolean = false): JsonNode {
-    return userPrompt.prompt(input.description, input.default, password)
+    return userPrompt.prompt(input.description, input.default?.asText() ?: "", password)
 }
 
 private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
@@ -144,7 +143,7 @@ class AskAll : CommandHandler("Ask all"), ObjectHandler {
         for ((field, info) in input.parameters) {
 
             // Ask user
-            val answer = userPrompt.prompt(info.description, info.default)
+            val answer = userPrompt.prompt(info.description, info.default?.asText() ?: "")
             answers.set<JsonNode>(field, answer)
         }
 
@@ -191,7 +190,7 @@ class InputInfo {
 
 data class InputParameterInfo(
     var description: String = "",
-    val default: String = "",
+    val default: JsonNode? = null,
     val type: String = "",
     val choices: List<JsonNode> = emptyList(),
     val display: String? = null,

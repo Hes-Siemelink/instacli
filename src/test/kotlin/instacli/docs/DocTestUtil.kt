@@ -38,14 +38,14 @@ fun readCodeBlocks(file: File): List<String> {
 }
 
 fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
-    val testContext = CliFileContext(file)
 
     return readCodeBlocks(file)
-        .map { Script.from(it) }
         .map {
-            DynamicTest.dynamicTest(it.getTestName(CodeExample().name), file.toURI()) {
+            val script = Script.from(it)
+            val testContext = CliFileContext(file)
+            DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toURI()) {
                 try {
-                    it.runScript(testContext)
+                    script.runScript(testContext)
                 } catch (a: Break) {
                     a.output
                 }
