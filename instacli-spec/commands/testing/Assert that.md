@@ -9,7 +9,7 @@
 | Object                      | yes       |
 | _[Conditions](#Conditions)_ | required  |
 
-## Basic usage
+## Usage
 
 **Assert that** throws an exception if the condition is not true and execution of the script is stopped.
 
