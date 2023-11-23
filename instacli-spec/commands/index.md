@@ -8,6 +8,10 @@
 * [If](control-flow/If.md)
 * [When](control-flow/When.md)
 
+### Input and Output
+
+* [Input](input-output/Input.md)
+
 ### Testing
 
 * [Assert that](testing/Assert%20that.md)
