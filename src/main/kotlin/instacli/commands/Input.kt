@@ -70,7 +70,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 /**
  * Asks user through simple text prompt
  */
-class AskUser : CommandHandler("Ask user"), ValueHandler, ObjectHandler {
+class Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return userPrompt.prompt(data.textValue())
@@ -134,7 +134,7 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 /**
  * Asks multiple questions at once
  */
-class AskAll : CommandHandler("Ask all"), ObjectHandler {
+class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val input = InputInfo.from(data)
@@ -163,7 +163,7 @@ class Output : CommandHandler("Output"), AnyHandler {
 /**
  * Records answers to be replayed in test cases for user input commands.
  */
-class MockAnswers : CommandHandler("Mock answers"), ObjectHandler {
+class StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         data.fields().forEach {
             MOCK_ANSWERS[it.key] = it.value

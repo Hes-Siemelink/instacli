@@ -1,4 +1,4 @@
-Ask user:
+Prompt:
   description: Select ingredients
   type: select multiple
   choices:

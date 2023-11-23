@@ -1,16 +1,16 @@
 Test case: Simple question
 
-Mock answers:
+Stock answers:
   "What is your name?": Instacli
 
-Ask user: What is your name?
+Prompt: What is your name?
 
 Expected output: Instacli
 
 ---
 Test case: Default answer
 
-Ask user:
+Prompt:
   description: How much is 1 + 1?
   default: 2
 
@@ -19,10 +19,10 @@ Expected output: "2"
 ---
 Test case: Multiple questions
 
-Mock answers:
+Stock answers:
   - "What is your name?": Instacli
 
-Ask all:
+Prompt all:
   name: What is your name?
   sum:
     description: How much is 1 + 1?
@@ -35,10 +35,10 @@ Expected output:
 ---
 Test case: Select object from list
 
-Mock answers:
+Stock answers:
   Select account: dev
 
-Ask user:
+Prompt:
   description: Select account
   type: select one
   choices:
@@ -61,12 +61,12 @@ Expected output:
 ---
 Test case: Select multiple items from list
 
-Mock answers:
+Stock answers:
   What flavors do you like?:
     - Coconut
     - Pineapple
 
-Ask user:
+Prompt:
   description: What flavors do you like?
   type: select multiple
   choices:
@@ -82,10 +82,10 @@ Expected output:
 ---
 Test case: Select value field only
 
-Mock answers:
+Stock answers:
   Favorite channel: The News
 
-Ask user:
+Prompt:
   description: Favorite channel
   type: select one
   choices:
@@ -101,12 +101,12 @@ Expected output: 1
 ---
 Test case: Select multiple value fields
 
-Mock answers:
+Stock answers:
   Favorite channel:
     - The News
     - Sports Unlimited
 
-Ask user:
+Prompt:
   description: Favorite channel
   type: select multiple
   choices:

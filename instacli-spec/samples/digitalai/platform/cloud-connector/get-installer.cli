@@ -14,7 +14,7 @@ If:
   then:
     Exit: No cloud connectors available
 
-Ask user:
+Prompt:
   description: Select Cloud Connector
   choices: ${cloud_connectors}
   type: select one

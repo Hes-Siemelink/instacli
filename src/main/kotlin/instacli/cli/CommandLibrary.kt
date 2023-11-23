@@ -18,9 +18,9 @@ object CommandLibrary {
         ScriptInfo(),
         Input(),
         Output(),
-        AskUser(),
-        AskAll(),
-        MockAnswers(),
+        Prompt(),
+        PromptAll(),
+        StockAnswers(),
 
         // Variables
         As(),

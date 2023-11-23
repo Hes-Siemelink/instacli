@@ -10,7 +10,7 @@ Get a flavor of instacli with this example that does a small interaction between
 GET: /flavor/options
 As: flavors
 
-Ask user:
+Prompt:
   description: Select your favorite flavor
   choices: ${flavors}
   type: select one

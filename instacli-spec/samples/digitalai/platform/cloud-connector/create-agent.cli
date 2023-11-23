@@ -14,7 +14,7 @@ If:
   then:
     Exit: No cloud connectors available
 
-Ask user:
+Prompt:
   description: Select Cloud Connector
   choices: ${cloud_connectors}
   type: select one
@@ -28,7 +28,7 @@ Print: Getting available agent definitions
 GET: /workload/v1/agent_runtimes/
 ${agent_definitions}: ${output.agent_runtimes}
 
-Ask user:
+Prompt:
   description: Select agent definition
   choices: ${agent_definitions}
   type: select one
@@ -37,14 +37,14 @@ As: agent_definition
 
 ---
 # Agent alias
-Ask user: Alias for agent instance (unique per Digital.ai Platform user)
+Prompt: Alias for agent instance (unique per Digital.ai Platform user)
 As: alias
 
 ---
 # Variable values
 For each:
   ${variable} in: ${agent_definition.variables}
-  Ask user:
+  Prompt:
     description: ${variable.key}
     default: ${variable.value}
 As: variables

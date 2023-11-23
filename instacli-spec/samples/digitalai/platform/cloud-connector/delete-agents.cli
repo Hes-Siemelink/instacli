@@ -12,7 +12,7 @@ If:
     then:
       Exit: No agents available.
 
-Ask user:
+Prompt:
   description: Select agents to delete
   choices: ${agents}
   type: select multiple

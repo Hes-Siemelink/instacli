@@ -5,7 +5,7 @@ Connect to: Digital.ai Platform API
 ---
 GET: /identity/clients/
 
-Ask user:
+Prompt:
   description: Select clients to delete
   choices: ${output.clients}
   type: select multiple

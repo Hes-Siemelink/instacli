@@ -14,7 +14,7 @@ GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
 
 ---
-Ask user:
+Prompt:
   description: Select runtime to add
   type: select one
   choices: ${runtimes}

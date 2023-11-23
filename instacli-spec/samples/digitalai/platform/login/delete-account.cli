@@ -10,7 +10,7 @@ Get accounts: ${target}
 As: accounts
 
 ---
-Ask user:
+Prompt:
   description: Select account to delete
   choices: ${accounts}
   type: select one
