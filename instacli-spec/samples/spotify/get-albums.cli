@@ -1,0 +1,33 @@
+Script info: Show albums of an artist
+
+Connect to: Spotify
+
+---
+Get artist: "?"
+As: artist
+
+---
+Task: Get all albums with paginated requests
+
+${albums}: [ ]
+${offset}: 0
+
+Repeat:
+  GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
+  As: result
+
+  Do:
+    - Output: ${albums}
+      Add: ${result.items}
+      As: albums
+    - Output: ${offset}
+      Add: 50
+      As: offset
+
+  until:
+    empty: ${result.items}
+
+---
+For each:
+  ${album} in: ${albums}
+  Print: ${album.name} (${album.release_date})
