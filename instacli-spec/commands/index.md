@@ -11,6 +11,11 @@
 ### Input and Output
 
 * [Input](input-output/Input.md)
+* [Script info](input-output/Script%20info.md)
+
+### Data manipulation
+
+* [Sort](data-manipulation/Sort.md)
 
 ### Testing
 

@@ -1,0 +1,19 @@
+Test case: Sort list of objects by field
+
+Sort:
+  items:
+    - name: Three
+      value: 3
+    - name: One
+      value: 1
+    - name: Two
+      value: 2
+  by: value
+
+Expected output:
+  - name: One
+    value: 1
+  - name: Two
+    value: 2
+  - name: Three
+    value: 3

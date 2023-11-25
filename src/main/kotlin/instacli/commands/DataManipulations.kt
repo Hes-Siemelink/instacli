@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.script.*
 import instacli.util.Yaml
+import instacli.util.toArrayNode
 
 class CreateObject : CommandHandler("Create object"), ArrayHandler {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
@@ -107,6 +108,33 @@ class Add : CommandHandler("Add"), ArrayHandler, ObjectHandler, ValueHandler {
                 throw CliScriptException("Can't add $data to output of type ${output.javaClass.simpleName}")
         }
         return output
+    }
+}
+
+// TODO Sort on scalar values
+class Sort : CommandHandler("Sort"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val items = getParameter(data, "items")
+        if (items !is ArrayNode) throw CommandFormatException("items should be an array")
+        val sortField = getTextParameter(data, "by")
+
+        val sorted = items.sortedWith(NodeComparator(sortField))
+
+        return sorted.toArrayNode()
+    }
+}
+
+class NodeComparator(val field: String) : Comparator<JsonNode> {
+    override fun compare(node1: JsonNode, node2: JsonNode): Int {
+
+        val value1 = node1[field] ?: return 0
+        val value2 = node2[field] ?: return 0
+
+        return if (value1 is NumericNode && value2 is NumericNode) {
+            value1.asInt() - value2.asInt()
+        } else {
+            value1.asText().compareTo(value2.asText())
+        }
     }
 }
 

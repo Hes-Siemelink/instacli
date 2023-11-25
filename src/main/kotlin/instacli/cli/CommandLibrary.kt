@@ -33,6 +33,7 @@ object CommandLibrary {
         Add(),
         Replace(),
         Size(),
+        Sort(),
 
         // Call other files
         RunScript(),

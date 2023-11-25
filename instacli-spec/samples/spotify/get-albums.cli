@@ -28,6 +28,11 @@ Repeat:
     empty: ${result.items}
 
 ---
+Sort:
+  items: ${albums}
+  by: release_date
+As: albums
+
 For each:
   ${album} in: ${albums}
   Print: ${album.name} (${album.release_date})

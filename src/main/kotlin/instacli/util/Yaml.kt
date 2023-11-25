@@ -3,6 +3,7 @@ package instacli.util
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -94,4 +95,8 @@ fun JsonNode.toDisplayString(): String {
         return textValue()
     }
     return Yaml.mapper.writeValueAsString(this).trim()
+}
+
+fun List<JsonNode>.toArrayNode(): ArrayNode {
+    return ArrayNode(JsonNodeFactory.instance, this)
 }
