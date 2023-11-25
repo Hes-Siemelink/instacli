@@ -44,7 +44,8 @@ class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandle
 class HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val uri = URI(data.textValue())
+
+        val uri = URI(encodePath(data.textValue()))
         val separator = data.textValue().indexOf(uri.path)
         val parsedData = objectNode("path", uri.toString().substring(separator))
 
@@ -93,6 +94,9 @@ class HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
     }
 }
 
+private fun encodePath(path: String?): String {
+    return path?.replace(' ', '+') ?: ""
+}
 
 data class HttpParameters(
     val host: String,
@@ -106,8 +110,7 @@ data class HttpParameters(
     val password: String?,
 ) {
 
-    val url: String
-        get() = "$host${(path ?: "")}"
+    val url: String = "$host${encodePath(path)}"
 
     companion object {
         fun create(data: ObjectNode, defaults: JsonNode?, method: HttpMethod): HttpParameters {

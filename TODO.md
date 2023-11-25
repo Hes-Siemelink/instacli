@@ -2,7 +2,6 @@
 
 * Documentation
 * Use Kotlin Json
-* Rename 'Ask user' to 'Prompt'
 
 # Where to take it
 
@@ -21,25 +20,10 @@
 
 * Shell and pipe support
 * Database support (SQLite or something)
-* Web server support
 * Write file / Read file
-* Http: verify certificate
-* Webhook (Web server): On Http request
+* Web server support
 
 # Instacli language
 
-* Combine `If` and `When`? Introduce `else`
+* Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables
-
-## Difference between Python Yay
-
-* Variable path implementation with the simpler JsonPointer (comes with Jackson) and not JsonPath
-  JsonPointer is basically just dot-referencing and array indexing and that's it.
-* Merge does not merge object content into output anymore. This was an obscure feature that can easily done with 'Join'.
-  See `Merge data.cli`
-* If got a 'then'
-* `Print` expands ObjectNodes to Yaml, not JSON. Makes more sense for printing structured output
-* Replaced `User Input` with `Ask user` that has a slightly different syntax
-* Replaced `Check input` with `Input`
-* On Http commands, `path` is optional and will be appended to `url`
-* Dropped `Join` in favor of `Merge`

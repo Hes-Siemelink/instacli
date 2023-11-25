@@ -4,7 +4,7 @@
 
 * [Do](control-flow/Do.md)
 * [Exit](control-flow/Exit.md)
-* [For each](control-flow/For each.md)
+* [For each](control-flow/For%20each.md)
 * [If](control-flow/If.md)
 * [When](control-flow/When.md)
 

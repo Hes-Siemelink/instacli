@@ -1,3 +1,15 @@
+Script info: Finds an artist
+
+Input:
+  artist: Name of the artist
+
 Connect to: Spotify
 
-GET: /artists/0TnOYISbd1XYRBk9myaseg
+---
+GET: /search?q=${artist}&type=artist
+
+Prompt:
+  description: Select artist
+  choices: ${output.artists.items}
+  type: select one
+  display: name
