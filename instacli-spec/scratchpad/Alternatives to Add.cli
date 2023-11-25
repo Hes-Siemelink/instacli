@@ -1,0 +1,17 @@
+# Current
+Output: ${offset}
+Add: 50
+As: offset
+
+---
+# Alternative 1
+Add:
+  item: 50
+  to: ${offset}
+As: offset
+
+---
+# Alternative 2
+Add:
+  item: 50
+  to variable: offset

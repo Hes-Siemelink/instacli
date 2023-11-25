@@ -1,7 +1,8 @@
 # On my mind
 
-* Documentation
-* Use Kotlin Json
+* Document all commands
+* Document how to pass input parameters from the command line with `--parameter value` syntax
+* Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 
 # Where to take it
 
