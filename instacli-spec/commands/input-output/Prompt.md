@@ -1,6 +1,6 @@
 # Command: Prompt
 
-`Prompt` defines the input parameters of a script.
+`Prompt` asks the user for input with an interactive prompt.
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,7 +10,7 @@
 
 ## Basic usage
 
-**Prompt** asks the user for input with an interactive prompt.
+With **Prompt**, you can ask the user a question.
 
 <!-- run before code example
 Stock answers:
@@ -34,7 +34,7 @@ Hello Hes!
 
 ## Prompt properties
 
-You can specify various properties: (Same as [Input](Input.md))
+You can specify various properties:
 
 * `description`: The question to ask the user.
 * `default`: The default value

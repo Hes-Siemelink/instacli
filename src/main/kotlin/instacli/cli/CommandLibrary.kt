@@ -20,7 +20,6 @@ object CommandLibrary {
         Output(),
         Prompt(),
         PromptAll(),
-        StockAnswers(),
 
         // Variables
         As(),
@@ -66,6 +65,7 @@ object CommandLibrary {
         AssertEquals(),
         AssertThat(),
         ExpectedOutput(),
+        StockAnswers(),
 
         // Util
         Task(),
