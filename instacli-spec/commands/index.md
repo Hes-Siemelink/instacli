@@ -11,6 +11,8 @@
 ### Input and Output
 
 * [Input](input-output/Input.md)
+* [Output](input-output/Output.md)
+* [Prompt](input-output/Prompt.md)
 * [Script info](input-output/Script%20info.md)
 
 ### Data manipulation

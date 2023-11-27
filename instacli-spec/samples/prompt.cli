@@ -1,0 +1,20 @@
+#Prompt: What is your name?
+#
+#Print: Hello ${output}!
+
+
+${users}:
+  - name: Alice
+    id: 123
+  - name: Bob
+    id: 456
+
+Prompt:
+  description: Select a user
+  type: select one
+  choices: ${users}
+  display: name
+  value: id
+
+Print:
+  You chose: ${output}
