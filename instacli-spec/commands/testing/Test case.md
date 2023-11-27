@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-## Usage
+## Basic usage
 
 With **Test case** you give a name to a test. The test runner sees the **Test case** command as the beginning of a test.
 

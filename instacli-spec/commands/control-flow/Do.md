@@ -9,7 +9,7 @@ Use `Do` to execute one or more other commands.
 | Object       | yes       |
 | _Actions_    | optional  |
 
-## Usage
+## Basic usage
 
 Remember that the **Instacli** syntax is in Yaml, so it is not permitted to repeat a key. This poses a problem in a programming language, wher you are prone to
 have several invvocations of the same command, but with different parameters.

@@ -10,7 +10,7 @@
 | `items`      | required  |
 | `by`         | required  |
 
-## Usage
+## Basic usage
 
 **Sort** expectes the list of things to sort in the `items` field. This should be a list of objects. The `by` parameter specifies the field to sort on.
 

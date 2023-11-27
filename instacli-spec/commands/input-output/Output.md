@@ -1,0 +1,98 @@
+# Command: Output
+
+`Output` sets the `${output}` variable, that can be the output of a script
+
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | yes       |
+| Object       | yes       |
+
+## Basic usage
+
+Instacli assigns the result of a command to the `${ouput}` variable
+
+```yaml
+Code example: Output variable is automatically set
+
+Replace:
+  in: Hello me
+  part: me
+  with: World!
+
+# Prints Hello World!
+Print: ${output}
+
+# Checks output variable
+Expected output: Hello World!
+```
+
+With **Output** you explicitly set the the `${output}` variable.
+
+```yaml
+Code example: Set the output variable expicitly
+
+Output: Hello World!
+
+Print: ${output}
+Expected output: Hello World!
+```
+
+You can put any kind of data in Output
+
+```yaml
+Code example: Output variable with object content
+
+Output:
+  name: John
+  age: 10
+
+Expected output:
+  name: John
+  age: 10
+```
+
+It is a shorthand to using the variable assignment syntax, but easier to type
+
+```yaml
+Code example: Set output variable with variable syntax
+
+${output}: Hello World!
+
+Expected output: Hello World!
+```
+
+## Output of a script
+
+When defining a script, you would typically put  [Input](Input.md) at the top, and **Output** at the bottom. This way you define the contract of the script in a
+way that is easy to read.
+
+```yaml
+Code example: Define Input and Output in a script
+
+Input:
+  name:
+    description: Person to greet
+    default: Nobody
+
+Output: Hello ${name}!
+```
+
+## Output in For each
+
+Use **Output** with [For each](../control-flow/For%20each.md) to transform a list:
+
+```yaml
+Code example: Transform a list with For each and Output
+
+
+For each:
+  ${name} in:
+    - Alice
+    - Bob
+  Output: Hello ${name}!
+
+Expected output:
+  - Hello Alice!
+  - Hello Bob! 
+```

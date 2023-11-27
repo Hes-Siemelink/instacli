@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-## Usage
+## Basic usage
 
 With **Script info** you give a script a description.
 

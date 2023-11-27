@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | yes       |
 
-## Usage
+## Basic usage
 
 **Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against `${output}`
 

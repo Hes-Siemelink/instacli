@@ -10,7 +10,7 @@
 | _Actions_                            | optional  |
 | `until`: _[Conditions](#Conditions)_ | required  |
 
-## Usage
+## Basic usage
 
 **Repeat** repeats a bunch of commands until the condition specified in `Until` is reached. See [conditions](../testing/Assert%20that.md#conditions)
 in [Assert that](../testing/Assert%20that.md)

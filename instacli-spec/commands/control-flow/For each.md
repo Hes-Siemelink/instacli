@@ -10,7 +10,7 @@ Use `For each` to loop over a list and do stuff.
 | `${...} in`  | optional  |
 | _Actions_    | optional  |
 
-## Usage
+## Basic usage
 
 ### Basic example
 

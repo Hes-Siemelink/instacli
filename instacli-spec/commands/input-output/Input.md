@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | yes       |
 
-## Usage
+## Basic usage
 
 With **Input** you define the input parameters of a script. When running in interactive mode, Instacli will prompt the use for any input parameter that has not
 been passed to the script.

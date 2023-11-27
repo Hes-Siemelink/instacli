@@ -10,7 +10,7 @@
 | _[Conditions](#Conditions)_ | required  |
 | `then`                      | required  |
 
-## Usage
+## Basic usage
 
 **If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
 commands under `then` are executed

@@ -10,7 +10,7 @@
 | _[Conditions](#Conditions)_ | required  |
 | `then`                      | required  |
 
-## Usage
+## Basic usage
 
 **When** is a special case of [If](If.md), working on a list of [conditions](../testing/Assert%20that.md#conditions) defined
 in [Assert that](../testing/Assert%20that.md).
