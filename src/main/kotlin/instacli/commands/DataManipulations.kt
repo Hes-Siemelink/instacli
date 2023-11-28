@@ -6,18 +6,6 @@ import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toArrayNode
 
-class CreateObject : CommandHandler("Create object"), ArrayHandler {
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
-        val output = data.objectNode()
-
-        for (field in data) {
-            output.set<JsonNode>(field["key"].textValue(), field["value"])
-        }
-
-        return output
-    }
-}
-
 class Merge : CommandHandler("Merge"), ArrayHandler {
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {

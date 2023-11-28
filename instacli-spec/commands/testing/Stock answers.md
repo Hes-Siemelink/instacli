@@ -16,7 +16,7 @@ Note: **Stock answers** is only enabled in a test context.
 To give an answer, simply define the question and answer under **Stock answers** like this:
 
 ```yaml
-Code example: Prerecord the question to a prompt
+Code example: Prerecord an answer to a prompt
 
 Stock answers:
   What is your name?: Alice
