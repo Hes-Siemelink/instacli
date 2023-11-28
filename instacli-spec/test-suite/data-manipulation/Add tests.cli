@@ -170,3 +170,19 @@ As: offset
 Assert equals:
   expected: 50
   actual: ${offset}
+
+---
+Test case: Add to variable
+
+${index}: 0
+${offset}: 0
+
+Add to variable:
+  ${index}: 1
+  ${offset}: 50
+
+Assert equals:
+  - expected: 1
+    actual: ${index}
+  - expected: 50
+    actual: ${offset}

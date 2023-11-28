@@ -15,6 +15,27 @@ class Add : CommandHandler("Add"), ObjectHandler {
     }
 }
 
+class AddToOutput : CommandHandler("Add to output"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        val output = context.variables[OUTPUT_VARIABLE] ?: return data
+
+        return add(output, data)
+    }
+}
+
+class AddToVariable : CommandHandler("Add to variable"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        for ((key, value) in data.fields()) {
+            val match = VARIABLE_REGEX.matchEntire(key) ?: throw CliScriptException("Entries should be in \${...} variable syntax.")
+            val varName = match.groupValues[1]
+            val variable = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
+
+            context.variables[varName] = add(variable, value)
+        }
+        return null
+    }
+}
+
 fun add(target: JsonNode, item: JsonNode): JsonNode {
     return when (target) {
         is ArrayNode -> addToArray(target, item)
@@ -53,45 +74,6 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
     }
 }
 
-class AddToOutput : CommandHandler("Add to output"), ArrayHandler, ObjectHandler, ValueHandler {
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
-        val output = context.variables[OUTPUT_VARIABLE] ?: return data
-
-        when (output) {
-            is ArrayNode -> output.addAll(data)
-            else ->
-                throw CliScriptException("Can't add an array to output of type ${output.javaClass.simpleName}")
-        }
-
-        return output
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val output = context.variables[OUTPUT_VARIABLE] ?: return data
-
-        when (output) {
-            is ObjectNode -> output.setAll<ObjectNode>(data)
-            is ArrayNode -> output.add(data)
-            else ->
-                throw CliScriptException("Can't add an object to output of type ${output.javaClass.simpleName}")
-        }
-
-        return output
-    }
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        var output = context.variables[OUTPUT_VARIABLE] ?: return data
-
-        when (output) {
-            is TextNode -> output = TextNode(output.asText() + data.asText())
-            is ArrayNode -> output.add(data)
-            is IntNode -> output = IntNode(output.asInt() + data.asInt())
-            else ->
-                throw CliScriptException("Can't add $data to output of type ${output.javaClass.simpleName}")
-        }
-        return output
-    }
-}
 
 // TODO Sort on scalar values
 class Sort : CommandHandler("Sort"), ObjectHandler {
