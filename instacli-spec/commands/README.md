@@ -18,6 +18,7 @@
 
 ### Data manipulation
 
+* [Add](data-manipulation/Add.md)
 * [Sort](data-manipulation/Sort.md)
 
 ### Testing
