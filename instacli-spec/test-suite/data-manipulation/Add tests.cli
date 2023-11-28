@@ -1,16 +1,31 @@
 Test case: Add to empty output
 
-Add: one item
+Add to output: one item
 
 Expected output: one item
 
 ---
 Test case: Add to list
 
+Add:
+  to:
+    - One
+    - Two
+  item: Three
+
+Expected output:
+  - One
+  - Two
+  - Three
+
+---
+Test case: Add to list output
+
 Output:
   - One
   - Two
-Add: Three
+
+Add to output: Three
 
 Expected output:
   - One
@@ -20,11 +35,27 @@ Expected output:
 ---
 Test case: Add to object
 
+Add:
+  to:
+    1: one
+    2: dos
+  item:
+    2: two
+    3: three
+
+Expected output:
+  1: one
+  2: two
+  3: three
+
+---
+Test case: Add to object output
+
 Output:
   1: one
   2: dos
 
-Add:
+Add to output:
   2: two
   3: three
 
@@ -36,18 +67,45 @@ Expected output:
 ---
 Test case: Add to string
 
-Output: one two
-Add: " three"
+Add:
+  to: one two
+  item: " three"
 
 Expected output: one two three
 
 ---
-Test case: Merge objects, second one overwrites properties from the first.
+Test case: Add to string output
+
+Output: one two
+
+Add to output: " three"
+
+Expected output: one two three
+
+---
+Test case: Merge two objects
+
+Add:
+  to:
+    label: first
+    header: accept
+  item:
+    label: second
+    content: body
+
+Expected output:
+  label: second
+  header: accept
+  content: body
+
+---
+Test case: Merge two objects from output
 
 Output:
   label: first
   header: accept
-Add:
+
+Add to output:
   label: second
   content: body
 
@@ -59,10 +117,28 @@ Expected output:
 ---
 Test case: Merge two lists
 
+Add:
+  to:
+    - 1
+    - 2
+  item:
+    - 3
+    - 4
+
+Expected output:
+  - 1
+  - 2
+  - 3
+  - 4
+
+---
+Test case: Merge two lists from output
+
 Output:
   - 1
   - 2
-Add:
+
+Add to output:
   - 3
   - 4
 
@@ -71,3 +147,26 @@ Expected output:
   - 2
   - 3
   - 4
+
+---
+Test case: Add numbers
+
+Add:
+  to: 0
+  item: 50
+As: offset
+
+Expected output: 50
+
+---
+Test case: Add numbers from output
+
+${offset}: 0
+
+Output: ${offset}
+Add to output: 50
+As: offset
+
+Assert equals:
+  expected: 50
+  actual: ${offset}

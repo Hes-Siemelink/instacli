@@ -12,7 +12,7 @@ Test case: Counting
 Output: 1
 
 Repeat:
-  Add: 1
+  Add to output: 1
   until: 10
 
 ---

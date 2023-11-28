@@ -7,7 +7,7 @@ Input:
 
 ---
 Get accounts: ${target}
-Add:
+Add to output:
   name: "* Create new account"
 As: accounts
 

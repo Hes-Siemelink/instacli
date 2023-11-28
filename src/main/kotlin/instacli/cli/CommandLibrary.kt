@@ -28,6 +28,7 @@ object CommandLibrary {
 
         // Data manipulation
         Add(),
+        AddToOutput(),
         Replace(),
         Size(),
         Sort(),

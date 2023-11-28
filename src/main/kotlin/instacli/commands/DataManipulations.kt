@@ -6,7 +6,54 @@ import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toArrayNode
 
-class Add : CommandHandler("Add"), ArrayHandler, ObjectHandler, ValueHandler {
+class Add : CommandHandler("Add"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val item = getParameter(data, "item")
+        val target = getParameter(data, "to")
+
+        return add(target, item)
+    }
+}
+
+fun add(target: JsonNode, item: JsonNode): JsonNode {
+    return when (target) {
+        is ArrayNode -> addToArray(target, item)
+        is ObjectNode -> addToObject(target, item)
+        is TextNode -> addToText(target, item)
+        is IntNode -> addToInt(target, item)
+        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+    }
+}
+
+fun addToArray(target: ArrayNode, item: JsonNode): ArrayNode {
+    return when (item) {
+        is ArrayNode -> target.addAll(item)
+        else -> target.add(item)
+    }
+}
+
+fun addToObject(target: ObjectNode, item: JsonNode): ObjectNode {
+    return when (item) {
+        is ObjectNode -> target.setAll<ObjectNode>(item)
+        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+    }
+}
+
+fun addToText(target: TextNode, item: JsonNode): TextNode {
+    return when (item) {
+        is ValueNode -> TextNode(target.asText() + item.asText())
+        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+    }
+}
+
+fun addToInt(target: IntNode, item: JsonNode): IntNode {
+    return when (item) {
+        is NumericNode -> IntNode(target.asInt() + item.asInt())
+        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+    }
+}
+
+class AddToOutput : CommandHandler("Add to output"), ArrayHandler, ObjectHandler, ValueHandler {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         val output = context.variables[OUTPUT_VARIABLE] ?: return data
 

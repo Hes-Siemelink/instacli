@@ -21,7 +21,7 @@ Code example: Count to five
 Output: 0
 
 Repeat:
-  Add: 1
+  Add to output: 1
   Print: ${output}
   until: 5
 ```

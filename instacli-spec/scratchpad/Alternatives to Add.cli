@@ -1,17 +1,17 @@
 # Current
-Output: ${offset}
-Add: 50
-As: offset
-
----
-# Alternative 1
 Add:
-  item: 50
   to: ${offset}
+  item: 50
 As: offset
 
 ---
-# Alternative 2
-Add:
-  item: 50
-  to variable: offset
+# Current for adding to output
+Output: ${offset}
+Add to output: 50
+As: offset
+
+---
+# Alternative for variables
+Add to variable:
+  ${offset}: 50
+

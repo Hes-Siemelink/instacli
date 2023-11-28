@@ -13,16 +13,23 @@ ${albums}: [ ]
 ${offset}: 0
 
 Repeat:
+
+  Print:
+    offset: ${offset}
+    GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
   GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
   As: result
 
+  # FIXME Why does Add not work here??
   Do:
     - Output: ${albums}
-      Add: ${result.items}
+      Add to output: ${result.items}
       As: albums
     - Output: ${offset}
-      Add: 50
+      Add to output: 50
       As: offset
+    - Print:
+        new offset: ${offset}
 
   until:
     empty: ${result.items}

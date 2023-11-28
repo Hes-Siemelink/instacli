@@ -1,26 +1,26 @@
-# Command: Add
+# Command: Add to output
 
-`Add` adds an item to something else
+`Add to output` adds something to the `${output}` variable
 
 | Content type | Supported |
 |--------------|-----------|
-| Value        | no        |
-| List         | implicit  |
+| Value        | yes       |
+| List         | yes       |
 | Object       | yes       |
 
 ## Basic usage
 
-Use **Add** to combine two things
+Use **Add to output** to append something to the current output
 
 ```yaml
 Code example: Add a field
 
-Add:
-  to:
-    1: one
-    2: two
-  item:
-    3: three
+Output:
+  1: one
+  2: two
+
+Add to output:
+  3: three
 
 Expected output:
   1: one
@@ -35,11 +35,11 @@ You can add an item to a list
 ```yaml
 Code example: Add an item to a list
 
-Add:
-  to:
-    - 1
-    - 2
-  item: 3
+Output:
+  - 1
+  - 2
+
+Add to output: 3
 
 Expected output:
   - 1
@@ -52,13 +52,13 @@ Or combine two lists.
 ```yaml
 Code example: Append a list to another
 
-Add:
-  to:
-    - 1
-    - 2
-  item:
-    - 3
-    - 4
+Output:
+  - 1
+  - 2
+
+Add to output:
+  - 3
+  - 4
 
 Expected output:
   - 1
@@ -74,9 +74,9 @@ You can also extend a text string.
 ```yaml
 Code example: Append text
 
-Add:
-  to: Hello
-  item: " World"
+Output: Hello
+
+Add to output: " World"
 
 Expected output: Hello World
 ```
