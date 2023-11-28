@@ -40,3 +40,34 @@ Output: one two
 Add: " three"
 
 Expected output: one two three
+
+---
+Test case: Merge objects, second one overwrites properties from the first.
+
+Output:
+  label: first
+  header: accept
+Add:
+  label: second
+  content: body
+
+Expected output:
+  label: second
+  header: accept
+  content: body
+
+---
+Test case: Merge two lists
+
+Output:
+  - 1
+  - 2
+Add:
+  - 3
+  - 4
+
+Expected output:
+  - 1
+  - 2
+  - 3
+  - 4

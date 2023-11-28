@@ -6,59 +6,6 @@ import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toArrayNode
 
-class Merge : CommandHandler("Merge"), ArrayHandler {
-
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
-
-        var result: JsonNode = TextNode("dummy")
-        var first = true
-
-        for (item in data) {
-
-            // Initialize result node based on first entry
-            if (first) {
-                if (item is ValueNode) {
-                    result = ArrayNode(JsonNodeFactory.instance)
-                    addValue(result, item)
-                } else {
-                    result = item
-                }
-                first = false
-                continue
-            }
-
-            // Append to existing node
-            if (result is ObjectNode) {
-                if (item is ObjectNode) {
-                    result.setAll<ObjectNode>(item)
-                } else {
-                    throw CommandFormatException("Can't merge array or text content with object:\nCurrent: $result\nAdding: $item")
-                }
-            } else if (result is ArrayNode) {
-                if (item is ArrayNode) {
-                    result.addAll(item)
-                } else {
-                    result.add(item)
-                }
-            }
-        }
-
-        return result
-    }
-
-    private fun addValue(
-        array: ArrayNode,
-        item: ValueNode
-    ) {
-        when {
-            item.isTextual -> array.add(item.textValue())
-            item.isInt -> array.add(item.intValue())
-            item.isBoolean -> array.add(item.booleanValue())
-            else -> array.add(item.textValue())
-        }
-    }
-}
-
 class Add : CommandHandler("Add"), ArrayHandler, ObjectHandler, ValueHandler {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         val output = context.variables[OUTPUT_VARIABLE] ?: return data

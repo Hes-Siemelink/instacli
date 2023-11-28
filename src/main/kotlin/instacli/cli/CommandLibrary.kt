@@ -27,7 +27,6 @@ object CommandLibrary {
         ApplyVariables(),
 
         // Data manipulation
-        Merge(),
         Add(),
         Replace(),
         Size(),
