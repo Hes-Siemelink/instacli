@@ -11,7 +11,7 @@
 ## Basic usage
 
 With **Code example** you give a name to snippet of code inside a Markdown document. This can be picked up by the test runner to validate the code that is being
-described..
+described.
 
 This is what it looks like when writing Markdown:
 

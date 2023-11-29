@@ -1,13 +1,13 @@
 Script info: Show albums of an artist
 
 Input:
-  artist: Name of the artist
+  name: Name of the artist
 
 Connect to: Spotify
 
 ---
-Get artist:
-  artist: ${artist}
+Get artist info:
+  name: ${name}
 As: artist
 
 ---
@@ -24,15 +24,6 @@ Repeat:
   Add to variable:
     ${albums}: ${result.items}
     ${offset}: 50
-  #  Do:
-  #    - Add:
-  #        to: ${albums}
-  #        item: ${result.items}
-  #      As: albums
-  #    - Add:
-  #        to: ${offset}
-  #        item: 50
-  #      As: offset
 
   until:
     empty: ${result.items}

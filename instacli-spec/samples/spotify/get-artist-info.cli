@@ -1,12 +1,12 @@
 Script info: Finds an artist
 
 Input:
-  artist: Name of the artist
+  name: Name of the artist
 
 Connect to: Spotify
 
 ---
-GET: /search?q=${artist}&type=artist
+GET: /search?q=${name}&type=artist
 
 Prompt:
   description: Select artist
