@@ -36,20 +36,25 @@ alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 Hello world example:
 
 ```commandline
-cd instacli-spec/samples
+cd samples
 cli hello
 ```
 
 ## Interactive example
 
-This example will connect to the Digital.ai Platform API and provide an interactive experience.
+There are several examples in the [samples](samples) directory - check it out!
 
-Start the cli with
+The following example will provide an interactive experience and connect to the Spotify API:
 
 ```commandline
-cd instacli-spec/samples
-cli digitalai
+cd samples
+cli spotify
 ```
 
-When connecting to Digital.ai Platform for the first time, the script will ask you for your login credentials. These will be stored
+When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and Client secret -- you should already have
+those). These will be stored
 in `~/.instacli/connections.yaml` and will be used for subsequent invocations.
+
+## Instacli Script Documentation
+
+* The [Command reference](instacli-spec/command-reference/README.md) has a list of all the available commands with explanation and code examples.
