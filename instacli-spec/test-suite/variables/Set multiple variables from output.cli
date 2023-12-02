@@ -1,27 +1,3 @@
-Test case: Multiple variables
-
-Output:
-  data:
-    item1: one
-    item2: two
-Set variable:
-  stuff: ${output.data.item1}
-  all: ${output}
-
-
-Assert equals:
-
-  - actual: ${stuff}
-    expected: one
-
-  - actual: ${all}
-    expected:
-      data:
-        item1: one
-        item2: two
-
-
----
 Test case: Multiple variables with $-{ syntax
 
 Output:

@@ -4,16 +4,6 @@ Output: a result
 
 Expected output: a result
 
-
----
-Test case: Set variable
-
-Set variable:
-  output: something
-
-Expected output: something
-
-
 ---
 Test case: Set variable with 'As'
 

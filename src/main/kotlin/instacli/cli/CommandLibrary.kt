@@ -13,7 +13,6 @@ object CommandLibrary {
 
         // Variables
         As(),
-        SetVariable(),
         ApplyVariables(),
 
         // Testing
