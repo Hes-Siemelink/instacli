@@ -16,4 +16,4 @@ For each:
     id: ${account.id}
 As: accounts
 
-Print as YAML: ${accounts}
+Print: ${accounts}

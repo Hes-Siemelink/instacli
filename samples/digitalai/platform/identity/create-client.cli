@@ -2,6 +2,8 @@ Script info: Creates a new OIDC client
 
 Connect to: Digital.ai Platform API
 
+Input:
+  client_id: Client ID
 ---
 # Create client
 POST:
@@ -10,9 +12,9 @@ POST:
     name: ${client_id}
     client_credentials_grant_enabled: true
 
-Print: "Use these credentials to authenticate:"
-Print as YAML:
-  grant_type: client_credentials
-  client_id: ${client_id}
-  client_secret: ${output.client.client_secret}
-  scope: openid dai-svc
+Print:
+  Use these credentials to authenticate:
+    grant_type: client_credentials
+    client_id: ${client_id}
+    client_secret: ${output.client.client_secret}
+    scope: openid dai-svc

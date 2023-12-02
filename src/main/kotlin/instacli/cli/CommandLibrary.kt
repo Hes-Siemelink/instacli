@@ -46,7 +46,6 @@ object CommandLibrary {
         // Util
         Task(),
         Print(),
-        PrintAsYaml(),
         Wait(),
         Base64Encode(),
         Base64Decode(),

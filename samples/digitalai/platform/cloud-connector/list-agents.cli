@@ -13,4 +13,4 @@ For each:
     agent_id: ${agent.agent_id}
     variables: ${agent.variables}
 
-Print as YAML: ${output}
+Print: ${output}

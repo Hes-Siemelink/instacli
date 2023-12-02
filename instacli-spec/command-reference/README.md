@@ -75,7 +75,6 @@
 
 * Task
 * Print
-* PrintAsYaml
 * Wait
 * Base64Encode
 * Base64Decode

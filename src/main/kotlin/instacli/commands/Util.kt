@@ -1,6 +1,7 @@
 package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
@@ -14,7 +15,7 @@ class Task : CommandHandler("Task"), ValueHandler {
     }
 }
 
-class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
+class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         println(data.asText())
@@ -25,11 +26,8 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler {
         println(Yaml.toString(data))
         return null
     }
-}
 
-class PrintAsYaml : CommandHandler("Print as YAML"), AnyHandler {
-
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         println(Yaml.toString(data))
         return null
     }

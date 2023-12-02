@@ -12,4 +12,4 @@ For each:
     description: ${runtime.description}
     id: ${runtime.id}
 
-Print as YAML: ${output}
+Print: ${output}

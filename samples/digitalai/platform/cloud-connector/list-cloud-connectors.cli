@@ -5,4 +5,4 @@ Connect to: Digital.ai Platform API
 ---
 GET: /workload/v1/cloud_connectors/
 
-Print as YAML: ${output}
+Print: ${output}
