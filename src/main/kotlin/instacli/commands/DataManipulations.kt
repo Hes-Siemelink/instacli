@@ -102,17 +102,11 @@ class NodeComparator(val field: String) : Comparator<JsonNode> {
     }
 }
 
-// TODO: Rename fields in 'Replace'.
-// Replace:
-//  in: Hello me
-//  find: me
-//  replace with: World
-
 class Replace : CommandHandler("Replace"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val source = getParameter(data, "in")
-        val part = getParameter(data, "part")
-        val replaceWith = getParameter(data, "with")
+        val part = getParameter(data, "find")
+        val replaceWith = getParameter(data, "replace with")
 
         val result = replace(source, part, replaceWith)
 
@@ -145,7 +139,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
 
     private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode {
         if (part !is TextNode) {
-            throw CommandFormatException("'Replace: part' may contain text only")
+            throw CommandFormatException("'Replace.find' may contain text only")
         }
 
         val replacementText = Yaml.toString(replaceWith)

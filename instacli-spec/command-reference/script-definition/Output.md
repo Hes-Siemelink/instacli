@@ -17,8 +17,8 @@ Code example: Output variable is automatically set
 
 Replace:
   in: Hello me
-  part: me
-  with: World!
+  find: me
+  replace with: World!
 
 # Prints Hello World!
 Print: ${output}

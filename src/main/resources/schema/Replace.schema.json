@@ -9,10 +9,10 @@
         "object"
       ]
     },
-    "part": {
+    "find": {
       "type": "string"
     },
-    "with": {
+    "replace with": {
       "type": "string"
     }
   },

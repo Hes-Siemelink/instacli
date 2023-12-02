@@ -67,8 +67,8 @@
 * [Add](data-manipulation/Add.md)
 * [Add to output](data-manipulation/Add%20to%20output.md)
 * [Add to variable](data-manipulation/Add%20to%20variable.md)
-* Replace
-* Size
+* [Replace](data-manipulation/Replace.md)
+* [Size](data-manipulation/Size.md)
 * [Sort](data-manipulation/Sort.md)
 
 ### Util

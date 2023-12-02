@@ -28,7 +28,7 @@ class CoreTests {
     fun `Data manipulation`(): List<DynamicNode> {
         return loadTestCases(
             "data-manipulation/Add tests.cli",
-            "data-manipulation/Replace handler tests.cli",
+            "data-manipulation/Replace tests.cli",
             "data-manipulation/Size tests.cli",
             "data-manipulation/Sort tests.cli",
         )
