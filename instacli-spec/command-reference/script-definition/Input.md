@@ -74,4 +74,4 @@ Input:
     default: World
 ```
 
-See [Prompt Properties](Prompt.md#prompt-properties) for a full description.
+See [Prompt Properties](../user-interaction/Prompt.md#prompt-properties) for a full description.

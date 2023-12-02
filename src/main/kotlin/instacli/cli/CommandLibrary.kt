@@ -6,6 +6,24 @@ import instacli.script.CommandHandler
 object CommandLibrary {
     val commands = commandMap(
 
+        // Script definition
+        ScriptInfo(),
+        Input(),
+        Output(),
+
+        // Variables
+        As(),
+        SetVariable(),
+        ApplyVariables(),
+
+        // Testing
+        TestCase(),
+        CodeExample(),
+        AssertEquals(),
+        AssertThat(),
+        ExpectedOutput(),
+        StockAnswers(),
+
         // Control flow
         Do(),
         Exit(),
@@ -14,17 +32,9 @@ object CommandLibrary {
         ForEach(),
         Repeat(),
 
-        // Input and Output
-        ScriptInfo(),
-        Input(),
-        Output(),
+        // User interaction
         Prompt(),
         PromptAll(),
-
-        // Variables
-        As(),
-        SetVariable(),
-        ApplyVariables(),
 
         // Data manipulation
         Add(),
@@ -34,16 +44,20 @@ object CommandLibrary {
         Size(),
         Sort(),
 
-        // Call other files
-        RunScript(),
+        // Util
+        Task(),
+        Print(),
+        PrintAsYaml(),
+        Wait(),
+        Base64Encode(),
+        Base64Decode(),
 
-        // Connections
-        GetAccount(),
-        ConnectTo(),
-        CreateAccount(),
-        GetAccounts(),
-        SetDefaultAccount(),
-        DeleteAccount(),
+        // Files
+        ReadFile(),
+
+        // Call other scripts
+        RunScript(),
+        Shell(),
 
         // HTTP
         HttpEndpoint(),
@@ -53,27 +67,13 @@ object CommandLibrary {
         HttpPatch(),
         HttpDelete(),
 
-        // Files
-        ReadFile(),
-
-        // Shell execution
-        Shell(),
-
-        // Testing & Documentation
-        TestCase(),
-        CodeExample(),
-        AssertEquals(),
-        AssertThat(),
-        ExpectedOutput(),
-        StockAnswers(),
-
-        // Util
-        Task(),
-        Print(),
-        PrintAsYaml(),
-        Wait(),
-        Base64Encode(),
-        Base64Decode()
+        // Account connections
+        GetAccount(),
+        ConnectTo(),
+        CreateAccount(),
+        GetAccounts(),
+        SetDefaultAccount(),
+        DeleteAccount(),
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

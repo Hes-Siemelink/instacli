@@ -24,9 +24,11 @@ Test case: Fill variables in file
 
 Read file: content/with variables.yaml
 As: raw
+
 ${unknown}: known
 ${nested}:
   something: there
+
 Apply variables: ${raw}
 
 Expected output:

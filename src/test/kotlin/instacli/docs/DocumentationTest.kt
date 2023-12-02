@@ -8,7 +8,7 @@ class DocumentationTest {
 
     @TestFactory
     fun `Test code examples`(): List<DynamicNode> {
-        return getCodeExamplesInAllFiles(File("instacli-spec/commands"))
+        return getCodeExamplesInAllFiles(File("instacli-spec/command-reference"))
     }
 }
 
