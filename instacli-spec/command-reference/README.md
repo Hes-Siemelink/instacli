@@ -30,8 +30,8 @@
 
 ### Variables
 
-* As
-* ${...} assignment
+* [As](variables/As.md)
+* [${..} assignment](variables/Assignment.md)
 
 <!--
 * Set variable

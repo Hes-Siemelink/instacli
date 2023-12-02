@@ -26,7 +26,7 @@ class AddToOutput : CommandHandler("Add to output"), AnyHandler {
 class AddToVariable : CommandHandler("Add to variable"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
-            val match = VARIABLE_REGEX.matchEntire(key) ?: throw CliScriptException("Entries should be in \${...} variable syntax.")
+            val match = VARIABLE_REGEX.matchEntire(key) ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
             val variable = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
 

@@ -7,7 +7,7 @@ Use `For each` to loop over a list and do stuff.
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `${...} in`  | optional  |
+| `${..} in`   | optional  |
 | _Actions_    | optional  |
 
 ## Basic usage
