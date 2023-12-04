@@ -4,15 +4,15 @@
 
 ### HTTP commands
 
-* GET
-* POST
-* PUT
-* PATCH
-* DELETE
+* [GET](http/GET.md)
+* [POST](http/POST.md)
+* [PUT](http/PUT.md)
+* [PATCH](http/PATCH.md)
+* [DELETE](http/DELETE.md)
+* [Http endpoint](http/Http%20endpoint.md)
 
 ### Manage connections
 
-* Http endpoint
 * Connect to
 * Create account
 * Get account

@@ -1,6 +1,7 @@
 # On my mind
 
 * Document all commands
+* Save as
 * Document how to pass input parameters from the command line with `--parameter value` syntax
 * Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 

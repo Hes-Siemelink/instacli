@@ -7,7 +7,6 @@ Expected output: [ '1', '2', '3' ]
 ---
 Http endpoint:
   url: http://localhost:25125
-  verify certificate: false
   cookies:
     maria: biscuit
 

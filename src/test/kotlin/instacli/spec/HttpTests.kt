@@ -15,16 +15,19 @@ class HttpTests {
     }
 
     companion object {
+
+        private val server = TestServer.create()
+
         @BeforeAll
         @JvmStatic
         fun startTestServer() {
-            TestServer.start()
+            server.start(25125)
         }
 
         @AfterAll
         @JvmStatic
         fun stopTestServer() {
-            TestServer.stop()
+            server.stop()
         }
     }
 }

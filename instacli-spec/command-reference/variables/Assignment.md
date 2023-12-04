@@ -10,7 +10,7 @@ Set a variable value with a command in `${..}` syntax
 
 ## Basic usage
 
-Directly set the value of a variable, for example `${myvar}`
+Directly set the value of a variable, for example:
 
 ```yaml
 Code example: Set a variable value

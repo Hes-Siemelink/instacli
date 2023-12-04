@@ -44,16 +44,7 @@ class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandle
 class HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-
-        val uri = URI(encodePath(data.textValue()))
-        val separator = data.textValue().indexOf(uri.path)
-        val parsedData = objectNode("path", uri.toString().substring(separator))
-
-        val url = uri.toString().substring(0, separator)
-        if (url.isNotEmpty()) {
-            parsedData.put("url", url)
-        }
-        return processRequest(parsedData, context, HttpMethod.Get)
+        return processRequestWithoutBody(data, context, HttpMethod.Get)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -85,8 +76,7 @@ class HttpPatch : CommandHandler("PATCH"), ObjectHandler {
 class HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val path = objectNode("path", data.textValue())
-        return processRequest(path, context, HttpMethod.Delete)
+        return processRequestWithoutBody(data, context, HttpMethod.Delete)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -148,6 +138,19 @@ data class HttpParameters(
             }
         }
     }
+}
+
+private fun processRequestWithoutBody(data: ValueNode, context: ScriptContext, method: HttpMethod): JsonNode? {
+
+    val uri = URI(encodePath(data.textValue()))
+    val separator = data.textValue().indexOf(uri.path)
+    val parsedData = objectNode("path", uri.toString().substring(separator))
+
+    val url = uri.toString().substring(0, separator)
+    if (url.isNotEmpty()) {
+        parsedData.put("url", url)
+    }
+    return processRequest(parsedData, context, method)
 }
 
 private fun processRequest(data: ObjectNode, context: ScriptContext, method: HttpMethod): JsonNode? {
