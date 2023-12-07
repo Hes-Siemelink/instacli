@@ -19,7 +19,7 @@ class Script(val commands: List<Command>) {
 
         for (command in commands) {
             val handler = context.getCommandHandler(command.name)
-            val evaluatedData = eval(command.data, context)
+            val evaluatedData = eval(command.data.deepCopy(), context)
 
             output = runCommand(handler, evaluatedData, context) ?: output
         }

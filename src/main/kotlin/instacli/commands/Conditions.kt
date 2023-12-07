@@ -1,10 +1,7 @@
 package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.NullNode
-import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.ValueNode
+import com.fasterxml.jackson.databind.node.*
 import instacli.script.CommandFormatException
 import instacli.util.toDisplayString
 
@@ -61,6 +58,7 @@ class Empty(private val node: JsonNode) : Condition {
             is NullNode -> return true
             is ArrayNode -> return node.isEmpty()
             is ObjectNode -> return node.isEmpty()
+            is NumericNode -> return node.asInt() == 0
             is ValueNode -> return node.textValue() == null || node.textValue().isEmpty()
         }
         return node.isEmpty

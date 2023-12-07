@@ -31,6 +31,11 @@ class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
 class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
+
+            if (ifStatement !is ObjectNode) {
+                throw CommandFormatException("Unsupported data type for if statement: ${ifStatement.javaClass.simpleName}.")
+            }
+
             val then = evaluateCondition(ifStatement, context) ?: continue
             return runCommand(Do(), then, context)
         }
@@ -38,23 +43,14 @@ class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
     }
 }
 
-private fun evaluateCondition(data: JsonNode, context: ScriptContext): JsonNode? {
-    if (!data.has("then")) {
-        throw CommandFormatException("Command 'If' needs a 'then' parameter.")
-    }
+private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNode? {
+    val then = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
 
-    if (data is ObjectNode) {
-
-        val then = data.remove("then")!!
-        val condition = parseCondition(resolveVariables(data, context.variables))
-        return if (condition.isTrue()) {
-            then
-        } else {
-            null
-        }
-
+    val condition = parseCondition(resolveVariables(data, context.variables))
+    return if (condition.isTrue()) {
+        then
     } else {
-        throw CommandFormatException("Unsupported data type for if statement: ${data.javaClass.simpleName}.")
+        null
     }
 }
 

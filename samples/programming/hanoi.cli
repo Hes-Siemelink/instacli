@@ -1,0 +1,40 @@
+Input:
+  size:
+    description: Size of the tower
+    default: 3
+  from:
+    description: Tower to move from
+    default: A
+  to:
+    description: Tower to move to
+    default: B
+  helper:
+    description: Another tower
+    default: C
+
+---
+If:
+  empty: ${size}
+  then:
+    Exit: 0
+
+Add:
+  - ${size}
+  - -1
+As: one_smaller
+
+---
+Hanoi:
+  size: ${one_smaller}
+  from: ${from}
+  to: ${helper}
+  helper: ${to}
+
+Print: Move disc ${size} from ${from} to ${to}
+
+---
+Hanoi:
+  size: ${one_smaller}
+  from: ${helper}
+  to: ${to}
+  helper: ${from}
