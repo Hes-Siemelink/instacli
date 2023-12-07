@@ -131,7 +131,7 @@ class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver 
 
         var finished = false
         while (!finished) {
-            val result = runCommand(Do(), data.deepCopy(), context)
+            val result = runCommand(Do(), data.deepCopy(), context) ?: context.variables[OUTPUT_VARIABLE]
 
             if (until is ObjectNode) {
                 val conditions = resolveVariables(until.deepCopy(), context.variables)

@@ -1,6 +1,7 @@
-Test case: Add to empty output
+Test case: Add a single item
 
-Add to output: one item
+Add:
+  - one item
 
 Expected output: one item
 
@@ -8,15 +9,15 @@ Expected output: one item
 Test case: Add to list
 
 Add:
-  to:
-    - One
+  - - One
     - Two
-  item: Three
+  - Three
 
 Expected output:
   - One
   - Two
   - Three
+
 
 ---
 Test case: Add to list output
@@ -25,7 +26,9 @@ Output:
   - One
   - Two
 
-Add to output: Three
+Add:
+  - ${output}
+  - Three
 
 Expected output:
   - One
@@ -36,11 +39,9 @@ Expected output:
 Test case: Add to object
 
 Add:
-  to:
-    1: one
+  - 1: one
     2: dos
-  item:
-    2: two
+  - 2: two
     3: three
 
 Expected output:
@@ -49,15 +50,16 @@ Expected output:
   3: three
 
 ---
-Test case: Add to object output
+Test case: Add to output if it's an object
 
 Output:
   1: one
   2: dos
 
-Add to output:
-  2: two
-  3: three
+Add:
+  - ${output}
+  - 2: two
+    3: three
 
 Expected output:
   1: one
@@ -68,8 +70,8 @@ Expected output:
 Test case: Add to string
 
 Add:
-  to: one two
-  item: " three"
+  - one two
+  - " three"
 
 Expected output: one two three
 
@@ -78,7 +80,9 @@ Test case: Add to string output
 
 Output: one two
 
-Add to output: " three"
+Add:
+  - ${output}
+  - " three"
 
 Expected output: one two three
 
@@ -86,11 +90,9 @@ Expected output: one two three
 Test case: Merge two objects
 
 Add:
-  to:
-    label: first
+  - label: first
     header: accept
-  item:
-    label: second
+  - label: second
     content: body
 
 Expected output:
@@ -105,9 +107,10 @@ Output:
   label: first
   header: accept
 
-Add to output:
-  label: second
-  content: body
+Add:
+  - ${output}
+  - label: second
+    content: body
 
 Expected output:
   label: second
@@ -118,11 +121,9 @@ Expected output:
 Test case: Merge two lists
 
 Add:
-  to:
-    - 1
+  - - 1
     - 2
-  item:
-    - 3
+  - - 3
     - 4
 
 Expected output:
@@ -138,7 +139,8 @@ Output:
   - 1
   - 2
 
-Add to output:
+Add:
+  - ${output}
   - 3
   - 4
 
@@ -152,9 +154,8 @@ Expected output:
 Test case: Add numbers
 
 Add:
-  to: 0
-  item: 50
-As: offset
+  - 0
+  - 50
 
 Expected output: 50
 
@@ -163,8 +164,9 @@ Test case: Add numbers from output
 
 ${offset}: 0
 
-Output: ${offset}
-Add to output: 50
+Add:
+  - ${offset}
+  - 50
 As: offset
 
 Assert equals:
@@ -172,12 +174,12 @@ Assert equals:
   actual: ${offset}
 
 ---
-Test case: Add to variable
+Test case: Add to variables
 
 ${index}: 0
 ${offset}: 0
 
-Add to variable:
+Add to:
   ${index}: 1
   ${offset}: 50
 

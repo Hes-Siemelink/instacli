@@ -37,7 +37,6 @@ object CommandLibrary {
 
         // Data manipulation
         Add(),
-        AddToOutput(),
         AddToVariable(),
         Replace(),
         Size(),

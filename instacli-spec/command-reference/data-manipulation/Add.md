@@ -10,17 +10,29 @@
 
 ## Basic usage
 
+Add some numbers
+
+```yaml
+Code example: 1 + 1 = 2
+
+Add:
+  - 1
+  - 1
+
+Expected output: 2
+```
+
+## Add on objects
+
 Use **Add** to combine two things
 
 ```yaml
 Code example: Add a field
 
 Add:
-  to:
-    1: one
+  - 1: one
     2: two
-  item:
-    3: three
+  - 3: three
 
 Expected output:
   1: one
@@ -35,11 +47,13 @@ You can add an item to a list
 ```yaml
 Code example: Add an item to a list
 
+${list}:
+  - 1
+  - 2
+
 Add:
-  to:
-    - 1
-    - 2
-  item: 3
+  - ${list}
+  - 3
 
 Expected output:
   - 1
@@ -53,11 +67,9 @@ Or combine two lists.
 Code example: Append a list to another
 
 Add:
-  to:
-    - 1
+  - - 1
     - 2
-  item:
-    - 3
+  - - 3
     - 4
 
 Expected output:
@@ -75,8 +87,8 @@ You can also extend a text string.
 Code example: Append text
 
 Add:
-  to: Hello
-  item: " World"
+  - Hello
+  - " World"
 
 Expected output: Hello World
 ```

@@ -6,31 +6,35 @@ import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toArrayNode
 
-class Add : CommandHandler("Add"), ObjectHandler {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val item = getParameter(data, "item")
-        val target = getParameter(data, "to")
+class Add : CommandHandler("Add"), ArrayHandler {
 
-        return add(target, item)
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+        var total: JsonNode = data.first()
+        for (item in data.drop(1)) {
+            total = add(total, item)
+        }
+        return total
     }
 }
 
-class AddToOutput : CommandHandler("Add to output"), AnyHandler {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val output = context.variables[OUTPUT_VARIABLE] ?: return data
-
-        return add(output, data)
+private fun asArrayNode(node: JsonNode): ArrayNode {
+    return when (node) {
+        is ArrayNode -> node
+        else -> ArrayNode(JsonNodeFactory.instance).add(node)
     }
 }
 
-class AddToVariable : CommandHandler("Add to variable"), ObjectHandler {
+class AddToVariable : CommandHandler("Add to"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
             val match = VARIABLE_REGEX.matchEntire(key) ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
-            val variable = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
 
-            context.variables[varName] = add(variable, value)
+            var total: JsonNode = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
+            for (item in asArrayNode(value)) {
+                total = add(total, item)
+            }
+            context.variables[varName] = total
         }
         return null
     }

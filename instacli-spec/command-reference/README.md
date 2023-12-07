@@ -9,10 +9,10 @@
 * [PUT](http/PUT.md)
 * [PATCH](http/PATCH.md)
 * [DELETE](http/DELETE.md)
+
+### Manage endpoints
+
 * [Http endpoint](http/Http%20endpoint.md)
-
-### Manage connections
-
 * Connect to
 * Create account
 * Get account
@@ -65,8 +65,7 @@
 ### Data manipulation
 
 * [Add](data-manipulation/Add.md)
-* [Add to output](data-manipulation/Add%20to%20output.md)
-* [Add to variable](data-manipulation/Add%20to%20variable.md)
+* [Add to](data-manipulation/Add%20to%20variable.md)
 * [Replace](data-manipulation/Replace.md)
 * [Size](data-manipulation/Size.md)
 * [Sort](data-manipulation/Sort.md)

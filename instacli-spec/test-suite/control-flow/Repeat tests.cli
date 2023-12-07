@@ -12,7 +12,8 @@ Test case: Counting
 Output: 1
 
 Repeat:
-  Add to output: 1
+  Add to:
+    ${output}: 1
   until: 10
 
 ---

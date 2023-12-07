@@ -21,8 +21,9 @@ Code example: Count to five
 Output: 0
 
 Repeat:
-  Add to output: 1
-  Print: ${output}
+  Add to:
+    ${output}: 1
+
   until: 5
 ```
 
