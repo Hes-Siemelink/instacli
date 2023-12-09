@@ -55,7 +55,7 @@
 * [Repeat](control-flow/Repeat.md)
 * [If](control-flow/If.md)
 * [When](control-flow/When.md)
-* Eval
+* [Eval](control-flow/Eval.md)
 
 ### User interaction
 
