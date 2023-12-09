@@ -16,6 +16,7 @@
 
 * Parse command line properly
 * Kotlin native? => Use Pure Kotlin libraries
+    * Prompt with https://ajalt.github.io/clikt/
 * Go?
 
 # Instacli as glue

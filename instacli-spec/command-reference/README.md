@@ -40,12 +40,12 @@
 
 ### Testing
 
+* [Test case](testing/Test%20case.md)
 * [Assert that](testing/Assert%20that.md)
 * [Assert equals](testing/Assert%20equals.md)
 * [Code example](testing/Code%20example.md)
 * [Expected output](testing/Expected%20output.md)
 * [Stock answers](testing/Stock%20answers.md)
-* [Test case](testing/Test%20case.md)
 
 ### Control flow
 
@@ -72,7 +72,7 @@
 
 ### Util
 
-* Task
+* [Task](util/Task.md)
 * Print
 * Wait
 * Base64Encode
