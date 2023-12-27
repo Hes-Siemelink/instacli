@@ -21,7 +21,7 @@ Repeat:
   GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
   As: result
 
-  Add to variable:
+  Add to:
     ${albums}: ${result.items}
     ${offset}: 50
 
