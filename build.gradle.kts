@@ -39,35 +39,31 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
+testing {
+    suites {
+        val test by getting(JvmTestSuite::class) {
+            useJUnitJupiter()
+        }
 
-//
-// Integration tests
-//
+        register<JvmTestSuite>("integrationTest") {
+            dependencies {
+                implementation(project())
+            }
 
-sourceSets {
-    create("testIntegration") {
-        kotlin {
-            compileClasspath += main.get().output + configurations.testRuntimeClasspath
-            runtimeClasspath += output + compileClasspath
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
         }
     }
 }
 
-val testIntegration = task<Test>("testIntegration") {
-    description = "Runs the integration tests"
-    group = "verification"
-    testClassesDirs = sourceSets["testIntegration"].output.classesDirs
-    classpath = sourceSets["testIntegration"].runtimeClasspath
-    mustRunAfter(tasks["test"])
+tasks.named("check") {
+    dependsOn(testing.suites.named("integrationTest"))
 }
-
-tasks.getByName<Test>("testIntegration") {
-    useJUnitPlatform()
-}
-
 
 //
 // Executable jar file
