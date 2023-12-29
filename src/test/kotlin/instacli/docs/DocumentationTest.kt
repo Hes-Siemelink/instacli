@@ -10,7 +10,7 @@ import java.io.File
 class DocumentationTest {
 
     @TestFactory
-    fun `Test code examples`(): List<DynamicNode> {
+    fun `Code examples in documentation`(): List<DynamicNode> {
         return getCodeExamplesInAllFiles(File("instacli-spec/command-reference"))
     }
 

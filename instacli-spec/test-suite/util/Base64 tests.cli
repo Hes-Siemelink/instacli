@@ -1,11 +1,11 @@
-Test case: Base 64 encode
+Test case: Base64 encode
 
 Base64 encode: Hello world!
 
 Expected output: SGVsbG8gd29ybGQh
 
 ---
-Test case: Base 64 decode
+Test case: Base64 decode
 
 Base64 decode: SGVsbG8gd29ybGQh
 

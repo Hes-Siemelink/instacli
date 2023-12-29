@@ -73,10 +73,10 @@
 ### Util
 
 * [Task](util/Task.md)
-* Print
-* Wait
-* Base64Encode
-* Base64Decode
+* [Print](util/Print.md)
+* [Wait](util/Wait.md)
+* [Base64 encode](util/Base64 encode)
+* [Base64 decode](util/Base64 decode)
 
 ### Files
 
@@ -87,4 +87,3 @@
 * Instacli files as commands
 * Run script
 * Shell
-

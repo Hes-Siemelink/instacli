@@ -1,0 +1,21 @@
+# Command: Base64 decode
+
+Use `Base64 decode` to decode stuff. See [Base64 encode](Base64 encode).
+
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | no        |
+| Object       | no        |
+
+## Basic usage
+
+Use **Base64 decode** to decode a message
+
+```yaml
+Code example: Base 64 decode
+
+Base64 decode: SGVsbG8gd29ybGQh
+
+Expected output: Hello world!
+```
