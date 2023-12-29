@@ -80,7 +80,7 @@
 
 ### Files
 
-* ReadFile
+* [ReadFile](files/Read%20file.md)
 
 ### Call other scripts
 
