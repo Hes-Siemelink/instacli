@@ -1,9 +1,9 @@
-Script info: Select or configure the account to use
+Script info: Select the default connection
 
 Input:
   target:
     description: Target service
-    default: Digital.ai Platform
+    default: Digital.ai Release
 
 ---
 Get accounts: ${target}

@@ -6,8 +6,7 @@ As: endpoint
 If:
   empty: ${endpoint}
   then:
-    Print: Please configure a connection to Digital.ai Platform
-    Create account: true
+    Create Platform connection: true
     As: endpoint
 
 ---

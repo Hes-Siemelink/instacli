@@ -1,4 +1,6 @@
-Script info: Creates a new account
+Script info: Configures a new connection
+
+Print: Please configure a connection to Digital.ai Platform
 
 Input:
   url:

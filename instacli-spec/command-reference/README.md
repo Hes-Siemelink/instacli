@@ -13,7 +13,7 @@
 ### Manage connections
 
 * [Http endpoint](http/Http%20endpoint.md)
-* Connect to
+* [Connect to](connections/Connect%20to.md)
 * Create account
 * Get account
 * Get accounts
