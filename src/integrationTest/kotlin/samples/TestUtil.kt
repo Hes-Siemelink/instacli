@@ -1,4 +1,4 @@
-package instacli.samples
+package samples
 
 import java.io.File
 import java.io.FileNotFoundException

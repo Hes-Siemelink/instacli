@@ -11,11 +11,6 @@ import java.io.File
 
 class ReadFile : CommandHandler("Read file"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val dir = if (context is CliFileContext) {
-            context.scriptDir
-        } else {
-            context.cliFile.parentFile
-        }
-        return Yaml.readFile(File(dir, data.textValue()))
+        return Yaml.readFile(File(context.getScriptDir(), data.textValue()))
     }
 }

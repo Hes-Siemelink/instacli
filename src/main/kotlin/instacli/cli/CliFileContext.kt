@@ -30,8 +30,7 @@ class CliFileContext(
         parent.interactive
     )
 
-    val scriptDir: File
-        get() = if (cliFile.isDirectory) cliFile else cliFile.canonicalFile.parentFile
+    private val scriptDir: File = if (cliFile.isDirectory) cliFile else cliFile.canonicalFile.parentFile
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -67,6 +66,10 @@ class CliFileContext(
 
         // No handler found for command
         throw CliScriptException("Unknown command: $command")
+    }
+
+    override fun getScriptDir(): File {
+        return scriptDir
     }
 
     private fun findLocalFileCommands(): Map<String, CliFile> {

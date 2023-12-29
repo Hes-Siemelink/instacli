@@ -1,4 +1,4 @@
-package instacli.samples
+package samples
 
 import instacli.cli.InstacliInvocation
 import org.junit.jupiter.api.Test

@@ -84,6 +84,6 @@
 
 ### Call other scripts
 
-* Instacli files as commands
-* Run script
+* [Instacli files as commands](call-scripts/Instacli%20files%20as%20commands.md)
+* [Run script](call-scripts/Run%20script.md)
 * Shell

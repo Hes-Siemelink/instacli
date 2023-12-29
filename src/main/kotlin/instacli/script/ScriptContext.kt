@@ -12,6 +12,7 @@ interface ScriptContext {
     val cliFile: File
 
     fun getCommandHandler(command: String): CommandHandler
+    fun getScriptDir(): File = cliFile.parentFile
 }
 
 const val OUTPUT_VARIABLE = "output"
