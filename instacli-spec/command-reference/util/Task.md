@@ -15,7 +15,7 @@
 <!-- run before code example
 Stock answers:
   What is your name?: Alicia
-  What is your favorite ice cream flavor?: Strawberry
+  What is your favorite ice cream flavor?: strawberry
 -->
 
 ```yaml
@@ -33,5 +33,5 @@ As: favorite
 ---
 Task: Process results
 
-Print: Hello ${name}, you like ${favorite}?
+Print: Hello ${name}, you like ${favorite} ice cream.
 ```

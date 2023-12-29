@@ -46,7 +46,6 @@ class ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
 class TestCase : CommandHandler("Test case"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        println("Test case: ${data.asText()}")
         return null
     }
 }
