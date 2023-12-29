@@ -14,11 +14,11 @@
 
 * [Http endpoint](http/Http%20endpoint.md)
 * [Connect to](connections/Connect%20to.md)
-* Create account
-* Get account
-* Get accounts
-* Set default account
-* Delete account
+* [Create account](connections/Create%20account.md)
+* [Get account](connections/Get%20account.md)
+* [Get accounts](connections/Get%20accounts.md)
+* [Set default account](connections/Set%20default%20account.md)
+* [Delete account](connections/Delete%20account.md)
 
 ## Core instacli
 

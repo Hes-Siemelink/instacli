@@ -103,6 +103,9 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
 // Data model
 //
 
+
+const val CONNECTIONS_YAML = "connections.yaml"
+
 class Connections {
 
     @JsonAnySetter
@@ -122,7 +125,7 @@ class Connections {
             return Yaml.mapper.treeToValue(data, Connections::class.java)
         }
 
-        fun load(file: File = File(INSTACLI_HOME, "connections.yaml")): Connections {
+        fun load(file: File = File(INSTACLI_HOME, CONNECTIONS_YAML)): Connections {
             val node = Yaml.readFile(file) ?: throw IllegalArgumentException("Connections file not found : $file")
             val instance = from(node)
             instance.file = file

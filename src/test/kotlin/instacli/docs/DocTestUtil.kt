@@ -1,7 +1,9 @@
 package instacli.docs
 
 import instacli.cli.CliFileContext
+import instacli.commands.CONNECTIONS_YAML
 import instacli.commands.CodeExample
+import instacli.commands.Connections
 import instacli.commands.userPrompt
 import instacli.getTestName
 import instacli.script.Break
@@ -23,12 +25,17 @@ fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
     doc.helperFiles.forEach {
         File(testDir, it.key).writeText(it.value)
     }
+    val connections = if (doc.helperFiles.containsKey(CONNECTIONS_YAML)) {
+        Connections.load(File(testDir, CONNECTIONS_YAML))
+    } else {
+        Connections()
+    }
 
     // Generate tests
     return doc.codeExamples
         .map {
             val script = Script.from(it)
-            val testContext = CliFileContext(testDir)
+            val testContext = CliFileContext(testDir, connections = connections)
             userPrompt = MockUser()
             DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toURI()) {
                 try {
