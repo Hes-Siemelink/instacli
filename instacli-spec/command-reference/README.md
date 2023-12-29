@@ -10,7 +10,7 @@
 * [PATCH](http/PATCH.md)
 * [DELETE](http/DELETE.md)
 
-### Manage endpoints
+### Manage connections
 
 * [Http endpoint](http/Http%20endpoint.md)
 * Connect to

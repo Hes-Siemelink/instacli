@@ -10,51 +10,25 @@ import instacli.util.MockUser
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicTest
 import java.io.File
-
-const val START_RUN_BEFORE_CODE_EXAMPLE = "<!-- run before code example"
-const val END_RUN_BEFORE_CODE_EXAMPLE = "-->"
-const val START_CODE_EXAMPLE = "```yaml"
-const val END_CODE_EXAMPLE = "```"
-
-fun readCodeBlocks(file: File): List<String> {
-
-    val blocks = mutableListOf<String>()
-    val currentBlock = mutableListOf<String>()
-
-    var recording = false
-    for (line in file.readLines()) {
-        if (recording) {
-            when (line) {
-                END_RUN_BEFORE_CODE_EXAMPLE -> {
-                    recording = false
-                }
-
-                END_CODE_EXAMPLE -> {
-                    blocks.add(currentBlock.joinToString("\n"))
-                    currentBlock.clear()
-                    recording = false
-                }
-
-                else -> {
-                    currentBlock.add(line)
-                }
-            }
-        } else {
-            if (line == START_CODE_EXAMPLE || line == START_RUN_BEFORE_CODE_EXAMPLE) {
-                recording = true
-            }
-        }
-    }
-
-    return blocks
-}
+import java.nio.file.Files
 
 fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
 
-    return readCodeBlocks(file)
+    // Scan document for code examples
+    val doc = InstacliDoc(file)
+    doc.scan()
+
+    // Set up test dir with helper files from document
+    val testDir = Files.createTempDirectory("instacli-").toFile()
+    doc.helperFiles.forEach {
+        File(testDir, it.key).writeText(it.value)
+    }
+
+    // Generate tests
+    return doc.codeExamples
         .map {
             val script = Script.from(it)
-            val testContext = CliFileContext(file)
+            val testContext = CliFileContext(testDir)
             userPrompt = MockUser()
             DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toURI()) {
                 try {
