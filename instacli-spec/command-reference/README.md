@@ -75,8 +75,8 @@
 * [Task](util/Task.md)
 * [Print](util/Print.md)
 * [Wait](util/Wait.md)
-* [Base64 encode](util/Base64 encode)
-* [Base64 decode](util/Base64 decode)
+* [Base64 encode](util/Base64%20encode.md)
+* [Base64 decode](util/Base64%20decode.md)
 
 ### Files
 
