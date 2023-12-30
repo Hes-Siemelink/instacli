@@ -40,7 +40,7 @@ cd samples
 cli hello
 ```
 
-## Interactive example
+## Examples
 
 There are several examples in the [samples](samples) directory - check it out!
 
@@ -55,6 +55,45 @@ When connecting to Spotify for the first time, the script will ask you for your 
 those). These will be stored
 in `~/.instacli/connections.yaml` and will be used for subsequent invocations.
 
-## Instacli Script Documentation
+## Documentation
 
+* See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
 * The [Command reference](instacli-spec/command-reference/README.md) has a list of all the available commands with explanation and code examples.
+
+<!--
+# Highlight Reel
+
+Main ideas:
+* Everything is Yaml
+* Code should be easy to read
+
+## Http requests as code
+
+## Invoke as a cli
+
+## Define input 
+
+## Define output
+
+## User interaction
+
+## Variables
+
+## Data manipulation: For each
+
+## Data manipulation: Add and Sort
+
+## Programming logic: If
+
+## Call another cli script
+
+## Call a shell script
+
+## Manage your Http connection info
+
+## Read a file
+
+## Testing in Instacli
+
+## Documenting Instacli
+-->
