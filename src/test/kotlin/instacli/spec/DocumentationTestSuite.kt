@@ -1,6 +1,5 @@
-package instacli.docs
+package instacli.spec
 
-import instacli.TestServer
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DocumentationTest {
+class DocumentationTestSuite {
 
     @TestFactory
     fun `Code examples in command-reference`(): List<DynamicNode> {

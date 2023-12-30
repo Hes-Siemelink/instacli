@@ -1,4 +1,4 @@
-package instacli.docs
+package instacli.spec
 
 import java.io.File
 

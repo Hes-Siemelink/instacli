@@ -1,5 +1,3 @@
-package instacli.spec
-
 fun hanoi(n: Int, from_rod: String, to_rod: String, aux_rod: String) {
     if (n == 0) {
         return
