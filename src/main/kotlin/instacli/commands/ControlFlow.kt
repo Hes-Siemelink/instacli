@@ -9,7 +9,7 @@ import instacli.script.*
 
 class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return Script.from(data).runScript(context)
+        return data.runScript(context)
     }
 }
 
@@ -24,7 +24,7 @@ class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
 
         val then = evaluateCondition(data, context) ?: return null
 
-        return runCommand(Do(), then, context)
+        return then.runScript(context)
     }
 }
 
@@ -37,7 +37,7 @@ class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
             }
 
             val then = evaluateCondition(ifStatement, context) ?: continue
-            return runCommand(Do(), then, context)
+            return then.runScript(context)
         }
         return null
     }
@@ -77,7 +77,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
             val copy = data.deepCopy()
 
             // Execute
-            val result = Do().execute(copy, context)
+            val result = copy.runScript(context)
 
             if (result != null) {
                 if (output is ArrayNode) {
@@ -127,7 +127,7 @@ class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver 
 
         var finished = false
         while (!finished) {
-            val result = runCommand(Do(), data.deepCopy(), context) ?: context.variables[OUTPUT_VARIABLE]
+            val result = data.deepCopy().runScript(context) ?: context.variables[OUTPUT_VARIABLE]
 
             if (until is ObjectNode) {
                 val conditions = resolveVariables(until.deepCopy(), context.variables)

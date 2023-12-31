@@ -1,7 +1,6 @@
 package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.commands.ScriptInfo
 import instacli.util.Yaml
 
@@ -44,8 +43,8 @@ class Script(val commands: List<Command>) {
             return Script(toCommandList(script))
         }
 
-        fun from(data: ObjectNode): Script {
-            return from(listOf(data))
+        fun from(data: JsonNode): Script {
+            return Script(toCommandList(data))
         }
 
         fun from(source: String): Script {
@@ -60,6 +59,10 @@ private fun toCommandList(script: List<JsonNode>): List<Command> {
 
 private fun toCommandList(scriptNode: JsonNode): List<Command> {
     return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
+}
+
+fun JsonNode.runScript(context: ScriptContext): JsonNode? {
+    return Script.from(this).runScript(context)
 }
 
 class Break(val output: JsonNode) : Exception()

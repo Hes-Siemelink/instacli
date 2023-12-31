@@ -101,7 +101,7 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
             }
 
             else -> {
-                return runCommand(Do(), connectScript, context)
+                return connectScript.runScript(context)
             }
         }
     }
