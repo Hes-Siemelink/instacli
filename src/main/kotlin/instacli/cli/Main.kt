@@ -3,10 +3,13 @@ package instacli.cli
 import instacli.commands.Connections
 import instacli.script.InstacliException
 import instacli.util.Yaml
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.exists
+import kotlin.io.path.isDirectory
+import kotlin.io.path.name
 import kotlin.system.exitProcess
 
-val INSTACLI_HOME = File(System.getProperty("user.home"), ".instacli")
+val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
 
 class InvocationException(message: String) : Exception(message)
 
@@ -29,14 +32,14 @@ fun main(args: Array<String>) {
 
 class InstacliInvocation(
     private val options: CliCommandLineOptions,
-    private val workingDir: File = File("."),
+    private val workingDir: Path = Path.of("."),
     private val input: UserInput = ConsoleInput,
     private val output: UserOutput = ConsoleOutput
 ) {
 
     constructor(
         args: Array<String>,
-        workingDir: File = File("."),
+        workingDir: Path = Path.of("."),
         input: UserInput = ConsoleInput,
         output: UserOutput = ConsoleOutput
     ) : this(CliCommandLineOptions(args), workingDir, input, output)
@@ -49,14 +52,14 @@ class InstacliInvocation(
         }
 
         // First argument should be a valid file
-        val file = File(workingDir, options.commands[0])
+        val file = workingDir.resolve(options.commands[0])
         if (!file.exists()) {
-            throw InvocationException("Could not find file: ${file.absolutePath}")
+            throw InvocationException("Could not find file: ${file.toAbsolutePath()}")
         }
 
         // Run script directly or a command from a directory
         val context = CliFileContext(file, interactive = options.interactive, connections = Connections.load())
-        if (file.isDirectory) {
+        if (file.isDirectory()) {
             invokeDirectory(file, options.commands.drop(1), context, options)
         } else {
             invokeFile(CliFile(file), context, options)
@@ -79,11 +82,16 @@ class InstacliInvocation(
         }
     }
 
-    private fun invokeDirectory(cliDir: File, args: List<String>, context: CliFileContext, options: CliCommandLineOptions) {
+    private fun invokeDirectory(
+        cliDir: Path,
+        args: List<String>,
+        context: CliFileContext,
+        options: CliCommandLineOptions
+    ) {
 
         // No Instacli scripts in directory
         if (context.getAllCommands().isEmpty()) {
-            throw InvocationException("No Instacli commands in ${cliDir.absolutePath}")
+            throw InvocationException("No Instacli commands in ${cliDir.toAbsolutePath()}")
         }
 
         // Parse command

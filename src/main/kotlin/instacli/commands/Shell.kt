@@ -17,14 +17,14 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
         val arguments = tokenizeCommandLine(data.textValue())
 
-        val output = shellRun(arguments[0], arguments.drop(1), workingDirectory = context.getScriptDir())
+        val output = shellRun(arguments[0], arguments.drop(1), workingDirectory = context.getScriptDir().toFile())
 
         return TextNode(output)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val script = getTextParameter(data, "script")
-        val output = shellRun("sh", listOf(script), workingDirectory = context.getScriptDir())
+        val output = shellRun("sh", listOf(script), workingDirectory = context.getScriptDir().toFile())
 
         return TextNode(output)
     }

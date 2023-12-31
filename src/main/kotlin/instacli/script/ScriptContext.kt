@@ -2,17 +2,17 @@ package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.Connections
-import java.io.File
+import java.nio.file.Path
 
 interface ScriptContext {
     val interactive: Boolean
     val variables: MutableMap<String, JsonNode>
     val session: MutableMap<String, JsonNode>
     val connections: Connections
-    val cliFile: File
+    val cliFile: Path
 
     fun getCommandHandler(command: String): CommandHandler
-    fun getScriptDir(): File = cliFile.parentFile
+    fun getScriptDir(): Path = cliFile.parent
 }
 
 const val OUTPUT_VARIABLE = "output"

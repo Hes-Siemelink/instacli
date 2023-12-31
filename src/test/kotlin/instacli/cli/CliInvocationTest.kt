@@ -5,9 +5,9 @@ import instacli.script.Script
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.io.File
+import java.nio.file.Path
 
-val testDir: File = File("src/test/resources")
+val testDir: Path = Path.of("src/test/resources")
 
 class CliInvocationTest {
 
@@ -67,7 +67,8 @@ class CliInvocationTest {
     fun `Print script info`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "--help", "sample", "simple", "echo"), workingDir = testDir, output = out)
+        val session =
+            InstacliInvocation(arrayOf("-q", "--help", "sample", "simple", "echo"), workingDir = testDir, output = out)
 
         // When
         session.invoke()
@@ -81,7 +82,11 @@ class CliInvocationTest {
     fun `Print output - yes`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "-o", "sample", "simple", "echo", "--input", "Script output"), workingDir = testDir, output = out)
+        val session = InstacliInvocation(
+            arrayOf("-q", "-o", "sample", "simple", "echo", "--input", "Script output"),
+            workingDir = testDir,
+            output = out
+        )
 
         // When
         session.invoke()
@@ -94,7 +99,11 @@ class CliInvocationTest {
     fun `Print output - no`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "sample", "simple", "echo", "--input", "Script output"), workingDir = testDir, output = out)
+        val session = InstacliInvocation(
+            arrayOf("-q", "sample", "simple", "echo", "--input", "Script output"),
+            workingDir = testDir,
+            output = out
+        )
 
         // When
         session.invoke()

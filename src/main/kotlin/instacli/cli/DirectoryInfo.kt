@@ -5,11 +5,13 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import instacli.script.CommandInfo
 import instacli.util.Yaml.mapper
 import instacli.util.objectNode
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.exists
+import kotlin.io.path.name
 
 class DirectoryInfo : CommandInfo {
 
-    var dir: File = File(".")
+    var dir: Path = Path.of(".")
 
     override var name: String = ""
 
@@ -20,10 +22,10 @@ class DirectoryInfo : CommandInfo {
     val connections = objectNode()
 
     companion object {
-        fun load(dir: File): DirectoryInfo {
-            val infoFile = File(dir, ".instacli.yaml")
+        fun load(dir: Path): DirectoryInfo {
+            val infoFile = dir.resolve(".instacli.yaml")
             val info = if (infoFile.exists()) {
-                mapper.readValue(infoFile)
+                mapper.readValue(infoFile.toFile())
             } else {
                 DirectoryInfo()
             }

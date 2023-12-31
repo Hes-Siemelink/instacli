@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
-import java.io.File
 import java.io.InputStream
 import java.net.URI
+import java.nio.file.Path
 
 object Yaml {
 
@@ -25,8 +25,8 @@ object Yaml {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
     }
 
-    fun readFile(source: File): JsonNode? {
-        return mapper.readValue(source, JsonNode::class.java)
+    fun readFile(source: Path): JsonNode? {
+        return mapper.readValue(source.toFile(), JsonNode::class.java)
     }
 
     fun readResource(classpathResource: String): JsonNode {
@@ -35,8 +35,8 @@ object Yaml {
         return mapper.readTree(stream)
     }
 
-    fun parse(source: File): List<JsonNode> {
-        val yamlParser = factory.createParser(source)
+    fun parse(source: Path): List<JsonNode> {
+        val yamlParser = factory.createParser(source.toFile())
         return mapper
             .readValues(yamlParser, JsonNode::class.java)
             .readAll()

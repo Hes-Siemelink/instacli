@@ -10,7 +10,8 @@ import instacli.cli.INSTACLI_HOME
 import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.objectNode
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.name
 
 class GetAccount : CommandHandler("Get account"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -92,11 +93,11 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
 
         val targetName = data.textValue()
         val connectScript = context.info.connections[targetName]
-            ?: throw CliScriptException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
+            ?: throw CliScriptException("No connection script configured for $targetName in ${context.cliFile.parent.toRealPath().name}")
 
         when (connectScript) {
             is ValueNode -> {
-                val cliFile = File(context.getScriptDir(), connectScript.textValue())
+                val cliFile = context.getScriptDir().resolve(connectScript.textValue())
                 return CliFile(cliFile).runFile(CliFileContext(cliFile, context))
             }
 
@@ -120,12 +121,12 @@ class Connections {
     var targets: MutableMap<String, ConnectionTarget> = mutableMapOf()
 
     @JsonIgnore
-    var file: File? = null
+    var file: Path? = null
 
     fun save() {
         checkNotNull(file) { "Can't save Connections object because there is no file associated with it." }
 
-        Yaml.mapper.writeValue(file, this.targets)
+        Yaml.mapper.writeValue(file?.toFile(), this.targets)
     }
 
     companion object {
@@ -133,7 +134,7 @@ class Connections {
             return Yaml.mapper.treeToValue(data, Connections::class.java)
         }
 
-        fun load(file: File = File(INSTACLI_HOME, CONNECTIONS_YAML)): Connections {
+        fun load(file: Path = INSTACLI_HOME.resolve(CONNECTIONS_YAML)): Connections {
             val node = Yaml.readFile(file) ?: throw IllegalArgumentException("Connections file not found : $file")
             val instance = from(node)
             instance.file = file

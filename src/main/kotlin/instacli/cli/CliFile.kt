@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.*
 import instacli.util.Yaml
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.name
 
-class CliFile(val cliFile: File) : CommandInfo, CommandHandler(asScriptCommand(cliFile.name)), AnyHandler {
+class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(cliFile.name)), AnyHandler {
 
     override val name: String = asCliCommand(cliFile.name)
     override val description: String by lazy { script.description ?: asScriptCommand(name) }
@@ -35,7 +36,7 @@ class RunScript : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.")
-        val cliFile = File(context.getScriptDir(), fileName.asText())
+        val cliFile = context.getScriptDir().resolve(fileName.asText())
 
         return handleCommand(CliFile(cliFile), data, context)
     }

@@ -6,7 +6,10 @@ import instacli.commands.AssignVariable
 import instacli.commands.Connections
 import instacli.script.*
 import java.io.File
+import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.isDirectory
+import kotlin.io.path.name
 
 const val CLI_FILE_EXTENSION = ".cli"
 
@@ -15,14 +18,14 @@ const val CLI_FILE_EXTENSION = ".cli"
  * It will scan the directory for other scripts and expose them as commands.
  */
 class CliFileContext(
-    override val cliFile: File,
+    override val cliFile: Path,
     override val variables: MutableMap<String, JsonNode> = mutableMapOf(),
     override val session: MutableMap<String, JsonNode> = mutableMapOf(),
     override val connections: Connections = Connections(),
     override val interactive: Boolean = false
 ) : ScriptContext {
 
-    constructor(cliFile: File, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
+    constructor(cliFile: Path, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
         cliFile,
         variables,
         parent.session,
@@ -30,7 +33,7 @@ class CliFileContext(
         parent.interactive
     )
 
-    private val scriptDir: File = if (cliFile.isDirectory) cliFile else cliFile.canonicalFile.parentFile
+    private val scriptDir: Path = if (cliFile.isDirectory()) cliFile else cliFile.toRealPath().parent
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -68,7 +71,7 @@ class CliFileContext(
         throw CliScriptException("Unknown command: $command")
     }
 
-    override fun getScriptDir(): File {
+    override fun getScriptDir(): Path {
         return scriptDir
     }
 
@@ -76,8 +79,8 @@ class CliFileContext(
 
         val commands = mutableMapOf<String, CliFile>()
 
-        for (file in scriptDir.listFiles()!!) {
-            addCommand(commands, file)
+        for (file in scriptDir.toFile().listFiles()!!) {
+            addCommand(commands, file.toPath())
         }
 
         return commands
@@ -88,14 +91,14 @@ class CliFileContext(
         val commands = mutableMapOf<String, CliFile>()
 
         for (cliFile in info.imports) {
-            addCommand(commands, File(scriptDir, cliFile))
+            addCommand(commands, scriptDir.resolve(cliFile))
         }
 
         return commands
     }
 
-    private fun addCommand(commands: MutableMap<String, CliFile>, file: File) {
-        if (file.isDirectory) return
+    private fun addCommand(commands: MutableMap<String, CliFile>, file: Path) {
+        if (file.isDirectory()) return
         if (!file.name.endsWith(CLI_FILE_EXTENSION)) return
 
         val name = asScriptCommand(file.name)
@@ -111,9 +114,9 @@ class CliFileContext(
     private fun findSubcommands(): Map<String, DirectoryInfo> {
         val subcommands = mutableMapOf<String, DirectoryInfo>()
 
-        for (file in scriptDir.listFiles()!!) {
+        for (file in scriptDir.toFile().listFiles()!!) {
             if (file.isDirectory && hasCliCommands(file)) {
-                subcommands[asCliCommand(file.name)] = DirectoryInfo.load(file)
+                subcommands[asCliCommand(file.name)] = DirectoryInfo.load(file.toPath())
             }
         }
 

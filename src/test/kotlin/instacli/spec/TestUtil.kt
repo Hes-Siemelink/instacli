@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.io.File
 import java.nio.file.Files
+import kotlin.io.path.writeText
 
 //
 // Instacli tests in Instacli
@@ -21,7 +22,7 @@ import java.nio.file.Files
 fun getAllInstacliTests(directory: File): List<DynamicContainer> {
     val pages = directory.walkTopDown().filter { it.name.endsWith(".cli") }
     return pages.mapNotNull { file ->
-        dynamicContainer(file.name, CliFile(file).getTestCases())
+        dynamicContainer(file.name, CliFile(file.toPath()).getTestCases())
     }.toList()
 }
 
@@ -34,12 +35,12 @@ private const val TEST_CONNECTIONS = "instacli-home/connections.yaml"
 fun CliFile.getTestCases(): List<DynamicTest> {
     val context = CliFileContext(cliFile, connections = Connections.load(TEST_CONNECTIONS))
 
-    val tempFile = File.createTempFile("instacli-connections-", ".yaml")
-    tempFile.deleteOnExit()
+    val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
+    tempFile.toFile().deleteOnExit()
     context.connections.file = tempFile
 
     return script.getTestCases().map {
-        dynamicTest(it.getTestName(), cliFile.toURI()) {
+        dynamicTest(it.getTestName(), cliFile.toUri()) {
             try {
                 it.runScript(context)
             } catch (a: Break) {
@@ -95,12 +96,12 @@ fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
     doc.scan()
 
     // Set up test dir with helper files from document
-    val testDir = Files.createTempDirectory("instacli-").toFile()
+    val testDir = Files.createTempDirectory("instacli-")
     doc.helperFiles.forEach {
-        File(testDir, it.key).writeText(it.value)
+        testDir.resolve(it.key).writeText(it.value)
     }
     val connections = if (doc.helperFiles.containsKey(CONNECTIONS_YAML)) {
-        Connections.load(File(testDir, CONNECTIONS_YAML))
+        Connections.load(testDir.resolve(CONNECTIONS_YAML))
     } else {
         Connections()
     }
