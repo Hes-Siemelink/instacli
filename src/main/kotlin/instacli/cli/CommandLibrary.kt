@@ -51,6 +51,7 @@ object CommandLibrary {
 
         // Files
         ReadFile(),
+        SaveAs(),
 
         // Call other scripts
         RunScript(),

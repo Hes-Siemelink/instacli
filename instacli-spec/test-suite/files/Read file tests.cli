@@ -1,6 +1,6 @@
 Test case: Read file from disk
 
-Read file: content/plain.yaml
+Read file: instacli-spec/test-suite/files/content/plain.yaml
 
 Expected output:
   test: true
@@ -9,7 +9,7 @@ Expected output:
 ---
 Test case: Read file with variable syntax
 
-Read file: content/with variables.yaml
+Read file: instacli-spec/test-suite/files/content/with variables.yaml
 ${raw}: ${output}  # triggers variable substitution
 
 Assert that:
@@ -22,7 +22,7 @@ Assert that:
 ---
 Test case: Fill variables in file
 
-Read file: content/with variables.yaml
+Read file: instacli-spec/test-suite/files/content/with variables.yaml
 As: raw
 
 ${unknown}: known
@@ -40,7 +40,7 @@ Expected output:
 ---
 Test case: Read file with variable syntax and multiple documents
 
-Read file: content/multiple documents.yaml
+Read file: instacli-spec/test-suite/files/content/multiple documents.yaml
 ${raw}: ${output}
 
 Assert that:
