@@ -18,7 +18,7 @@ class InstacliTestSuite {
     }
 
     companion object {
-        private val server = TestServer.create()
+        private val server = InstacliSampleServer.create()
 
         @BeforeAll
         @JvmStatic

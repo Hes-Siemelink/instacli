@@ -43,8 +43,6 @@ connection logic.
 Here's an example connection script:
 
 ```yaml file:connect.cli
-Code example: Set up Http endpoint for Instacli Samples
-
 # Set up endpoint for subsequent HTTP calls
 Http endpoint:
   url: http://localhost:25125

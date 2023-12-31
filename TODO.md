@@ -1,8 +1,7 @@
 # On my mind
 
-* Document all commands
 * Save as
-* Document how to pass input parameters from the command line with `--parameter value` syntax
+* connections in `instacli.yaml` takes code, not only files
 * Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 
 # Where to take it
@@ -16,7 +15,8 @@
 
 * Parse command line properly
 * Kotlin native? => Use Pure Kotlin libraries
-    * Prompt with https://ajalt.github.io/clikt/
+  * JSON nodes with Kotlin Serialization 
+  * Prompt with https://ajalt.github.io/clikt/
 * Go?
 
 # Instacli as glue
@@ -28,5 +28,6 @@
 
 # Instacli language
 
+* Error handling
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables

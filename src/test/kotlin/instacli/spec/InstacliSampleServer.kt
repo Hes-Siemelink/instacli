@@ -3,14 +3,26 @@ package instacli.spec
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
+import com.fasterxml.jackson.databind.node.TextNode
 import instacli.util.Yaml
 import io.javalin.Javalin
 
-object TestServer {
+val greetings  = mapOf(
+    "English" to "Hi",
+    "Spanish" to "¡Hola",
+    "Dutch" to "Hoi")
+
+object InstacliSampleServer {
 
     fun create(): Javalin {
         val server = Javalin.create()
 
+        server.post("/greeting") { ctx ->
+            val body = Yaml.parse(ctx.body())
+            val name = body["name"].textValue()
+            val greeting = greetings[body["language"].textValue()]
+            ctx.json(TextNode("$greeting $name!"))
+        }
         server.get("/items") { ctx ->
             ctx.json(toJson(listOf("1", "2", "3")))
         }
@@ -47,4 +59,9 @@ fun toJson(items: List<String>): JsonNode {
     val node = ArrayNode(JsonNodeFactory.instance)
     items.forEach { node.add(it) }
     return node
+}
+
+fun main() {
+    println("Starting Instacli Sample Server")
+    InstacliSampleServer.create().start(25125)
 }

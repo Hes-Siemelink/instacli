@@ -2,25 +2,63 @@
 
 Instantly create CLI applications with light scripting in Yaml!
 
-## Example script
+## Quick Example
 
-Get a flavor of instacli with this example that does a small interaction between user and server.
+Get a flavor of instacli with this example file `greeting.cli`:
 
+<!-- run before example
+${name}: Hes
+${language}: English
+-->
 ```yaml
-GET: /flavor/options
-As: flavors
+Script info: Multi-language greeting
 
-Prompt:
-  description: Select your favorite flavor
-  choices: ${flavors}
-  type: select one
-As: favorite
+Input:
+  name: Enter your name
+  language:
+    description: Select a language
+    type: select one
+    choices:
+    - English
+    - Spanish
+    - Dutch
 
 POST:
-  path: /flavor/favorite
+  url: http://localhost:25125/greeting
   body:
-    flavor: ${favorite}
+    name: ${name}
+    language: ${language}
+    
+Print: ${output}
 ```
+
+When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is printed.
+
+```commandline
+$ cli greeting.cli 
+? Enter your name Hes
+? Select a language English
+Hi Hes!
+```
+
+You can specify the parameters as arguments. First let's query for them with the `--help` option:
+
+```commandline
+ $ cli --help greeting.cli 
+Multi-language greeting
+
+Input parameters:
+  --name       Enter your name
+  --language   Select a language
+```
+
+Now we can call the example again with the parameters filled in:
+
+```commandline
+$ cli greeting.cli --name Hes --language Spanish
+¡Hola Hes!
+```
+
 
 ## Build it
 
@@ -33,22 +71,23 @@ alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 
 ## Run it
 
-Hello world example:
+Run the "Hello world" example:
 
 ```commandline
-cd samples
-cli hello
+cli samples/hello.cli
 ```
-
-## Examples
-
 There are several examples in the [samples](samples) directory - check it out!
+
+Explore them all with the following command:
+
+```commandline
+cli samples
+```
 
 The following example will provide an interactive experience and connect to the Spotify API:
 
 ```commandline
-cd samples
-cli spotify
+cli samples/spotify
 ```
 
 When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and Client secret -- you should already have
@@ -97,3 +136,4 @@ Main ideas:
 
 ## Documenting Instacli
 -->
+
