@@ -1,6 +1,5 @@
 # On my mind
 
-* Save as
 * connections in `instacli.yaml` takes code, not only files
 * Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 

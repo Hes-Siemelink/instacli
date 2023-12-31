@@ -1,0 +1,5 @@
+connections:
+  Instacli Sample Server:
+    Http endpoint:
+      url: http://localhost:25125
+  Instacli Sample Server with script: connect.cli

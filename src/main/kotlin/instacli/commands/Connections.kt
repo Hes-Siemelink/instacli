@@ -86,19 +86,27 @@ class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
 
 class ConnectTo : CommandHandler("Connect to"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val targetName = data.textValue()
-        if (context is CliFileContext) {
-            val connectScript = context.info.connections[targetName]
-                ?: throw IllegalArgumentException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
-
-            val cliFile = File(context.getScriptDir(), connectScript)
-            return CliFile(cliFile).runFile(CliFileContext(cliFile, context))
-        } else {
+        if (context !is CliFileContext) {
             error("'Connect to' is only supported when running files.")
         }
-    }
 
+        val targetName = data.textValue()
+        val connectScript = context.info.connections[targetName]
+            ?: throw CliScriptException("No connection script configured for $targetName in ${context.cliFile.parentFile.canonicalFile.name}")
+
+        when (connectScript) {
+            is ValueNode -> {
+                val cliFile = File(context.getScriptDir(), connectScript.textValue())
+                return CliFile(cliFile).runFile(CliFileContext(cliFile, context))
+            }
+
+            else -> {
+                return runCommand(Do(), connectScript, context)
+            }
+        }
+    }
 }
+
 //
 // Data model
 //

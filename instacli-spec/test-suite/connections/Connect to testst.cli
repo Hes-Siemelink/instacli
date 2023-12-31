@@ -1,0 +1,16 @@
+Test case: Use a connection with instacli code
+
+Connect to: Instacli Sample Server
+
+GET: /items
+
+Expected output: [ '1', '2', '3' ]
+
+---
+Test case: Use a connection script
+
+Connect to: Instacli Sample Server with script
+
+GET: /items
+
+Expected output: [ '1', '2', '3' ]
