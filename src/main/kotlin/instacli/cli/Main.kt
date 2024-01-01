@@ -15,7 +15,7 @@ class InvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
 
-    val options = CliCommandLineOptions(args)
+    val options = CliCommandLineOptions(args.toList())
 
     try {
         InstacliInvocation(options).invoke()
@@ -38,11 +38,11 @@ class InstacliInvocation(
 ) {
 
     constructor(
-        args: Array<String>,
+        vararg args: String,
         workingDir: Path = Path.of("."),
         input: UserInput = ConsoleInput,
         output: UserOutput = ConsoleOutput
-    ) : this(CliCommandLineOptions(args), workingDir, input, output)
+    ) : this(CliCommandLineOptions(args.toList()), workingDir, input, output)
 
     fun invoke() {
 

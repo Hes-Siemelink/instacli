@@ -14,7 +14,7 @@ class CliCommandLineOptions private constructor(
     val commandParameters by lazy { toParameterMap(commandArgs) }
 
     companion object {
-        operator fun invoke(args: Array<String> = arrayOf()): CliCommandLineOptions {
+        operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
             val interactive = !globalArgs.contains("-q")
             val printOutput = globalArgs.contains("-o")
@@ -41,7 +41,7 @@ class CliCommandLineOptions private constructor(
 
 private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
 
-private fun splitArguments(args: Array<String>): Triple<List<String>, List<String>, List<String>> {
+private fun splitArguments(args: List<String>): Triple<List<String>, List<String>, List<String>> {
     val globalArgs = mutableListOf<String>()
     val commands = mutableListOf<String>()
     val commandArgs = mutableListOf<String>()

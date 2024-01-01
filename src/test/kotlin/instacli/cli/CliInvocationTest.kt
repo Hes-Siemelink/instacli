@@ -21,7 +21,7 @@ class CliInvocationTest {
     fun `Print usage`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q"), workingDir = TestPaths.resources, output = out)
+        val session = InstacliInvocation("-q", workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -34,7 +34,7 @@ class CliInvocationTest {
     fun `Print directory info and commands`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "sample"), workingDir = TestPaths.resources, output = out)
+        val session = InstacliInvocation("-q", "sample", workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -52,7 +52,7 @@ class CliInvocationTest {
 
         // Given
         val session =
-            InstacliInvocation(arrayOf("-q", "sample", "simple"), workingDir = TestPaths.resources, output = out)
+            InstacliInvocation("-q", "sample", "simple", workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -69,7 +69,7 @@ class CliInvocationTest {
         // Given
         val session =
             InstacliInvocation(
-                arrayOf("-q", "--help", "sample", "simple", "echo"),
+                "-q", "--help", "sample", "simple", "echo",
                 workingDir = TestPaths.resources,
                 output = out
             )
@@ -87,7 +87,7 @@ class CliInvocationTest {
 
         // Given
         val session = InstacliInvocation(
-            arrayOf("-q", "-o", "sample", "simple", "echo", "--input", "Script output"),
+            "-q", "-o", "sample", "simple", "echo", "--input", "Script output",
             workingDir = TestPaths.resources,
             output = out
         )
@@ -104,7 +104,7 @@ class CliInvocationTest {
 
         // Given
         val session = InstacliInvocation(
-            arrayOf("-q", "sample", "simple", "echo", "--input", "Script output"),
+            "-q", "sample", "simple", "echo", "--input", "Script output",
             workingDir = TestPaths.resources,
             output = out
         )
