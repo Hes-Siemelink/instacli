@@ -3,7 +3,7 @@ package instacli.spec
 import instacli.commands.userPrompt
 import instacli.util.MockUser
 import org.junit.jupiter.api.*
-import java.io.File
+import java.nio.file.Path
 
 class InstacliTestSuite {
 
@@ -14,7 +14,7 @@ class InstacliTestSuite {
 
     @TestFactory
     fun `Instacli tests in test-suite`(): List<DynamicNode> {
-        return getAllInstacliTests(File("instacli-spec/test-suite"))
+        return getAllInstacliTests(Path.of("instacli-spec/test-suite"))
     }
 
     companion object {

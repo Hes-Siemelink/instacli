@@ -19,8 +19,8 @@ import io.ktor.http.*
 import io.ktor.util.cio.*
 import io.ktor.utils.io.*
 import kotlinx.coroutines.runBlocking
-import java.io.File
 import java.net.URI
+import java.nio.file.Path
 import kotlin.collections.set
 
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
@@ -237,7 +237,7 @@ private suspend fun parseResponse(
 
     // Save to file
     if (parameters.saveAs != null) {
-        streamBodyToFile(response, File(parameters.saveAs))
+        streamBodyToFile(response, Path.of(parameters.saveAs))
         return null
     }
 
@@ -253,6 +253,6 @@ private suspend fun parseResponse(
     }
 }
 
-suspend fun streamBodyToFile(response: HttpResponse, file: File) {
-    response.bodyAsChannel().copyTo(file.writeChannel())
+suspend fun streamBodyToFile(response: HttpResponse, file: Path) {
+    response.bodyAsChannel().copyTo(file.toFile().writeChannel())
 }

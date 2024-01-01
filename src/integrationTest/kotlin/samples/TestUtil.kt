@@ -1,13 +1,14 @@
 package samples
 
-import java.io.File
 import java.io.FileNotFoundException
+import java.nio.file.Path
+import kotlin.io.path.exists
 
-fun toFile(resource: String): File {
-    val testDir = File("samples")
-    val testFile = File(testDir, resource)
+fun toPath(resource: String): Path {
+    val testDir = Path.of("samples")
+    val testFile = testDir.resolve(resource)
     if (!testFile.exists()) {
-        throw FileNotFoundException(testFile.absolutePath)
+        throw FileNotFoundException(testFile.toRealPath().toString())
     }
 
     return testFile

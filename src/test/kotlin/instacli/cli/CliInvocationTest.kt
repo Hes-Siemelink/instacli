@@ -2,12 +2,11 @@ package instacli.cli
 
 import instacli.script.CommandInfo
 import instacli.script.Script
+import instacli.spec.TestPaths
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.nio.file.Path
 
-val testDir: Path = Path.of("src/test/resources")
 
 class CliInvocationTest {
 
@@ -22,7 +21,7 @@ class CliInvocationTest {
     fun `Print usage`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q"), workingDir = testDir, output = out)
+        val session = InstacliInvocation(arrayOf("-q"), workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -35,7 +34,7 @@ class CliInvocationTest {
     fun `Print directory info and commands`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "sample"), workingDir = testDir, output = out)
+        val session = InstacliInvocation(arrayOf("-q", "sample"), workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -52,7 +51,8 @@ class CliInvocationTest {
     fun `Print script commands`() {
 
         // Given
-        val session = InstacliInvocation(arrayOf("-q", "sample", "simple"), workingDir = testDir, output = out)
+        val session =
+            InstacliInvocation(arrayOf("-q", "sample", "simple"), workingDir = TestPaths.resources, output = out)
 
         // When
         session.invoke()
@@ -68,7 +68,11 @@ class CliInvocationTest {
 
         // Given
         val session =
-            InstacliInvocation(arrayOf("-q", "--help", "sample", "simple", "echo"), workingDir = testDir, output = out)
+            InstacliInvocation(
+                arrayOf("-q", "--help", "sample", "simple", "echo"),
+                workingDir = TestPaths.resources,
+                output = out
+            )
 
         // When
         session.invoke()
@@ -84,7 +88,7 @@ class CliInvocationTest {
         // Given
         val session = InstacliInvocation(
             arrayOf("-q", "-o", "sample", "simple", "echo", "--input", "Script output"),
-            workingDir = testDir,
+            workingDir = TestPaths.resources,
             output = out
         )
 
@@ -101,7 +105,7 @@ class CliInvocationTest {
         // Given
         val session = InstacliInvocation(
             arrayOf("-q", "sample", "simple", "echo", "--input", "Script output"),
-            workingDir = testDir,
+            workingDir = TestPaths.resources,
             output = out
         )
 

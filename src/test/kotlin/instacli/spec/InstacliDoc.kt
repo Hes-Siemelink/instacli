@@ -1,6 +1,7 @@
 package instacli.spec
 
-import java.io.File
+import java.nio.file.Path
+import kotlin.io.path.readLines
 
 const val START_RUN_BEFORE_CODE_EXAMPLE = "<!-- run before"
 const val END_RUN_BEFORE_CODE_EXAMPLE = "-->"
@@ -9,7 +10,7 @@ const val END_CODE_EXAMPLE = "```"
 
 val FILE_REGEX = Regex("file:(\\S+)")
 
-class InstacliDoc(val file: File) {
+class InstacliDoc(val docFile: Path) {
 
     val codeExamples = mutableListOf<String>()
     val helperFiles = mutableMapOf<String, String>()
@@ -19,7 +20,7 @@ class InstacliDoc(val file: File) {
         var currentSnippet = mutableListOf<String>()
         var currentFile: String? = null
         var recording = false
-        for (line in file.readLines()) {
+        for (line in docFile.readLines()) {
             if (recording) {
                 when {
                     line.startsWith(END_RUN_BEFORE_CODE_EXAMPLE) -> {

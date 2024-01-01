@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.AssignVariable
 import instacli.commands.Connections
 import instacli.script.*
-import java.io.File
+import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.isDirectory
@@ -114,11 +114,11 @@ class CliFileContext(
     private fun findSubcommands(): Map<String, DirectoryInfo> {
         val subcommands = mutableMapOf<String, DirectoryInfo>()
 
-        for (file in scriptDir.toFile().listFiles()!!) {
-            if (file.isDirectory && hasCliCommands(file)) {
-                subcommands[asCliCommand(file.name)] = DirectoryInfo.load(file.toPath())
+        Files.list(scriptDir)
+            .filter { it.isDirectory() && it.hasCliCommands() }
+            .forEach { dir ->
+                subcommands[asCliCommand(dir.name)] = DirectoryInfo.load(dir)
             }
-        }
 
         return subcommands
     }
@@ -142,23 +142,10 @@ class CliFileContext(
     }
 }
 
-private fun hasCliCommands(dir: File): Boolean {
-
-    // Check for Instacli files
-    for (file in dir.listFiles()!!) {
-        if (!file.isDirectory && file.name.endsWith(CLI_FILE_EXTENSION)) {
-            return true
-        }
+private fun Path.hasCliCommands(): Boolean {
+    return Files.walk(this).anyMatch() { file ->
+        !file.isDirectory() && file.name.endsWith(CLI_FILE_EXTENSION)
     }
-
-    // Check for subcommands
-    for (file in dir.listFiles()!!) {
-        if (file.isDirectory) {
-            return hasCliCommands(file)
-        }
-    }
-
-    return false
 }
 
 //

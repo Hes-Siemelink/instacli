@@ -11,18 +11,23 @@ import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
-import java.io.File
 import java.nio.file.Files
+import java.nio.file.Path
+import kotlin.io.path.name
 import kotlin.io.path.writeText
+
+object TestPaths {
+    val resources: Path = Path.of("src/test/resources")
+}
 
 //
 // Instacli tests in Instacli
 //
 
-fun getAllInstacliTests(directory: File): List<DynamicContainer> {
-    val pages = directory.walkTopDown().filter { it.name.endsWith(".cli") }
-    return pages.mapNotNull { file ->
-        dynamicContainer(file.name, CliFile(file.toPath()).getTestCases())
+fun getAllInstacliTests(directory: Path): List<DynamicContainer> {
+    val pages = Files.walk(directory).filter { it.name.endsWith(".cli") }
+    return pages.map { file ->
+        dynamicContainer(file.name, CliFile(file).getTestCases())
     }.toList()
 }
 
@@ -89,7 +94,7 @@ fun Script.getTestName(nameCommand: String = TEST_CASE): String {
 // Code examples in Markdown files
 //
 
-fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
+fun getCodeExamplesInDocument(file: Path): List<DynamicTest> {
 
     // Scan document for code examples
     val doc = InstacliDoc(file)
@@ -112,7 +117,7 @@ fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
             val script = Script.from(it)
             val testContext = CliFileContext(testDir, connections = connections)
             userPrompt = MockUser()
-            DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toURI()) {
+            DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toUri()) {
                 try {
                     script.runScript(testContext)
                 } catch (a: Break) {
@@ -122,9 +127,9 @@ fun getCodeExamplesInDocument(file: File): List<DynamicTest> {
         }
 }
 
-fun getCodeExamplesInAllFiles(directory: File): List<DynamicContainer> {
-    val pages = directory.walkTopDown().filter { it.name.endsWith(".md") }
-    return pages.mapNotNull { file ->
+fun getCodeExamplesInAllFiles(directory: Path): List<DynamicContainer> {
+    val pages = Files.walk(directory).filter { it.name.endsWith(".md") }
+    return pages.map { file ->
         DynamicContainer.dynamicContainer(file.name, getCodeExamplesInDocument(file))
     }.toList()
 }

@@ -1,10 +1,10 @@
 package instacli.commands
 
 import com.lordcodes.turtle.shellRun
+import instacli.spec.TestPaths
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import java.io.File
 
 class ShellExecutionTest {
 
@@ -17,7 +17,7 @@ class ShellExecutionTest {
 
     @Test
     fun `Run shell script`() {
-        val output = shellRun("sh", listOf("hello.sh"), File("src/test/resources"))
+        val output = shellRun("sh", listOf("hello.sh"), TestPaths.resources.toFile())
 
         output shouldBe "Hello World"
     }
@@ -25,7 +25,7 @@ class ShellExecutionTest {
     @Test
     fun `Run unknown command`() {
         shouldThrow<Exception> {
-            shellRun("unknown_command", listOf(), File("src/test/resources"))
+            shellRun("unknown_command", listOf(), TestPaths.resources.toFile())
         }
     }
 }
