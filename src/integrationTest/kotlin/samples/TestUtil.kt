@@ -8,7 +8,7 @@ fun toPath(resource: String): Path {
     val testDir = Path.of("samples")
     val testFile = testDir.resolve(resource)
     if (!testFile.exists()) {
-        throw FileNotFoundException(testFile.toRealPath().toString())
+        throw FileNotFoundException(testFile.toAbsolutePath().toString())
     }
 
     return testFile

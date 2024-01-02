@@ -22,7 +22,8 @@ class CliFileContext(
     override val variables: MutableMap<String, JsonNode> = mutableMapOf(),
     override val session: MutableMap<String, JsonNode> = mutableMapOf(),
     override val connections: Connections = Connections(),
-    override val interactive: Boolean = false
+    override val interactive: Boolean = false,
+    override val workingDir: Path = Path.of(".")
 ) : ScriptContext {
 
     constructor(cliFile: Path, parent: ScriptContext, variables: MutableMap<String, JsonNode> = mutableMapOf()) : this(
@@ -33,7 +34,13 @@ class CliFileContext(
         parent.interactive
     )
 
-    private val scriptDir: Path = if (cliFile.isDirectory()) cliFile else cliFile.toRealPath().parent
+    override val scriptDir: Path by lazy {
+        if (cliFile.isDirectory()) {
+            cliFile
+        } else {
+            cliFile.toAbsolutePath().normalize().parent
+        }
+    }
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -69,10 +76,6 @@ class CliFileContext(
 
         // No handler found for command
         throw CliScriptException("Unknown command: $command")
-    }
-
-    override fun getScriptDir(): Path {
-        return scriptDir
     }
 
     private fun findLocalFileCommands(): Map<String, CliFile> {

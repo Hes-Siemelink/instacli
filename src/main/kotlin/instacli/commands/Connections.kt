@@ -97,7 +97,7 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
 
         when (connectScript) {
             is ValueNode -> {
-                val cliFile = context.getScriptDir().resolve(connectScript.textValue())
+                val cliFile = context.scriptDir.resolve(connectScript.textValue())
                 return CliFile(cliFile).runFile(CliFileContext(cliFile, context))
             }
 

@@ -6,13 +6,13 @@ Expected output: Hello
 ---
 Test case: Run shell script
 
-Shell: ./hello.sh
+Shell: instacli-spec/test-suite/shell//hello.sh
 Expected output: Hello World
 
 ---
-Test case: Run shell script with 'script' argument
+Test case: Run shell in same directory as script
 
 Shell:
-  script: hello.sh
+  local: sh hello.sh
 Expected output: Hello World
 

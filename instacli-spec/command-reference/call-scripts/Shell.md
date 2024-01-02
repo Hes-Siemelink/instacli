@@ -21,7 +21,10 @@ Shell: echo Hello
 Expected output: Hello
 ```
 
-## Calling another script
+## Calling a script next to your Instacli file
+
+Shell commands are executed in the current working directory from where you launched the script. Sometimes it useful to
+have a helper script next to your Instacli file. Then you would use the `local` parameter to indicate that.
 
 Suppose you have a shell script `hello.sh`
 
@@ -29,13 +32,13 @@ Suppose you have a shell script `hello.sh`
 echo "Hello World"
 ```
 
-Then you can call it from an Instacli file by using the `script` parameter on **Shell**:
+Then you can call it from an Instacli file by using the `local` parameter on **Shell**:
 
 ```yaml
-Code example: Call a shell script
+Code example: Call a local shell script
 
 Shell:
-  script: hello.sh
+  local: sh hello.sh
 
 Expected output: Hello World
 ```

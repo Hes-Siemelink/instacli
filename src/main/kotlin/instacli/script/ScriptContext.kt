@@ -10,9 +10,10 @@ interface ScriptContext {
     val session: MutableMap<String, JsonNode>
     val connections: Connections
     val cliFile: Path
+    val scriptDir: Path
+    val workingDir: Path
 
     fun getCommandHandler(command: String): CommandHandler
-    fun getScriptDir(): Path = cliFile.parent
 }
 
 const val OUTPUT_VARIABLE = "output"

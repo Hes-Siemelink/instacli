@@ -34,3 +34,18 @@ Expected output:
 <!--
 Note: To make the automated test work, the file is actually read from the repository `samples` directory. 
 -->
+
+## Reading a file relative to your script
+
+If you want to load a file that is next to your Instacli script, use the `local` parameter:
+
+```commandline
+Code example: Read a local file
+
+Read file:
+    local: greeting.yaml
+
+Expected output:
+  greeting: Hello
+  language: en    
+```

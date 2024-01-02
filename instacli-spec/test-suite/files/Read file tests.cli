@@ -7,6 +7,16 @@ Expected output:
   something: else
 
 ---
+Test case: Read file relative to script
+
+Read file:
+  local: content/plain.yaml
+
+Expected output:
+  test: true
+  something: else
+
+---
 Test case: Read file with variable syntax
 
 Read file: instacli-spec/test-suite/files/content/with variables.yaml
