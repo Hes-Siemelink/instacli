@@ -3,8 +3,8 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.script.*
-import instacli.util.Yaml
 import instacli.util.toArrayNode
+import instacli.util.toDisplayString
 
 class Add : CommandHandler("Add"), ArrayHandler {
 
@@ -27,7 +27,8 @@ private fun asArrayNode(node: JsonNode): ArrayNode {
 class AddToVariable : CommandHandler("Add to"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
-            val match = VARIABLE_REGEX.matchEntire(key) ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
+            val match = VARIABLE_REGEX.matchEntire(key)
+                ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
 
             var total: JsonNode = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
@@ -82,9 +83,9 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
 // TODO Sort on scalar values
 class Sort : CommandHandler("Sort"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val items = getParameter(data, "items")
+        val items = data.getParameter("items")
         if (items !is ArrayNode) throw CommandFormatException("items should be an array")
-        val sortField = getTextParameter(data, "by")
+        val sortField = data.getTextParameter("by")
 
         val sorted = items.sortedWith(NodeComparator(sortField))
 
@@ -108,9 +109,9 @@ class NodeComparator(val field: String) : Comparator<JsonNode> {
 
 class Replace : CommandHandler("Replace"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
-        val source = getParameter(data, "in")
-        val part = getParameter(data, "find")
-        val replaceWith = getParameter(data, "replace with")
+        val source = data.getParameter("in")
+        val part = data.getParameter("find")
+        val replaceWith = data.getParameter("replace with")
 
         val result = replace(source, part, replaceWith)
 
@@ -146,7 +147,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
             throw CommandFormatException("'Replace.find' may contain text only")
         }
 
-        val replacementText = Yaml.toString(replaceWith)
+        val replacementText = replaceWith.toDisplayString()
         val replacement = source.replace(part.textValue(), replacementText)
 
         return TextNode(replacement)

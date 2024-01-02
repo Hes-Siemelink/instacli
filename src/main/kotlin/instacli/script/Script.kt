@@ -47,8 +47,8 @@ class Script(val commands: List<Command>) {
             return Script(toCommandList(data))
         }
 
-        fun from(source: String): Script {
-            return from(Yaml.parseAsFile(source))
+        fun from(content: String): Script {
+            return from(Yaml.parseAsFile(content))
         }
     }
 }

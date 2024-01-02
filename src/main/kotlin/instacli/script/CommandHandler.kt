@@ -4,44 +4,22 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.util.JsonSchemas
+import instacli.util.validateWithSchema
 
 abstract class CommandHandler(open val name: String) {
 
-
-    fun getParameter(data: JsonNode, parameter: String): JsonNode {
-        return data[parameter] ?: throw CommandFormatException("Command '$name' needs '$parameter' field.")
-    }
-
-    fun getTextParameter(data: JsonNode, parameter: String): String {
-        val value = getParameter(data, parameter)
-        if (value !is ValueNode) {
-            throw CommandFormatException("Parameter $parameter in command '$name' needs to be a text value.")
-        }
-        return value.textValue()
-    }
-    
     fun handlesLists(): Boolean {
         return when (this) {
-            is ArrayHandler -> {
+            is ArrayHandler, is AnyHandler -> {
                 true
             }
 
-            is ObjectHandler, is ValueHandler -> {
-                false
-            }
-
-            else -> true
+            else -> false
         }
     }
 
     open fun validate(data: JsonNode) {
-        val schema = JsonSchemas.getSchema(name) ?: return
-
-        val messages = schema.validate(data)
-        if (messages.isNotEmpty()) {
-            throw CommandFormatException("Schema validation errors:\n$messages")
-        }
+        data.validateWithSchema(name)
     }
 }
 
@@ -68,3 +46,14 @@ fun interface AnyHandler {
  */
 interface DelayedVariableResolver
 
+fun JsonNode.getParameter(parameter: String): JsonNode {
+    return this[parameter] ?: throw CommandFormatException("Expected field '$parameter'.")
+}
+
+fun JsonNode.getTextParameter(parameter: String): String {
+    val value = this.getParameter(parameter)
+    if (value !is ValueNode) {
+        throw CommandFormatException("Field '$parameter' needs to be a text value.")
+    }
+    return value.textValue()
+}

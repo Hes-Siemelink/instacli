@@ -13,7 +13,7 @@ class ExceptionTest {
         // Given
         val session = InstacliMain(
             "-q", "exceptions", "command-format-exception.cli",
-            workingDir = TestPaths.resources
+            workingDir = TestPaths.RESOURCES
         )
 
         // Then

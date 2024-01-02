@@ -17,7 +17,7 @@ class ShellExecutionTest {
 
     @Test
     fun `Run shell script`() {
-        val output = shellRun("sh", listOf("hello.sh"), TestPaths.resources.toFile())
+        val output = shellRun("sh", listOf("hello.sh"), TestPaths.RESOURCES.toFile())
 
         output shouldBe "Hello World"
     }
@@ -25,7 +25,7 @@ class ShellExecutionTest {
     @Test
     fun `Run unknown command`() {
         shouldThrow<Exception> {
-            shellRun("unknown_command", listOf(), TestPaths.resources.toFile())
+            shellRun("unknown_command", listOf(), TestPaths.RESOURCES.toFile())
         }
     }
 }

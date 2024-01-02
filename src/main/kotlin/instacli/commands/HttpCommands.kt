@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
-import instacli.util.Yaml
 import instacli.util.Yaml.parse
 import instacli.util.objectNode
+import instacli.util.toDisplayString
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.auth.*
@@ -213,7 +213,7 @@ private fun HttpRequestBuilder.body(parameters: HttpParameters) {
     if (headers[HttpHeaders.ContentType] == ContentType.Application.FormUrlEncoded.toString()) {
         val formData = Parameters.build {
             parameters.body.fields().forEach {
-                append(it.key, Yaml.toString(it.value))
+                append(it.key, it.value.toDisplayString())
             }
         }
         setBody(FormDataContent(formData))

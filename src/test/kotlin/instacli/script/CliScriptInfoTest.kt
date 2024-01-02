@@ -2,6 +2,7 @@ package instacli.script
 
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.commands.InputInfo
+import instacli.spec.TestPaths
 import instacli.util.Yaml
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -11,7 +12,7 @@ class CliScriptInfoTest {
 
     @Test
     fun scriptInfo() {
-        val script = Yaml.readResource("script-info/greet.cli")
+        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Script info" in script)
 
         val scriptInfo = CliScriptInfo.from(script.get("Script info"))
@@ -20,7 +21,7 @@ class CliScriptInfoTest {
 
     @Test
     fun input() {
-        val script = Yaml.readResource("script-info/greet.cli")
+        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Input" in script)
 
         val input = InputInfo.from(script.get("Input"))

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.*
 import instacli.util.Yaml
+import instacli.util.toMutableMap
 import java.nio.file.Path
 import kotlin.io.path.name
 
@@ -16,7 +17,7 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val localContext = CliFileContext(cliFile, context, variables = Yaml.mutableMapOf(data))
+        val localContext = CliFileContext(cliFile, context, variables = data.toMutableMap())
         return runFile(localContext)
     }
 

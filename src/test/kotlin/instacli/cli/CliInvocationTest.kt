@@ -21,7 +21,7 @@ class CliInvocationTest {
     fun `Print usage`() {
 
         // Given
-        val session = InstacliMain("-q", workingDir = TestPaths.resources, output = out)
+        val session = InstacliMain("-q", workingDir = TestPaths.RESOURCES, output = out)
 
         // When
         session.run()
@@ -34,7 +34,7 @@ class CliInvocationTest {
     fun `Print directory info and commands`() {
 
         // Given
-        val session = InstacliMain("-q", "sample", workingDir = TestPaths.resources, output = out)
+        val session = InstacliMain("-q", "sample", workingDir = TestPaths.RESOURCES, output = out)
 
         // When
         session.run()
@@ -52,7 +52,7 @@ class CliInvocationTest {
 
         // Given
         val session =
-            InstacliMain("-q", "sample", "simple", workingDir = TestPaths.resources, output = out)
+            InstacliMain("-q", "sample", "simple", workingDir = TestPaths.RESOURCES, output = out)
 
         // When
         session.run()
@@ -70,7 +70,7 @@ class CliInvocationTest {
         val session =
             InstacliMain(
                 "-q", "--help", "sample", "simple", "echo",
-                workingDir = TestPaths.resources,
+                workingDir = TestPaths.RESOURCES,
                 output = out
             )
 
@@ -88,7 +88,7 @@ class CliInvocationTest {
         // Given
         val session = InstacliMain(
             "-q", "-o", "sample", "simple", "echo", "--input", "Script output",
-            workingDir = TestPaths.resources,
+            workingDir = TestPaths.RESOURCES,
             output = out
         )
 
@@ -105,7 +105,7 @@ class CliInvocationTest {
         // Given
         val session = InstacliMain(
             "-q", "sample", "simple", "echo", "--input", "Script output",
-            workingDir = TestPaths.resources,
+            workingDir = TestPaths.RESOURCES,
             output = out
         )
 

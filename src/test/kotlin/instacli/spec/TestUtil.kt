@@ -17,7 +17,7 @@ import kotlin.io.path.name
 import kotlin.io.path.writeText
 
 object TestPaths {
-    val resources: Path = Path.of("src/test/resources")
+    val RESOURCES: Path = Path.of("src/test/resources")
 }
 
 //
@@ -32,7 +32,7 @@ fun getAllInstacliTests(directory: Path): List<DynamicContainer> {
 }
 
 private val TEST_CASE = TestCase().name
-private const val TEST_CONNECTIONS = "instacli-home/connections.yaml"
+val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
 
 /**
  * Gets all individual test cases in a script file as a dynamic tests.

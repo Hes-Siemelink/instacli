@@ -59,8 +59,8 @@ class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
 
 class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val targetName = getTextParameter(data, "target")
-        val account = getTextParameter(data, "name")
+        val targetName = data.getTextParameter("target")
+        val account = data.getTextParameter("name")
 
         val target = context.connections.targets[targetName] ?: return null
         target.default = account
@@ -73,8 +73,8 @@ class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
 
 class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val targetName = getTextParameter(data, "target")
-        val account = getTextParameter(data, "name")
+        val targetName = data.getTextParameter("target")
+        val account = data.getTextParameter("name")
 
         val target = context.connections.targets[targetName] ?: return null
         target.accounts.removeIf { it["name"]?.textValue() == account }
@@ -135,15 +135,10 @@ class Connections {
         }
 
         fun load(file: Path = InstacliPaths.CONNECTIONS_YAML): Connections {
-            val node = Yaml.readFile(file) ?: throw IllegalArgumentException("Connections file not found : $file")
+            val node = Yaml.readFile(file)
             val instance = from(node)
             instance.file = file
             return instance
-        }
-
-        fun load(resource: String): Connections {
-            val node = Yaml.readResource(resource)
-            return from(node)
         }
     }
 }

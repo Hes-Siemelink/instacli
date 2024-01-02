@@ -17,7 +17,7 @@ class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val commandLine = getTextParameter(data, "local")
+        val commandLine = data.getTextParameter("local")
 
         return execute(commandLine, context.scriptDir)
     }

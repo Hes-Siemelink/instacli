@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
-import instacli.util.Yaml
+import instacli.util.toDisplayString
 
 class Task : CommandHandler("Task"), ValueHandler {
 
@@ -23,12 +23,12 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        println(Yaml.toString(data))
+        println(data.toDisplayString())
         return null
     }
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
-        println(Yaml.toString(data))
+        println(data.toDisplayString())
         return null
     }
 }

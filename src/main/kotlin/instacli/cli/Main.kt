@@ -2,7 +2,7 @@ package instacli.cli
 
 import instacli.commands.Connections
 import instacli.script.InstacliException
-import instacli.util.Yaml
+import instacli.util.toDisplayString
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
@@ -81,7 +81,7 @@ class InstacliMain(
         val output = cliFile.runFile(context)
 
         if (options.printOutput && output != null) {
-            this.output.println(Yaml.toString(output))
+            this.output.println(output.toDisplayString())
         }
     }
 
@@ -158,7 +158,7 @@ private fun reportError(e: InstacliException, printStackTrace: Boolean) {
 
     // Print Instacli context
     e.data?.let {
-        val yaml = Yaml.toString(e.data).prependIndent("  ")
+        val yaml = e.data.toDisplayString().prependIndent("  ")
         val message = "In ${e.context ?: "command"}:"
         System.err.println("\n\n$message\n\n${yaml}".trimMargin())
     }

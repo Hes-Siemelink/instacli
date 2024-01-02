@@ -1,6 +1,7 @@
 package instacli.cli
 
 import instacli.commands.Connections
+import instacli.spec.TEST_CONNECTIONS
 import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -9,7 +10,7 @@ class ConnectionsTest {
 
     @Test
     fun loadConnection() {
-        val connections = Connections.load("instacli-home/connections.yaml")
+        val connections = Connections.load(TEST_CONNECTIONS)
 
         connections.targets shouldHaveSize 2
 
