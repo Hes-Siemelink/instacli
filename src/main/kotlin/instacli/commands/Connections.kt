@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
-import instacli.cli.INSTACLI_HOME
+import instacli.cli.InstacliPaths
 import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.objectNode
@@ -134,7 +134,7 @@ class Connections {
             return Yaml.mapper.treeToValue(data, Connections::class.java)
         }
 
-        fun load(file: Path = INSTACLI_HOME.resolve(CONNECTIONS_YAML)): Connections {
+        fun load(file: Path = InstacliPaths.CONNECTIONS_YAML): Connections {
             val node = Yaml.readFile(file) ?: throw IllegalArgumentException("Connections file not found : $file")
             val instance = from(node)
             instance.file = file

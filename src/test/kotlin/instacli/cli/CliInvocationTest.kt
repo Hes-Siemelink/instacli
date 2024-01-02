@@ -21,10 +21,10 @@ class CliInvocationTest {
     fun `Print usage`() {
 
         // Given
-        val session = InstacliInvocation("-q", workingDir = TestPaths.resources, output = out)
+        val session = InstacliMain("-q", workingDir = TestPaths.resources, output = out)
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.usagePrinted shouldBe true
@@ -34,10 +34,10 @@ class CliInvocationTest {
     fun `Print directory info and commands`() {
 
         // Given
-        val session = InstacliInvocation("-q", "sample", workingDir = TestPaths.resources, output = out)
+        val session = InstacliMain("-q", "sample", workingDir = TestPaths.resources, output = out)
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.directoryInfoPrinted?.name shouldBe "sample"
@@ -52,10 +52,10 @@ class CliInvocationTest {
 
         // Given
         val session =
-            InstacliInvocation("-q", "sample", "simple", workingDir = TestPaths.resources, output = out)
+            InstacliMain("-q", "sample", "simple", workingDir = TestPaths.resources, output = out)
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.commandsPrinted.size shouldBe 1
@@ -68,14 +68,14 @@ class CliInvocationTest {
 
         // Given
         val session =
-            InstacliInvocation(
+            InstacliMain(
                 "-q", "--help", "sample", "simple", "echo",
                 workingDir = TestPaths.resources,
                 output = out
             )
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.scriptInfoPrinted?.description shouldBe "Echos the input"
@@ -86,14 +86,14 @@ class CliInvocationTest {
     fun `Print output - yes`() {
 
         // Given
-        val session = InstacliInvocation(
+        val session = InstacliMain(
             "-q", "-o", "sample", "simple", "echo", "--input", "Script output",
             workingDir = TestPaths.resources,
             output = out
         )
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.messagePrinted shouldBe "Script output"
@@ -103,14 +103,14 @@ class CliInvocationTest {
     fun `Print output - no`() {
 
         // Given
-        val session = InstacliInvocation(
+        val session = InstacliMain(
             "-q", "sample", "simple", "echo", "--input", "Script output",
             workingDir = TestPaths.resources,
             output = out
         )
 
         // When
-        session.invoke()
+        session.run()
 
         // Then
         out.messagePrinted shouldBe null

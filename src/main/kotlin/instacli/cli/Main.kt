@@ -9,7 +9,10 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.name
 import kotlin.system.exitProcess
 
-val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
+object InstacliPaths {
+    val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
+    val CONNECTIONS_YAML: Path = INSTACLI_HOME.resolve(instacli.commands.CONNECTIONS_YAML)
+}
 
 class InvocationException(message: String) : Exception(message)
 
@@ -18,19 +21,19 @@ fun main(args: Array<String>) {
     val options = CliCommandLineOptions(args.toList())
 
     try {
-        InstacliInvocation(options).invoke()
+        InstacliMain(options).run()
+
     } catch (e: InvocationException) {
         System.err.println(e.message)
-
         exitProcess(1)
+
     } catch (e: InstacliException) {
         reportError(e, options.debug)
-
         exitProcess(1)
     }
 }
 
-class InstacliInvocation(
+class InstacliMain(
     private val options: CliCommandLineOptions,
     private val workingDir: Path = Path.of("."),
     private val input: UserInput = ConsoleInput,
@@ -44,7 +47,7 @@ class InstacliInvocation(
         output: UserOutput = ConsoleOutput
     ) : this(CliCommandLineOptions(args.toList()), workingDir, input, output)
 
-    fun invoke() {
+    fun run() {
 
         if (options.commands.isEmpty()) {
             output.printUsage()

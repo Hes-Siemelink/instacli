@@ -1,6 +1,6 @@
 package instacli.script
 
-import instacli.cli.InstacliInvocation
+import instacli.cli.InstacliMain
 import instacli.spec.TestPaths
 import io.kotest.assertions.throwables.shouldThrow
 import org.junit.jupiter.api.Test
@@ -11,7 +11,7 @@ class ExceptionTest {
     fun `Command format exception`() {
 
         // Given
-        val session = InstacliInvocation(
+        val session = InstacliMain(
             "-q", "exceptions", "command-format-exception.cli",
             workingDir = TestPaths.resources
         )
@@ -20,7 +20,7 @@ class ExceptionTest {
         shouldThrow<CommandFormatException> {
 
             // When
-            session.invoke()
+            session.run()
         }
     }
 }

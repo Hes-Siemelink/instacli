@@ -1,6 +1,6 @@
 package samples
 
-import instacli.cli.InstacliInvocation
+import instacli.cli.InstacliMain
 import org.junit.jupiter.api.Test
 
 class DigitalaiPlatformTests {
@@ -11,6 +11,6 @@ class DigitalaiPlatformTests {
     }
 
     private fun test(resource: String) {
-        InstacliInvocation("-q", toPath(resource).toString()).invoke()
+        InstacliMain("-q", toPath(resource).toString()).run()
     }
 }
