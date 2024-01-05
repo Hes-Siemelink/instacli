@@ -1,6 +1,7 @@
 package instacli.commands
 
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -45,7 +46,7 @@ class Input : CommandHandler("Input"), ObjectHandler {
 
             // Use default value
             info.default != null -> {
-                context.variables[name] = info.default
+                context.variables[name] = info.default as JsonNode
             }
 
             // Ask user
@@ -77,38 +78,38 @@ class Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val info = InputParameterInfo.from(data)
+        val parameter = ParameterInfo.from(data)
 
-        return prompt(info)
+        return prompt(parameter)
     }
 }
 
-private fun prompt(input: InputParameterInfo): JsonNode {
-    return when (input.type) {
-        "select one" -> promptChoice(input)
-        "select multiple" -> promptChoice(input, true)
-        "password" -> promptText(input, password = true)
-        else -> promptText(input)
+private fun prompt(parameter: ParameterInfo): JsonNode {
+    return when (parameter.type) {
+        "select one" -> promptChoice(parameter)
+        "select multiple" -> promptChoice(parameter, true)
+        "password" -> promptText(parameter, password = true)
+        else -> promptText(parameter)
     }
 }
 
-private fun promptText(input: InputParameterInfo, password: Boolean = false): JsonNode {
-    return userPrompt.prompt(input.description, input.default?.asText() ?: "", password)
+private fun promptText(parameter: ParameterInfo, password: Boolean = false): JsonNode {
+    return userPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
 }
 
-private fun promptChoice(input: InputParameterInfo, multiple: Boolean = false): JsonNode {
+private fun promptChoice(parameter: ParameterInfo, multiple: Boolean = false): JsonNode {
 
-    val choices = input.choices.map {
-        if (input.display == null) {
+    val choices = parameter.choices.map {
+        if (parameter.display == null) {
             Choice(it.textValue(), it)
         } else {
-            Choice(it[input.display].textValue(), it)
+            Choice(it[parameter.display].textValue(), it)
         }
     }
 
-    val answer = userPrompt.select(input.description, choices, multiple)
+    val answer = userPrompt.select(parameter.description, choices, multiple)
 
-    return onlyWithField(answer, input.value)
+    return onlyWithField(answer, parameter.value)
 }
 
 private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
@@ -140,10 +141,10 @@ class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
         val input = InputInfo.from(data)
 
         val answers = data.objectNode()
-        for ((field, info) in input.parameters) {
+        for ((field, parameter) in input.parameters) {
 
             // Ask user
-            val answer = userPrompt.prompt(info.description, info.default?.asText() ?: "")
+            val answer = userPrompt.prompt(parameter.description, parameter.default?.asText() ?: "")
             answers.set<JsonNode>(field, answer)
         }
 
@@ -179,28 +180,52 @@ class StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
 class InputInfo {
 
     @JsonAnySetter
-    var parameters: Map<String, InputParameterInfo> = mutableMapOf()
+    var parameters: Map<String, ParameterInfo> = mutableMapOf()
+
+    fun contains(option: String): Boolean {
+        return parameters.contains(normalize(option))
+    }
+
+    fun getParameterInfo(option: String): ParameterInfo? {
+        return parameters[normalize(option)]
+    }
+
+    private fun normalize(option: String) = option.replace("-", "")
 
     companion object {
         fun from(data: JsonNode): InputInfo {
-            return Yaml.mapper.treeToValue(data, InputInfo::class.java)
+            val inputInfo = Yaml.mapper.treeToValue(data, InputInfo::class.java)
+
+            val shortOptions: Map<String, ParameterInfo> = inputInfo.parameters
+                .filterValues { it.shortOption != null }
+                .entries.associate { it.value.shortOption!! to it.value }
+            inputInfo.parameters += shortOptions
+
+            return inputInfo
         }
     }
 }
 
-data class InputParameterInfo(
-    var description: String = "",
-    val default: JsonNode? = null,
-    val type: String = "",
-    val choices: List<JsonNode> = emptyList(),
-    val display: String? = null,
-    val value: String? = null
-) {
-    constructor(textValue: String) : this(description = textValue)
+class ParameterInfo {
+
+    var description: String = ""
+    var default: JsonNode? = null
+    var type: String = ""
+    var choices: List<JsonNode> = emptyList()
+    var display: String? = null
+    var value: String? = null
+
+    @JsonProperty("short option")
+    var shortOption: String? = null
+
+    constructor()
+    constructor(textValue: String) {
+        description = textValue
+    }
 
     companion object {
-        fun from(data: JsonNode): InputParameterInfo {
-            return Yaml.mapper.treeToValue(data, InputParameterInfo::class.java)
+        fun from(data: JsonNode): ParameterInfo {
+            return Yaml.mapper.treeToValue(data, ParameterInfo::class.java)
         }
     }
 }

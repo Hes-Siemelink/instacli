@@ -5,7 +5,6 @@ import com.networknt.schema.JsonSchema
 import com.networknt.schema.JsonSchemaFactory
 import com.networknt.schema.SpecVersion
 import instacli.script.CommandFormatException
-import java.net.URI
 
 object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()
@@ -15,20 +14,18 @@ object JsonSchemas {
     }
 
     fun getSchema(name: String): JsonSchema? {
+        if (!resourceExists(name)) return null
+
         return schemas.getOrPut(name) {
             loadSchema("schema/$name.schema.json")
         }
     }
 
     private fun loadSchema(schemaFile: String): JsonSchema? {
-        val resource = getResource(schemaFile) ?: return null
-        return factory.getSchema(resource)
+        return factory.getSchema(getResource(schemaFile))
     }
 }
 
-private fun getResource(classpathResource: String): URI? {
-    return object {}.javaClass.getResource("/$classpathResource")?.toURI()
-}
 
 internal fun JsonNode.validateWithSchema(name: String) {
     val schema = JsonSchemas.getSchema(name) ?: return

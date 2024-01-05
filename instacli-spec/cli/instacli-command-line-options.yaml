@@ -1,0 +1,26 @@
+non-interactive:
+  description: Indicates that Instacli should not prompt for user input.
+  default: false
+  type: boolean
+  short option: q
+
+print-output:
+  description: Prints the output at the end of the script
+  default: yaml
+  type: select-one
+  choices:
+    - yaml
+    - json
+  short option: o
+
+help:
+  description: Prints help about Instacli and its commands; doesn't run the script.
+  default: false
+  type: boolean
+  short option: h
+
+debug:
+  description: Runs in debug mode. Prints stacktraces when an error occurs.
+  default: false
+  type: boolean
+  short option: d

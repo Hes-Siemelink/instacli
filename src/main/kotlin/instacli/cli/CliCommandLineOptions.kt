@@ -1,6 +1,8 @@
 package instacli.cli
 
 import instacli.cli.ArgType.*
+import instacli.commands.InputInfo
+import instacli.util.Yaml
 
 class CliCommandLineOptions private constructor(
     val interactive: Boolean,
@@ -14,30 +16,36 @@ class CliCommandLineOptions private constructor(
     val commandParameters by lazy { toParameterMap(commandArgs) }
 
     companion object {
+
+        val definedOptions: InputInfo by lazy {
+            InputInfo.from(Yaml.readResource("instacli-command-line-options.yaml"))
+        }
+
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
-            val interactive = !globalArgs.contains("-q")
-            val printOutput = globalArgs.contains("-o")
-            val help = globalArgs.contains("--help")
-            val debug = globalArgs.contains("-d")
 
-            // Warn about change in command line options
-            // XXX Remove this check at some point
-            if (globalArgs.contains("-i")) {
-                println("⚠️   -i for interactive mode is now the default and the flag is replaced by -q for non-interactive mode. ")
-            }
+            definedOptions.validateArgs(globalArgs)
 
             return CliCommandLineOptions(
-                interactive,
-                printOutput,
-                help,
-                debug,
+                interactive = !globalArgs.contains("-q"),
+                printOutput = globalArgs.contains("-o"),
+                help = globalArgs.contains("--help"),
+                debug = globalArgs.contains("-d"),
                 commands,
                 commandArgs
             )
         }
     }
 }
+
+private fun InputInfo.validateArgs(options: List<String>) {
+    options.forEach {
+        if (!this.contains(it)) {
+            throw InvocationException("Invalid option: $it")
+        }
+    }
+}
+
 
 private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
 

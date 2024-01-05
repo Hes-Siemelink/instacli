@@ -1,7 +1,8 @@
 # On my mind
 
 * Document for first user
-*
+* Properly parse command line options
+* Web server support
 
 # Where to take it
 
@@ -13,9 +14,8 @@
 
 # Command-line support
 
-* Parse command line properly
 * Kotlin native? => Use Pure Kotlin libraries
-    * JSON nodes with Kotlin Serialization
+    * JSON nodes with Kotlin Serialization (but still experimental and no Yaml out of the box)
     * Prompt with https://ajalt.github.io/clikt/
 * Go?
 * Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
@@ -24,7 +24,6 @@
 
 * Shell and pipe support
 * Database support (SQLite or something)
-* Web server support
 
 # Instacli language
 

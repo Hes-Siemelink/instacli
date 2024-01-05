@@ -27,6 +27,12 @@ object Yaml {
         return mapper.readValue(source.toFile(), JsonNode::class.java)
     }
 
+    fun readResource(classpathResource: String): JsonNode {
+        val stream = getResourceAsStream(classpathResource)
+
+        return mapper.readTree(stream)
+    }
+
     fun parse(source: Path): List<JsonNode> {
         val yamlParser = factory.createParser(source.toFile())
         return mapper
