@@ -22,7 +22,7 @@ Code example: Define input
 
 Prompt: What is your name?
 
-Print: Hello ${output}!
+Print: Hello ${out}!
 ```
 
 This will ask for user input on the command line:
@@ -151,7 +151,8 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 
 ## Choosing an object
 
-You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with the `display` property. The entire object
+You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with
+the `display` property. The entire object
 will be given as output.
 
 <!-- run before code example
@@ -175,7 +176,7 @@ Prompt:
   display: name
 
 Print:
-  You chose: ${output}
+  You chose: ${out}
 ```
 
 Here's an example to show how that works:
@@ -211,7 +212,7 @@ Prompt:
   value: id
 
 Print:
-  You chose: ${output}
+  You chose: ${out}
 ```
 
 Here's the result of that:

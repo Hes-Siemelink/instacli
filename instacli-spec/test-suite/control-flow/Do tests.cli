@@ -1,10 +1,10 @@
 Test case: Execution of a list results in a list
 
-Output: Hello
+Out: Hello
 Do:
-  - Output: one
-  - Output: two
-  - Output: three
+  - Out: one
+  - Out: two
+  - Out: three
 
 Expected output:
   - one
@@ -14,11 +14,11 @@ Expected output:
 ---
 Test case: Chained output in list execution
 
-${output}: one
+${out}: one
 
 Do:
-  - ${output}: two
-  - ${var}: ${output}
+  - ${out}: two
+  - ${var}: ${out}
 
 Assert equals:
   - actual: ${var}

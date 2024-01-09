@@ -15,7 +15,7 @@ Print: Accessing ${id} as ${username} on ${url}
 GET:
   url: ${url}
   path: /identity/v1/accounts/auth/configuration?hint=${id}
-${token_endpoint}: ${output.configuration.token_endpoint}
+${token_endpoint}: ${out.configuration.token_endpoint}
 
 ---
 # Get token

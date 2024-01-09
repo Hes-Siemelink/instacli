@@ -12,7 +12,8 @@
 
 ## Basic usage
 
-**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
+**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined
+in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
 commands under `then` are executed
 
 ```yaml
@@ -22,7 +23,7 @@ If:
   object: this
   equals: this
   then:
-    Output: correct
+    Out: correct
 
 Expected output: correct
 ```
@@ -38,12 +39,12 @@ If:
   - object: one
     equals: one
     then:
-      Output: 1
+      Out: 1
 
   - object: two
     equals: two
     then:
-      Output: 2
+      Out: 2
 
 Expected output:
   - 1
@@ -59,12 +60,12 @@ When:
   - object: one
     equals: one
     then:
-      Output: 1
+      Out: 1
 
   - object: two
     equals: two
     then:
-      Output: 2
+      Out: 2
 
 Expected output: 1
 ```

@@ -20,14 +20,14 @@ Expected output:
 Test case: Read file with variable syntax
 
 Read file: instacli-spec/test-suite/files/content/with variables.yaml
-${raw}: ${output}  # triggers variable substitution
+${raw}: ${out}  # triggers variable substitution
 
 Assert that:
   - object:
       test: true
       something: else
     in:
-      ${output}
+      ${out}
 
 ---
 Test case: Fill variables in file
@@ -51,12 +51,12 @@ Expected output:
 Test case: Read file with variable syntax and multiple documents
 
 Read file: instacli-spec/test-suite/files/content/multiple documents.yaml
-${raw}: ${output}
+${raw}: ${out}
 
 Assert that:
   object:
     test: true
     something: else
   in:
-    ${output}
+    ${out}
 

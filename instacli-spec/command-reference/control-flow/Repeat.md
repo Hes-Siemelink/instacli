@@ -12,17 +12,18 @@
 
 ## Basic usage
 
-**Repeat** repeats a bunch of commands until the condition specified in `Until` is reached. See [conditions](../testing/Assert%20that.md#conditions)
+**Repeat** repeats a bunch of commands until the condition specified in `Until` is reached.
+See [conditions](../testing/Assert%20that.md#conditions)
 in [Assert that](../testing/Assert%20that.md)
 
 ```yaml
 Code example: Count to five
 
-Output: 0
+Out: 0
 
 Repeat:
   Add to:
-    ${output}: 1
+    ${out}: 1
 
   until: 5
 ```

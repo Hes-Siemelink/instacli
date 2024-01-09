@@ -17,4 +17,4 @@ POST:
 Http endpoint:
   url: https://api.spotify.com/v1
   headers:
-    Authorization: Bearer ${output.access_token}
+    Authorization: Bearer ${out.access_token}

@@ -24,7 +24,8 @@ Assert that:
 
 ## Multiple test cases
 
-If there are multiple test cases in a file, it will take all the commands from one Test case command to another as one test.
+If there are multiple test cases in a file, it will take all the commands from one Test case command to another as one
+test.
 
 ```yaml
 Code example: Multiple tests
@@ -32,7 +33,7 @@ Code example: Multiple tests
 ---
 Test case: Test 1
 
-Output: one
+Out: one
 
 Expected output: one
 
@@ -40,7 +41,7 @@ Expected output: one
 Test case: Test 2
 
 ---
-Output: two
+Out: two
 
 Expected output: two
 

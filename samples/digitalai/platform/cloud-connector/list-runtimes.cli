@@ -6,10 +6,10 @@ Connect to: Digital.ai Platform API
 GET: /workload/v1/agent_runtimes/
 
 For each:
-  ${runtime} in: ${output.agent_runtimes}
-  Output:
+  ${runtime} in: ${out.agent_runtimes}
+  Out:
     name: ${runtime.name}
     description: ${runtime.description}
     id: ${runtime.id}
 
-Print: ${output}
+Print: ${out}

@@ -16,4 +16,4 @@ interface ScriptContext {
     fun getCommandHandler(command: String): CommandHandler
 }
 
-const val OUTPUT_VARIABLE = "output"
+const val OUTPUT_VARIABLE = "out"

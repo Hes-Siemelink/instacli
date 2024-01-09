@@ -1,6 +1,6 @@
-# Command: Output
+# Command: Out
 
-`Output` sets the `${output}` variable, that can be the output of a script
+`Out` sets the `${out}` variable, that can be the output of a script
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,7 +10,7 @@
 
 ## Basic usage
 
-Instacli assigns the result of a command to the `${ouput}` variable
+Instacli assigns the result of a command to the `${out}` variable
 
 ```yaml
 Code example: Output variable is automatically set
@@ -21,29 +21,29 @@ Replace:
   replace with: World!
 
 # Prints Hello World!
-Print: ${output}
+Print: ${out}
 
 # Checks output variable
 Expected output: Hello World!
 ```
 
-With **Output** you explicitly set the the `${output}` variable.
+With **Out** you explicitly set the `${out}` variable.
 
 ```yaml
 Code example: Set the output variable expicitly
 
-Output: Hello World!
+Out: Hello World!
 
-Print: ${output}
+Print: ${out}
 Expected output: Hello World!
 ```
 
-You can put any kind of data in Output
+You can put any kind of data in `${out}`
 
 ```yaml
-Code example: Output variable with object content
+Code example: Set the 'out' variable with object content
 
-Output:
+Out:
   name: John
   age: 10
 
@@ -52,35 +52,40 @@ Expected output:
   age: 10
 ```
 
-It is a shorthand to using the variable assignment syntax, but easier to type
+It is a shorthand to using the variable assignment syntax, but a little easier to type or spot in a file
 
 ```yaml
 Code example: Set output variable with variable syntax
 
-${output}: Hello World!
+${out}:
+  name: John
+  age: 10
 
-Expected output: Hello World!
+Expected output:
+  name: John
+  age: 10
 ```
 
 ## Output of a script
 
-When defining a script, you would typically put  [Input](Input.md) at the top, and **Output** at the bottom. This way you define the contract of the script in a
+When defining a script, you would typically put  [Input](Input.md) at the top, and **Out** at the bottom. This way
+you define the contract of the script in a
 way that is easy to read.
 
 ```yaml
-Code example: Define Input and Output in a script
+Code example: Define input and output in a script
 
 Input:
   name:
     description: Person to greet
     default: Nobody
 
-Output: Hello ${name}!
+Out: Hello ${name}!
 ```
 
 ## Output in For each
 
-Use **Output** with [For each](../control-flow/For%20each.md) to transform a list:
+Use **Out** with [For each](../control-flow/For%20each.md) to transform a list:
 
 ```yaml
 Code example: Transform a list with For each and Output
@@ -90,7 +95,7 @@ For each:
   ${name} in:
     - Alice
     - Bob
-  Output: Hello ${name}!
+  Out: Hello ${name}!
 
 Expected output:
   - Hello Alice!

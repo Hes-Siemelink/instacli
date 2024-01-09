@@ -10,7 +10,7 @@ GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
 
 Prompt:
   description: Select agents to delete
-  choices: ${output.accounts}
+  choices: ${out.accounts}
   type: select multiple
   display: name
 

@@ -25,7 +25,7 @@ Prompt all:
   firstName: First name
   lastName: Last name
 
-Print: Hello ${output.firstName} ${output.lastName}!
+Print: Hello ${out.firstName} ${out.lastName}!
 ```
 
 This will ask two questions and then print the result:

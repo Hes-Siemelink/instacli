@@ -1,6 +1,6 @@
 # Command: Expected output
 
-`Expected output` tests the `${output}` variable against a given value
+`Expected output` tests the `${out}` variable against a given value
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,14 +10,14 @@
 
 ## Basic usage
 
-**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against `${output}`
+**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against `${out}`
 
 It works for simple values
 
 ```yaml
 Code example: Expect output to be a simpel value
 
-Output: one
+Out: one
 
 Expected output: one
 ```
@@ -27,7 +27,7 @@ Also for complex objects
 ```yaml
 Code example: Compare output to complex value
 
-Output:
+Out:
   1: one
   2: two
 
@@ -41,7 +41,7 @@ And for lists
 ```yaml
 Code example: Check output list
 
-Output:
+Out:
   - one
   - two
 

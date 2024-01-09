@@ -10,6 +10,7 @@ Get a flavor of instacli with this example file `greeting.cli`:
 ${name}: Hes
 ${language}: English
 -->
+
 ```yaml
 Script info: Multi-language greeting
 
@@ -29,10 +30,11 @@ POST:
     name: ${name}
     language: ${language}
     
-Print: ${output}
+Print: ${out}
 ```
 
-When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is printed.
+When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
+printed.
 
 ```commandline
 $ cli greeting.cli 
@@ -59,7 +61,6 @@ $ cli greeting.cli --name Hes --language Spanish
 ¡Hola Hes!
 ```
 
-
 ## Build it
 
 * Install a current JDK
@@ -76,6 +77,7 @@ Run the "Hello world" example:
 ```commandline
 cli samples/hello.cli
 ```
+
 There are several examples in the [samples](samples) directory - check it out!
 
 Explore them all with the following command:
@@ -90,14 +92,16 @@ The following example will provide an interactive experience and connect to the 
 cli samples/spotify
 ```
 
-When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and Client secret -- you should already have
+When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and
+Client secret -- you should already have
 those). These will be stored
 in `~/.instacli/connections.yaml` and will be used for subsequent invocations.
 
 ## Documentation
 
 * See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
-* The [Command reference](instacli-spec/command-reference/README.md) has a list of all the available commands with explanation and code examples.
+* The [Command reference](instacli-spec/command-reference/README.md) has a list of all the available commands with
+  explanation and code examples.
 
 <!--
 # Highlight Reel

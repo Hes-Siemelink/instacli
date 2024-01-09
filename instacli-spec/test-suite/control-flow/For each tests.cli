@@ -1,13 +1,13 @@
 Test case: Output from for each
 
-Output: something
+Out: something
 
 For each:
   ${item} in:
     - one
     - two
     - three
-  Output:
+  Out:
     item: ${item}
 
 Expected output:
@@ -18,13 +18,13 @@ Expected output:
 ---
 Test case: Use Output if there is no loop variable
 
-Output:
+Out:
   - one
   - two
   - three
 
 For each:
-  Output:
+  Out:
     item: ${item}
 
 Expected output:
@@ -35,14 +35,14 @@ Expected output:
 ---
 Test case: Use output inside for each
 
-Output: something
+Out: something
 
 For each:
   ${item} in:
     - one
     - two
     - three
-  Output: ${output} ${item}
+  Out: ${out} ${item}
 
 Expected output:
   - something one
@@ -53,7 +53,7 @@ Expected output:
 ---
 Test case: Make sure variables are resolved at right time in Do command
 
-${output}: something else
+${out}: something else
 ${test}: [ ]
 
 For each:
@@ -61,7 +61,7 @@ For each:
     - Mango ice cream
     - Ratatouille
     - Meatballs
-  Output: ${recipe}
+  Out: ${recipe}
 As: recipes
 
 Assert equals:
@@ -82,7 +82,7 @@ ${test_result}: [ ]
 
 For each:
   ${item} in: ${items}
-  Output: (${item})
+  Out: (${item})
 As: test_result
 
 Assert equals:
@@ -95,12 +95,12 @@ Assert equals:
 ---
 Test case: For each should output empty list when looping over an empty list
 
-Output: something to begin with
+Out: something to begin with
 
 For each:
   ${nothing} in: [ ]
 
-  Output: something else
+  Out: something else
 
 Expected output: [ ]
 
@@ -111,7 +111,7 @@ For each:
   ${entry} in:
     1: one
     2: two
-  Output: ${entry.value} indeed
+  Out: ${entry.value} indeed
 
 Expected output:
   1: one indeed
@@ -120,15 +120,15 @@ Expected output:
 ---
 Test case: For each with variables resolution
 
-Output:
+Out:
   agents:
     - id: 123
       alias: runner
       description: Remote runner
 
 For each:
-  ${agent} in: ${output.agents}
-  Output:
+  ${agent} in: ${out.agents}
+  Out:
     name: ${agent.alias} (${agent.description})
     value: ${agent.id}
 

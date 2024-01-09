@@ -10,6 +10,6 @@ GET: /search?q=${name}&type=artist
 
 Prompt:
   description: Select artist
-  choices: ${output.artists.items}
+  choices: ${out.artists.items}
   type: select one
   display: name

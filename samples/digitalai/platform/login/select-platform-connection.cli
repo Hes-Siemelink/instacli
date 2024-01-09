@@ -7,8 +7,9 @@ Input:
 
 ---
 Get accounts: ${target}
-Add to output:
-  name: "* Create new account"
+Add to:
+  ${out}:
+    name: "* Create new account"
 As: accounts
 
 ---
@@ -33,4 +34,4 @@ Set default account:
 
 Print: Using ${account.name} to log in to ${target}
 
-Output: ${account}
+Out: ${account}

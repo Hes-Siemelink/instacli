@@ -7,7 +7,7 @@ Connect to: Digital.ai Platform API
 Print: Getting Cloud Connectors
 
 GET: /workload/v1/cloud_connectors/
-${cloud_connectors}: ${output.cloud_connector_definitions}
+${cloud_connectors}: ${out.cloud_connector_definitions}
 
 If:
   empty: ${cloud_connectors}
@@ -26,7 +26,7 @@ As: cloud_connector
 Print: Getting available agent definitions
 
 GET: /workload/v1/agent_runtimes/
-${agent_definitions}: ${output.agent_runtimes}
+${agent_definitions}: ${out.agent_runtimes}
 
 Prompt:
   description: Select agent definition

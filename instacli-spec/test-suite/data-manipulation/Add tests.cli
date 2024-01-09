@@ -22,12 +22,12 @@ Expected output:
 ---
 Test case: Add to list output
 
-Output:
+Out:
   - One
   - Two
 
 Add:
-  - ${output}
+  - ${out}
   - Three
 
 Expected output:
@@ -52,12 +52,12 @@ Expected output:
 ---
 Test case: Add to output if it's an object
 
-Output:
+Out:
   1: one
   2: dos
 
 Add:
-  - ${output}
+  - ${out}
   - 2: two
     3: three
 
@@ -78,10 +78,10 @@ Expected output: one two three
 ---
 Test case: Add to string output
 
-Output: one two
+Out: one two
 
 Add:
-  - ${output}
+  - ${out}
   - " three"
 
 Expected output: one two three
@@ -103,12 +103,12 @@ Expected output:
 ---
 Test case: Merge two objects from output
 
-Output:
+Out:
   label: first
   header: accept
 
 Add:
-  - ${output}
+  - ${out}
   - label: second
     content: body
 
@@ -135,12 +135,12 @@ Expected output:
 ---
 Test case: Merge two lists from output
 
-Output:
+Out:
   - 1
   - 2
 
 Add:
-  - ${output}
+  - ${out}
   - 3
   - 4
 
