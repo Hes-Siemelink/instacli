@@ -20,16 +20,16 @@ Input:
     description: Select a language
     type: select one
     choices:
-    - English
-    - Spanish
-    - Dutch
+      - English
+      - Spanish
+      - Dutch
 
 POST:
   url: http://localhost:25125/greeting
   body:
-    name: ${name}
-    language: ${language}
-    
+    name: ${input.name}
+    language: ${input.language}
+
 Print: ${out}
 ```
 

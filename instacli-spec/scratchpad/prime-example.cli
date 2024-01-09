@@ -1,0 +1,21 @@
+Cli info:
+  description: Multi-language greeting
+  input:
+    name: Your name
+    language:
+      description: Language of the greeting
+      type: select one
+      choices:
+        - English
+        - Spanish
+        - Dutch
+  output:
+    string value: The greeting in another language
+
+POST:
+  url: http://localhost:25125/greeting
+  body:
+    name: ${input.name}
+    language: ${input.language}
+
+Print: ${output}

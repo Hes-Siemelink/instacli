@@ -1,0 +1,29 @@
+Script info: Multi-language greeting
+
+Define input:
+  name: Enter your name
+  language:
+    description: Select a language
+    type: select one
+    choices:
+      - English
+      - Spanish
+      - Dutch
+
+Define output:
+  - string value:
+      description: A greeting in your language
+  - array of:
+      name: Your name
+  - name: your name
+    string value!: what if you want to name your property 'string value'
+    string value!!: what if 'string value!'....
+
+---
+POST:
+  url: http://localhost:25125/greeting
+  body:
+    name: ${input.name}
+    language: ${input.language}
+
+Print: ${output}

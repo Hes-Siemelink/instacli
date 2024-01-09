@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.*
 import instacli.util.Yaml
-import instacli.util.toMutableMap
 import java.nio.file.Path
 import kotlin.io.path.name
 
@@ -17,7 +16,8 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val localContext = CliFileContext(cliFile, context, variables = data.toMutableMap())
+        val variables = mutableMapOf(INPUT_VARIABLE to data)
+        val localContext = CliFileContext(cliFile, context, variables = variables)
         return runFile(localContext)
     }
 
@@ -33,6 +33,7 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     }
 }
 
+// TODO: Define input variables on command or just remove this command
 class RunScript : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

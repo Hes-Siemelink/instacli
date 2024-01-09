@@ -6,12 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
+import com.fasterxml.jackson.module.kotlin.contains
 import com.github.kinquirer.core.Choice
 import instacli.script.*
-import instacli.util.KInquirerPrompt
-import instacli.util.MOCK_ANSWERS
-import instacli.util.UserPrompt
-import instacli.util.Yaml
+import instacli.util.*
 
 
 var userPrompt: UserPrompt = KInquirerPrompt()
@@ -35,23 +33,24 @@ class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, D
 class Input : CommandHandler("Input"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = InputInfo.from(data)
-
-        for ((name, info) in input.parameters) when {
+        val inputInfo = InputInfo.from(data)
+        val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { objectNode() } as ObjectNode
+        for ((name, info) in inputInfo.parameters) when {
 
             // Already exists
-            name in context.variables -> {
+            input.contains(name) -> {
                 continue
             }
 
             // Use default value
             info.default != null -> {
-                context.variables[name] = info.default as JsonNode
+                input.set<JsonNode>(name, info.default as JsonNode)
             }
 
             // Ask user
             context.interactive -> {
-                context.variables[name] = prompt(info)
+                val answer = prompt(info)
+                input.set<JsonNode>(name, answer)
             }
 
             else -> {
@@ -59,13 +58,8 @@ class Input : CommandHandler("Input"), ObjectHandler {
             }
         }
 
-        val output = data.objectNode()
-        for (name in input.parameters.keys) {
-            output.set<JsonNode>(name, context.variables[name])
-        }
-        return output
+        return input
     }
-
 }
 
 /**
