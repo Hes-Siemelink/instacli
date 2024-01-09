@@ -6,7 +6,7 @@ Input:
     default: Digital.ai Release
 
 ---
-Get accounts: ${target}
+Get accounts: ${input.target}
 As: accounts
 
 ---
@@ -18,7 +18,7 @@ Prompt:
 As: account
 
 Delete account:
-  target: ${target}
+  target: ${input.target}
   name: ${account.name}
 
-Print: Deleted ${account.name} in ${target}
+Print: Deleted ${account.name} in ${input.target}

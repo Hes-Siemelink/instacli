@@ -10,6 +10,6 @@ Input:
 POST:
   path: /workload/v1/cloud_connectors/
   body:
-    name: ${name}
+    name: ${input.name}
 
-Print: Created '${name}' with id ${output.cloud_connector_definition.id}
+Print: Created '${input.name}' with id ${output.cloud_connector_definition.id}

@@ -27,13 +27,13 @@ POST:
   path: /workload/v1/agent_instances/
   body:
     agent_id: ${runtime.id}
-    alias: ${alias}
+    alias: ${input.alias}
     description: Remote runner
     variables:
-      RELEASE_URL: ${host}
-      RUNNER_REGISTRATION_TOKEN: ${token}
+      RELEASE_URL: ${input.host}
+      RUNNER_REGISTRATION_TOKEN: ${input.token}
 #      RUNNER_VOLUME_BASE_HOST_PATH: "/.dai-agent-storage"
 
 ---
 # Display the ID of the agent that was just created
-Print: Added agent ${alias} with runtime id ${runtime.id}
+Print: Added agent ${input.alias} with runtime id ${runtime.id}

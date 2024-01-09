@@ -7,6 +7,6 @@ Input:
 
 ---
 DELETE:
-  path: /tokens/users/${token_id}
+  path: /tokens/users/${input.token_id}
 
-Print: Token ${token_id} deleted
+Print: Token ${input.token_id} deleted

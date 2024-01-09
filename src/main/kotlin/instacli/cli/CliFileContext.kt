@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.AssignVariable
 import instacli.commands.Connections
 import instacli.script.*
+import instacli.util.objectNode
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
@@ -108,10 +109,12 @@ class CliFileContext(
         commands[name] = CliFile(file)
     }
 
-    fun addVariables(vars: Map<String, String>) {
+    fun addInputVariables(vars: Map<String, String>) {
+        val input = objectNode()
         for (variable in vars) {
-            variables[variable.key] = TextNode(variable.value)
+            input.set<JsonNode>(variable.key, TextNode(variable.value))
         }
+        variables[INPUT_VARIABLE] = input
     }
 
     private fun findSubcommands(): Map<String, DirectoryInfo> {

@@ -14,27 +14,27 @@ Input:
 
 ---
 If:
-  empty: ${size}
+  empty: ${input.size}
   then:
     Exit: 0
 
 Add:
-  - ${size}
+  - ${input.size}
   - -1
 As: one_smaller
 
 ---
 Hanoi:
   size: ${one_smaller}
-  from: ${from}
-  to: ${helper}
-  helper: ${to}
+  from: ${input.from}
+  to: ${input.helper}
+  helper: ${input.to}
 
-Print: Move disc ${size} from ${from} to ${to}
+Print: Move disc ${input.size} from ${input.from} to ${input.to}
 
 ---
 Hanoi:
   size: ${one_smaller}
-  from: ${helper}
-  to: ${to}
-  helper: ${from}
+  from: ${input.helper}
+  to: ${input.to}
+  helper: ${input.from}

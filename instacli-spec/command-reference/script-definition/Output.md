@@ -64,7 +64,8 @@ Expected output: Hello World!
 
 ## Output of a script
 
-When defining a script, you would typically put  [Input](Input.md) at the top, and **Output** at the bottom. This way you define the contract of the script in a
+When defining a script, you would typically put  [Input](Input.md) at the top, and **Output** at the bottom. This way
+you define the contract of the script in a
 way that is easy to read.
 
 ```yaml
@@ -75,7 +76,7 @@ Input:
     description: Person to greet
     default: Nobody
 
-Output: Hello ${name}!
+Output: Hello ${input.name}!
 ```
 
 ## Output in For each

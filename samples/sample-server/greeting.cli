@@ -13,7 +13,7 @@ Input:
 POST:
   url: http://localhost:25125/greeting
   body:
-    name: ${name}
-    language: ${language}
+    name: ${input.name}
+    language: ${input.language}
 
 Print: ${output}

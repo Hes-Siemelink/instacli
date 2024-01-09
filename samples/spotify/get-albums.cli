@@ -7,7 +7,7 @@ Connect to: Spotify
 
 ---
 Get artist info:
-  name: ${name}
+  name: ${input.name}
 As: artist
 
 ---

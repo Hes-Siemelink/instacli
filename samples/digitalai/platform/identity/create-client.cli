@@ -9,12 +9,12 @@ Input:
 POST:
   path: /identity/clients/oidc/
   body:
-    name: ${client_id}
+    name: ${input.client_id}
     client_credentials_grant_enabled: true
 
 Print:
   Use these credentials to authenticate:
     grant_type: client_credentials
-    client_id: ${client_id}
+    client_id: ${input.client_id}
     client_secret: ${output.client.client_secret}
     scope: openid dai-svc

@@ -7,4 +7,4 @@ Input:
     type: text
   language: en
 
-Output: Hello ${name}!
+Output: Hello ${input.name}!

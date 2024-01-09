@@ -6,7 +6,7 @@ Input:
 Connect to: Spotify
 
 ---
-GET: /search?q=${name}&type=artist
+GET: /search?q=${input.name}&type=artist
 
 Prompt:
   description: Select artist

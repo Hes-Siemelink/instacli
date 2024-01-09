@@ -6,7 +6,7 @@ Input:
 Connect to: Digital.ai Platform API
 
 ---
-GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${name}
+GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${input.name}
 
 Prompt:
   description: Select agents to delete

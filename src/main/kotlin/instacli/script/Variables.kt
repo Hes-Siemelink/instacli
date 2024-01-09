@@ -54,7 +54,8 @@ fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
     val variableWithPath: VariableWithPath = splitIntoVariableAndPath(varName)
 
     if (!variables.containsKey(variableWithPath.name)) {
-        throw CliScriptException("Unknown variable '${variableWithPath.name}' in \${${varName}}")
+        // FIXME Produces message: "Unknown variable 'greeting' in ${greeting}"
+        throw CliScriptException("Unknown variable \${${variableWithPath.name}}")
     }
 
     val value = variables[variableWithPath.name]!!

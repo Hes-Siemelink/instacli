@@ -1,4 +1,4 @@
-# Command: <any instacli file in the same directory> 
+# Command: <any instacli file in the same directory>
 
 You can run any instacli file in the same directory as a regular command
 
@@ -13,7 +13,7 @@ You can run any instacli file in the same directory as a regular command
 Suppose you have a cli file `generate-greeting.cli`
 
 ```yaml file:generate-greeting.cli
-Output: Hello ${name}!
+Output: Hello ${input.name}!
 ```
 
 Then you can call it from another Instacli file. Convert "skewer-case" to "Sentence case" and off you go.
@@ -27,4 +27,6 @@ Generate greeting:
 Expected output: Hello Alice!
 ```
 
-When you specify a field, it will become a variable in the script that you call. For example, the value for `name`, Alice, will be availaible as `${name}` in the target script.   
+When you specify a field, it will be passed as part of the `${input}` variable in the script that you call. For example,
+the value for `name`,
+Alice, will be availaible as `${input.name}` in the target script.   

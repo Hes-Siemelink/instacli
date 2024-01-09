@@ -12,7 +12,7 @@ Input:
 POST:
   path: /workload/v1/cloud_connectors/
   body:
-    name: Cloud Connector for ${host}
+    name: Cloud Connector for ${input.host}
 ${cloud_connector}: ${output.cloud_connector_definition}
 
 ---
@@ -25,8 +25,8 @@ POST:
     alias: demo-rr
     description: Remote runner
     variables:
-      RELEASE_URL: ${host}
-      RUNNER_REGISTRATION_TOKEN: ${token}
+      RELEASE_URL: ${input.host}
+      RUNNER_REGISTRATION_TOKEN: ${input.token}
 
 ---
 # Get installer

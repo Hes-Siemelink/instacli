@@ -79,7 +79,7 @@ class CliInvocationTest {
 
         // Then
         out.scriptInfoPrinted?.description shouldBe "Echos the input"
-        out.scriptInfoPrinted?.input?.data?.get("input")?.textValue() shouldBe "Input that becomes output"
+        out.scriptInfoPrinted?.input?.data?.get("text")?.textValue() shouldBe "Input that becomes output"
     }
 
     @Test
@@ -87,7 +87,7 @@ class CliInvocationTest {
 
         // Given
         val session = InstacliMain(
-            "-q", "-o", "sample", "simple", "echo", "--input", "Script output",
+            "-q", "-o", "sample", "simple", "echo", "--text", "Script output",
             workingDir = TestPaths.RESOURCES,
             output = out
         )
@@ -104,7 +104,7 @@ class CliInvocationTest {
 
         // Given
         val session = InstacliMain(
-            "-q", "sample", "simple", "echo", "--input", "Script output",
+            "-q", "sample", "simple", "echo", "--text", "Script output",
             workingDir = TestPaths.RESOURCES,
             output = out
         )

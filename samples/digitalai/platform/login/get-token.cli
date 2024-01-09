@@ -10,11 +10,11 @@ Input:
 
 ---
 # Get authorization URL
-Print: Accessing ${id} as ${username} on ${url}
+Print: Accessing ${input.id} as ${input.username} on ${input.url}
 
 GET:
-  url: ${url}
-  path: /identity/v1/accounts/auth/configuration?hint=${id}
+  url: ${input.url}
+  path: /identity/v1/accounts/auth/configuration?hint=${input.id}
 ${token_endpoint}: ${output.configuration.token_endpoint}
 
 ---
@@ -26,7 +26,7 @@ POST:
   body:
     grant_type: password
     client_id: dai-svc-consumer
-    username: ${username}
-    password: ${password}
+    username: ${input.username}
+    password: ${input.password}
     scope: "openid dai-svc"
 

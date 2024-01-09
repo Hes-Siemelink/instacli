@@ -6,7 +6,7 @@ Input:
     default: Digital.ai Platform
 
 ---
-Get accounts: ${target}
+Get accounts: ${input.target}
 Add to output:
   name: "* Create new account"
 As: accounts
@@ -28,9 +28,9 @@ If:
 
 ---
 Set default account:
-  target: ${target}
+  target: ${input.target}
   name: ${account.name}
 
-Print: Using ${account.name} to log in to ${target}
+Print: Using ${account.name} to log in to ${input.target}
 
 Output: ${account}

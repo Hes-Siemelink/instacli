@@ -76,7 +76,7 @@ class InstacliMain(
             return
         }
 
-        context.addVariables(options.commandParameters)
+        context.addInputVariables(options.commandParameters)
 
         val output = cliFile.runFile(context)
 

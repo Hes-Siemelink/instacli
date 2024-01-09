@@ -7,8 +7,9 @@ Instantly create CLI applications with light scripting in Yaml!
 Get a flavor of instacli with this example file `greeting.cli`:
 
 <!-- run before example
-${name}: Hes
-${language}: English
+${input}:
+    name: Hes
+    language: English
 -->
 
 ```yaml
@@ -30,7 +31,7 @@ POST:
     name: ${input.name}
     language: ${input.language}
 
-Print: ${out}
+Print: ${output}
 ```
 
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is

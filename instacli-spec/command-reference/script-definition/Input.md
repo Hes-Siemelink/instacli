@@ -10,11 +10,13 @@
 
 ## Basic usage
 
-With **Input**, you define the input parameters of a script. When running in interactive mode, Instacli will prompt the use for any input parameter that has not
+With **Input**, you define the input parameters of a script. When running in interactive mode, Instacli will prompt the
+use for any input parameter that has not
 been passed to the script.
 
 <!-- run before code example
-${name}: world
+${input}:
+   name: world
 -->
 
 ```yaml
@@ -23,33 +25,36 @@ Code example: Define input
 Input:
   name: What is your name?
 
-Print: Hello, ${name}!
+Print: Hello, ${input.name}!
 ```
 
 When running this, there are three possibilities
 
 1. The variable `${name}` is defined. In that case all is good and nothing happens.
-2. The variable `${name}` is not defined, and the script is run in interactive mode. Then the user is prompted with the questions **What is your name?** and the
+2. The variable `${name}` is not defined, and the script is run in interactive mode. Then the user is prompted with the
+   questions **What is your name?** and the
    result is stored in the `${name}` variable.
-3. The variable `${name}` is not defined, and the script is not run in interactive mode. Then an error is thrown and the script is aborted.
+3. The variable `${name}` is not defined, and the script is not run in interactive mode. Then an error is thrown and the
+   script is aborted.
 
 ## Multiple variables
 
 You can define multiple input parameters at once.
 
 <!-- run before code example
-${greeting}: Hello
-${name}: world
+${input}:
+   greeting: Hello
+   name: world
 -->
 
 ```yaml
-Code example: Define input
+Code example: Define input with multiple variables
 
 Input:
   greeting: What is your greeting?
   name: What is your name?
 
-Print: ${greeting}, ${name}!
+Print: ${input.greeting}, ${input.name}!
 ```
 
 ## More properties

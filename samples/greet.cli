@@ -6,4 +6,4 @@ Input:
     default: World
 
 ---
-Print: Hello, ${name}!
+Print: Hello, ${input.name}!
