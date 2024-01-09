@@ -9,7 +9,7 @@ object CommandLibrary {
         // Script definition
         ScriptInfo(),
         Input(),
-        Out(),
+        Output(),
 
         // Variables
         As(),

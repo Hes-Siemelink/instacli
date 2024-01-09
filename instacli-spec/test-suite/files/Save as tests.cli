@@ -1,6 +1,6 @@
 Test case: Save output to file
 
-Out:
+Output:
   test: true
   something: else
 

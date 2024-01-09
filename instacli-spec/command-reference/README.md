@@ -26,7 +26,7 @@
 
 * [Script info](user-interaction/Script%20info.md)
 * [Input](script-definition/Input.md)
-* [Output](script-definition/Out)
+* [Output](script-definition/Output.md)
 
 ### Variables
 

@@ -12,4 +12,4 @@ POST:
   body:
     name: ${name}
 
-Print: Created '${name}' with id ${out.cloud_connector_definition.id}
+Print: Created '${name}' with id ${output.cloud_connector_definition.id}

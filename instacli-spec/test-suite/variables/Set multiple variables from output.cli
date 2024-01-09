@@ -1,11 +1,11 @@
 Test case: Multiple variables with $-{ syntax
 
-Out:
+Output:
   data:
     item1: one
     item2: two
-${stuff}: ${out.data.item1}
-${all}: ${out}
+${stuff}: ${output.data.item1}
+${all}: ${output}
 
 
 Assert equals:

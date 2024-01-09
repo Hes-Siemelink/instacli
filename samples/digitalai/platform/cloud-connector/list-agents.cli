@@ -6,11 +6,11 @@ Connect to: Digital.ai Platform API
 GET: /workload/v1/agent_instances/
 
 For each:
-  ${agent} in: ${out.agent_instances}
-  Out:
+  ${agent} in: ${output.agent_instances}
+  Output:
     description: ${agent.description}
     alias: ${agent.alias}
     agent_id: ${agent.agent_id}
     variables: ${agent.variables}
 
-Print: ${out}
+Print: ${output}

@@ -46,8 +46,7 @@ The console output of the above example would be:
 
 ### Transform a list
 
-**For each** will store the output of the last command for each item in a list. You can use this feature to transform a
-list into something else, like
+**For each** will store the output of the last command for each item in a list. You can use this feature to transform a list into something else, like
 the `map()` function in some programming languages.
 
 ```yaml
@@ -58,7 +57,7 @@ For each:
     - Alice
     - Bob
     - Carol
-  Out: Hello ${name}!
+  Output: Hello ${name}!
 
 Expected output:
   - Hello Alice!
@@ -68,13 +67,12 @@ Expected output:
 
 ### Loop over the output variable
 
-If you don't specify a loop variable in **For each**, it will loop over the current value of `${out}`, with loop
-variable `${item}`.
+If you don't specify a loop variable in **For each**, it will loop over the current value of `${output}`, with loop variable `${item}`.
 
 ```yaml
 Code example: For each on output
 
-Out:
+Output:
   - one
   - two
   - three

@@ -61,7 +61,7 @@ class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolv
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
         val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.variables[OUTPUT_VARIABLE])
-        checkNotNull(itemList) { "For each without loop variable takes items from  \${out}, but \${out} is null" }
+        checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
         val itemListExpanded = resolveVariables(itemList, context.variables)
         val items = toArrayNode(itemListExpanded)
 

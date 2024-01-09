@@ -7,7 +7,7 @@ GET: /identity/clients/
 
 Prompt:
   description: Select clients to delete
-  choices: ${out.clients}
+  choices: ${output.clients}
   type: select multiple
   display: name
 

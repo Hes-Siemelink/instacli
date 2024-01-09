@@ -16,4 +16,4 @@ Get token: ${endpoint}
 Http endpoint:
   url: ${endpoint.url}
   headers:
-    Authorization: Bearer ${out.access_token}
+    Authorization: Bearer ${output.access_token}

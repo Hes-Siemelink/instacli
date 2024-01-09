@@ -1,6 +1,6 @@
 # Command: As
 
-`As` sets a variable based on the `${out}` variable, that can be the output of a script
+`As` sets a variable based on the `${output}` variable, that can be the output of a script
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,12 +10,12 @@
 
 ## Basic usage
 
-**As** takes the name of the variable to capture the `${out}` variable
+**As** takes the name of the variable to capture the `${output}` variable
 
 ```yaml
 Code example: Assign a variable with As
 
-Out: Hello World!
+Output: Hello World!
 As: greeting
 
 Assert equals:

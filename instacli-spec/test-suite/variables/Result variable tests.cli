@@ -1,13 +1,13 @@
 Test case: Output
 
-Out: a result
+Output: a result
 
 Expected output: a result
 
 ---
 Test case: Set variable with 'As'
 
-Out: some more contents
+Output: some more contents
 As: var3
 
 Assert equals:
@@ -19,7 +19,7 @@ Assert equals:
 Test case: Output variable assignment
 
 ${var}: something
-${out}: ${var}
+${output}: ${var}
 
 Expected output: something
 
@@ -27,7 +27,7 @@ Expected output: something
 ---
 Test case: Output should be a list when invoking a handler with a list
 
-Out:
+Output:
   - one
   - two
   - three
@@ -41,6 +41,6 @@ Expected output:
 Test case: Use numbers in interpolation
 
 ${number}: 2
-Out: Number ${number}
+Output: Number ${number}
 
 Expected output: Number 2

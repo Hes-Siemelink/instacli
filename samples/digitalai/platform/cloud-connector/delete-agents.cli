@@ -5,7 +5,7 @@ Connect to: Digital.ai Platform API
 ---
 # Select agents to delete
 GET: /workload/v1/agent_instances/
-${agents}: ${out.agent_instances}
+${agents}: ${output.agent_instances}
 
 If:
   - empty: ${agents}

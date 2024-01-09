@@ -5,4 +5,4 @@ Input:
     default: world
 
 ---
-Out: Hello ${input.name}!
+Output: Hello ${input.name}!

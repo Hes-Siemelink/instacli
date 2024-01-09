@@ -11,8 +11,7 @@ Use `Do` to execute one or more other commands.
 
 ## Basic usage
 
-Remember that the **Instacli** syntax is in Yaml, so it is not permitted to repeat a key. This poses a problem in a
-programming language, wher you are prone to
+Remember that the **Instacli** syntax is in Yaml, so it is not permitted to repeat a key. This poses a problem in a programming language, wher you are prone to
 have several invvocations of the same command, but with different parameters.
 
 There are multiple ways to execute various commands with the same name in Instacli.
@@ -34,8 +33,7 @@ Hello
 World!
 ```
 
-**Do** makes use of a nifty Instacli feature: if a command is defined to take object or value content, but not a list,
-you can pass it a list of things, and
+**Do** makes use of a nifty Instacli feature: if a command is defined to take object or value content, but not a list, you can pass it a list of things, and
 they will be executed sequentially with the same command. The above example can be written more concisely as:
 
 ```yaml
@@ -46,12 +44,10 @@ Print:
   - World!
 ```
 
-In fact, the definition of **Do** specifies that it only takes one Command object as a child. Using it with a list, as
-in the above example, is just a case of
+In fact, the definition of **Do** specifies that it only takes one Command object as a child. Using it with a list, as in the above example, is just a case of
 the list-expanding invocation.
 
-The final option is just to stick `---` somewhere in the code to separate the yaml maps. Instacli will stitch them
-together. This only works on the top-level of
+The final option is just to stick `---` somewhere in the code to separate the yaml maps. Instacli will stitch them together. This only works on the top-level of
 course.
 
 ```yaml
@@ -70,9 +66,9 @@ Print: World!
 Code example: The result of Do as a list
 
 Do:
-  - Out: one
-  - Out: two
-  - Out: three
+  - Output: one
+  - Output: two
+  - Output: three
 
 Expected output:
   - one

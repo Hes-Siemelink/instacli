@@ -11,7 +11,7 @@ Connect to: Digital.ai Platform API
 # Select runtime
 Print: Getting available runtimes
 GET: /workload/v1/agent_runtimes/
-${runtimes}: ${out.agent_runtimes}
+${runtimes}: ${output.agent_runtimes}
 
 ---
 Prompt:

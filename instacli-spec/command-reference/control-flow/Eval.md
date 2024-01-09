@@ -1,8 +1,7 @@
 # Eval syntax
 
 You can write code in a functional style by using the eval syntax.
-Be careful not to go crazy with this one and go all nested and lispy! In order to keep your scripts legible, it's better
-to avoid nested logic.
+Be careful not to go crazy with this one and go all nested and lispy! In order to keep your scripts legible, it's better to avoid nested logic.
 
 ## Basic usage
 
@@ -32,7 +31,7 @@ Add:
   - 2
 ---
 Add:
-  - ${out}
+  - ${output}
   - 3
 
 Expected output: 6
@@ -58,7 +57,7 @@ ${cast}:
 Add:
   :For each:
     ${character} in: ${cast}
-    Out: ${character.age}
+    Output: ${character.age}
 
 Expected output: 29
 
@@ -81,13 +80,12 @@ Code example: Alternative to nesting
 
 For each:
   ${character} in: ${cast}
-  Out: ${character.age}
-Add: ${out}
+  Output: ${character.age}
+Add: ${output}
 
 Expected output: 29
 
 ```
 
-In the end it's a matter of taste. **Instacli** scripts are meant to be simple and legible. Choose the style that best
-expresses how you would explain what is
+In the end it's a matter of taste. **Instacli** scripts are meant to be simple and legible. Choose the style that best expresses how you would explain what is
 going on in words.

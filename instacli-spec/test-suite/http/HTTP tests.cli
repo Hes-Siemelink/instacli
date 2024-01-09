@@ -64,7 +64,7 @@ GET:
 Assert that:
   object:
     Test: something
-  in: ${out}
+  in: ${output}
 
 ---
 Test case: Cookies

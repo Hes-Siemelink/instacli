@@ -4,4 +4,4 @@ Input:
   input: Input that becomes output
 
 ---
-Out: ${input}
+Output: ${input}

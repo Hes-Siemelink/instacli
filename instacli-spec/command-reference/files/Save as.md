@@ -10,12 +10,12 @@
 
 ## Basic usage
 
-Use **Save as** store the contents of the `${out}` variable in a file.
+Use **Save as** store the contents of the `${output}` variable in a file.
 
 ```yaml
 Code example: Save output
 
-Out: |
+Output: |
   Hello, World!
 
 Save as: out/greeting.txt

@@ -8,4 +8,4 @@ Prompt:
     - Drizzle
 
 Print:
-  Your choices: ${out}
+  Your choices: ${output}

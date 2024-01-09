@@ -17,4 +17,4 @@ interface ScriptContext {
 }
 
 const val INPUT_VARIABLE = "input"
-const val OUTPUT_VARIABLE = "out"
+const val OUTPUT_VARIABLE = "output"

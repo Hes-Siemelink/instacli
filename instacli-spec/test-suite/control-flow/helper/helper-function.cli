@@ -2,4 +2,4 @@ Input:
   name:
     default: world
 ---
-Out: Thanks for your help, ${name}!
+Output: Thanks for your help, ${name}!

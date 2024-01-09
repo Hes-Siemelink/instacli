@@ -1,6 +1,6 @@
 Test case: Evaluate a command inside data
 
-Out:
+Output:
   :Size: four
 
 Expected output: 4
@@ -8,7 +8,7 @@ Expected output: 4
 ---
 Test case: Evaluate an array
 
-Out:
+Output:
   - :Size: one
   - :Size: two
   - :Size: three
@@ -21,9 +21,9 @@ Expected output:
 ---
 Test case: Evaluate a command nested in another command
 
-Out:
+Output:
   :Size:
-    :Out:
+    :Output:
       - 1
       - 2
       - 3

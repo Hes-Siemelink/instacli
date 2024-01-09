@@ -48,17 +48,17 @@ Assert equals:
 
 ## Add to output
 
-Use **Add to** with the `${out}` variable to append something to the current output
+Use **Add to** with the `${output}` variable to append something to the current output
 
 ```yaml
 Code example: Add a field
 
-Out:
+Output:
   1: one
   2: two
 
 Add to:
-  ${out}:
+  ${output}:
     3: three
 
 Expected output:
@@ -74,12 +74,12 @@ You can add an item to a list
 ```yaml
 Code example: Add an item to a list
 
-Out:
+Output:
   - 1
   - 2
 
 Add to:
-  ${out}: 3
+  ${output}: 3
 
 Expected output:
   - 1
@@ -92,12 +92,12 @@ Or combine two lists.
 ```yaml
 Code example: Append a list to another
 
-Out:
+Output:
   - 1
   - 2
 
 Add to:
-  ${out}:
+  ${output}:
     - 3
     - 4
 
@@ -115,10 +115,10 @@ You can also extend a text string.
 ```yaml
 Code example: Append text
 
-Out: Hello
+Output: Hello
 
 Add to:
-  ${out}: " World"
+  ${output}: " World"
 
 Expected output: Hello World
 ```

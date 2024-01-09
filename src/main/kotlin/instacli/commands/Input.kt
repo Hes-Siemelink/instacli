@@ -149,7 +149,7 @@ class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
 /**
  * Returns the input as output.
  */
-class Out : CommandHandler("Out"), AnyHandler {
+class Output : CommandHandler("Output"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }

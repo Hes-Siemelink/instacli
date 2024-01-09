@@ -13,7 +13,7 @@ POST:
   path: /workload/v1/cloud_connectors/
   body:
     name: Cloud Connector for ${host}
-${cloud_connector}: ${out.cloud_connector_definition}
+${cloud_connector}: ${output.cloud_connector_definition}
 
 ---
 # Register agent

@@ -4,7 +4,7 @@ If:
   object: a value
   equals: a value
   then:
-    Out: Match
+    Output: Match
 
 Expected output: Match
 
@@ -37,7 +37,7 @@ If:
         - object: selection
           equals: selection
   then:
-    Out: Any Match
+    Output: Any Match
 
 Expected output: Any Match
 
@@ -71,12 +71,12 @@ If:
   - object: one
     equals: one
     then:
-      Out: 1
+      Output: 1
 
   - object: two
     equals: two
     then:
-      Out: 2
+      Output: 2
 
 Expected output:
   - 1
@@ -89,27 +89,27 @@ When:
   - object: a value
     equals: a value
     then:
-      Out: First match
+      Output: First match
 
   - object: another value
     in: another value
     then:
-      Out: Second match
+      Output: Second match
 
 Expected output: First match
 
 ---
 Test case: Variable resolution in nested Do
 
-${out}: one
+${output}: one
 
 If:
   object: something
   equals: something
   then:
     Do:
-      - ${out}: two
-      - ${var}: ${out}
+      - ${output}: two
+      - ${var}: ${output}
 
 Assert equals:
   - actual: ${var}
@@ -123,56 +123,56 @@ If:
   object: [ ]
   equals: [ ]
   then:
-    Out: Success
+    Output: Success
 
 Expected output: Success
 
 ---
 Test case: Not
 
-Out: Failure
+Output: Failure
 
 If:
   not:
     object: true
     equals: false
   then:
-    Out: Success
+    Output: Success
 
 Expected output: Success
 
 ---
 Test case: Empty list
 
-Out: [ ]
+Output: [ ]
 
 If:
-  empty: ${out}
+  empty: ${output}
   then:
-    Out: empty list detected
+    Output: empty list detected
 
 Expected output: empty list detected
 
 ---
 Test case: Empty object
 
-Out: { }
+Output: { }
 
 If:
-  empty: ${out}
+  empty: ${output}
   then:
-    Out: empty object detected
+    Output: empty object detected
 
 Expected output: empty object detected
 
 ---
 Test case: Empty string
 
-Out: ""
+Output: ""
 
 If:
-  empty: ${out}
+  empty: ${output}
   then:
-    Out: empty string detected
+    Output: empty string detected
 
 Expected output: empty string detected

@@ -12,8 +12,8 @@ POST:
     tokenNote: cloud-connector-token
 
 Print:
-  Remote Runner token: ${out.token}
-  Token ID: ${out.ciUid}
+  Remote Runner token: ${output.token}
+  Token ID: ${output.ciUid}
 
-Out:
-  token: ${out.token}
+Output:
+  token: ${output.token}
