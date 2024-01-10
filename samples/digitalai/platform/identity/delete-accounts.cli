@@ -17,3 +17,4 @@ Prompt:
 For each:
   Print: DELETE /identity/v1/accounts/${item.id}
   DELETE: /identity/v1/accounts/${item.id}
+  Output: ${item.id}

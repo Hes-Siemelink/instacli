@@ -1,0 +1,17 @@
+Script info: Creates a new account
+
+Connect to: Digital.ai Platform API
+
+Input:
+  name: Customer name
+  id: Customer ID
+
+---
+POST:
+  path: /identity/v1/accounts
+  body:
+    name: "${input.name}"
+    external_id: "${input.id}"
+    vanity_domain: "${input.id}"
+    activated: true
+    allow_self_registration: true

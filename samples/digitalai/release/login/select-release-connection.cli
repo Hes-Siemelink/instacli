@@ -7,8 +7,9 @@ Input:
 
 ---
 Get accounts: ${input.target}
-Add to output:
-  name: "* Create new account"
+Add to:
+  ${output}:
+    name: "* Create new account"
 As: accounts
 
 ---
