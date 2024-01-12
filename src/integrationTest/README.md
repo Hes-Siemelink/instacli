@@ -16,5 +16,5 @@ The best way to configure credentials is to use the following command that will 
 
     cli samples/digitalai/platform/login/create-platform-connection.cli
 
-And then copy the `~/.instacli/connections.yaml` file to the location in `integrationTest` mentioned above.
+And then copy the resulting `~/.instacli/connections.yaml` to  `resources/instacli-home`.
 
