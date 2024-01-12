@@ -1,7 +1,7 @@
 package instacli.cli
 
-import instacli.commands.Connections
 import instacli.script.InstacliException
+import instacli.script.ScriptContext
 import instacli.util.toDisplayString
 import java.nio.file.Path
 import kotlin.io.path.exists
@@ -11,7 +11,6 @@ import kotlin.system.exitProcess
 
 object InstacliPaths {
     val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
-    val CONNECTIONS_YAML: Path = INSTACLI_HOME.resolve(instacli.commands.CONNECTIONS_YAML)
 }
 
 class InvocationException(message: String) : Exception(message)
@@ -47,7 +46,7 @@ class InstacliMain(
         output: UserOutput = ConsoleOutput
     ) : this(CliCommandLineOptions(args.toList()), workingDir, input, output)
 
-    fun run() {
+    fun run(parent: ScriptContext? = null) {
 
         if (options.commands.isEmpty()) {
             output.printUsage()
@@ -60,8 +59,15 @@ class InstacliMain(
             throw InvocationException("Could not find file: ${file.toAbsolutePath()}")
         }
 
+        // Create context based on the file and options.
+        // A parent context can be passed for testing scenarios.
+        val context = if (parent == null) {
+            CliFileContext(file, interactive = options.interactive)
+        } else {
+            CliFileContext(file, parent)
+        }
+
         // Run script directly or a command from a directory
-        val context = CliFileContext(file, interactive = options.interactive, connections = Connections.load())
         if (file.isDirectory()) {
             invokeDirectory(file, options.commands.drop(1), context, options)
         } else {

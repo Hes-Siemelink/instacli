@@ -11,13 +11,16 @@ import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.objectNode
 import java.nio.file.Path
+import kotlin.io.path.createFile
+import kotlin.io.path.exists
 import kotlin.io.path.name
 
 class GetAccount : CommandHandler("Get account"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify connection")
 
-        val target = context.connections.targets[targetName] ?: return TextNode("")
+        val connections = Connections.getFrom(context)
+        val target = connections.targets[targetName] ?: return TextNode("")
         return when {
             target.default != null -> {
                 target.defaultAccount()
@@ -36,13 +39,14 @@ class GetAccount : CommandHandler("Get account"), ValueHandler {
 class CreateAccount : CommandHandler("Create account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val newAccount = CreateAccountInfo.from(data)
-        val target = context.connections.targets.getOrPut(newAccount.target) {
+        val connections = Connections.getFrom(context)
+        val target = connections.targets.getOrPut(newAccount.target) {
             ConnectionTarget()
         }
 
         target.accounts.add(newAccount.account)
 
-        context.connections.save()
+        connections.save()
 
         return newAccount.account
     }
@@ -51,7 +55,8 @@ class CreateAccount : CommandHandler("Create account"), ObjectHandler {
 class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val targetName = data.asText()
-        val target = context.connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
+        val connections = Connections.getFrom(context)
+        val target = connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
 
         return target.accounts()
     }
@@ -62,10 +67,11 @@ class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
         val targetName = data.getTextParameter("target")
         val account = data.getTextParameter("name")
 
-        val target = context.connections.targets[targetName] ?: return null
+        val connections = Connections.getFrom(context)
+        val target = connections.targets[targetName] ?: return null
         target.default = account
 
-        context.connections.save()
+        connections.save()
 
         return null
     }
@@ -76,10 +82,11 @@ class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
         val targetName = data.getTextParameter("target")
         val account = data.getTextParameter("name")
 
-        val target = context.connections.targets[targetName] ?: return null
+        val connections = Connections.getFrom(context)
+        val target = connections.targets[targetName] ?: return null
         target.accounts.removeIf { it["name"]?.textValue() == account }
 
-        context.connections.save()
+        connections.save()
 
         return null
     }
@@ -113,8 +120,6 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
 //
 
 
-const val CONNECTIONS_YAML = "connections.yaml"
-
 class Connections {
 
     @JsonAnySetter
@@ -129,16 +134,48 @@ class Connections {
         Yaml.mapper.writeValue(file?.toFile(), this.targets)
     }
 
+    fun storeIn(context: ScriptContext) {
+        store(context, this)
+    }
+
     companion object {
+
+        const val FILE_NAME = "connections.yaml"
+        val CONNECTIONS_YAML: Path = InstacliPaths.INSTACLI_HOME.resolve(FILE_NAME)
+
+        private fun store(context: ScriptContext, value: Connections) {
+            context.session[FILE_NAME] = value
+        }
+
+        fun getFrom(context: ScriptContext): Connections {
+            return context.session.getOrPut(FILE_NAME) {
+                load()
+            } as Connections
+        }
+
         fun from(data: JsonNode): Connections {
             return Yaml.mapper.treeToValue(data, Connections::class.java)
         }
 
-        fun load(file: Path = InstacliPaths.CONNECTIONS_YAML): Connections {
+        fun load(file: Path = CONNECTIONS_YAML): Connections {
+
+            createIfNotExists(file)
+
             val node = Yaml.readFile(file)
-            val instance = from(node)
-            instance.file = file
-            return instance
+            val connections = from(node)
+            connections.file = file
+
+            return connections
+        }
+
+        private fun createIfNotExists(file: Path = CONNECTIONS_YAML) {
+            if (file.exists()) {
+                return
+            }
+            file.createFile()
+            val connections = Connections()
+            connections.file = file
+            connections.save()
         }
     }
 }

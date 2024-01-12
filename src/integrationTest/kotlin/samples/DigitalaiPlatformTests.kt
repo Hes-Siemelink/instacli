@@ -1,7 +1,11 @@
 package samples
 
+import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
+import instacli.commands.Connections
+import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.Test
+import kotlin.io.path.exists
 
 class DigitalaiPlatformTests {
 
@@ -11,6 +15,11 @@ class DigitalaiPlatformTests {
     }
 
     private fun test(resource: String) {
-        InstacliMain("-q", toPath(resource).toString()).run()
+        Assumptions.assumeTrue(TestPaths.TEST_CONNECTIONS.exists())
+
+        val file = toPath(resource)
+        val testContext = CliFileContext(file, interactive = false)
+        Connections.load(TestPaths.TEST_CONNECTIONS).storeIn(testContext)
+        InstacliMain("-q", file.toString()).run(testContext)
     }
 }

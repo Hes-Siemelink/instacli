@@ -1,14 +1,12 @@
 package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.Connections
 import java.nio.file.Path
 
 interface ScriptContext {
     val interactive: Boolean
     val variables: MutableMap<String, JsonNode>
-    val session: MutableMap<String, JsonNode>
-    val connections: Connections
+    val session: MutableMap<String, Any?>
     val cliFile: Path
     val scriptDir: Path
     val workingDir: Path

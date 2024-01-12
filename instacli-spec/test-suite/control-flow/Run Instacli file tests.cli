@@ -26,9 +26,16 @@ Expected output: Hello May!
 ---
 Test case: Run a script from another directory that was imported by .instacli.yaml
 
-Do:
-  Helper function:
-    name: Ray
+Helper function:
+  name: Ray
 
 Expected output: Thanks for your help, Ray!
+
+---
+Test case: Run a script from another directory that was imported by .instacli.yaml that calls another script and that directory.
+
+Call helper:
+  name: Fay
+
+Expected output: Thanks for your help, Fay!
 

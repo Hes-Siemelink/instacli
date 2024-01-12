@@ -26,18 +26,27 @@ import kotlin.collections.set
 class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
     companion object {
-        const val HTTP_DEFAULTS = "http.defaults"
+        private const val HTTP_DEFAULTS = "http.defaults"
+
+        fun store(context: ScriptContext, value: JsonNode) {
+            context.session[HTTP_DEFAULTS] = value
+        }
+
+        fun getFrom(context: ScriptContext): JsonNode? {
+            return context.session[HTTP_DEFAULTS] as JsonNode?
+        }
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        context.session[HTTP_DEFAULTS] = objectNode("url", data.textValue())
+        store(context, objectNode("url", data.textValue()))
         return null
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        context.session[HTTP_DEFAULTS] = data
+        store(context, data)
         return null
     }
+
 }
 
 
@@ -155,7 +164,7 @@ private fun processRequestWithoutBody(data: ValueNode, context: ScriptContext, m
 
 private fun processRequest(data: ObjectNode, context: ScriptContext, method: HttpMethod): JsonNode? {
     return runBlocking {
-        processRequest(HttpParameters.create(data, context.session[HttpEndpoint.HTTP_DEFAULTS], method))
+        processRequest(HttpParameters.create(data, HttpEndpoint.getFrom(context), method))
     }
 }
 

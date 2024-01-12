@@ -1,6 +1,6 @@
 Script info: Multi-language greeting
 
-Define input:
+Script input:
   name: Enter your name
   language:
     description: Select a language
@@ -10,7 +10,7 @@ Define input:
       - Spanish
       - Dutch
 
-Define output:
+Script output:
   - string value:
       description: A greeting in your language
   - array of:
@@ -20,10 +20,56 @@ Define output:
     string value!!: what if 'string value!'....
 
 ---
-POST:
-  url: http://localhost:25125/greeting
-  body:
-    name: ${input.name}
-    language: ${input.language}
+Cli info:
+  description: Multi-language greeting
 
-Print: ${output}
+  input:
+    name: Your name
+    language:
+      description: Language of the greeting
+      type: select one
+      choices:
+        - English
+        - Spanish
+        - Dutch
+
+  output:
+    string value: The greeting in another language
+
+---
+Script input:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Enter your name
+    language:
+      type: string
+      description: Select a language
+      oneOf:
+        - English
+        - Spanish
+        - Dutch
+
+---
+Cli info:
+  description: Multi-language greeting
+
+  input:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Enter your name
+      language:
+        type: string
+        description: Select a language
+        oneOf:
+          - English
+          - Spanish
+          - Dutch
+
+  output:
+    type: string
+    description: The greeting in another language
+

@@ -4,6 +4,11 @@ import java.io.FileNotFoundException
 import java.nio.file.Path
 import kotlin.io.path.exists
 
+object TestPaths {
+    val RESOURCES: Path = Path.of("src/integrationTest/resources")
+    val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
+}
+
 fun toPath(resource: String): Path {
     val testDir = Path.of("samples")
     val testFile = testDir.resolve(resource)

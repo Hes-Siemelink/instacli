@@ -1,0 +1,6 @@
+Input:
+  name:
+    default: world
+---
+Helper function:
+  name: ${input.name}

@@ -2,7 +2,10 @@ package instacli.spec
 
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
-import instacli.commands.*
+import instacli.commands.CodeExample
+import instacli.commands.Connections
+import instacli.commands.TestCase
+import instacli.commands.userPrompt
 import instacli.script.Break
 import instacli.script.Command
 import instacli.script.Script
@@ -18,6 +21,7 @@ import kotlin.io.path.writeText
 
 object TestPaths {
     val RESOURCES: Path = Path.of("src/test/resources")
+    val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
 }
 
 //
@@ -32,17 +36,19 @@ fun getAllInstacliTests(directory: Path): List<DynamicContainer> {
 }
 
 private val TEST_CASE = TestCase().name
-val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
 
 /**
  * Gets all individual test cases in a script file as a dynamic tests.
  */
 fun CliFile.getTestCases(): List<DynamicTest> {
-    val context = CliFileContext(cliFile, connections = Connections.load(TEST_CONNECTIONS))
+    val context = CliFileContext(cliFile)
 
     val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
     tempFile.toFile().deleteOnExit()
-    context.connections.file = tempFile
+
+    val connections = Connections.load(TestPaths.TEST_CONNECTIONS)
+    connections.file = tempFile
+    connections.storeIn(context)
 
     return script.getTestCases().map {
         dynamicTest(it.getTestName(), cliFile.toUri()) {
@@ -105,8 +111,8 @@ fun getCodeExamplesInDocument(file: Path): List<DynamicTest> {
     doc.helperFiles.forEach {
         testDir.resolve(it.key).writeText(it.value)
     }
-    val connections = if (doc.helperFiles.containsKey(CONNECTIONS_YAML)) {
-        Connections.load(testDir.resolve(CONNECTIONS_YAML))
+    val connections = if (doc.helperFiles.containsKey(Connections.FILE_NAME)) {
+        Connections.load(testDir.resolve(Connections.FILE_NAME))
     } else {
         Connections()
     }
@@ -115,7 +121,8 @@ fun getCodeExamplesInDocument(file: Path): List<DynamicTest> {
     return doc.codeExamples
         .map {
             val script = Script.from(it)
-            val testContext = CliFileContext(testDir, connections = connections)
+            val testContext = CliFileContext(testDir)
+            connections.storeIn(testContext)
             userPrompt = MockUser()
             DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toUri()) {
                 try {

@@ -30,3 +30,4 @@
 * Error handling
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables
+* CommandLibrary should store commands in canonical form: all lower case and spaces

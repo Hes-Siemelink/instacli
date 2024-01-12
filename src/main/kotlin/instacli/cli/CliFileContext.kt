@@ -3,7 +3,6 @@ package instacli.cli
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.AssignVariable
-import instacli.commands.Connections
 import instacli.script.*
 import instacli.util.objectNode
 import java.nio.file.Files
@@ -21,8 +20,7 @@ const val CLI_FILE_EXTENSION = ".cli"
 class CliFileContext(
     override val cliFile: Path,
     override val variables: MutableMap<String, JsonNode> = mutableMapOf(),
-    override val session: MutableMap<String, JsonNode> = mutableMapOf(),
-    override val connections: Connections = Connections(),
+    override val session: MutableMap<String, Any?> = mutableMapOf(),
     override val interactive: Boolean = false,
     override val workingDir: Path = Path.of(".")
 ) : ScriptContext {
@@ -31,7 +29,6 @@ class CliFileContext(
         cliFile,
         variables,
         parent.session,
-        parent.connections,
         parent.interactive
     )
 

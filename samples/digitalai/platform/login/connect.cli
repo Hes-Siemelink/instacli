@@ -6,7 +6,7 @@ As: endpoint
 If:
   empty: ${endpoint}
   then:
-    Create Platform connection: true
+    Create platform connection: { }
     As: endpoint
 
 ---
