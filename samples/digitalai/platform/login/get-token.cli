@@ -1,12 +1,12 @@
-Script info: Gets a login token
-
-Input:
-  id: Tenant ID
-  username: Username
-  password:
-    description: Password
-    type: password
-  url: The actual endpoint
+Script info:
+  description: Gets a login token
+  input:
+    id: Tenant ID
+    username: Username
+    password:
+      description: Password
+      type: password
+    url: The actual endpoint
 
 ---
 # Get authorization URL

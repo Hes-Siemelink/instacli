@@ -1,9 +1,9 @@
-Script info: Creates a greeting
-
-Input:
-  name:
-    description: Your name
-    default: World
+Script info:
+  description: Creates a greeting
+  input:
+    name:
+      description: Your name
+      default: World
 
 ---
 Print: Hello, ${input.name}!

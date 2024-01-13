@@ -1,9 +1,9 @@
-Script info: Select the default connection
-
-Input:
-  target:
-    description: Target service
-    default: Digital.ai Release
+Script info:
+  description: Select the default connection
+  input:
+    target:
+      description: Target service
+      default: Digital.ai Release
 
 ---
 Get accounts: ${input.target}

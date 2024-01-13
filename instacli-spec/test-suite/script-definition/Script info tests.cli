@@ -1,0 +1,12 @@
+Test case: Script info with input
+
+Script info:
+  description: A script with input parameters
+  input:
+    name:
+      default: world
+
+Assert equals:
+  actual: ${input}
+  expected:
+    name: world

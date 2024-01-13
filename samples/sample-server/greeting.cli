@@ -1,14 +1,14 @@
-Script info: Multi-language greeting
-
-Input:
-  name: Enter your name
-  language:
-    description: Select a language
-    type: select one
-    choices:
-      - English
-      - Spanish
-      - Dutch
+Script info:
+  description: Multi-language greeting
+  input:
+    name: Enter your name
+    language:
+      description: Select a language
+      type: select one
+      choices:
+        - English
+        - Spanish
+        - Dutch
 
 POST:
   url: http://localhost:25125/greeting

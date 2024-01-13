@@ -1,11 +1,11 @@
-Script info: Creates a new Cloud Connector
-
-Connect to: Digital.ai Platform API
-
-Input:
-  name: Cloud Connector name
+Script info:
+  description: Creates a new Cloud Connector
+  input:
+    name: Cloud Connector name
 
 ---
+Connect to: Digital.ai Platform API
+
 # Create Cloud Connector
 POST:
   path: /workload/v1/cloud_connectors/

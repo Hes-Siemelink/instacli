@@ -1,0 +1,66 @@
+Script info:
+  description: xl apply options
+
+  input:
+
+    file:
+      description: Paths to the files to apply
+      required: true
+      shortcut: 'f'
+      type:
+        type: array
+        items:
+          type: string
+
+    detach:
+      description: Detach xl client when starting a deployment or release
+      type: boolean
+      default: false
+      shortcut: 'd'
+
+    home:
+      description: Override the home value in metadata to apply changes to a different folder
+      type: string
+
+    include-scm-info:
+      description: Send source control management info. Fails if source control management info can not be found or source tree is dirty
+      type: boolean
+      default: false
+      shortcut: 's'
+
+    non-interactive:
+      description: Automatically archive finished deployment tasks
+      type: boolean
+      default: false
+
+    proceed-when-dirty:
+      description: Proceed with applying changes even if repository is dirty
+      type: boolean
+      default: false
+      shortcut: 'p'
+
+    values:
+      description: Values
+      default: { }
+      type:
+        type: object
+        additionalProperties:
+          type: string
+
+    response:
+      description: The command output
+      type: string
+      stream: true # Is this needed or would the implementation take care of recognizing a stream?
+
+    response_alternative_2:
+      description: The items that were updated
+      type:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: The user ID.
+          username:
+            type: string
+            description: The user name.
+

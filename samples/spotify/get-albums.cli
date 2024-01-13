@@ -1,7 +1,7 @@
-Script info: Show albums of an artist
-
-Input:
-  name: Name of the artist
+Script info:
+  description: Show albums of an artist
+  input:
+    name: Name of the artist
 
 Connect to: Spotify
 

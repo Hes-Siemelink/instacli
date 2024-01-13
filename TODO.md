@@ -1,8 +1,11 @@
 # On my mind
 
+* Input, output, script info
+* Use JSON schema to define input
 * Document for first user
 * Properly parse command line options
 * Web server support
+* How to do real-workd integration tests against Digital.ai Platform
 
 # Where to take it
 
@@ -31,3 +34,10 @@
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables
 * CommandLibrary should store commands in canonical form: all lower case and spaces
+
+# Blog topics
+
+* How to design a language without writing a parser
+* How complexity creeps in
+* Keep it flat
+* How (not) to create a Lisp

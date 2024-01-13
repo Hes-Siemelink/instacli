@@ -1,11 +1,11 @@
-Script info: Lists accounts in Digital.ai Platform
-
-Input:
-  name: Account name
-
-Connect to: Digital.ai Platform API
+Script info:
+  description: Lists accounts in Digital.ai Platform
+  input:
+    name: Account name
 
 ---
+Connect to: Digital.ai Platform API
+
 GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${input.name}
 
 For each:

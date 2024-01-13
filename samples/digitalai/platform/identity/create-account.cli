@@ -1,12 +1,12 @@
-Script info: Creates a new account
-
-Connect to: Digital.ai Platform API
-
-Input:
-  name: Customer name
-  id: Customer ID
+Script info:
+  description: Creates a new account
+  input:
+    name: Customer name
+    id: Customer ID
 
 ---
+Connect to: Digital.ai Platform API
+
 POST:
   path: /identity/v1/accounts
   body:

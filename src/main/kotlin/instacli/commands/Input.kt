@@ -11,16 +11,18 @@ import com.github.kinquirer.core.Choice
 import instacli.script.*
 import instacli.util.*
 
-
 var userPrompt: UserPrompt = KInquirerPrompt()
 
 class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
 
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return null
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val scriptInfoData = ScriptInfoData.from(data)
+        val input = scriptInfoData.input ?: return null
+
+        return handleInput(context, input)
     }
 }
 
@@ -33,34 +35,41 @@ class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, D
 class Input : CommandHandler("Input"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val inputInfo = InputInfo.from(data)
-        val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { objectNode() } as ObjectNode
-        for ((name, info) in inputInfo.parameters) when {
-
-            // Already exists
-            input.contains(name) -> {
-                continue
-            }
-
-            // Use default value
-            info.default != null -> {
-                input.set<JsonNode>(name, info.default as JsonNode)
-            }
-
-            // Ask user
-            context.interactive -> {
-                val answer = prompt(info)
-                input.set<JsonNode>(name, answer)
-            }
-
-            else -> {
-                throw CliScriptException("No value provided for: $name")
-            }
-        }
-
-        return input
+        return handleInput(context, InputData.from(data))
     }
 }
+
+private fun handleInput(
+    context: ScriptContext,
+    inputData: InputData
+): ObjectNode {
+    val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { objectNode() } as ObjectNode
+    for ((name, info) in inputData.parameters) when {
+
+        // Already exists
+        input.contains(name) -> {
+            continue
+        }
+
+        // Use default value
+        info.default != null -> {
+            input.set<JsonNode>(name, info.default as JsonNode)
+        }
+
+        // Ask user
+        context.interactive -> {
+            val answer = prompt(info)
+            input.set<JsonNode>(name, answer)
+        }
+
+        else -> {
+            throw CliScriptException("No value provided for: $name")
+        }
+    }
+
+    return input
+}
+
 
 /**
  * Asks user through simple text prompt
@@ -72,13 +81,13 @@ class Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val parameter = ParameterInfo.from(data)
+        val parameter = ParameterData.from(data)
 
         return prompt(parameter)
     }
 }
 
-private fun prompt(parameter: ParameterInfo): JsonNode {
+private fun prompt(parameter: ParameterData): JsonNode {
     return when (parameter.type) {
         "select one" -> promptChoice(parameter)
         "select multiple" -> promptChoice(parameter, true)
@@ -87,11 +96,11 @@ private fun prompt(parameter: ParameterInfo): JsonNode {
     }
 }
 
-private fun promptText(parameter: ParameterInfo, password: Boolean = false): JsonNode {
+private fun promptText(parameter: ParameterData, password: Boolean = false): JsonNode {
     return userPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
 }
 
-private fun promptChoice(parameter: ParameterInfo, multiple: Boolean = false): JsonNode {
+private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): JsonNode {
 
     val choices = parameter.choices.map {
         if (parameter.display == null) {
@@ -132,7 +141,7 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = InputInfo.from(data)
+        val input = InputData.from(data)
 
         val answers = data.objectNode()
         for ((field, parameter) in input.parameters) {
@@ -171,36 +180,49 @@ class StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
 // Data model
 //
 
-class InputInfo {
+class ScriptInfoData {
+
+    var description: String = ""
+    var input: InputData? = null
+
+    constructor()
+    constructor(textValue: String) {
+        description = textValue
+    }
+
+    companion object {
+        fun from(data: JsonNode): ScriptInfoData {
+            return Yaml.mapper.treeToValue(data, ScriptInfoData::class.java)
+        }
+    }
+}
+
+class InputData {
 
     @JsonAnySetter
-    var parameters: Map<String, ParameterInfo> = mutableMapOf()
+    var parameters: Map<String, ParameterData> = mutableMapOf()
 
     fun contains(option: String): Boolean {
         return parameters.contains(normalize(option))
     }
 
-    fun getParameterInfo(option: String): ParameterInfo? {
-        return parameters[normalize(option)]
-    }
-
     private fun normalize(option: String) = option.replace("-", "")
 
     companion object {
-        fun from(data: JsonNode): InputInfo {
-            val inputInfo = Yaml.mapper.treeToValue(data, InputInfo::class.java)
+        fun from(data: JsonNode): InputData {
+            val inputData = Yaml.mapper.treeToValue(data, InputData::class.java)
 
-            val shortOptions: Map<String, ParameterInfo> = inputInfo.parameters
+            val shortOptions: Map<String, ParameterData> = inputData.parameters
                 .filterValues { it.shortOption != null }
                 .entries.associate { it.value.shortOption!! to it.value }
-            inputInfo.parameters += shortOptions
+            inputData.parameters += shortOptions
 
-            return inputInfo
+            return inputData
         }
     }
 }
 
-class ParameterInfo {
+class ParameterData {
 
     var description: String = ""
     var default: JsonNode? = null
@@ -218,8 +240,8 @@ class ParameterInfo {
     }
 
     companion object {
-        fun from(data: JsonNode): ParameterInfo {
-            return Yaml.mapper.treeToValue(data, ParameterInfo::class.java)
+        fun from(data: JsonNode): ParameterData {
+            return Yaml.mapper.treeToValue(data, ParameterData::class.java)
         }
     }
 }

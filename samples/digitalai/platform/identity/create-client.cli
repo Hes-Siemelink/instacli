@@ -1,10 +1,11 @@
-Script info: Creates a new OIDC client
+Script info:
+  description: Creates a new OIDC client
+  input:
+    client_id: Client ID
 
+---
 Connect to: Digital.ai Platform API
 
-Input:
-  client_id: Client ID
----
 # Create client
 POST:
   path: /identity/clients/oidc/

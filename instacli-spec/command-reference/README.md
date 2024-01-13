@@ -24,7 +24,7 @@
 
 ### Script definition
 
-* [Script info](user-interaction/Script%20info.md)
+* [Script info](script-definition/Script%20info.md)
 * [Input](script-definition/Input.md)
 * [Output](script-definition/Output.md)
 

@@ -1,6 +1,8 @@
-Input:
-  name:
-    default: world
----
+Script info:
+  description: A helper function that calls another helper function
+  input:
+    name:
+      default: world
+
 Helper function:
   name: ${input.name}

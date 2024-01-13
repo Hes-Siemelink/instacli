@@ -1,19 +1,18 @@
-Script info: Creates a new agent to run in the Cloud Connector, based on a runtime definition
-
-Input:
-  host: Release URL
-  token: Access token for Remote Runner
-  alias: Alias for agent (unique per Digital.ai Platform user)
-
-Connect to: Digital.ai Platform API
+Script info:
+  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+  input:
+    host: Release URL
+    token: Access token for Remote Runner
+    alias: Alias for agent (unique per Digital.ai Platform user)
 
 ---
+Connect to: Digital.ai Platform API
+
 # Select runtime
 Print: Getting available runtimes
 GET: /workload/v1/agent_runtimes/
 ${runtimes}: ${output.agent_runtimes}
 
----
 Prompt:
   description: Select runtime to add
   type: select one

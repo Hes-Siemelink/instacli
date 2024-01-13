@@ -64,17 +64,20 @@ Expected output: Hello World!
 
 ## Output of a script
 
-When defining a script, you would typically put  [Input](Input.md) at the top, and **Output** at the bottom. This way
-you define the contract of the script in a
-way that is easy to read.
+After the script is run, the `${output}` variable is passed to the caller. You would typically have an **Output**
+statement at the end of your script to make explicit what the result fo the script is.
+
+Here's an example of a script that defines the input and then makes it clear what the output is.
 
 ```yaml
-Code example: Define Input and Output in a script
+Code example: Define input and output in a script
 
-Input:
-  name:
-    description: Person to greet
-    default: Nobody
+Script info:
+  description: Create a greeting
+  input:
+    name:
+      description: Person to greet
+      default: Nobody
 
 Output: Hello ${input.name}!
 ```

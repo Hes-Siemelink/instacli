@@ -4,7 +4,7 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
-import instacli.commands.InputInfo
+import instacli.commands.InputData
 import instacli.script.CommandInfo
 import instacli.script.Script
 
@@ -67,12 +67,12 @@ object ConsoleOutput : UserOutput {
 
     private fun printInputParameters(script: Script) {
 
-        val inputInfo = InputInfo.from(script.input?.data ?: return)
+        val inputData = InputData.from(script.input?.data ?: return)
 
         kotlin.io.println("\nInput parameters:")
 
-        val width = inputInfo.parameters.maxOf { it.key.length } + 2
-        inputInfo.parameters.forEach {
+        val width = inputData.parameters.maxOf { it.key.length } + 2
+        inputData.parameters.forEach {
             kotlin.io.println("  ${infoString("--" + it.key, it.value.description, width)}")
         }
     }

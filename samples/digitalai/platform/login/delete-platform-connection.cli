@@ -1,9 +1,9 @@
-Script info: Deletes a connection
-
-Input:
-  target:
-    description: Target service
-    default: Digital.ai Platform
+Script info:
+  description: Deletes a connection
+  input:
+    target:
+      description: Target service
+      default: Digital.ai Platform
 
 ---
 Get accounts: ${input.target}

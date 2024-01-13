@@ -2,6 +2,7 @@ package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.ScriptInfo
+import instacli.commands.ScriptInfoData
 import instacli.util.Yaml
 
 data class Command(val name: String, val data: JsonNode)
@@ -29,7 +30,7 @@ class Script(val commands: List<Command>) {
     private fun findDescription(): String? {
         for (command in commands) {
             if (command.name == ScriptInfo().name) {
-                val info = CliScriptInfo.from(command.data)
+                val info = ScriptInfoData.from(command.data)
                 if (info.description.isNotEmpty()) {
                     return info.description
                 }
@@ -66,19 +67,3 @@ fun JsonNode.runScript(context: ScriptContext): JsonNode? {
 }
 
 class Break(val output: JsonNode) : Exception()
-
-class CliScriptInfo() : CommandInfo {
-
-    override var name: String = ""
-    override var description: String = ""
-
-    constructor(textValue: String) : this() {
-        description = textValue
-    }
-
-    companion object {
-        fun from(data: JsonNode): CliScriptInfo {
-            return Yaml.mapper.treeToValue(data, CliScriptInfo::class.java)
-        }
-    }
-}

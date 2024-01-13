@@ -1,7 +1,7 @@
 package instacli.cli
 
 import instacli.cli.ArgType.*
-import instacli.commands.InputInfo
+import instacli.commands.InputData
 import instacli.util.Yaml
 
 class CliCommandLineOptions private constructor(
@@ -17,8 +17,8 @@ class CliCommandLineOptions private constructor(
 
     companion object {
 
-        val definedOptions: InputInfo by lazy {
-            InputInfo.from(Yaml.readResource("instacli-command-line-options.yaml"))
+        val definedOptions: InputData by lazy {
+            InputData.from(Yaml.readResource("instacli-command-line-options.yaml"))
         }
 
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
@@ -38,7 +38,7 @@ class CliCommandLineOptions private constructor(
     }
 }
 
-private fun InputInfo.validateArgs(options: List<String>) {
+private fun InputData.validateArgs(options: List<String>) {
     options.forEach {
         if (!this.contains(it)) {
             throw InvocationException("Invalid option: $it")

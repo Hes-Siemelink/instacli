@@ -1,25 +1,25 @@
-Script info: Configures a new connection
-
 Print: Please configure a connection to Digital.ai Platform
 
-Input:
-  url:
-    description: Digital.ai Platform target
-    choices:
-      - name: Staging
-        url: https://api.staging.digitalai.cloud
-      - name: Production
-        url: https://api.us.digitalai.cloud
-    type: select one
-    display: name
-    value: url
-  username: Username
-  password:
-    description: Password
-    type: password
-  id: Tenant ID
-  name: Account name
-As: account
+Script info:
+  description: Configures a new connection
+  input:
+    url:
+      description: Digital.ai Platform target
+      choices:
+        - name: Staging
+          url: https://api.staging.digitalai.cloud
+        - name: Production
+          url: https://api.us.digitalai.cloud
+      type: select one
+      display: name
+      value: url
+    username: Username
+    password:
+      description: Password
+      type: password
+    id: Tenant ID
+    name: Account name
+  As: account
 
 Create account:
   target: Digital.ai Platform

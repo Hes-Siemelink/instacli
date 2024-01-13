@@ -1,7 +1,8 @@
 package instacli.script
 
 import com.fasterxml.jackson.module.kotlin.contains
-import instacli.commands.InputInfo
+import instacli.commands.InputData
+import instacli.commands.ScriptInfoData
 import instacli.spec.TestPaths
 import instacli.util.Yaml
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -15,7 +16,7 @@ class CliScriptInfoTest {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Script info" in script)
 
-        val scriptInfo = CliScriptInfo.from(script.get("Script info"))
+        val scriptInfo = ScriptInfoData.from(script.get("Script info"))
         assertEquals("Creates a greeting", scriptInfo.description)
     }
 
@@ -24,7 +25,7 @@ class CliScriptInfoTest {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Input" in script)
 
-        val input = InputInfo.from(script.get("Input"))
+        val input = InputData.from(script.get("Input"))
 
         assertTrue("name" in input.parameters.keys)
         val name = input.parameters["name"]
