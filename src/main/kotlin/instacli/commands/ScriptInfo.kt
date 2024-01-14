@@ -13,7 +13,7 @@ import instacli.util.*
 
 var userPrompt: UserPrompt = KInquirerPrompt()
 
-class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
+class ScriptInfo : CommandHandler(NAME), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
@@ -24,6 +24,10 @@ class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, D
 
         return handleInput(context, input)
     }
+
+    companion object {
+        const val NAME = "Script info"
+    }
 }
 
 /**
@@ -32,13 +36,6 @@ class ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, D
  * Ask for a value if there is no default value and running in interactive mode.
  * Throws exception if there is no default value.
  */
-class Input : CommandHandler("Input"), ObjectHandler {
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return handleInput(context, InputData.from(data))
-    }
-}
-
 private fun handleInput(
     context: ScriptContext,
     inputData: InputData
@@ -182,7 +179,7 @@ class StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
 
 class ScriptInfoData {
 
-    var description: String = ""
+    var description: String? = null
     var input: InputData? = null
 
     constructor()

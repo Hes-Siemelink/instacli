@@ -10,7 +10,7 @@ import kotlin.io.path.name
 class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(cliFile.name)), AnyHandler {
 
     override val name: String = asCliCommand(cliFile.name)
-    override val description: String by lazy { script.description ?: asScriptCommand(name) }
+    override val description: String by lazy { script.info?.description ?: asScriptCommand(name) }
 
     val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }

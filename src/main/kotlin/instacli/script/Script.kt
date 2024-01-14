@@ -9,10 +9,9 @@ data class Command(val name: String, val data: JsonNode)
 
 class Script(val commands: List<Command>) {
 
-    val description: String?
-            by lazy { findDescription() }
-    val input: Command?
-            by lazy { commands.first { it.name == "Input" } } // FIXME Use ScriptInfo and define a test for the --help option
+    val info: ScriptInfoData? by lazy {
+        getScriptInfo()
+    }
 
     fun runScript(context: ScriptContext): JsonNode? {
         var output: JsonNode? = null
@@ -27,16 +26,10 @@ class Script(val commands: List<Command>) {
         return output
     }
 
-    private fun findDescription(): String? {
-        for (command in commands) {
-            if (command.name == ScriptInfo().name) {
-                val info = ScriptInfoData.from(command.data)
-                if (info.description.isNotEmpty()) {
-                    return info.description
-                }
-            }
-        }
-        return null
+    private fun getScriptInfo(): ScriptInfoData? {
+        val command = commands.find { it.name == ScriptInfo.NAME } ?: return null
+
+        return ScriptInfoData.from(command.data)
     }
 
     companion object {

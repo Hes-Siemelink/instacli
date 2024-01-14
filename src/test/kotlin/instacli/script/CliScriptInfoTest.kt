@@ -23,9 +23,9 @@ class CliScriptInfoTest {
     @Test
     fun input() {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
-        assertTrue("Input" in script)
+        assertTrue("Script info" in script)
 
-        val input = InputData.from(script.get("Input"))
+        val input = InputData.from(script.get("Script info").get("input"))
 
         assertTrue("name" in input.parameters.keys)
         val name = input.parameters["name"]

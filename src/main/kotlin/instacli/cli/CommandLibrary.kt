@@ -8,12 +8,11 @@ object CommandLibrary {
 
         // Script definition
         ScriptInfo(),
-        Input(),
-        Output(),
 
         // Variables
         As(),
         ApplyVariables(),
+        Output(),
 
         // Testing
         TestCase(),

@@ -78,8 +78,7 @@ class CliInvocationTest {
         session.run()
 
         // Then
-        out.scriptInfoPrinted?.description shouldBe "Echos the input"
-        out.scriptInfoPrinted?.input?.data?.get("text")?.textValue() shouldBe "Input that becomes output"
+        out.scriptInfoPrinted?.info?.description shouldBe "Echos the input"
     }
 
     @Test

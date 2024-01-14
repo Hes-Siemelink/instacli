@@ -4,7 +4,6 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
-import instacli.commands.InputData
 import instacli.script.CommandInfo
 import instacli.script.Script
 
@@ -58,8 +57,8 @@ object ConsoleOutput : UserOutput {
 
     override fun printScriptInfo(script: Script) {
 
-        if (script.description != null) {
-            println(script.description)
+        if (script.info?.description != null) {
+            println(script.info?.description)
         }
 
         printInputParameters(script)
@@ -67,7 +66,7 @@ object ConsoleOutput : UserOutput {
 
     private fun printInputParameters(script: Script) {
 
-        val inputData = InputData.from(script.input?.data ?: return)
+        val inputData = script.info?.input ?: return
 
         kotlin.io.println("\nInput parameters:")
 

@@ -25,13 +25,12 @@
 ### Script definition
 
 * [Script info](script-definition/Script%20info.md)
-* [Input](script-definition/Input.md)
-* [Output](script-definition/Output.md)
 
 ### Variables
 
-* [As](variables/As.md)
 * [${..} assignment](variables/Assignment.md)
+* [As](variables/As.md)
+* [Output](variables/Output.md)
 
 <!--
 * Set variable
