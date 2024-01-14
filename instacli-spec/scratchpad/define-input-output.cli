@@ -1,70 +1,17 @@
-Script info: Multi-language greeting
-
-Script input:
-  name: Enter your name
-  language:
-    description: Select a language
-    type: select one
-    choices:
-      - English
-      - Spanish
-      - Dutch
-
-Script output:
-  - string value:
-      description: A greeting in your language
-  - array of:
-      name: Your name
-  - name: your name
-    string value!: what if you want to name your property 'string value'
-    string value!!: what if 'string value!'....
-
----
-Cli info:
+Script info:
   description: Multi-language greeting
 
   input:
-    name: Your name
-    language:
-      description: Language of the greeting
-      type: select one
-      choices:
-        - English
-        - Spanish
-        - Dutch
-
-  output:
-    string value: The greeting in another language
-
----
-Script input:
-  type: object
-  properties:
-    name:
-      type: string
-      description: Enter your name
-    language:
-      type: string
-      description: Select a language
-      oneOf:
-        - English
-        - Spanish
-        - Dutch
-
----
-Cli info:
-  description: Multi-language greeting
-
-  input:
-    type: object
+    type: object  # Optional , default is 'object'. Or optional if 'properties' is present
     properties:
       name:
         type: string
         description: Enter your name
+      name2: Enter your name # Shortcut for type string with description
       language:
         type: string
         description: Select a language
-        oneOf:
+        enum:
           - English
           - Spanish
           - Dutch

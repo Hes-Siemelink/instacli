@@ -12,7 +12,7 @@ class Script(val commands: List<Command>) {
     val description: String?
             by lazy { findDescription() }
     val input: Command?
-            by lazy { commands.first { it.name == "Input" } }
+            by lazy { commands.first { it.name == "Input" } } // FIXME Use ScriptInfo and define a test for the --help option
 
     fun runScript(context: ScriptContext): JsonNode? {
         var output: JsonNode? = null

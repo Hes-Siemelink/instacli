@@ -3,9 +3,9 @@
 * Input, output, script info
 * Use JSON schema to define input
 * Document for first user
-* Properly parse command line options
 * Web server support
-* How to do real-workd integration tests against Digital.ai Platform
+* How to do real-world integration tests against Digital.ai Platform
+* Automated tests for command line invocations
 
 # Where to take it
 

@@ -6,7 +6,7 @@ Expected output: Hello
 ---
 Test case: Run shell script
 
-Shell: instacli-spec/test-suite/shell//hello.sh
+Shell: instacli-spec/test-suite/call-scripts//hello.sh
 Expected output: Hello World
 
 ---
