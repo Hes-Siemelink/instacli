@@ -1,0 +1,9 @@
+Http serve:
+
+  /items:
+    get:
+      script:
+        Output:
+          - 1
+          - 2
+          - 3

@@ -1,0 +1,3 @@
+GET: http://localhost:25125/items
+
+Print: ${output}

@@ -51,7 +51,9 @@ object Yaml {
         return mapper.readValue(source, JsonNode::class.java)
     }
 
-
+    inline fun <reified T> parse(node: JsonNode): T {
+        return mapper.treeToValue(node, T::class.java)
+    }
 }
 
 fun objectNode(): ObjectNode {

@@ -31,10 +31,10 @@ dependencies {
     implementation("org.jline:jline:3.22.0")
     implementation("org.fusesource.jansi:jansi:2.4.0")
     implementation("com.lordcodes.turtle:turtle:0.8.0")
+    implementation("io.javalin:javalin:5.4.+")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
-    testImplementation("io.javalin:javalin:5.4.+")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
