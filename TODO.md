@@ -1,6 +1,5 @@
 # On my mind
 
-* Input, output, script info
 * Use JSON schema to define input
 * Document for first user
 * Web server support
@@ -34,6 +33,7 @@
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables
 * CommandLibrary should store commands in canonical form: all lower case and spaces
+* Define 'output' on Script info
 
 # Blog topics
 

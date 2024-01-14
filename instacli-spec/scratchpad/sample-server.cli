@@ -1,0 +1,39 @@
+Http serve:
+
+  /greeting:
+    get: server-greeting.cli
+
+  /items:
+    get:
+      script:
+        Output:
+          - 1
+          - 2
+          - 3
+    post:
+      script:
+        Fields of: ${input}
+    put:
+      script:
+        Fields of: ${input}
+    patch:
+      script:
+        Fields of: ${input}
+    delete:
+      script:
+        Print: Deleting items
+
+  /echo/header/Test:
+    get:
+      script:
+        Output: ${input.headers}
+
+  /echo/cookies:
+    get:
+      script:
+        Output: ${input.cookies}
+
+  /echo/query:
+    get:
+      script:
+        Output: ${input}

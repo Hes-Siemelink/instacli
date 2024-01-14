@@ -1,0 +1,15 @@
+Script info:
+  description: Creates a greeting in different languages
+  input:
+    name: the person to greet
+    language: the language to greet in
+
+Find:
+  path: ${language}
+  in:
+    English: Hi
+    Spanish: ¡Hola
+    Dutch: Hoi
+As: greeting
+
+Output: ${greetings} ${input.name}!
