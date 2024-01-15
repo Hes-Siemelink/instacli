@@ -13,14 +13,36 @@ Script info:
       type: select one
       display: name
       value: url
-    username: Username
-    password:
-      description: Password
-      type: password
     id: Tenant ID
     name: Account name
+    method:
+      description: Authentication method
+      type: select one
+      choices:
+        - Token
+        - Password
 As: account
 
+If:
+  - object: ${input.method}
+    equals: Token
+    then:
+      Prompt: Token value
+      Add to:
+        ${account}:
+          token: ${output}
+  - object: ${input.method}
+    equals: Password
+    then:
+      Prompt all:
+        username: Username
+        password:
+          description: Password
+          type: password
+      Add to:
+        ${account}: ${output}
+
+---
 Create account:
   target: Digital.ai Platform
   account: ${account}

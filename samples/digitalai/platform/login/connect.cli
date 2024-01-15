@@ -9,8 +9,22 @@ If:
     Create platform connection: { }
     As: endpoint
 
+Print: Connecting as ${endpoint.username} to ${endpoint.id} on ${endpoint.url}
+
 ---
-# Set endpoint and token for other scripts
+# Use preset token
+If:
+  not:
+    empty: ${endpoint.token}
+  then:
+    Http endpoint:
+      url: ${endpoint.url}
+      headers:
+        Authorization: Token ${endpoint.token}
+    Exit: Using token authentication
+
+---
+# Get bearer token
 Get token: ${endpoint}
 
 Http endpoint:

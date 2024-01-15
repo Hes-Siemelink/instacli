@@ -10,8 +10,6 @@ Script info:
 
 ---
 # Get authorization URL
-Print: Accessing ${input.id} as ${input.username} on ${input.url}
-
 GET:
   url: ${input.url}
   path: /identity/v1/accounts/auth/configuration?hint=${input.id}
