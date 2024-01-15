@@ -19,7 +19,7 @@ Script info:
       type: password
     id: Tenant ID
     name: Account name
-  As: account
+As: account
 
 Create account:
   target: Digital.ai Platform
