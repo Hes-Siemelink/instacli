@@ -10,6 +10,10 @@ fun interface Condition {
     fun isTrue(): Boolean
 }
 
+fun Condition.isFalse(): Boolean {
+    return !isTrue()
+}
+
 class ConditionException(message: String) : Exception(message)
 
 class Equals(private val actual: Any, private val expected: Any) : Condition {

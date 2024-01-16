@@ -135,17 +135,30 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 /**
  * Asks multiple questions at once
  */
-class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
+class PromptAll : CommandHandler("Prompt all"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val input = InputData.from(data)
+        // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
+        val variables = context.variables.toMutableMap()
 
         val answers = data.objectNode()
-        for ((field, parameter) in input.parameters) {
+        for ((field, rawParameter) in data.fields()) {
 
-            val answer = prompt(parameter)
+            // Resolve variables
+            val parameterData = ParameterData.from(resolveVariables(rawParameter, variables))
 
+            // Only assign if condition is true
+            val condition = parameterData.parseCondition()
+            if (condition != null && condition.isFalse()) {
+                continue
+            }
+
+            // Ask user
+            val answer = prompt(parameterData)
+
+            // Add answer to result and to list of variables
             answers.set<JsonNode>(field, answer)
+            variables[field] = answer
         }
 
         return answers
@@ -227,6 +240,7 @@ class ParameterData {
     var choices: List<JsonNode> = emptyList()
     var display: String? = null
     var value: String? = null
+    var condition: JsonNode? = null
 
     @JsonProperty("short option")
     var shortOption: String? = null
@@ -234,6 +248,12 @@ class ParameterData {
     constructor()
     constructor(textValue: String) {
         description = textValue
+    }
+
+    fun parseCondition(): Condition? {
+        return condition?.let {
+            parseCondition(it)
+        }
     }
 
     companion object {

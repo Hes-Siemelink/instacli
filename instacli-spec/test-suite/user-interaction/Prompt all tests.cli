@@ -1,0 +1,41 @@
+Test case: Get multiple variables with Prompt all
+
+Stock answers:
+  Value 1: 1
+  Value 2: 2
+
+Prompt all:
+  one: Value 1
+  two: Value 2
+
+Expected output:
+  one: 1
+  two: 2
+
+---
+Test case: Prompt all, with conditions
+
+Stock answers:
+  Choose which variable to set: a
+  Value for a: a is set
+  Value for b: b is set
+
+Prompt all:
+
+  switch: Choose which variable to set
+
+  a:
+    description: Value for a
+    condition:
+      item: ${switch}
+      equals: a
+
+  b:
+    description: Value for b
+    condition:
+      item: ${switch}
+      equals: b
+
+Expected output:
+  switch: a
+  a: a is set

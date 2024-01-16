@@ -32,10 +32,6 @@ class CliFileContext(
         parent.interactive
     )
 
-    fun subcontext(): CliFileContext {
-        return CliFileContext(cliFile, this)
-    }
-
     override val scriptDir: Path by lazy {
         if (cliFile.isDirectory()) {
             cliFile

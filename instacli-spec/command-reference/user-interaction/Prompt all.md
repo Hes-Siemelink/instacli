@@ -70,3 +70,75 @@ Prompt all:
       - Green
       - Blue
 ```
+
+## Conditional questions
+
+You can use the `condition` property to set a condition. If the condition is false, the question will be skipped and the
+variable will not be set.
+
+In the following example, there will only a prompt for variable a, and not for variable b
+
+```yaml
+Code example: Prompt all, but not all
+
+Stock answers:
+  Value for a: Abracadabra
+  Value for b: Borobudur
+
+${switch}: a
+
+Prompt all:
+
+  a:
+    description: Value for a
+    condition:
+      item: ${switch}
+      equals: a
+
+  b:
+    description: Value for b
+    condition:
+      item: ${switch}
+      equals: b
+
+Expected output:
+  a: Abracadabra
+
+# Note: b is not set
+```
+
+## Depending questions
+
+You can also make questions depend on previous questions. The answers to previous questions are available as variables (
+within the scope of **Prompt all**). You can use those variables in conditions.
+
+This example will prompt which variable to set, and depending on the result will ask the following question a or b.
+
+```yaml
+Code example: Prompt all, with conditions
+
+Stock answers:
+  Choose which variable to set, a or b: a
+  Value for a: Abracadabra
+  Value for b: Borobudur
+
+Prompt all:
+
+  switch: Choose which variable to set, a or b
+
+  a:
+    description: Value for a
+    condition:
+      item: ${switch}  # Refers to the answer to the first question
+      equals: a
+
+  b:
+    description: Value for b
+    condition:
+      item: ${switch}
+      equals: b
+
+Expected output:
+  switch: a
+  a: Abracadabra
+```
