@@ -25,8 +25,7 @@ Code example: Http endpoint usage
 Http endpoint:
   url: http://localhost:25125
   username: admin
-  password:
-    admin:
+  password: admin
 
 GET: /items
 
@@ -82,7 +81,8 @@ POST:
 
 ## Username and password
 
-When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the endpoint
+When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the
+endpoint
 
 ```yaml
 Code example: Basic authentication

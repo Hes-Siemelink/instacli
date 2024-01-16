@@ -46,6 +46,7 @@ Prompt all:
     condition:
       object: ${method}
       equals: Password
+
 As: account
 
 
