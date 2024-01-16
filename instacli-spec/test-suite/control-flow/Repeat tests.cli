@@ -24,7 +24,7 @@ Output: one
 Repeat:
   Output: ${output} one
   until:
-    object: ${output}
+    item: ${output}
     equals: one one one
 
 Expected output: one one one

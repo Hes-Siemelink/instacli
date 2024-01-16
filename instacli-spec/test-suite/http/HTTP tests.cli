@@ -62,7 +62,7 @@ GET:
     Test: something
 
 Assert that:
-  object:
+  item:
     Test: something
   in: ${output}
 

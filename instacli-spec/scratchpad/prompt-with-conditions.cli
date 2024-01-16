@@ -31,20 +31,20 @@ Prompt all:
   token:
     description: Token value
     condition:
-      object: ${method}
+      item: ${method}
       equals: Token
 
   username:
     description: Username
     condition:
-      object: ${method}
+      item: ${method}
       equals: Password
 
   password:
     description: Password
     type: password
     condition:
-      object: ${method}
+      item: ${method}
       equals: Password
 
 As: account

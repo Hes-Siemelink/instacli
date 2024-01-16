@@ -85,8 +85,8 @@ class Not(private val condition: Condition) : Condition {
 
 fun parseCondition(node: JsonNode): Condition {
     when {
-        node.has("object") -> {
-            val obj = node["object"]
+        node.has("item") -> {
+            val obj = node["item"]
 
             if (node.has("equals")) {
                 return Equals(obj, node["equals"])

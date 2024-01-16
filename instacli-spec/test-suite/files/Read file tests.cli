@@ -23,7 +23,7 @@ Read file: instacli-spec/test-suite/files/content/with variables.yaml
 ${raw}: ${output}  # triggers variable substitution
 
 Assert that:
-  - object:
+  - item:
       test: true
       something: else
     in:
@@ -54,7 +54,7 @@ Read file: instacli-spec/test-suite/files/content/multiple documents.yaml
 ${raw}: ${output}
 
 Assert that:
-  object:
+  item:
     test: true
     something: else
   in:

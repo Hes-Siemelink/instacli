@@ -12,22 +12,24 @@
 
 ## Basic usage
 
-**When** is a special case of [If](If.md), working on a list of [conditions](../testing/Assert%20that.md#conditions) defined
+**When** is a special case of [If](If.md), working on a list of [conditions](../testing/Assert%20that.md#conditions)
+defined
 in [Assert that](../testing/Assert%20that.md).
 
-**When** behaves different from **If**, because it will only execute the first matching condition. When that condition holds, the commands under `then` are
+**When** behaves different from **If**, because it will only execute the first matching condition. When that condition
+holds, the commands under `then` are
 executed.
 
 ```yaml
 Code example: Multiple conditions in When
 
 When:
-  - object: one
+  - item: one
     equals: one
     then:
       Output: 1
 
-  - object: two
+  - item: two
     equals: two
     then:
       Output: 2
@@ -41,12 +43,12 @@ If you want all matching conditions to evaluated, use **If**:
 Code example: Multiple conditions in If
 
 If:
-  - object: one
+  - item: one
     equals: one
     then:
       Output: 1
 
-  - object: two
+  - item: two
     equals: two
     then:
       Output: 2

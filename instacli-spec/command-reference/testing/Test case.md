@@ -18,13 +18,14 @@ Code example: A simple test case
 Test case: A simple test case
 
 Assert that:
-  object: one
+  item: one
   in: [ one, two, three ]
 ```
 
 ## Multiple test cases
 
-If there are multiple test cases in a file, it will take all the commands from one Test case command to another as one test.
+If there are multiple test cases in a file, it will take all the commands from one Test case command to another as one
+test.
 
 ```yaml
 Code example: Multiple tests

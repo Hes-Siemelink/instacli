@@ -12,14 +12,15 @@
 
 ## Basic usage
 
-**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
+**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined
+in [Assert that](../testing/Assert%20that.md) and if a condition holds, the
 commands under `then` are executed
 
 ```yaml
 Code example: Simple if
 
 If:
-  object: this
+  item: this
   equals: this
   then:
     Output: correct
@@ -35,12 +36,12 @@ With multiple conditions, each one is evaluated.
 Code example: Multiple conditions in If
 
 If:
-  - object: one
+  - item: one
     equals: one
     then:
       Output: 1
 
-  - object: two
+  - item: two
     equals: two
     then:
       Output: 2
@@ -56,12 +57,12 @@ If you only want to match one, use [When](When.md)
 Code example: Multiple conditions in When
 
 When:
-  - object: one
+  - item: one
     equals: one
     then:
       Output: 1
 
-  - object: two
+  - item: two
     equals: two
     then:
       Output: 2

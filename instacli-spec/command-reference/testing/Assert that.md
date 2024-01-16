@@ -1,6 +1,7 @@
 # Command: Assert that
 
-`Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.md) and [Repeat](../control-flow/Repeat.md)
+`Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.md)
+and [Repeat](../control-flow/Repeat.md)
 
 | Content type                | Supported |
 |-----------------------------|-----------|
@@ -17,13 +18,13 @@
 
 ### Object equals
 
-Compare two objects, one is in field `object`; the other in `equals`.
+Compare two objects, one is in field `item`; the other in `equals`.
 
 ```yaml
 Code example: Comparing values
 
 Assert that:
-  object: one
+  item: one
   equals: one
 ```
 
@@ -33,7 +34,7 @@ This is also works for lists
 Code example: Comparing lists
 
 Assert that:
-  object:
+  item:
     - one
     - two
   equals:
@@ -47,7 +48,7 @@ and objects
 Code example: Comparing objects
 
 Assert that:
-  object:
+  item:
     one: 1
     two: 2
   equals:
@@ -57,13 +58,13 @@ Assert that:
 
 ### Contains
 
-You can also test if something is inside something else with the `'object'` and `in`.
+You can also test if something is inside something else with the `'item'` and `in`.
 
 ```yaml
 Code example: Check if an object is in a list
 
 Assert that:
-  object: one
+  item: one
   in:
     - one
     - two
@@ -76,7 +77,7 @@ You can also test for parts of an object.
 Code example: Check if an object contains some properties
 
 Assert that:
-  object:
+  item:
     one: 1
     two: 2
   in:
@@ -97,7 +98,8 @@ Assert that:
   - empty: ""
 ```
 
-It's a shorthand for checking equality. This makes more sense in an `If` statement when you are checking the value that is coming from somewhere else.
+It's a shorthand for checking equality. This makes more sense in an `If` statement when you are checking the value that
+is coming from somewhere else.
 
 ```yaml
 Code example: If with empty
@@ -121,9 +123,9 @@ Code example: All condition
 
 Assert that:
   all:
-    - object: one
+    - item: one
       equals: one
-    - object: two
+    - item: two
       equals: two
 ```
 
@@ -134,9 +136,9 @@ Code example: Any condition
 
 Assert that:
   any:
-    - object: one
+    - item: one
       equals: one
-    - object: three
+    - item: three
       equals: four
 ```
 

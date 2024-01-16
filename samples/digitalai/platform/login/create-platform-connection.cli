@@ -24,14 +24,14 @@ Script info:
 As: account
 
 If:
-  - object: ${account.method}
+  - item: ${account.method}
     equals: Token
     then:
       Prompt: Token value
       Add to:
         ${account}:
           token: ${output}
-  - object: ${account.method}
+  - item: ${account.method}
     equals: Password
     then:
       Prompt all:
