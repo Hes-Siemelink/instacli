@@ -1,7 +1,7 @@
 Print: Please configure a connection to Digital.ai Platform
 
 Script info:
-  description: Configures a new connection
+  description: Configures a new connection interactively
   input:
     url:
       description: Digital.ai Platform target
@@ -24,14 +24,14 @@ Script info:
 As: account
 
 If:
-  - object: ${input.method}
+  - object: ${account.method}
     equals: Token
     then:
       Prompt: Token value
       Add to:
         ${account}:
           token: ${output}
-  - object: ${input.method}
+  - object: ${account.method}
     equals: Password
     then:
       Prompt all:

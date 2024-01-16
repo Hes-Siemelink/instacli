@@ -1,6 +1,10 @@
 # On my mind
 
+* Bug: Prompt all does not show selection box
+* Add condition to input fields on Script info and Prompt
+* Naming: Prompt / Prompt all / Prompt one
 * Use JSON schema to define input
+    * https://github.com/pwall567/json-kotlin-schema
 * Document for first user
 * Web server support
 * How to do real-world integration tests against Digital.ai Platform

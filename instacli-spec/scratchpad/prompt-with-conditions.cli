@@ -1,0 +1,55 @@
+Script info:
+  description: Configures a new connection interactively
+
+---
+Print: Please configure a connection to Digital.ai Platform
+
+Prompt all:
+
+  url:
+    description: Digital.ai Platform target
+    choices:
+      - name: Staging
+        url: https://api.staging.digitalai.cloud
+      - name: Production
+        url: https://api.us.digitalai.cloud
+    type: select one
+    display: name
+    value: url
+
+  id: Tenant ID
+
+  name: Account name
+
+  method:
+    description: Authentication method
+    type: select one
+    choices:
+      - Token
+      - Password
+
+  token:
+    description: Token value
+    condition:
+      object: ${method}
+      equals: Token
+
+  username:
+    description: Username
+    condition:
+      object: ${method}
+      equals: Password
+
+  password:
+    description: Password
+    type: password
+    condition:
+      object: ${method}
+      equals: Password
+As: account
+
+
+---
+Print:
+  target: Digital.ai Platform
+  account: ${account}
