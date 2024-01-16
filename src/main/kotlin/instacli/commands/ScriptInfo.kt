@@ -143,8 +143,8 @@ class PromptAll : CommandHandler("Prompt all"), ObjectHandler {
         val answers = data.objectNode()
         for ((field, parameter) in input.parameters) {
 
-            // Ask user
-            val answer = userPrompt.prompt(parameter.description, parameter.default?.asText() ?: "")
+            val answer = prompt(parameter)
+
             answers.set<JsonNode>(field, answer)
         }
 
