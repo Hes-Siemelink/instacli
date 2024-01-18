@@ -2,6 +2,7 @@ package instacli.cli
 
 import instacli.script.InstacliException
 import instacli.script.ScriptContext
+import instacli.script.addInputVariables
 import instacli.util.toDisplayString
 import java.nio.file.Path
 import kotlin.io.path.exists
@@ -84,7 +85,7 @@ class InstacliMain(
 
         context.addInputVariables(options.commandParameters)
 
-        val output = cliFile.runFile(context)
+        val output = cliFile.run(context)
 
         if (options.printOutput && output != null) {
             this.output.println(output.toDisplayString())

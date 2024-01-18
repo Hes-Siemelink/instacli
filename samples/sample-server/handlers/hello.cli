@@ -1,0 +1,8 @@
+Script info:
+  description: Sends a greeting
+  input:
+    name:
+      description: Your name
+      default: there
+
+Output: Hello ${input.name} from Instacli Server!

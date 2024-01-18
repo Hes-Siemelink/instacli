@@ -15,13 +15,13 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }
 
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        val variables = mutableMapOf(INPUT_VARIABLE to data)
+    override fun execute(input: JsonNode, context: ScriptContext): JsonNode? {
+        val variables = mutableMapOf(INPUT_VARIABLE to input)
         val localContext = CliFileContext(cliFile, context, variables = variables)
-        return runFile(localContext)
+        return run(localContext)
     }
 
-    fun runFile(context: CliFileContext = CliFileContext(cliFile)): JsonNode? {
+    fun run(context: ScriptContext = CliFileContext(cliFile)): JsonNode? {
         return try {
             script.runScript(context)
         } catch (a: Break) {

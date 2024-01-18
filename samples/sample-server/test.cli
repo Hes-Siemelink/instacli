@@ -1,3 +1,4 @@
-GET: http://localhost:25125/items
+#GET: http://localhost:25125/items
+GET: http://localhost:25125/hello?name=Hes
 
 Print: ${output}

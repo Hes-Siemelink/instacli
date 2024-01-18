@@ -1,10 +1,8 @@
 package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.AssignVariable
 import instacli.script.*
-import instacli.util.objectNode
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
@@ -31,6 +29,10 @@ class CliFileContext(
         parent.session,
         parent.interactive
     )
+
+    override fun clone(): ScriptContext {
+        return CliFileContext(cliFile, variables.toMutableMap(), session.toMutableMap(), interactive, workingDir)
+    }
 
     override val scriptDir: Path by lazy {
         if (cliFile.isDirectory()) {
@@ -104,14 +106,6 @@ class CliFileContext(
 
         val name = asScriptCommand(file.name)
         commands[name] = CliFile(file)
-    }
-
-    fun addInputVariables(vars: Map<String, String>) {
-        val input = objectNode()
-        for (variable in vars) {
-            input.set<JsonNode>(variable.key, TextNode(variable.value))
-        }
-        variables[INPUT_VARIABLE] = input
     }
 
     private fun findSubcommands(): Map<String, DirectoryInfo> {
