@@ -29,6 +29,7 @@ object CommandLibrary {
         When,
         ForEach,
         Repeat,
+        Find,
 
         // User interaction
         Prompt,

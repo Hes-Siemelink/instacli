@@ -63,7 +63,7 @@ fun getValue(varName: String, variables: Map<String, JsonNode>): JsonNode {
     return if (variableWithPath.path == null) {
         value
     } else {
-        val jsonPointer = JsonPointer.compile(toJsonPointer(variableWithPath.path))
+        val jsonPointer = toJsonPointer(variableWithPath.path)
         value.at(jsonPointer)
     }
 }
@@ -76,11 +76,21 @@ fun splitIntoVariableAndPath(varName: String): VariableWithPath {
     return VariableWithPath(match.groupValues[1], match.groupValues[2])
 }
 
-fun toJsonPointer(jsonPath: String): String {
-    var result = jsonPath.replace('.', '/')
+fun toJsonPointer(jsonPath: String): JsonPointer {
+
+    // Make sure path starts with '.' or '['
+    var result = if (jsonPath.startsWith('.') || jsonPath.startsWith('[')) jsonPath else ".$jsonPath"
+
+    // Convert "." to "/"
+    result = result.replace('.', '/')
+
+    // Convert array indexes
     val index = Regex("\\[(\\d*)]")
     result = index.replace(result, "/$1")
-    return result
+
+    val pointer = JsonPointer.compile(result)
+
+    return pointer
 }
 
 data class VariableWithPath(val name: String, val path: String?)

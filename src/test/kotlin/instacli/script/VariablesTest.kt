@@ -58,15 +58,15 @@ class VariablesTest {
     fun fromSimpleJsonPathToJsonPointer() {
         assertEquals(
             "/0",
-            toJsonPointer("[0]")
+            toJsonPointer("[0]").toString()
         )
         assertEquals(
             "/one",
-            toJsonPointer(".one")
+            toJsonPointer(".one").toString()
         )
         assertEquals(
             "/a/0/b",
-            toJsonPointer(".a[0].b")
+            toJsonPointer(".a[0].b").toString()
         )
     }
 }

@@ -195,5 +195,13 @@ object Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         return IntNode(data.size())
     }
+}
 
+object Find : CommandHandler("Find"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val path = data.getTextParameter("path")
+        val source = data.getParameter("in")
+
+        return source.at(toJsonPointer(path))
+    }
 }
