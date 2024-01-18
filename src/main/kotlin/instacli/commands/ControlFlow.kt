@@ -7,19 +7,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 
-class Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
+object Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return data.runScript(context)
     }
 }
 
-class Exit : CommandHandler("Exit"), AnyHandler {
+object Exit : CommandHandler("Exit"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         throw Break(data)
     }
 }
 
-class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
+object If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val then = evaluateCondition(data, context) ?: return null
@@ -28,7 +28,7 @@ class If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
     }
 }
 
-class When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
+object When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
 
@@ -56,7 +56,7 @@ private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNod
 
 private val FOR_EACH_VARIABLE = Regex(VARIABLE_REGEX.pattern + " in")
 
-class ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
+object ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
@@ -120,7 +120,7 @@ fun toArrayNode(node: JsonNode): ArrayNode {
 }
 
 
-class Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
+object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'Until'")

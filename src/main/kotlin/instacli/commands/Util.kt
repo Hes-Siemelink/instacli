@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 import instacli.util.toDisplayString
 
-class Task : CommandHandler("Task"), ValueHandler {
+object Task : CommandHandler("Task"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
 }
 
-class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
+object Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         println(data.asText())
@@ -33,7 +33,7 @@ class Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler
     }
 }
 
-class Wait : CommandHandler("Wait"), ValueHandler {
+object Wait : CommandHandler("Wait"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (!data.isNumber) {
             throw CommandFormatException("Invalid value for 'Wait' command.")
@@ -46,13 +46,13 @@ class Wait : CommandHandler("Wait"), ValueHandler {
     }
 }
 
-class Base64Encode : CommandHandler("Base64 encode"), ValueHandler {
+object Base64Encode : CommandHandler("Base64 encode"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         return TextNode(java.util.Base64.getEncoder().encodeToString(data.asText().toByteArray()))
     }
 }
 
-class Base64Decode : CommandHandler("Base64 decode"), ValueHandler {
+object Base64Decode : CommandHandler("Base64 decode"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return TextNode(String(java.util.Base64.getDecoder().decode(data.asText())))
     }

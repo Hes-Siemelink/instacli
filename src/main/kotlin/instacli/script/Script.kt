@@ -27,7 +27,7 @@ class Script(val commands: List<Command>) {
     }
 
     private fun getScriptInfo(): ScriptInfoData? {
-        val command = commands.find { it.name == ScriptInfo.NAME } ?: return null
+        val command = commands.find { it.name == ScriptInfo.name } ?: return null
 
         return ScriptInfoData.from(command.data)
     }

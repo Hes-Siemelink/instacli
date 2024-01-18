@@ -35,8 +35,6 @@ fun getAllInstacliTests(directory: Path): List<DynamicContainer> {
     }.toList()
 }
 
-private val TEST_CASE = TestCase().name
-
 /**
  * Gets all individual test cases in a script file as a dynamic tests.
  */
@@ -71,7 +69,7 @@ fun Script.getTestCases(): List<Script> {
     var currentCase = mutableListOf<Command>()
     var first = true
     for (command in commands) {
-        if (command.name == TEST_CASE) {
+        if (command.name == TestCase.name) {
             if (first) {
                 // Ignore everything before the first 'Test case' command
                 first = false
@@ -89,7 +87,7 @@ fun Script.getTestCases(): List<Script> {
     return allTests
 }
 
-fun Script.getTestName(nameCommand: String = TEST_CASE): String {
+fun Script.getTestName(nameCommand: String = TestCase.name): String {
     val testCaseCommand = commands.find {
         it.name == nameCommand
     }
@@ -124,7 +122,7 @@ fun getCodeExamplesInDocument(file: Path): List<DynamicTest> {
             val testContext = CliFileContext(testDir)
             connections.storeIn(testContext)
             userPrompt = MockUser()
-            DynamicTest.dynamicTest(script.getTestName(CodeExample().name), file.toUri()) {
+            DynamicTest.dynamicTest(script.getTestName(CodeExample.name), file.toUri()) {
                 try {
                     script.runScript(testContext)
                 } catch (a: Break) {

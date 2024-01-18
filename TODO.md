@@ -1,8 +1,5 @@
 # On my mind
 
-* Bug: Prompt all does not show selection box
-* Add condition to input fields on Script info and Prompt
-* Naming: Prompt / Prompt all / Prompt one
 * Use JSON schema to define input
     * https://github.com/pwall567/json-kotlin-schema
 * Document for first user
@@ -36,8 +33,11 @@
 * Error handling
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables
+* Secrets
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 * Define 'output' on Script info
+* Add condition to input fields on Script info and Prompt
+* Naming: Prompt / Prompt one / Prompt all / Prompt multiple
 
 # Blog topics
 

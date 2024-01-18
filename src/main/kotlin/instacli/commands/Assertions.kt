@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 
-class AssertThat : CommandHandler("Assert that"), ObjectHandler {
+object AssertThat : CommandHandler("Assert that"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val condition = parseCondition(data)
@@ -18,7 +18,7 @@ class AssertThat : CommandHandler("Assert that"), ObjectHandler {
     }
 }
 
-class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
+object AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val actual = data["actual"] ?: throw ConditionException("Assert equals needs 'actual' field.")
@@ -32,7 +32,7 @@ class AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
     }
 }
 
-class ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
+object ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val output: JsonNode? = context.variables[OUTPUT_VARIABLE]
@@ -43,14 +43,14 @@ class ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
     }
 }
 
-class TestCase : CommandHandler("Test case"), ValueHandler {
+object TestCase : CommandHandler("Test case"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
 }
 
-class CodeExample : CommandHandler("Code example"), ValueHandler {
+object CodeExample : CommandHandler("Code example"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null

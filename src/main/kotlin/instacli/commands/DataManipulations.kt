@@ -6,7 +6,7 @@ import instacli.script.*
 import instacli.util.toArrayNode
 import instacli.util.toDisplayString
 
-class Add : CommandHandler("Add"), ArrayHandler {
+object Add : CommandHandler("Add"), ArrayHandler {
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         var total: JsonNode = data.first()
@@ -24,7 +24,7 @@ private fun asArrayNode(node: JsonNode): ArrayNode {
     }
 }
 
-class AddToVariable : CommandHandler("Add to"), ObjectHandler {
+object AddTo : CommandHandler("Add to"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
             val match = VARIABLE_REGEX.matchEntire(key)
@@ -81,7 +81,7 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
 
 
 // TODO Sort on scalar values
-class Sort : CommandHandler("Sort"), ObjectHandler {
+object Sort : CommandHandler("Sort"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val items = data.getParameter("items")
         if (items !is ArrayNode) throw CommandFormatException("items should be an array")
@@ -107,7 +107,7 @@ class NodeComparator(val field: String) : Comparator<JsonNode> {
     }
 }
 
-class Replace : CommandHandler("Replace"), ObjectHandler {
+object Replace : CommandHandler("Replace"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val source = data.getParameter("in")
         val part = data.getParameter("find")
@@ -170,7 +170,7 @@ class Replace : CommandHandler("Replace"), ObjectHandler {
     }
 }
 
-class Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler {
+object Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         when (data) {
             is NumericNode -> {

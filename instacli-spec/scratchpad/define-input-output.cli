@@ -1,5 +1,5 @@
 Script info:
-  description: Multi-language greeting
+  description: Define input with schema dialect
 
   input:
     type: object  # Optional , default is 'object'. Or optional if 'properties' is present

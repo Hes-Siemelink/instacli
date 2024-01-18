@@ -15,7 +15,7 @@ import kotlin.io.path.createFile
 import kotlin.io.path.exists
 import kotlin.io.path.name
 
-class GetAccount : CommandHandler("Get account"), ValueHandler {
+object GetAccount : CommandHandler("Get account"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify connection")
 
@@ -36,7 +36,7 @@ class GetAccount : CommandHandler("Get account"), ValueHandler {
 }
 
 
-class CreateAccount : CommandHandler("Create account"), ObjectHandler {
+object CreateAccount : CommandHandler("Create account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val newAccount = CreateAccountInfo.from(data)
         val connections = Connections.getFrom(context)
@@ -52,7 +52,7 @@ class CreateAccount : CommandHandler("Create account"), ObjectHandler {
     }
 }
 
-class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
+object GetAccounts : CommandHandler("Get accounts"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val targetName = data.asText()
         val connections = Connections.getFrom(context)
@@ -62,7 +62,7 @@ class GetAccounts : CommandHandler("Get accounts"), ValueHandler {
     }
 }
 
-class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
+object SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val account = data.getTextParameter("name")
@@ -77,7 +77,7 @@ class SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
     }
 }
 
-class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
+object DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val account = data.getTextParameter("name")
@@ -92,7 +92,7 @@ class DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
     }
 }
 
-class ConnectTo : CommandHandler("Connect to"), ValueHandler {
+object ConnectTo : CommandHandler("Connect to"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (context !is CliFileContext) {
             error("'Connect to' is only supported when running files.")
@@ -118,7 +118,6 @@ class ConnectTo : CommandHandler("Connect to"), ValueHandler {
 //
 // Data model
 //
-
 
 class Connections {
 

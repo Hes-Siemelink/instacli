@@ -22,7 +22,7 @@ object HttpServer {
     var context: ScriptContext? = null // FIXME dirty hack to get a context
 }
 
-class HttpServe : CommandHandler("Http serve"), ObjectHandler {
+object HttpServe : CommandHandler("Http serve"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val serveData: HttpServeData = Yaml.parse(data)

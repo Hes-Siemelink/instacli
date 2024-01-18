@@ -34,7 +34,7 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
 }
 
 // TODO: Define input variables on command or just remove this command
-class RunScript : CommandHandler("Run script"), ObjectHandler {
+object RunScript : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.")

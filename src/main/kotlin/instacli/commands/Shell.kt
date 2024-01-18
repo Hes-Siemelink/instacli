@@ -10,7 +10,7 @@ import com.lordcodes.turtle.shellRun
 import instacli.script.*
 import java.nio.file.Path
 
-class Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
+object Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return execute(data.textValue(), context.workingDir)

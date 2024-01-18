@@ -11,7 +11,7 @@ class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyH
     }
 }
 
-class As : CommandHandler("As"), ValueHandler {
+object As : CommandHandler("As"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey(OUTPUT_VARIABLE)) {
@@ -24,7 +24,7 @@ class As : CommandHandler("As"), ValueHandler {
     }
 }
 
-class ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
+object ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return resolveVariables(data, context.variables)
     }

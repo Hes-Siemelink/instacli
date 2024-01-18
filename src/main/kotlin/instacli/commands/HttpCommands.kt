@@ -23,18 +23,16 @@ import java.net.URI
 import java.nio.file.Path
 import kotlin.collections.set
 
-class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
+object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
 
-    companion object {
-        private const val HTTP_DEFAULTS = "http.defaults"
+    private const val HTTP_DEFAULTS = "http.defaults"
 
-        fun store(context: ScriptContext, value: JsonNode) {
-            context.session[HTTP_DEFAULTS] = value
-        }
+    fun store(context: ScriptContext, value: JsonNode) {
+        context.session[HTTP_DEFAULTS] = value
+    }
 
-        fun getFrom(context: ScriptContext): JsonNode? {
-            return context.session[HTTP_DEFAULTS] as JsonNode?
-        }
+    fun getFrom(context: ScriptContext): JsonNode? {
+        return context.session[HTTP_DEFAULTS] as JsonNode?
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -50,7 +48,7 @@ class HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandle
 }
 
 
-class HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
+object HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return processRequestWithoutBody(data, context, HttpMethod.Get)
@@ -61,28 +59,28 @@ class HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
     }
 }
 
-class HttpPost : CommandHandler("POST"), ObjectHandler {
+object HttpPost : CommandHandler("POST"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Post)
     }
 }
 
-class HttpPut : CommandHandler("PUT"), ObjectHandler {
+object HttpPut : CommandHandler("PUT"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Put)
     }
 }
 
-class HttpPatch : CommandHandler("PATCH"), ObjectHandler {
+object HttpPatch : CommandHandler("PATCH"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Patch)
     }
 }
 
-class HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
+object HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return processRequestWithoutBody(data, context, HttpMethod.Delete)

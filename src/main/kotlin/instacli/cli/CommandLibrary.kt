@@ -7,71 +7,71 @@ object CommandLibrary {
     val commands = commandMap(
 
         // Script definition
-        ScriptInfo(),
+        ScriptInfo,
 
         // Variables
-        As(),
-        ApplyVariables(),
-        Output(),
+        As,
+        ApplyVariables,
+        Output,
 
         // Testing
-        TestCase(),
-        CodeExample(),
-        AssertEquals(),
-        AssertThat(),
-        ExpectedOutput(),
-        StockAnswers(),
+        TestCase,
+        CodeExample,
+        AssertEquals,
+        AssertThat,
+        ExpectedOutput,
+        StockAnswers,
 
         // Control flow
-        Do(),
-        Exit(),
-        If(),
-        When(),
-        ForEach(),
-        Repeat(),
+        Do,
+        Exit,
+        If,
+        When,
+        ForEach,
+        Repeat,
 
         // User interaction
-        Prompt(),
-        PromptAll(),
+        Prompt,
+        PromptAll,
 
         // Data manipulation
-        Add(),
-        AddToVariable(),
-        Replace(),
-        Size(),
-        Sort(),
+        Add,
+        AddTo,
+        Replace,
+        Size,
+        Sort,
 
         // Util
-        Task(),
-        Print(),
-        Wait(),
-        Base64Encode(),
-        Base64Decode(),
+        Task,
+        Print,
+        Wait,
+        Base64Encode,
+        Base64Decode,
 
         // Files
-        ReadFile(),
-        SaveAs(),
+        ReadFile,
+        SaveAs,
 
         // Call other scripts
-        RunScript(),
-        Shell(),
+        RunScript,
+        Shell,
 
         // HTTP
-        HttpEndpoint(),
-        HttpGet(),
-        HttpPost(),
-        HttpPut(),
-        HttpPatch(),
-        HttpDelete(),
-        HttpServe(),
+        HttpEndpoint,
+        HttpGet,
+        HttpPost,
+        HttpPut,
+        HttpPatch,
+        HttpDelete,
+        HttpServe,
 
         // Account connections
-        GetAccount(),
-        ConnectTo(),
-        CreateAccount(),
-        GetAccounts(),
-        SetDefaultAccount(),
-        DeleteAccount(),
+        GetAccount,
+        ConnectTo,
+        CreateAccount,
+        GetAccounts,
+        SetDefaultAccount,
+        DeleteAccount,
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

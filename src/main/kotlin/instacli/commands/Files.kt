@@ -9,7 +9,7 @@ import instacli.util.toDisplayString
 import java.nio.file.Files
 import java.nio.file.Path
 
-class ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
+object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return Yaml.readFile(Path.of(data.textValue()))
@@ -22,7 +22,7 @@ class ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
     }
 }
 
-class SaveAs : CommandHandler("Save as"), ValueHandler {
+object SaveAs : CommandHandler("Save as"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val destinationFile = Path.of(data.textValue())
         val contents = context.variables[OUTPUT_VARIABLE].toDisplayString()

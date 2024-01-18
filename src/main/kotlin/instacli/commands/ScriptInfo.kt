@@ -13,7 +13,7 @@ import instacli.util.*
 
 var userPrompt: UserPrompt = KInquirerPrompt()
 
-class ScriptInfo : CommandHandler(NAME), ObjectHandler, ValueHandler, DelayedVariableResolver {
+object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
@@ -23,10 +23,6 @@ class ScriptInfo : CommandHandler(NAME), ObjectHandler, ValueHandler, DelayedVar
         val input = scriptInfoData.input ?: return null
 
         return handleInput(context, input)
-    }
-
-    companion object {
-        const val NAME = "Script info"
     }
 }
 
@@ -71,7 +67,7 @@ private fun handleInput(
 /**
  * Asks user through simple text prompt
  */
-class Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
+object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return userPrompt.prompt(data.textValue())
@@ -135,7 +131,7 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 /**
  * Asks multiple questions at once
  */
-class PromptAll : CommandHandler("Prompt all"), ObjectHandler, DelayedVariableResolver {
+object PromptAll : CommandHandler("Prompt all"), ObjectHandler, DelayedVariableResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
@@ -168,7 +164,7 @@ class PromptAll : CommandHandler("Prompt all"), ObjectHandler, DelayedVariableRe
 /**
  * Returns the input as output.
  */
-class Output : CommandHandler("Output"), AnyHandler {
+object Output : CommandHandler("Output"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }
@@ -177,7 +173,7 @@ class Output : CommandHandler("Output"), AnyHandler {
 /**
  * Records answers to be replayed in test cases for user input commands.
  */
-class StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
+object StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         data.fields().forEach {
             MOCK_ANSWERS[it.key] = it.value
