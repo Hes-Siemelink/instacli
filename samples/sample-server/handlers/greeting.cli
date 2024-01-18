@@ -5,11 +5,11 @@ Script info:
     language: the language to greet in
 
 Find:
-  path: ${language}
+  path: ${input.language}
   in:
     English: Hi
     Spanish: ¡Hola
     Dutch: Hoi
-As: greeting
+As: greetings
 
 Output: ${greetings} ${input.name}!

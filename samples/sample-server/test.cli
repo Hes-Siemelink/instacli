@@ -1,4 +1,8 @@
-#GET: http://localhost:25125/items
-GET: http://localhost:25125/hello?name=Hes
+POST:
+  url: http://localhost:25125/items
+  body:
+    1: one
+    2: two
+    3: three
 
 Print: ${output}

@@ -1,4 +1,15 @@
+Script info:
+  description: Starts the Instacli Sample Server
+
 Http serve:
+
+  /hello:
+    get:
+      script:
+        Output: Hello from Instacli!
+
+  /greeting:
+    post: handlers/greeting.cli
 
   /items:
     get:
@@ -7,5 +18,8 @@ Http serve:
           - 1
           - 2
           - 3
-  /hello:
-    get: handlers/hello.cli
+    post:
+      script:
+        For each:
+          ${item} in: ${input}
+          Output: ${item.key}
