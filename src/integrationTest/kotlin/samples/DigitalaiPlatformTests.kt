@@ -17,7 +17,7 @@ class DigitalaiPlatformTests {
     private fun test(resource: String) {
         Assumptions.assumeTrue(
             TestPaths.TEST_CONNECTIONS.exists(),
-            "\nTest needs missing file: ${TestPaths.TEST_CONNECTIONS}"
+            "Missing file: ${TestPaths.TEST_CONNECTIONS}"
         )
 
         val file = toPath(resource)
