@@ -13,8 +13,18 @@ class InstacliTestSuite {
     }
 
     @TestFactory
-    fun `Instacli tests in test-suite`(): List<DynamicNode> {
-        return getAllInstacliTests(Path.of("instacli-spec/test-suite"))
+    fun `Instacli reference tests`(): List<DynamicNode> {
+        return Path.of("instacli-spec/reference").getTestCases()
+    }
+
+    @TestFactory
+    fun `Code examples in reference documentation`(): List<DynamicNode> {
+        return Path.of("instacli-spec/reference").getCodeExamples()
+    }
+
+    @TestFactory
+    fun `Code examples in main README`(): List<DynamicNode> {
+        return Path.of("README.md").getCodeExamples()
     }
 
     companion object {

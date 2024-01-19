@@ -6,16 +6,15 @@ import instacli.commands.CodeExample
 import instacli.commands.Connections
 import instacli.commands.TestCase
 import instacli.commands.userPrompt
-import instacli.script.Break
-import instacli.script.Command
-import instacli.script.Script
+import instacli.script.*
 import instacli.util.MockUser
-import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
+import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.io.path.isDirectory
 import kotlin.io.path.name
 import kotlin.io.path.writeText
 
@@ -25,14 +24,18 @@ object TestPaths {
 }
 
 //
-// Instacli tests in Instacli
+// Instacli tests
 //
 
-fun getAllInstacliTests(directory: Path): List<DynamicContainer> {
-    val pages = Files.walk(directory).filter { it.name.endsWith(".cli") }
-    return pages.map { file ->
-        dynamicContainer(file.name, CliFile(file).getTestCases())
-    }.toList()
+fun Path.getTestCases(): List<DynamicNode> {
+    if (isDirectory()) {
+        val pages = Files.walk(this).filter { it.name.endsWith(".cli") }
+        return pages.map { file ->
+            dynamicContainer(file.name, CliFile(file).getTestCases())
+        }.toList()
+    } else {
+        return CliFile(this).getTestCases()
+    }
 }
 
 /**
@@ -48,10 +51,10 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     connections.file = tempFile
     connections.storeIn(context)
 
-    return script.getTestCases().map {
-        dynamicTest(it.getTestName(), cliFile.toUri()) {
+    return script.getTestCases().map { script ->
+        dynamicTest(script.getText(TestCase), cliFile.toUri()) {
             try {
-                it.runScript(context)
+                script.runScript(context)
             } catch (a: Break) {
                 a.output
             }
@@ -67,75 +70,88 @@ fun Script.getTestCases(): List<Script> {
     val allTests = mutableListOf<Script>()
 
     var currentCase = mutableListOf<Command>()
-    var first = true
+    var testCaseFound = false
     for (command in commands) {
         if (command.name == TestCase.name) {
-            if (first) {
+            if (!testCaseFound) {
                 // Ignore everything before the first 'Test case' command
-                first = false
+                testCaseFound = true
             } else {
-                // Adds everything that was recorded since the 'Test case' command
+                // Add everything that was recorded since the 'Test case' command
                 allTests.add(Script(currentCase))
             }
             currentCase = mutableListOf()
         }
+
         currentCase.add(command)
     }
-    // Add the last command
-    allTests.add(Script(currentCase))
+
+    // Add the last test case
+    if (testCaseFound) {
+        allTests.add(Script(currentCase))
+    }
 
     return allTests
 }
 
-fun Script.getTestName(nameCommand: String = TestCase.name): String {
-    val testCaseCommand = commands.find {
-        it.name == nameCommand
+fun Script.getText(commandHandler: CommandHandler): String {
+    val command = commands.find {
+        it.name == commandHandler.name
     }
-    return testCaseCommand?.data?.textValue() ?: nameCommand
+    return command?.data?.textValue() ?: commandHandler.name
 }
 
 //
 // Code examples in Markdown files
 //
 
-fun getCodeExamplesInDocument(file: Path): List<DynamicTest> {
+fun Path.getCodeExamples(): List<DynamicNode> {
+    if (isDirectory()) {
+        val documents = Files.walk(this).filter { it.name.endsWith(".md") }
+        return documents.map { doc ->
+            dynamicContainer(doc.name, InstacliDoc(doc).getCodeExamples())
+        }.toList()
+    } else {
+        return InstacliDoc(this).getCodeExamples()
+    }
+}
+
+private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
 
     // Scan document for code examples
-    val doc = InstacliDoc(file)
-    doc.scan()
+    scan()
 
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
-    doc.helperFiles.forEach {
+    helperFiles.forEach {
         testDir.resolve(it.key).writeText(it.value)
     }
-    val connections = if (doc.helperFiles.containsKey(Connections.FILE_NAME)) {
+    val connections = if (helperFiles.containsKey(Connections.FILE_NAME)) {
         Connections.load(testDir.resolve(Connections.FILE_NAME))
     } else {
         Connections()
     }
 
     // Generate tests
-    return doc.codeExamples
+    return codeExamples
         .map {
-            val script = Script.from(it)
-            val testContext = CliFileContext(testDir)
-            connections.storeIn(testContext)
-            userPrompt = MockUser()
-            DynamicTest.dynamicTest(script.getTestName(CodeExample.name), file.toUri()) {
-                try {
-                    script.runScript(testContext)
-                } catch (a: Break) {
-                    a.output
-                }
-            }
+            Script.from(it).toTest(document, CliFileContext(testDir), connections)
         }
 }
 
-fun getCodeExamplesInAllFiles(directory: Path): List<DynamicContainer> {
-    val pages = Files.walk(directory).filter { it.name.endsWith(".md") }
-    return pages.map { file ->
-        DynamicContainer.dynamicContainer(file.name, getCodeExamplesInDocument(file))
-    }.toList()
+private fun Script.toTest(document: Path, context: ScriptContext, connections: Connections): DynamicTest {
+
+    connections.storeIn(context)
+    userPrompt = MockUser()
+
+    return dynamicTest(getText(CodeExample), document.toUri()) {
+        try {
+            runScript(context)
+        } catch (a: Break) {
+            a.output
+        }
+    }
 }
+
+
 

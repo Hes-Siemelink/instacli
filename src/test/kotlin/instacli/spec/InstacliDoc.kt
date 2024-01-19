@@ -10,7 +10,7 @@ const val END_CODE_EXAMPLE = "```"
 
 val FILE_REGEX = Regex("file:(\\S+)")
 
-class InstacliDoc(val docFile: Path) {
+class InstacliDoc(val document: Path) {
 
     val codeExamples = mutableListOf<String>()
     val helperFiles = mutableMapOf<String, String>()
@@ -20,7 +20,7 @@ class InstacliDoc(val docFile: Path) {
         var currentSnippet = mutableListOf<String>()
         var currentFile: String? = null
         var recording = false
-        for (line in docFile.readLines()) {
+        for (line in document.readLines()) {
             if (recording) {
                 when {
                     line.startsWith(END_RUN_BEFORE_CODE_EXAMPLE) -> {
