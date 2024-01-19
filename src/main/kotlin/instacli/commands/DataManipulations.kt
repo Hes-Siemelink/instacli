@@ -205,3 +205,23 @@ object Find : CommandHandler("Find"), ObjectHandler {
         return source.at(toJsonPointer(path))
     }
 }
+
+object Fields : CommandHandler("Fields"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val fields = data.arrayNode()
+        for ((key, _) in data.fields()) {
+            fields.add(key)
+        }
+        return fields
+    }
+}
+
+object Values : CommandHandler("Values"), ObjectHandler {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val fields = data.arrayNode()
+        for ((_, value) in data.fields()) {
+            fields.add(value)
+        }
+        return fields
+    }
+}

@@ -38,9 +38,11 @@ object CommandLibrary {
         // Data manipulation
         Add,
         AddTo,
+        Fields,
         Replace,
         Size,
         Sort,
+        Values,
 
         // Util
         Task,

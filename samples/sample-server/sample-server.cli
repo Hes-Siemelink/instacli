@@ -20,6 +20,4 @@ Http serve:
           - 3
     post:
       script:
-        For each:
-          ${item} in: ${input}
-          Output: ${item.key}
+        Fields: ${input}
