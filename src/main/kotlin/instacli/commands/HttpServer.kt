@@ -14,6 +14,7 @@ import io.javalin.http.HandlerType
 import io.javalin.http.bodyAsClass
 
 const val DEFAULT_PORT = 25125
+const val REQUEST_VARIABLE = "request"
 
 private val methods = mapOf(
     "get" to HandlerType.GET,
@@ -31,16 +32,20 @@ object HttpServer {
         data.endpoints.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
-        startServer(context)
+        start("Starting Instacli Http Server for ${context.cliFile}")
     }
 
-    private fun startServer(context: ScriptContext) {
+    fun start(message: String = "Starting Instacli Http Server") {
         if (started) return
 
-        println("Starting Http server for ${context.cliFile}")
+        println(message)
 
         server.start(DEFAULT_PORT)
         started = true
+    }
+
+    fun stop() {
+        server.stop()
     }
 }
 
@@ -58,54 +63,92 @@ object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, DelayedVar
 }
 
 
-fun Javalin.addHandler(path: String, method: String, data: EndpointData, mainContext: ScriptContext) {
+fun Javalin.addHandler(path: String, method: String, data: EndpointData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
     this.addHandler(methodType, path) { httpContext ->
-        println("$methodType $path")
-
-        val localContext = mainContext.clone()
-        localContext.addInputVariables(httpContext)
-
-        // Execute script
-        val output =
-            when {
-                data.script != null -> {
-                    data.script?.runScript(localContext)
-                }
-
-                else -> {
-                    val script = localContext.scriptDir.resolve(data.scriptName)
-
-                    CliFile(script).run(localContext)
-                }
-            }
-
-        // Return result of script
-        output?.let {
-            httpContext.json(it)
-        }
+        handleRequest(path, methodType, data, httpContext, scriptContext)
     }
 }
 
-private fun ScriptContext.addInputVariables(httpContext: Context) {
+private fun handleRequest(
+    path: String,
+    method: HandlerType,
+    data: EndpointData,
+    httpContext: Context,
+    scriptContext: ScriptContext
+) {
+    println("$method $path")
 
+    val localContext = scriptContext.clone()
+    localContext.addInputVariable(httpContext)
+    localContext.addRequestVariable(httpContext)
+
+    // Execute script
+    val output =
+        if (data.script != null) {
+            data.script?.runScript(localContext)
+        } else {
+            val script = localContext.scriptDir.resolve(data.scriptName)
+
+            CliFile(script).run(localContext)
+        }
+
+    // Return result of script
+    output?.let {
+        httpContext.json(it)
+    }
+}
+
+private fun ScriptContext.addInputVariable(httpContext: Context) {
+
+    // Use body to populate input variable
     if (httpContext.body().isNotEmpty()) {
-        variables[INPUT_VARIABLE] = httpContext.bodyAsClass()
+        variables[INPUT_VARIABLE] = httpContext.bodyAsJson()
         return
     }
 
+    // If there is no body, use query parameters.
     if (httpContext.queryParamMap().isNotEmpty()) {
-        addInputVariables(httpContext.queryParamMap())
+        variables[INPUT_VARIABLE] = httpContext.queryAsJson()
     }
 }
 
-fun ScriptContext.addInputVariables(vars: Map<String, List<String>>) {
-    val input = objectNode()
-    for (variable in vars) {
-        input.set<JsonNode>(variable.key, TextNode(variable.value[0]))  // FIXME deal with list properly
-    }
-    variables[INPUT_VARIABLE] = input
+private fun ScriptContext.addRequestVariable(httpContext: Context) {
+
+    val requestData = objectNode()
+
+    requestData.set<JsonNode>("query", httpContext.queryAsJson())
+    requestData.set<JsonNode>("body", httpContext.bodyAsJson())
+    requestData.set<JsonNode>("headers", httpContext.headersAsJson())
+    requestData.set<JsonNode>("cookies", httpContext.cookiesAsJson())
+
+    variables[REQUEST_VARIABLE] = requestData
 }
+
+fun Context.queryAsJson(): ObjectNode {
+    val queryParameters = objectNode()
+    for (variable in queryParamMap()) {
+        queryParameters.set<JsonNode>(variable.key, TextNode(variable.value[0]))  // FIXME deal with list properly
+    }
+    return queryParameters
+}
+
+fun Context.bodyAsJson(): ObjectNode {
+    return if (body().isNotEmpty()) {
+        bodyAsClass()
+    } else {
+        objectNode()
+    }
+}
+
+fun Context.headersAsJson(): ObjectNode {
+    return objectNode(headerMap())
+}
+
+fun Context.cookiesAsJson(): ObjectNode {
+    return objectNode(cookieMap())
+}
+
 
 class HttpServeData {
     @JsonAnySetter

@@ -67,6 +67,10 @@ fun objectNode(key: String, value: String): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance).put(key, value)
 }
 
+fun objectNode(map: Map<String, String>): ObjectNode {
+    return Yaml.mapper.valueToTree(map)
+}
+
 fun JsonNode.toMutableMap(): MutableMap<String, JsonNode> {
     val map = mutableMapOf<String, JsonNode>()
     for (field in fields()) {

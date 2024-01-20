@@ -23,7 +23,10 @@ Code example: Simple GET
 
 GET: http://localhost:25125/items
 
-Expected output: [ '1', '2', '3' ]
+Expected output:
+  - 1
+  - 2
+  - 3
 ```
 
 ## Split host and path
@@ -37,7 +40,10 @@ GET:
   url: http://localhost:25125
   path: /items
 
-Expected output: [ '1', '2', '3' ]
+Expected output:
+  - 1
+  - 2
+  - 3
 ```
 
 ## Using Http request defaults

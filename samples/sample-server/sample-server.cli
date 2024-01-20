@@ -21,3 +21,32 @@ Http endpoint:
     post:
       script:
         Fields: ${input}
+    put:
+      script:
+        Fields: ${input}
+    patch:
+      script:
+        Fields: ${input}
+    delete:
+      script:
+        Output: { }
+
+  /echo/query:
+    get:
+      script:
+        Output: ${request.query}
+
+  /echo/body:
+    post:
+      script:
+        Output: ${request.body}
+
+  /echo/header:
+    get:
+      script:
+        Output: ${request.headers}
+
+  /echo/cookies:
+    get:
+      script:
+        Output: ${request.cookies}

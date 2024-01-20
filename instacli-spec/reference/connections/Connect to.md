@@ -12,8 +12,7 @@ the scenes.
 ## Basic usage
 
 **Connect to** takes a symbolic name and usually
-configures [Http request defaults](../http/Http%20request%20defaults.md) for subsequent
-REST API calls.
+configures [Http request defaults](../http/Http%20request%20defaults.md) for subsequent REST API calls.
 
 A script would look like this:
 
@@ -29,12 +28,14 @@ Connect to: Instacli Samples
 
 GET: /items
 
-Expected output: [ '1', '2', '3' ]
+Expected output:
+  - 1
+  - 2
+  - 3
 ```
 
 In order for this to work, you need to configure a _connection script_ for the **Instacli Samples** endpoint. You do
-this in the  `.instacli.yaml` file in the
-same directory
+this in the  `.instacli.yaml` file in the same directory
 
 ```yaml file:.instacli.yaml
 connections:
@@ -42,8 +43,7 @@ connections:
 ```
 
 The connect script `connect.cli` will be responsible for selecting the account. This way the main script does not need
-to know the user credentials and other
-connection logic.
+to know the user credentials and other connection logic.
 
 Here's an example connection script:
 
@@ -54,5 +54,5 @@ Http request defaults:
 ```
 
 This is a very simple example, but you can put more in this script. For example, managing user credentials, obtaining a
-session token, etc. See
-the [samples](../../../samples) directory for some real world examples, for example on how to connect to Spotify.
+session token, etc. See the [samples](../../../samples) directory for some real world examples, for example on how to
+connect to Spotify.

@@ -24,7 +24,10 @@ Code example: Simple POST
 
 POST:
   url: http://localhost:25125/items
-  body: [ 1, 2, 3 ]
+  body:
+    1: One
+    2: Two
+    3: Three
 ```
 
 ## Http request defaults
@@ -40,7 +43,10 @@ Http request defaults:
 
 POST:
   path: /items
-  body: [ 1, 2, 3 ]
+  body:
+    1: One
+    2: Two
+    3: Three
 ```
 
 See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.

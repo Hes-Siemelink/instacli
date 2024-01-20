@@ -30,7 +30,10 @@ Http request defaults:
 
 GET: /items
 
-Expected output: [ '1', '2', '3' ]
+Expected output:
+  - 1
+  - 2
+  - 3
 ```
 
 ## Options
@@ -62,7 +65,10 @@ Http request defaults:
   path: /items
 
 POST:
-  body: [ 1, 2, 3 ]
+  body:
+    1: One
+    2: Two
+    3: Three
 ```
 
 ### Body
@@ -74,7 +80,10 @@ Code example: Default body
 
 Http request defaults:
   url: http://localhost:25125
-  body: [ 1, 2, 3 ]
+  body:
+    1: One
+    2: Two
+    3: Three
 
 POST:
   path: /items

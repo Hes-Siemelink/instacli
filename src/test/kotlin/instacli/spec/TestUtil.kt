@@ -21,6 +21,7 @@ import kotlin.io.path.writeText
 object TestPaths {
     val RESOURCES: Path = Path.of("src/test/resources")
     val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
+    val SAMPLE_SERVER = Path.of("samples/sample-server/sample-server.cli")
 }
 
 //

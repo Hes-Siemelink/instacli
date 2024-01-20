@@ -10,8 +10,7 @@
 # Where to take it
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
-  explicitly. For example: content type,
-  variable replacement yes/no, etc.
+  explicitly. For example: content type, variable replacement yes/no, etc.
 * Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
 * Run Release templates
 
@@ -48,3 +47,5 @@
 * The Zen of Frictionlessity: Avoid Surprises, Humor and Being Clever
     * "Http serve" (now: "Http endpoint")
     * Cheesy test data
+* Liberation of Code: Say What, Not How
+    * Sample Server in Instacli vs. Javalin/Kotlin

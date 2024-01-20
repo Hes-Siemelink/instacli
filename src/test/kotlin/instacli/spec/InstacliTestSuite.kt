@@ -1,5 +1,7 @@
 package instacli.spec
 
+import instacli.cli.CliFile
+import instacli.commands.HttpServer
 import instacli.commands.userPrompt
 import instacli.util.MockUser
 import org.junit.jupiter.api.*
@@ -28,18 +30,17 @@ class InstacliTestSuite {
     }
 
     companion object {
-        private val server = InstacliSampleServer.create()
 
         @BeforeAll
         @JvmStatic
         fun startTestServer() {
-            server.start(25125)
+            CliFile(TestPaths.SAMPLE_SERVER).run()
         }
 
         @AfterAll
         @JvmStatic
         fun stopTestServer() {
-            server.stop()
+            HttpServer.stop()
         }
     }
 }
