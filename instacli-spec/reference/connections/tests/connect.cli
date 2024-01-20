@@ -1,2 +1,2 @@
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125

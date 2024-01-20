@@ -1,6 +1,6 @@
 # Command: Get account
 
-Gets the default account for a target Http endpoint.
+Gets the default account from the user's account list.
 
 | Content type | Supported |
 |--------------|-----------|
@@ -30,8 +30,8 @@ Code example: Get default account for an endpoint
 Get account: Instacli Sample Server
 
 Expected output:
-    name: Test account
-    username: admin
-    password: admin
+  name: Test account
+  username: admin
+  password: admin
 ```
 

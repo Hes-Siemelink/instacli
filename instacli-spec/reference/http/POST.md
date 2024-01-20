@@ -17,7 +17,7 @@
 
 ## Basic usage
 
-Set the HTTP server and credentials, then issue a normal **POST**
+Specify `url` and `body` to send a **POST** request.
 
 ```yaml
 Code example: Simple POST
@@ -27,14 +27,15 @@ POST:
   body: [ 1, 2, 3 ]
 ```
 
-## Http endpoint
+## Http request defaults
 
-As with all Http commands, you can use [Http endpoint](Http%20endpoint.md) to set the defaults for common fields.
+As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
+common fields.
 
 ```yaml
-Code example: Http endpoint with url
+Code example: Http request defaults and POST
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 POST:
@@ -42,4 +43,4 @@ POST:
   body: [ 1, 2, 3 ]
 ```
 
-See [Http endpoint](Http%20endpoint.md) for more information on how to configure all fields.
+See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.

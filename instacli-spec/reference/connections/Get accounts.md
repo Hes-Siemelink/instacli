@@ -1,6 +1,6 @@
 # Command: Get accounts
 
-Gets all accounts for a target Http endpoint.
+Gets all accounts from the user's account list.
 
 | Content type | Supported |
 |--------------|-----------|

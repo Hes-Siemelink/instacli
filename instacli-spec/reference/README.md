@@ -9,10 +9,10 @@
 * [PUT](http/PUT.md)
 * [PATCH](http/PATCH.md)
 * [DELETE](http/DELETE.md)
+* [Http request defaults](http/Http%20request%20defaults.md)
 
 ### Manage connections
 
-* [Http endpoint](http/Http%20endpoint.md)
 * [Connect to](connections/Connect%20to.md)
 * [Create account](connections/Create%20account.md)
 * [Get account](connections/Get%20account.md)

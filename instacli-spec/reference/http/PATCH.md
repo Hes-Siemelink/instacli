@@ -17,7 +17,7 @@
 
 ## Basic usage
 
-Set the HTTP server and credentials, then issue a normal **PATCH**
+Specify `url` and `body` to send a **PATCH** request.
 
 ```yaml
 Code example: Simple PATCH
@@ -28,14 +28,15 @@ PATCH:
     item: one
 ```
 
-## Http endpoint
+## Http request defaults
 
-As with all Http commands, you can use [Http endpoint](Http%20endpoint.md) to set the defaults for common fields.
+As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
+common fields.
 
 ```yaml
-Code example: Http endpoint and PATCH
+Code example: Http request defaults and PATCH
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 PATCH:
@@ -44,4 +45,4 @@ PATCH:
     item: one
 ```
 
-See [Http endpoint](Http%20endpoint.md) for more information on how to configure all fields.
+See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.

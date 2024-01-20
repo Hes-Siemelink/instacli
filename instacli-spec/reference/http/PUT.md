@@ -17,7 +17,7 @@
 
 ## Basic usage
 
-Set the HTTP server and credentials, then issue a normal **PUT**
+Specify `url` and `body` to send a **PUT** request.
 
 ```yaml
 Code example: Simple PUT
@@ -27,14 +27,15 @@ PUT:
   body: [ 1, 2, 3 ]
 ```
 
-## Http endpoint
+## Http request defaults
 
-As with all Http commands, you can use [Http endpoint](Http%20endpoint.md) to set the defaults for common fields.
+As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
+common fields.
 
 ```yaml
-Code example: Http endpoint and PUT
+Code example: Http request defaults and PUT
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 PUT:
@@ -42,4 +43,4 @@ PUT:
   body: [ 1, 2, 3 ]
 ```
 
-See [Http endpoint](Http%20endpoint.md) for more information on how to configure all fields.
+See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.

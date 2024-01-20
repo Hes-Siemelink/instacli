@@ -23,7 +23,7 @@ import java.net.URI
 import java.nio.file.Path
 import kotlin.collections.set
 
-object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, ValueHandler {
+object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHandler, ValueHandler {
 
     private const val HTTP_DEFAULTS = "http.defaults"
 
@@ -162,7 +162,7 @@ private fun processRequestWithoutBody(data: ValueNode, context: ScriptContext, m
 
 private fun processRequest(data: ObjectNode, context: ScriptContext, method: HttpMethod): JsonNode? {
     return runBlocking {
-        processRequest(HttpParameters.create(data, HttpEndpoint.getFrom(context), method))
+        processRequest(HttpParameters.create(data, HttpRequestDefaults.getFrom(context), method))
     }
 }
 

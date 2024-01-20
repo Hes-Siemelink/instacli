@@ -1,6 +1,7 @@
-# Command: Http endpoint
+# Command: Http request defaults
 
-`Http endpoint` sets the default parameters for all subsequent HTTP commands like [GET](GET.md), [POST](POST.md), etc.
+`Http request defaults` sets the default parameters for all subsequent HTTP commands
+like [GET](GET.md), [POST](POST.md), etc.
 
 | Content type | Supported                         |
 |--------------|-----------------------------------|
@@ -20,9 +21,9 @@
 Set the HTTP server and credentials, then issue a normal **GET**
 
 ```yaml
-Code example: Http endpoint usage
+Code example: Http request defaults usage
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   username: admin
   password: admin
@@ -32,18 +33,18 @@ GET: /items
 Expected output: [ '1', '2', '3' ]
 ```
 
-## Http endpoint options
+## Options
 
-All parameters for **Http endpoints** are available for all other Http commands (if applicable)
+All parameters for **Http request defaults** are available for all other Http commands (if applicable)
 
 ### Url
 
 The target host server.
 
 ```yaml
-Code example: Http endpoint with url
+Code example: Default url
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 GET: /items
@@ -54,9 +55,9 @@ GET: /items
 The endpoint path.
 
 ```yaml
-Code example: Http endpoint with url and path
+Code example: Default url and path
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   path: /items
 
@@ -69,9 +70,9 @@ POST:
 The (JSON) body
 
 ```yaml
-Code example: Http endpoint with body
+Code example: Default body
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   body: [ 1, 2, 3 ]
 
@@ -87,7 +88,7 @@ endpoint
 ```yaml
 Code example: Basic authentication
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   username: admin
   password: admin
@@ -102,7 +103,7 @@ Set headers with the **headers** property
 ```yaml
 Code example: Custom headers
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   headers:
     Authentication: Bearer XYZ
@@ -113,12 +114,12 @@ GET: /items
 
 ## Save the result to a file
 
-You can save the result to a file with **save as**
+You can save the result to a file with **save as**.
 
 ```yaml
 Code example: Save file
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   save as: out/items.json
 

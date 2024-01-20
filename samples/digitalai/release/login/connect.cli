@@ -11,7 +11,7 @@ If:
     As: endpoint
 
 ---
-Http endpoint:
+Http request defaults:
   url: ${endpoint.url}
   username: ${endpoint.username}
   password: ${endpoint.password}

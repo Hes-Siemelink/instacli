@@ -5,7 +5,7 @@ GET: http://localhost:25125/items
 Expected output: [ '1', '2', '3' ]
 
 ---
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
   cookies:
     maria: biscuit

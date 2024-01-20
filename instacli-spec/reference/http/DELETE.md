@@ -17,7 +17,7 @@
 
 ## Basic usage
 
-Set the HTTP server and credentials, then issue a normal **DELETE**
+Just specify the endpoint to send the **DELETE** request to.
 
 ```yaml
 Code example: Simple DELETE
@@ -25,17 +25,29 @@ Code example: Simple DELETE
 DELETE: http://localhost:25125/items
 ```
 
-## Http endpoint
-
-As with all Http commands, you can use [Http endpoint](Http%20endpoint.md) to set the defaults for common fields.
+or use the longer form if you need to specify more details
 
 ```yaml
-Code example: Http endpoint and DELETE
+Code example: DELETE with more properties
 
-Http endpoint:
+DELETE:
+  url: http://localhost:25125/items
+  username: admin
+  password: admin
+```
+
+## Http request defaults
+
+As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
+common fields.
+
+```yaml
+Code example: Http request defaults and DELETE
+
+Http request defaults:
   url: http://localhost:25125
 
 DELETE: /items
 ```
 
-See [Http endpoint](Http%20endpoint.md) for more information on how to configure all fields.
+See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.

@@ -40,26 +40,27 @@ GET:
 Expected output: [ '1', '2', '3' ]
 ```
 
-## Using Http Endpoint
+## Using Http request defaults
 
-By using Http Endpoint, you can set the properties that are common to all requests in advance
+By using [Http request defaults](Http%20request%20defaults.md), you can set the properties that are common to all
+requests in advance
 
 ```yaml
-Code example: Use Http Endpoint
+Code example: Use Http request defaults
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 GET:
   path: /items
 ```
 
-You can inline the `path` parameter on **GET** when using Http endpoint this way.
+This way you can simply write the `path` parameter on **GET**:
 
 ```yaml
 Code example: Use Http Endpoint with simple GET
 
-Http endpoint:
+Http request defaults:
   url: http://localhost:25125
 
 GET: /items
@@ -67,7 +68,8 @@ GET: /items
 
 ## Basic authentication
 
-When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the endpoint
+When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the
+endpoint
 
 ```yaml
 Code example: Basic authentication

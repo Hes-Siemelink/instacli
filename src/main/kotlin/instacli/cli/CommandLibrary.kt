@@ -60,7 +60,7 @@ object CommandLibrary {
         Shell,
 
         // HTTP
-        HttpEndpoint,
+        HttpRequestDefaults,
         HttpGet,
         HttpPost,
         HttpPut,

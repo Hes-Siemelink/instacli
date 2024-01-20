@@ -17,7 +17,7 @@ If:
   not:
     empty: ${endpoint.token}
   then:
-    Http endpoint:
+    Http request defaults:
       url: ${endpoint.url}
       headers:
         Authorization: Token ${endpoint.token}
@@ -27,7 +27,7 @@ If:
 # Get bearer token
 Get token: ${endpoint}
 
-Http endpoint:
+Http request defaults:
   url: ${endpoint.url}
   headers:
     Authorization: Bearer ${output.access_token}

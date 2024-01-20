@@ -41,7 +41,8 @@
 
 # Blog topics
 
-* How to design a language without writing a parser
-* How complexity creeps in
-* Keep it flat
-* How (not) to create a Lisp
+* How to Design a Language Without Writing a Parser
+* How Complexity Creeps in
+* Keep it Flat, SIlly (KIFS)
+* How (Not) to Create a Lisp
+* The Zen of Frictionlessity: Avoid Surprises, Humor and Being Clever 
