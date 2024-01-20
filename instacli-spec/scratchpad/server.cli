@@ -1,11 +1,11 @@
-Http serve:
+Http endpoint:
   /hello/{name}:
     get:
       Script:
         Output: Hello ${name}!
 
 ---
-Http serve:
+Http endpoint:
   /hello/{name}:
     get:
       parameters:
@@ -14,12 +14,12 @@ Http serve:
           required: true
           description: Name to greet
           schema:
-            type : string
+            type: string
       script:
         Output: Hello ${name}!
 
 ---
-Http serve:
+Http endpoint:
   /users:
     get:
       summary: Returns a list of users.
@@ -29,7 +29,7 @@ Http serve:
         Output: Hello from Server!
 
 ---
-Http serve:
+Http endpoint:
   /users:
     get:
       instacli:

@@ -45,4 +45,6 @@
 * How Complexity Creeps in
 * Keep it Flat, SIlly (KIFS)
 * How (Not) to Create a Lisp
-* The Zen of Frictionlessity: Avoid Surprises, Humor and Being Clever 
+* The Zen of Frictionlessity: Avoid Surprises, Humor and Being Clever
+    * "Http serve" (now: "Http endpoint")
+    * Cheesy test data

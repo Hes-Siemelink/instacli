@@ -66,7 +66,7 @@ object CommandLibrary {
         HttpPut,
         HttpPatch,
         HttpDelete,
-        HttpServe,
+        HttpEndpoint,
 
         // Account connections
         GetAccount,

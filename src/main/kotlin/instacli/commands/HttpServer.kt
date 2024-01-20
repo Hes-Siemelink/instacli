@@ -44,7 +44,7 @@ object HttpServer {
     }
 }
 
-object HttpServe : CommandHandler("Http serve"), ObjectHandler, DelayedVariableResolver {
+object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, DelayedVariableResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val serveData: HttpServeData = Yaml.parse(data)
