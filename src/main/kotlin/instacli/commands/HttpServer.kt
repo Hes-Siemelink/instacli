@@ -117,12 +117,22 @@ private fun ScriptContext.addRequestVariable(httpContext: Context) {
 
     val requestData = objectNode()
 
+    requestData.set<JsonNode>("headers", httpContext.headersAsJson())
+    requestData.set<JsonNode>("path", httpContext.pathParametersAsJson())
     requestData.set<JsonNode>("query", httpContext.queryAsJson())
     requestData.set<JsonNode>("body", httpContext.bodyAsJson())
-    requestData.set<JsonNode>("headers", httpContext.headersAsJson())
     requestData.set<JsonNode>("cookies", httpContext.cookiesAsJson())
+    requestData.set<JsonNode>("url", TextNode(httpContext.fullUrl()))
 
     variables[REQUEST_VARIABLE] = requestData
+}
+
+fun Context.headersAsJson(): ObjectNode {
+    return objectNode(headerMap())
+}
+
+fun Context.pathParametersAsJson(): ObjectNode {
+    return objectNode(pathParamMap())
 }
 
 fun Context.queryAsJson(): ObjectNode {
@@ -139,10 +149,6 @@ fun Context.bodyAsJson(): ObjectNode {
     } else {
         objectNode()
     }
-}
-
-fun Context.headersAsJson(): ObjectNode {
-    return objectNode(headerMap())
 }
 
 fun Context.cookiesAsJson(): ObjectNode {

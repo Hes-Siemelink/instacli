@@ -31,6 +31,16 @@ Http endpoint:
       script:
         Output: { }
 
+  /echo/header:
+    get:
+      script:
+        Output: ${request.headers}
+
+  /echo/path/{path}:
+    get:
+      script:
+        Output: ${request.path}
+
   /echo/query:
     get:
       script:
@@ -40,11 +50,6 @@ Http endpoint:
     post:
       script:
         Output: ${request.body}
-
-  /echo/header:
-    get:
-      script:
-        Output: ${request.headers}
 
   /echo/cookies:
     get:

@@ -86,3 +86,12 @@ GET:
 Expected output:
   maria: biscuit
   speculaas: spicy
+
+---
+Test case: Path parameters
+
+GET:
+  path: /echo/path/custom
+
+Expected output:
+  path: custom
