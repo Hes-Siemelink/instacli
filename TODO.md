@@ -1,9 +1,9 @@
 # On my mind
 
+* Web server support
 * Use JSON schema to define input
     * https://github.com/pwall567/json-kotlin-schema
 * Document for first user
-* Web server support
 * How to do real-world integration tests against Digital.ai Platform
 * Automated tests for command line invocations
 
@@ -37,6 +37,7 @@
 * Define 'output' on Script info
 * Add condition to input fields on Script info and Prompt
 * Naming: Prompt / Prompt one / Prompt all / Prompt multiple
+* Remove `Task`
 
 # Blog topics
 

@@ -12,6 +12,7 @@ import io.javalin.Javalin
 import io.javalin.http.Context
 import io.javalin.http.HandlerType
 import io.javalin.http.bodyAsClass
+import kotlin.io.path.name
 
 const val DEFAULT_PORT = 25125
 const val REQUEST_VARIABLE = "request"
@@ -32,7 +33,7 @@ object HttpServer {
         data.endpoints.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
-        start("Starting Instacli Http Server for ${context.cliFile}")
+        start("Starting Instacli Http Server for ${context.cliFile.name}")
     }
 
     fun start(message: String = "Starting Instacli Http Server") {
@@ -77,7 +78,7 @@ private fun handleRequest(
     httpContext: Context,
     scriptContext: ScriptContext
 ) {
-    println("$method $path")
+    println("$method ${httpContext.path()}")
 
     val localContext = scriptContext.clone()
     localContext.addInputVariable(httpContext)
@@ -109,7 +110,7 @@ private fun ScriptContext.addInputVariable(httpContext: Context) {
 
     // If there is no body, use query parameters.
     if (httpContext.queryParamMap().isNotEmpty()) {
-        variables[INPUT_VARIABLE] = httpContext.queryAsJson()
+        variables[INPUT_VARIABLE] = httpContext.queryParametersAsJson()
     }
 }
 
@@ -118,11 +119,12 @@ private fun ScriptContext.addRequestVariable(httpContext: Context) {
     val requestData = objectNode()
 
     requestData.set<JsonNode>("headers", httpContext.headersAsJson())
-    requestData.set<JsonNode>("path", httpContext.pathParametersAsJson())
-    requestData.set<JsonNode>("query", httpContext.queryAsJson())
+    requestData.set<JsonNode>("path", TextNode(httpContext.path()))
+    requestData.set<JsonNode>("pathParameters", httpContext.pathParametersAsJson())
+    requestData.set<JsonNode>("query", TextNode(httpContext.queryString() ?: ""))
+    requestData.set<JsonNode>("queryParameters", httpContext.queryParametersAsJson())
     requestData.set<JsonNode>("body", httpContext.bodyAsJson())
     requestData.set<JsonNode>("cookies", httpContext.cookiesAsJson())
-    requestData.set<JsonNode>("url", TextNode(httpContext.fullUrl()))
 
     variables[REQUEST_VARIABLE] = requestData
 }
@@ -135,7 +137,7 @@ fun Context.pathParametersAsJson(): ObjectNode {
     return objectNode(pathParamMap())
 }
 
-fun Context.queryAsJson(): ObjectNode {
+fun Context.queryParametersAsJson(): ObjectNode {
     val queryParameters = objectNode()
     for (variable in queryParamMap()) {
         queryParameters.set<JsonNode>(variable.key, TextNode(variable.value[0]))  // FIXME deal with list properly

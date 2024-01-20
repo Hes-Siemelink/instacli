@@ -1,0 +1,56 @@
+Script info:
+  description: Simple proxy server
+
+  input:
+    storageDir:
+      description: Directory where requests will be stored
+      default: recorded-data
+
+${storageDir}: ${input.storageDir}
+
+---
+Read file:
+  local: target-endpoint.yaml
+Http request defaults: ${output}
+
+Http endpoint:
+
+  "*":
+
+    get:
+      script:
+        GET:
+          headers: ${request.headers}
+          path: ${request.path}?${request.query}
+        Save as: ${storageDir}/${request.path}/${request.query}/GET
+
+    post:
+      script:
+        POST:
+          headers: ${request.headers}
+          path: ${request.path}
+          body: ${request.body}
+        Save as: ${storageDir}/${request.path}/${request.query}/POST
+
+    patch:
+      script:
+        PATCH:
+          headers: ${request.headers}
+          path: ${request.path}
+          body: ${request.body}
+        Save as: ${storageDir}/${request.path}/${request.query}/PATCH
+
+    put:
+      script:
+        PUT:
+          headers: ${request.headers}
+          path: ${request.path}
+          body: ${request.body}
+        Save as: ${storageDir}/${request.path}/${request.query}/PUT
+
+    delete:
+      script:
+        DELETE:
+          headers: ${request.headers}
+          path: ${request.path}
+

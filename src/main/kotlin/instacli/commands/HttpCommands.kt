@@ -178,7 +178,6 @@ private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
                 }
             }
         }
-        // install(HttpCookies)  // Tripped up by dates in Spotify cookies.
     }
 
     val response: HttpResponse =

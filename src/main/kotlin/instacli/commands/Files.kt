@@ -2,29 +2,45 @@ package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toDisplayString
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.io.path.createParentDirectories
+import kotlin.io.path.exists
 
 object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return Yaml.readFile(Path.of(data.textValue()))
+        val file = Path.of(data.textValue())
+
+        return if (file.exists()) {
+            Yaml.readFile(file)
+        } else {
+            TextNode("")
+        }
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val file = data.getTextParameter("local")
+        val fileName = data.getTextParameter("local")
+        val file = context.scriptDir.resolve(fileName)
 
-        return Yaml.readFile(context.scriptDir.resolve(file))
+        return if (file.exists()) {
+            Yaml.readFile(file)
+        } else {
+            TextNode("")
+        }
     }
 }
 
 object SaveAs : CommandHandler("Save as"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val destinationFile = Path.of(data.textValue())
+        destinationFile.createParentDirectories()
+
         val contents = context.variables[OUTPUT_VARIABLE].toDisplayString()
         Files.writeString(destinationFile, contents)
 
