@@ -18,8 +18,6 @@ Http endpoint:
 
     get:
       script:
-        Print:
-          Read file: ${storageDir}/${request.path}/${request.query}/GET
         Read file: ${storageDir}/${request.path}/${request.query}/GET
 
     post:
