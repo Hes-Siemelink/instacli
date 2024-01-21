@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.CliFile
 import instacli.script.*
 import instacli.util.Yaml
@@ -25,7 +26,8 @@ private val methods = mapOf(
     "delete" to HandlerType.DELETE
 )
 
-object HttpServer {
+object InternalHttpServer {
+    var port = DEFAULT_PORT
     private val server: Javalin = Javalin.create()
     private var started = false
 
@@ -33,7 +35,7 @@ object HttpServer {
         data.endpoints.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
-        start("Starting Instacli Http Server for ${context.cliFile.name}")
+        start("Starting Instacli Http Server for ${context.cliFile.name} on port ${port}")
     }
 
     fun start(message: String = "Starting Instacli Http Server") {
@@ -41,13 +43,40 @@ object HttpServer {
 
         println(message)
 
-        server.start(DEFAULT_PORT)
+        server.start(port)
         started = true
     }
 
     fun stop() {
         server.stop()
+        started = false
     }
+}
+
+object HttpServer : CommandHandler("Http server"), ValueHandler, ObjectHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val action = data.textValue()
+        when (action) {
+            "start" -> {
+                InternalHttpServer.start()
+            }
+
+            "stop" -> {
+                InternalHttpServer.stop()
+            }
+        }
+        return null
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val port = data["port"]?.intValue() ?: 0
+        if (port != 0) {
+            InternalHttpServer.port = port
+        }
+
+        return null
+    }
+
 }
 
 object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, DelayedVariableResolver {
@@ -56,7 +85,7 @@ object HttpEndpoint : CommandHandler("Http endpoint"), ObjectHandler, DelayedVar
         val serveData: HttpServeData = Yaml.parse(data)
 
         serveData.paths.forEach {
-            HttpServer.addHandler(it.key, it.value, context)
+            InternalHttpServer.addHandler(it.key, it.value, context)
         }
 
         return null

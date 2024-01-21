@@ -59,13 +59,16 @@ object CommandLibrary {
         RunScript,
         Shell,
 
-        // HTTP
+        // HTTP client
         HttpRequestDefaults,
         HttpGet,
         HttpPost,
         HttpPut,
         HttpPatch,
         HttpDelete,
+
+        // Http server
+        HttpServer,
         HttpEndpoint,
 
         // Account connections

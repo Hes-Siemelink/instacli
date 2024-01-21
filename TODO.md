@@ -1,10 +1,9 @@
 # On my mind
 
-* Web server support
+* Integration tests against Digital.ai Platform with prerecorded data
 * Use JSON schema to define input
     * https://github.com/pwall567/json-kotlin-schema
 * Document for first user
-* How to do real-world integration tests against Digital.ai Platform
 * Automated tests for command line invocations
 
 # Where to take it

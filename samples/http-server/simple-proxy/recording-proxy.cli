@@ -13,6 +13,9 @@ Read file:
   local: target-endpoint.yaml
 Http request defaults: ${output}
 
+Http server:
+  port: 25100
+
 Http endpoint:
 
   "*":
