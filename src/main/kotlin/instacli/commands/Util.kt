@@ -8,13 +8,6 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 import instacli.util.toDisplayString
 
-object Task : CommandHandler("Task"), ValueHandler {
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return null
-    }
-}
-
 object Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {

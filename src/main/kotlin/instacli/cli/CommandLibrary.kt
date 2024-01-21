@@ -45,7 +45,6 @@ object CommandLibrary {
         Values,
 
         // Util
-        Task,
         Print,
         Wait,
         Base64Encode,

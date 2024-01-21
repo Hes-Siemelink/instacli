@@ -36,7 +36,6 @@
 * Define 'output' on Script info
 * Add condition to input fields on Script info and Prompt
 * Naming: Prompt / Prompt one / Prompt all / Prompt multiple
-* Remove `Task`
 
 # Blog topics
 

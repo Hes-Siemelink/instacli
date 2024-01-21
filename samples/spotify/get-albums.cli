@@ -11,7 +11,7 @@ Get artist info:
 As: artist
 
 ---
-Task: Get all albums with paginated requests
+# Get all albums, using paginated requests
 
 ${albums}: [ ]
 ${offset}: 0
