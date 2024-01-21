@@ -12,7 +12,7 @@ ${storageDir}: ${input.storageDir}
 Http server:
   port: 25101
 
-Http endpoint:
+Http endpoints:
 
   "*":
 

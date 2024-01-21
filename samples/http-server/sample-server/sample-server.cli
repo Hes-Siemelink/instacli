@@ -1,7 +1,7 @@
 Script info:
   description: Starts the Instacli Sample Server
 
-Http endpoint:
+Http endpoints:
 
   /hello:
     get:

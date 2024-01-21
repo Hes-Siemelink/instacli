@@ -1,11 +1,11 @@
-Http endpoint:
+Http endpoints:
   /hello/{name}:
     get:
       Script:
         Output: Hello ${name}!
 
 ---
-Http endpoint:
+Http endpoints:
   /hello/{name}:
     get:
       parameters:
@@ -19,7 +19,7 @@ Http endpoint:
         Output: Hello ${name}!
 
 ---
-Http endpoint:
+Http endpoints:
   /users:
     get:
       summary: Returns a list of users.
@@ -29,7 +29,7 @@ Http endpoint:
         Output: Hello from Server!
 
 ---
-Http endpoint:
+Http endpoints:
   /users:
     get:
       instacli:

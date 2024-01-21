@@ -16,7 +16,7 @@ Http request defaults:
 Http server:
   port: 25100
 
-Http endpoint:
+Http endpoints:
 
   "*":
 

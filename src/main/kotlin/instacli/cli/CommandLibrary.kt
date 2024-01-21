@@ -68,7 +68,7 @@ object CommandLibrary {
 
         // Http server
         HttpServer,
-        HttpEndpoint,
+        HttpEndpoints,
 
         // Account connections
         GetAccount,
