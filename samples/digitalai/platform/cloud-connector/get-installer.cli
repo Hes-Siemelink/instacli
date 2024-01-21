@@ -1,8 +1,8 @@
 Script info: Downloads the installer script for the logged in user
 
+---
 Connect to: Digital.ai Platform API
 
----
 # Select Cloud Connector
 Print: Getting Cloud Connectors
 

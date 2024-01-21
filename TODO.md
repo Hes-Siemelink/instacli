@@ -48,3 +48,13 @@
     * Cheesy test data
 * Liberation of Code: Say What, Not How
     * Sample Server in Instacli vs. Javalin/Kotlin
+* Coding is the Unhappy Path
+    * 80% of code is about exceptions to the rule
+    * Typical scenario
+        1. Struggle to get the happy path working
+        2. Don't apply learnings to code base
+        3. Over 50% (or more) of the code is about the exceptions
+        4. Exception handling / alternative paths are implemented on top of a shaky code base as an afterthought
+    * Why not try "Exception Driven Programming". But: you can't _start_ with the exceptions.
+    * Define the happy path as declarative as possible. Build the exception flow around it?
+    * Mold the language to have less exceptions: be declarative, idempotent

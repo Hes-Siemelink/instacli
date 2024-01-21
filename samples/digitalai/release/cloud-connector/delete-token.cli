@@ -3,9 +3,9 @@ Script info:
   input:
     token_id: Token UID
 
+---
 Connect to: Digital.ai Release
 
----
 DELETE:
   path: /tokens/users/${input.token_id}
 

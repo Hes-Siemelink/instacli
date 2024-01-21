@@ -3,16 +3,15 @@ Script info:
   input:
     name: Name of the artist
 
-Connect to: Spotify
-
 ---
 Get artist info:
   name: ${input.name}
 As: artist
 
 ---
-# Get all albums, using paginated requests
+Connect to: Spotify
 
+# Get all albums using paginated requests
 ${albums}: [ ]
 ${offset}: 0
 

@@ -3,9 +3,9 @@ Script info:
   input:
     name: Name of the artist
 
+---
 Connect to: Spotify
 
----
 GET: /search?q=${input.name}&type=artist
 
 Prompt:

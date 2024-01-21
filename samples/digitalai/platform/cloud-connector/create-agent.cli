@@ -1,8 +1,8 @@
 Script info: Creates a new agent instance for the Cloud Connector
 
+---
 Connect to: Digital.ai Platform API
 
----
 # Select Cloud Connector
 Print: Getting Cloud Connectors
 
