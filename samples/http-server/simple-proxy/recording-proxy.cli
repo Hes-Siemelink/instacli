@@ -9,9 +9,9 @@ Script info:
 ${storageDir}: ${input.storageDir}
 
 ---
-Read file:
-  local: target-endpoint.yaml
-Http request defaults: ${output}
+Http request defaults:
+  :Read file:
+    local: target-endpoint.yaml
 
 Http server:
   port: 25100
