@@ -12,7 +12,7 @@
 
 With **Prompt**, you can ask the user a question.
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   What is your name?: Hes
 -->
@@ -47,7 +47,7 @@ You can specify various properties:
 
 Syntax for using a default value
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   What is your name?: Hes
 -->
@@ -70,7 +70,7 @@ The default value is a suggestion that is printed but can be overwritten by the 
 
 When asking for a password, the user prompt will mask the input that the user is typing in.
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   What is your secret?: ssh
 -->
@@ -93,7 +93,7 @@ will display as:
 
 You can ask for one item of a list:
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   What is your favorite color?: Red
 -->
@@ -121,7 +121,7 @@ The user can user the cursor keys to interactively select an item from a list, c
 
 Or multiple:
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   What are your favorite colors?:
     - Red
@@ -151,10 +151,10 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 
 ## Choosing an object
 
-You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with the `display` property. The entire object
-will be given as output.
+You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with
+the `display` property. The entire object will be given as output.
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   Select a user: Alice
 -->
@@ -189,7 +189,7 @@ You chose:
 
 If you are only interested in a single field form an object, you can specify that with the `value` property
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   Select a user: Alice
 -->

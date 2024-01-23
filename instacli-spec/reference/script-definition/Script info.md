@@ -27,8 +27,8 @@ Script info: A script containing a code example
 # Do some stuff
 ```
 
-When running Instacli from the command line with the `cli` command, this is the description that is given.
-For example, when listing the commands in a directory
+When running Instacli from the command line with the `cli` command, this is the description that is given. For example,
+when listing the commands in a directory
 
 ```commandline
 $ cli script-info-samples 
@@ -53,7 +53,7 @@ You will need this when specifying input parameters, see below.
 
 If the script uses input parameters, you can define them in **Script info** with the `input` property.
 
-<!-- run before code example
+<!-- run before
 ${input}:
    name: world
 -->
@@ -72,8 +72,7 @@ When running this, there are three possibilities
 
 1. The variable `${name}` is defined. In that case all is good and nothing happens.
 2. The variable `${name}` is not defined, and the script is run in interactive mode. Then the user is prompted with the
-   questions **What is your name?** and the
-   result is stored in the `${name}` variable.
+   questions **What is your name?** and the result is stored in the `${name}` variable.
 3. The variable `${name}` is not defined, and the script is not run in interactive mode. Then an error is thrown and the
    script is aborted.
 
@@ -93,7 +92,7 @@ Input parameters:
 
 You can define multiple input parameters at once.
 
-<!-- run before code example
+<!-- run before
 ${input}:
    greeting: Hello
    name: world

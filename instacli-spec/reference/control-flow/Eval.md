@@ -1,7 +1,7 @@
 # Eval syntax
 
-You can write code in a functional style by using the eval syntax.
-Be careful not to go crazy with this one and go all nested and lispy! In order to keep your scripts legible, it's better to avoid nested logic.
+You can write code in a functional style by using the eval syntax. Be careful not to go crazy with this one and go all
+nested and lispy! In order to keep your scripts legible, it's better to avoid nested logic.
 
 ## Basic usage
 
@@ -39,9 +39,9 @@ Expected output: 6
 
 ## Example with For each
 
-Here's another example of how you could use this. Let's say we want to sum the ages of the main characters.
-Remember that For each returns [a list of outputs for each item](For%20each.md#transform-a-list). We can
-then use that list in **Add**.
+Here's another example of how you could use this. Let's say we want to sum the ages of the main characters. Remember
+that For each returns [a list of outputs for each item](For%20each.md#transform-a-list). We can then use that list in *
+*Add**.
 
 ```yaml
 Code example: Eval with for each
@@ -65,7 +65,7 @@ Expected output: 29
 
 Note that you can 'unfold' this example to make it more linear and less nested:
 
-<!-- run before code example
+<!-- run before
 ${cast}:
   - first name: Romeo
     last name: Montague
@@ -87,5 +87,5 @@ Expected output: 29
 
 ```
 
-In the end it's a matter of taste. **Instacli** scripts are meant to be simple and legible. Choose the style that best expresses how you would explain what is
-going on in words.
+In the end it's a matter of taste. **Instacli** scripts are meant to be simple and legible. Choose the style that best
+expresses how you would explain what is going on in words.

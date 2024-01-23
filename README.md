@@ -6,7 +6,7 @@ Instantly create CLI applications with light scripting in Yaml!
 
 Get a flavor of instacli with this example file `greeting.cli`:
 
-<!-- run before example
+<!-- run before
 ${input}:
     name: Hes
     language: English
@@ -55,7 +55,7 @@ Input parameters:
   --language   Select a language
 ```
 
-Now we can call the example again with the parameters filled in:
+We can call the example again with the parameters filled in:
 
 ```commandline
 $ cli greeting.cli --name Hes --language Spanish
@@ -79,9 +79,9 @@ Run the "Hello world" example:
 cli samples/hello.cli
 ```
 
-There are several examples in the [samples](samples) directory - check it out!
+There are more examples in the [samples](samples) directory - check them out!
 
-Explore them all with the following command:
+Explore them all with the command:
 
 ```commandline
 cli samples
@@ -94,15 +94,14 @@ cli samples/spotify
 ```
 
 When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and
-Client secret -- you should already have
-those). These will be stored
-in `~/.instacli/connections.yaml` and will be used for subsequent invocations.
+Client secret -- you should already have those). These will be stored in `~/.instacli/connections.yaml` and will be used
+for subsequent invocations.
 
 ## Documentation
 
 * See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
-* The [Command reference](instacli-spec/command-reference/README.md) has a list of all the available commands with
-  explanation and code examples.
+* The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
+  and code examples.
 
 <!--
 # Highlight Reel
@@ -111,31 +110,33 @@ Main ideas:
 * Everything is Yaml
 * Code should be easy to read
 
-## Http requests as code
+## Define input 
 
 ## Invoke as a cli
 
-## Define input 
-
-## Define output
+## Http requests as code
 
 ## User interaction
 
 ## Variables
 
+## Read a file and save
+
+## Call a shell script
+
+## Call another cli script
+
+## Define output
+
+## Programming logic: If
+
 ## Data manipulation: For each
 
 ## Data manipulation: Add and Sort
 
-## Programming logic: If
-
-## Call another cli script
-
-## Call a shell script
-
 ## Manage your Http connection info
 
-## Read a file
+## Run an HTTP server
 
 ## Testing in Instacli
 

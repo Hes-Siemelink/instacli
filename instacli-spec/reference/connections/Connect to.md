@@ -16,7 +16,7 @@ configures [Http request defaults](../http/Http%20request%20defaults.md) for sub
 
 A script would look like this:
 
-<!-- run before code example
+<!-- run before
 Http request defaults:
   url: http://localhost:25125
 -->

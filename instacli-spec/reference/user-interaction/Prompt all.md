@@ -12,7 +12,7 @@
 
 Use **Prompt all** to fire multiple questions at once and capture the answers in the output variable.
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   First name: Juan
   Last name: Pérez
@@ -49,7 +49,7 @@ You can specify various properties: See [Prompt Properties](Prompt.md#prompt-pro
 
 Here's an example:
 
-<!-- run before code example
+<!-- run before
 Stock answers:
   Email address: info@example.com
   Choose a color: Red
