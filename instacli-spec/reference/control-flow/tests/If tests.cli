@@ -25,6 +25,19 @@ Assert that:
     equals: Found
 
 ---
+Test case: Substring matching with 'in'
+
+If:
+  item: cola
+  in: chocolate
+  then:
+    ${cola}: Found
+
+Assert that:
+  - item: ${cola}
+    equals: Found
+
+---
 Test case: If with and / or
 
 If:
@@ -40,7 +53,6 @@ If:
     Output: Any Match
 
 Expected output: Any Match
-
 
 ---
 Test case: If matching each item; no break

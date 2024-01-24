@@ -112,7 +112,7 @@ class CliFileContext(
         val subcommands = mutableMapOf<String, DirectoryInfo>()
 
         Files.list(scriptDir)
-            .filter { it.isDirectory() && it.hasCliCommands() }
+            .filter { it.isDirectory() && it.name != "tests" && it.hasCliCommands() }
             .forEach { dir ->
                 subcommands[asCliCommand(dir.name)] = DirectoryInfo.load(dir)
             }

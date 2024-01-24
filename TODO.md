@@ -36,6 +36,12 @@
 * Define 'output' on Script info
 * Add condition to input fields on Script info and Prompt
 * Naming: Prompt / Prompt one / Prompt all / Prompt multiple
+* Special variables
+    * `input`
+    * `output`
+    * `request`
+    * `session`
+    * `settings`
 
 # Blog topics
 
@@ -43,13 +49,14 @@
 * How Complexity Creeps in
 * Keep it Flat, SIlly (KIFS)
 * How (Not) to Create a Lisp
-* The Zen of Frictionlessity: Avoid Surprises, Humor and Being Clever
-    * "Http serve" (now: "Http endpoint")
+* The Zen of Frictionlessity: On Avoiding Surprises, Humor and Being Clever
+    * "Http endpoint" (was: "Http serve")
     * Cheesy test data
 * Liberation of Code: Say What, Not How
     * Sample Server in Instacli vs. Javalin/Kotlin
 * Coding is the Unhappy Path
     * 80% of code is about exceptions to the rule
+    * 80% of coding goes into the happy path
     * Typical scenario
         1. Struggle to get the happy path working
         2. Don't apply learnings to code base

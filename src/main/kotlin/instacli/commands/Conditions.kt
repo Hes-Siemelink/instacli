@@ -28,17 +28,21 @@ class Contains(
 ) : Condition {
 
     override fun isTrue(): Boolean {
-        return when (container) {
-            is ArrayNode -> {
+        return when {
+            container is ArrayNode -> {
                 container.contains(node)
             }
 
-            is ObjectNode -> {
+            container is ObjectNode -> {
                 inObject(node, container)
             }
 
+            container is TextNode && node is TextNode -> {
+                container.textValue().contains(node.textValue())
+            }
+
             else -> {
-                throw ConditionException("You can't check if an object is in an string.")
+                throw ConditionException("You can't check if a ${node.javaClass.simpleName} is in a ${container.javaClass.simpleName}.")
             }
         }
     }

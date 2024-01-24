@@ -1,0 +1,14 @@
+cloud_connector_definition:
+  id: 955c539d-d84d-432d-a602-38583d217960
+  account_id: 912e46ec-2846-43b9-9272-0632b9d4a1c1
+  name: test-hes-1
+  configuration:
+    DAI_ACCOUNT_LOGIN_ID: digitalai-cloud-connector
+    DAI_ACCOUNT_LOGIN_TYPE: client
+    DAI_AGENT_POLL_INTERVAL: 15
+    DAI_AGENT_MANAGER_VERSION: latest
+    DAI_AGENT_MANAGER_LOGIN_ID: digitalai-cloud-connector-manager
+    DAI_AGENT_MANAGER_LOGIN_TYPE: client
+    DAI_AGENT_MANAGER_SELF_UPDATE: true
+  created_date: 2024-01-21T09:25:35.374609+00:00
+  modified_date: 2024-01-21T09:25:35.374609+00:00

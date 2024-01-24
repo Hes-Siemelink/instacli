@@ -1,0 +1,51 @@
+Get account: Digital.ai Platform
+As: defaultAccount
+
+If:
+  not:
+    item: localhost:25101
+    in: ${defaultAccount.url}
+  then:
+    Print: To run this test, you need to set the default account for Digital.ai Platform to connect to localhost:25101
+    Exit: Skipped
+
+---
+Http server:
+  port: 25101
+
+${storageDir}: recorded-data
+
+Http endpoints:
+
+  "*":
+    get:
+      script:
+        Read file:
+          local: ${storageDir}/${request.path}/${request.query}/GET
+
+    post:
+      script:
+        Read file:
+          local: ${storageDir}/${request.path}/${request.query}/POST
+
+    patch:
+      script:
+        Read file:
+          local: ${storageDir}/${request.path}/${request.query}/PATCH
+
+    put:
+      script:
+        Read file:
+          local: ${storageDir}/${request.path}/${request.query}/PUT
+
+    delete:
+      script:
+        Do: { } # No-op
+
+---
+Test case: List agents test
+
+List agents: { }
+
+---
+Http server: stop

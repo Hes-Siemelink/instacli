@@ -1,0 +1,11 @@
+Script info: |
+  Manage Cloud Connector installations.
+
+imports:
+  - ../create-agent.cli
+  - ../list-agents.cli
+
+connections:
+  Digital.ai Platform API:
+    Http request defaults:
+      url: http://localhost:25101
