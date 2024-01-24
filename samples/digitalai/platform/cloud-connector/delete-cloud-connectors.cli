@@ -1,7 +1,7 @@
 Script info: Deletes Cloud Connectors, that may be running
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 GET: /workload/v1/cloud_connectors/
 ${cloud_connectors}: ${output.cloud_connector_definitions}

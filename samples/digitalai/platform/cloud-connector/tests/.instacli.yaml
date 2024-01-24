@@ -6,6 +6,6 @@ imports:
   - ../list-agents.cli
 
 connections:
-  Digital.ai Platform API:
+  Digital.ai Platform:
     Http request defaults:
       url: http://localhost:25101

@@ -2,4 +2,4 @@ Script info: |
   Services for Identity Management
 
 connections:
-  Digital.ai Platform API: ../login/connect.cli
+  Digital.ai Platform: ../login/connect.cli

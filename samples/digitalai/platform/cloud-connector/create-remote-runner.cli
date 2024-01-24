@@ -6,7 +6,7 @@ Script info:
     alias: Alias for agent (unique per Digital.ai Platform user)
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 # Select runtime
 Print: Getting available runtimes

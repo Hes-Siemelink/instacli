@@ -3,4 +3,4 @@ Script info: |
 
 connections:
   Digital.ai Release: ../login/connect.cli
-  Digital.ai Platform API: ../../platform/login/connect.cli
+  Digital.ai Platform: ../../platform/login/connect.cli

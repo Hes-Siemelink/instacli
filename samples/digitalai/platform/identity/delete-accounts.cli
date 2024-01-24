@@ -4,7 +4,7 @@ Script info:
     name: Find account
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${input.name}
 

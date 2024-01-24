@@ -4,7 +4,7 @@ Script info:
     client_id: Client ID
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 # Create client
 POST:

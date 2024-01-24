@@ -1,7 +1,7 @@
 Script info: Lists the runtimes that are available for the agents
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 GET: /workload/v1/agent_runtimes/
 

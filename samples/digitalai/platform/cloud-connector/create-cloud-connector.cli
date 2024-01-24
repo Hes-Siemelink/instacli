@@ -4,7 +4,7 @@ Script info:
     name: Cloud Connector name
 
 ---
-Connect to: Digital.ai Platform API
+Connect to: Digital.ai Platform
 
 # Create Cloud Connector
 POST:

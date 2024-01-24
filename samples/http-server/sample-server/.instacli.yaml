@@ -1,4 +1,4 @@
 Script info: Interact with the Instacli Sample Server
 
 connections:
-  Digital.ai Platform API: ../digitalai/platform/login/connect.cli
+  Digital.ai Platform: ../digitalai/platform/login/connect.cli
