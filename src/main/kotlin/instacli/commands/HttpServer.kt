@@ -35,7 +35,7 @@ object InternalHttpServer {
         data.endpoints.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
-        start("Starting Instacli Http Server for ${context.cliFile.name} on port ${port}")
+        start("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
     }
 
     fun start(message: String = "Starting Instacli Http Server") {
@@ -96,12 +96,11 @@ object HttpEndpoints : CommandHandler("Http endpoints"), ObjectHandler, DelayedV
 fun Javalin.addHandler(path: String, method: String, data: EndpointData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
     this.addHandler(methodType, path) { httpContext ->
-        handleRequest(path, methodType, data, httpContext, scriptContext)
+        handleRequest(methodType, data, httpContext, scriptContext)
     }
 }
 
 private fun handleRequest(
-    path: String,
     method: HandlerType,
     data: EndpointData,
     httpContext: Context,
@@ -117,10 +116,12 @@ private fun handleRequest(
     val output =
         if (data.script != null) {
             data.script?.runScript(localContext)
-        } else {
-            val script = localContext.scriptDir.resolve(data.scriptName)
+        } else if (data.scriptName != null) {
+            val script = localContext.scriptDir.resolve(data.scriptName!!)
 
             CliFile(script).run(localContext)
+        } else {
+            throw CliScriptException("No script defined")
         }
 
     // Return result of script
