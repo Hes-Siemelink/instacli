@@ -11,7 +11,7 @@ ${storageDir}: ${input.storageDir}
 ---
 Http request defaults:
   :Read file:
-    local: target-endpoint.yaml
+    relative: target-endpoint.yaml
 
 Http server:
   port: 25100

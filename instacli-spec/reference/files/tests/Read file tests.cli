@@ -10,7 +10,7 @@ Expected output:
 Test case: Read file relative to script
 
 Read file:
-  local: content/plain.yaml
+  relative: content/plain.yaml
 
 Expected output:
   test: true

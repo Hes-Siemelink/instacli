@@ -13,6 +13,6 @@ Expected output: Hello World
 Test case: Run shell in same directory as script
 
 Shell:
-  local: sh hello.sh
+  relative: sh hello.sh
 Expected output: Hello World
 

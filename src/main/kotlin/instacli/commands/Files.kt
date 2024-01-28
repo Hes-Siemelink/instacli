@@ -25,7 +25,7 @@ object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val fileName = data.getTextParameter("local")
+        val fileName = data.getTextParameter("relative")
         val file = context.scriptDir.resolve(fileName)
 
         return if (file.exists()) {

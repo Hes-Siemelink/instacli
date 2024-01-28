@@ -38,7 +38,7 @@ Then you can call it from an Instacli file by using the `local` parameter on **S
 Code example: Call a local shell script
 
 Shell:
-  local: sh hello.sh
+  relative: sh hello.sh
 
 Expected output: Hello World
 ```

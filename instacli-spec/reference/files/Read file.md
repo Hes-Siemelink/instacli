@@ -37,13 +37,13 @@ Note: To make the automated test work, the file is actually read from the reposi
 
 ## Reading a file relative to your script
 
-If you want to load a file that is next to your Instacli script, use the `local` parameter:
+If you want to load a file that is next to your Instacli script, use the `relative` parameter:
 
-```commandline
+```yaml
 Code example: Read a local file
 
 Read file:
-    local: greeting.yaml
+  relative: greeting.yaml
 
 Expected output:
   greeting: Hello

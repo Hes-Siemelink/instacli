@@ -21,22 +21,22 @@ Http endpoints:
     get:
       script:
         Read file:
-          local: ${storageDir}/${request.path}/${request.query}/GET
+          relative: ${storageDir}/${request.path}/${request.query}/GET
 
     post:
       script:
         Read file:
-          local: ${storageDir}/${request.path}/${request.query}/POST
+          relative: ${storageDir}/${request.path}/${request.query}/POST
 
     patch:
       script:
         Read file:
-          local: ${storageDir}/${request.path}/${request.query}/PATCH
+          relative: ${storageDir}/${request.path}/${request.query}/PATCH
 
     put:
       script:
         Read file:
-          local: ${storageDir}/${request.path}/${request.query}/PUT
+          relative: ${storageDir}/${request.path}/${request.query}/PUT
 
     delete:
       script:
