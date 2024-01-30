@@ -112,8 +112,6 @@ Here's an example:
     
     Print: Value is ${data.key}
 
-```
-
 This wil show as:
 
 ---
@@ -137,3 +135,20 @@ Print: Value is ${data.key}
 ```
 
 ---
+
+## Command line invocations
+
+To show how to invoke the command line `cli` command, use the following syntax:
+
+```commandline cli
+cli --help 
+```
+
+Then followed by a block that contains the output:
+
+```output
+Instacli -- Instantly create CLI applications with light scripting!
+
+Usage:
+   cli [-q] [--help] file | directory
+```

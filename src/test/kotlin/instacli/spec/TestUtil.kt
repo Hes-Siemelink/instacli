@@ -22,6 +22,7 @@ object TestPaths {
     val RESOURCES: Path = Path.of("src/test/resources")
     val TEST_CONNECTIONS: Path = RESOURCES.resolve("instacli-home/connections.yaml")
     val SAMPLE_SERVER: Path = Path.of("samples/http-server/sample-server/sample-server.cli")
+    val SPEC: Path = Path.of("instacli-spec")
 }
 
 //
@@ -110,17 +111,14 @@ fun Path.getCodeExamples(): List<DynamicNode> {
     if (isDirectory()) {
         val documents = Files.walk(this).filter { it.name.endsWith(".md") }
         return documents.map { doc ->
-            dynamicContainer(doc.name, InstacliDoc(doc).getCodeExamples())
+            dynamicContainer(doc.name, InstacliDoc.scan(doc).getCodeExamples())
         }.toList()
     } else {
-        return InstacliDoc(this).getCodeExamples()
+        return InstacliDoc.scan(this).getCodeExamples()
     }
 }
 
 private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
-
-    // Scan document for code examples
-    scan()
 
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
