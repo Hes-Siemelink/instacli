@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 
-class CliInvocationTest {
+class CommandInvocationTest {
 
     private var out = MockOutput()
 

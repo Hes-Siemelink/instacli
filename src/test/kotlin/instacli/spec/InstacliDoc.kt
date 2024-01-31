@@ -22,12 +22,37 @@ class InstacliDoc(val document: Path) {
             }
             return scripts
         }
+
     val helperFiles: Map<String, String>
         get() {
             return blocks.filter { it.type == YamlFile }
                 .associate {
                     (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent()
                 }
+        }
+
+    val commandExamples: List<CommandExample>
+        get() {
+            val commands = mutableListOf<CommandExample>()
+            var currentCommand: String? = null
+            for (block in blocks) {
+                when (block.type) {
+                    CommandInvocation -> {
+                        if (currentCommand != null) {
+                            commands.add(CommandExample(currentCommand))
+                        }
+                        currentCommand = block.getContent()
+                    }
+
+                    CommandOutput -> {
+                        if (currentCommand != null) {
+                            commands.add(CommandExample(currentCommand, block.getContent()))
+                            currentCommand = null
+                        }
+                    }
+                }
+            }
+            return commands
         }
 
     fun get(type: BlockType): List<Block> {
@@ -46,8 +71,8 @@ class InstacliDoc(val document: Path) {
             HiddenCode,
             YamlFile,  // Should come before YamlSnippet
             YamlSnippet,
-            CliInvocation,
-            CliOutput,
+            CommandInvocation,
+            CommandOutput,
             MainText // Should be last
         )
 
@@ -99,6 +124,7 @@ object MainText : BlockType()
 object HiddenCode : BlockType("<!-- run before", "-->")
 object YamlSnippet : BlockType("```yaml")
 object YamlFile : BlockType("```yaml file")
-object CliInvocation : BlockType("```commandline cli")
-object CliOutput : BlockType("```output")
+object CommandInvocation : BlockType("```commandline cli")
+object CommandOutput : BlockType("```output")
 
+data class CommandExample(val command: String, val output: String? = null)

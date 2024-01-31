@@ -1,17 +1,22 @@
 package instacli.spec
 
+import instacli.cli.CliCommandLineOptions
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
+import instacli.cli.InstacliMain
 import instacli.commands.CodeExample
 import instacli.commands.Connections
 import instacli.commands.TestCase
 import instacli.commands.userPrompt
 import instacli.script.*
 import instacli.util.MockUser
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
+import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
@@ -132,10 +137,15 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     }
 
     // Generate tests
-    return codeExamples
+    val codeExampleTests = codeExamples
         .map {
             Script.from(it).toTest(document, CliFileContext(testDir), connections)
         }
+    val cliInvocationTests = commandExamples.map {
+        it.toTest(document)
+    }
+
+    return codeExampleTests + cliInvocationTests
 }
 
 private fun Script.toTest(document: Path, context: ScriptContext, connections: Connections): DynamicTest {
@@ -152,5 +162,50 @@ private fun Script.toTest(document: Path, context: ScriptContext, connections: C
     }
 }
 
+//
+// Command line examples
+//
 
+private fun CommandExample.toTest(document: Path): DynamicTest {
+    return dynamicTest("$ $command", document.toUri()) {
+        testCommand()
+    }
+}
+
+fun CommandExample.testCommand() {
+    val line = command.split("\\s+".toRegex())
+    line.first() shouldBe "cli"
+    val options = CliCommandLineOptions(line.drop(1))
+
+    println("$ $command")
+
+    val stdout = capturePrintln {
+        InstacliMain(options).run()
+    }
+
+    println(stdout)
+
+    if (output != null) {
+        stdout.trim() shouldBe output.trim()
+    }
+}
+
+fun capturePrintln(doThis: () -> Unit): String {
+
+    // Rewire System,out
+    val old = System.out
+    val capturedOutput = ByteArrayOutputStream()
+    System.setOut(PrintStream(capturedOutput))
+
+    try {
+        // Execute code
+        doThis()
+
+        return capturedOutput.toString()
+    } finally {
+        // Restore System.out
+        System.out.flush()
+        System.setOut(old)
+    }
+}
 

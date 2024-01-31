@@ -141,7 +141,7 @@ Print: Value is ${data.key}
 To show how to invoke the command line `cli` command, use the following syntax:
 
 ```commandline cli
-cli --help 
+cli --help
 ```
 
 Then followed by a block that contains the output:
