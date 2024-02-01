@@ -142,7 +142,7 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
             Script.from(it).toTest(document, CliFileContext(testDir), connections)
         }
     val cliInvocationTests = commandExamples.map {
-        it.toTest(document)
+        it.toTest(document, testDir)
     }
 
     return codeExampleTests + cliInvocationTests
@@ -166,13 +166,13 @@ private fun Script.toTest(document: Path, context: ScriptContext, connections: C
 // Command line examples
 //
 
-private fun CommandExample.toTest(document: Path): DynamicTest {
+private fun CommandExample.toTest(document: Path, testDir: Path): DynamicTest {
     return dynamicTest("$ $command", document.toUri()) {
-        testCommand()
+        testCommand(testDir)
     }
 }
 
-fun CommandExample.testCommand() {
+fun CommandExample.testCommand(testDir: Path) {
     val line = command.split("\\s+".toRegex())
     line.first() shouldBe "cli"
     val options = CliCommandLineOptions(line.drop(1))
@@ -180,7 +180,7 @@ fun CommandExample.testCommand() {
     println("$ $command")
 
     val stdout = capturePrintln {
-        InstacliMain(options).run()
+        InstacliMain(options, workingDir = testDir).run()
     }
 
     println(stdout)

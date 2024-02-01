@@ -12,7 +12,7 @@ ${input}:
     language: English
 -->
 
-```yaml
+```yaml file:greeting.cli
 Script info:
   description: Multi-language greeting
   input:
@@ -34,11 +34,16 @@ POST:
 Print: ${output}
 ```
 
+Run the script with this command:
+
+```commandline
+cli greeting.cli
+```
+
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
 printed.
 
-```commandline
-$ cli greeting.cli 
+```output
 ? Enter your name Hes
 ? Select a language English
 Hi Hes!
@@ -46,8 +51,13 @@ Hi Hes!
 
 You can specify the parameters as arguments. First let's query for them with the `--help` option:
 
-```commandline
- $ cli --help greeting.cli 
+```commandline cli
+cli --help greeting.cli
+```
+
+Wil print:
+
+```output
 Multi-language greeting
 
 Input parameters:
@@ -57,8 +67,13 @@ Input parameters:
 
 We can call the example again with the parameters filled in:
 
-```commandline
-$ cli greeting.cli --name Hes --language Spanish
+```commandline cli
+cli greeting.cli --name Hes --language Spanish
+```
+
+And we get the result in Spanish:
+
+```output
 ¡Hola Hes!
 ```
 

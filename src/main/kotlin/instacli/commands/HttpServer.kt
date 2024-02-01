@@ -106,7 +106,7 @@ private fun handleRequest(
     httpContext: Context,
     scriptContext: ScriptContext
 ) {
-    println("$method ${httpContext.path()}")
+//    println("$method ${httpContext.path()}")
 
     val localContext = scriptContext.clone()
     localContext.addInputVariable(httpContext)
