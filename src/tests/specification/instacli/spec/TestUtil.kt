@@ -172,7 +172,7 @@ fun CommandExample.testCommand(testDir: Path) {
 
     println("$ $command")
 
-    val stdout = capturePrintln {
+    val stdout = captureSystemOut {
         InstacliMain(options, workingDir = testDir).run()
     }
 
@@ -183,7 +183,7 @@ fun CommandExample.testCommand(testDir: Path) {
     }
 }
 
-fun capturePrintln(doThis: () -> Unit): String {
+fun captureSystemOut(doThis: () -> Unit): String {
 
     // Rewire System,out
     val old = System.out
@@ -201,4 +201,3 @@ fun capturePrintln(doThis: () -> Unit): String {
         System.setOut(old)
     }
 }
-

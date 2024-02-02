@@ -37,7 +37,7 @@ class InstacliDocTest {
 
     @Test
     fun `Example cli command test`() {
-        val output = capturePrintln {
+        val output = captureSystemOut {
             testCliCommand(doc.commandExamples[0])
         }
 
@@ -54,10 +54,9 @@ class InstacliDocTest {
 
     @Test
     fun `capture println`() {
-        val string = capturePrintln {
+        val string = captureSystemOut {
             println("Boo!")
         }
         string shouldBe "Boo!\n"
     }
-
 }
