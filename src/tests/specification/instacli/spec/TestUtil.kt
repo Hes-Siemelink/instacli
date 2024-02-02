@@ -23,13 +23,6 @@ import kotlin.io.path.isDirectory
 import kotlin.io.path.name
 import kotlin.io.path.writeText
 
-object TestPaths {
-    val RESOURCES: Path = Path.of("src/test/resources")
-    val TEST_CONNECTIONS: Path = RESOURCES.resolve("instacli-home/connections.yaml")
-    val SAMPLE_SERVER: Path = Path.of("samples/http-server/sample-server/sample-server.cli")
-    val SPEC: Path = Path.of("instacli-spec")
-}
-
 //
 // Instacli tests
 //

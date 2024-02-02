@@ -1,7 +1,7 @@
 package instacli.cli
 
+import instacli.TestPaths
 import instacli.commands.Connections
-import instacli.spec.TestPaths
 import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

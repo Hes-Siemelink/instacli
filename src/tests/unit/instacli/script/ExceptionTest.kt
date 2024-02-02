@@ -1,7 +1,7 @@
 package instacli.script
 
+import instacli.TestPaths
 import instacli.cli.InstacliMain
-import instacli.spec.TestPaths
 import io.kotest.assertions.throwables.shouldThrow
 import org.junit.jupiter.api.Test
 

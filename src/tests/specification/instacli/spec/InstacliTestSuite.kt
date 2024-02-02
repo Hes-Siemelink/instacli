@@ -16,12 +16,12 @@ class InstacliTestSuite {
 
     @TestFactory
     fun `Instacli reference tests`(): List<DynamicNode> {
-        return Path.of("instacli-spec/reference").getTestCases()
+        return TestPaths.REFERENCE.getTestCases()
     }
 
     @TestFactory
     fun `Code examples in reference documentation`(): List<DynamicNode> {
-        return Path.of("instacli-spec/reference").getCodeExamples()
+        return TestPaths.REFERENCE.getCodeExamples()
     }
 
     @TestFactory

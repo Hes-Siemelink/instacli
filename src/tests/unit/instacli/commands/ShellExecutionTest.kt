@@ -1,7 +1,7 @@
 package instacli.commands
 
 import com.lordcodes.turtle.shellRun
-import instacli.spec.TestPaths
+import instacli.TestPaths
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test

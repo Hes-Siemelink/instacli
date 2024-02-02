@@ -1,10 +1,14 @@
 # On my mind
 
 * Document for first user
-* Integration tests against Digital.ai Platform with prerecorded data
-* Use JSON schema to define input
-    * https://github.com/pwall567/json-kotlin-schema
 * Automated tests for command line invocations
+    * Define input
+    * Add gradle task to render Markdown in output automatically
+    * Render markdown with output if it is not what is expected
+* Split test into
+    * Spec test
+    * Integration test
+    * Unit tests
 
 # Where to take it
 
@@ -28,6 +32,8 @@
 
 # Instacli language
 
+* Use JSON schema to define input
+    * https://github.com/pwall567/json-kotlin-schema
 * Error handling
 * Combine `If` and `When`and introduce `else`
 * Raw and live / Apply variables

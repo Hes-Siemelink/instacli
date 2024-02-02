@@ -45,11 +45,46 @@ testing {
     suites {
         val test by getting(JvmTestSuite::class) {
             useJUnitJupiter()
+
+            sources {
+                java {
+                    setSrcDirs(listOf("src/tests/unit"))
+                }
+            }
         }
 
-        register<JvmTestSuite>("integrationTest") {
+        val specificationTest by registering(JvmTestSuite::class) {
+
             dependencies {
                 implementation(project())
+                implementation("io.kotest:kotest-assertions-core:5.7.2")
+            }
+
+            sources {
+                java {
+                    setSrcDirs(listOf("src/tests/specification"))
+                }
+            }
+
+            targets {
+                all {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+
+        val integrationTest by registering(JvmTestSuite::class) {
+
+            dependencies {
+                implementation(project())
+            }
+
+            sources {
+                java {
+                    setSrcDirs(listOf("src/tests/integration"))
+                }
             }
 
             targets {
@@ -63,8 +98,9 @@ testing {
     }
 }
 
+
 tasks.named("check") {
-    dependsOn(testing.suites.named("integrationTest"))
+    dependsOn(testing.suites.named("specificationTest"))
 }
 
 //

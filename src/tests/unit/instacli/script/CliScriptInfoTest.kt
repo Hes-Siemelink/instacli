@@ -1,9 +1,9 @@
 package instacli.script
 
 import com.fasterxml.jackson.module.kotlin.contains
+import instacli.TestPaths
 import instacli.commands.InputData
 import instacli.commands.ScriptInfoData
-import instacli.spec.TestPaths
 import instacli.util.Yaml
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
