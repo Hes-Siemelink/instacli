@@ -2,8 +2,8 @@ package instacli.spec
 
 import instacli.cli.CliFile
 import instacli.commands.InternalHttpServer
-import instacli.commands.userPrompt
-import instacli.util.MockUser
+import instacli.util.TestPrompt
+import instacli.util.UserPrompt
 import org.junit.jupiter.api.*
 import java.nio.file.Path
 
@@ -11,7 +11,7 @@ class InstacliTestSuite {
 
     @BeforeEach
     fun setup() {
-        userPrompt = MockUser()
+        UserPrompt.default = TestPrompt
     }
 
     @TestFactory

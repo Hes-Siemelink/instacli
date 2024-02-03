@@ -9,9 +9,9 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import com.github.kinquirer.core.Choice
 import instacli.script.*
-import instacli.util.*
-
-var userPrompt: UserPrompt = KInquirerPrompt()
+import instacli.util.UserPrompt
+import instacli.util.Yaml
+import instacli.util.objectNode
 
 object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -70,7 +70,7 @@ private fun handleInput(
 object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return userPrompt.prompt(data.textValue())
+        return UserPrompt.prompt(data.textValue())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -90,7 +90,7 @@ private fun prompt(parameter: ParameterData): JsonNode {
 }
 
 private fun promptText(parameter: ParameterData, password: Boolean = false): JsonNode {
-    return userPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
+    return UserPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
 }
 
 private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): JsonNode {
@@ -103,7 +103,7 @@ private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): J
         }
     }
 
-    val answer = userPrompt.select(parameter.description, choices, multiple)
+    val answer = UserPrompt.select(parameter.description, choices, multiple)
 
     return onlyWithField(answer, parameter.value)
 }
@@ -174,9 +174,11 @@ object Output : CommandHandler("Output"), AnyHandler {
  * Records answers to be replayed in test cases for user input commands.
  */
 object StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
+    val recordedAnswers = mutableMapOf<String, JsonNode>()
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         data.fields().forEach {
-            MOCK_ANSWERS[it.key] = it.value
+            recordedAnswers[it.key] = it.value
         }
         return null
     }

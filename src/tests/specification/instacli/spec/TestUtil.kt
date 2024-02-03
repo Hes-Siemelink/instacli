@@ -7,9 +7,9 @@ import instacli.cli.InstacliMain
 import instacli.commands.CodeExample
 import instacli.commands.Connections
 import instacli.commands.TestCase
-import instacli.commands.userPrompt
 import instacli.script.*
-import instacli.util.MockUser
+import instacli.util.TestPrompt
+import instacli.util.UserPrompt
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -144,7 +144,7 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
 private fun Script.toTest(document: Path, context: ScriptContext, connections: Connections): DynamicTest {
 
     connections.storeIn(context)
-    userPrompt = MockUser()
+    UserPrompt.default = TestPrompt
 
     return dynamicTest(getText(CodeExample), document.toUri()) {
         try {

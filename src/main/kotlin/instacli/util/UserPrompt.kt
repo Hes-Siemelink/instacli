@@ -10,13 +10,26 @@ import com.github.kinquirer.components.promptInput
 import com.github.kinquirer.components.promptInputPassword
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
+import instacli.commands.StockAnswers
 
 interface UserPrompt {
     fun prompt(message: String, default: String = "", password: Boolean = false): JsonNode
     fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean = false): JsonNode
+
+    companion object : UserPrompt {
+        var default: UserPrompt = KInquirerPrompt
+
+        override fun prompt(message: String, default: String, password: Boolean): JsonNode {
+            return UserPrompt.default.prompt(message, default, password)
+        }
+
+        override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
+            return UserPrompt.default.select(message, choices, multiple)
+        }
+    }
 }
 
-class KInquirerPrompt : UserPrompt {
+object KInquirerPrompt : UserPrompt {
     override fun prompt(message: String, default: String, password: Boolean): JsonNode {
 
         val answer = if (password) {
@@ -37,11 +50,10 @@ class KInquirerPrompt : UserPrompt {
     }
 }
 
-val MOCK_ANSWERS = mutableMapOf<String, JsonNode>()
 
-class MockUser : UserPrompt {
+object TestPrompt : UserPrompt {
     override fun prompt(message: String, default: String, password: Boolean): JsonNode {
-        var answer = MOCK_ANSWERS[message]
+        var answer = StockAnswers.recordedAnswers[message]
         if (answer == null && default.isNotEmpty()) {
             answer = TextNode(default)
         }
@@ -49,7 +61,8 @@ class MockUser : UserPrompt {
     }
 
     override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
-        val selectedAnswer = MOCK_ANSWERS[message] ?: throw IllegalStateException("No prerecorded answer for '$message'")
+        val selectedAnswer =
+            StockAnswers.recordedAnswers[message] ?: throw IllegalStateException("No prerecorded answer for '$message'")
 
         if (multiple) {
             val set = selectedAnswer.map { it.textValue() }
@@ -65,7 +78,8 @@ class MockUser : UserPrompt {
                 selectedAnswer.textValue() == it.displayName
             }
 
-            return selection?.data ?: throw IllegalArgumentException("Prerecorded choice '$selectedAnswer' not found in provided list.")
+            return selection?.data
+                ?: throw IllegalArgumentException("Prerecorded choice '$selectedAnswer' not found in provided list.")
         }
     }
 }
