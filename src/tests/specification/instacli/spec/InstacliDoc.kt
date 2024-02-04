@@ -1,5 +1,7 @@
 package instacli.spec
 
+import instacli.util.addNotNull
+import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.io.path.readLines
 
@@ -66,6 +68,12 @@ class InstacliDoc(val document: Path) {
         return block
     }
 
+    fun print(out: PrintStream) {
+        blocks.forEach {
+            it.print(out)
+        }
+    }
+
     companion object {
 
         private val blockTypes: List<BlockType> = listOf(
@@ -107,13 +115,6 @@ class InstacliDoc(val document: Path) {
     }
 }
 
-// TODO Move to generic util
-fun <E> MutableList<E>.addNotNull(element: E?) {
-    if (element != null) {
-        add(element)
-    }
-}
-
 open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: String = "```")
 
 val FILE_REGEX = Regex("file:(\\S+)")
@@ -126,6 +127,20 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 
     fun getContent(): String {
         return lines.joinToString("\n")
+    }
+
+    fun print(out: PrintStream) {
+        if (headerLine.isNotEmpty()) {
+            out.println(headerLine)
+        }
+
+        lines.forEach {
+            out.println(it)
+        }
+
+        if (headerLine.isNotEmpty()) {
+            out.println(type.lastLinePrefix)
+        }
     }
 }
 

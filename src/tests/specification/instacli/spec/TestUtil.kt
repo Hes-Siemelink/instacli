@@ -10,6 +10,7 @@ import instacli.commands.Connections
 import instacli.commands.StockAnswers
 import instacli.commands.TestCase
 import instacli.script.*
+import instacli.util.IO
 import instacli.util.TestPrompt
 import instacli.util.UserPrompt
 import instacli.util.Yaml
@@ -18,8 +19,6 @@ import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
-import java.io.ByteArrayOutputStream
-import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
@@ -177,7 +176,7 @@ fun CommandExample.testCommand(testDir: Path) {
 
     println("$ $command")
 
-    val stdout = captureSystemOut {
+    val stdout = IO.captureSystemOut {
         InstacliMain(options, workingDir = testDir).run()
     }
 
@@ -197,25 +196,4 @@ fun prepareInput(input: String?, testDir: Path) {
     }
 
     StockAnswers.execute(inputYaml, CliFileContext(testDir))
-}
-
-
-// TODO Move to generic util
-fun captureSystemOut(doThis: () -> Unit): String {
-
-    // Rewire System,out
-    val old = System.out
-    val capturedOutput = ByteArrayOutputStream()
-    System.setOut(PrintStream(capturedOutput))
-
-    try {
-        // Execute code
-        doThis()
-
-        return capturedOutput.toString()
-    } finally {
-        // Restore System.out
-        System.out.flush()
-        System.setOut(old)
-    }
 }

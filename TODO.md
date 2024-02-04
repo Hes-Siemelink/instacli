@@ -1,14 +1,6 @@
 # On my mind
 
 * Document for first user
-* Automated tests for command line invocations
-    * Define input
-    * Add gradle task to render Markdown in output automatically
-    * Render markdown with output if it is not what is expected
-* Split test into
-    * Spec test
-    * Integration test
-    * Unit tests
 
 # Where to take it
 

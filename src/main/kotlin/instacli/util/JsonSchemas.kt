@@ -14,7 +14,7 @@ object JsonSchemas {
     }
 
     fun getSchema(name: String): JsonSchema? {
-        if (!resourceExists(name)) return null
+        if (!Resources.exists(name)) return null
 
         return schemas.getOrPut(name) {
             loadSchema("schema/$name.schema.json")
@@ -22,7 +22,7 @@ object JsonSchemas {
     }
 
     private fun loadSchema(schemaFile: String): JsonSchema? {
-        return factory.getSchema(getResource(schemaFile))
+        return factory.getSchema(Resources.getUri(schemaFile))
     }
 }
 

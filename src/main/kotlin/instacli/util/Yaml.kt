@@ -17,7 +17,6 @@ object Yaml {
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
 
     val mapper = ObjectMapper(factory)
-    // Not using ObjectMapper(factory).registerKotlinModule() because it trips up Graal native image
 
     init {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
@@ -28,7 +27,7 @@ object Yaml {
     }
 
     fun readResource(classpathResource: String): JsonNode {
-        val stream = getResourceAsStream(classpathResource)
+        val stream = Resources.stream(classpathResource)
 
         return mapper.readTree(stream)
     }
@@ -69,14 +68,6 @@ fun objectNode(key: String, value: String): ObjectNode {
 
 fun objectNode(map: Map<String, String>): ObjectNode {
     return Yaml.mapper.valueToTree(map)
-}
-
-fun JsonNode.toMutableMap(): MutableMap<String, JsonNode> {
-    val map = mutableMapOf<String, JsonNode>()
-    for (field in fields()) {
-        map[field.key] = field.value
-    }
-    return map
 }
 
 fun JsonNode?.toDisplayString(): String {

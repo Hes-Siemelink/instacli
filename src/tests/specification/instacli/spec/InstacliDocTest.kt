@@ -2,6 +2,7 @@ package instacli.spec
 
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.InstacliMain
+import instacli.util.IO
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -37,7 +38,7 @@ class InstacliDocTest {
 
     @Test
     fun `Example cli command test`() {
-        val output = captureSystemOut {
+        val output = IO.captureSystemOut {
             testCliCommand(doc.commandExamples[0])
         }
 
@@ -54,7 +55,7 @@ class InstacliDocTest {
 
     @Test
     fun `capture println`() {
-        val string = captureSystemOut {
+        val string = IO.captureSystemOut {
             println("Boo!")
         }
         string shouldBe "Boo!\n"
