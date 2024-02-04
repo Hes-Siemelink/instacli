@@ -36,12 +36,17 @@ Print: ${output}
 
 Run the script with this command:
 
-```commandline
+```commandline cli
 cli greeting.cli
 ```
 
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
 printed.
+
+<!-- input
+Enter your name: Hes
+Select a language: English
+-->
 
 ```output
 ? Enter your name Hes

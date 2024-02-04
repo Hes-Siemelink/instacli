@@ -34,24 +34,25 @@ class InstacliDoc(val document: Path) {
     val commandExamples: List<CommandExample>
         get() {
             val commands = mutableListOf<CommandExample>()
-            var currentCommand: String? = null
+            var currentCommand: CommandExample? = null
             for (block in blocks) {
                 when (block.type) {
                     CommandInvocation -> {
-                        if (currentCommand != null) {
-                            commands.add(CommandExample(currentCommand))
-                        }
-                        currentCommand = block.getContent()
+                        commands.addNotNull(currentCommand)
+                        currentCommand = CommandExample(block.getContent())
+                    }
+
+                    CommandInput -> {
+                        currentCommand?.input = block.getContent()
                     }
 
                     CommandOutput -> {
-                        if (currentCommand != null) {
-                            commands.add(CommandExample(currentCommand, block.getContent()))
-                            currentCommand = null
-                        }
+                        currentCommand?.output = block.getContent()
                     }
                 }
             }
+            commands.addNotNull(currentCommand)
+
             return commands
         }
 
@@ -72,6 +73,7 @@ class InstacliDoc(val document: Path) {
             YamlFile,  // Should come before YamlSnippet
             YamlSnippet,
             CommandInvocation,
+            CommandInput,
             CommandOutput,
             MainText // Should be last
         )
@@ -105,6 +107,13 @@ class InstacliDoc(val document: Path) {
     }
 }
 
+// TODO Move to generic util
+fun <E> MutableList<E>.addNotNull(element: E?) {
+    if (element != null) {
+        add(element)
+    }
+}
+
 open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: String = "```")
 
 val FILE_REGEX = Regex("file:(\\S+)")
@@ -125,6 +134,7 @@ object HiddenCode : BlockType("<!-- run before", "-->")
 object YamlSnippet : BlockType("```yaml")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
+object CommandInput : BlockType("<!-- input", "-->")
 object CommandOutput : BlockType("```output")
 
-data class CommandExample(val command: String, val output: String? = null)
+data class CommandExample(val command: String, var output: String? = null, var input: String? = null)

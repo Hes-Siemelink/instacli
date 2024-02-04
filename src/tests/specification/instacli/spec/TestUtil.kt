@@ -1,15 +1,18 @@
 package instacli.spec
 
+import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
 import instacli.commands.CodeExample
 import instacli.commands.Connections
+import instacli.commands.StockAnswers
 import instacli.commands.TestCase
 import instacli.script.*
 import instacli.util.TestPrompt
 import instacli.util.UserPrompt
+import instacli.util.Yaml
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -167,8 +170,10 @@ private fun CommandExample.toTest(document: Path, testDir: Path): DynamicTest {
 
 fun CommandExample.testCommand(testDir: Path) {
     val line = command.split("\\s+".toRegex())
-    line.first() shouldBe "cli"
     val options = CliCommandLineOptions(line.drop(1))
+    prepareInput(input, testDir)
+
+    line.first() shouldBe "cli"
 
     println("$ $command")
 
@@ -178,11 +183,24 @@ fun CommandExample.testCommand(testDir: Path) {
 
     println(stdout)
 
-    if (output != null) {
-        stdout.trim() shouldBe output.trim()
+    output?.let {
+        stdout.trim() shouldBe it.trim()
     }
 }
 
+fun prepareInput(input: String?, testDir: Path) {
+    input ?: return
+
+    val inputYaml = Yaml.parse(input)
+    if (inputYaml !is ObjectNode) {
+        return
+    }
+
+    StockAnswers.execute(inputYaml, CliFileContext(testDir))
+}
+
+
+// TODO Move to generic util
 fun captureSystemOut(doThis: () -> Unit): String {
 
     // Rewire System,out

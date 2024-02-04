@@ -50,14 +50,29 @@ object KInquirerPrompt : UserPrompt {
     }
 }
 
+fun KInquirer.renderInput(message: String, default: String = ""): String = buildString {
+    append("? ")
+    append(message)
+    append(" ")
+
+    if (default.isNotEmpty()) {
+        append(default)
+    }
+}
+
 
 object TestPrompt : UserPrompt {
+
     override fun prompt(message: String, default: String, password: Boolean): JsonNode {
-        var answer = StockAnswers.recordedAnswers[message]
-        if (answer == null && default.isNotEmpty()) {
-            answer = TextNode(default)
+        val answer: JsonNode = StockAnswers.recordedAnswers[message] ?: if (default.isNotEmpty()) {
+            TextNode(default)
+        } else {
+            throw IllegalStateException("No prerecorded answer for '$message'")
         }
-        return answer ?: throw IllegalStateException("No prerecorded answer for '$message'")
+
+        println(KInquirer.renderInput(message, answer.toDisplayString()))
+
+        return answer
     }
 
     override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
@@ -71,15 +86,20 @@ object TestPrompt : UserPrompt {
             }
             val result = ArrayNode(JsonNodeFactory.instance)
             selection.forEach { result.add(it.data) }
+
+            println(KInquirer.renderInput(message, selection.toString()))
+
             return result
 
         } else {
             val selection = choices.find {
                 selectedAnswer.textValue() == it.displayName
-            }
+            } ?: throw IllegalArgumentException("Prerecorded choice '$selectedAnswer' not found in provided list.")
 
-            return selection?.data
-                ?: throw IllegalArgumentException("Prerecorded choice '$selectedAnswer' not found in provided list.")
+            println(KInquirer.renderInput(message, selection.displayName))
+
+            return selection.data
+
         }
     }
 }
