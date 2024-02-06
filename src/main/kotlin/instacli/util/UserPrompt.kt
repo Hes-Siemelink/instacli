@@ -70,7 +70,11 @@ object TestPrompt : UserPrompt {
             throw IllegalStateException("No prerecorded answer for '$message'")
         }
 
-        println(KInquirer.renderInput(message, answer.toDisplayString()))
+        if (password) {
+            println(KInquirer.renderInput(message, "********"))
+        } else {
+            println(KInquirer.renderInput(message, answer.toDisplayString()))
+        }
 
         return answer
     }

@@ -68,11 +68,19 @@ object ConsoleOutput : UserOutput {
 
         val inputData = script.info?.input ?: return
 
-        kotlin.io.println("\nInput parameters:")
+        kotlin.io.println("\nOptions:")
 
         val width = inputData.parameters.maxOf { it.key.length } + 2
         inputData.parameters.forEach {
-            kotlin.io.println("  ${infoString("--" + it.key, it.value.description, width)}")
+            val key = buildString {
+                append("--")
+                append(it.key)
+                if (it.value.shortOption != null) {
+                    append(", -")
+                    append(it.value.shortOption)
+                }
+            }
+            kotlin.io.println("  ${infoString(key, it.value.description, width)}")
         }
     }
 

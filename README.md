@@ -65,7 +65,7 @@ Wil print:
 ```output
 Multi-language greeting
 
-Input parameters:
+Options:
   --name       Enter your name
   --language   Select a language
 ```
@@ -123,16 +123,110 @@ for subsequent invocations.
 * The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
   and code examples.
 
-<!--
 # Highlight Reel
 
-Main ideas:
-* Everything is Yaml
-* Code should be easy to read
+Instacli has two main ideas:
 
-## Define input 
+1. Everything is Yaml.
+2. Keep it simple: Express your intent. without ceremony or boilerplating
 
-## Invoke as a cli
+Use Instacli to cook up a CLI in minutes using just Yaml files. Code should be easy to read: Instacli encourages a
+declare style: start telling 'what' you want not 'how' to do it. There is a thin line between 'what' and 'how'. The
+purpose of Instacli is that you can get as far as possible with straightforward scripts that are readable to everybody.
+When programming, complexity creeps in and your need idea "turns into code"". Instacli is designed to avoid that point
+as long as possible, so you can quickly whip up a functional CLI. You can use Instacli to quickly automate or prototype
+light tasks like testing out APIs; with some user interaction and do that in a repeatable way, as-code so to speak, but
+without the complexity.
+
+## Define input
+
+Define all command-line options in Yaml. Take this file `simple-options.cli`
+
+```yaml file:simple-options.cli
+Script info:
+  description: Call Acme
+  input:
+    user: Username
+    language: Preferred language
+```
+
+This will automatically generate a command description and command line options:
+
+```commandline cli
+cli --help simple-options.cli
+```
+
+```output
+Call Acme
+
+Options:
+  --user       Username
+  --language   Preferred language
+```
+
+## Input options
+
+Instacli allows you to specify the type and format of input properties. Here's an example file `input-options.cli`
+
+```yaml file:input-options.cli
+Script info:
+  description: Different input options
+  input:
+    user:
+      description: Username
+      short option: u
+    password:
+      description: Password
+      type: password
+      short option: p
+```
+
+```commandline cli
+cli --help input-options.cli
+```
+
+```output
+Different input options
+
+Options:
+  --user, -u   Username
+  --password, -p   Password
+```
+
+## User interaction
+
+By default, Instacli runs in interactive mode. If there are unknown commandline options, the user is prompted to give
+input.
+
+```commandline cli
+cli input-options.cli
+```
+
+<!-- input
+Username: Hes
+Password: Secret
+-->
+
+```output
+? Username Hes
+? Password ********
+```
+
+<!-- FIXME
+  Use the `-q` option to avoid user prompts:
+  
+  ```commandline cli
+  cli -q input-options.cli
+  ```
+  
+  ```output
+  ? Username Hes
+  ? Password ********
+  ```
+-->
+
+<!--
+## Subcommand support
 
 ## Http requests as code
 
@@ -161,5 +255,5 @@ Main ideas:
 ## Testing in Instacli
 
 ## Documenting Instacli
--->
 
+-->
