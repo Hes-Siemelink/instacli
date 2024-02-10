@@ -11,6 +11,14 @@ Http endpoints:
   /greeting:
     post: handlers/greeting.cli
 
+  /greetings:
+    get:
+      script:
+        Output:
+          Engllish: Hello!
+          Spanish: ¡Hola!
+          Dutch: Halo!
+
   /items:
     get:
       script:

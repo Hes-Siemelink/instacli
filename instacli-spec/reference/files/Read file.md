@@ -12,7 +12,7 @@
 
 Use **Read file** to load a Yaml / Json file
 
-Suppose you have a file `samples/greeting.yaml`:
+For example, we have a file `greeting.yaml` in the `samples/basic` directory:
 
 ```yaml file:greeting.yaml
 greeting: Hello
@@ -24,7 +24,7 @@ Then you can read it like this:
 ```yaml
 Code example: Read Yaml from a file
 
-Read file: samples/greeting.yaml
+Read file: samples/basic/greeting.yaml
 
 Expected output:
   greeting: Hello

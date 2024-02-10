@@ -2,7 +2,10 @@
 
 Instantly create CLI applications with light scripting in Yaml!
 
-## Quick Example
+Use Instacli to quickly automate or prototype light tasks like testing out APIs. Sprinkle in some user interaction.
+As-code, but without the complexity of actual code.
+
+## Full Example
 
 Get a flavor of instacli with this example file `greeting.cli`:
 
@@ -50,11 +53,15 @@ Select a language: English
 
 ```output
 ? Enter your name Hes
-? Select a language English
+? Select a language 
+ ❯ ◉ English
+   ◯ Spanish
+   ◯ Dutch
+
 Hi Hes!
 ```
 
-You can specify the parameters as arguments. First let's query for them with the `--help` option:
+You can specify the parameters as arguments. First let's find out what to pass with the `--help` option:
 
 ```commandline cli
 cli --help greeting.cli
@@ -128,15 +135,52 @@ for subsequent invocations.
 Instacli has two main ideas:
 
 1. Everything is Yaml.
-2. Keep it simple: Express your intent. without ceremony or boilerplating
+2. Keep it simple.
 
-Use Instacli to cook up a CLI in minutes using just Yaml files. Code should be easy to read: Instacli encourages a
-declare style: start telling 'what' you want not 'how' to do it. There is a thin line between 'what' and 'how'. The
-purpose of Instacli is that you can get as far as possible with straightforward scripts that are readable to everybody.
-When programming, complexity creeps in and your need idea "turns into code"". Instacli is designed to avoid that point
-as long as possible, so you can quickly whip up a functional CLI. You can use Instacli to quickly automate or prototype
-light tasks like testing out APIs; with some user interaction and do that in a repeatable way, as-code so to speak, but
-without the complexity.
+## Hello world
+
+This is the simplest Instacli progam, [hello.cli](samples/hello.cli):
+
+```yaml file:hello.cli
+Print: Hello from Instacli!
+```
+
+Invoke it with
+
+```commandline cli
+cli hello.cli
+```
+
+And it will print the expected message:
+
+```output
+Hello from Instacli!
+```
+
+## Http requests as code
+
+Tired of remembering the exact curl syntax or forgetting which tab had that request that worked in Postman?
+
+Simply write your request as-code with Instacli:
+
+```yaml
+Code example: A simple GET
+
+GET: http://localhost:25125/greetings
+```
+
+Here's a POST:
+
+```yaml
+Code example: A simple POST
+
+POST:
+  url: http://localhost:25125
+  path: /greeting
+  body:
+    name: Hes
+    language: Dutch
+```
 
 ## Define input
 
@@ -193,8 +237,6 @@ Options:
   --password, -p   Password
 ```
 
-## User interaction
-
 By default, Instacli runs in interactive mode. If there are unknown commandline options, the user is prompted to give
 input.
 
@@ -212,48 +254,166 @@ Password: Secret
 ? Password ********
 ```
 
-<!-- FIXME
-  Use the `-q` option to avoid user prompts:
-  
-  ```commandline cli
-  cli -q input-options.cli
-  ```
-  
-  ```output
-  ? Username Hes
-  ? Password ********
-  ```
--->
-
-<!--
 ## Subcommand support
 
-## Http requests as code
+Easily povide subcommand support by organizing your cli files in directories.
+
+For example, to run the greeting example from the [samples](samples) directory, you can write
+
+```commandline
+cli samples basic greet
+```
+
+with output:
+
+```
+Hello, World!
+```
+
+You can interactively select which command to run.
+
+```commandline
+cli samples
+```
+
+Use the cursor to select a command
+
+```
+samples has several subcommands.
+
+* Available commands: 
+ > basic         Simple Instacli example scripts
+   digitalai     Interact with Digital.ai products and services.
+   hello         Hello
+   http-server   Use Instacli to run web services
+   programming   Programming examples in Instacli
+   spotify       Spotify API examples
+```
+
+Use the `-q` option for non-interacive mode
+
+```commandline
+cli -q samples
+```
+
+will just print the info message:
+
+```
+samples has several subcommands.
+
+Available commands:
+  basic         Simple Instacli example scripts
+  digitalai     Interact with Digital.ai products and services.
+  hello         Hello
+  http-server   Use Instacli to run web services
+  programming   Programming examples in Instacli
+  spotify       Spotify API examples
+
+```
 
 ## User interaction
 
+Easily construct user prompts with Instacli.
+
+Here's an example of how to ask the user to pick something from a list, in a file called `prompt.cli`:
+
+```yaml file:prompt.cli 
+Prompt:
+  description: Select a language
+  type: select one
+  choices:
+    - English
+    - Spanish
+    - Dutch
+
+Print:
+  You selected: ${output}
+```
+
+Run it and you will be presented with an interactive selector:
+
+```commandline cli
+cli prompt.cli
+```
+
+<!-- input
+Select a language: English
+-->
+
+```output
+? Select a language 
+ ❯ ◉ English
+   ◯ Spanish
+   ◯ Dutch
+
+You selected: English
+```
+
 ## Variables
 
-## Read a file and save
+Define variables in `${...}` syntax and pick and choose content using the path notation.
+
+```yaml
+${var}:
+  name: my variable
+  content:
+    1: one
+    2: two
+
+Print: ${var.content}
+```
+
+will print
+
+```
+1: one
+2: two
+```
+
+## Http Server
+
+For quick API prototyping, Instacli will run an Http server for you. Define some endpoints and back them by Instacli
+scripts!
+
+```
+Http endpoints:
+
+  /example:
+    get:
+      script:
+        Output: Hello from Instacli!
+```
+
+<!--
+
+## Variables
+## Run an HTTP server
+## Programming logic: If
+## Data manipulation: For each
+## Testing in Instacli
+## Documenting Instacli
 
 ## Call a shell script
-
 ## Call another cli script
-
 ## Define output
-
-## Programming logic: If
-
-## Data manipulation: For each
-
 ## Data manipulation: Add and Sort
-
 ## Manage your Http connection info
+## Read a file and save
 
-## Run an HTTP server
+-->
 
-## Testing in Instacli
+<!--
+Use Instacli to cook up a CLI in minutes using just Yaml files.
 
-## Documenting Instacli
+Express your intent. without ceremony or boilerplating
+
+Code should be easy to read: Instacli encourages a declarative style: start telling 'what' you want not 'how' to do it.
+There is a thin line between 'what' and 'how'.
+
+The purpose of Instacli is that you can get as far as possible with straightforward scripts that are readable to
+everybody.
+
+When programming, complexity creeps in and your neat idea "turns into code" quite quickly. Instacli is designed to avoid
+that point as long as possible, so you can quickly whip up a functional CLI.
 
 -->

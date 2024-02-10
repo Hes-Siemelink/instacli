@@ -1,6 +1,9 @@
 # On my mind
 
 * Document for first user
+    * Code examples should start with ````yaml cli
+    * Run on port 2525
+    * Run 'cli greet' not necessarily 'cli greet.cli'
 
 # Where to take it
 

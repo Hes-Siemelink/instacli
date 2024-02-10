@@ -50,16 +50,36 @@ object KInquirerPrompt : UserPrompt {
     }
 }
 
-fun KInquirer.renderInput(message: String, default: String = ""): String = buildString {
+private fun KInquirer.renderInput(message: String, answer: String = ""): String = buildString {
     append("? ")
     append(message)
     append(" ")
 
-    if (default.isNotEmpty()) {
-        append(default)
+    if (answer.isNotEmpty()) {
+        append(answer)
     }
 }
 
+// ? Select ingredients
+//  ❯ ◉ Apple
+//    ◯ Banana
+//    ◯ Cake
+//    ◯ Drizzle
+private fun KInquirer.renderInput(message: String, choices: List<Choice<JsonNode>>, answer: String): String =
+    buildString {
+        append("? ")
+        append(message)
+        append(" \n")
+        choices.forEach { choice ->
+            if (choice.displayName == answer) {
+                append(" ❯ ◉ ")
+            } else {
+                append("   ◯ ")
+            }
+            append(choice.displayName)
+            append("\n")
+        }
+    }
 
 object TestPrompt : UserPrompt {
 
@@ -100,10 +120,11 @@ object TestPrompt : UserPrompt {
                 selectedAnswer.textValue() == it.displayName
             } ?: throw IllegalArgumentException("Prerecorded choice '$selectedAnswer' not found in provided list.")
 
-            println(KInquirer.renderInput(message, selection.displayName))
+            println(KInquirer.renderInput(message, choices, selection.displayName))
 
             return selection.data
 
         }
     }
 }
+

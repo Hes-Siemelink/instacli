@@ -1,4 +1,4 @@
-Script info: Connect to Spotify
+Script info: Spotify API examples
 
 connections:
   Spotify: connect.cli
