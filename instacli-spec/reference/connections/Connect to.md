@@ -21,7 +21,7 @@ Http request defaults:
   url: http://localhost:25125
 -->
 
-```yaml
+```yaml cli
 Code example: Use a connection
 
 Connect to: Instacli Samples

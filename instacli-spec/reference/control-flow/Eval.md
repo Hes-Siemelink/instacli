@@ -9,7 +9,7 @@ Inside a data block, you can use any command prefixed with `:` to have it evalua
 
 For example:
 
-```yaml
+```yaml cli
 Code example: Simple Eval
 
 Add:
@@ -23,7 +23,7 @@ Expected output: 6
 
 This is equivalent to:
 
-```yaml
+```yaml cli
 Code example: No Eval
 
 Add:
@@ -43,7 +43,7 @@ Here's another example of how you could use this. Let's say we want to sum the a
 that For each returns [a list of outputs for each item](For%20each.md#transform-a-list). We can then use that list in *
 *Add**.
 
-```yaml
+```yaml cli
 Code example: Eval with for each
 
 ${cast}:
@@ -75,7 +75,7 @@ ${cast}:
     age: 13
 -->
 
-```yaml
+```yaml cli
 Code example: Alternative to nesting
 
 For each:

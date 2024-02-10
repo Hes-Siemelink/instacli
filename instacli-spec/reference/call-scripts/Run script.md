@@ -21,7 +21,7 @@ Output: Hello ${input.name}!
 
 Then you can call it from another Instacli file using **Run script**.
 
-```yaml
+```yaml cli
 Code example: Call another instacli file
 
 Run script:
@@ -32,5 +32,4 @@ Expected output: Hello Alice!
 ```
 
 When you specify a field, it will be passed as part of the `${input}` variable in the script that you call. For example,
-the value for `name`,
-Alice, will be availaible as `${input.name}` in the target script.   
+the value for `name`, Alice, will be availaible as `${input.name}` in the target script.   

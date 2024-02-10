@@ -12,7 +12,7 @@
 
 Use **Wait** to pause for the amount of seconds specified.
 
-```yaml
+```yaml cli
 Code example: Wait a tenth of a second
 
 Wait: 0.1

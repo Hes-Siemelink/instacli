@@ -19,7 +19,7 @@
 
 Specify `url` and `body` to send a **PUT** request.
 
-```yaml
+```yaml cli
 Code example: Simple PUT
 
 PUT:
@@ -35,7 +35,7 @@ PUT:
 As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
 common fields.
 
-```yaml
+```yaml cli
 Code example: Http request defaults and PUT
 
 Http request defaults:

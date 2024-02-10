@@ -12,7 +12,7 @@ Use `Base64 decode` to decode stuff. See [Base64 encode](Base64 encode).
 
 Use **Base64 decode** to decode a message
 
-```yaml
+```yaml cli
 Code example: Base 64 decode
 
 Base64 decode: SGVsbG8gd29ybGQh

@@ -146,7 +146,7 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 
 object MainText : BlockType()
 object HiddenCode : BlockType("<!-- run before", "-->")
-object YamlSnippet : BlockType("```yaml")
+object YamlSnippet : BlockType("```yaml cli")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
 object CommandInput : BlockType("<!-- input", "-->")

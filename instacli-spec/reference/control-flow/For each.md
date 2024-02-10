@@ -16,8 +16,7 @@ Use `For each` to loop over a list and do stuff.
 
 **For each** always takes an object.
 
-In the first field you can declare the loop variable.
-The variable is defined in the field name with syntax
+In the first field you can declare the loop variable. The variable is defined in the field name with syntax
 
     ${variable_name} in
 
@@ -27,7 +26,7 @@ The remaining fields in **For each** must be commands. They are executed by Inst
 
 Here's a simple example:
 
-```yaml
+```yaml cli
 Code example: Basic 'For each' usage
 
 For each:
@@ -46,10 +45,10 @@ The console output of the above example would be:
 
 ### Transform a list
 
-**For each** will store the output of the last command for each item in a list. You can use this feature to transform a list into something else, like
-the `map()` function in some programming languages.
+**For each** will store the output of the last command for each item in a list. You can use this feature to transform a
+list into something else, like the `map()` function in some programming languages.
 
-```yaml
+```yaml cli
 Code example: Transform a list
 
 For each:
@@ -67,9 +66,10 @@ Expected output:
 
 ### Loop over the output variable
 
-If you don't specify a loop variable in **For each**, it will loop over the current value of `${output}`, with loop variable `${item}`.
+If you don't specify a loop variable in **For each**, it will loop over the current value of `${output}`, with loop
+variable `${item}`.
 
-```yaml
+```yaml cli
 Code example: For each on output
 
 Output:

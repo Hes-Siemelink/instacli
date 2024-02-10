@@ -12,7 +12,7 @@
 
 Get the size of a list with Size
 
-```yaml
+```yaml cli
 Code example: Size of a list
 
 Size:
@@ -25,7 +25,7 @@ Expected output: 3
 
 For texts, you get the number of characters:
 
-```yaml
+```yaml cli
 Code example: Text size
 
 Size: internationalization
@@ -35,7 +35,7 @@ Expected output: 20
 
 And for objects, the number of entries
 
-```yaml
+```yaml cli
 Code example: Object size
 
 Size:
@@ -47,7 +47,7 @@ Expected output: 2
 
 **Size** also works on numbers
 
-```yaml
+```yaml cli
 Code example: Number size
 
 Size: 12

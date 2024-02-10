@@ -19,7 +19,7 @@
 
 Specify `url` and `body` to send a **POST** request.
 
-```yaml
+```yaml cli
 Code example: Simple POST
 
 POST:
@@ -35,7 +35,7 @@ POST:
 As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
 common fields.
 
-```yaml
+```yaml cli
 Code example: Http request defaults and POST
 
 Http request defaults:

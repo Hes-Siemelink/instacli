@@ -10,11 +10,12 @@
 
 ## Basic usage
 
-**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against `${output}`
+**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing
+against `${output}`
 
 It works for simple values
 
-```yaml
+```yaml cli
 Code example: Expect output to be a simpel value
 
 Output: one
@@ -24,7 +25,7 @@ Expected output: one
 
 Also for complex objects
 
-```yaml
+```yaml cli
 Code example: Compare output to complex value
 
 Output:
@@ -38,7 +39,7 @@ Expected output:
 
 And for lists
 
-```yaml
+```yaml cli
 Code example: Check output list
 
 Output:

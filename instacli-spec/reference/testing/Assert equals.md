@@ -12,12 +12,12 @@
 
 ## Basic usage
 
-**Assert equals** is a synonym for [Assert that](Assert%20that.md#object-equals) equality, but using parameters `actual` and `expected` that make it read nicer
-in tests.
+**Assert equals** is a synonym for [Assert that](Assert%20that.md#object-equals) equality, but using parameters `actual`
+and `expected` that make it read nicer in tests.
 
 It works for simple values
 
-```yaml
+```yaml cli
 Code example: Values should be equal
 
 Assert equals:
@@ -27,7 +27,7 @@ Assert equals:
 
 and also for complex objects
 
-```yaml
+```yaml cli
 Code example: Compare complex objects
 
 Assert equals:

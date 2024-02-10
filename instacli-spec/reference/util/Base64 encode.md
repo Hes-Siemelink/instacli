@@ -12,7 +12,7 @@ Use `Base64 encode` to encode stuff. See [Base64 decode](Base64 decode).
 
 Use **Base64 encode** to encode a message
 
-```yaml
+```yaml cli
 Code example: Base64 encode
 
 Base64 encode: Hello world!

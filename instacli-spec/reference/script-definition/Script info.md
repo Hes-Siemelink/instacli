@@ -19,7 +19,7 @@ opening the file.
 
 The simplest way of using **Script info** takes only text.
 
-```yaml
+```yaml cli
 Code example: Basic Script info
 
 Script info: A script containing a code example
@@ -40,7 +40,7 @@ Script info usage examples
 
 You can also put the description in the `description` property:
 
-```yaml
+```yaml cli
 Code example: Script info with description property
 
 Script info:
@@ -58,7 +58,7 @@ ${input}:
    name: world
 -->
 
-```yaml
+```yaml cli
 Code example: Script info with input
 
 Script info:
@@ -98,7 +98,7 @@ ${input}:
    name: world
 -->
 
-```yaml
+```yaml cli
 Code example: Define input with multiple variables
 
 Script info:
@@ -122,7 +122,7 @@ You can specify various properties on the input parameters.
 
 For example:
 
-```yaml
+```yaml cli
 Code example: Input with default value
 
 Script info:

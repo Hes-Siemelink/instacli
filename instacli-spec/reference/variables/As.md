@@ -12,7 +12,7 @@
 
 **As** takes the name of the variable to capture the `${output}` variable
 
-```yaml
+```yaml cli
 Code example: Assign a variable with As
 
 Output: Hello World!

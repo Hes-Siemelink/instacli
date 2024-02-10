@@ -10,12 +10,12 @@
 
 ## Basic usage
 
-Automated tests will hang on user interaction. With **Stock answers**, you can define the canned response so the tests can pass.
-Note: **Stock answers** is only enabled in a test context.
+Automated tests will hang on user interaction. With **Stock answers**, you can define the canned response so the tests
+can pass. Note: **Stock answers** is only enabled in a test context.
 
 To give an answer, simply define the question and answer under **Stock answers** like this:
 
-```yaml
+```yaml cli
 Code example: Prerecord an answer to a prompt
 
 Stock answers:

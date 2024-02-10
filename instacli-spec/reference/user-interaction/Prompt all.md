@@ -18,7 +18,7 @@ Stock answers:
   Last name: Pérez
 -->
 
-```yaml
+```yaml cli
 Code example: Multiple questions
 
 Prompt all:
@@ -55,7 +55,7 @@ Stock answers:
   Choose a color: Red
 -->
 
-```yaml
+```yaml cli
 Code example: Prompt all with properties
 
 Prompt all:
@@ -78,7 +78,7 @@ variable will not be set.
 
 In the following example, there will only a prompt for variable a, and not for variable b
 
-```yaml
+```yaml cli
 Code example: Prompt all, but not all
 
 Stock answers:
@@ -114,7 +114,7 @@ within the scope of **Prompt all**). You can use those variables in conditions.
 
 This example will prompt which variable to set, and depending on the result will ask the following question a or b.
 
-```yaml
+```yaml cli
 Code example: Prompt all, with conditions
 
 Stock answers:

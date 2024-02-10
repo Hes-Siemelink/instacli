@@ -13,7 +13,7 @@ Use **Shell** to execute a shell command
 
 Call a shell command with **Shell**
 
-```yaml
+```yaml cli
 Code example: Execute a shell command
 
 Shell: echo Hello
@@ -34,7 +34,7 @@ echo "Hello World"
 
 Then you can call it from an Instacli file by using the `local` parameter on **Shell**:
 
-```yaml
+```yaml cli
 Code example: Call a local shell script
 
 Shell:

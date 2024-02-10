@@ -13,14 +13,12 @@
 ## Basic usage
 
 **When** is a special case of [If](If.md), working on a list of [conditions](../testing/Assert%20that.md#conditions)
-defined
-in [Assert that](../testing/Assert%20that.md).
+defined in [Assert that](../testing/Assert%20that.md).
 
 **When** behaves different from **If**, because it will only execute the first matching condition. When that condition
-holds, the commands under `then` are
-executed.
+holds, the commands under `then` are executed.
 
-```yaml
+```yaml cli
 Code example: Multiple conditions in When
 
 When:
@@ -39,7 +37,7 @@ Expected output: 1
 
 If you want all matching conditions to evaluated, use **If**:
 
-```yaml
+```yaml cli
 Code example: Multiple conditions in If
 
 If:

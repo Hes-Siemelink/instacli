@@ -12,7 +12,7 @@
 
 Add some numbers
 
-```yaml
+```yaml cli
 Code example: 1 + 1 = 2
 
 Add:
@@ -26,7 +26,7 @@ Expected output: 2
 
 Use **Add** to combine two things
 
-```yaml
+```yaml cli
 Code example: Add a field
 
 Add:
@@ -44,7 +44,7 @@ Expected output:
 
 You can add an item to a list
 
-```yaml
+```yaml cli
 Code example: Add an item to a list
 
 ${list}:
@@ -63,7 +63,7 @@ Expected output:
 
 Or combine two lists.
 
-```yaml
+```yaml cli
 Code example: Append a list to another
 
 Add:
@@ -83,7 +83,7 @@ Expected output:
 
 You can also extend a text string.
 
-```yaml
+```yaml cli
 Code example: Append text
 
 Add:

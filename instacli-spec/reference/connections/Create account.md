@@ -9,13 +9,14 @@ Configures a connection to an endpoint for a user account and saves it in the us
 | Object       | yes       |
 | target       | String    |
 | account      | Object    |
-| account.name| String |
+| account.name | String    |
 
 ## Basic usage
 
-With **Create account** you can store user credentials to connect to an endpoint. Retrieve them with the [Get account](Get%20account.md) command.
+With **Create account** you can store user credentials to connect to an endpoint. Retrieve them with
+the [Get account](Get%20account.md) command.
 
-```yaml
+```yaml cli
 Code example: Create an account
 
 Create account:
@@ -26,7 +27,8 @@ Create account:
     password: admin
 ```
 
-The endpoint is identified by the `target` parameter. You can put arbitrary data in the `account` section, but it should have a `name` field to identify it,
+The endpoint is identified by the `target` parameter. You can put arbitrary data in the `account` section, but it should
+have a `name` field to identify it,
 
 The account data is stored in the `~/.instacli/connections.yaml` file:
 

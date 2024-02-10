@@ -163,7 +163,7 @@ Tired of remembering the exact curl syntax or forgetting which tab had that requ
 
 Simply write your request as-code with Instacli:
 
-```yaml
+```yaml cli
 Code example: A simple GET
 
 GET: http://localhost:25125/greetings
@@ -171,7 +171,7 @@ GET: http://localhost:25125/greetings
 
 Here's a POST:
 
-```yaml
+```yaml cli
 Code example: A simple POST
 
 POST:
@@ -353,7 +353,7 @@ You selected: English
 
 Define variables in `${...}` syntax and pick and choose content using the path notation.
 
-```yaml
+```yaml cli
 ${var}:
   name: my variable
   content:
@@ -375,7 +375,7 @@ will print
 For quick API prototyping, Instacli will run an Http server for you. Define some endpoints and back them by Instacli
 scripts!
 
-```
+```yaml cli
 Http endpoints:
 
   /example:

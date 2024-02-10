@@ -12,9 +12,10 @@
 
 ## Basic usage
 
-**Sort** expectes the list of things to sort in the `items` field. This should be a list of objects. The `by` parameter specifies the field to sort on.
+**Sort** expectes the list of things to sort in the `items` field. This should be a list of objects. The `by` parameter
+specifies the field to sort on.
 
-```yaml
+```yaml cli
 Code example: Sort a list of things
 
 Sort:

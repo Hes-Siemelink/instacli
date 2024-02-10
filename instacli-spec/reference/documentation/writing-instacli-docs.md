@@ -11,7 +11,7 @@ and then how they will show up in the document. The instacli build will pick up 
 
 You can define Instacli code examples with the **\`\`\`yaml** markdown construct.
 
-    ```yaml
+    ```yaml cli
     Code example: An Instacli snippet inside Markdown
     
     Print: Hello from Instacli!
@@ -21,7 +21,7 @@ This will show as:
 
 ---
 
-```yaml
+```yaml cli
 Code example: An Instacli snippet inside Markdown
 
 Print: Hello from Instacli!
@@ -36,7 +36,7 @@ Sometimes a code example could become can become cluttered with setup code.
 For example, consider an interactive example. In order for the automated tests to run, we need to provide a stock
 answer:
 
-```yaml
+```yaml cli
 Code example: Example with setup code
 
 Stock answers:
@@ -59,7 +59,7 @@ You can do so by putting the code that we need but don't want to show in an HTML
     What is your name?: Alice
     -->
 
-    ```yaml
+    ```yaml cli
     Code example: Example without setup code
 
     Prompt: What is your name?
@@ -77,7 +77,7 @@ Stock answers:
     What is your name?: Alice
 -->
 
-```yaml
+```yaml cli
 Code example: Example without setup code
 
 Prompt: What is your name?
@@ -91,7 +91,7 @@ Print: Hello, ${name}!
 ## Files
 
 Sometimes you need to have a helper file in order for the example to work. You can define a helper file with **```yaml
-file:[filename]**
+cli file:[filename]**
 
 Here's an example:
 
@@ -103,7 +103,7 @@ Here's an example:
     
     And then read it with **Read file**:
 
-    ```yaml
+    ```yaml cli
     Code example: Read from a file
 
     Read file:
@@ -124,7 +124,7 @@ key: value
 
 And then read it with **Read file**:
 
-```yaml
+```yaml cli
 Code example: Read from a file
 
 Read file:

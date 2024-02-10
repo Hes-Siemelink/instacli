@@ -17,7 +17,7 @@ Stock answers:
   What is your name?: Hes
 -->
 
-```yaml
+```yaml cli
 Code example: Define input
 
 Prompt: What is your name?
@@ -52,7 +52,7 @@ Stock answers:
   What is your name?: Hes
 -->
 
-```yaml
+```yaml cli
 Code example: Prompt with default value
 
 Prompt:
@@ -75,7 +75,7 @@ Stock answers:
   What is your secret?: ssh
 -->
 
-```yaml
+```yaml cli
 Code example: Asking for a password
 
 Prompt:
@@ -98,7 +98,7 @@ Stock answers:
   What is your favorite color?: Red
 -->
 
-```yaml
+```yaml cli
 Code example: Choose one item from a list
 
 Prompt:
@@ -128,7 +128,7 @@ Stock answers:
     - Green
 -->
 
-```yaml
+```yaml cli
 Code example: Choose mutliple items from a list
 
 Prompt:
@@ -159,7 +159,7 @@ Stock answers:
   Select a user: Alice
 -->
 
-```yaml
+```yaml cli
 Code example: Choose an object
 
 ${users}:
@@ -194,7 +194,7 @@ Stock answers:
   Select a user: Alice
 -->
 
-```yaml
+```yaml cli
 Code example: Only use a value when choosing an object
 
 ${users}:
