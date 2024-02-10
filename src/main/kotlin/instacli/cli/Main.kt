@@ -55,10 +55,7 @@ class InstacliMain(
         }
 
         // First argument should be a valid file
-        val file = workingDir.resolve(options.commands[0])
-        if (!file.exists()) {
-            throw InvocationException("Could not find file: ${file.toAbsolutePath()}")
-        }
+        val file = targetFile(options.commands[0])
 
         // Create context based on the file and options.
         // A parent context can be passed for testing scenarios.
@@ -74,6 +71,20 @@ class InstacliMain(
         } else {
             invokeFile(CliFile(file), context, options)
         }
+    }
+
+    private fun targetFile(fileName: String): Path {
+        val file = workingDir.resolve(fileName)
+        if (file.exists()) {
+            return file
+        }
+
+        val adjustedFile = workingDir.resolve(fileName + ".cli")
+        if (adjustedFile.exists()) {
+            return adjustedFile
+        }
+
+        throw InvocationException("Could not find command: ${fileName}")
     }
 
     private fun invokeFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
