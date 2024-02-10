@@ -18,7 +18,7 @@ A script would look like this:
 
 <!-- run before
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 -->
 
 ```yaml cli
@@ -50,7 +50,7 @@ Here's an example connection script:
 ```yaml file:connect.cli
 # Set up endpoint for subsequent HTTP calls
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 ```
 
 This is a very simple example, but you can put more in this script. For example, managing user credentials, obtaining a

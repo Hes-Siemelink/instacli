@@ -15,7 +15,7 @@ import io.javalin.http.HandlerType
 import io.javalin.http.bodyAsClass
 import kotlin.io.path.name
 
-const val DEFAULT_PORT = 25125
+const val DEFAULT_PORT = 2525
 const val REQUEST_VARIABLE = "request"
 
 private val methods = mapOf(

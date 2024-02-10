@@ -22,7 +22,7 @@ Just specify the endpoint to send the **DELETE** request to.
 ```yaml cli
 Code example: Simple DELETE
 
-DELETE: http://localhost:25125/items
+DELETE: http://localhost:2525/items
 ```
 
 or use the longer form if you need to specify more details
@@ -31,7 +31,7 @@ or use the longer form if you need to specify more details
 Code example: DELETE with more properties
 
 DELETE:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   username: admin
   password: admin
 ```
@@ -45,7 +45,7 @@ common fields.
 Code example: Http request defaults and DELETE
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 DELETE: /items
 ```

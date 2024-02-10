@@ -1,6 +1,6 @@
 Test case: GET with full URL
 
-GET: http://localhost:25125/items
+GET: http://localhost:2525/items
 
 Expected output:
   - 1
@@ -9,7 +9,7 @@ Expected output:
 
 ---
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   cookies:
     maria: biscuit
 
@@ -51,7 +51,7 @@ Expected output:
 Test case: POST without path parameter
 
 POST:
-  url: http://localhost:25125/echo/body
+  url: http://localhost:2525/echo/body
   body:
     1: One
     2: Two

@@ -29,7 +29,7 @@ Script info:
         - Dutch
 
 POST:
-  url: http://localhost:25125/greeting
+  url: http://localhost:2525/greeting
   body:
     name: ${input.name}
     language: ${input.language}
@@ -166,7 +166,7 @@ Simply write your request as-code with Instacli:
 ```yaml cli
 Code example: A simple GET
 
-GET: http://localhost:25125/greetings
+GET: http://localhost:2525/greetings
 ```
 
 Here's a POST:
@@ -175,7 +175,7 @@ Here's a POST:
 Code example: A simple POST
 
 POST:
-  url: http://localhost:25125
+  url: http://localhost:2525
   path: /greeting
   body:
     name: Hes
@@ -386,8 +386,6 @@ Http endpoints:
 
 <!--
 
-## Variables
-## Run an HTTP server
 ## Programming logic: If
 ## Data manipulation: For each
 ## Testing in Instacli

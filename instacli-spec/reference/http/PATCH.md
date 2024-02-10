@@ -23,7 +23,7 @@ Specify `url` and `body` to send a **PATCH** request.
 Code example: Simple PATCH
 
 PATCH:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   body:
     item: one
 ```
@@ -37,7 +37,7 @@ common fields.
 Code example: Http request defaults and PATCH
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 PATCH:
   path: /items

@@ -23,7 +23,7 @@ Specify `url` and `body` to send a **PUT** request.
 Code example: Simple PUT
 
 PUT:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   body:
     1: One
     2: Two
@@ -39,7 +39,7 @@ common fields.
 Code example: Http request defaults and PUT
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 PUT:
   path: /items

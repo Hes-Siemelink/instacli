@@ -24,7 +24,7 @@ Set the HTTP server and credentials, then issue a normal **GET**
 Code example: Http request defaults usage
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   username: admin
   password: admin
 
@@ -48,7 +48,7 @@ The target host server.
 Code example: Default url
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 GET: /items
 ```
@@ -61,7 +61,7 @@ The endpoint path.
 Code example: Default url and path
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   path: /items
 
 POST:
@@ -79,7 +79,7 @@ The (JSON) body
 Code example: Default body
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   body:
     1: One
     2: Two
@@ -98,7 +98,7 @@ endpoint
 Code example: Basic authentication
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   username: admin
   password: admin
 
@@ -113,7 +113,7 @@ Set headers with the **headers** property
 Code example: Custom headers
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   headers:
     Authentication: Bearer XYZ
     X-Custom-Header: XYZ
@@ -129,7 +129,7 @@ You can save the result to a file with **save as**.
 Code example: Save file
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
   save as: out/items.json
 
 GET: /items

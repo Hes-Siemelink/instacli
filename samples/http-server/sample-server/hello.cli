@@ -1,5 +1,5 @@
 Script info: Simple greeting
 
-GET: http://localhost:25125/hello
+GET: http://localhost:2525/hello
 
 Print: ${output}

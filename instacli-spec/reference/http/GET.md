@@ -21,7 +21,7 @@ Use **GET** on a URL to get the results as JSON/YAML
 ```yaml cli
 Code example: Simple GET
 
-GET: http://localhost:25125/items
+GET: http://localhost:2525/items
 
 Expected output:
   - 1
@@ -37,7 +37,7 @@ You can split the target host and path by using the `url` and `path` properties.
 Code example: Split url and path
 
 GET:
-  url: http://localhost:25125
+  url: http://localhost:2525
   path: /items
 
 Expected output:
@@ -55,7 +55,7 @@ requests in advance
 Code example: Use Http request defaults
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 GET:
   path: /items
@@ -67,7 +67,7 @@ This way you can simply write the `path` parameter on **GET**:
 Code example: Use Http Endpoint with simple GET
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 GET: /items
 ```
@@ -81,7 +81,7 @@ endpoint
 Code example: Basic authentication
 
 GET:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   username: admin
   password: admin
 ```
@@ -94,7 +94,7 @@ Set headers with the **headers** property
 Code example: Custom headers
 
 GET:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   headers:
     Authentication: Bearer XYZ
     X-Custom-Header: XYZ
@@ -108,6 +108,6 @@ You can save the result to a file with **save as**
 Code example: Save file
 
 GET:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   save as: out/items.json
 ```

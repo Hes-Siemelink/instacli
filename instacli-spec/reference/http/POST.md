@@ -23,7 +23,7 @@ Specify `url` and `body` to send a **POST** request.
 Code example: Simple POST
 
 POST:
-  url: http://localhost:25125/items
+  url: http://localhost:2525/items
   body:
     1: One
     2: Two
@@ -39,7 +39,7 @@ common fields.
 Code example: Http request defaults and POST
 
 Http request defaults:
-  url: http://localhost:25125
+  url: http://localhost:2525
 
 POST:
   path: /items
