@@ -89,6 +89,10 @@ And we get the result in Spanish:
 ¡Hola Hes!
 ```
 
+---
+
+# Build and Run
+
 ## Build it
 
 * Install a current JDK
@@ -130,6 +134,8 @@ for subsequent invocations.
 * The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
   and code examples.
 
+---
+
 # Highlight Reel
 
 Instacli has two main ideas:
@@ -157,23 +163,19 @@ And it will print the expected message:
 Hello from Instacli!
 ```
 
-## Http requests as code
+## HTTP requests as code
 
 Tired of remembering the exact curl syntax or forgetting which tab had that request that worked in Postman?
 
 Simply write your request as-code with Instacli:
 
 ```yaml cli
-Code example: A simple GET
-
 GET: http://localhost:2525/greetings
 ```
 
 Here's a POST:
 
 ```yaml cli
-Code example: A simple POST
-
 POST:
   url: http://localhost:2525
   path: /greeting
