@@ -3,7 +3,10 @@
 * Document for first user
     * Highlight Reel
     * How-to per topic
-* Http Server documentation
+* Http Server
+    * Add to documentation
+    * Support for multiple servers / port numbers
+    * Add `output` alternative for `script: Output`
 * As: ${var}
 
 # Where to take it

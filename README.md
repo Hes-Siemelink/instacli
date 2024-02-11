@@ -2,7 +2,7 @@
 
 Instantly create CLI applications with light scripting in Yaml!
 
-Use Instacli to quickly automate or prototype light tasks like testing out APIs. Sprinkle in some user interaction.
+Use Instacli to quickly automate or prototype light tasks like testing out APIs. Sprinkle in some user interaction.  
 As-code, but without the complexity of actual code.
 
 ## Full Example
@@ -61,13 +61,13 @@ Select a language: English
 Hi Hes!
 ```
 
-You can specify the parameters as arguments. First let's find out what to pass with the `--help` option:
+You can specify the parameters as arguments. Find out what to pass with the `--help` option:
 
 ```commandline cli
 cli --help greeting.cli
 ```
 
-Wil print:
+Will print:
 
 ```output
 Multi-language greeting
@@ -298,7 +298,7 @@ samples has several subcommands.
    spotify       Spotify API examples
 ```
 
-Use the `-q` option for non-interacive mode
+Use the `-q` option for non-interacivte mode
 
 ```commandline
 cli -q samples
@@ -403,11 +403,11 @@ Expected output: Hello from Instacli!
 If you are going to use the output variable explicitly, best practice is to assign it to a named variable using **As**
 
 ```yaml cli
-GET: http://localhost:2525/greetings
+GET: http://localhost:2525/hello
 As: result
 
 Print:
-  The result of GET /greetings was: ${result}
+  The result of GET /hello was: ${result}
 ```
 
 ## Http Server
@@ -418,11 +418,14 @@ scripts:
 ```yaml cli
 Http endpoints:
 
-  /example:
+  /hello-example:
     get:
       script:
         Output: Hello from Instacli!
 ```
+
+Take a look at the [sample server](samples/http-server/sample-server/sample-server.cli) that serves all requests from
+the Instacli documentation and test suite.
 
 ## If statement
 
@@ -470,7 +473,7 @@ Expected output:
 
 ## Testing in Instacli
 
-It is very easy to write tests in Instacli.
+Writing tests in Instacli is straightforward:
 
 ```yaml cli
 Test case: A simple test case
