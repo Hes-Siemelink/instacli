@@ -89,9 +89,19 @@ And we get the result in Spanish:
 ¡Hola Hes!
 ```
 
+## Documentation
+
+All of Instacli is defined in the [instacli-spec](instacli-spec).
+
+* See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
+* The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
+  and code examples.
+
 ---
 
-# Build and Run
+# Build & Run
+
+The Instacli implementation is in Kotlin.
 
 ## Build it
 
@@ -110,6 +120,8 @@ Run the "Hello world" example:
 cli samples/hello.cli
 ```
 
+## Explore
+
 There are more examples in the [samples](samples) directory - check them out!
 
 Explore them all with the command:
@@ -127,12 +139,6 @@ cli samples/spotify
 When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and
 Client secret -- you should already have those). These will be stored in `~/.instacli/connections.yaml` and will be used
 for subsequent invocations.
-
-## Documentation
-
-* See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
-* The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
-  and code examples.
 
 ---
 
