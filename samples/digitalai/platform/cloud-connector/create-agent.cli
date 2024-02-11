@@ -19,7 +19,7 @@ Prompt:
   choices: ${cloud_connectors}
   type: select one
   display: name
-As: cloud_connector
+As: ${cloud_connector}
 
 ---
 # Select agent definition
@@ -33,12 +33,12 @@ Prompt:
   choices: ${agent_definitions}
   type: select one
   display: name
-As: agent_definition
+As: ${agent_definition}
 
 ---
 # Agent alias
 Prompt: Alias for agent instance (unique per Digital.ai Platform user)
-As: alias
+As: ${alias}
 
 ---
 # Variable values
@@ -47,7 +47,7 @@ For each:
   Prompt:
     description: ${variable.key}
     default: ${variable.value}
-As: variables
+As: ${variables}
 
 ---
 # Register agent

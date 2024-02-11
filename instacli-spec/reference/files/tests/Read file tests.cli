@@ -33,7 +33,7 @@ Assert that:
 Test case: Fill variables in file
 
 Read file: instacli-spec/reference/files/tests/content/with variables.yaml
-As: raw
+As: ${raw}
 
 ${unknown}: known
 ${nested}:

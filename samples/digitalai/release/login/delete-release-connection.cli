@@ -7,7 +7,7 @@ Script info:
 
 ---
 Get accounts: ${input.target}
-As: accounts
+As: ${accounts}
 
 ---
 Prompt:
@@ -15,7 +15,7 @@ Prompt:
   choices: ${accounts}
   type: select one
   display: name
-As: account
+As: ${account}
 
 Delete account:
   target: ${input.target}

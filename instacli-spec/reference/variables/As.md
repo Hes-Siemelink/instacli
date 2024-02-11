@@ -10,17 +10,17 @@
 
 ## Basic usage
 
-**As** takes the name of the variable to capture the `${output}` variable
+**As** puts the `${output}` into a new variable
 
 ```yaml cli
 Code example: Assign a variable with As
 
 Output: Hello World!
-As: greeting
+As: ${greeting}
 
 Assert equals:
   actual: ${greeting}
   expected: Hello World!
 ```
 
-Note that the argument to **As** is not in `${..}` syntax.
+Note that the argument to **As** is in `${..}` syntax but does not get expanded but populated instead.

@@ -14,6 +14,6 @@ For each:
     name: ${account.name}
     vanity_domain: ${account.vanity_domain}
     id: ${account.id}
-As: accounts
+As: ${accounts}
 
 Print: ${accounts}

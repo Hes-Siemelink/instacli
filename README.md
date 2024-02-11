@@ -97,8 +97,6 @@ All of Instacli is defined in the [instacli-spec](instacli-spec).
 * The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
   and code examples.
 
----
-
 # Build & Run
 
 The Instacli implementation is in Kotlin.
@@ -139,8 +137,6 @@ cli samples/spotify
 When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and
 Client secret -- you should already have those). These will be stored in `~/.instacli/connections.yaml` and will be used
 for subsequent invocations.
-
----
 
 # Highlight Reel
 
@@ -404,7 +400,7 @@ If you are going to use the output variable explicitly, best practice is to assi
 
 ```yaml cli
 GET: http://localhost:2525/hello
-As: result
+As: ${result}
 
 Print:
   The result of GET /hello was: ${result}

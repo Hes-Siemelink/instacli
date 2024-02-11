@@ -10,7 +10,7 @@ Get accounts: ${input.target}
 Add to:
   ${output}:
     name: "* Create new account"
-As: accounts
+As: ${accounts}
 
 ---
 Prompt:
@@ -18,14 +18,14 @@ Prompt:
   choices: ${accounts}
   type: select one
   display: name
-As: account
+As: ${account}
 
 ---
 If:
   empty: ${account.url}
   then:
     Create account: ""
-    As: account
+    As: ${account}
 
 ---
 Set default account:

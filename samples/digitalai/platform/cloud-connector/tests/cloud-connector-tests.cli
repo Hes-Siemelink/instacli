@@ -1,5 +1,5 @@
 Get account: Digital.ai Platform
-As: defaultAccount
+As: ${defaultAccount}
 
 If:
   not:

@@ -1,13 +1,13 @@
 Script info: Logs in to Digital.ai Platform
 
 Get account: Digital.ai Platform
-As: endpoint
+As: ${endpoint}
 
 If:
   empty: ${endpoint}
   then:
     Create platform connection: { }
-    As: endpoint
+    As: ${endpoint}
 
 Print: Connecting as ${endpoint.username} to ${endpoint.id} on ${endpoint.url}
 

@@ -6,7 +6,7 @@ Script info:
 ---
 Get artist info:
   name: ${input.name}
-As: artist
+As: ${artist}
 
 ---
 Connect to: Spotify
@@ -18,7 +18,7 @@ ${offset}: 0
 Repeat:
 
   GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
-  As: result
+  As: ${result}
 
   Add to:
     ${albums}: ${result.items}
@@ -31,7 +31,7 @@ Repeat:
 Sort:
   items: ${albums}
   by: release_date
-As: albums
+As: ${albums}
 
 For each:
   ${album} in: ${albums}

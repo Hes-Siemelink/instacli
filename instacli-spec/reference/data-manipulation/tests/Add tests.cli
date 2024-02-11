@@ -167,7 +167,7 @@ ${offset}: 0
 Add:
   - ${offset}
   - 50
-As: offset
+As: ${offset}
 
 Assert equals:
   expected: 50

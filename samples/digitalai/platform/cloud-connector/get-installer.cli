@@ -19,7 +19,7 @@ Prompt:
   choices: ${cloud_connectors}
   type: select one
   display: name
-As: cloud_connector
+As: ${cloud_connector}
 
 ---
 GET:

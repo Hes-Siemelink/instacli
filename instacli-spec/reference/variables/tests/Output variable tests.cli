@@ -8,7 +8,7 @@ Expected output: a result
 Test case: Set variable with 'As'
 
 Output: some more contents
-As: var3
+As: ${var3}
 
 Assert equals:
   - actual: ${var3}

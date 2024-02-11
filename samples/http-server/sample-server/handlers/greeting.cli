@@ -10,6 +10,6 @@ Find:
     English: Hi
     Spanish: ¡Hola
     Dutch: Hoi
-As: greetings
+As: ${greetings}
 
 Output: ${greetings} ${input.name}!

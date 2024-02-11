@@ -62,7 +62,7 @@ For each:
     - Ratatouille
     - Meatballs
   Output: ${recipe}
-As: recipes
+As: ${recipes}
 
 Assert equals:
   actual: ${recipes}
@@ -83,7 +83,7 @@ ${test_result}: [ ]
 For each:
   ${item} in: ${items}
   Output: (${item})
-As: test_result
+As: ${test_result}
 
 Assert equals:
   - actual: ${test_result}

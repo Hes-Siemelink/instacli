@@ -7,7 +7,6 @@
     * Add to documentation
     * Support for multiple servers / port numbers
     * Add `output` alternative for `script: Output`
-* As: ${var}
 
 # Where to take it
 

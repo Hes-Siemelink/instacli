@@ -11,16 +11,28 @@ class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyH
     }
 }
 
-object As : CommandHandler("As"), ValueHandler {
+object As : CommandHandler("As"), ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey(OUTPUT_VARIABLE)) {
             throw CommandFormatException("Can't assign output variable because it is empty.")
         }
 
-        context.variables[data.asText()] = context.variables.getValue(OUTPUT_VARIABLE)
+        // Support both variable syntax and plain variable name
+        val variableName = getVariableName(data.asText())
+        context.variables[variableName] = context.variables.getValue(OUTPUT_VARIABLE)
 
         return null
+    }
+
+    private fun getVariableName(text: String): String {
+        val singleVariableMatch = VARIABLE_REGEX.matchEntire(text)
+
+        return if (singleVariableMatch != null) {
+            singleVariableMatch.groupValues[1]
+        } else {
+            text
+        }
     }
 }
 

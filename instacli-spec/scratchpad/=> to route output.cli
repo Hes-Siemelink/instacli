@@ -15,7 +15,7 @@ Get accounts: ${input.target}
 Add to:
   ${output}:
     name: "* Create new account"
-As: accounts
+As: ${accounts}
 
 ---
 Get accounts: ${input.target}

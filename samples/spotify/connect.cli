@@ -1,9 +1,9 @@
 Get account: Spotify
-As: app
+As: ${app}
 
 ---
 Base64 encode: ${app.client_id}:${app.client_secret}
-As: auth_string
+As: ${auth_string}
 
 POST:
   url: https://accounts.spotify.com

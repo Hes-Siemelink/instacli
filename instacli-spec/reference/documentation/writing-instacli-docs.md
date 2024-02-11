@@ -43,7 +43,7 @@ Stock answers:
   What is your name?: Alice
 
 Prompt: What is your name?
-As: name
+As: ${name}
 
 Print: Hello, ${name}!
 ```
@@ -63,7 +63,7 @@ You can do so by putting the code that we need but don't want to show in an HTML
     Code example: Example without setup code
 
     Prompt: What is your name?
-    As: name
+    As: ${name}
     
     Print: Hello, ${name}!
     ```
@@ -81,7 +81,7 @@ Stock answers:
 Code example: Example without setup code
 
 Prompt: What is your name?
-As: name
+As: ${name}
 
 Print: Hello, ${name}!
 ```
@@ -108,7 +108,7 @@ Here's an example:
 
     Read file:
         relative: data.yaml
-    As: data
+    As: ${data}
     
     Print: Value is ${data.key}
 
@@ -129,7 +129,7 @@ Code example: Read from a file
 
 Read file:
   relative: data.yaml
-As: data
+As: ${data}
 
 Print: Value is ${data.key} 
 ```

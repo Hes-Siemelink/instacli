@@ -23,7 +23,7 @@ If:
 Add:
   - ${input.size}
   - -1
-As: one_smaller
+As: ${one_smaller}
 
 ---
 Hanoi:

@@ -18,7 +18,7 @@ Prompt:
   type: select one
   choices: ${runtimes}
   display: name
-As: runtime
+As: ${runtime}
 
 ---
 # Register agent
