@@ -9,7 +9,7 @@ and then how they will show up in the document. The instacli build will pick up 
 
 ## Code examples
 
-You can define Instacli code examples with the **\`\`\`yaml** markdown construct.
+You can define Instacli code examples with the **\`\`\`yaml cli** markdown construct.
 
     ```yaml cli
     Code example: An Instacli snippet inside Markdown

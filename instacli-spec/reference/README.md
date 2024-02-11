@@ -33,7 +33,6 @@
 * [Output](variables/Output.md)
 
 <!--
-* Set variable
 * Apply variables
 -->
 

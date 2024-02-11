@@ -370,10 +370,42 @@ will print
 2: two
 ```
 
+## The output variable
+
+The result of a command is always stored in the variable `${output}`.
+
+This makes it easy to pick up in a subsequent command
+
+For example
+
+```yaml cli
+GET: http://localhost:2525/greetings
+
+Print: ${output}
+```
+
+Some commands work directly with the output variable. This helps in having a more declarative and readable script
+
+```yaml cli
+GET: http://localhost:2525/hello
+
+Expected output: Hello from Instacli!
+```
+
+If you are going to use the output variable explicitly, best practice is to assign it to a named variable using **As**
+
+```yaml cli
+GET: http://localhost:2525/greetings
+As: result
+
+Print:
+  The result of GET /greetings was: ${result}
+```
+
 ## Http Server
 
-For quick API prototyping, Instacli will run an Http server for you. Define some endpoints and back them by Instacli
-scripts!
+For quick API prototyping, Instacli will run an HTTP server for you. Define some endpoints and back them by Instacli
+scripts:
 
 ```yaml cli
 Http endpoints:
@@ -384,12 +416,86 @@ Http endpoints:
         Output: Hello from Instacli!
 ```
 
-<!--
+## If statement
 
-## Programming logic: If
-## Data manipulation: For each
+Instacli supports various programming logic constructs, like 'if', 'repeat', 'for each'
+
+This is what an If-statement looks like:
+
+```yaml cli
+If:
+  item: this
+  equals: that
+  then:
+    Print: I'm confused!
+```
+
+## For each
+
+With 'for each' you can loop over collections and do stuff.
+
+```yaml cli
+For each:
+  ${name} in:
+    - Alice
+    - Bob
+    - Carol
+  Print: Hello ${name}!
+```
+
+**For each** will store the output of the last command for each item in a list. You can use this feature to transform a
+list into something else, like the `map()` function in some programming languages.
+
+```yaml cli
+For each:
+  ${name} in:
+    - Alice
+    - Bob
+    - Carol
+  Output: Hello ${name}!
+
+Expected output:
+  - Hello Alice!
+  - Hello Bob!
+  - Hello Carol!
+```
+
 ## Testing in Instacli
+
+It is very easy to write tests in Instacli.
+
+```yaml cli
+Test case: A simple test case
+
+Assert that:
+  item: one
+  in: [ one, two, three ]
+```
+
+In fact, all tests for the Instacli language are written in Instacli itself and can be found in
+the [instacli-spec/reference](instacli-spec/reference) directory.
+
 ## Documenting Instacli
+
+All documentation can be found in the [instacli-spec/reference](instacli-spec/reference) directory.
+
+All Instacli documentation is in Markdown and contains runnable code that is run as part of the test suite.
+
+Here's an example of Instacli documentation:
+
+    ## Code examples
+    
+    The following code prints a message:
+    
+    ```yaml cli
+    Print: Hello from Instacli!
+    ```
+
+For new features, I often write the documentation first, then see the test suite fail, and then write the implementation
+for it.
+
+
+<!--
 
 ## Call a shell script
 ## Call another cli script

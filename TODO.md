@@ -1,7 +1,10 @@
 # On my mind
 
 * Document for first user
-    * Run 'cli greet' not necessarily 'cli greet.cli'
+    * Highlight Reel
+    * How-to per topic
+* Http Server documentation
+* As: ${var}
 
 # Where to take it
 

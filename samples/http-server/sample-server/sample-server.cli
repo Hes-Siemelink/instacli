@@ -17,7 +17,7 @@ Http endpoints:
         Output:
           Engllish: Hello!
           Spanish: ¡Hola!
-          Dutch: Halo!
+          Dutch: Hallo!
 
   /items:
     get:
