@@ -53,7 +53,7 @@
 * Keep it Flat, SIlly (KIFS)
 * How (Not) to Create a Lisp
 * The Zen of Frictionlessity: On Avoiding Surprises, Humor and Being Clever
-    * "Http endpoint" (was: "Http serve")
+    * "Http server" was "Http endpoint" was: "Http serve"
     * Cheesy test data
 * Liberation of Code: Say What, Not How
     * Sample Server in Instacli vs. Javalin/Kotlin

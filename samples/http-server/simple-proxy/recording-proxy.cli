@@ -15,45 +15,45 @@ Http request defaults:
 
 Http server:
   port: 25100
+  endpoints:
 
-Http endpoints:
+    # Handle any request
+    "*":
 
-  "*":
+      get:
+        script:
+          GET:
+            headers: ${request.headers}
+            path: ${request.path}?${request.query}
+          Save as: ${storageDir}/${request.path}/${request.query}/GET
 
-    get:
-      script:
-        GET:
-          headers: ${request.headers}
-          path: ${request.path}?${request.query}
-        Save as: ${storageDir}/${request.path}/${request.query}/GET
+      post:
+        script:
+          POST:
+            headers: ${request.headers}
+            path: ${request.path}
+            body: ${request.body}
+          Save as: ${storageDir}/${request.path}/${request.query}/POST
 
-    post:
-      script:
-        POST:
-          headers: ${request.headers}
-          path: ${request.path}
-          body: ${request.body}
-        Save as: ${storageDir}/${request.path}/${request.query}/POST
+      patch:
+        script:
+          PATCH:
+            headers: ${request.headers}
+            path: ${request.path}
+            body: ${request.body}
+          Save as: ${storageDir}/${request.path}/${request.query}/PATCH
 
-    patch:
-      script:
-        PATCH:
-          headers: ${request.headers}
-          path: ${request.path}
-          body: ${request.body}
-        Save as: ${storageDir}/${request.path}/${request.query}/PATCH
+      put:
+        script:
+          PUT:
+            headers: ${request.headers}
+            path: ${request.path}
+            body: ${request.body}
+          Save as: ${storageDir}/${request.path}/${request.query}/PUT
 
-    put:
-      script:
-        PUT:
-          headers: ${request.headers}
-          path: ${request.path}
-          body: ${request.body}
-        Save as: ${storageDir}/${request.path}/${request.query}/PUT
-
-    delete:
-      script:
-        DELETE:
-          headers: ${request.headers}
-          path: ${request.path}
+      delete:
+        script:
+          DELETE:
+            headers: ${request.headers}
+            path: ${request.path}
 

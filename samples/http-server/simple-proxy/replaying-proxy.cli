@@ -11,28 +11,28 @@ ${storageDir}: ${input.storageDir}
 ---
 Http server:
   port: 25101
+  endpoints:
 
-Http endpoints:
+    # Handle any request
+    "*":
 
-  "*":
+      get:
+        script:
+          Read file: ${storageDir}/${request.path}/${request.query}/GET
 
-    get:
-      script:
-        Read file: ${storageDir}/${request.path}/${request.query}/GET
+      post:
+        script:
+          Read file: ${storageDir}/${request.path}/${request.query}/POST
 
-    post:
-      script:
-        Read file: ${storageDir}/${request.path}/${request.query}/POST
+      patch:
+        script:
+          Read file: ${storageDir}/${request.path}/${request.query}/PATCH
 
-    patch:
-      script:
-        Read file: ${storageDir}/${request.path}/${request.query}/PATCH
+      put:
+        script:
+          Read file: ${storageDir}/${request.path}/${request.query}/PUT
 
-    put:
-      script:
-        Read file: ${storageDir}/${request.path}/${request.query}/PUT
-
-    delete:
-      script:
-        Do: { } # No-op
+      delete:
+        script:
+          Do: { } # No-op
 

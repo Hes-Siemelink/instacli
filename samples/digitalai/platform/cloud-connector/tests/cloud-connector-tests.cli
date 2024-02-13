@@ -10,37 +10,37 @@ If:
     Exit: Skipped
 
 ---
-Http server:
-  port: 25101
 
 ${storageDir}: recorded-data
 
-Http endpoints:
+Http server:
+  port: 25101
+  endpoints:
 
-  "*":
-    get:
-      script:
-        Read file:
-          relative: ${storageDir}/${request.path}/${request.query}/GET
+    "*":
+      get:
+        script:
+          Read file:
+            relative: ${storageDir}/${request.path}/${request.query}/GET
 
-    post:
-      script:
-        Read file:
-          relative: ${storageDir}/${request.path}/${request.query}/POST
+      post:
+        script:
+          Read file:
+            relative: ${storageDir}/${request.path}/${request.query}/POST
 
-    patch:
-      script:
-        Read file:
-          relative: ${storageDir}/${request.path}/${request.query}/PATCH
+      patch:
+        script:
+          Read file:
+            relative: ${storageDir}/${request.path}/${request.query}/PATCH
 
-    put:
-      script:
-        Read file:
-          relative: ${storageDir}/${request.path}/${request.query}/PUT
+      put:
+        script:
+          Read file:
+            relative: ${storageDir}/${request.path}/${request.query}/PUT
 
-    delete:
-      script:
-        Do: { } # No-op
+      delete:
+        script:
+          Do: { } # No-op
 
 ---
 Test case: List agents test
@@ -48,4 +48,6 @@ Test case: List agents test
 List agents: { }
 
 ---
-Http server: stop
+Http server:
+  port: 25101
+  action: stop
