@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.script.*
 import instacli.util.Yaml
+import instacli.util.objectNode
 import java.nio.file.Path
 import kotlin.io.path.name
 
@@ -33,13 +34,14 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     }
 }
 
-// TODO: Define input variables on command or just remove this command
 object RunScript : CommandHandler("Run script"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fileName = data["file"] ?: throw CommandFormatException("Run script needs 'file' field.")
         val cliFile = context.scriptDir.resolve(fileName.asText())
 
-        return handleCommand(CliFile(cliFile), data, context)
+        val input = data["input"] ?: objectNode()
+
+        return handleCommand(CliFile(cliFile), input, context)
     }
 }

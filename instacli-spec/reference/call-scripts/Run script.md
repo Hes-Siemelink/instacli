@@ -26,7 +26,8 @@ Code example: Call another instacli file
 
 Run script:
   file: generate-greeting.cli
-  name: Alice
+  input:
+    name: Alice
 
 Expected output: Hello Alice!
 ```
