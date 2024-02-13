@@ -6,27 +6,24 @@ Http server:
   endpoints:
     /hello:
       get:
-        script:
-          Output: Hello from Instacli!
+        output: Hello from Instacli!
 
     /greeting:
       post: handlers/greeting.cli
 
     /greetings:
       get:
-        script:
-          Output:
-            English: Hello!
-            Spanish: ¡Hola!
-            Dutch: Hallo!
+        output:
+          English: Hello!
+          Spanish: ¡Hola!
+          Dutch: Hallo!
 
     /items:
       get:
-        script:
-          Output:
-            - 1
-            - 2
-            - 3
+        output:
+          - 1
+          - 2
+          - 3
       post:
         script:
           Fields: ${input}
@@ -37,30 +34,24 @@ Http server:
         script:
           Fields: ${input}
       delete:
-        script:
-          Output: { }
+        output: { }
 
     /echo/header:
       get:
-        script:
-          Output: ${request.headers}
+        output: ${request.headers}
 
     /echo/path/{path}:
       get:
-        script:
-          Output: ${request.pathParameters}
+        output: ${request.pathParameters}
 
     /echo/query:
       get:
-        script:
-          Output: ${request.queryParameters}
+        output: ${request.queryParameters}
 
     /echo/body:
       post:
-        script:
-          Output: ${request.body}
+        output: ${request.body}
 
     /echo/cookies:
       get:
-        script:
-          Output: ${request.cookies}
+        output: ${request.cookies}

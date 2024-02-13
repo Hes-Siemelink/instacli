@@ -31,6 +31,7 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariabl
     fun stop(port: Int) {
         print("Stopping Instacli Http Server on port $port\")")
         servers[port]?.stop()
+        servers.remove(port)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -86,14 +87,23 @@ private fun handleRequest(
 
     // Execute script
     val output =
-        if (data.script != null) {
-            data.script?.runScript(localContext)
-        } else if (data.scriptName != null) {
-            val script = localContext.scriptDir.resolve(data.scriptName!!)
+        when {
+            data.output != null -> {
+                resolveVariables(data.output!!, localContext.variables)
+            }
 
-            CliFile(script).run(localContext)
-        } else {
-            throw CliScriptException("No script defined")
+            data.script != null -> {
+                data.script?.runScript(localContext)
+            }
+
+            data.scriptName != null -> {
+                val script = localContext.scriptDir.resolve(data.scriptName!!)
+                CliFile(script).run(localContext)
+            }
+
+            else -> {
+                throw CliScriptException("No handler action defined")
+            }
         }
 
     // Return result of script
@@ -173,6 +183,7 @@ class PathData {
 class HandlerData {
     var scriptName: String? = null
     var script: JsonNode? = null
+    var output: JsonNode? = null
 
     constructor()
     constructor(textValue: String) {

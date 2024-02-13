@@ -5,12 +5,31 @@ Http server:
   endpoints:
     hello:
       get:
-        script:
-          Output: Hello
+        output: Hello
 
 GET: http://localhost:25001/hello
 
 Expected output: Hello
+
+---
+Http server:
+  port: 25001
+  action: stop
+
+---
+Test case: Endpoint with script output
+
+Http server:
+  port: 25001
+  endpoints:
+    hello:
+      get:
+        script:
+          Output: Hello again
+
+GET: http://localhost:25001/hello
+
+Expected output: Hello again
 
 ---
 Http server:
