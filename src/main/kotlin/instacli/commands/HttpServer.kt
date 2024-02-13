@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
-import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.CliFile
 import instacli.script.*
 import instacli.util.Yaml
@@ -15,7 +14,6 @@ import io.javalin.http.HandlerType
 import io.javalin.http.bodyAsClass
 import kotlin.io.path.name
 
-const val DEFAULT_PORT = 2525
 const val REQUEST_VARIABLE = "request"
 
 private val methods = mapOf(
@@ -26,74 +24,48 @@ private val methods = mapOf(
     "delete" to HandlerType.DELETE
 )
 
-object InternalHttpServer {
-    var port = DEFAULT_PORT
-    private val server: Javalin = Javalin.create()  // TODO Use Javalin.create().port(port)
-    private var started = false
+object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariableResolver {
 
-    fun addHandler(path: String, data: PathData, context: ScriptContext) {
-        data.endpoints.forEach {
+    private val servers = mutableMapOf<Int, Javalin>()
+
+    fun stop(port: Int) {
+        print("Stopping Instacli Http Server on port $port\")")
+        servers[port]?.stop()
+    }
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        val port = data.getParameter("port").intValue()
+
+        // Stop server
+        data["action"]?.let {
+            if (it.textValue() == "stop") {
+                stop(port)
+                return null
+            }
+        }
+
+        // Add endpoints
+        val serveData: HttpEndpoints = Yaml.parse(data.getParameter("endpoints"))
+        serveData.paths.forEach {
+            addHandler(port, it.key, it.value, context)
+        }
+
+        return null
+    }
+
+    fun addHandler(port: Int, path: String, data: PathData, context: ScriptContext) {
+        val server = servers.getOrPut(port) {
+            println("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
+            Javalin.create().start(port)
+        }
+        data.methodHandlers.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
-        start("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
-    }
-
-    fun start(message: String = "Starting Instacli Http Server") {
-        if (started) return
-
-        println(message)
-
-        server.start(port)
-        started = true
-    }
-
-    fun stop() {
-        server.stop()
-        started = false
-    }
-}
-
-object HttpServer : CommandHandler("Http server"), ValueHandler, ObjectHandler {
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val action = data.textValue()
-        when (action) {
-            "start" -> {
-                InternalHttpServer.start()
-            }
-
-            "stop" -> {
-                InternalHttpServer.stop()
-            }
-        }
-        return null
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val port = data["port"]?.intValue() ?: 0
-        if (port != 0) {
-            InternalHttpServer.port = port
-        }
-
-        return null
-    }
-
-}
-
-object HttpEndpoints : CommandHandler("Http endpoints"), ObjectHandler, DelayedVariableResolver {
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-
-        val serveData: HttpServeData = Yaml.parse(data)
-
-        serveData.paths.forEach {
-            InternalHttpServer.addHandler(it.key, it.value, context)
-        }
-
-        return null
     }
 }
 
 
-fun Javalin.addHandler(path: String, method: String, data: EndpointData, scriptContext: ScriptContext) {
+fun Javalin.addHandler(path: String, method: String, data: HandlerData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
     this.addHandler(methodType, path) { httpContext ->
         handleRequest(methodType, data, httpContext, scriptContext)
@@ -102,7 +74,7 @@ fun Javalin.addHandler(path: String, method: String, data: EndpointData, scriptC
 
 private fun handleRequest(
     method: HandlerType,
-    data: EndpointData,
+    data: HandlerData,
     httpContext: Context,
     scriptContext: ScriptContext
 ) {
@@ -188,17 +160,17 @@ fun Context.cookiesAsJson(): ObjectNode {
 }
 
 
-class HttpServeData {
+class HttpEndpoints {
     @JsonAnySetter
     var paths: MutableMap<String, PathData> = mutableMapOf()
 }
 
 class PathData {
     @JsonAnySetter
-    var endpoints: Map<String, EndpointData> = mutableMapOf()
+    var methodHandlers: Map<String, HandlerData> = mutableMapOf()
 }
 
-class EndpointData {
+class HandlerData {
     var scriptName: String? = null
     var script: JsonNode? = null
 
@@ -206,5 +178,4 @@ class EndpointData {
     constructor(textValue: String) {
         scriptName = textValue
     }
-
 }

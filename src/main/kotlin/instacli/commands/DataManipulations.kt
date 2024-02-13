@@ -79,8 +79,6 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
     }
 }
 
-
-// TODO Sort on scalar values
 object Sort : CommandHandler("Sort"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val items = data.getParameter("items")

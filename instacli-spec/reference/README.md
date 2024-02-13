@@ -2,7 +2,7 @@
 
 ## REST API interaction
 
-### HTTP commands
+### Http client commands
 
 * [GET](http/GET.md)
 * [POST](http/POST.md)
@@ -23,7 +23,6 @@
 ### Http server
 
 * [Http server]()
-* [Http endpoints]()
 
 ## Core instacli
 

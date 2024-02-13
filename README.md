@@ -412,12 +412,13 @@ For quick API prototyping, Instacli will run an HTTP server for you. Define some
 scripts:
 
 ```yaml cli
-Http endpoints:
-
-  /hello-example:
-    get:
-      script:
-        Output: Hello from Instacli!
+Http server:
+  port: 2525
+  endpoints:
+    /hello-example:
+      get:
+        script:
+          Output: Hello from Instacli!
 ```
 
 Take a look at the [sample server](samples/http-server/sample-server/sample-server.cli) that serves all requests from

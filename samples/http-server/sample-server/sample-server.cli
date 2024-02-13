@@ -1,65 +1,66 @@
 Script info:
   description: Starts the Instacli Sample Server
 
-Http endpoints:
+Http server:
+  port: 2525
+  endpoints:
+    /hello:
+      get:
+        script:
+          Output: Hello from Instacli!
 
-  /hello:
-    get:
-      script:
-        Output: Hello from Instacli!
+    /greeting:
+      post: handlers/greeting.cli
 
-  /greeting:
-    post: handlers/greeting.cli
+    /greetings:
+      get:
+        script:
+          Output:
+            English: Hello!
+            Spanish: ¡Hola!
+            Dutch: Hallo!
 
-  /greetings:
-    get:
-      script:
-        Output:
-          English: Hello!
-          Spanish: ¡Hola!
-          Dutch: Hallo!
+    /items:
+      get:
+        script:
+          Output:
+            - 1
+            - 2
+            - 3
+      post:
+        script:
+          Fields: ${input}
+      put:
+        script:
+          Fields: ${input}
+      patch:
+        script:
+          Fields: ${input}
+      delete:
+        script:
+          Output: { }
 
-  /items:
-    get:
-      script:
-        Output:
-          - 1
-          - 2
-          - 3
-    post:
-      script:
-        Fields: ${input}
-    put:
-      script:
-        Fields: ${input}
-    patch:
-      script:
-        Fields: ${input}
-    delete:
-      script:
-        Output: { }
+    /echo/header:
+      get:
+        script:
+          Output: ${request.headers}
 
-  /echo/header:
-    get:
-      script:
-        Output: ${request.headers}
+    /echo/path/{path}:
+      get:
+        script:
+          Output: ${request.pathParameters}
 
-  /echo/path/{path}:
-    get:
-      script:
-        Output: ${request.pathParameters}
+    /echo/query:
+      get:
+        script:
+          Output: ${request.queryParameters}
 
-  /echo/query:
-    get:
-      script:
-        Output: ${request.queryParameters}
+    /echo/body:
+      post:
+        script:
+          Output: ${request.body}
 
-  /echo/body:
-    post:
-      script:
-        Output: ${request.body}
-
-  /echo/cookies:
-    get:
-      script:
-        Output: ${request.cookies}
+    /echo/cookies:
+      get:
+        script:
+          Output: ${request.cookies}

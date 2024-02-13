@@ -136,7 +136,7 @@ object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver
                 finished = (result == until)
             }
         }
-        // TODO Collect results in list like for each
+        
         return null
     }
 }

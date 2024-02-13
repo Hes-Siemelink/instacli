@@ -1,7 +1,7 @@
 package instacli.spec
 
 import instacli.cli.CliFile
-import instacli.commands.InternalHttpServer
+import instacli.commands.HttpServer
 import instacli.util.TestPrompt
 import instacli.util.UserPrompt
 import org.junit.jupiter.api.*
@@ -40,7 +40,7 @@ class InstacliTestSuite {
         @AfterAll
         @JvmStatic
         fun stopTestServer() {
-            InternalHttpServer.stop()
+            HttpServer.stop(2525)
         }
     }
 }
