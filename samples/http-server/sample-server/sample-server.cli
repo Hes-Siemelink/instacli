@@ -15,7 +15,7 @@ Http endpoints:
     get:
       script:
         Output:
-          Engllish: Hello!
+          English: Hello!
           Spanish: ¡Hola!
           Dutch: Hallo!
 

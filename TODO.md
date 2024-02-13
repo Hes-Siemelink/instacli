@@ -1,12 +1,11 @@
 # On my mind
 
 * Document for first user
-    * Highlight Reel
     * How-to per topic
 * Http Server
     * Add to documentation
-    * Support for multiple servers / port numbers
     * Add `output` alternative for `script: Output`
+    * Support for multiple servers / port numbers
 
 # Where to take it
 

@@ -20,6 +20,11 @@
 * [Set default account](connections/Set%20default%20account.md)
 * [Delete account](connections/Delete%20account.md)
 
+### Http server
+
+* [Http server]()
+* [Http endpoints]()
+
 ## Core instacli
 
 ### Script definition

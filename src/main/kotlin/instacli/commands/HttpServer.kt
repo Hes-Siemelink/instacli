@@ -28,7 +28,7 @@ private val methods = mapOf(
 
 object InternalHttpServer {
     var port = DEFAULT_PORT
-    private val server: Javalin = Javalin.create()
+    private val server: Javalin = Javalin.create()  // TODO Use Javalin.create().port(port)
     private var started = false
 
     fun addHandler(path: String, data: PathData, context: ScriptContext) {

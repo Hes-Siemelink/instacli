@@ -15,8 +15,6 @@ GET:
   path: /identity/v1/accounts/auth/configuration?hint=${input.id}
 ${token_endpoint}: ${output.configuration.token_endpoint}
 
-Print:
-  Token endpoint: ${token_endpoint}
 ---
 # Get token
 POST:
