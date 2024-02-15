@@ -27,17 +27,10 @@ Http server:
       get:
         output: Hello World!
 
----
 # Test the server
 GET: http://localhost:25001/hello
 
 Expected output: Hello World!
-
----
-# Stop the server
-Http server:
-  port: 25001
-  stop: true
 ```
 
 This example defines an HTTP `GET` request on path `/hello` to return the text "Hello World!".
@@ -66,17 +59,19 @@ In this example we have a static Hello World greeting being returned by `output:
 
 ### Test the server
 
-When defining the endpoints, the server is started right away and we can test it with a simple GET request:
+When defining the endpoints, the server is started right away, and we can test it with a simple GET request:
 
-```yaml
+```yaml script
 GET: http://localhost:25001/hello
 ```
 
 ### Stop the server
 
-Stop and remove the server for a specific port with the command:
+Stop and remove the server for a specific port with the `stop` command:
 
-```yaml
+```yaml script
+Code example: Stop server
+
 Http server:
   port: 25001
   stop: true
@@ -144,7 +139,6 @@ Http server:
             Output:
               Hello ${name}!
 
----
 POST:
   url: http://localhost:25001/greet-all
   body:
@@ -177,9 +171,7 @@ Suppose you have a file `greet.cli`
 Script info:
   description: Creates a greeting
   input:
-    name:
-      description: Your name
-      default: World
+    name: Your name
 
 Output: Hello ${input.name}!
 ```
@@ -197,7 +189,6 @@ Http server:
       get:
         file: greet.cli
 
----
 GET: http://localhost:25001/greet?name=Alice
 
 Expected output: Hello Alice!
