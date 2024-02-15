@@ -166,3 +166,47 @@ Http server:
   port: 25001
   stop: true
 -->
+
+## Running a file
+
+You can also specify an Instacli file to run.
+
+Suppose you have a file `greet.cli`
+
+```yaml file:greet.cli
+Script info:
+  description: Creates a greeting
+  input:
+    name:
+      description: Your name
+      default: World
+
+Output: Hello ${input.name}!
+```
+
+You can call this directly from the http endpoint definition. Note that body or query parameters are automatically
+passed as input to the script.
+
+```yaml script
+Code example: File handler
+
+Http server:
+  port: 25001
+  endpoints:
+    /greet:
+      get:
+        file: greet.cli
+
+---
+GET: http://localhost:25001/greet?name=Alice
+
+Expected output: Hello Alice!
+```
+
+<!-- yaml script after
+
+---
+Http server:
+  port: 25001
+  stop: true
+-->
