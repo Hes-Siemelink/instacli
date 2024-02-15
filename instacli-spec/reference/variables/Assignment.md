@@ -12,7 +12,7 @@ Set a variable value with a command in `${..}` syntax
 
 Directly set the value of a variable, for example:
 
-```yaml cli
+```yaml script
 Code example: Set a variable value
 
 ${myvar}: Hello World!
@@ -27,7 +27,7 @@ Assert equals:
 When you only want a part of the output, you can't use [As](As.md) to capture the variable. In that case, use `${..}` to
 get only part of the output.
 
-```yaml cli
+```yaml script
 Code example: Get part of the output into a variable
 
 Output:

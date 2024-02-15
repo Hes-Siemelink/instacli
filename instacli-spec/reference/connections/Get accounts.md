@@ -27,7 +27,7 @@ Instacli Sample Server:
 
 You can retrieve all accounts with the following snippet:
 
-```yaml cli
+```yaml script
 Code example: Get default account for an endpoint
 
 Get accounts: Instacli Sample Server

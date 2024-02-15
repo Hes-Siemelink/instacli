@@ -16,7 +16,7 @@ Configures a connection to an endpoint for a user account and saves it in the us
 With **Create account** you can store user credentials to connect to an endpoint. Retrieve them with
 the [Get account](Get%20account.md) command.
 
-```yaml cli
+```yaml script
 Code example: Create an account
 
 Create account:

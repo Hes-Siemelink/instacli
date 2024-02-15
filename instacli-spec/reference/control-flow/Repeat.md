@@ -16,7 +16,7 @@
 See [conditions](../testing/Assert%20that.md#conditions)
 in [Assert that](../testing/Assert%20that.md)
 
-```yaml cli
+```yaml script
 Code example: Count to five
 
 Output: 0

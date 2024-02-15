@@ -9,9 +9,9 @@ and then how they will show up in the document. The instacli build will pick up 
 
 ## Code examples
 
-You can define Instacli code examples with the **\`\`\`yaml cli** markdown construct.
+You can define Instacli code examples with the **\`\`\`yaml script** markdown construct.
 
-    ```yaml cli
+    ```yaml script
     Code example: An Instacli snippet inside Markdown
     
     Print: Hello from Instacli!
@@ -21,7 +21,7 @@ This will show as:
 
 ---
 
-```yaml cli
+```yaml script
 Code example: An Instacli snippet inside Markdown
 
 Print: Hello from Instacli!
@@ -29,14 +29,14 @@ Print: Hello from Instacli!
 
 ---
 
-## Run before
+## Hidden setup code
 
 Sometimes a code example could become can become cluttered with setup code.
 
 For example, consider an interactive example. In order for the automated tests to run, we need to provide a stock
 answer:
 
-```yaml cli
+```yaml script
 Code example: Example with setup code
 
 Stock answers:
@@ -51,15 +51,15 @@ Print: Hello, ${name}!
 When reading the example, a reader may be distracted by the **Stock answers** bit. That is not what this code example is
 about. It would be great if could hide it in someway.
 
-You can do so by putting the code that we need but don't want to show in an HTML comment that is marked as **run before
-**
+You can do so by putting the code that we need but don't want to show in an HTML comment that is marked as **yaml script
+before**
 
-    <!-- run before
+    <!-- yaml script before
     Stock answers:
     What is your name?: Alice
     -->
 
-    ```yaml cli
+    ```yaml script
     Code example: Example without setup code
 
     Prompt: What is your name?
@@ -72,12 +72,12 @@ Now the example looks a lot cleaner:
 
 ---
 
-<!-- run before
+<!-- yaml script before
 Stock answers:
     What is your name?: Alice
 -->
 
-```yaml cli
+```yaml script
 Code example: Example without setup code
 
 Prompt: What is your name?
@@ -88,10 +88,13 @@ Print: Hello, ${name}!
 
 ---
 
+You can also provide hidden cleanup code with `<!-- yaml script after`. The yaml code will be appended to the last code
+example defined by `yaml script`
+
 ## Files
 
 Sometimes you need to have a helper file in order for the example to work. You can define a helper file with **```yaml
-cli file:[filename]**
+file:[filename]**
 
 Here's an example:
 
@@ -103,7 +106,7 @@ Here's an example:
     
     And then read it with **Read file**:
 
-    ```yaml cli
+    ```yaml script
     Code example: Read from a file
 
     Read file:
@@ -124,7 +127,7 @@ key: value
 
 And then read it with **Read file**:
 
-```yaml cli
+```yaml script
 Code example: Read from a file
 
 Read file:
@@ -140,15 +143,23 @@ Print: Value is ${data.key}
 
 To show how to invoke the command line `cli` command, use the following syntax:
 
-```commandline cli
-cli --help
-```
+    ```commandline cli
+    cli --help
+    ```
 
 Then followed by a block that contains the output:
 
-```output
-Instacli -- Instantly create CLI applications with light scripting!
+    ```cli output
+    Instacli -- Instantly create CLI applications with light scripting!
+    
+    Usage:
+       cli [-q] [--help] file | directory
+    ```
 
-Usage:
-   cli [-q] [--help] file | directory
-```
+Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
+like  [Stock answers](../testing/Stock%20answers.md)
+
+    <!-- cli input
+    Enter your name: Hes
+    Select a language: English
+    -->

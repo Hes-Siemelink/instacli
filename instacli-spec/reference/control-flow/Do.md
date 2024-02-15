@@ -19,7 +19,7 @@ There are multiple ways to execute various commands with the same name in Instac
 
 First there, is **Do**, that takes a list of commands to execute:
 
-```yaml cli
+```yaml script
 Code example: Use 'Do' to repeat a command
 
 Do:
@@ -38,7 +38,7 @@ World!
 you can pass it a list of things, and they will be executed sequentially with the same command. The above example can be
 written more concisely as:
 
-```yaml cli
+```yaml script
 Code example: List-expanding invocation
 
 Print:
@@ -52,7 +52,7 @@ in the above example, is just a case of the list-expanding invocation.
 The final option is just to stick `---` somewhere in the code to separate the yaml maps. Instacli will stitch them
 together. This only works on the top-level of course.
 
-```yaml cli
+```yaml script
 Code example: Use separators
 
 Print: Hello
@@ -64,7 +64,7 @@ Print: World!
 
 **Do** can also be useful if you have multiple commands and you want to capture the output in a list.
 
-```yaml cli
+```yaml script
 Code example: The result of Do as a list
 
 Do:

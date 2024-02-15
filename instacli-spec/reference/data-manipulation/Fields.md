@@ -12,7 +12,7 @@
 
 **Fields** strips the fields (keys) of an object
 
-```yaml cli
+```yaml script
 Code example: Just the fields
 
 Fields:

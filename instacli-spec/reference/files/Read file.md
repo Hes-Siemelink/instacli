@@ -21,7 +21,7 @@ language: en
 
 Then you can read it like this:
 
-```yaml cli
+```yaml script
 Code example: Read Yaml from a file
 
 Read file: samples/basic/greeting.yaml
@@ -39,7 +39,7 @@ Note: To make the automated test work, the file is actually read from the reposi
 
 If you want to load a file that is next to your Instacli script, use the `relative` parameter:
 
-```yaml cli
+```yaml script
 Code example: Read a local file
 
 Read file:

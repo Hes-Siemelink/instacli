@@ -15,7 +15,7 @@ can pass. Note: **Stock answers** is only enabled in a test context.
 
 To give an answer, simply define the question and answer under **Stock answers** like this:
 
-```yaml cli
+```yaml script
 Code example: Prerecord an answer to a prompt
 
 Stock answers:

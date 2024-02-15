@@ -15,7 +15,7 @@
 
 Use **Replace** to modify text
 
-```yaml cli
+```yaml script
 Code example: Replace in text
 
 Replace:
@@ -28,7 +28,7 @@ Expected output: Hello World!
 
 This also works when in lists
 
-```yaml cli
+```yaml script
 Code example: Replace in list
 
 Replace:
@@ -47,7 +47,7 @@ Expected output:
 
 And in objects
 
-```yaml cli
+```yaml script
 Code example: Replace in object
 
 Replace:

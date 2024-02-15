@@ -15,7 +15,7 @@ against `${output}`
 
 It works for simple values
 
-```yaml cli
+```yaml script
 Code example: Expect output to be a simpel value
 
 Output: one
@@ -25,7 +25,7 @@ Expected output: one
 
 Also for complex objects
 
-```yaml cli
+```yaml script
 Code example: Compare output to complex value
 
 Output:
@@ -39,7 +39,7 @@ Expected output:
 
 And for lists
 
-```yaml cli
+```yaml script
 Code example: Check output list
 
 Output:

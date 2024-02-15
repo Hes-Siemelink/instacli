@@ -9,7 +9,7 @@ As-code, but without the complexity of actual code.
 
 Get a flavor of instacli with this example file `greeting.cli`:
 
-<!-- run before
+<!-- yaml script before
 ${input}:
     name: Hes
     language: English
@@ -46,12 +46,12 @@ cli greeting.cli
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
 printed.
 
-<!-- input
+<!-- cli input
 Enter your name: Hes
 Select a language: English
 -->
 
-```output
+```cli output
 ? Enter your name Hes
 ? Select a language 
  ❯ ◉ English
@@ -69,7 +69,7 @@ cli --help greeting.cli
 
 Will print:
 
-```output
+```cli output
 Multi-language greeting
 
 Options:
@@ -85,7 +85,7 @@ cli greeting.cli --name Hes --language Spanish
 
 And we get the result in Spanish:
 
-```output
+```cli output
 ¡Hola Hes!
 ```
 
@@ -161,7 +161,7 @@ cli hello.cli
 
 And it will print the expected message:
 
-```output
+```cli output
 Hello from Instacli!
 ```
 
@@ -171,13 +171,13 @@ Tired of remembering the exact curl syntax or forgetting which tab had that requ
 
 Simply write your request as-code with Instacli:
 
-```yaml cli
+```yaml script
 GET: http://localhost:2525/greetings
 ```
 
 Here's a POST:
 
-```yaml cli
+```yaml script
 POST:
   url: http://localhost:2525
   path: /greeting
@@ -204,7 +204,7 @@ This will automatically generate a command description and command line options:
 cli --help simple-options.cli
 ```
 
-```output
+```cli output
 Call Acme
 
 Options:
@@ -233,7 +233,7 @@ Script info:
 cli --help input-options.cli
 ```
 
-```output
+```cli output
 Different input options
 
 Options:
@@ -248,12 +248,12 @@ input.
 cli input-options.cli
 ```
 
-<!-- input
+<!-- cli input
 Username: Hes
 Password: Secret
 -->
 
-```output
+```cli output
 ? Username Hes
 ? Password ********
 ```
@@ -340,11 +340,11 @@ Run it and you will be presented with an interactive selector:
 cli prompt.cli
 ```
 
-<!-- input
+<!-- cli input
 Select a language: English
 -->
 
-```output
+```cli output
 ? Select a language 
  ❯ ◉ English
    ◯ Spanish
@@ -357,7 +357,7 @@ You selected: English
 
 Define variables in `${...}` syntax and pick and choose content using the path notation.
 
-```yaml cli
+```yaml script
 ${var}:
   name: my variable
   content:
@@ -382,7 +382,7 @@ This makes it easy to pick up in a subsequent command
 
 For example
 
-```yaml cli
+```yaml script
 GET: http://localhost:2525/greetings
 
 Print: ${output}
@@ -390,7 +390,7 @@ Print: ${output}
 
 Some commands work directly with the output variable. This helps in having a more declarative and readable script
 
-```yaml cli
+```yaml script
 GET: http://localhost:2525/hello
 
 Expected output: Hello from Instacli!
@@ -398,7 +398,7 @@ Expected output: Hello from Instacli!
 
 If you are going to use the output variable explicitly, best practice is to assign it to a named variable using **As**
 
-```yaml cli
+```yaml script
 GET: http://localhost:2525/hello
 As: ${result}
 
@@ -411,7 +411,7 @@ Print:
 For quick API prototyping, Instacli will run an HTTP server for you. Define some endpoints and back them by Instacli
 scripts:
 
-```yaml cli
+```yaml script
 Http server:
   port: 2525
   endpoints:
@@ -430,7 +430,7 @@ Instacli supports various programming logic constructs, like 'if', 'repeat', 'fo
 
 This is what an If-statement looks like:
 
-```yaml cli
+```yaml script
 If:
   item: this
   equals: that
@@ -442,7 +442,7 @@ If:
 
 With 'for each' you can loop over collections and do stuff.
 
-```yaml cli
+```yaml script
 For each:
   ${name} in:
     - Alice
@@ -454,7 +454,7 @@ For each:
 **For each** will store the output of the last command for each item in a list. You can use this feature to transform a
 list into something else, like the `map()` function in some programming languages.
 
-```yaml cli
+```yaml script
 For each:
   ${name} in:
     - Alice
@@ -472,7 +472,7 @@ Expected output:
 
 Writing tests in Instacli is straightforward:
 
-```yaml cli
+```yaml script
 Test case: A simple test case
 
 Assert that:
@@ -495,7 +495,7 @@ Here's an example of Instacli documentation:
     
     The following code prints a message:
     
-    ```yaml cli
+    ```yaml script
     Print: Hello from Instacli!
     ```
 

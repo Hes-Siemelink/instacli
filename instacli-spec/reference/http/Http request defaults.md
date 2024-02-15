@@ -20,7 +20,7 @@ like [GET](GET.md), [POST](POST.md), etc.
 
 Set the HTTP server and credentials, then issue a normal **GET**
 
-```yaml cli
+```yaml script
 Code example: Http request defaults usage
 
 Http request defaults:
@@ -44,7 +44,7 @@ All parameters for **Http request defaults** are available for all other Http co
 
 The target host server.
 
-```yaml cli
+```yaml script
 Code example: Default url
 
 Http request defaults:
@@ -57,7 +57,7 @@ GET: /items
 
 The endpoint path.
 
-```yaml cli
+```yaml script
 Code example: Default url and path
 
 Http request defaults:
@@ -75,7 +75,7 @@ POST:
 
 The (JSON) body
 
-```yaml cli
+```yaml script
 Code example: Default body
 
 Http request defaults:
@@ -94,7 +94,7 @@ POST:
 When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the
 endpoint
 
-```yaml cli
+```yaml script
 Code example: Basic authentication
 
 Http request defaults:
@@ -109,7 +109,7 @@ GET: /items
 
 Set headers with the **headers** property
 
-```yaml cli
+```yaml script
 Code example: Custom headers
 
 Http request defaults:
@@ -125,7 +125,7 @@ GET: /items
 
 You can save the result to a file with **save as**.
 
-```yaml cli
+```yaml script
 Code example: Save file
 
 Http request defaults:

@@ -18,7 +18,7 @@
 
 Use **GET** on a URL to get the results as JSON/YAML
 
-```yaml cli
+```yaml script
 Code example: Simple GET
 
 GET: http://localhost:2525/items
@@ -33,7 +33,7 @@ Expected output:
 
 You can split the target host and path by using the `url` and `path` properties.
 
-```yaml cli
+```yaml script
 Code example: Split url and path
 
 GET:
@@ -51,7 +51,7 @@ Expected output:
 By using [Http request defaults](Http%20request%20defaults.md), you can set the properties that are common to all
 requests in advance
 
-```yaml cli
+```yaml script
 Code example: Use Http request defaults
 
 Http request defaults:
@@ -63,7 +63,7 @@ GET:
 
 This way you can simply write the `path` parameter on **GET**:
 
-```yaml cli
+```yaml script
 Code example: Use Http Endpoint with simple GET
 
 Http request defaults:
@@ -77,7 +77,7 @@ GET: /items
 When using the **username** and **password** properties, Basic Authentication will be used to authenticate against the
 endpoint
 
-```yaml cli
+```yaml script
 Code example: Basic authentication
 
 GET:
@@ -90,7 +90,7 @@ GET:
 
 Set headers with the **headers** property
 
-```yaml cli
+```yaml script
 Code example: Custom headers
 
 GET:
@@ -104,7 +104,7 @@ GET:
 
 You can save the result to a file with **save as**
 
-```yaml cli
+```yaml script
 Code example: Save file
 
 GET:

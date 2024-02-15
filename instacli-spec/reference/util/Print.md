@@ -12,7 +12,7 @@
 
 Use **Print** to print a message to the console
 
-```yaml cli
+```yaml script
 Code example: Print a message
 
 Print: Hello, World!
@@ -22,7 +22,7 @@ Print: Hello, World!
 
 Object content is printed as Yaml
 
-```yaml cli
+```yaml script
 Code example: Print Yaml
 
 Print: 

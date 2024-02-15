@@ -21,7 +21,7 @@ Output: Hello ${input.name}!
 
 Then you can call it from another Instacli file using **Run script**.
 
-```yaml cli
+```yaml script
 Code example: Call another instacli file
 
 Run script:

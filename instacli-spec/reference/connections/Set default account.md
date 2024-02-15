@@ -30,7 +30,7 @@ Instacli Sample Server:
 
 You can set the default account with the following snippet:
 
-```yaml cli
+```yaml script
 Code example: Set the default account for an endpoint
 
 Set default account:

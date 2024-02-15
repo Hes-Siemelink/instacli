@@ -18,7 +18,7 @@ Output: Hello ${input.name}!
 
 Then you can call it from another Instacli file. Convert "skewer-case" to "Sentence case" and off you go.
 
-```yaml cli
+```yaml script
 Code example: Call another instacli file as a command
 
 Generate greeting:

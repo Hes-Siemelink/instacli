@@ -16,7 +16,7 @@
 
 Set up an HTTP server by defining the port and endpoints.
 
-```yaml cli
+```yaml script
 Code example: Http server setup
 
 # Define endpoints and start server
@@ -104,7 +104,7 @@ The following variables are filled in and can be used in `output`, `script` and 
 
 Variables are resolved in the `output` handler, making it easy to echo certain parts of the request without processing
 
-```yaml cli
+```yaml script
 Code example: Variables in output
 
 Http server:
@@ -116,20 +116,21 @@ Http server:
     /greeting:
       get:
         output: Hello ${input.name}
+```
 
----
+<!-- yaml script after
+
+--- 
 Http server:
   port: 25001
   stop: true
-```
-
-<!-- TODO: Define "run after" to stop the server -->
+-->
 
 ## Running an inline script
 
 Define an Instacli in the handler using the `script` type:
 
-```yaml cli
+```yaml script
 Code example: Instacli script handler
 
 Http server:
@@ -156,9 +157,12 @@ Expected output:
   - Hello Alice!
   - Hello Bob!
   - Hello Carol!
+```
+
+<!-- yaml script after
 
 ---
 Http server:
   port: 25001
   stop: true
-```
+-->

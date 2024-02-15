@@ -18,7 +18,7 @@ defined in [Assert that](../testing/Assert%20that.md).
 **When** behaves different from **If**, because it will only execute the first matching condition. When that condition
 holds, the commands under `then` are executed.
 
-```yaml cli
+```yaml script
 Code example: Multiple conditions in When
 
 When:
@@ -37,7 +37,7 @@ Expected output: 1
 
 If you want all matching conditions to evaluated, use **If**:
 
-```yaml cli
+```yaml script
 Code example: Multiple conditions in If
 
 If:

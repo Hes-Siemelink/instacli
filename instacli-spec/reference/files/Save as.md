@@ -12,7 +12,7 @@
 
 Use **Save as** store the contents of the `${output}` variable in a file.
 
-```yaml cli
+```yaml script
 Code example: Save output
 
 Output: |

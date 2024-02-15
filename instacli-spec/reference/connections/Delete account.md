@@ -29,7 +29,7 @@ Instacli Sample Server:
 
 You can delete Test account 2 with the following snippet:
 
-```yaml cli
+```yaml script
 Code example: Delete an account for an endpoint
 
 Delete account:

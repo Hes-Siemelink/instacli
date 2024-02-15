@@ -15,11 +15,22 @@ class InstacliDoc(val document: Path) {
             var beforeBuffer = ""
 
             for (block in blocks) {
-                if (block.type == YamlSnippet) {
-                    scripts.add(beforeBuffer + "\n" + block.getContent())
-                    beforeBuffer = ""
-                } else if (block.type == HiddenCode) {
-                    beforeBuffer += "\n" + block.getContent()
+                when (block.type) {
+                    YamlScriptBefore -> {
+                        beforeBuffer += block.getContent() + "\n"
+                    }
+
+                    YamlScript -> {
+                        scripts.add(beforeBuffer + block.getContent())
+                        beforeBuffer = ""
+                    }
+
+                    YamlScriptAfter -> {
+                        if (scripts.size == 0) {
+                            continue
+                        }
+                        scripts[scripts.size - 1] = scripts[scripts.size - 1] + "\n" + block.getContent()
+                    }
                 }
             }
             return scripts
@@ -77,9 +88,10 @@ class InstacliDoc(val document: Path) {
     companion object {
 
         private val blockTypes: List<BlockType> = listOf(
-            HiddenCode,
-            YamlFile,  // Should come before YamlSnippet
-            YamlSnippet,
+            YamlFile,
+            YamlScriptBefore,
+            YamlScript,
+            YamlScriptAfter,
             CommandInvocation,
             CommandInput,
             CommandOutput,
@@ -145,11 +157,12 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 }
 
 object MainText : BlockType()
-object HiddenCode : BlockType("<!-- run before", "-->")
-object YamlSnippet : BlockType("```yaml cli")
+object YamlScriptBefore : BlockType("<!-- yaml script before", "-->")
+object YamlScriptAfter : BlockType("<!-- yaml script after", "-->")
+object YamlScript : BlockType("```yaml script")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
-object CommandInput : BlockType("<!-- input", "-->")
-object CommandOutput : BlockType("```output")
+object CommandInput : BlockType("<!-- cli input", "-->")
+object CommandOutput : BlockType("```cli output")
 
 data class CommandExample(val command: String, var output: String? = null, var input: String? = null)
