@@ -38,8 +38,8 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariabl
         val port = data.getParameter("port").intValue()
 
         // Stop server
-        data["action"]?.let {
-            if (it.textValue() == "stop") {
+        data["stop"]?.let {
+            if (it.booleanValue() == true) {
                 stop(port)
                 return null
             }
@@ -96,8 +96,8 @@ private fun handleRequest(
                 data.script?.runScript(localContext)
             }
 
-            data.scriptName != null -> {
-                val script = localContext.scriptDir.resolve(data.scriptName!!)
+            data.file != null -> {
+                val script = localContext.scriptDir.resolve(data.file!!)
                 CliFile(script).run(localContext)
             }
 
@@ -157,7 +157,7 @@ fun Context.queryParametersAsJson(): ObjectNode {
     return queryParameters
 }
 
-fun Context.bodyAsJson(): ObjectNode {
+fun Context.bodyAsJson(): JsonNode {
     return if (body().isNotEmpty()) {
         bodyAsClass()
     } else {
@@ -181,12 +181,12 @@ class PathData {
 }
 
 class HandlerData {
-    var scriptName: String? = null
-    var script: JsonNode? = null
     var output: JsonNode? = null
+    var script: JsonNode? = null
+    var file: String? = null
 
     constructor()
     constructor(textValue: String) {
-        scriptName = textValue
+        file = textValue
     }
 }

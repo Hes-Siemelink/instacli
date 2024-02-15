@@ -3,7 +3,7 @@ Test case: Start and stop server
 Http server:
   port: 25001
   endpoints:
-    hello:
+    /hello:
       get:
         output: Hello
 
@@ -14,7 +14,7 @@ Expected output: Hello
 ---
 Http server:
   port: 25001
-  action: stop
+  stop: true
 
 ---
 Test case: Endpoint with script output
@@ -22,7 +22,7 @@ Test case: Endpoint with script output
 Http server:
   port: 25001
   endpoints:
-    hello:
+    /hello:
       get:
         script:
           Output: Hello again
@@ -34,4 +34,4 @@ Expected output: Hello again
 ---
 Http server:
   port: 25001
-  action: stop
+  stop: true

@@ -50,4 +50,4 @@ List agents: { }
 ---
 Http server:
   port: 25101
-  action: stop
+  stop: true
