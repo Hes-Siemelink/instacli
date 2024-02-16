@@ -24,18 +24,19 @@ Assert equals:
 
 ## Use JSON path notation
 
-When you only want a part of the output, you can't use [As](As.md) to capture the variable. In that case, use `${..}` to
-get only part of the output.
+When you only want a part of the output, you can't use [As](As.md) to capture the variable. In that case, use
+the `${..}:` assignment to indicate the part of the output that you want.
 
 ```yaml script
 Code example: Get part of the output into a variable
 
 Output:
+  language: English
   greeting: Hello World!
 
-${myvar}: ${output.greeting}
+${greeting}: ${output.greeting}
 
 Assert equals:
-  actual: ${myvar}
+  actual: ${greeting}
   expected: Hello World!
 ```

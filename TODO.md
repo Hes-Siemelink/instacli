@@ -2,10 +2,7 @@
 
 * Document for first user
     * How-to per topic
-* Http Server
-    * Add to documentation
-    * Add `output` alternative for `script: Output`
-    * Support for multiple servers / port numbers
+* Run script: support for file / relative. Make consistent with Shell and Read file.
 
 # Where to take it
 

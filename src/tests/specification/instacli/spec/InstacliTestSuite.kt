@@ -5,7 +5,6 @@ import instacli.commands.HttpServer
 import instacli.util.TestPrompt
 import instacli.util.UserPrompt
 import org.junit.jupiter.api.*
-import java.nio.file.Path
 
 class InstacliTestSuite {
 
@@ -25,9 +24,15 @@ class InstacliTestSuite {
     }
 
     @TestFactory
-    fun `Code examples in main README`(): List<DynamicNode> {
-        return Path.of("README.md").getCodeExamples()
+    fun `Code examples in basic concepts documentation`(): List<DynamicNode> {
+        return TestPaths.BASIC_CONCEPTS.getCodeExamples()
     }
+
+    @TestFactory
+    fun `Code examples in main README`(): List<DynamicNode> {
+        return TestPaths.README.getCodeExamples()
+    }
+
 
     companion object {
 

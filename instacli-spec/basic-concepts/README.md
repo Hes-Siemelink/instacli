@@ -2,21 +2,13 @@
 
 ## Running Instacli
 
-### Command line options
-
-### Configuration files
-
-#### `.instacli.yaml`
-
-#### `~/.instacli` folder
-
+* Command line options
+* Configuration files
+    * `.instacli.yaml`
+    * `~/.instacli` folder
 
 ## Writing Instacli
 
-## File organization
+* File organization
+* [Variables](Variables.md)
 
-## Variables
-
-### The output variable
-
-## Input
