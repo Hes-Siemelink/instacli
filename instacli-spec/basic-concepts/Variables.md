@@ -4,12 +4,16 @@
 
 Instacli variables are written in `${..}` syntax.
 
+Assign a variable using `${var}:` followed by some content.
+
+You can then use the variable in any context.
+
 ```yaml script
 Code example: Simple variable usage
 
-${myvar}: Hello
+${var}: Hello
 
-Print: ${myvar}
+Print: ${var}
 ```
 
 This will print:
@@ -20,13 +24,11 @@ Hello
 
 <!-- TODO add support for 'script output' in tests -->
 
-Assign a variable using `${var}:` followed by some content.
-
-You can then use the variable in any content.
-
 ## Path reference
 
 If a variable contains a nested object structure, you can use JavaScript-like path notation to retrieve the contents.
+For example, `${book.chapters[0].pages}` is a valid way to access the number of pages in the first chapter in the
+following example:
 
 ```yaml script
 Code example: Variable path notation
@@ -50,7 +52,7 @@ Assert equals:
 
 ## The ${output} variable
 
-The result of each command is stored in the  `${output}` variable.
+The result of each command is stored in the variable `${output}`.
 
 ```yaml script
 Code example: The output variable
@@ -80,7 +82,7 @@ Expected output: 2
 This uses the built-in **[Expected output](../reference/testing/Expected%20output.md)** command that makes the script
 more readable.
 
-The `${output}` variable behaves as any variable. You can also set it:
+The output variable behaves as any variable. You can also set it:
 
 ```yaml script
 Code example: Setting the output variable directly
@@ -100,7 +102,7 @@ Output: Hello
 Expected output: Hello
 ```
 
-Commands that don't have a result will not affect the `${output}` variable.
+Commands that don't have a result will not affect the output` variable.
 
 ```yaml script
 Code example: Print doesn't clear the output variable
@@ -114,9 +116,10 @@ Expected output: Hello
 
 ## Capturing output
 
-If you want to do something with the output variable, it is dangerous to use it directly because it will change after
-each command that returns something. Use the **[As](../reference/variables/As.md)** command to store the output variable
-in another one.
+If you want to do something with the output variable, it is dangerous to use it directly because any subsequent command
+may change it.
+
+Use the **[As](../reference/variables/As.md)** command to capture the output in another variable.
 
 ```yaml script
 Code example: Store output in another variable
@@ -133,7 +136,7 @@ Assert equals:
 
 ## Script output
 
-The **Output** command is often used at the end of a script to indicate the return value.
+The **Output** command is often used at the end of a script to explicitly set the return value.
 
 Suppose you have a file `simple-greeting.cli`
 
@@ -156,7 +159,7 @@ Expected output: Hello World!
 
 ## The input variable
 
-The input defined in the **Script info** section will be stored in the `${input}` variable
+The input of a script defined in the **Script info** section will be stored in the `${input}` variable
 
 ```yaml script
 Code example: Populating the input variable
@@ -172,4 +175,32 @@ Assert equals:
   actual: ${input}
   expected:
     name: World
+```
+
+## Script Input & Output
+
+Take a look at the example file `greet.cli` to see how you can define input and output of a script.
+
+```yaml file:greet.cli
+Code example: Input and output when defining a script
+
+Script info:
+  description: Creates a greeting
+  input:
+    name:
+      description: Your name
+
+Output: Hello ${input.name}!
+```
+
+Now you can call it with input and retrieve the output. In the following example we use the name of the script as a
+command. (See **[Instacli files as commands](../reference/call-scripts/Instacli%20files%20as%20commands.md)**)
+
+```yaml script
+Code example: Input and output when calling a script
+
+Greet:
+  name: Alice
+
+Expected output: Hello Alice!
 ```
