@@ -1,7 +1,7 @@
 # Command: Http server
 
-`Http server` starts an embedded HTTP server, based on an OpenAPI-flavored spec and backed by Instacli scripts. Use *
-*Http server** to quickly prototype and API.
+`Http server` starts an embedded HTTP server, based on an OpenAPI-flavored spec and backed by Instacli scripts. Use
+**Http server** to quickly prototype and API.
 
 | Content type         | Supported                            |
 |----------------------|--------------------------------------|
@@ -16,10 +16,11 @@
 
 Set up an HTTP server by defining the port and endpoints.
 
+The following example defines an HTTP `GET` request on path `/hello` to return the text "Hello World!".
+
 ```yaml script
 Code example: Http server setup
 
-# Define endpoints and start server
 Http server:
   port: 25001
   endpoints:
@@ -33,15 +34,13 @@ GET: http://localhost:25001/hello
 Expected output: Hello World!
 ```
 
-This example defines an HTTP `GET` request on path `/hello` to return the text "Hello World!".
-
 Let's break this down,
 
-### Definie endpoints and start server
+### Define endpoints and start server
 
-Define the listening port with the **port** field, in this case 25001.
+The **port** field defines the listening port, in this case 25001.
 
-You can run multiple servers on their own ports simultaneously. In this case we start a server on port 25001. If you
+You can run multiple servers simultaneously on different ports. In this case we start a server on port 25001. If you
 call **Http server** multiple times, the endpoints you define are added to the server running on that port.
 
 Then you define the **endpoints**. The format is inspired by OpenAPI definitions.
@@ -77,14 +76,14 @@ Http server:
   stop: true
 ```
 
-This will only stop the server running on that port, other servers will continue operating.
+This will only stop the server running on the specified port, other servers will continue operating.
 
 If the server is still running at the end of the script, Instacli will not exit and keep serving requests until you stop
-the process. For example by pressing `^C` from the command line.
+the process -- for example by pressing `^C` from the command line.
 
 ## Supplied variables
 
-The following variables are filled in and can be used in `output`, `script` and `file`
+The following variables can be used in `output`, `script` and `file`
 
 * `${input}`: - Body or query parameters. If there is a body in the request, query parameters are ignored.
 * `${request.headers}`: - Request headers
@@ -123,7 +122,7 @@ Http server:
 
 ## Running an inline script
 
-Define an Instacli in the handler using the `script` type:
+Define an Instacli script in the handler using the `script` type:
 
 ```yaml script
 Code example: Instacli script handler

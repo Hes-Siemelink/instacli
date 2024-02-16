@@ -9,6 +9,7 @@ Script info:
 ${storageDir}: ${input.storageDir}
 
 ---
+# Get actual target from local file
 Http request defaults:
   :Read file:
     relative: target-endpoint.yaml
