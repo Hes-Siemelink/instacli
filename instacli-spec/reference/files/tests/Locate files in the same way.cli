@@ -1,0 +1,66 @@
+Test case: Read file from working directory (short way)
+
+Read file: instacli-spec/reference/files/tests/content/plain.yaml
+
+Expected output:
+  loaded: true
+
+---
+Test case: Read file from working directory (file property)
+
+Read file:
+  file: instacli-spec/reference/files/tests/content/plain.yaml
+
+Expected output:
+  loaded: true
+
+---
+Test case: Read file relative to script
+
+Read file:
+  relative: content/plain.yaml
+
+Expected output:
+  loaded: true
+
+---
+Test case: Run script from working directory (short way)
+
+Run script: instacli-spec/reference/files/tests/greet.cli
+
+Expected output: Hello world!
+
+---
+Test case: Run script from working directory (file property)
+
+Run script:
+  file: instacli-spec/reference/files/tests/greet.cli
+  input:
+    name: Fay
+
+Expected output: Hello Fay!
+
+---
+Test case: Run script relative to script
+
+Run script:
+  relative: greet.cli
+  input:
+    name: Ray
+
+Expected output: Hello Ray!
+
+---
+Test case: Shell command from current directory (short way)
+
+Shell: instacli-spec/reference/files/tests/hello.sh
+
+Expected output: Hello World
+
+---
+Test case: Shell command in same directory as script
+
+Shell:
+  relative: sh hello.sh
+
+Expected output: Hello World

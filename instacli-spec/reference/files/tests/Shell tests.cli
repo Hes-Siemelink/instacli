@@ -6,7 +6,7 @@ Expected output: Hello
 ---
 Test case: Run shell script
 
-Shell: instacli-spec/reference/call-scripts/tests/hello.sh
+Shell: instacli-spec/reference/files/tests/hello.sh
 Expected output: Hello World
 
 ---

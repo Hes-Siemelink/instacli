@@ -3,8 +3,7 @@ Test case: Read file from disk
 Read file: instacli-spec/reference/files/tests/content/plain.yaml
 
 Expected output:
-  test: true
-  something: else
+  loaded: true
 
 ---
 Test case: Read file relative to script
@@ -13,8 +12,7 @@ Read file:
   relative: content/plain.yaml
 
 Expected output:
-  test: true
-  something: else
+  loaded: true
 
 ---
 Test case: Read file with variable syntax

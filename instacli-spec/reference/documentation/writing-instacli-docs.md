@@ -163,3 +163,26 @@ like  [Stock answers](../testing/Stock%20answers.md)
     Enter your name: Hes
     Select a language: English
     -->
+
+This will show as:
+
+---
+
+```commandline cli
+cli --help
+```
+
+---
+
+Followed by:
+
+---
+
+```cli output
+Instacli -- Instantly create CLI applications with light scripting!
+
+Usage:
+   cli [-q] [--help] file | directory
+```
+
+---

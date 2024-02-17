@@ -1,7 +1,6 @@
 # Command: Run script
 
-Use **Run script** to run another Instacli script. See
-also [Instacli files as commands](Instacli%20files%20as%20commands.md)
+Use **Run script** to run another Instacli script. See also [Instacli files as commands](Instacli files as commands.md)
 
 | Content type | Supported                                                |
 |--------------|----------------------------------------------------------|
@@ -25,7 +24,7 @@ Then you can call it from another Instacli file using **Run script**.
 Code example: Call another instacli file
 
 Run script:
-  file: generate-greeting.cli
+  relative: generate-greeting.cli
   input:
     name: Alice
 
@@ -33,4 +32,4 @@ Expected output: Hello Alice!
 ```
 
 When you specify a field, it will be passed as part of the `${input}` variable in the script that you call. For example,
-the value for `name`, Alice, will be availaible as `${input.name}` in the target script.   
+the value for `name`, Alice, will be available as `${input.name}` in the target script.   

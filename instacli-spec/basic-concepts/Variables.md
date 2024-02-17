@@ -152,7 +152,7 @@ If we call this script from another script, we get the result in the`${output}` 
 Code example: Get the output of another script
 
 Run script:
-  file: simple-greeting.cli
+  relative: simple-greeting.cli
 
 Expected output: Hello World!
 ```
@@ -194,7 +194,7 @@ Output: Hello ${input.name}!
 ```
 
 Now you can call it with input and retrieve the output. In the following example we use the name of the script as a
-command. (See **[Instacli files as commands](../reference/call-scripts/Instacli%20files%20as%20commands.md)**)
+command. (See **[Instacli files as commands](../reference/files/Instacli%20files%20as%20commands.md)**)
 
 ```yaml script
 Code example: Input and output when calling a script
