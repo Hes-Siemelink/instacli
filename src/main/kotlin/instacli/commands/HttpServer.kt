@@ -54,7 +54,7 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariabl
         return null
     }
 
-    fun addHandler(port: Int, path: String, data: PathData, context: ScriptContext) {
+    private fun addHandler(port: Int, path: String, data: PathData, context: ScriptContext) {
         val server = servers.getOrPut(port) {
             println("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
             Javalin.create().start(port)
@@ -69,17 +69,16 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariabl
 fun Javalin.addHandler(path: String, method: String, data: HandlerData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
     this.addHandler(methodType, path) { httpContext ->
-        handleRequest(methodType, data, httpContext, scriptContext)
+//        println("$method ${httpContext.path()}")
+        handleRequest(data, httpContext, scriptContext)
     }
 }
 
 private fun handleRequest(
-    method: HandlerType,
     data: HandlerData,
     httpContext: Context,
     scriptContext: ScriptContext
 ) {
-//    println("$method ${httpContext.path()}")
 
     val localContext = scriptContext.clone()
     localContext.addInputVariable(httpContext)
