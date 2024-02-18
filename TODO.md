@@ -2,7 +2,6 @@
 
 * Document for first user
     * How-to per topic
-* Run script: support for file / relative. Make consistent with Shell and Read file.
 
 # Where to take it
 

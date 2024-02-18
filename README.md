@@ -93,7 +93,7 @@ And we get the result in Spanish:
 
 All of Instacli is defined in the [instacli-spec](instacli-spec).
 
-* See [Basic concepts](instacli-spec/basic-concepts) for an overview of the Instacli scripting language
+* See [Basic concepts](instacli-spec/core-concepts) for an overview of the Instacli scripting language
 * The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
   and code examples.
 
