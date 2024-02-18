@@ -24,8 +24,8 @@ class InstacliTestSuite {
     }
 
     @TestFactory
-    fun `Code examples in basic concepts documentation`(): List<DynamicNode> {
-        return TestPaths.BASIC_CONCEPTS.getCodeExamples()
+    fun `Code examples in core concepts documentation`(): List<DynamicNode> {
+        return TestPaths.CORE_CONCEPTS.getCodeExamples()
     }
 
     @TestFactory

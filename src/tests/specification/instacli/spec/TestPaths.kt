@@ -9,5 +9,5 @@ object TestPaths {
     val SAMPLE_SERVER: Path = Path.of("samples/http-server/sample-server/sample-server.cli")
     val SPEC: Path = Path.of("instacli-spec")
     val REFERENCE: Path = SPEC.resolve("reference")
-    val BASIC_CONCEPTS: Path = SPEC.resolve("core-concepts")
+    val CORE_CONCEPTS: Path = SPEC.resolve("core-concepts")
 }

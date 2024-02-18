@@ -3,8 +3,8 @@
 ## Running Instacli
 
 * Command line options
+* Using `cli` command on a directory
 * Configuration files
-    * `.instacli.yaml`
     * `~/.instacli` folder
 
 ## Writing Instacli

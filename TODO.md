@@ -63,4 +63,4 @@
         4. Exception handling / alternative paths are implemented on top of a shaky code base as an afterthought
     * Why not try "Exception Driven Programming". But: you can't _start_ with the exceptions.
     * Define the happy path as declarative as possible. Build the exception flow around it?
-    * Mold the language to have less exceptions: be declarative, idempotent
+    * Mold the language to have fewer exceptions: be declarative, idempotent
