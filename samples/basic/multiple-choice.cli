@@ -1,3 +1,5 @@
+Script info: Interaction example
+
 Prompt:
   description: Select ingredients
   type: select multiple

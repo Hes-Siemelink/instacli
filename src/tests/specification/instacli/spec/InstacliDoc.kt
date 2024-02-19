@@ -52,7 +52,7 @@ class InstacliDoc(val document: Path) {
                 when (block.type) {
                     CommandInvocation -> {
                         commands.addNotNull(currentCommand)
-                        currentCommand = CommandExample(block.getContent())
+                        currentCommand = CommandExample(block.getContent(), directory = block.getDirectory()?.toPath())
                     }
 
                     CommandInput -> {
@@ -127,13 +127,23 @@ class InstacliDoc(val document: Path) {
     }
 }
 
+private fun String.toPath(): Path {
+    return Path.of(this)
+}
+
 open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: String = "```")
 
 val FILE_REGEX = Regex("file:(\\S+)")
+val DIRECTORY_REGEX = Regex("directory:(\\S+)")
 
 class Block(val type: BlockType, val headerLine: String = "", val lines: MutableList<String> = mutableListOf()) {
     fun getFilename(): String? {
         val fileMatch = FILE_REGEX.find(headerLine)
+        return fileMatch?.groupValues?.get(1)
+    }
+
+    fun getDirectory(): String? {
+        val fileMatch = DIRECTORY_REGEX.find(headerLine)
         return fileMatch?.groupValues?.get(1)
     }
 
@@ -165,4 +175,9 @@ object CommandInvocation : BlockType("```commandline cli")
 object CommandInput : BlockType("<!-- cli input", "-->")
 object CommandOutput : BlockType("```cli output")
 
-data class CommandExample(val command: String, var output: String? = null, var input: String? = null)
+data class CommandExample(
+    val command: String,
+    var output: String? = null,
+    var input: String? = null,
+    val directory: Path? = null
+)

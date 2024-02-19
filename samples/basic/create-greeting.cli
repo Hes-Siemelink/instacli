@@ -1,5 +1,5 @@
 Script info:
-  description: Creates a greeting
+  description: Creates a greeting and puts it in the output
   input:
     name:
       description: Your name

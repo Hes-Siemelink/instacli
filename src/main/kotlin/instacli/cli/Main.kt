@@ -143,13 +143,14 @@ class InstacliMain(
             return args[0]
         }
 
+
         // Print info
         output.printDirectoryInfo(context.info)
 
         // Select command
         val commands = context.getAllCommands()
         return when {
-            interactive -> input.askForCommand(commands)
+            interactive && !options.help -> input.askForCommand(commands)
             else -> {
                 output.printCommands(commands)
                 null

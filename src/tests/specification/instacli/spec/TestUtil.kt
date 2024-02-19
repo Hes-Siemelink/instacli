@@ -137,7 +137,8 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
             Script.from(it).toTest(document, CliFileContext(testDir), connections)
         }
     val cliInvocationTests = commandExamples.map {
-        it.toTest(document, testDir)
+        val dir = it.directory ?: testDir
+        it.toTest(document, dir)
     }
 
     return codeExampleTests + cliInvocationTests

@@ -1,3 +1,5 @@
+Script info: Simple interactive prompt
+
 Prompt: What is your name?
 
 Print: Hello ${output}!
