@@ -2,11 +2,12 @@
 
 `Read file` loads Yaml.
 
-| Content type | Supported |
-|--------------|-----------|
-| Value        | yes       |
-| List         | no        |
-| Object       | no        |
+| Content type | Supported                                        |
+|--------------|--------------------------------------------------|
+| Value        | yes                                              |
+| List         | no                                               |
+| Object       | no                                               |
+| `realtive`   | the file to load, relative to the current script |
 
 ## Basic usage
 
