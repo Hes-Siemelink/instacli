@@ -8,7 +8,7 @@ Assign a variable using `${var}:` followed by some content.
 
 You can then use the variable in any context.
 
-```yaml script
+```yaml instacli
 Code example: Simple variable usage
 
 ${var}: Hello
@@ -30,7 +30,7 @@ If a variable contains a nested object structure, you can use JavaScript-like pa
 For example, `${book.chapters[0].pages}` is a valid way to access the number of pages in the first chapter in the
 following example:
 
-```yaml script
+```yaml instacli
 Code example: Variable path notation
 
 ${book}:
@@ -54,7 +54,7 @@ Assert equals:
 
 The result of each command is stored in the variable `${output}`.
 
-```yaml script
+```yaml instacli
 Code example: The output variable
 
 Add:
@@ -69,7 +69,7 @@ Assert equals:
 Since we know that there will always an output variable, there is some special support for it in Instacli. For example,
 we can rewrite the above example as
 
-```yaml script
+```yaml instacli
 Code example: The output variable
 
 Add:
@@ -84,7 +84,7 @@ more readable.
 
 The output variable behaves as any variable. You can also set it:
 
-```yaml script
+```yaml instacli
 Code example: Setting the output variable directly
 
 ${output}: Hello
@@ -94,7 +94,7 @@ Expected output: Hello
 
 In fact, there is another shortcut for that: the **[Output](../reference/variables/Output.md)** command.
 
-```yaml script
+```yaml instacli
 Code example: Setting the output variable with 'Output'
 
 Output: Hello
@@ -104,7 +104,7 @@ Expected output: Hello
 
 Commands that don't have a result will not affect the output` variable.
 
-```yaml script
+```yaml instacli
 Code example: Print doesn't clear the output variable
 
 Output: Hello
@@ -121,7 +121,7 @@ may change it.
 
 Use the **[As](../reference/variables/As.md)** command to capture the output in another variable.
 
-```yaml script
+```yaml instacli
 Code example: Store output in another variable
 
 Add:
@@ -148,7 +148,7 @@ Output: Hello World!
 
 If we call this script from another script, we get the result in the`${output}` variable:
 
-```yaml script
+```yaml instacli
 Code example: Get the output of another script
 
 Run script:
@@ -161,7 +161,7 @@ Expected output: Hello World!
 
 The input of a script defined in the **Script info** section will be stored in the `${input}` variable
 
-```yaml script
+```yaml instacli
 Code example: Populating the input variable
 
 Script info:
@@ -196,7 +196,7 @@ Output: Hello ${input.name}!
 Now you can call it with input and retrieve the output. In the following example we use the name of the script as a
 command. (See **[Instacli files as commands](../reference/files/Instacli%20files%20as%20commands.md)**)
 
-```yaml script
+```yaml instacli
 Code example: Input and output when calling a script
 
 Greet:

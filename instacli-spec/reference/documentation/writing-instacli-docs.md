@@ -9,9 +9,9 @@ and then how they will show up in the document. The instacli build will pick up 
 
 ## Code examples
 
-You can define Instacli code examples with the **\`\`\`yaml script** markdown construct.
+You can define Instacli code examples with the **\`\`\`yaml instacli** markdown construct.
 
-    ```yaml script
+    ```yaml instacli
     Code example: An Instacli snippet inside Markdown
     
     Print: Hello from Instacli!
@@ -21,7 +21,7 @@ This will show as:
 
 ---
 
-```yaml script
+```yaml instacli
 Code example: An Instacli snippet inside Markdown
 
 Print: Hello from Instacli!
@@ -36,7 +36,7 @@ Sometimes a code example could become can become cluttered with setup code.
 For example, consider an interactive example. In order for the automated tests to run, we need to provide a stock
 answer:
 
-```yaml script
+```yaml instacli
 Code example: Example with setup code
 
 Stock answers:
@@ -51,15 +51,15 @@ Print: Hello, ${name}!
 When reading the example, a reader may be distracted by the **Stock answers** bit. That is not what this code example is
 about. It would be great if could hide it in someway.
 
-You can do so by putting the code that we need but don't want to show in an HTML comment that is marked as **yaml script
-before**
+You can do so by putting the code that we need but don't want to show in an HTML comment that is marked as **yaml
+instacli before**
 
-    <!-- yaml script before
+    <!-- yaml instacli before
     Stock answers:
     What is your name?: Alice
     -->
 
-    ```yaml script
+    ```yaml instacli
     Code example: Example without setup code
 
     Prompt: What is your name?
@@ -72,12 +72,12 @@ Now the example looks a lot cleaner:
 
 ---
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
     What is your name?: Alice
 -->
 
-```yaml script
+```yaml instacli
 Code example: Example without setup code
 
 Prompt: What is your name?
@@ -88,8 +88,8 @@ Print: Hello, ${name}!
 
 ---
 
-You can also provide hidden cleanup code with `<!-- yaml script after`. The yaml code will be appended to the last code
-example defined by `yaml script`
+You can also provide hidden cleanup code with `<!-- yaml instacli after`. The yaml code will be appended to the last
+code example defined by `yaml instacli`
 
 ## Files
 
@@ -106,7 +106,7 @@ Here's an example:
     
     And then read it with **Read file**:
 
-    ```yaml script
+    ```yaml instacli
     Code example: Read from a file
 
     Read file:
@@ -127,7 +127,7 @@ key: value
 
 And then read it with **Read file**:
 
-```yaml script
+```yaml instacli
 Code example: Read from a file
 
 Read file:

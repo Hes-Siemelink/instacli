@@ -14,7 +14,7 @@
 
 Add some numbers
 
-```yaml script
+```yaml instacli
 Code example: Find a snippet based on a variable path
 
 ${language}: English

@@ -20,7 +20,7 @@ and [Repeat](../control-flow/Repeat.md)
 
 Compare two objects, one is in field `item`; the other in `equals`.
 
-```yaml script
+```yaml instacli
 Code example: Comparing values
 
 Assert that:
@@ -30,7 +30,7 @@ Assert that:
 
 This is also works for lists
 
-```yaml script
+```yaml instacli
 Code example: Comparing lists
 
 Assert that:
@@ -44,7 +44,7 @@ Assert that:
 
 and objects
 
-```yaml script
+```yaml instacli
 Code example: Comparing objects
 
 Assert that:
@@ -60,7 +60,7 @@ Assert that:
 
 You can also test if something is inside something else with the `'item'` and `in`.
 
-```yaml script
+```yaml instacli
 Code example: Check if an object is in a list
 
 Assert that:
@@ -73,7 +73,7 @@ Assert that:
 
 You can also test for parts of an object.
 
-```yaml script
+```yaml instacli
 Code example: Check if an object contains some properties
 
 Assert that:
@@ -90,7 +90,7 @@ Assert that:
 
 Check if an array or value is empty
 
-```yaml script
+```yaml instacli
 Code example: Empty list and string
 
 Assert that:
@@ -101,7 +101,7 @@ Assert that:
 It's a shorthand for checking equality. This makes more sense in an `If` statement when you are checking the value that
 is coming from somewhere else.
 
-```yaml script
+```yaml instacli
 Code example: If with empty
 
 ${values}: [ ]
@@ -118,7 +118,7 @@ If:
 
 The condition **all** is a logical AND.
 
-```yaml script
+```yaml instacli
 Code example: All condition
 
 Assert that:
@@ -131,7 +131,7 @@ Assert that:
 
 The conditions **any** is a logical OR.
 
-```yaml script
+```yaml instacli
 Code example: Any condition
 
 Assert that:
@@ -144,7 +144,7 @@ Assert that:
 
 The conditions **not** is the negation
 
-```yaml script
+```yaml instacli
 Code example: Not condition
 
 Assert that:

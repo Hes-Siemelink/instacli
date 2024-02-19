@@ -16,12 +16,12 @@ configures [Http request defaults](../http/Http%20request%20defaults.md) for sub
 
 A script would look like this:
 
-<!-- yaml script before
+<!-- yaml instacli before
 Http request defaults:
   url: http://localhost:2525
 -->
 
-```yaml script
+```yaml instacli
 Code example: Use a connection
 
 Connect to: Instacli Samples

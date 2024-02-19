@@ -12,12 +12,12 @@
 
 With **Prompt**, you can ask the user a question.
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   What is your name?: Hes
 -->
 
-```yaml script
+```yaml instacli
 Code example: Define input
 
 Prompt: What is your name?
@@ -47,12 +47,12 @@ You can specify various properties:
 
 Syntax for using a default value
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   What is your name?: Hes
 -->
 
-```yaml script
+```yaml instacli
 Code example: Prompt with default value
 
 Prompt:
@@ -70,12 +70,12 @@ The default value is a suggestion that is printed but can be overwritten by the 
 
 When asking for a password, the user prompt will mask the input that the user is typing in.
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   What is your secret?: ssh
 -->
 
-```yaml script
+```yaml instacli
 Code example: Asking for a password
 
 Prompt:
@@ -93,12 +93,12 @@ will display as:
 
 You can ask for one item of a list:
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   What is your favorite color?: Red
 -->
 
-```yaml script
+```yaml instacli
 Code example: Choose one item from a list
 
 Prompt:
@@ -121,14 +121,14 @@ The user can user the cursor keys to interactively select an item from a list, c
 
 Or multiple:
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   What are your favorite colors?:
     - Red
     - Green
 -->
 
-```yaml script
+```yaml instacli
 Code example: Choose mutliple items from a list
 
 Prompt:
@@ -154,12 +154,12 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with
 the `display` property. The entire object will be given as output.
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   Select a user: Alice
 -->
 
-```yaml script
+```yaml instacli
 Code example: Choose an object
 
 ${users}:
@@ -189,12 +189,12 @@ You chose:
 
 If you are only interested in a single field form an object, you can specify that with the `value` property
 
-<!-- yaml script before
+<!-- yaml instacli before
 Stock answers:
   Select a user: Alice
 -->
 
-```yaml script
+```yaml instacli
 Code example: Only use a value when choosing an object
 
 ${users}:

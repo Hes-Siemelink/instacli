@@ -12,7 +12,7 @@
 
 Use **Save as** store the contents of the `${output}` variable in a file.
 
-```yaml script
+```yaml instacli
 Code example: Save output
 
 Output: |

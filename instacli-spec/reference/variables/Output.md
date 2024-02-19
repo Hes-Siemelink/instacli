@@ -12,7 +12,7 @@
 
 Instacli assigns the result of a command to the `${ouput}` variable
 
-```yaml script
+```yaml instacli
 Code example: Output variable is automatically set
 
 Replace:
@@ -29,7 +29,7 @@ Expected output: Hello World!
 
 With **Output** you explicitly set the the `${output}` variable.
 
-```yaml script
+```yaml instacli
 Code example: Set the output variable expicitly
 
 Output: Hello World!
@@ -40,7 +40,7 @@ Expected output: Hello World!
 
 You can put any kind of data in Output
 
-```yaml script
+```yaml instacli
 Code example: Output variable with object content
 
 Output:
@@ -54,7 +54,7 @@ Expected output:
 
 It is a shorthand to using the variable assignment syntax, but easier to type
 
-```yaml script
+```yaml instacli
 Code example: Set output variable with variable syntax
 
 ${output}: Hello World!
@@ -69,7 +69,7 @@ statement at the end of your script to make explicit what the result fo the scri
 
 Here's an example of a script that defines the input and then makes it clear what the output is.
 
-```yaml script
+```yaml instacli
 Code example: Define input and output in a script
 
 Script info:
@@ -86,7 +86,7 @@ Output: Hello ${input.name}!
 
 Use **Output** with [For each](../control-flow/For%20each.md) to transform a list:
 
-```yaml script
+```yaml instacli
 Code example: Transform a list with For each and Output
 
 

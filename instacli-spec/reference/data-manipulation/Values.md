@@ -12,7 +12,7 @@
 
 **Values** strips the object of its fields and returns a list of the contents.
 
-```yaml script
+```yaml instacli
 Code example: Only the values
 
 Values:

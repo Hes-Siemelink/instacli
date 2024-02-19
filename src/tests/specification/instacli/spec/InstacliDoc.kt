@@ -157,9 +157,9 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 }
 
 object MainText : BlockType()
-object YamlScriptBefore : BlockType("<!-- yaml script before", "-->")
-object YamlScriptAfter : BlockType("<!-- yaml script after", "-->")
-object YamlScript : BlockType("```yaml script")
+object YamlScriptBefore : BlockType("<!-- yaml instacli before", "-->")
+object YamlScriptAfter : BlockType("<!-- yaml instacli after", "-->")
+object YamlScript : BlockType("```yaml instacli")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
 object CommandInput : BlockType("<!-- cli input", "-->")

@@ -12,7 +12,7 @@ With `Add to`, you can add stuff to variables in a concise way.
 
 Use **Add to** to add something to existing variables.
 
-```yaml script
+```yaml instacli
 Code example: Add to variable
 
 ${index}: 0
@@ -29,7 +29,7 @@ Assert equals:
 
 You can do this with multiple variables at once
 
-```yaml script
+```yaml instacli
 Code example: Add to multiple variables
 
 ${index}: 0
@@ -50,7 +50,7 @@ Assert equals:
 
 Use **Add to** with the `${output}` variable to append something to the current output
 
-```yaml script
+```yaml instacli
 Code example: Add a field
 
 Output:
@@ -71,7 +71,7 @@ Expected output:
 
 You can add an item to a list
 
-```yaml script
+```yaml instacli
 Code example: Add an item to a list
 
 Output:
@@ -89,7 +89,7 @@ Expected output:
 
 Or combine two lists.
 
-```yaml script
+```yaml instacli
 Code example: Append a list to another
 
 Output:
@@ -112,7 +112,7 @@ Expected output:
 
 You can also extend a text string.
 
-```yaml script
+```yaml instacli
 Code example: Append text
 
 Output: Hello

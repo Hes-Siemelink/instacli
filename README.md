@@ -9,7 +9,7 @@ As-code, but without the complexity of actual code.
 
 Get a flavor of instacli with this example file `greeting.cli`:
 
-<!-- yaml script before
+<!-- yaml instacli before
 ${input}:
     name: Hes
     language: English
@@ -171,13 +171,13 @@ Tired of remembering the exact curl syntax or forgetting which tab had that requ
 
 Simply write your request as-code with Instacli:
 
-```yaml script
+```yaml instacli
 GET: http://localhost:2525/greetings
 ```
 
 Here's a POST:
 
-```yaml script
+```yaml instacli
 POST:
   url: http://localhost:2525
   path: /greeting
@@ -357,7 +357,7 @@ You selected: English
 
 Define variables in `${...}` syntax and pick and choose content using the path notation.
 
-```yaml script
+```yaml instacli
 ${var}:
   name: my variable
   content:
@@ -382,7 +382,7 @@ This makes it easy to pick up in a subsequent command
 
 For example
 
-```yaml script
+```yaml instacli
 GET: http://localhost:2525/greetings
 
 Print: ${output}
@@ -390,7 +390,7 @@ Print: ${output}
 
 Some commands work directly with the output variable. This helps in having a more declarative and readable script
 
-```yaml script
+```yaml instacli
 GET: http://localhost:2525/hello
 
 Expected output: Hello from Instacli!
@@ -398,7 +398,7 @@ Expected output: Hello from Instacli!
 
 If you are going to use the output variable explicitly, best practice is to assign it to a named variable using **As**
 
-```yaml script
+```yaml instacli
 GET: http://localhost:2525/hello
 As: ${result}
 
@@ -411,7 +411,7 @@ Print:
 For quick API prototyping, Instacli will run an HTTP server for you. Define some endpoints and back them by Instacli
 scripts:
 
-```yaml script
+```yaml instacli
 Http server:
   port: 2525
   endpoints:
@@ -430,7 +430,7 @@ Instacli supports various programming logic constructs, like 'if', 'repeat', 'fo
 
 This is what an If-statement looks like:
 
-```yaml script
+```yaml instacli
 If:
   item: this
   equals: that
@@ -442,7 +442,7 @@ If:
 
 With 'for each' you can loop over collections and do stuff.
 
-```yaml script
+```yaml instacli
 For each:
   ${name} in:
     - Alice
@@ -454,7 +454,7 @@ For each:
 **For each** will store the output of the last command for each item in a list. You can use this feature to transform a
 list into something else, like the `map()` function in some programming languages.
 
-```yaml script
+```yaml instacli
 For each:
   ${name} in:
     - Alice
@@ -472,7 +472,7 @@ Expected output:
 
 Writing tests in Instacli is straightforward:
 
-```yaml script
+```yaml instacli
 Test case: A simple test case
 
 Assert that:
@@ -495,7 +495,7 @@ Here's an example of Instacli documentation:
     
     The following code prints a message:
     
-    ```yaml script
+    ```yaml instacli
     Print: Hello from Instacli!
     ```
 
