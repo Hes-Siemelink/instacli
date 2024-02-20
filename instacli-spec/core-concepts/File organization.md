@@ -301,8 +301,106 @@ Simple Instacli example scripts
    prompt-simple-question   Simple interactive prompt
 ```
 
+## The `.instacli.yaml` file
+
+Each directory can have a `.instacli.yaml` file that contains metadata about the directory.
+
+You can give the directory a readable description, import cli files from other directories and manage http connection
+data.
+
 ### Calling another Instacli script
 
-### The `.instacli.yaml` file
+We showed above the you can call another Instacli script from within an Instacli script with the *
+*[Run script](../reference/files/Run%20script.md)** command.
 
-### Using `cli` command on a directory
+Another way is to use it as a regualr command. Instacli reads all cli files in the same directory and makes them
+available as commands in the current script. While doing so, it transforms file names in "kebab-style" to "Sentence
+style".
+
+For example, suppose we have a file `create-greeting.cli`, that creates a greeting and puts it in the output:
+
+```yaml file:create-greeting.cli
+Script info:
+  description: Creates a greeting
+  input:
+    name: Your name
+
+Output: Hello ${input.name}!
+```
+
+We can now call it as `Create greeting` from a script in the same directory:
+
+```yaml instacli
+Code example: Calling another cli file
+
+Create greeting:
+  name: Cray
+
+Expected output: Hello Cray!
+```
+
+### Directory description
+
+Add a `.instacli.yaml` file to the directory to give a description to the current directory.
+
+```yaml
+Script info: This is an example directory
+```
+
+The information is printed when displaying help for the directory:
+
+```commandline cli
+cli --help .
+```
+
+```cli output
+This is an example directory
+
+Available commands:
+  create-greeting   Creates a greeting
+  greeting          Prints a personalized greeting
+  hello             Hello
+  hello-world       Hello world
+  prompt            Prompt
+  say-something     Say something
+  simple-greeting   Prints a simple greeting
+```
+
+### Importing files from another directory
+
+As shown [above](#calling-another-instacli-script), you can call a script from within the same directory like it was a
+regular Instacli command.
+
+To call a script from another directory, you can import it in the `.instacli.yaml` file. This will import it for all
+scripts in that directory.
+
+For example, if we have the file `helper/say-something.cli`:
+
+```yaml file:say-something.cli
+Output: Something ${input.what}
+```
+
+And we have it in the `.instacli.yaml` file as follows:
+
+```yaml file:.instacli.yaml
+Script info: This is an example directory
+
+imports:
+  - helper/say-something.cli
+```
+
+Then you can call it like this from your script:
+
+```yaml instacli
+Code example: Calling a script that was imported from another directory
+
+Say something:
+  what: funny
+
+Expected output: Something funny
+```
+
+### Specifying connection data
+
+The `.instacli.yaml` file also contains a `connections` settings for retrieving HTTP connection credentials. See the *
+*[Connect to](../reference/connections/Connect%20to.md)** command for more details.

@@ -28,13 +28,15 @@
 * Use JSON schema to define input
     * https://github.com/pwall567/json-kotlin-schema
 * Error handling
-* Combine `If` and `When`and introduce `else`
-* Raw and live / Apply variables
 * Secrets
+* Raw and live / Apply variables
+* Combine `If` and `When`and introduce `else`
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 * Define 'output' on Script info
 * Add condition to input fields on Script info and Prompt
-* Naming: Prompt / Prompt one / Prompt all / Prompt multiple
+* Naming:
+    * Prompt / Prompt one
+    * Prompt all / Prompt multiple / Prompt object
 * Special variables
     * `input`
     * `output`
