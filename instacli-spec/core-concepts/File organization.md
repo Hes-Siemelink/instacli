@@ -79,9 +79,9 @@ cli prompt.cli
 Hello Hes!
 ```
 
-The commands in a file are just dictionary keys. We run into trouble if we want to use the same command again:
+The commands in a file are just dictionary keys. We run into trouble if we want to use the same key again.
 
-This won't work because it's invalid Yaml.
+For example, this won't work because it's invalid Yaml:
 
 ```yaml
 Print: Hello
@@ -96,9 +96,9 @@ Print: Hello
 Print: Hello again!
 ```
 
-It's not very pretty, but it works.
+It's not very pretty, but it works. This is the best option in most cases.
 
-There are some ways to avoid the `---` separator,
+There are some ways to avoid the `---` separator, though.
 
 With most commands you can simply supply the arguments as a list, and they will be executed in sequence:
 
@@ -119,13 +119,13 @@ Do:
 ```
 
 You could argue that an Instacli script should have a giant `Do` on top, and all commands should be specified in the
-list. You can do that, but it looks distracting to me, so I prefer the separator approach. Instacli scripts should be
-short & sweet, and the separator helps you to divide sections in your code.
+list. That's perfectly fine code, but to me it looks distracting, so I prefer the separator approach. Besides, the
+separator helps you to visually divide sections in your code if placed strategically.
 
 ### Script info
 
-You can specify the description of your script with the **[Script info](../reference/script-definition/Script%20info.md)
-** command.
+You can specify the description of your script with the
+**[Script info](../reference/script-definition/Script%20info.md)** command.
 
 Take this file `simple-greeting.cli`:
 
@@ -223,7 +223,7 @@ Expected output:
 With multiple files in a directory, you can run the directory as a cli command. The Instacli scripts will be
 subcommands.
 
-For this example we run from the **[samples](samples)** directory. It contains a directory `basic` with the following
+For this example we run from the **[samples](/samples)** directory. It contains a directory `basic` with the following
 files:
 
 ```
@@ -301,7 +301,7 @@ Simple Instacli example scripts
    prompt-simple-question   Simple interactive prompt
 ```
 
-## The `.instacli.yaml` file
+## The .instacli.yaml file
 
 Each directory can have a `.instacli.yaml` file that contains metadata about the directory.
 
@@ -310,8 +310,8 @@ data.
 
 ### Calling another Instacli script
 
-We showed above the you can call another Instacli script from within an Instacli script with the *
-*[Run script](../reference/files/Run%20script.md)** command.
+We showed above the you can call another Instacli script from within an Instacli script with the
+**[Run script](../reference/files/Run%20script.md)** command.
 
 Another way is to use it as a regualr command. Instacli reads all cli files in the same directory and makes them
 available as commands in the current script. While doing so, it transforms file names in "kebab-style" to "Sentence
@@ -402,5 +402,5 @@ Expected output: Something funny
 
 ### Specifying connection data
 
-The `.instacli.yaml` file also contains a `connections` settings for retrieving HTTP connection credentials. See the *
-*[Connect to](../reference/connections/Connect%20to.md)** command for more details.
+The `.instacli.yaml` file also contains a `connections` settings for retrieving HTTP connection credentials. See the
+**[Connect to](../reference/connections/Connect%20to.md)** command for more details.
