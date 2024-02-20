@@ -21,22 +21,22 @@ Http server:
       get:
         script:
           Read file:
-            relative: ${storageDir}/${request.path}/${request.query}/GET
+            resource: ${storageDir}/${request.path}/${request.query}/GET
 
       post:
         script:
           Read file:
-            relative: ${storageDir}/${request.path}/${request.query}/POST
+            resource: ${storageDir}/${request.path}/${request.query}/POST
 
       patch:
         script:
           Read file:
-            relative: ${storageDir}/${request.path}/${request.query}/PATCH
+            resource: ${storageDir}/${request.path}/${request.query}/PATCH
 
       put:
         script:
           Read file:
-            relative: ${storageDir}/${request.path}/${request.query}/PUT
+            resource: ${storageDir}/${request.path}/${request.query}/PUT
 
       delete:
         script:

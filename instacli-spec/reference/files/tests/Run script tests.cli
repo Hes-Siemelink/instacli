@@ -1,7 +1,7 @@
 Test case: Run another Instacli file
 
 Run script:
-  relative: greet.cli
+  resource: greet.cli
   input:
     name: Jay
 

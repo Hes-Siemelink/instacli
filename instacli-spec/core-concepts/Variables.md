@@ -152,7 +152,7 @@ If we call this script from another script, we get the result in the`${output}` 
 Code example: Get the output of another script
 
 Run script:
-  relative: simple-greeting.cli
+  resource: simple-greeting.cli
 
 Expected output: Hello World!
 ```

@@ -9,7 +9,7 @@ Expected output:
 Test case: Read file relative to script
 
 Read file:
-  relative: content/plain.yaml
+  resource: content/plain.yaml
 
 Expected output:
   loaded: true

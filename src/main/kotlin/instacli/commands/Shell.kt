@@ -17,7 +17,7 @@ object Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val commandLine = data.getTextParameter("relative")
+        val commandLine = data.getTextParameter("resource")
 
         return execute(commandLine, context.scriptDir)
     }

@@ -8,7 +8,7 @@ Use **Run script** to run another Instacli script. See also [Instacli files as c
 | List         | implicit                                                 |
 | Object       | yes                                                      |
 | `file`       | the Instacli file to run, in the current directory       |
-| `realtive`   | the Instacli file to run, relative to the current script |
+| `resouce`    | the Instacli file to run, relative to the current script |
 | `input`      | The input passed to the script                           |
 
 ## Basic usage
@@ -25,7 +25,7 @@ Then you can call it from another Instacli file using **Run script**.
 Code example: Call another instacli file
 
 Run script:
-  relative: create-greeting.cli
+  resource: create-greeting.cli
   input:
     name: Alice
     default: World
@@ -38,7 +38,7 @@ Alice, will be available as `${input.name}` in the target script.
 
 ## Finding the script
 
-In the example above, we used the property `relative` to indicate that the script to be called was in the same directory
+In the example above, we used the property `resource` to indicate that the script to be called was in the same directory
 as the current script.
 
 Use the `file` property to look for a script in the directory that you are calling Instacli from.

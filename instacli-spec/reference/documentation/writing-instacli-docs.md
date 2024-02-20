@@ -110,7 +110,7 @@ Here's an example:
     Code example: Read from a file
 
     Read file:
-        relative: data.yaml
+        resource: data.yaml
     As: ${data}
     
     Print: Value is ${data.key}
@@ -131,7 +131,7 @@ And then read it with **Read file**:
 Code example: Read from a file
 
 Read file:
-  relative: data.yaml
+  resource: data.yaml
 As: ${data}
 
 Print: Value is ${data.key} 

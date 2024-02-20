@@ -13,6 +13,6 @@ Expected output: Hello World
 Test case: Run shell in same directory as script
 
 Shell:
-  relative: sh hello.sh
+  resource: sh hello.sh
 Expected output: Hello World
 

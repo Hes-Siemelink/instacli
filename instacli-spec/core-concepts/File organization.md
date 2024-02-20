@@ -210,7 +210,7 @@ You also get it when calling a script from another script:
 
 ```yaml instacli
 Run script:
-  relative: hello.cli
+  resource: hello.cli
 
 Expected output:
   a: one

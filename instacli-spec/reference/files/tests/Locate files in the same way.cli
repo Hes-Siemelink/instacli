@@ -18,7 +18,7 @@ Expected output:
 Test case: Read file relative to script
 
 Read file:
-  relative: content/plain.yaml
+  resource: content/plain.yaml
 
 Expected output:
   loaded: true
@@ -44,7 +44,7 @@ Expected output: Hello Fay!
 Test case: Run script relative to script
 
 Run script:
-  relative: greet.cli
+  resource: greet.cli
   input:
     name: Ray
 
@@ -61,6 +61,6 @@ Expected output: Hello World
 Test case: Shell command in same directory as script
 
 Shell:
-  relative: sh hello.sh
+  resource: sh hello.sh
 
 Expected output: Hello World

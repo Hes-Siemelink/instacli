@@ -9,6 +9,6 @@
 
 ## Writing Instacli
 
-* File organization
+* [File organization](File%20organization.md)
 * [Variables](Variables.md)
 

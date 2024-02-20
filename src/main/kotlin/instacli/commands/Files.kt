@@ -43,10 +43,10 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
         is ObjectNode -> {
             if (contains("file")) {
                 this["file"].toPath(context)
-            } else if (contains("relative")) {
-                this["relative"].toPath(context, context.scriptDir)
+            } else if (contains("resource")) {
+                this["resource"].toPath(context, context.scriptDir)
             } else {
-                throw CliScriptException("Expected either 'file' or 'relative' property.");
+                throw CliScriptException("Expected either 'file' or 'resource' property.");
             }
         }
 
