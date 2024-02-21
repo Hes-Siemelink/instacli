@@ -18,7 +18,12 @@ class InvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
 
-    val options = CliCommandLineOptions(args.toList())
+    val options = try {
+        CliCommandLineOptions(args.toList())
+    } catch (e: InvocationException) {
+        System.err.println(e.message)
+        exitProcess(1)
+    }
 
     try {
         InstacliMain(options).run()

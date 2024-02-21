@@ -87,8 +87,9 @@ object ConsoleOutput : UserOutput {
     override fun printUsage() {
         kotlin.io.println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
-        kotlin.io.println("Usage:\n   cli [-q] [--help] file | directory")
+        kotlin.io.println("Usage:\n   cli [options] file | directory")
         println()
+        kotlin.io.println("Options:")
     }
 
     override fun println(message: String) {

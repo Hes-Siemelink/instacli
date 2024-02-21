@@ -2,6 +2,7 @@
 
 * Document for first user
     * How-to per topic
+    * Rename "File organization" to "Anatomy of Instacli files"
 
 # Where to take it
 

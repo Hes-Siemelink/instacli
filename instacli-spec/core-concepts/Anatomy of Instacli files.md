@@ -1,4 +1,4 @@
-# Instacli File Organization
+# Anatomy of Instacli files
 
 ## What does a single Instacli script look like
 
@@ -13,7 +13,7 @@ Print: Hello world
 Instacli files are a list of commands. In this case the file contains a single `Print` command. By convention, commands
 start with a capital letter.
 
-If we store it in a file `hello-world.cli` we can run it with the following command:
+If we store it in a file `hello-world.cli`, we can run it with the following command:
 
 ```commandline cli
 cli hello-world.cli

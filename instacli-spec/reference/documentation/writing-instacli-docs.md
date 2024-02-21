@@ -153,7 +153,9 @@ Then followed by a block that contains the output:
     Instacli -- Instantly create CLI applications with light scripting!
     
     Usage:
-       cli [-q] [--help] file | directory
+       cli [options] file | directory
+    
+    Options:
     ```
 
 Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
@@ -182,7 +184,9 @@ Followed by:
 Instacli -- Instantly create CLI applications with light scripting!
 
 Usage:
-   cli [-q] [--help] file | directory
+   cli [options] file | directory
+
+Options:
 ```
 
 ---

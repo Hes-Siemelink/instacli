@@ -9,6 +9,5 @@
 
 ## Writing Instacli
 
-* [File organization](File%20organization.md)
+* [Anatomy of Instacli files](Anatomy%20of%20Instacli%20files.md)
 * [Variables](Variables.md)
-
