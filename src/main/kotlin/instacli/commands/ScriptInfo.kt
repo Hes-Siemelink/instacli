@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
+import com.fasterxml.jackson.databind.node.BooleanNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
@@ -85,12 +86,18 @@ private fun prompt(parameter: ParameterData): JsonNode {
         "select one" -> promptChoice(parameter)
         "select multiple" -> promptChoice(parameter, true)
         "password" -> promptText(parameter, password = true)
+        "boolean" -> promptBoolean(parameter)
         else -> promptText(parameter)
     }
 }
 
 private fun promptText(parameter: ParameterData, password: Boolean = false): JsonNode {
     return UserPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
+}
+
+private fun promptBoolean(parameter: ParameterData, password: Boolean = false): JsonNode {
+    val answer = UserPrompt.prompt(parameter.description, parameter.default?.asText() ?: "", password)
+    return if (answer.textValue() == "true") BooleanNode.TRUE else BooleanNode.FALSE
 }
 
 private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): JsonNode {

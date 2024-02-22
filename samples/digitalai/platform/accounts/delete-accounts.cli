@@ -1,20 +1,20 @@
 Script info:
   description: Deletes accounts from Digital.ai Platform
   input:
-    name: Find account
+    name: Account name (leave empty to show all accounts)
 
 ---
 Connect to: Digital.ai Platform
 
-GET: /identity/v1/accounts?sort=name&filter=name%5Bisearch%5D%3A${input.name}
+Search accounts:
+  name: ${input.name}
 
 Prompt:
-  description: Select agents to delete
-  choices: ${output.accounts}
+  description: Select account to delete
+  choices: ${output}
   type: select multiple
   display: name
 
 For each:
   Print: DELETE /identity/v1/accounts/${item.id}
   DELETE: /identity/v1/accounts/${item.id}
-  Output: ${item.id}

@@ -1,0 +1,4 @@
+Script info: Manages customer accounts (admin only)
+
+connections:
+  Digital.ai Platform: ../login/connect.cli

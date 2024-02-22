@@ -30,7 +30,7 @@ interface UserPrompt {
 }
 
 object KInquirerPrompt : UserPrompt {
-    override fun prompt(message: String, default: String, password: Boolean): JsonNode {
+    override fun prompt(message: String, default: String, password: Boolean): TextNode {
 
         val answer = if (password) {
             KInquirer.promptInputPassword(message, default)

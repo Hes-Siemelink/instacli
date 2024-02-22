@@ -1,8 +1,28 @@
 # On my mind
 
+* Digital.ai Platform sample
+    * Internal commands, should notbe shown. For example 'search-accounts.cli'
+    * Reuse session, avoid "Connecting to" being done twice
+    * Prompt.choices can take output if left out
+    * Add 'else' to 'if'
+    * Use stdin for input
+
 * Document for first user
     * How-to per topic
     * Rename "File organization" to "Anatomy of Instacli files"
+
+* Debug this:
+
+```yaml
+Prompt all:
+  allow_self_registration:
+  description: Allow self-registration
+  choices:
+    - true
+    - false
+  type: select one
+  default: ${original.allow_self_registration}
+```
 
 # Where to take it
 

@@ -1,0 +1,18 @@
+# Before:
+${search}: ""
+If:
+  not:
+    empty: ${input.name}
+  then:
+    ${search}: "&filter=name%5Bisearch%5D%3A${input.name}"
+
+---
+# After:
+${search}:
+  :If:
+    not:
+      empty: ${input.name}
+    then:
+      Output: "&filter=name%5Bisearch%5D%3A${input.name}"
+    else:
+      Output: ""

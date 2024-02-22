@@ -1,0 +1,65 @@
+Script info:
+  description: Select an account
+  input:
+    name: Account name (leave empty to show all accounts)
+
+---
+# Select account
+Connect to: Digital.ai Platform
+
+Search accounts:
+  name: ${input.name}
+
+Prompt:
+  description: Select account to edit
+  choices: ${output}
+  type: select one
+  display: name
+As: ${account}
+
+---
+# Edit account
+Prompt all:
+  name:
+    description: Name
+    default: ${account.name}
+  vanity_domain:
+    description: Vanity domain
+    default: ${account.vanity_domain}
+  external_id:
+    description: External ID
+    default: ${account.external_id}
+  enabled:
+    description: Account enabled
+    type: boolean
+    default: ${account.enabled}
+  allow_self_registration:
+    description: Allow self-registration
+    type: boolean
+    default: ${account.allow_self_registration}
+  analytics_enabled:
+    description: Analytics enabled
+    type: boolean
+    default: ${account.analytics_enabled}
+As: ${new_properties}
+
+---
+Print: "Features:"
+For each:
+  ${feature} in: ${account.features}
+  Prompt:
+    description: ${feature.key}
+    type: boolean
+    default: ${feature.value}
+As: ${new_features}
+
+---
+Add:
+  - ${new_properties}
+  - features: ${new_features}
+As: ${new_account}
+
+PATCH:
+  path: /identity/v1/accounts/${account.id}/
+  body:
+    ${new_account}

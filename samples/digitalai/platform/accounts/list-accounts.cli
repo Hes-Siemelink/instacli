@@ -1,0 +1,18 @@
+Script info:
+  description: Lists accounts in Digital.ai Platform
+  input:
+    name: Account name (leave empty to show all accounts)
+
+---
+Connect to: Digital.ai Platform
+
+Search accounts:
+  name: ${input.name}
+
+For each:
+  Output:
+    name: ${item.name}
+    vanity_domain: ${item.vanity_domain}
+    id: ${item.id}
+
+Print: ${output}
