@@ -16,7 +16,7 @@
 defined in [Assert that](../testing/Assert%20that.md).
 
 **When** behaves different from **If**, because it will only execute the first matching condition. When that condition
-holds, the commands under `then` are executed.
+holds, the commands under `then` are executed but the rest of the conditions are skipped.
 
 ```yaml instacli
 Code example: Multiple conditions in When
@@ -35,7 +35,30 @@ When:
 Expected output: 1
 ```
 
-If you want all matching conditions to evaluated, use **If**:
+The conditiona in **When** statements should only have an `if` but not an `else`. You can add an `else` at the end of
+the list though:
+
+```yaml instacli
+Code example: When with else
+
+When:
+  - item: one
+    equals: 1
+    then:
+      Output: 1
+
+  - item: two
+    equals: 2
+    then:
+      Output: 2
+
+  - else:
+      Output: no match
+
+Expected output: no match
+```
+
+If you want all matching conditions to evaluated, use **[If](If.md)**:
 
 ```yaml instacli
 Code example: Multiple conditions in If

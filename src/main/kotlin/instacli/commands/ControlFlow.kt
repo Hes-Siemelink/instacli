@@ -36,6 +36,14 @@ object When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
                 throw CommandFormatException("Unsupported data type for if statement: ${ifStatement.javaClass.simpleName}.")
             }
 
+            // Single 'else'
+            if (ifStatement.size() == 1) {
+                ifStatement.get("else")?.let {
+                    return it.runScript(context)
+                }
+            }
+
+            // Regular 'if'
             val then = evaluateCondition(ifStatement, context) ?: continue
             return then.runScript(context)
         }
@@ -45,12 +53,13 @@ object When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
 
 private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNode? {
     val then = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
+    val else_: JsonNode? = data.remove("else")
 
     val condition = parseCondition(resolveVariables(data, context.variables))
     return if (condition.isTrue()) {
         then
     } else {
-        null
+        else_
     }
 }
 
@@ -136,7 +145,7 @@ object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver
                 finished = (result == until)
             }
         }
-        
+
         return null
     }
 }

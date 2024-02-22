@@ -27,6 +27,22 @@ If:
 Expected output: correct
 ```
 
+You can also use `else`:
+
+```yaml instacli
+Code example: Simple if with else
+
+If:
+  item: this
+  equals: that
+  then:
+    Output: correct
+  else:
+    Output: no match
+
+Expected output: no match
+```
+
 ## Multiple conditions
 
 With multiple conditions, each one is evaluated.

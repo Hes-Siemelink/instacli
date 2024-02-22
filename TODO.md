@@ -1,10 +1,9 @@
 # On my mind
 
 * Digital.ai Platform sample
-    * Internal commands, should notbe shown. For example 'search-accounts.cli'
+    * Internal commands, should not be shown. For example 'search-accounts.cli'
     * Reuse session, avoid "Connecting to" being done twice
     * Prompt.choices can take output if left out
-    * Add 'else' to 'if'
     * Use stdin for input
 
 * Document for first user

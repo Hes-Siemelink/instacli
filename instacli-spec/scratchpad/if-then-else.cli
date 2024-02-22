@@ -10,9 +10,17 @@ If:
 # After:
 ${search}:
   :If:
-    not:
-      empty: ${input.name}
+    empty: ${input.name}
     then:
-      Output: "&filter=name%5Bisearch%5D%3A${input.name}"
-    else:
       Output: ""
+    else:
+      Output: "&filter=name%5Bisearch%5D%3A${input.name}"
+
+---
+# Alternative:
+If:
+  empty: ${input.name}
+  then:
+    ${search}: ""
+  else:
+    ${search}: "&filter=name%5Bisearch%5D%3A${input.name}"
