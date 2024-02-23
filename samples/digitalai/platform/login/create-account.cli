@@ -4,7 +4,7 @@ Script info:
 ---
 Print: Please configure a connection to Digital.ai Platform
 
-Prompt all:
+Prompt object:
 
   url:
     description: Digital.ai Platform target

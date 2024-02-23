@@ -22,7 +22,7 @@ Test case: Multiple questions
 Stock answers:
   - "What is your name?": Instacli
 
-Prompt all:
+Prompt object:
   name: What is your name?
   sum:
     description: How much is 1 + 1?

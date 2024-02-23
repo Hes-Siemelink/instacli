@@ -1,10 +1,10 @@
-Test case: Get multiple variables with Prompt all
+Test case: Get multiple variables with Prompt object
 
 Stock answers:
   Value 1: 1
   Value 2: 2
 
-Prompt all:
+Prompt object:
   one: Value 1
   two: Value 2
 
@@ -13,14 +13,14 @@ Expected output:
   two: 2
 
 ---
-Test case: Prompt all, with conditions
+Test case: Prompt object, with conditions
 
 Stock answers:
   Choose which variable to set: a
   Value for a: a is set
   Value for b: b is set
 
-Prompt all:
+Prompt object:
 
   switch: Choose which variable to set
 
@@ -46,7 +46,7 @@ Test case: Boolean choice
 Stock answers:
   Enabled: "true"
 
-Prompt all:
+Prompt object:
   enabled:
     description: Enabled
     choices:

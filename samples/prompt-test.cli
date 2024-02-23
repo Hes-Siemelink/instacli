@@ -1,4 +1,4 @@
-Prompt all:
+Prompt object:
   allow_self_registration:
     description: Allow self-registration
     choices:

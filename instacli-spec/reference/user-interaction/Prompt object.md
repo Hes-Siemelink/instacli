@@ -1,4 +1,4 @@
-# Command: Prompt all
+# Command: Prompt object
 
 `Promp all` is like [Prompt](Prompt.md), but asks mutlitple questions
 
@@ -10,7 +10,7 @@
 
 ## Basic usage
 
-Use **Prompt all** to fire multiple questions at once and capture the answers in the output variable.
+Use **Prompt object** to fire multiple questions at once and capture the answers in the output variable.
 
 <!-- yaml instacli before
 Stock answers:
@@ -21,7 +21,7 @@ Stock answers:
 ```yaml instacli
 Code example: Multiple questions
 
-Prompt all:
+Prompt object:
   firstName: First name
   lastName: Last name
 
@@ -56,9 +56,9 @@ Stock answers:
 -->
 
 ```yaml instacli
-Code example: Prompt all with properties
+Code example: Prompt object with properties
 
-Prompt all:
+Prompt object:
   email:
     description: Email address
     default: info@example.com
@@ -79,7 +79,7 @@ variable will not be set.
 In the following example, there will only a prompt for variable a, and not for variable b
 
 ```yaml instacli
-Code example: Prompt all, but not all
+Code example: Prompt object, but not all
 
 Stock answers:
   Value for a: Abracadabra
@@ -87,7 +87,7 @@ Stock answers:
 
 ${switch}: a
 
-Prompt all:
+Prompt object:
 
   a:
     description: Value for a
@@ -110,19 +110,19 @@ Expected output:
 ## Depending questions
 
 You can also make questions depend on previous questions. The answers to previous questions are available as variables (
-within the scope of **Prompt all**). You can use those variables in conditions.
+within the scope of **Prompt object**). You can use those variables in conditions.
 
 This example will prompt which variable to set, and depending on the result will ask the following question a or b.
 
 ```yaml instacli
-Code example: Prompt all, with conditions
+Code example: Prompt object, with conditions
 
 Stock answers:
   Choose which variable to set, a or b: a
   Value for a: Abracadabra
   Value for b: Borobudur
 
-Prompt all:
+Prompt object:
 
   switch: Choose which variable to set, a or b
 

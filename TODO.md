@@ -50,9 +50,6 @@ if (System.`in`.available() != 0) {
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 * Define 'output' on Script info
 * Add condition to input fields on Script info and Prompt
-* Naming:
-    * Prompt / Prompt one
-    * Prompt all / Prompt multiple / Prompt object
 * Special variables
     * `input`
     * `output`

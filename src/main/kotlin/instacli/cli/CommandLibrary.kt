@@ -33,7 +33,7 @@ object CommandLibrary {
 
         // User interaction
         Prompt,
-        PromptAll,
+        PromptObject,
 
         // Data manipulation
         Add,

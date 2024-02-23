@@ -18,7 +18,7 @@ As: ${account}
 
 ---
 # Edit account
-Prompt all:
+Prompt object:
   name:
     description: Name
     default: ${account.name}

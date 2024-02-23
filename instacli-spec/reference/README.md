@@ -60,7 +60,7 @@
 ### User interaction
 
 * [Prompt](user-interaction/Prompt.md)
-* [Prompt all](user-interaction/Prompt%20all.md)
+* [Prompt object](user-interaction/Prompt%20object.md)
 
 ### Data manipulation
 
