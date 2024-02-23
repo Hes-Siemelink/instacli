@@ -201,6 +201,7 @@ class ScriptInfoData {
 
     var description: String? = null
     var input: InputData? = null
+    var hidden: Boolean = false
 
     constructor()
     constructor(textValue: String) {

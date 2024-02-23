@@ -2,6 +2,7 @@ Script info:
   description: Searches for accounts in Digital.ai Platform
   input:
     name: Account name (leave empty for all accounts)
+  hidden: true
 
 ---
 # Connect to: Digital.ai Platform

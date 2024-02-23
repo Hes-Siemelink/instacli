@@ -12,6 +12,7 @@ import kotlin.io.path.name
 class DirectoryInfo : CommandInfo {
 
     var dir: Path = Path.of(".")
+    override var hidden: Boolean = false
 
     override var name: String = ""
 

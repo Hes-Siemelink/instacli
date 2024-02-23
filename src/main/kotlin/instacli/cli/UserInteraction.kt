@@ -41,9 +41,11 @@ object ConsoleOutput : UserOutput {
         kotlin.io.println("Available commands:")
 
         val width = commands.maxOf { it.name.length }
-        commands.forEach {
-            kotlin.io.println("  ${infoString(it.name, it.description, width)}")
-        }
+        commands
+            .filter { !it.hidden }
+            .forEach {
+                kotlin.io.println("  ${infoString(it.name, it.description, width)}")
+            }
     }
 
     override fun printDirectoryInfo(info: DirectoryInfo) {
