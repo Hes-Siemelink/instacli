@@ -16,19 +16,6 @@ if (System.`in`.available() != 0) {
 }
 ```
 
-* Debug this:
-
-```yaml
-Prompt all:
-  allow_self_registration:
-  description: Allow self-registration
-  choices:
-    - true
-    - false
-  type: select one
-  default: ${original.allow_self_registration}
-```
-
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
 
@@ -72,6 +59,7 @@ Prompt all:
     * `request`
     * `session`
     * `settings`
+* Properly handle: null, empty, boolean, int
 
 # Blog topics
 

@@ -39,3 +39,20 @@ Prompt all:
 Expected output:
   switch: a
   a: a is set
+
+---
+Test case: Boolean choice
+
+Stock answers:
+  Enabled: "true"
+
+Prompt all:
+  enabled:
+    description: Enabled
+    choices:
+      - true
+      - false
+    type: select one
+
+Expected output:
+  enabled: true

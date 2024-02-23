@@ -13,6 +13,7 @@ import instacli.script.*
 import instacli.util.UserPrompt
 import instacli.util.Yaml
 import instacli.util.objectNode
+import instacli.util.toDisplayString
 
 object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -106,7 +107,7 @@ private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): J
 
     val choices = parameter.choices?.map {
         if (parameter.display == null) {
-            Choice(it.textValue(), it)
+            Choice(it.toDisplayString(), it)
         } else {
             Choice(it[parameter.display].textValue(), it)
         }
