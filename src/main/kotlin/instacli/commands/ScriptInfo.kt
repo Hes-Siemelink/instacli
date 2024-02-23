@@ -77,6 +77,8 @@ object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val parameter = ParameterData.from(data)
 
+        parameter.choices = parameter.choices ?: context.variables[OUTPUT_VARIABLE]?.toList()
+
         return prompt(parameter)
     }
 }
@@ -102,13 +104,13 @@ private fun promptBoolean(parameter: ParameterData, password: Boolean = false): 
 
 private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): JsonNode {
 
-    val choices = parameter.choices.map {
+    val choices = parameter.choices?.map {
         if (parameter.display == null) {
             Choice(it.textValue(), it)
         } else {
             Choice(it[parameter.display].textValue(), it)
         }
-    }
+    } ?: emptyList()
 
     val answer = UserPrompt.select(parameter.description, choices, multiple)
 
@@ -242,7 +244,7 @@ class ParameterData {
     var description: String = ""
     var default: JsonNode? = null
     var type: String = ""
-    var choices: List<JsonNode> = emptyList()
+    var choices: List<JsonNode>? = null
     var display: String? = null
     var value: String? = null
     var condition: JsonNode? = null

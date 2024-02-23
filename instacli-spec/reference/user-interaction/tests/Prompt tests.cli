@@ -122,3 +122,21 @@ Prompt:
 Expected output:
   - 1
   - 2
+
+---
+Test case: Prompt with choices from output
+
+Output:
+  - Vanilla
+  - Mango
+  - Coconut
+  - Pineapple
+
+Stock answers:
+  What flavor do you like?: Coconut
+
+Prompt:
+  description: What flavor do you like?
+  type: select one
+
+Expected output: Coconut

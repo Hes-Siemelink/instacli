@@ -3,7 +3,7 @@
 * Digital.ai Platform sample
     * Internal commands, should not be shown. For example 'search-accounts.cli'
     * Reuse session, avoid "Connecting to" being done twice
-    * Prompt.choices can take output if left out
+    * Prompt.choices should be optional and take ${output} by default
     * Use stdin for input
 
 * Document for first user

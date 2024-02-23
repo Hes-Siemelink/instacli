@@ -12,7 +12,6 @@ Search accounts:
 
 Prompt:
   description: Select account to edit
-  choices: ${output}
   type: select one
   display: name
 As: ${account}
