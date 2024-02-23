@@ -1,8 +1,20 @@
 Script info: Logs in to Digital.ai Platform
 
+---
+# Do not reconnect if logged in already
+If:
+  not:
+    empty:
+      :Http request defaults: ""
+  then:
+    Exit: Already logged in
+
+---
 Get account: Digital.ai Platform
 As: ${endpoint}
 
+---
+# Ask for connection credentials if none are set
 If:
   empty: ${endpoint}
   then:

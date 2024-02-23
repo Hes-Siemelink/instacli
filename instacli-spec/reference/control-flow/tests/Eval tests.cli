@@ -19,6 +19,19 @@ Expected output:
   - 5
 
 ---
+Test case: Evaluate a nested command
+
+Output:
+  Size:
+    :Size:
+      - 1
+      - 2
+      - 3
+
+Expected output:
+  Size: 3
+
+---
 Test case: Evaluate a command nested in another command
 
 Output:
@@ -29,3 +42,16 @@ Output:
       - 3
 
 Expected output: 3
+
+---
+Test case: Eval returns empty object
+
+Output: full
+
+If:
+  empty:
+    :Empty: ""
+  then:
+    Output: empty
+
+Expected output: empty

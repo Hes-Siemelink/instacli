@@ -27,7 +27,7 @@ object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHand
 
     private const val HTTP_DEFAULTS = "http.defaults"
 
-    fun store(context: ScriptContext, value: JsonNode) {
+    private fun store(context: ScriptContext, value: JsonNode) {
         context.session[HTTP_DEFAULTS] = value
     }
 
@@ -36,15 +36,13 @@ object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHand
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        store(context, objectNode("url", data.textValue()))
-        return null
+        return getFrom(context) ?: objectNode()
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         store(context, data)
         return null
     }
-
 }
 
 

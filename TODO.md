@@ -1,13 +1,20 @@
 # On my mind
 
 * Digital.ai Platform sample
-    * Internal commands, should not be shown. For example 'search-accounts.cli'
     * Reuse session, avoid "Connecting to" being done twice
-    * Use stdin for input
+    * Review Script info on directories
 
 * Document for first user
     * How-to per topic
     * Rename "File organization" to "Anatomy of Instacli files"
+
+* Use stdin for input:
+
+```kotlin
+if (System.`in`.available() != 0) {
+    val input = Yaml.mapper.readTree(System.`in`)
+}
+```
 
 * Debug this:
 
@@ -21,6 +28,9 @@ Prompt all:
   type: select one
   default: ${original.allow_self_registration}
 ```
+
+* Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
+  something has been set as Http defaults
 
 # Where to take it
 

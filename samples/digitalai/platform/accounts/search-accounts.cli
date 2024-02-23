@@ -5,7 +5,7 @@ Script info:
   hidden: true
 
 ---
-# Connect to: Digital.ai Platform
+Connect to: Digital.ai Platform
 
 If:
   empty: ${input.name}

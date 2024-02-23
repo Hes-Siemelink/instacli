@@ -21,11 +21,13 @@ fun eval(data: JsonNode, context: ScriptContext): JsonNode {
 
 fun evalObject(node: ObjectNode, context: ScriptContext): JsonNode {
     for ((key, data) in node.fields()) {
+        val evaluatedData = eval(data, context)
+        node.set<JsonNode>(key, evaluatedData)
         if (key.startsWith(":")) {
             val name = key.substring(1)
             val handler = context.getCommandHandler(name)
-            val evaluatedData = eval(data, context)
-            return runCommand(handler, evaluatedData, context) ?: TextNode("")
+            val result = runCommand(handler, evaluatedData, context)
+            return result ?: TextNode("")
         }
     }
     return node
