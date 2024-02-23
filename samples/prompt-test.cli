@@ -1,8 +1,0 @@
-Prompt object:
-  allow_self_registration:
-    description: Allow self-registration
-    choices:
-      - true
-      - false
-    type: select one
-    default: true

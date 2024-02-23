@@ -3,6 +3,5 @@ Script info:
   input:
     name:
       description: Your name
-      default: World
 
 Output: Hello ${input.name}!

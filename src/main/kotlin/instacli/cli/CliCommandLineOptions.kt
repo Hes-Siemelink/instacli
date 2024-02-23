@@ -2,6 +2,7 @@ package instacli.cli
 
 import instacli.cli.ArgType.*
 import instacli.commands.InputData
+import instacli.commands.ParameterData
 import instacli.util.Yaml
 
 class CliCommandLineOptions private constructor(
@@ -24,13 +25,13 @@ class CliCommandLineOptions private constructor(
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
             val (globalArgs, commands, commandArgs) = splitArguments(args)
 
-            definedOptions.validateArgs(globalArgs)
+            val options = definedOptions.validateArgs(globalArgs)
 
             return CliCommandLineOptions(
-                interactive = !globalArgs.contains("-q"),
-                printOutput = globalArgs.contains("-o"),
-                help = globalArgs.contains("--help"),
-                debug = globalArgs.contains("-d"),
+                interactive = !options.contains("non-interactive"),
+                printOutput = options.contains("print-output"),
+                help = options.contains("help"),
+                debug = options.contains("debug"),
                 commands,
                 commandArgs
             )
@@ -38,14 +39,24 @@ class CliCommandLineOptions private constructor(
     }
 }
 
-private fun InputData.validateArgs(options: List<String>) {
+private fun InputData.validateArgs(options: List<String>): InputData {
+    val parameters = mutableMapOf<String, ParameterData>()
     options.forEach {
-        if (!this.contains(it)) {
-            throw InvocationException("Invalid option: $it")
-        }
+        val (key, value) = getOption(it)
+        parameters[key] = value
     }
+
+    return InputData(parameters)
 }
 
+private fun InputData.getOption(option: String): Pair<String, ParameterData> {
+    for ((key, value) in parameters) {
+        if (key == option || value.shortOption == option) {
+            return Pair(key, value)
+        }
+    }
+    throw InvocationException("Invalid option: $option")
+}
 
 private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
 
@@ -59,7 +70,7 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
     for (argument in args) {
         if (state == GLOBAL) {
             if (isFlag(argument)) {
-                globalArgs.add(argument)
+                globalArgs.add(normalize(argument))
             } else {
                 state = COMMAND
             }
@@ -79,6 +90,14 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
     }
 
     return Triple(globalArgs, commands, commandArgs)
+}
+
+fun normalize(option: String): String {
+    var index = 0
+    while (option.length > index + 1 && option.get(index) == '-') {
+        index++
+    }
+    return option.substring(index)
 }
 
 internal fun toParameterMap(args: List<String>): Map<String, String> {

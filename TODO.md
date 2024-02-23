@@ -3,21 +3,13 @@
 * Digital.ai Platform sample
     * Reuse session, avoid "Connecting to" being done twice
     * Review Script info on directories
-
 * Document for first user
     * How-to per topic
-    * Rename "File organization" to "Anatomy of Instacli files"
-
-* Use stdin for input:
-
-```kotlin
-if (System.`in`.available() != 0) {
-    val input = Yaml.mapper.readTree(System.`in`)
-}
-```
-
+    * Output in JSON and YAML
+    * Use stdin for input
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
+* Error reporting
 
 # Where to take it
 
@@ -57,6 +49,31 @@ if (System.`in`.available() != 0) {
     * `session`
     * `settings`
 * Properly handle: null, empty, boolean, int
+* Note for stdin:
+
+```kotlin
+if (System.`in`.available() != 0) {
+    val input = Yaml.mapper.readTree(System.`in`)
+}
+```
+
+* Error reporting. Clean this up:
+
+```
+➜  samples git:(main) ✗ cli -q basic create-greeting
+
+Instacli scripting error
+
+No value provided for: name
+
+In basic:
+
+Script info:
+description: Creates a greeting and puts it in the output
+input:
+name:
+description: Your name
+```
 
 # Blog topics
 

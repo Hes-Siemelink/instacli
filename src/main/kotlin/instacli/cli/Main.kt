@@ -1,6 +1,7 @@
 package instacli.cli
 
 import instacli.script.InstacliException
+import instacli.script.MissingParameterException
 import instacli.script.ScriptContext
 import instacli.script.addInputVariables
 import instacli.util.toDisplayString
@@ -17,45 +18,28 @@ object InstacliPaths {
 class InvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
-
-    val options = try {
-        CliCommandLineOptions(args.toList())
-    } catch (e: InvocationException) {
-        System.err.println(e.message)
-        exitProcess(1)
-    }
-
-    try {
-        InstacliMain(options).run()
-
-    } catch (e: InvocationException) {
-        System.err.println(e.message)
-        exitProcess(1)
-
-    } catch (e: InstacliException) {
-        reportError(e, options.debug)
-        exitProcess(1)
-    }
+    val status = InstacliMain.main(args)
+    exitProcess(status)
 }
 
 class InstacliMain(
     private val options: CliCommandLineOptions,
     private val workingDir: Path = Path.of("."),
-    private val input: UserInput = ConsoleInput,
-    private val output: UserOutput = ConsoleOutput
+    private val input: UserInput = StandardInput,
+    private val output: ConsoleOutput = StandardOutput
 ) {
 
     constructor(
         vararg args: String,
         workingDir: Path = Path.of("."),
-        input: UserInput = ConsoleInput,
-        output: UserOutput = ConsoleOutput
+        input: UserInput = StandardInput,
+        output: ConsoleOutput = StandardOutput
     ) : this(CliCommandLineOptions(args.toList()), workingDir, input, output)
 
     fun run(parent: ScriptContext? = null) {
 
         if (options.commands.isEmpty()) {
-            output.printUsage()
+            output.printUsage(CliCommandLineOptions.definedOptions)
             return
         }
 
@@ -104,7 +88,7 @@ class InstacliMain(
         val output = cliFile.run(context)
 
         if (options.printOutput && output != null) {
-            this.output.println(output.toDisplayString())
+            this.output.printOutput(output.toDisplayString())
         }
     }
 
@@ -160,6 +144,38 @@ class InstacliMain(
                 output.printCommands(commands)
                 null
             }
+        }
+    }
+
+    companion object {
+        fun main(args: Array<String>, workingDir: Path = Path.of(".")): Int {
+
+            val options = try {
+                CliCommandLineOptions(args.toList())
+            } catch (e: InvocationException) {
+                System.err.println(e.message)
+                return 1
+            }
+
+            try {
+                InstacliMain(options, workingDir = workingDir).run()
+
+            } catch (e: InvocationException) {
+                System.err.println(e.message)
+                return 1
+
+            } catch (e: MissingParameterException) {
+                System.err.println("Missing parameter: --${e.name}")
+                System.err.println("\nOptions:")
+                System.err.println(e.options.toDisplayString())
+                return 1
+
+            } catch (e: InstacliException) {
+                reportError(e, options.debug)
+                return 1
+            }
+
+            return 0
         }
     }
 }

@@ -87,7 +87,7 @@ object TestPrompt : UserPrompt {
         val answer: JsonNode = StockAnswers.recordedAnswers[message] ?: if (default.isNotEmpty()) {
             TextNode(default)
         } else {
-            throw IllegalStateException("No prerecorded answer for '$message'")
+            TextNode("")
         }
 
         if (password) {

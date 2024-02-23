@@ -2,8 +2,8 @@
 
 ## Running Instacli
 
-* Command line options
-* Using `cli` command on a directory
+* Running files and directories
+* [Command line options](Command%20line%20options.md)
 * Configuration files
     * `~/.instacli` folder
 

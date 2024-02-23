@@ -184,9 +184,13 @@ Followed by:
 Instacli -- Instantly create CLI applications with light scripting!
 
 Usage:
-   cli [options] file | directory
+   cli [global options] file | directory [command options]
 
-Options:
+Global options:
+  --help, -h          Print help on a script or directory and does not run anything
+  --print-output, -o   Print the output at the end of the script
+  --non-interactive, -q   Indicate that Instacli should not prompt for user input
+  --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
 
 ---

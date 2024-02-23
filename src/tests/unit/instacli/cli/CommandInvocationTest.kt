@@ -1,6 +1,7 @@
 package instacli.cli
 
 import instacli.TestPaths
+import instacli.commands.InputData
 import instacli.script.CommandInfo
 import instacli.script.Script
 import io.kotest.matchers.shouldBe
@@ -95,7 +96,7 @@ class CommandInvocationTest {
         session.run()
 
         // Then
-        out.messagePrinted shouldBe "Script output"
+        out.outputPrinted shouldBe true
     }
 
     @Test
@@ -112,19 +113,19 @@ class CommandInvocationTest {
         session.run()
 
         // Then
-        out.messagePrinted shouldBe null
+        out.outputPrinted shouldBe false
     }
 }
 
-class MockOutput : UserOutput {
+class MockOutput : ConsoleOutput {
 
     var usagePrinted: Boolean = false
     var commandsPrinted = listOf<CommandInfo>()
     var directoryInfoPrinted: DirectoryInfo? = null
     var scriptInfoPrinted: Script? = null
-    var messagePrinted: String? = null
+    var outputPrinted: Boolean = false
 
-    override fun printUsage() {
+    override fun printUsage(globalOptions: InputData) {
         usagePrinted = true
     }
 
@@ -140,7 +141,7 @@ class MockOutput : UserOutput {
         directoryInfoPrinted = info
     }
 
-    override fun println(message: String) {
-        messagePrinted = message
+    override fun printOutput(output: String) {
+        outputPrinted = true
     }
 }

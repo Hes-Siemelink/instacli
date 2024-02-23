@@ -6,20 +6,46 @@ import java.io.PrintStream
 object IO {
     fun captureSystemOut(doThis: () -> Unit): String {
 
-        // Rewire System,out
-        val old = System.out
-        val capturedOutput = ByteArrayOutputStream()
-        System.setOut(PrintStream(capturedOutput))
+        val (originalOut, capturedOut) = rewireSystemOut()
 
         try {
-            // Execute code
             doThis()
 
-            return capturedOutput.toString()
+            capturedOut.flush()
+            return capturedOut.toString()
         } finally {
-            // Restore System.out
-            System.out.flush()
-            System.setOut(old)
+            System.setOut(originalOut)
         }
+    }
+
+    fun captureSystemOutAndErr(doThis: () -> Unit): Pair<String, String> {
+
+        val (originalOut, capturedOut) = rewireSystemOut()
+        val (originalErr, capturedErr) = rewireSystemErr()
+
+        try {
+            doThis()
+
+            capturedOut.flush()
+            capturedErr.flush()
+            return Pair(capturedOut.toString(), capturedErr.toString())
+        } finally {
+            System.setOut(originalOut)
+            System.setErr(originalErr)
+        }
+    }
+
+    private fun rewireSystemOut(): Pair<PrintStream, ByteArrayOutputStream> {
+        val original = System.out
+        val capturedOutput = ByteArrayOutputStream()
+        System.setOut(PrintStream(capturedOutput))
+        return Pair(original, capturedOutput)
+    }
+
+    private fun rewireSystemErr(): Pair<PrintStream, ByteArrayOutputStream> {
+        val original = System.err
+        val capturedOutput = ByteArrayOutputStream()
+        System.setErr(PrintStream(capturedOutput))
+        return Pair(original, capturedOutput)
     }
 }

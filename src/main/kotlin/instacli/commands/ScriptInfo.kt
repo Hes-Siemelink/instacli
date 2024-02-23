@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import com.github.kinquirer.core.Choice
+import instacli.cli.infoString
 import instacli.script.*
 import instacli.util.UserPrompt
 import instacli.util.Yaml
@@ -58,7 +59,7 @@ private fun handleInput(
         }
 
         else -> {
-            throw CliScriptException("No value provided for: $name")
+            throw MissingParameterException("No value provided for: $name", name, inputData)
         }
     }
 
@@ -221,22 +222,40 @@ class InputData {
     @JsonAnySetter
     var parameters: Map<String, ParameterData> = mutableMapOf()
 
-    fun contains(option: String): Boolean {
-        return parameters.contains(normalize(option))
+    constructor()
+    constructor(parameters: Map<String, ParameterData>) {
+        this.parameters = parameters
     }
 
-    private fun normalize(option: String) = option.replace("-", "")
+    fun contains(option: String): Boolean {
+        return parameters.contains(option)
+    }
+
+    fun toDisplayString(): String {
+
+        val builder = StringBuilder()
+
+        val width = parameters.maxOf { it.key.length } + 2
+        parameters.forEach {
+            val key = buildString {
+                append("--")
+                append(it.key)
+                if (it.value.shortOption != null) {
+                    append(", -")
+                    append(it.value.shortOption)
+                }
+            }
+            builder.append("  ")
+            builder.append(infoString(key, it.value.description, width))
+            builder.appendLine()
+        }
+
+        return builder.toString()
+    }
 
     companion object {
         fun from(data: JsonNode): InputData {
-            val inputData = Yaml.mapper.treeToValue(data, InputData::class.java)
-
-            val shortOptions: Map<String, ParameterData> = inputData.parameters
-                .filterValues { it.shortOption != null }
-                .entries.associate { it.value.shortOption!! to it.value }
-            inputData.parameters += shortOptions
-
-            return inputData
+            return Yaml.mapper.treeToValue(data, InputData::class.java)
         }
     }
 }

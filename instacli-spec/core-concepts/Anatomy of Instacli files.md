@@ -404,3 +404,7 @@ Expected output: Something funny
 
 The `.instacli.yaml` file also contains a `connections` settings for retrieving HTTP connection credentials. See the
 **[Connect to](../reference/connections/Connect%20to.md)** command for more details.
+
+<!--
+Explain hidden commands
+-->

@@ -60,7 +60,9 @@ that case, it is not possible to pass input parameters
 ```yaml instacli
 Code example: Call another instacli file from working dir without input
 
-Run script: samples/basic/create-greeting.cli
+Run script: samples/basic/output.cli
 
-Expected output: Hello World!
+Expected output:
+  text: Hello World!
+  status: All good
 ```

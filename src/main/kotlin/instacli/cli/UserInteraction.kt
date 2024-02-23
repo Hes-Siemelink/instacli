@@ -4,6 +4,7 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
+import instacli.commands.InputData
 import instacli.script.CommandInfo
 import instacli.script.Script
 
@@ -11,15 +12,15 @@ interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String
 }
 
-interface UserOutput {
-    fun printUsage()
+interface ConsoleOutput {
+    fun printUsage(globalOptions: InputData)
     fun printScriptInfo(script: Script)
     fun printCommands(commands: List<CommandInfo>)
     fun printDirectoryInfo(info: DirectoryInfo)
-    fun println(message: String)
+    fun printOutput(output: String)
 }
 
-object ConsoleInput : UserInput {
+object StandardInput : UserInput {
     override fun askForCommand(commands: List<CommandInfo>): String {
         val width = commands.maxOf { it.name.length }
         val selectedCommand = KInquirer.promptListObject(
@@ -36,23 +37,23 @@ object ConsoleInput : UserInput {
     }
 }
 
-object ConsoleOutput : UserOutput {
+object StandardOutput : ConsoleOutput {
     override fun printCommands(commands: List<CommandInfo>) {
-        kotlin.io.println("Available commands:")
+        println("Available commands:")
 
         val width = commands.maxOf { it.name.length }
         commands
             .filter { !it.hidden }
             .forEach {
-                kotlin.io.println("  ${infoString(it.name, it.description, width)}")
+                println("  ${infoString(it.name, it.description, width)}")
             }
     }
 
     override fun printDirectoryInfo(info: DirectoryInfo) {
         if (info.description.isNotEmpty()) {
-            kotlin.io.println(info.description.trim())
+            println(info.description.trim())
         } else {
-            kotlin.io.println("${info.name} has several subcommands.")
+            println("${info.name} has several subcommands.")
         }
         println()
     }
@@ -70,35 +71,22 @@ object ConsoleOutput : UserOutput {
 
         val inputData = script.info?.input ?: return
 
-        kotlin.io.println("\nOptions:")
-
-        val width = inputData.parameters.maxOf { it.key.length } + 2
-        inputData.parameters.forEach {
-            val key = buildString {
-                append("--")
-                append(it.key)
-                if (it.value.shortOption != null) {
-                    append(", -")
-                    append(it.value.shortOption)
-                }
-            }
-            kotlin.io.println("  ${infoString(key, it.value.description, width)}")
-        }
+        println("\nOptions:")
+        println(inputData.toDisplayString())
     }
 
-    override fun printUsage() {
-        kotlin.io.println("Instacli -- Instantly create CLI applications with light scripting!")
+    override fun printUsage(globalOptions: InputData) {
+        println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
-        kotlin.io.println("Usage:\n   cli [options] file | directory")
-        println()
-        kotlin.io.println("Options:")
+        println("Usage:\n   cli [global options] file | directory [command options]")
+        println("\nGlobal options:")
+        println(globalOptions.toDisplayString())
     }
 
-    override fun println(message: String) {
-        kotlin.io.println(message)
+    override fun printOutput(output: String) {
+        println(output)
     }
 }
-
 
 fun infoString(key: String, value: String, width: Int = 10): String {
     return String.format("%-${width}s   ${value.trim()}", key)

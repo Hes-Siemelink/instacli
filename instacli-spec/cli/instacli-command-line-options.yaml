@@ -1,8 +1,8 @@
-non-interactive:
-  description: Indicate that Instacli should not prompt for user input.
+help:
+  description: Print help on a script or directory and does not run anything
   default: false
   type: boolean
-  short option: q
+  short option: h
 
 print-output:
   description: Print the output at the end of the script
@@ -13,11 +13,11 @@ print-output:
     - json
   short option: o
 
-help:
-  description: Print help about Instacli and its commands; doesn't run the script.
+non-interactive:
+  description: Indicate that Instacli should not prompt for user input
   default: false
   type: boolean
-  short option: h
+  short option: q
 
 debug:
   description: Run in debug mode. Prints stacktraces when an error occurs.

@@ -1,7 +1,6 @@
 package instacli.spec
 
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.cli.CliCommandLineOptions
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
@@ -170,21 +169,35 @@ private fun CommandExample.toTest(document: Path, testDir: Path): DynamicTest {
 
 fun CommandExample.testCommand(testDir: Path) {
     val line = command.split("\\s+".toRegex())
-    val options = CliCommandLineOptions(line.drop(1))
-    prepareInput(input, testDir)
-
     line.first() shouldBe "cli"
+    val args = line.drop(1).toTypedArray()
+
+    prepareInput(input, testDir)
 
     println("$ $command")
 
-    val stdout = IO.captureSystemOut {
-        InstacliMain(options, workingDir = testDir).run()
+    val (stdout, stderr) = IO.captureSystemOutAndErr {
+        InstacliMain.main(args, workingDir = testDir)
     }
 
     println(stdout)
+    System.err.println(stderr)
 
     output?.let {
-        stdout.trim() shouldBe it.trim()
+        val out = stdout.trim()
+        val err = stderr.trim()
+        val combined = buildString {
+            if (out.isEmpty()) {
+                append(err)
+            } else {
+                append(out)
+                if (err.isNotEmpty()) {
+                    append("\n")
+                    append(err)
+                }
+            }
+        }
+        combined shouldBe it.trim()
     }
 }
 
