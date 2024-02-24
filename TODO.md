@@ -6,16 +6,16 @@
 * Document for first user
     * How-to per topic
     * Output in JSON and YAML
-    * Use stdin for input
+    * User Kinquirer Mock output from UserPrompt also in ConsoleOutput for running cli against directories in
+      interactive mode
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
-* Error reporting
 
 # Where to take it
 
+* Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
   explicitly. For example: content type, variable replacement yes/no, etc.
-* Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
 * Run Release templates
 
 # Command-line support
@@ -24,6 +24,7 @@
     * JSON nodes with Kotlin Serialization (but still experimental and no Yaml out of the box)
     * Prompt with https://ajalt.github.io/clikt/
 * Go?
+* Node / TypeScript?
 * Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 
 # Instacli as glue
@@ -36,11 +37,11 @@
 * Use JSON schema to define input
     * https://github.com/pwall567/json-kotlin-schema
 * Error handling
+* Error reporting -> "StackTrace"
 * Secrets
 * Raw and live / Apply variables
-* Combine `If` and `When`and introduce `else`
 * CommandLibrary should store commands in canonical form: all lower case and spaces
-* Define 'output' on Script info
+* Define 'output type' on Script info
 * Add condition to input fields on Script info and Prompt
 * Special variables
     * `input`
@@ -55,24 +56,6 @@
 if (System.`in`.available() != 0) {
     val input = Yaml.mapper.readTree(System.`in`)
 }
-```
-
-* Error reporting. Clean this up:
-
-```
-➜  samples git:(main) ✗ cli -q basic create-greeting
-
-Instacli scripting error
-
-No value provided for: name
-
-In basic:
-
-Script info:
-description: Creates a greeting and puts it in the output
-input:
-name:
-description: Your name
 ```
 
 # Blog topics

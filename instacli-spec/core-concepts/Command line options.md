@@ -76,8 +76,8 @@ Hello, Alice!
 Some Instacli commands will produce output. By default, Instacli does not print the output. You can turn it on with
 the `--print-output` option.
 
-For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas *
-*[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
+For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
+**[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
 another script.
 
 Running `create-greeting` like this will show nothing
@@ -166,4 +166,57 @@ Missing parameter: --name
 
 Options:
   --name   Your name
+```
+
+### --debug
+
+Use this option to see stacktraces from the underlying runtime when an error occurs.
+
+For example this file, `error-in-add.cli`, has an error in it, since you can not add text content:
+
+```yaml
+Add: something to something
+```
+
+Without debug mode you get the following error message
+
+```commandline
+cli -d error-in-add.cli
+```
+
+```
+Instacli scripting error
+
+Caused by: java.lang.IllegalArgumentException: Command 'Add' does not handle content type TextNode
+
+In error-in-add.cli:
+
+  Add: something to something
+```
+
+With the `--debug` option you will see more of the internals.
+
+```commandline
+cli --debug error-in-add.cli
+```
+
+```
+Instacli scripting error
+
+Caused by: java.lang.IllegalArgumentException: Command 'Add' does not handle content type TextNode
+	at instacli.script.CommandExecutionKt.handleCommand(CommandExecution.kt:93)
+	at instacli.script.CommandExecutionKt.runSingleCommand(CommandExecution.kt:59)
+	at instacli.script.CommandExecutionKt.runCommand(CommandExecution.kt:20)
+	at instacli.script.Script.runScript(Script.kt:23)
+	at instacli.cli.CliFile.run(CliFile.kt:30)
+	at instacli.cli.InstacliMain.invokeFile(Main.kt:88)
+	at instacli.cli.InstacliMain.run(Main.kt:61)
+	at instacli.cli.InstacliMain.run$default(Main.kt:39)
+	at instacli.cli.InstacliMain$Companion.main(Main.kt:161)
+	at instacli.cli.InstacliMain$Companion.main$default(Main.kt:151)
+	at instacli.cli.MainKt.main(Main.kt:21)
+
+In error-in-add.cli:
+
+  Add: something to something
 ```
