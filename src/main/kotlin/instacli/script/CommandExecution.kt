@@ -90,7 +90,7 @@ fun handleCommand(handler: CommandHandler, data: JsonNode, context: ScriptContex
                 handler.execute(data, context)
             }
 
-            else -> throw IllegalArgumentException("Command '${handler.name}' does not handle content type ${data.javaClass.simpleName}")
+            else -> throw CommandFormatException("Command '${handler.name}' does not handle content type ${data.javaClass.simpleName}")
         }
     } catch (a: Break) {
         throw a

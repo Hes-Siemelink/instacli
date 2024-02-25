@@ -170,41 +170,49 @@ Options:
 
 ### --debug
 
-Use this option to see stacktraces from the underlying runtime when an error occurs.
+Use this option to see stacktraces from the underlying runtime when an internal error occurs. This option is meant for
+troubleshooting the Instacli runtime.
 
-For example this file, `error-in-add.cli`, has an error in it, since you can not add text content:
+For example, the file `error-in-add.cli` has an error in it that is not handled by Instacli.
 
-```yaml
-Add: something to something
+```yaml file:script-with-error.cli
+GET: http:\\localhost  # Malformed URL - not caught by Instacli runtime
 ```
 
 Without debug mode you get the following error message
 
-```commandline
-cli -d error-in-add.cli
+```commandline cli
+cli script-with-error.cli
 ```
 
-```
+```cli output
 Instacli scripting error
 
-Caused by: java.lang.IllegalArgumentException: Command 'Add' does not handle content type TextNode
+Caused by: java.net.URISyntaxException: Illegal character in opaque part at index 5: http:\\localhost
 
-In error-in-add.cli:
+In script-with-error.cli:
 
-  Add: something to something
+  GET: http:\\localhost
 ```
 
 With the `--debug` option you will see more of the internals.
 
-```commandline
-cli --debug error-in-add.cli
+```commandline cli
+cli --debug script-with-error.cli
 ```
 
 ```
 Instacli scripting error
 
-Caused by: java.lang.IllegalArgumentException: Command 'Add' does not handle content type TextNode
-	at instacli.script.CommandExecutionKt.handleCommand(CommandExecution.kt:93)
+Caused by: java.net.URISyntaxException: Illegal character in opaque part at index 5: http:\\localhost
+	at java.base/java.net.URI$Parser.fail(URI.java:2976)
+	at java.base/java.net.URI$Parser.checkChars(URI.java:3147)
+	at java.base/java.net.URI$Parser.parse(URI.java:3183)
+	at java.base/java.net.URI.<init>(URI.java:623)
+	at instacli.commands.HttpCommandsKt.processRequestWithoutBody(HttpCommands.kt:150)
+	at instacli.commands.HttpCommandsKt.access$processRequestWithoutBody(HttpCommands.kt:1)
+	at instacli.commands.HttpGet.execute(HttpCommands.kt:52)
+	at instacli.script.CommandExecutionKt.handleCommand(CommandExecution.kt:82)
 	at instacli.script.CommandExecutionKt.runSingleCommand(CommandExecution.kt:59)
 	at instacli.script.CommandExecutionKt.runCommand(CommandExecution.kt:20)
 	at instacli.script.Script.runScript(Script.kt:23)
@@ -216,7 +224,9 @@ Caused by: java.lang.IllegalArgumentException: Command 'Add' does not handle con
 	at instacli.cli.InstacliMain$Companion.main$default(Main.kt:151)
 	at instacli.cli.MainKt.main(Main.kt:21)
 
-In error-in-add.cli:
+In error.cli:
 
-  Add: something to something
+  GET: http:\\localhost
 ```
+
+This may help the Instacli runtime developer to diagnose the problem and fix it,

@@ -183,7 +183,7 @@ object Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler 
                 return IntNode(data.textValue().length)
             }
         }
-        throw IllegalArgumentException("Unsupported type: ${data.javaClass}")
+        throw CommandFormatException("Unsupported type: ${data.javaClass}")
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

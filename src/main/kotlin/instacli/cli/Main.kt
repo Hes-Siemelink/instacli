@@ -15,7 +15,7 @@ object InstacliPaths {
     val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
 }
 
-class InvocationException(message: String) : Exception(message)
+class CliInvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
     val status = InstacliMain.main(args)
@@ -73,7 +73,7 @@ class InstacliMain(
             return adjustedFile
         }
 
-        throw InvocationException("Could not find command: ${fileName}")
+        throw CliInvocationException("Could not find command: ${fileName}")
     }
 
     private fun invokeFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
@@ -101,7 +101,7 @@ class InstacliMain(
 
         // No Instacli scripts in directory
         if (context.getAllCommands().isEmpty()) {
-            throw InvocationException("No Instacli commands in ${cliDir.toAbsolutePath()}")
+            throw CliInvocationException("No Instacli commands in ${cliDir.toAbsolutePath()}")
         }
 
         // Parse command
@@ -122,7 +122,7 @@ class InstacliMain(
         }
 
         // Command not found
-        throw InvocationException("Command '$rawCommand' not found in ${cliDir.name}")
+        throw CliInvocationException("Command '$rawCommand' not found in ${cliDir.name}")
     }
 
     private fun getCommand(args: List<String>, context: CliFileContext, interactive: Boolean): String? {
@@ -152,7 +152,7 @@ class InstacliMain(
 
             val options = try {
                 CliCommandLineOptions(args.toList())
-            } catch (e: InvocationException) {
+            } catch (e: CliInvocationException) {
                 System.err.println(e.message)
                 return 1
             }
@@ -160,7 +160,7 @@ class InstacliMain(
             try {
                 InstacliMain(options, workingDir = workingDir).run()
 
-            } catch (e: InvocationException) {
+            } catch (e: CliInvocationException) {
                 System.err.println(e.message)
                 return 1
 

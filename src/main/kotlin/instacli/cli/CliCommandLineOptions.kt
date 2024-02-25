@@ -55,7 +55,7 @@ private fun InputData.getOption(option: String): Pair<String, ParameterData> {
             return Pair(key, value)
         }
     }
-    throw InvocationException("Invalid option: $option")
+    throw CliInvocationException("Invalid option: $option")
 }
 
 private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
@@ -107,7 +107,7 @@ internal fun toParameterMap(args: List<String>): Map<String, String> {
         if (isFlag(argument)) {
             currentArgument = noFlag(argument)
         } else {
-            currentArgument ?: throw IllegalArgumentException("First element can't be a flag in $args")
+            currentArgument ?: throw CliInvocationException("First element can't be a flag in $args")
             parameters[currentArgument] = argument
         }
     }

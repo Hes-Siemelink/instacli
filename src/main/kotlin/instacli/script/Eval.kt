@@ -15,7 +15,7 @@ fun eval(data: JsonNode, context: ScriptContext): JsonNode {
             evalObject(data, context)
         }
 
-        else -> throw IllegalArgumentException("Unknown type ${data.javaClass.name}")
+        else -> throw IllegalStateException("Unknown type ${data.javaClass.name}")
     }
 }
 
