@@ -2,7 +2,7 @@
 
 ## REST API interaction
 
-### Http commands
+### Http client
 
 * [GET](http/GET.md)
 * [POST](http/POST.md)
@@ -11,9 +11,7 @@
 * [DELETE](http/DELETE.md)
 * [Http request defaults](http/Http%20request%20defaults.md)
 
-* [Http server](http/Http%20server.md)
-
-### Manage connections
+### Manage connection credentials
 
 * [Connect to](connections/Connect%20to.md)
 * [Create account](connections/Create%20account.md)
@@ -21,6 +19,10 @@
 * [Get accounts](connections/Get%20accounts.md)
 * [Set default account](connections/Set%20default%20account.md)
 * [Delete account](connections/Delete%20account.md)
+
+### Http server
+
+* [Http server](http/Http%20server.md)
 
 ## Core instacli
 
