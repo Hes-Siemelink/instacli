@@ -1,13 +1,10 @@
 # On my mind
 
 * Digital.ai Platform sample
-    * Reuse session, avoid "Connecting to" being done twice
     * Review Script info on directories
 * Document for first user
     * How-to per topic
     * Output in JSON and YAML
-    * User Kinquirer Mock output from UserPrompt also in ConsoleOutput for running cli against directories in
-      interactive mode
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
 
@@ -43,6 +40,8 @@
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 * Define 'output type' on Script info
 * Add condition to input fields on Script info and Prompt
+* 'DelayedVariableResolver' should also be 'DelayedEvalResolver' => Eval is done too eagerly within If, for example try
+  doing a 'Prompt' in else
 * Special variables
     * `input`
     * `output`

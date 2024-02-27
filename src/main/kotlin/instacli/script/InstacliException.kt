@@ -2,7 +2,6 @@ package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.InputData
-import instacli.util.toDisplayString
 
 open class InstacliException(
     message: String,
@@ -11,12 +10,6 @@ open class InstacliException(
     var context: String? = null
 ) :
     Exception(message, cause) {
-
-    val details: String?
-        get() = data?.let {
-            val yaml = data.toDisplayString().prependIndent("  ")
-            "In command:\n\n${yaml}".trimMargin()
-        }
 }
 
 class CommandFormatException(message: String) : InstacliException(message)

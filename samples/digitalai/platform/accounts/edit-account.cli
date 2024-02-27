@@ -9,12 +9,23 @@ Connect to: Digital.ai Platform
 
 Search accounts:
   name: ${input.name}
+As: ${accounts}
 
-Prompt:
-  description: Select account to edit
-  type: select one
-  display: name
-As: ${account}
+If:
+  item:
+    :Size: ${accounts}
+  equals: 1
+  then:
+    ${account}: ${accounts[0]}
+  else:
+    Prompt:
+      description: Select account to edit
+      choices: ${accounts}
+      type: select one
+      display: name
+    As: ${account}
+
+Print: Editing account ${account.name}
 
 ---
 # Edit account
