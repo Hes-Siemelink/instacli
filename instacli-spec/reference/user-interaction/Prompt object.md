@@ -1,6 +1,6 @@
 # Command: Prompt object
 
-`Promp all` is like [Prompt](Prompt.md), but asks mutlitple questions
+`Promp object` is like [Prompt](Prompt.md), but asks mutlitple questions
 
 | Content type | Supported |
 |--------------|-----------|

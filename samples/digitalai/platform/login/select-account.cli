@@ -7,9 +7,8 @@ Script info:
 
 ---
 Get accounts: ${input.target}
-Add to:
-  ${output}:
-    name: "* Create new account"
+Append:
+  name: "* Create new account"
 As: ${accounts}
 
 ---
@@ -24,7 +23,7 @@ As: ${account}
 If:
   empty: ${account.url}
   then:
-    Create platform connection: { }
+    Create account: { }
     As: ${account}
 
 ---

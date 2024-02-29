@@ -7,9 +7,8 @@ Script info:
 
 ---
 Get accounts: ${input.target}
-Add to:
-  ${output}:
-    name: "* Create new account"
+Append:
+  name: "* Create new account"
 As: ${accounts}
 
 ---

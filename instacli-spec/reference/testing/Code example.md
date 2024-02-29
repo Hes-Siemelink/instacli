@@ -1,6 +1,6 @@
 # Command: Code example
 
-`Code example` marks the start of example code in a markdown document.
+`Code example` marks the start of example code in a Markdown document.
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,8 +10,8 @@
 
 ## Basic usage
 
-With **Code example** you give a name to snippet of code inside a Markdown document. This can be picked up by the test runner to validate the code that is being
-described.
+With **Code example** you give a name to snippet of code inside a Markdown document. This can be picked up by the test
+runner to validate the code that is being described.
 
 This is what it looks like when writing Markdown:
 

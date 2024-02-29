@@ -1,6 +1,6 @@
 # Command: Read file
 
-`Read file` loads Yaml.
+`Read file` loads Yaml from a file
 
 | Content type | Supported                                        |
 |--------------|--------------------------------------------------|

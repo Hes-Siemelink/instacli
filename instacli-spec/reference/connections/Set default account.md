@@ -1,6 +1,6 @@
 # Command: Set default account
 
-Sets the default account for the user's account list..
+Sets the default account for the user's account list.
 
 | Content type | Supported                |
 |--------------|--------------------------|

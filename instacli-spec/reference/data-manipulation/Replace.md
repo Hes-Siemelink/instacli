@@ -1,6 +1,6 @@
 # Command: Replace
 
-`Replace` does a text find & replace.
+Does a text-based find&replace.
 
 | Content type   | Supported |
 |----------------|-----------|

@@ -1,11 +1,11 @@
 # On my mind
 
+* Document **Save as**
 * Document for first user
     * How-to per topic
 * Output in JSON and YAML
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
-* Add support for 'output chaining' on Sort and update `get-albums.cli`
 * Error handling
 
 # Where to take it
@@ -56,6 +56,23 @@
 if (System.`in`.available() != 0) {
     val input = Yaml.mapper.readTree(System.`in`)
 }
+```
+
+## BUGS
+
+```commandline
+➜  samples git:(main) ✗ cli digitalai/platform/login/select-account.cli
+? Select account to log in with * Create new account
+
+Instacli scripting error
+
+Caused by: java.lang.NullPointerException: textValue(...) must not be null
+
+In select-account.cli:
+
+Set default account:
+target: Digital.ai Platform
+name: null
 ```
 
 # Blog topics

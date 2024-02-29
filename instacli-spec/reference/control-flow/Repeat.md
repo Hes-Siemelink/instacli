@@ -1,6 +1,6 @@
-# Command: When
+# Command: Repeat
 
-`When` executes a single command from a list of conditions
+Executes a block of code until a condition is satisfied.
 
 | Content type                         | Supported |
 |--------------------------------------|-----------|
@@ -13,19 +13,18 @@
 ## Basic usage
 
 **Repeat** repeats a bunch of commands until the condition specified in `Until` is reached.
-See [conditions](../testing/Assert%20that.md#conditions)
-in [Assert that](../testing/Assert%20that.md)
+See [conditions](../testing/Assert%20that.md#conditions).
 
 ```yaml instacli
 Code example: Count to five
 
-Output: 0
+Output: 1
 
 Repeat:
-  Add to:
-    ${output}: 1
+  Print: ${output}
 
-  until: 5
+  Append: 1
+  until: 6
 ```
 
 Prints:

@@ -18,7 +18,7 @@ As: ${endpoint}
 If:
   empty: ${endpoint}
   then:
-    Create platform connection: { }
+    Create account: { }
     As: ${endpoint}
 
 Print: Connecting as ${endpoint.username} to ${endpoint.id} on ${endpoint.url}
