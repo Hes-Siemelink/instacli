@@ -42,6 +42,9 @@ class CliFileContext(
         }
     }
 
+    override val output: JsonNode?
+        get() = variables[OUTPUT_VARIABLE]
+
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
         get() = scriptDir.name

@@ -60,8 +60,7 @@ object SaveAs : CommandHandler("Save as"), ValueHandler {
         val destinationFile = Path.of(data.textValue())
         destinationFile.createParentDirectories()
 
-        val contents = context.variables[OUTPUT_VARIABLE].toDisplayString()
-        Files.writeString(destinationFile, contents)
+        Files.writeString(destinationFile, context.output.toDisplayString())
 
         return null
     }

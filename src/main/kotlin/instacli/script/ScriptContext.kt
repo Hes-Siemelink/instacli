@@ -12,6 +12,7 @@ interface ScriptContext {
     val cliFile: Path
     val scriptDir: Path
     val workingDir: Path
+    val output: JsonNode?
 
     fun getCommandHandler(command: String): CommandHandler
     fun clone(): ScriptContext

@@ -79,7 +79,9 @@ object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val parameter = ParameterData.from(data)
 
-        parameter.choices = parameter.choices ?: context.variables[OUTPUT_VARIABLE]?.toList()
+        parameter.choices = parameter.choices
+            ?: context.output?.toList()
+                    ?: throw CliScriptException("Specify 'choices' or make sure \${output} is not empty")
 
         return prompt(parameter)
     }

@@ -7,6 +7,7 @@
   something has been set as Http defaults
 * Add support for 'output chaining' on Sort and update `get-albums.cli`
 * Error handling
+* Don't show hidden scripts in help
 
 # Where to take it
 

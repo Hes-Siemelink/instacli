@@ -69,7 +69,7 @@ object ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResol
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
-        val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.variables[OUTPUT_VARIABLE])
+        val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.output)
         checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
         val itemListExpanded = resolveVariables(itemList, context.variables)
         val items = toArrayNode(itemListExpanded)
@@ -136,7 +136,7 @@ object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver
 
         var finished = false
         while (!finished) {
-            val result = data.deepCopy().runScript(context) ?: context.variables[OUTPUT_VARIABLE]
+            val result = data.deepCopy().runScript(context) ?: context.output
 
             if (until is ObjectNode) {
                 val conditions = resolveVariables(until.deepCopy(), context.variables)
