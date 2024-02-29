@@ -42,11 +42,9 @@ object StandardOutput : ConsoleOutput {
         println("Available commands:")
 
         val width = commands.maxOf { it.name.length }
-        commands
-            .filter { !it.hidden }
-            .forEach {
-                println("  ${infoString(it.name, it.description, width)}")
-            }
+        commands.forEach {
+            println("  ${infoString(it.name, it.description, width)}")
+        }
     }
 
     override fun printDirectoryInfo(info: DirectoryInfo) {

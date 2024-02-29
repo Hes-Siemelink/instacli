@@ -137,7 +137,7 @@ class InstacliMain(
         output.printDirectoryInfo(context.info)
 
         // Select command
-        val commands = context.getAllCommands()
+        val commands = context.getAllCommands().filter { !it.hidden }
         return when {
             interactive && !options.help -> input.askForCommand(commands)
             else -> {

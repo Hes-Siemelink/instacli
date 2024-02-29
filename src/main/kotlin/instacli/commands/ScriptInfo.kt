@@ -81,7 +81,6 @@ object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
 
         parameter.choices = parameter.choices
             ?: context.output?.toList()
-                    ?: throw CliScriptException("Specify 'choices' or make sure \${output} is not empty")
 
         return prompt(parameter)
     }
