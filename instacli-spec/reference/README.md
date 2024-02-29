@@ -68,6 +68,7 @@
 
 * [Add](data-manipulation/Add.md)
 * [Add to](data-manipulation/Add%20to.md)
+* [Append](data-manipulation/Append.md)
 * [Find](data-manipulation/Find.md)
 * [Replace](data-manipulation/Replace.md)
 * [Size](data-manipulation/Size.md)

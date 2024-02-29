@@ -38,6 +38,7 @@ object CommandLibrary {
         // Data manipulation
         Add,
         AddTo,
+        Append,
         Fields,
         Replace,
         Size,

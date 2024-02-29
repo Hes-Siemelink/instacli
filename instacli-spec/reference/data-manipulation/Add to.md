@@ -46,27 +46,6 @@ Assert equals:
     expected: 50
 ```
 
-## Add to output
-
-Use **Add to** with the `${output}` variable to append something to the current output
-
-```yaml instacli
-Code example: Add a field
-
-Output:
-  1: one
-  2: two
-
-Add to:
-  ${output}:
-    3: three
-
-Expected output:
-  1: one
-  2: two
-  3: three
-```
-
 ## Adding to a list
 
 You can add an item to a list
@@ -74,17 +53,19 @@ You can add an item to a list
 ```yaml instacli
 Code example: Add an item to a list
 
-Output:
+${list}:
   - 1
   - 2
 
 Add to:
-  ${output}: 3
+  ${list}: 3
 
-Expected output:
-  - 1
-  - 2
-  - 3
+Assert equals:
+  actual: ${list}
+  expected:
+    - 1
+    - 2
+    - 3
 ```
 
 Or combine two lists.
@@ -92,20 +73,22 @@ Or combine two lists.
 ```yaml instacli
 Code example: Append a list to another
 
-Output:
+${list}:
   - 1
   - 2
 
 Add to:
-  ${output}:
+  ${list}:
     - 3
     - 4
 
-Expected output:
-  - 1
-  - 2
-  - 3
-  - 4
+Assert equals:
+  actual: ${list}
+  expected:
+    - 1
+    - 2
+    - 3
+    - 4
 ```
 
 ## Add to text
@@ -115,10 +98,17 @@ You can also extend a text string.
 ```yaml instacli
 Code example: Append text
 
-Output: Hello
+${text}: Hello
 
 Add to:
-  ${output}: " World"
+  ${text}: " World"
 
-Expected output: Hello World
+Assert equals:
+  actual: ${text}
+  expected: Hello World
 ```
+
+## Add to output
+
+Use **[Append](Append.md)** to add something to the `${output}` variable.
+

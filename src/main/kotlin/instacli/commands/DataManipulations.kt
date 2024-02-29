@@ -31,13 +31,23 @@ object AddTo : CommandHandler("Add to"), ObjectHandler {
                 ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
 
-            var total: JsonNode = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
+            var total = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
             for (item in asArrayNode(value)) {
                 total = add(total, item)
             }
             context.variables[varName] = total
         }
         return null
+    }
+}
+
+object Append : CommandHandler("Append"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        var total = context.output ?: throw CliScriptException("Output should not be empty.")
+        for (item in asArrayNode(data)) {
+            total = add(total, item)
+        }
+        return total
     }
 }
 
