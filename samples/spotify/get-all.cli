@@ -1,0 +1,23 @@
+Script info:
+  description: Get complete results by getting all paginated ones.
+  input:
+    url: Spotify url to GET
+  hidden: true
+
+---
+${all}: [ ]
+${offset}: 0
+
+Repeat:
+
+  GET: ${input.url}&limit=50&offset=${offset}
+  As: ${result}
+
+  Add to:
+    ${all}: ${result.items}
+    ${offset}: 50
+
+  until:
+    empty: ${result.items}
+
+Output: ${all}

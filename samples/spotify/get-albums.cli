@@ -11,25 +11,9 @@ As: ${artist}
 ---
 Connect to: Spotify
 
-# Get all albums using paginated requests
-${albums}: [ ]
-${offset}: 0
-
-Repeat:
-
-  GET: /artists/${artist.id}/albums?include_groups=album&limit=50&offset=${offset}
-  As: ${result}
-
-  Add to:
-    ${albums}: ${result.items}
-    ${offset}: 50
-
-  until:
-    empty: ${result.items}
-
----
+Get all:
+  url: /artists/${artist.id}/albums?include_groups=album
 Sort:
-  items: ${albums}
   by: release_date
 As: ${albums}
 

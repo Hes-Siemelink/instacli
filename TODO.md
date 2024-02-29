@@ -1,12 +1,12 @@
 # On my mind
 
-* Digital.ai Platform sample
-    * Review Script info on directories
 * Document for first user
     * How-to per topic
-    * Output in JSON and YAML
+* Output in JSON and YAML
 * Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
   something has been set as Http defaults
+* Add support for 'output chaining' on Sort and update `get-albums.cli`
+* Error handling
 
 # Where to take it
 
@@ -35,6 +35,7 @@
     * https://github.com/pwall567/json-kotlin-schema
 * Error handling
 * Error reporting -> "StackTrace"
+* Review Script info on directories
 * Secrets
 * Raw and live / Apply variables
 * CommandLibrary should store commands in canonical form: all lower case and spaces

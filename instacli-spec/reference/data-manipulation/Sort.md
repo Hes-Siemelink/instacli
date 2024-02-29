@@ -7,7 +7,7 @@
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `items`      | required  |
+| `items`      | optional  |
 | `by`         | required  |
 
 ## Basic usage
@@ -20,19 +20,46 @@ Code example: Sort a list of things
 
 Sort:
   items:
-    - name: Three
+    - name: March
       value: 3
-    - name: One
-      value: 1
-    - name: Two
+    - name: February
       value: 2
+    - name: January
+      value: 1
   by: value
 
 Expected output:
-  - name: One
+  - name: January
     value: 1
-  - name: Two
+  - name: February
     value: 2
-  - name: Three
+  - name: March
+    value: 3
+```
+
+## Output chaining
+
+If the ouput variable is set, you can leave out the `items` field.
+
+```yaml instacli
+Code example: Sort output
+
+Output:
+  - name: January
+    value: 1
+  - name: February
+    value: 2
+  - name: March
+    value: 3
+
+Sort:
+  by: name
+
+Expected output:
+  - name: February
+    value: 2
+  - name: January
+    value: 1
+  - name: March
     value: 3
 ```

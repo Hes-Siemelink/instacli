@@ -81,7 +81,10 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
 
 object Sort : CommandHandler("Sort"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val items = data.getParameter("items")
+        val items = data["items"]
+            ?: context.variables[OUTPUT_VARIABLE]
+            ?: throw CliScriptException("Specify 'items' or make sure \${output} is set.")
+
         if (items !is ArrayNode) throw CommandFormatException("items should be an array")
         val sortField = data.getTextParameter("by")
 
