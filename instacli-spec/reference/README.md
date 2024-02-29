@@ -36,12 +36,8 @@
 ### Variables
 
 * [${..} assignment](variables/Assignment.md) - Sets a variable value
-* [As](variables/As.md) - Sets a variable to the contents of the `${output}` variable
-* [Output](variables/Output.md) - Sets the `${output}` variable
-
-<!--
-* Apply variables
--->
+* [As](variables/As.md) - Sets a variable to the contents of the output variable
+* [Output](variables/Output.md) - Sets the output variable
 
 ### Testing
 
@@ -49,7 +45,7 @@
 * [Assert that](testing/Assert%20that.md) - Executes a condition
 * [Assert equals](testing/Assert%20equals.md) - Tests two objects for equality
 * [Code example](testing/Code%20example.md) - Marks example code
-* [Expected output](testing/Expected%20output.md) - Tests the `${output}` variable against a given value
+* [Expected output](testing/Expected%20output.md) - Tests the output variable against a given value
 * [Stock answers](testing/Stock%20answers.md) - Prerecords answers for prompts, so they can pass automated tests.
 
 ### Control flow
