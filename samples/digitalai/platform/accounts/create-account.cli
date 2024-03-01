@@ -15,3 +15,10 @@ POST:
     vanity_domain: ${input.id}
     activated: true
     allow_self_registration: true
+
+---
+On error type:
+  400:
+    Print: ${error.data.error.message}
+  any:
+    Print: ${error.data}

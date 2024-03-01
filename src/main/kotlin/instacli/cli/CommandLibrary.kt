@@ -31,6 +31,11 @@ object CommandLibrary {
         Repeat,
         Find,
 
+        // Error handling
+        ErrorCommand,
+        OnError,
+        OnErrorType,
+
         // User interaction
         Prompt,
         PromptObject,

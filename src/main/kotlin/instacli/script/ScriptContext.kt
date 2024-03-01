@@ -13,6 +13,7 @@ interface ScriptContext {
     val scriptDir: Path
     val workingDir: Path
     val output: JsonNode?
+    var error: InstacliErrorCommand?
 
     fun getCommandHandler(command: String): CommandHandler
     fun clone(): ScriptContext

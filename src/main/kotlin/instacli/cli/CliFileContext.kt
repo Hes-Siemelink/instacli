@@ -44,6 +44,7 @@ class CliFileContext(
 
     override val output: JsonNode?
         get() = variables[OUTPUT_VARIABLE]
+    override var error: InstacliErrorCommand? = null
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String

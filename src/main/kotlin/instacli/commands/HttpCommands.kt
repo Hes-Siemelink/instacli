@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
-import instacli.util.Yaml.parse
+import instacli.util.Yaml
 import instacli.util.objectNode
 import instacli.util.toDisplayString
 import io.ktor.client.*
@@ -233,7 +233,11 @@ private suspend fun parseResponse(
 
     // Error
     if (!response.status.isSuccess()) {
-        throw InstacliException("$response\n${response.bodyAsText()}")
+        val errorData = ErrorData()
+        errorData.message = "Http error"
+        errorData.type = response.status.value.toString()
+        errorData.data = Yaml.parse(response.bodyAsText())
+        throw InstacliErrorCommand(errorData)
     }
 
     // No content
@@ -249,7 +253,7 @@ private suspend fun parseResponse(
     return try {
         // Parse result as JSON node
         val body = response.body<String>()
-        parse(body)
+        Yaml.parse(body)
     } catch (e: Exception) {
         // If there are any parsing or encoding errors, just return a String in TextNode
         val byteArrayBody: ByteArray = response.body()

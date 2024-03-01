@@ -94,6 +94,8 @@ fun handleCommand(handler: CommandHandler, data: JsonNode, context: ScriptContex
         }
     } catch (a: Break) {
         throw a
+    } catch (e: InstacliErrorCommand) {
+        throw e
     } catch (e: InstacliException) {
         e.data = asCommand(handler, data)
         throw e

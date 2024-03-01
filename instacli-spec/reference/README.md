@@ -58,6 +58,12 @@
 * [When](control-flow/When.md) - Executes a single command from a list of conditions
 * [Eval](control-flow/Eval.md) - Runs code in a functional style 🐍
 
+### Error handling
+
+* [Error](errors/Error.md) - Raises an error
+* [On error](errors/On%20error.md) - Handles any error
+* [On error type](errors/On%20error%20type.md) - Handles an error of a specific type
+
 ### User interaction
 
 * [Prompt](user-interaction/Prompt.md) - Asks the user for input with an interactive prompt
