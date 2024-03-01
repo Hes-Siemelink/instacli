@@ -43,7 +43,7 @@ object AddTo : CommandHandler("Add to"), ObjectHandler {
 
 object Append : CommandHandler("Append"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
-        var total = context.output ?: throw CliScriptException("Output should not be empty.")
+        var total = context.output ?: return data
         for (item in asArrayNode(data)) {
             total = add(total, item)
         }
