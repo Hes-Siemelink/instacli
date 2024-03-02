@@ -62,7 +62,7 @@ private fun runSingleCommand(
             context.variables[OUTPUT_VARIABLE] = result
         }
         return result
-    } catch (e: InstacliException) {
+    } catch (e: InstacliLanguageException) {
         e.data ?: run {
             e.data = asCommand(handler, data)
         }
@@ -94,13 +94,13 @@ fun handleCommand(handler: CommandHandler, data: JsonNode, context: ScriptContex
         }
     } catch (a: Break) {
         throw a
-    } catch (e: InstacliErrorCommand) {
+    } catch (e: InstacliCommandError) {
         throw e
-    } catch (e: InstacliException) {
+    } catch (e: InstacliLanguageException) {
         e.data = asCommand(handler, data)
         throw e
     } catch (e: Exception) {
-        throw InstacliInternalException("", asCommand(handler, data), e)
+        throw InstacliImplementationException("", asCommand(handler, data), e)
     }
 }
 

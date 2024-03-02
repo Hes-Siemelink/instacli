@@ -30,7 +30,11 @@ object GetAccount : CommandHandler("Get account"), ValueHandler {
                 target.accounts.first()
             }
 
-            else -> throw CliScriptException("No accounts defined for $targetName")
+            else -> throw InstacliCommandError(
+                "No accounts defined for $targetName",
+                "no accounts",
+                objectNode("target", targetName)
+            )
         }
     }
 }
@@ -56,7 +60,11 @@ object GetAccounts : CommandHandler("Get accounts"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val targetName = data.asText()
         val connections = Connections.getFrom(context)
-        val target = connections.targets[targetName] ?: throw CliScriptException("Unknown target $targetName")
+        val target = connections.targets[targetName] ?: throw InstacliCommandError(
+            "Unknown target $targetName",
+            "unknown target",
+            objectNode("target", targetName)
+        )
 
         return target.accounts()
     }
@@ -100,7 +108,7 @@ object ConnectTo : CommandHandler("Connect to"), ValueHandler {
 
         val targetName = data.textValue()
         val connectScript = context.info.connections[targetName]
-            ?: throw CliScriptException("No connection script configured for $targetName in ${context.cliFile.parent.toRealPath().name}")
+            ?: throw CliScriptingException("No connection script configured for $targetName in ${context.cliFile.parent.toRealPath().name}")
 
         when (connectScript) {
             is ValueNode -> {

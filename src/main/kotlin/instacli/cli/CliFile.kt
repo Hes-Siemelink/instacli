@@ -30,7 +30,7 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
             script.runScript(context)
         } catch (a: Break) {
             a.output
-        } catch (e: InstacliException) {
+        } catch (e: InstacliLanguageException) {
             e.context = context.cliFile.name
             throw e
         }

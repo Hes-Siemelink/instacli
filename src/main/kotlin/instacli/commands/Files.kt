@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.script.*
 import instacli.util.Yaml
+import instacli.util.objectNode
 import instacli.util.toDisplayString
 import java.nio.file.Files
 import java.nio.file.Path
@@ -36,7 +37,11 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
             if (file.exists()) {
                 file
             } else {
-                throw CliScriptException("File not found: ${file.toRealPath()}")
+                throw InstacliCommandError(
+                    "File not found: ${file.toRealPath()}",
+                    "file not found",
+                    objectNode("file", file.toRealPath().toString())
+                )
             }
         }
 
@@ -46,11 +51,11 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
             } else if (contains("resource")) {
                 this["resource"].toPath(context, context.scriptDir)
             } else {
-                throw CliScriptException("Expected either 'file' or 'resource' property.");
+                throw CliScriptingException("Expected either 'file' or 'resource' property.");
             }
         }
 
-        else -> throw CliScriptException("Unsupported node type for files: ${javaClass.simpleName}")
+        else -> throw CliScriptingException("Unsupported node type for files: ${javaClass.simpleName}")
     }
 }
 

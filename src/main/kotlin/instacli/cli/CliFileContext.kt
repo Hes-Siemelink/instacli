@@ -44,7 +44,7 @@ class CliFileContext(
 
     override val output: JsonNode?
         get() = variables[OUTPUT_VARIABLE]
-    override var error: InstacliErrorCommand? = null
+    override var error: InstacliCommandError? = null
 
     val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
     val name: String
@@ -79,7 +79,7 @@ class CliFileContext(
         }
 
         // No handler found for command
-        throw CliScriptException("Unknown command: $command")
+        throw CliScriptingException("Unknown command: $command")
     }
 
     private fun findLocalFileCommands(): Map<String, CliFile> {

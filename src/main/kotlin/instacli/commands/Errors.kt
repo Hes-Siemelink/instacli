@@ -10,12 +10,12 @@ import instacli.util.toDisplayString
 
 object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, ArrayHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        throw InstacliErrorCommand(data.toDisplayString())
+        throw InstacliCommandError(data.toDisplayString())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val errorData = ErrorData.from(data)
-        throw InstacliErrorCommand(errorData.message, errorData)
+        throw InstacliCommandError(errorData.message, errorData)
     }
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
@@ -64,8 +64,10 @@ class ErrorData {
     var data: JsonNode? = null
 
     constructor()
-    constructor(message: String) {
+    constructor(message: String = "An error occurred", type: String = "general", data: JsonNode? = null) {
         this.message = message
+        this.type = type
+        this.data = data
     }
 
     companion object {

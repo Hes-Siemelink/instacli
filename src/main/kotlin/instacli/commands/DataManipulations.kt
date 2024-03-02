@@ -28,10 +28,10 @@ object AddTo : CommandHandler("Add to"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
             val match = VARIABLE_REGEX.matchEntire(key)
-                ?: throw CliScriptException("Entries should be in \${..} variable syntax.")
+                ?: throw CliScriptingException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
 
-            var total = context.variables[varName] ?: throw CliScriptException("Variable $varName not found.")
+            var total = context.variables[varName] ?: throw CliScriptingException("Variable $varName not found.")
             for (item in asArrayNode(value)) {
                 total = add(total, item)
             }
@@ -57,7 +57,7 @@ fun add(target: JsonNode, item: JsonNode): JsonNode {
         is ObjectNode -> addToObject(target, item)
         is TextNode -> addToText(target, item)
         is IntNode -> addToInt(target, item)
-        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+        else -> throw CliScriptingException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
     }
 }
 
@@ -71,21 +71,21 @@ fun addToArray(target: ArrayNode, item: JsonNode): ArrayNode {
 fun addToObject(target: ObjectNode, item: JsonNode): ObjectNode {
     return when (item) {
         is ObjectNode -> target.setAll<ObjectNode>(item)
-        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+        else -> throw CliScriptingException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
     }
 }
 
 fun addToText(target: TextNode, item: JsonNode): TextNode {
     return when (item) {
         is ValueNode -> TextNode(target.asText() + item.asText())
-        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+        else -> throw CliScriptingException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
     }
 }
 
 fun addToInt(target: IntNode, item: JsonNode): IntNode {
     return when (item) {
         is NumericNode -> IntNode(target.asInt() + item.asInt())
-        else -> throw CliScriptException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
+        else -> throw CliScriptingException("Can't add a ${item.javaClass.simpleName} to a ${target.javaClass.simpleName}")
     }
 }
 
@@ -93,7 +93,7 @@ object Sort : CommandHandler("Sort"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val items = data["items"]
             ?: context.output
-            ?: throw CliScriptException("Specify 'items' or make sure \${output} is set.")
+            ?: throw CliScriptingException("Specify 'items' or make sure \${output} is set.")
 
         if (items !is ArrayNode) throw CommandFormatException("items should be an array")
         val sortField = data.getTextParameter("by")

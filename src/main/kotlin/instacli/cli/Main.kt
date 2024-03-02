@@ -1,6 +1,6 @@
 package instacli.cli
 
-import instacli.script.InstacliException
+import instacli.script.InstacliLanguageException
 import instacli.script.MissingParameterException
 import instacli.script.ScriptContext
 import instacli.script.addInputVariables
@@ -170,7 +170,7 @@ class InstacliMain(
                 System.err.println(e.options.toDisplayString())
                 return 1
 
-            } catch (e: InstacliException) {
+            } catch (e: InstacliLanguageException) {
                 reportError(e, options.debug)
                 return 1
             }
@@ -180,11 +180,11 @@ class InstacliMain(
     }
 }
 
-private fun reportError(e: InstacliException, printStackTrace: Boolean) {
+private fun reportError(e: InstacliLanguageException, printStackTrace: Boolean) {
     System.err.println("\nInstacli scripting error")
 
     // Exception caused by incorrect instacli script
-    if (e.cause == null || e.cause is InstacliException) {
+    if (e.cause == null || e.cause is InstacliLanguageException) {
         System.err.println("\n${e.message}")
     } else {
         // Unexpected exception from command handler implementation

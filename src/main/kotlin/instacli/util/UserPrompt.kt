@@ -11,7 +11,7 @@ import com.github.kinquirer.components.promptInputPassword
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.commands.StockAnswers
-import instacli.script.CliScriptException
+import instacli.script.CliScriptingException
 
 interface UserPrompt {
     fun prompt(message: String, default: String = "", password: Boolean = false): JsonNode
@@ -119,7 +119,7 @@ object TestPrompt : UserPrompt {
         } else {
             val selection = choices.find {
                 selectedAnswer.textValue() == it.displayName
-            } ?: throw CliScriptException("Prerecorded choice '$selectedAnswer' not found in provided list.")
+            } ?: throw CliScriptingException("Prerecorded choice '$selectedAnswer' not found in provided list.")
 
             println(KInquirer.renderInput(message, choices, selection.displayName))
 

@@ -29,7 +29,7 @@ class Script(val commands: List<Command>) {
 
             try {
                 output = runCommand(handler, evaluatedData, context) ?: output
-            } catch (e: InstacliErrorCommand) {
+            } catch (e: InstacliCommandError) {
                 context.error = e
             }
         }

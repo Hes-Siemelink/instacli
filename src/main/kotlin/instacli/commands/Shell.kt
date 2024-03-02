@@ -8,6 +8,7 @@ import com.lordcodes.turtle.ShellCommandNotFoundException
 import com.lordcodes.turtle.ShellRunException
 import com.lordcodes.turtle.shellRun
 import instacli.script.*
+import instacli.util.objectNode
 import java.nio.file.Path
 
 object Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
@@ -32,9 +33,9 @@ private fun execute(commandLine: String, workingDir: Path): TextNode {
         return TextNode(output)
 
     } catch (e: ShellCommandNotFoundException) {
-        throw CliScriptException("Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}")
+        throw InstacliCommandError("Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}", "shell")
     } catch (e: ShellRunException) {
-        throw CliScriptException(e.message!!)
+        throw InstacliCommandError(e.message!!, "shell", objectNode("exitCode", e.exitCode.toString()))
     }
 }
 
