@@ -1,12 +1,11 @@
 # On my mind
 
-* Document **Save as**
 * Document for first user
-    * How-to per topic
-* Output in JSON and YAML
-* Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
-  something has been set as Http defaults
-* Error handling
+* Output in JSON by default?
+* Check output from Yaml scripts in tests
+* Rename 'basic/greet' to 'basic/greeting.cli'
+* Run CLI command as 'semi-interactive': print mock output and exit.
+    * Check with Running instacli and command line examples.
 
 # Where to take it
 
@@ -35,6 +34,8 @@
     * https://github.com/pwall567/json-kotlin-schema
 * Error handling
 * Error reporting -> "StackTrace"
+* Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
+  something has been set as Http defaults
 * Review Script info on directories
 * Secrets
 * Raw and live / Apply variables

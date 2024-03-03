@@ -1,0 +1,154 @@
+# Running Instacli files
+
+You run an Instacli file or directory with the `cli` command.
+
+## Global options
+
+When running `cli` or `cli --help`, the global options will be printed
+
+```commandline cli
+cli
+```
+
+```cli output
+Instacli -- Instantly create CLI applications with light scripting!
+
+Usage:
+   cli [global options] file | directory [command options]
+
+Global options:
+  --help, -h          Print help on a script or directory and does not run anything
+  --print-output, -o   Print the output at the end of the script
+  --non-interactive, -q   Indicate that Instacli should not prompt for user input
+  --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
+```
+
+For more information on the options, see [Command line options](Command%20line%20options.md)
+
+### Running a single file
+
+In the **[samples](/samples)** directory, there is a file `hello.cli` that contains a simple "Hello World" command:
+
+```yaml file:hello.cli
+Print: Hello from Instacli!
+```
+
+After [installing Instacli](/README.md#build--run), run it with the following command
+
+```commandline cli directory:samples
+cli hello.cli
+```
+
+And you will see this output:
+
+```cli output
+Hello from Instacli!
+```
+
+You can omit the `.cli` extension to make it look more like a "cli command":
+
+```commandline cli directory:samples
+cli hello
+```
+
+```cli output
+Hello from Instacli!
+```
+
+## Running a directory
+
+In the samples directory, there is a subdirectory basic with more Instacli scripts.
+
+Running Instacli on a directory will pop up a command chooser.
+
+```commandline
+cli basic
+```
+
+```
+Simple Instacli example scripts
+
+* Available commands: 
+ > create-greeting   Creates a greeting and puts it in the output
+   greet             Prints a greeting
+   multiple-choice   Interaction example
+   output            Sets test output
+   simple-question   Simple interactive prompt
+```
+
+After choosing a command with cursor keys and enter, ths script will be executed.
+
+You can also run in [non-interactive mode](Command%20line%20options.md#--non-interactive). In that case the script will
+just print the list of available commands and exit.
+
+Once you know which script you want to execute, simply chain them as commands on the command line. For example, execute
+the `greet.cli` script in the `basic` directory, do:
+
+```commandline cli directory:samples
+cli basic greet
+```
+
+This will give the expected output:
+
+```cli output
+Hello, World!
+```
+
+----------------------------------------------------------------------
+
+## Supplying input
+
+Some scripts take input. Use the [--help](Command%20line%20options.md#--help) option to list supported parameters
+
+```commandline cli directory:samples
+cli --help basic greet
+```
+
+```cli output
+Prints a greeting
+
+Options:
+  --name   Your name
+```
+
+With that information we can give the script some custom input:
+
+```commandline cli directory:samples
+cli basic greet --name Alice
+```
+
+Will print:
+
+```cli output
+Hello, Alice!
+```
+
+## Capturing output
+
+Some Instacli commands will produce output. By default, Instacli does not print the output. Use
+the [--print-output](Command%20line%20options.md#--print-output) option to see it.
+
+For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
+**[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
+another script.
+
+Running `create-greeting` like this will show nothing:
+
+```commandline cli directory:samples
+cli basic create-greeting --name Bob
+```
+
+The output is empty:
+
+```cli output
+```
+
+We will ser the output when passing the `--print-output` parameter, or its shortcut `-o`:
+
+```commandline cli directory:samples
+cli -o basic create-greeting --name Bob
+```
+
+```cli output
+Hello Bob!
+```

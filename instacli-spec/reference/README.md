@@ -89,7 +89,7 @@
 ### Files
 
 * [ReadFile](files/Read%20file.md) - Loads Yaml or Json from a file
-* SaveAs - Saves content to a file as Yaml
+* [SaveAs](files/Save%20as.md) - Saves content to a file as Yaml
 
 ### Call other scripts
 
