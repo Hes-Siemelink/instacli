@@ -27,7 +27,8 @@ For more information on the options, see [Command line options](Command%20line%2
 
 ### Running a single file
 
-In the **[samples](/samples)** directory, there is a file `hello.cli` that contains a simple "Hello World" command:
+In the **[samples](/samples)** directory, there is a file [hello.cli](/samples/hello.cli) that contains a simple "Hello
+World" command:
 
 ```yaml file:hello.cli
 Print: Hello from Instacli!
@@ -57,7 +58,7 @@ Hello from Instacli!
 
 ## Running a directory
 
-In the samples directory, there is a subdirectory basic with more Instacli scripts.
+In the samples directory, there is a subdirectory **[basic](/samples/basic)** with more Instacli scripts.
 
 Running Instacli on a directory will pop up a command chooser.
 
@@ -76,13 +77,21 @@ Simple Instacli example scripts
    simple-question   Simple interactive prompt
 ```
 
-After choosing a command with cursor keys and enter, ths script will be executed.
+After choosing a command with the cursor keys and pressing enter, ths script will be executed.
+
+```
+Simple Instacli example scripts
+
+* Available commands: greet             Prints a greeting
+---
+Hello, World!
+```
 
 You can also run in [non-interactive mode](Command%20line%20options.md#--non-interactive). In that case the script will
 just print the list of available commands and exit.
 
-Once you know which script you want to execute, simply chain them as commands on the command line. For example, execute
-the `greet.cli` script in the `basic` directory, do:
+Once you know which script you want to execute, simply chain them as commands on the command line. For example, to
+execute the `greet.cli` script in the `basic` directory, do:
 
 ```commandline cli directory:samples
 cli basic greet
@@ -98,7 +107,7 @@ Hello, World!
 
 ## Supplying input
 
-Some scripts take input. Use the [--help](Command%20line%20options.md#--help) option to list supported parameters
+Some scripts take input. Use the [--help](Command%20line%20options.md#--help) option to list the supported parameters
 
 ```commandline cli directory:samples
 cli --help basic greet
@@ -117,7 +126,7 @@ With that information we can give the script some custom input:
 cli basic greet --name Alice
 ```
 
-Will print:
+This will print:
 
 ```cli output
 Hello, Alice!
@@ -143,7 +152,7 @@ The output is empty:
 ```cli output
 ```
 
-We will ser the output when passing the `--print-output` parameter, or its shortcut `-o`:
+We will only see the output when passing the `--print-output` parameter, or its shortcut `-o`:
 
 ```commandline cli directory:samples
 cli -o basic create-greeting --name Bob
