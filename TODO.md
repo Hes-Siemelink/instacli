@@ -3,7 +3,6 @@
 * Document for first user
 * Output in JSON by default?
 * Check output from Yaml scripts in tests
-* Rename 'basic/greet' to 'basic/greeting.cli'
 * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.
 

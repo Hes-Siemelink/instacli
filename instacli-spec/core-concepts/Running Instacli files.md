@@ -27,8 +27,8 @@ For more information on the options, see [Command line options](Command%20line%2
 
 ### Running a single file
 
-In the **[samples](/samples)** directory, there is a file [hello.cli](/samples/hello.cli) that contains a simple "Hello
-World" command:
+In the **[samples](/samples)** directory, there is a file **[hello.cli](/samples/hello.cli)** that contains a simple "
+Hello World" command:
 
 ```yaml file:hello.cli
 Print: Hello from Instacli!
