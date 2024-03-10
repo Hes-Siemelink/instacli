@@ -88,7 +88,7 @@ private fun handleRequest(
     val output =
         when {
             data.output != null -> {
-                resolveVariables(data.output!!, localContext.variables)
+                data.output?.resolveVariables(localContext.variables)
             }
 
             data.script != null -> {

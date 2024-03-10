@@ -55,7 +55,7 @@ private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNod
     val then = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
     val else_: JsonNode? = data.remove("else")
 
-    val condition = parseCondition(resolveVariables(data, context.variables))
+    val condition = parseCondition(data.resolveVariables(context.variables))
     return if (condition.isTrue()) {
         then
     } else {
@@ -71,7 +71,7 @@ object ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResol
 
         val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.output)
         checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
-        val itemListExpanded = resolveVariables(itemList, context.variables)
+        val itemListExpanded = itemList.resolveVariables(context.variables)
         val items = toArrayNode(itemListExpanded)
 
         val output: JsonNode = if (itemListExpanded is ArrayNode) data.arrayNode() else data.objectNode()
@@ -139,7 +139,7 @@ object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver
             val result = data.deepCopy().runScript(context) ?: context.output
 
             if (until is ObjectNode) {
-                val conditions = resolveVariables(until.deepCopy(), context.variables)
+                val conditions = until.deepCopy().resolveVariables(context.variables)
                 finished = parseCondition(conditions).isTrue()
             } else {
                 finished = (result == until)

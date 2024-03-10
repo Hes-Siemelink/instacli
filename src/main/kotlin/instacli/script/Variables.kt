@@ -9,7 +9,11 @@ import instacli.util.toDisplayString
 
 val VARIABLE_REGEX = Regex("\\$\\{([^}]+)}")
 
-fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode {
+fun JsonNode.resolveVariables(variables: Map<String, JsonNode>): JsonNode {
+    return resolveVariablesIn(this, variables)
+}
+
+private fun resolveVariablesIn(data: JsonNode, variables: Map<String, JsonNode>): JsonNode {
     if (data is TextNode) {
         // Single variable reference will return full content of variable as node
         val singleVariableMatch = VARIABLE_REGEX.matchEntire(data.textValue())
@@ -28,14 +32,14 @@ fun resolveVariables(data: JsonNode, variables: Map<String, JsonNode>): JsonNode
     // Replace elements of a list containing a variable
     if (data is ArrayNode) {
         for (i in 0 until data.size()) {
-            data[i] = resolveVariables(data[i], variables)
+            data[i] = resolveVariablesIn(data[i], variables)
         }
     }
 
     // Replace elements of object containing a variable
     if (data is ObjectNode) {
         for (field in data.fields()) {
-            data.set<JsonNode>(field.key, resolveVariables(field.value, variables))
+            data.set<JsonNode>(field.key, resolveVariablesIn(field.value, variables))
         }
     }
 

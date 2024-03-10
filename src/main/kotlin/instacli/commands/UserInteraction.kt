@@ -97,7 +97,7 @@ object PromptObject : CommandHandler("Prompt object"), ObjectHandler, DelayedVar
         for ((field, rawParameter) in data.fields()) {
 
             // Resolve variables
-            val parameterData = resolveVariables(rawParameter, variables).toDomainObject(ParameterData::class)
+            val parameterData = rawParameter.resolveVariables(variables).toDomainObject(ParameterData::class)
 
             // Only assign if condition is true
             val condition = parameterData.parseCondition()

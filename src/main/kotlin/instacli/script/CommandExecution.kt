@@ -52,7 +52,7 @@ private fun runSingleCommand(
 
     var data = rawData
     try {
-        data = if (handler is DelayedVariableResolver) rawData else resolveVariables(rawData, context.variables)
+        data = if (handler is DelayedVariableResolver) rawData else rawData.resolveVariables(context.variables)
 
         handler.validate(data)
 

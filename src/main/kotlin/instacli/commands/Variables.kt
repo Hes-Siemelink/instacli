@@ -38,7 +38,7 @@ object As : CommandHandler("As"), ValueHandler, DelayedVariableResolver {
 
 object ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        return resolveVariables(data, context.variables)
+        return data.resolveVariables(context.variables)
     }
 }
 
