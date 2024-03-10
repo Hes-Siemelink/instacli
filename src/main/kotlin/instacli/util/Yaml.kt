@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import java.nio.file.Path
+import kotlin.reflect.KClass
 
 object Yaml {
 
@@ -59,6 +60,10 @@ object Yaml {
 
 fun objectNode(): ObjectNode {
     return ObjectNode(JsonNodeFactory.instance)
+}
+
+fun <T : Any> JsonNode.toDomainObject(dataClass: KClass<T>): T {
+    return Yaml.mapper.treeToValue(this, dataClass.java)
 }
 
 /**

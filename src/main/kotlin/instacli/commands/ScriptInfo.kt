@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.script.*
-import instacli.util.Yaml
 import instacli.util.objectNode
+import instacli.util.toDomainObject
 
 object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -14,7 +14,7 @@ object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, 
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val scriptInfoData = ScriptInfoData.from(data)
+        val scriptInfoData = data.toDomainObject(ScriptInfoData::class)
         val input = scriptInfoData.input ?: return null
 
         return handleInput(context, input)
@@ -71,11 +71,5 @@ class ScriptInfoData {
     constructor()
     constructor(textValue: String) {
         description = textValue
-    }
-
-    companion object {
-        fun from(data: JsonNode): ScriptInfoData {
-            return Yaml.mapper.treeToValue(data, ScriptInfoData::class.java)
-        }
     }
 }

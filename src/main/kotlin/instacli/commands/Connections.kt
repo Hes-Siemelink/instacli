@@ -10,6 +10,7 @@ import instacli.cli.InstacliPaths
 import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.objectNode
+import instacli.util.toDomainObject
 import java.nio.file.Path
 import kotlin.io.path.createFile
 import kotlin.io.path.exists
@@ -42,7 +43,7 @@ object GetAccount : CommandHandler("Get account"), ValueHandler {
 
 object CreateAccount : CommandHandler("Create account"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
-        val newAccount = CreateAccountInfo.from(data)
+        val newAccount = data.toDomainObject(CreateAccountInfo::class)
         val connections = Connections.getFrom(context)
         val target = connections.targets.getOrPut(newAccount.target) {
             ConnectionTarget()
@@ -160,16 +161,12 @@ class Connections {
             } as Connections
         }
 
-        fun from(data: JsonNode): Connections {
-            return Yaml.mapper.treeToValue(data, Connections::class.java)
-        }
-
         fun load(file: Path = CONNECTIONS_YAML): Connections {
 
             createIfNotExists(file)
 
             val node = Yaml.readFile(file)
-            val connections = from(node)
+            val connections = node.toDomainObject(Connections::class)
             connections.file = file
 
             return connections
@@ -207,10 +204,4 @@ class ConnectionTarget {
 class CreateAccountInfo {
     var target: String = "Default"
     var account: ObjectNode = objectNode()
-
-    companion object {
-        fun from(data: JsonNode): CreateAccountInfo {
-            return Yaml.mapper.treeToValue(data, CreateAccountInfo::class.java)
-        }
-    }
 }

@@ -29,6 +29,18 @@ object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
     }
 }
 
+object SaveAs : CommandHandler("Save as"), ValueHandler {
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val destinationFile = Path.of(data.textValue())
+        destinationFile.createParentDirectories()
+
+        Files.writeString(destinationFile, context.output.toDisplayString())
+
+        return null
+    }
+}
+
 fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
     return when (this) {
         is TextNode -> {
@@ -60,13 +72,3 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
 }
 
 
-object SaveAs : CommandHandler("Save as"), ValueHandler {
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val destinationFile = Path.of(data.textValue())
-        destinationFile.createParentDirectories()
-
-        Files.writeString(destinationFile, context.output.toDisplayString())
-
-        return null
-    }
-}

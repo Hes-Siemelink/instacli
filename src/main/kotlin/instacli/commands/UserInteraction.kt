@@ -9,6 +9,7 @@ import com.github.kinquirer.core.Choice
 import instacli.script.*
 import instacli.util.UserPrompt
 import instacli.util.toDisplayString
+import instacli.util.toDomainObject
 
 /**
  * Asks user through simple text prompt
@@ -20,7 +21,7 @@ object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val parameter = ParameterData.from(data)
+        val parameter = data.toDomainObject(ParameterData::class)
 
         parameter.choices = parameter.choices
             ?: context.output?.toList()
@@ -96,7 +97,7 @@ object PromptObject : CommandHandler("Prompt object"), ObjectHandler, DelayedVar
         for ((field, rawParameter) in data.fields()) {
 
             // Resolve variables
-            val parameterData = ParameterData.from(resolveVariables(rawParameter, variables))
+            val parameterData = resolveVariables(rawParameter, variables).toDomainObject(ParameterData::class)
 
             // Only assign if condition is true
             val condition = parameterData.parseCondition()

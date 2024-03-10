@@ -5,6 +5,7 @@ import instacli.TestPaths
 import instacli.commands.InputData
 import instacli.commands.ScriptInfoData
 import instacli.util.Yaml
+import instacli.util.toDomainObject
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -16,7 +17,7 @@ class CliScriptInfoTest {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Script info" in script)
 
-        val scriptInfo = ScriptInfoData.from(script.get("Script info"))
+        val scriptInfo = script.get("Script info").toDomainObject(ScriptInfoData::class)
         assertEquals("Creates a greeting", scriptInfo.description)
     }
 
@@ -25,7 +26,7 @@ class CliScriptInfoTest {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
         assertTrue("Script info" in script)
 
-        val input = InputData.from(script.get("Script info").get("input"))
+        val input = script.get("Script info").get("input").toDomainObject(InputData::class)
 
         assertTrue("name" in input.parameters.keys)
         val name = input.parameters["name"]

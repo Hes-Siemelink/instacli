@@ -4,6 +4,7 @@ import instacli.cli.ArgType.*
 import instacli.commands.InputData
 import instacli.commands.ParameterData
 import instacli.util.Yaml
+import instacli.util.toDomainObject
 
 enum class OutputOption { NONE, YAML, JSON }
 
@@ -21,7 +22,7 @@ class CliCommandLineOptions private constructor(
     companion object {
 
         val definedOptions: InputData by lazy {
-            InputData.from(Yaml.readResource("instacli-command-line-options.yaml"))
+            Yaml.readResource("instacli-command-line-options.yaml").toDomainObject(InputData::class)
         }
 
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {

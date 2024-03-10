@@ -6,6 +6,7 @@ import instacli.commands.OnErrorType
 import instacli.commands.ScriptInfo
 import instacli.commands.ScriptInfoData
 import instacli.util.Yaml
+import instacli.util.toDomainObject
 
 data class Command(val name: String, val data: JsonNode)
 
@@ -42,7 +43,7 @@ class Script(val commands: List<Command>) {
     private fun getScriptInfo(): ScriptInfoData? {
         val command = commands.find { it.name == ScriptInfo.name } ?: return null
 
-        return ScriptInfoData.from(command.data)
+        return command.data.toDomainObject(ScriptInfoData::class)
     }
 
     companion object {

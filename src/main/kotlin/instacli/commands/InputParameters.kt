@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.infoString
-import instacli.util.Yaml
 
 class InputData {
 
@@ -41,12 +40,6 @@ class InputData {
 
         return builder.toString()
     }
-
-    companion object {
-        fun from(data: JsonNode): InputData {
-            return Yaml.mapper.treeToValue(data, InputData::class.java)
-        }
-    }
 }
 
 class ParameterData {
@@ -70,12 +63,6 @@ class ParameterData {
     fun parseCondition(): Condition? {
         return condition?.let {
             parseCondition(it)
-        }
-    }
-
-    companion object {
-        fun from(data: JsonNode): ParameterData {
-            return Yaml.mapper.treeToValue(data, ParameterData::class.java)
         }
     }
 }

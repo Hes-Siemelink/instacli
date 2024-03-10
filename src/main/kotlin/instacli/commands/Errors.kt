@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 import instacli.util.Yaml
 import instacli.util.toDisplayString
+import instacli.util.toDomainObject
 
 object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, ArrayHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
@@ -14,7 +15,7 @@ object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, Arra
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val errorData = ErrorData.from(data)
+        val errorData = data.toDomainObject(ErrorData::class)
         throw InstacliCommandError(errorData.message, errorData)
     }
 
@@ -57,6 +58,10 @@ private fun runErrorHandling(errorHandlingSection: JsonNode, context: ScriptCont
     context.variables.remove("error")
 }
 
+//
+// Data model
+//
+
 class ErrorData {
 
     var message: String = "An error occurred"
@@ -68,11 +73,5 @@ class ErrorData {
         this.message = message
         this.type = type
         this.data = data
-    }
-
-    companion object {
-        fun from(data: JsonNode): ErrorData {
-            return Yaml.mapper.treeToValue(data, ErrorData::class.java)
-        }
     }
 }
