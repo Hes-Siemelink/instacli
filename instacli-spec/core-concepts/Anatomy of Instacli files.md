@@ -194,10 +194,11 @@ Output:
   c: three
 ```
 
-The output is stored in the `${output}` variable. When invoking instacli with the `-o` option it will be printed:
+The output is stored in the `${output}` variable. When invoking instacli with the
+**[--output](Command%20line%20options.md#--output)** option, it will be printed:
 
 ```commandline cli
-cli -o hello.cli
+cli --output hello.cli
 ```
 
 ```cli output

@@ -5,9 +5,11 @@ import instacli.commands.InputData
 import instacli.commands.ParameterData
 import instacli.util.Yaml
 
+enum class OutputOption { NONE, YAML, JSON }
+
 class CliCommandLineOptions private constructor(
     val interactive: Boolean,
-    val printOutput: Boolean,
+    val printOutput: OutputOption,
     val help: Boolean,
     val debug: Boolean,
     val commands: List<String>,
@@ -23,13 +25,13 @@ class CliCommandLineOptions private constructor(
         }
 
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
-            val (globalArgs, commands, commandArgs) = splitArguments(args)
 
+            val (globalArgs, commands, commandArgs) = splitArguments(args)
             val options = definedOptions.validateArgs(globalArgs)
 
             return CliCommandLineOptions(
                 interactive = !options.contains("non-interactive"),
-                printOutput = options.contains("print-output"),
+                printOutput = options.getOutputOption(),
                 help = options.contains("help"),
                 debug = options.contains("debug"),
                 commands,
@@ -58,29 +60,35 @@ private fun InputData.getOption(option: String): Pair<String, ParameterData> {
     throw CliInvocationException("Invalid option: $option")
 }
 
-private enum class ArgType { GLOBAL, COMMAND, COMMAND_ARGS }
+private fun InputData.getOutputOption(): OutputOption = when {
+    contains("output") -> OutputOption.YAML
+    contains("output-json") -> OutputOption.JSON
+    else -> OutputOption.NONE
+}
+
+private enum class ArgType { GLOBAL_OPTIONS, FILE_NAME, COMMAND_ARGS }
 
 private fun splitArguments(args: List<String>): Triple<List<String>, List<String>, List<String>> {
     val globalArgs = mutableListOf<String>()
-    val commands = mutableListOf<String>()
+    val fileNames = mutableListOf<String>()
     val commandArgs = mutableListOf<String>()
 
-    var state = GLOBAL
+    var state = GLOBAL_OPTIONS
 
     for (argument in args) {
-        if (state == GLOBAL) {
+        if (state == GLOBAL_OPTIONS) {
             if (isFlag(argument)) {
                 globalArgs.add(normalize(argument))
             } else {
-                state = COMMAND
+                state = FILE_NAME
             }
         }
 
-        if (state == COMMAND) {
+        if (state == FILE_NAME) {
             if (isFlag(argument)) {
                 state = COMMAND_ARGS
             } else {
-                commands.add(argument)
+                fileNames.add(argument)
             }
         }
 
@@ -89,7 +97,7 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
         }
     }
 
-    return Triple(globalArgs, commands, commandArgs)
+    return Triple(globalArgs, fileNames, commandArgs)
 }
 
 fun normalize(option: String): String {
@@ -107,7 +115,7 @@ internal fun toParameterMap(args: List<String>): Map<String, String> {
         if (isFlag(argument)) {
             currentArgument = noFlag(argument)
         } else {
-            currentArgument ?: throw CliInvocationException("First element can't be a flag in $args")
+            currentArgument ?: throw CliInvocationException("First element must be a flag in $args")
             parameters[currentArgument] = argument
         }
     }

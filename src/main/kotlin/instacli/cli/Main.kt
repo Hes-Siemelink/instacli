@@ -1,10 +1,13 @@
 package instacli.cli
 
+import instacli.cli.OutputOption.JSON
+import instacli.cli.OutputOption.YAML
 import instacli.script.InstacliLanguageException
 import instacli.script.MissingParameterException
 import instacli.script.ScriptContext
 import instacli.script.addInputVariables
 import instacli.util.toDisplayString
+import instacli.util.toJsonString
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
@@ -87,8 +90,10 @@ class InstacliMain(
 
         val output = cliFile.run(context)
 
-        if (options.printOutput && output != null) {
-            this.output.printOutput(output.toDisplayString())
+        when (options.printOutput) {
+            YAML -> this.output.printOutput(output.toDisplayString())
+            JSON -> this.output.printOutput(output.toJsonString())
+            else -> {}
         }
     }
 

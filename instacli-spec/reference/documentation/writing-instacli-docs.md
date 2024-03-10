@@ -188,7 +188,8 @@ Usage:
 
 Global options:
   --help, -h          Print help on a script or directory and does not run anything
-  --print-output, -o   Print the output at the end of the script
+  --output, -o        Print the output at the end of the script in Yaml format
+  --output-json, -j   Print the output at the end of the script in Json format
   --non-interactive, -q   Indicate that Instacli should not prompt for user input
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```

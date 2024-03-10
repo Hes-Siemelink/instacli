@@ -3,6 +3,7 @@ package instacli.util
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
@@ -17,6 +18,7 @@ object Yaml {
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
 
     val mapper = ObjectMapper(factory)
+    val jsonMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
 
     init {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
@@ -76,6 +78,11 @@ fun JsonNode?.toDisplayString(): String {
         return textValue()
     }
     return Yaml.mapper.writeValueAsString(this).trim()
+}
+
+fun JsonNode?.toJsonString(): String {
+    this ?: return ""
+    return Yaml.jsonMapper.writeValueAsString(this).trim()
 }
 
 fun List<JsonNode>.toArrayNode(): ArrayNode {

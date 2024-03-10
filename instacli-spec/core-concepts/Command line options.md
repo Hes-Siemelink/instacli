@@ -18,7 +18,8 @@ Usage:
 
 Global options:
   --help, -h          Print help on a script or directory and does not run anything
-  --print-output, -o   Print the output at the end of the script
+  --output, -o        Print the output at the end of the script in Yaml format
+  --output-json, -j   Print the output at the end of the script in Json format
   --non-interactive, -q   Indicate that Instacli should not prompt for user input
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
@@ -71,10 +72,10 @@ With the expected output:
 Hello, Alice!
 ```
 
-### --print-output
+### --output
 
 Some Instacli commands will produce output. By default, Instacli does not print the output. You can turn it on with
-the `--print-output` option.
+the `--output` option.
 
 For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
 **[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
@@ -91,7 +92,7 @@ Output:
 ```cli output
 ```
 
-We will se the output when passing the `--print-output` parameter, or its shortcut `-o`:
+We will see the output when passing the `--output` parameter, or its shortcut `-o`:
 
 ```commandline cli directory:samples
 cli -o basic create-greeting --name Bob
@@ -99,6 +100,18 @@ cli -o basic create-greeting --name Bob
 
 ```cli output
 Hello Bob!
+```
+
+### --output-json
+
+To show the output in the script in Json format, use `--output-json` or the shortcut  `-j`:
+
+```commandline cli directory:samples
+cli --output-json basic create-greeting --name Bob
+```
+
+```cli output
+"Hello Bob!"
 ```
 
 ### --non-interactive

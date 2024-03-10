@@ -4,14 +4,13 @@ help:
   type: boolean
   short option: h
 
-print-output:
-  description: Print the output at the end of the script
-  default: yaml
-  type: select-one
-  choices:
-    - yaml
-    - json
+output:
+  description: Print the output at the end of the script in Yaml format
   short option: o
+
+output-json:
+  description: Print the output at the end of the script in Json format
+  short option: j
 
 non-interactive:
   description: Indicate that Instacli should not prompt for user input
