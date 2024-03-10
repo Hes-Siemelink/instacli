@@ -1,7 +1,6 @@
 # On my mind
 
 * Document for first user
-* Output in JSON by default?
 * Check output from Yaml scripts in tests
 * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.
@@ -16,11 +15,8 @@
 # Command-line support
 
 * Kotlin native? => Use Pure Kotlin libraries
-    * JSON nodes with Kotlin Serialization (but still experimental and no Yaml out of the box)
-    * Prompt with https://ajalt.github.io/clikt/
 * Go?
 * Node / TypeScript?
-* Hide internal scripts from interactive cli. Use property 'hidden' or 'private' or something in Script info
 
 # Instacli as glue
 
@@ -62,7 +58,8 @@ if (System.`in`.available() != 0) {
 
 ```commandline
 ➜  samples git:(main) ✗ cli digitalai/platform/login/select-account.cli
-? Select account to log in with * Create new account
+? Select account to log in with
+ * Create new account
 
 Instacli scripting error
 

@@ -2,6 +2,7 @@ package instacli.cli
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.AssignVariable
+import instacli.commands.CommandLibrary
 import instacli.script.*
 import java.nio.file.Files
 import java.nio.file.Path

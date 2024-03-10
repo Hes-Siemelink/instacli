@@ -31,7 +31,7 @@
 
 ### Script definition
 
-* [Script info](script-definition/Script%20info.md) - Contains script description and input parameter definitions.
+* [Script info](script-info/Script%20info.md) - Contains script description and input parameter definitions.
 
 ### Variables
 

@@ -56,3 +56,17 @@ object CodeExample : CommandHandler("Code example"), ValueHandler {
         return null
     }
 }
+
+/**
+ * Records answers to be replayed in test cases for user input commands.
+ */
+object StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
+    val recordedAnswers = mutableMapOf<String, JsonNode>()
+
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+        data.fields().forEach {
+            recordedAnswers[it.key] = it.value
+        }
+        return null
+    }
+}

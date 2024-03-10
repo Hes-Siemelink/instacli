@@ -71,9 +71,10 @@ class InstacliMain(
             return file
         }
 
-        val adjustedFile = workingDir.resolve(fileName + ".cli")
-        if (adjustedFile.exists()) {
-            return adjustedFile
+        workingDir.resolve(fileName + ".cli").let {
+            if (it.exists()) {
+                return it
+            }
         }
 
         throw CliInvocationException("Could not find command: ${fileName}")

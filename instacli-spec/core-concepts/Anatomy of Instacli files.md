@@ -125,7 +125,7 @@ separator helps you to visually divide sections in your code if placed strategic
 ### Script info
 
 You can specify the description of your script with the
-**[Script info](../reference/script-definition/Script%20info.md)** command.
+**[Script info](../reference/script-info/Script%20info.md)** command.
 
 Take this file `simple-greeting.cli`:
 

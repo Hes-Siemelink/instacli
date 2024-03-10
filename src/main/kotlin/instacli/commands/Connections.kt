@@ -148,7 +148,7 @@ class Connections {
     companion object {
 
         const val FILE_NAME = "connections.yaml"
-        val CONNECTIONS_YAML: Path = InstacliPaths.INSTACLI_HOME.resolve(FILE_NAME)
+        private val CONNECTIONS_YAML: Path = InstacliPaths.INSTACLI_HOME.resolve(FILE_NAME)
 
         private fun store(context: ScriptContext, value: Connections) {
             context.session[FILE_NAME] = value

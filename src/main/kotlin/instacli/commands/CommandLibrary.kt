@@ -1,6 +1,6 @@
-package instacli.cli
+package instacli.commands
 
-import instacli.commands.*
+import instacli.cli.RunScript
 import instacli.script.CommandHandler
 
 object CommandLibrary {

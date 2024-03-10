@@ -41,3 +41,12 @@ object ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
         return resolveVariables(data, context.variables)
     }
 }
+
+/**
+ * Returns the input as output.
+ */
+object Output : CommandHandler("Output"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
+        return data
+    }
+}
