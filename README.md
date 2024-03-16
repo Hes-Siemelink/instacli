@@ -20,7 +20,7 @@ ${input}:
 Script info:
   description: Multi-language greeting
   input:
-    name: What is your name?
+    name: Your name
     language:
       description: Select a language
       type: select one
@@ -48,12 +48,12 @@ When running it, we get prompted for input before a POST request is made to the 
 printed.
 
 <!-- cli input
-Enter your name: Hes
+Your name: Hes
 Select a language: English
 -->
 
 ```cli output
-? What is your name? Hes
+? Your name Hes
 ? Select a language 
  ❯ ◉ English
    ◯ Spanish
@@ -74,7 +74,7 @@ Will print:
 Multi-language greeting
 
 Options:
-  --name       Enter your name
+  --name       Your name
   --language   Select a language
 ```
 
@@ -94,10 +94,9 @@ And we get the result in Spanish:
 
 All of Instacli is defined in the [instacli-spec](instacli-spec).
 
-* [CLI](cli) describes the usage of the `cli` shell command
-* [Core concepts](instacli-spec/core-concepts) contains an overview of the Instacli scripting language
-* [Command reference](instacli-spec/reference/README.md) is an overview all the available commands with descriptions,
-  code examples and tests.
+* [CLI](instacli-spec/cli) defines the `cli` shell command
+* [Core concepts](instacli-spec/core-concepts) defines the structure of the Instacli scripting language
+* [Command reference](instacli-spec/reference) defines all commands with descriptions, code examples and tests.
 
 # Build & Run
 
@@ -119,6 +118,8 @@ Run the "Hello world" example:
 ```commandline
 cli samples/hello.cli
 ```
+
+See [Running instacli files](instacli-spec/cli/Running%20Instacli%20files.md) for more information on the `cli` command.
 
 ## Explore
 
@@ -453,8 +454,8 @@ For each:
   Print: Hello ${name}!
 ```
 
-**For each** will store the output of the last command for each item in a list. You can use this feature to transform a
-list into something else, like the `map()` function in some programming languages.
+You can use **For each** to transform a list into something else, like the `map()` function in some programming
+languages.
 
 ```yaml instacli
 For each:
@@ -482,14 +483,15 @@ Assert that:
   in: [ one, two, three ]
 ```
 
-In fact, all tests for the Instacli language are written in Instacli itself and can be found in
-the [instacli-spec/reference](instacli-spec/reference) directory.
+In fact, all tests for the Instacli language are written in Instacli itself and can be found in the *
+*[instacli-spec/reference](instacli-spec/reference)** directory, in the `tests` subfolders.. For example, take a look at
+the [tests for assertions](instacli-spec/reference/testing/tests/Assert%20tests.cli)
 
 ## Documenting Instacli
 
-All documentation can be found in the [instacli-spec/reference](instacli-spec/reference) directory.
+All documentation can be found in the **[instacli-spec](instacli-spec)** directory.
 
-All Instacli documentation is in Markdown and contains runnable code that is run as part of the test suite.
+Instacli documentation is in Markdown and contains runnable code that is run as part of the test suite.
 
 Here's an example of Instacli documentation:
 
@@ -504,30 +506,3 @@ Here's an example of Instacli documentation:
 For new features, I often write the documentation first, then see the test suite fail, and then write the implementation
 for it.
 
-
-<!--
-
-## Call a shell script
-## Call another cli script
-## Define output
-## Data manipulation: Add and Sort
-## Manage your Http connection info
-## Read a file and save
-
--->
-
-<!--
-Use Instacli to cook up a CLI in minutes using just Yaml files.
-
-Express your intent. without ceremony or boilerplating
-
-Code should be easy to read: Instacli encourages a declarative style: start telling 'what' you want not 'how' to do it.
-There is a thin line between 'what' and 'how'.
-
-The purpose of Instacli is that you can get as far as possible with straightforward scripts that are readable to
-everybody.
-
-When programming, complexity creeps in and your neat idea "turns into code" quite quickly. Instacli is designed to avoid
-that point as long as possible, so you can quickly whip up a functional CLI.
-
--->

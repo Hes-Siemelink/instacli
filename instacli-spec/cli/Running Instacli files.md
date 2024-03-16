@@ -24,7 +24,7 @@ Global options:
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
 
-For more information on the options, see [Command line options](Command line options.md)
+For more information on the options, see [Command line options](Command%20line%20options.md)
 
 ### Running a single file
 
@@ -108,7 +108,7 @@ Hello, World!
 
 ## Supplying input
 
-Some scripts take input. Use the [--help](Command line options.md#--help) option to list the supported parameters
+Some scripts take input. Use the [--help](Command%20line%20options.md#--help) option to list the supported parameters
 
 ```commandline cli directory:samples
 cli --help basic greet
@@ -136,7 +136,7 @@ Hello, Alice!
 ## Capturing output
 
 Some Instacli commands will produce output. By default, Instacli does not print the output. Use
-the [--output](Command line options.md#--output) option to see it.
+the [--output](Command%20line%20options.md#--output) option to see it.
 
 For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
 **[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
@@ -162,3 +162,5 @@ cli -o basic create-greeting --name Bob
 ```cli output
 Hello Bob!
 ```
+
+<!-- TODO Document --output-json option -->
