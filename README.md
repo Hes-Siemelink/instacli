@@ -94,9 +94,10 @@ And we get the result in Spanish:
 
 All of Instacli is defined in the [instacli-spec](instacli-spec).
 
-* [CLI](instacli-spec/cli) defines the `cli` shell command
-* [Core concepts](instacli-spec/core-concepts) defines the structure of the Instacli scripting language
-* [Command reference](instacli-spec/reference) defines all commands with descriptions, code examples and tests.
+* [CLI](instacli-spec/cli/README.md) defines the `cli` shell command
+* [Core concepts](instacli-spec/core-concepts/README.md) defines the structure of the Instacli scripting language
+* [Command reference](instacli-spec/reference/README.md) defines all commands with descriptions, code examples and
+  tests.
 
 # Build & Run
 
