@@ -79,13 +79,6 @@
 * [Size](data-manipulation/Size.md) - Gives you the size of things
 * [Sort](data-manipulation/Sort.md) - Sorts an array
 
-### Util
-
-* [Print](util/Print.md) - Prints to the console
-* [Wait](util/Wait.md) - Waits a while
-* [Base64 encode](util/Base64%20encode.md) - Does a Base64 encoding
-* [Base64 decode](util/Base64%20decode.md) - Decodes a Base64 encoded text
-
 ### Files
 
 * [ReadFile](files/Read%20file.md) - Loads Yaml or Json from a file
@@ -97,3 +90,10 @@
   directory as a regular command
 * [Run script](files/Run%20script.md) - Runs another Instacli script
 * [Shell](files/Shell.md) - Executes a shell command
+
+### Util
+
+* [Print](util/Print.md) - Prints to the console
+* [Wait](util/Wait.md) - Waits a while
+* [Base64 encode](util/Base64%20encode.md) - Does a Base64 encoding
+* [Base64 decode](util/Base64%20decode.md) - Decodes a Base64 encoded text
