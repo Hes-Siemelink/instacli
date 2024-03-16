@@ -24,7 +24,7 @@ Global options:
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
 
-For more information on the options, see [Command line options](Command%20line%20options.md)
+For more information on the options, see [Command line options](Command line options.md)
 
 ### Running a single file
 
@@ -88,8 +88,8 @@ Simple Instacli example scripts
 Hello, World!
 ```
 
-You can also run in [non-interactive mode](Command%20line%20options.md#--non-interactive). In that case the script will
-just print the list of available commands and exit.
+You can also run in [non-interactive mode](Command line options.md#--non-interactive). In that case the script will just
+print the list of available commands and exit.
 
 Once you know which script you want to execute, simply chain them as commands on the command line. For example, to
 execute the `greet.cli` script in the `basic` directory, do:
@@ -108,7 +108,7 @@ Hello, World!
 
 ## Supplying input
 
-Some scripts take input. Use the [--help](Command%20line%20options.md#--help) option to list the supported parameters
+Some scripts take input. Use the [--help](Command line options.md#--help) option to list the supported parameters
 
 ```commandline cli directory:samples
 cli --help basic greet
@@ -136,7 +136,7 @@ Hello, Alice!
 ## Capturing output
 
 Some Instacli commands will produce output. By default, Instacli does not print the output. Use
-the [--output](Command%20line%20options.md#--output) option to see it.
+the [--output](Command line options.md#--output) option to see it.
 
 For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
 **[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by

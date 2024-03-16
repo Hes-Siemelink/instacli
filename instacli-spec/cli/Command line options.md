@@ -24,6 +24,9 @@ Global options:
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
 
+The names and descriptions of the global options are defined
+in [instacli-command-line-options.yaml](instacli-command-line-options.yaml) and this document explains the behavior.
+
 ### --help
 
 The `--help` option prints help on a script or directory and then exits. No scripts are run.
@@ -208,11 +211,14 @@ In script-with-error.cli:
   GET: http:\\localhost
 ```
 
-With the `--debug` option you will see more of the internals.
+With the `--debug` option you will see more of the internals. For example, the Kotlin stacktrace. This can be useful for
+debugging the implementation.
 
 ```commandline cli
 cli --debug script-with-error.cli
 ```
+
+May print something like
 
 ```
 Instacli scripting error

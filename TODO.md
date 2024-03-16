@@ -1,13 +1,12 @@
 # On my mind
 
-* Document for first user
-* Check output from Yaml scripts in tests
-* Run CLI command as 'semi-interactive': print mock output and exit.
-    * Check with Running instacli and command line examples.
+1. Document for first user
+2. Email the people from usebruno.com
+3. Clean up samples/basic and put example from Readme in samples dir
+4. Refactor how tests are being run: follow structure of instacli-spec dir
 
 # Where to take it
 
-* Auto-generate Instacli based on OpenAPI metadata. Use AI to make sense of stuff?
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
   explicitly. For example: content type, variable replacement yes/no, etc.
 * Run Release templates
@@ -29,8 +28,13 @@
     * https://github.com/pwall567/json-kotlin-schema
 * Error handling
 * Error reporting -> "StackTrace"
-* Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only checks if
-  something has been set as Http defaults
+* Check output from Yaml scripts in tests
+* Run CLI command as 'semi-interactive': print mock output and exit.
+    * Check with Running instacli and command line examples.
+* Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only
+  checks if something has been set as Http defaults
+* Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn into
+  code'.
 * Review Script info on directories
 * Secrets
 * Raw and live / Apply variables

@@ -10,8 +10,8 @@ This is the simplest Instacli file:
 Print: Hello world
 ```
 
-Instacli files are a list of commands. In this case the file contains a single `Print` command. By convention, commands
-start with a capital letter.
+Instacli files are a list of **commands**. In this case the file contains a single `Print` command. By convention,
+commands start with a capital letter.
 
 If we store it in a file `hello-world.cli`, we can run it with the following command:
 
@@ -29,12 +29,8 @@ Hello world
 
 Instacli files are just Yaml.
 
-<!-- Note: avoid 'wall of text' here and move the motivational part somewhere else -->
-
 Instacli files have `.cli` file extension. Within Instacli, the convention is that `.yaml` files are for static data
-and `.cli` files are Instacli scripts that contain commands.. So don't write your scripts with a `.yaml` extension.
-Instacli relies on the `.cli` extension in some cases, like when calling an Instacli script form another Instacli
-script. Map your editor to recognize `.cli`
+and `.cli` files are Instacli scripts that contain commands. Tip: Map your editor to recognize `.cli`
 as `.yaml`.
 
 Instacli files being Yaml has its pros and cons.
@@ -50,9 +46,10 @@ Another advantage of Instacli syntax being YAML is predictability: if you have w
 structure and pitfalls already, and you get editor support out-of-the-box. It's also way easier for the implementation
 to parse it than a custom format.
 
-Instacli's Yaml flavor is 'disguised JSON' and does not rely on special Yaml features like directives.
+Instacli does add some additional formatting on top of Yaml, for example the variable syntax `${..}`.
 
-Instacli adds some additional formatting on top of Yaml, for example the variable syntax `${..}`.
+Instacli's Yaml flavor does not rely on special Yaml features like directives. It is used as a human-friendly way of
+writing JSON..
 
 ### Multiple commands and `---`
 
@@ -64,7 +61,7 @@ Prompt: What is your name?
 Print: Hello ${output}!
 ```
 
-When storing this in a file `prompt.cli` and running it, would print something like
+When storing this in a file `prompt.cli` and running it with the following command,
 
 <!-- cli input
 What is your name?: Hes
@@ -73,6 +70,8 @@ What is your name?: Hes
 ```commandline cli
 cli prompt.cli
 ```
+
+you would get the following:
 
 ```cli output
 ? What is your name? Hes

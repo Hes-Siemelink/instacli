@@ -41,6 +41,7 @@ class InstacliMain(
 
     fun run(parent: ScriptContext? = null) {
 
+        // Print usage when no commands are given
         if (options.commands.isEmpty()) {
             output.printUsage(CliCommandLineOptions.definedOptions)
             return
@@ -66,12 +67,15 @@ class InstacliMain(
     }
 
     private fun targetFile(fileName: String): Path {
-        val file = workingDir.resolve(fileName)
-        if (file.exists()) {
-            return file
+        // Command is filename
+        workingDir.resolve(fileName).let {
+            if (it.exists()) {
+                return it
+            }
         }
 
-        workingDir.resolve(fileName + ".cli").let {
+        // Append '.cli'
+        workingDir.resolve("$fileName.cli").let {
             if (it.exists()) {
                 return it
             }

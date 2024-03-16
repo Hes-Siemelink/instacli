@@ -2,12 +2,13 @@
 
 Instantly create CLI applications with light scripting in Yaml!
 
-Use Instacli to quickly automate or prototype light tasks like testing out APIs. Sprinkle in some user interaction.  
+Use Instacli to quickly automate or prototype light tasks like testing out APIs. Sprinkle in some user interaction.
+
 As-code, but without the complexity of actual code.
 
 ## Full Example
 
-Get a flavor of instacli with this example file `greeting.cli`:
+Get a flavor of Instacli with this example file `greeting.cli`:
 
 <!-- yaml instacli before
 ${input}:
@@ -19,7 +20,7 @@ ${input}:
 Script info:
   description: Multi-language greeting
   input:
-    name: Enter your name
+    name: What is your name?
     language:
       description: Select a language
       type: select one
@@ -52,7 +53,7 @@ Select a language: English
 -->
 
 ```cli output
-? Enter your name Hes
+? What is your name? Hes
 ? Select a language 
  ❯ ◉ English
    ◯ Spanish
@@ -89,13 +90,14 @@ And we get the result in Spanish:
 ¡Hola Hes!
 ```
 
-## Documentation
+# Documentation
 
 All of Instacli is defined in the [instacli-spec](instacli-spec).
 
-* See [Basic concepts](instacli-spec/core-concepts) for an overview of the Instacli scripting language
-* The [Command reference](instacli-spec/reference/README.md) has a list of all the available commands with explanations
-  and code examples.
+* [CLI](cli) describes the usage of the `cli` shell command
+* [Core concepts](instacli-spec/core-concepts) contains an overview of the Instacli scripting language
+* [Command reference](instacli-spec/reference/README.md) is an overview all the available commands with descriptions,
+  code examples and tests.
 
 # Build & Run
 
