@@ -1,6 +1,7 @@
 # Instacli command-line options
 
-You run an Instacli file or directory with the `cli` command.
+The names and descriptions of the global options are defined
+in [instacli-command-line-options.yaml](instacli-command-line-options.yaml) and this document explains the behavior.
 
 ## Global options
 
@@ -23,9 +24,6 @@ Global options:
   --non-interactive, -q   Indicate that Instacli should not prompt for user input
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
-
-The names and descriptions of the global options are defined
-in [instacli-command-line-options.yaml](instacli-command-line-options.yaml) and this document explains the behavior.
 
 ### --help
 
