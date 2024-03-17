@@ -1,4 +1,6 @@
-# Overview of standard commands in Instacli
+# Instacli Command Reference
+
+Overview of standard commands in Instacli.
 
 ## REST API interaction
 
@@ -56,7 +58,6 @@
 * [Repeat](control-flow/Repeat.md) - Executes a block of code until a condition is satisfied
 * [If](control-flow/If.md) - exectues commands if a condition holds
 * [When](control-flow/When.md) - Executes a single command from a list of conditions
-* [Eval](control-flow/Eval.md) - Runs code in a functional style 🐍
 
 ### Error handling
 

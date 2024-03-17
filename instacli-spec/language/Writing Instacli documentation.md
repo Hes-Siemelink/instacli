@@ -1,7 +1,7 @@
 # Writing documentation for Instacli
 
 Documentation for Instacli is written in Markdown. You can add code examples to the document that the instacli build
-will run as unit tests. This way you can make sure that the the code examples are valid.
+will run as unit tests. This way you can make sure that the code examples are valid.
 
 Note that this document serves as a reference document for testing, so the all examples in _this_ document are also
 tested automatically. In order for that to work, you will see examples twice: first how they are written in Markdown,
@@ -159,7 +159,7 @@ Then followed by a block that contains the output:
     ```
 
 Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
-like  [Stock answers](../testing/Stock%20answers.md)
+like  [Stock answers](../commands/testing/Stock%20answers.md)
 
     <!-- cli input
     Enter your name: Hes

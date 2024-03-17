@@ -9,7 +9,7 @@ import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.Test
 import java.nio.file.Path
 
-val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("reference/documentation/writing-instacli-docs.md")
+val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("language/Writing Instacli documentation.md")
 
 class InstacliDocTest {
 

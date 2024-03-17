@@ -95,9 +95,8 @@ And we get the result in Spanish:
 All of Instacli is defined in the [instacli-spec](instacli-spec).
 
 * [CLI](instacli-spec/cli/README.md) defines the `cli` shell command
-* [Core concepts](instacli-spec/core-concepts/README.md) defines the structure of the Instacli scripting language
-* [Command reference](instacli-spec/reference/README.md) defines all commands with descriptions, code examples and
-  tests.
+* [Language](instacli-spec/language/README.md) defines the structure of the Instacli scripting language
+* [Command reference](instacli-spec/commands/README.md) defines all commands with descriptions, code examples and tests.
 
 # Build & Run
 
@@ -484,9 +483,9 @@ Assert that:
   in: [ one, two, three ]
 ```
 
-In fact, all tests for the Instacli language are written in Instacli itself and can be found in the *
-*[instacli-spec/reference](instacli-spec/reference)** directory, in the `tests` subfolders.. For example, take a look at
-the [tests for assertions](instacli-spec/reference/testing/tests/Assert%20tests.cli)
+In fact, all tests for the Instacli language and commands are written in Instacli itself and can be found in the
+**[instacli-spec](instacli-spec)** directory, in the `tests` subfolders.. For example, take a look at
+the [tests for assertions](instacli-spec/commands/testing/tests/Assert%20tests.cli)
 
 ## Documenting Instacli
 

@@ -8,6 +8,6 @@ object TestPaths {
     val TEST_CONNECTIONS: Path = RESOURCES.resolve("instacli-home/connections.yaml")
     val SAMPLE_SERVER: Path = Path.of("samples/http-server/sample-server/sample-server.cli")
     val SPEC: Path = Path.of("instacli-spec")
-    val REFERENCE: Path = SPEC.resolve("reference")
-    val CORE_CONCEPTS: Path = SPEC.resolve("core-concepts")
+    val COMMANDS: Path = SPEC.resolve("commands")
+    val LANGUAGE: Path = SPEC.resolve("language")
 }

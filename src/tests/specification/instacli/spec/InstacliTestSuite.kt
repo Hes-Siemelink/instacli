@@ -14,18 +14,23 @@ class InstacliTestSuite {
     }
 
     @TestFactory
-    fun `Instacli reference tests`(): List<DynamicNode> {
-        return TestPaths.REFERENCE.getTestCases()
+    fun `Tests in Command Reference`(): List<DynamicNode> {
+        return TestPaths.COMMANDS.getTestCases()
     }
 
     @TestFactory
-    fun `Code examples in reference documentation`(): List<DynamicNode> {
-        return TestPaths.REFERENCE.getCodeExamples()
+    fun `Code examples in Command Reference`(): List<DynamicNode> {
+        return TestPaths.COMMANDS.getCodeExamples()
     }
 
     @TestFactory
-    fun `Code examples in core concepts documentation`(): List<DynamicNode> {
-        return TestPaths.CORE_CONCEPTS.getCodeExamples()
+    fun `Code examples in Language Spec`(): List<DynamicNode> {
+        return TestPaths.LANGUAGE.getCodeExamples()
+    }
+
+    @TestFactory
+    fun `Tests in Language Spec`(): List<DynamicNode> {
+        return TestPaths.LANGUAGE.getTestCases()
     }
 
     @TestFactory
