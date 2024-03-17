@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.cli.CliFile
 import instacli.script.*
+import instacli.util.Json
 import instacli.util.Yaml
-import instacli.util.objectNode
 import io.javalin.Javalin
 import io.javalin.http.Context
 import io.javalin.http.HandlerType
@@ -127,7 +127,7 @@ private fun ScriptContext.addInputVariable(httpContext: Context) {
 
 private fun ScriptContext.addRequestVariable(httpContext: Context) {
 
-    val requestData = objectNode()
+    val requestData = Json.newObject()
 
     requestData.set<JsonNode>("headers", httpContext.headersAsJson())
     requestData.set<JsonNode>("path", TextNode(httpContext.path()))
@@ -141,15 +141,15 @@ private fun ScriptContext.addRequestVariable(httpContext: Context) {
 }
 
 fun Context.headersAsJson(): ObjectNode {
-    return objectNode(headerMap())
+    return Json.newObject(headerMap())
 }
 
 fun Context.pathParametersAsJson(): ObjectNode {
-    return objectNode(pathParamMap())
+    return Json.newObject(pathParamMap())
 }
 
 fun Context.queryParametersAsJson(): ObjectNode {
-    val queryParameters = objectNode()
+    val queryParameters = Json.newObject()
     for (variable in queryParamMap()) {
         queryParameters.set<JsonNode>(variable.key, TextNode(variable.value[0]))  // FIXME deal with list properly
     }
@@ -160,12 +160,12 @@ fun Context.bodyAsJson(): JsonNode {
     return if (body().isNotEmpty()) {
         bodyAsClass()
     } else {
-        objectNode()
+        Json.newObject()
     }
 }
 
 fun Context.cookiesAsJson(): ObjectNode {
-    return objectNode(cookieMap())
+    return Json.newObject(cookieMap())
 }
 
 

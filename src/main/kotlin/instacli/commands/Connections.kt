@@ -8,8 +8,8 @@ import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliPaths
 import instacli.script.*
+import instacli.util.Json
 import instacli.util.Yaml
-import instacli.util.objectNode
 import instacli.util.toDomainObject
 import java.nio.file.Path
 import kotlin.io.path.createFile
@@ -34,7 +34,7 @@ object GetAccount : CommandHandler("Get account"), ValueHandler {
             else -> throw InstacliCommandError(
                 "No accounts defined for $targetName",
                 "no accounts",
-                objectNode("target", targetName)
+                Json.newObject("target", targetName)
             )
         }
     }
@@ -64,7 +64,7 @@ object GetAccounts : CommandHandler("Get accounts"), ValueHandler {
         val target = connections.targets[targetName] ?: throw InstacliCommandError(
             "Unknown target $targetName",
             "unknown target",
-            objectNode("target", targetName)
+            Json.newObject("target", targetName)
         )
 
         return target.accounts()
@@ -203,5 +203,5 @@ class ConnectionTarget {
 
 class CreateAccountInfo {
     var target: String = "Default"
-    var account: ObjectNode = objectNode()
+    var account: ObjectNode = Json.newObject()
 }

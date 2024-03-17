@@ -6,8 +6,8 @@ import instacli.script.InstacliLanguageException
 import instacli.script.MissingParameterException
 import instacli.script.ScriptContext
 import instacli.script.addInputVariables
-import instacli.util.toDisplayString
-import instacli.util.toJsonString
+import instacli.util.toDisplayJson
+import instacli.util.toDisplayYaml
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
@@ -96,8 +96,8 @@ class InstacliMain(
         val output = cliFile.run(context)
 
         when (options.printOutput) {
-            YAML -> this.output.printOutput(output.toDisplayString())
-            JSON -> this.output.printOutput(output.toJsonString())
+            YAML -> this.output.printOutput(output.toDisplayYaml())
+            JSON -> this.output.printOutput(output.toDisplayJson())
             else -> {}
         }
     }
@@ -208,7 +208,7 @@ private fun reportError(e: InstacliLanguageException, printStackTrace: Boolean) 
 
     // Print Instacli context
     e.data?.let {
-        val yaml = e.data.toDisplayString().prependIndent("  ")
+        val yaml = e.data.toDisplayYaml().prependIndent("  ")
         val message = "In ${e.context ?: "command"}:"
         System.err.println("\n\n$message\n\n${yaml}".trimMargin())
     }

@@ -2,7 +2,7 @@ package instacli.script
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.util.objectNode
+import instacli.util.Json
 import java.nio.file.Path
 
 interface ScriptContext {
@@ -20,7 +20,7 @@ interface ScriptContext {
 }
 
 fun ScriptContext.addInputVariables(vars: Map<String, String>) {
-    val input = objectNode()
+    val input = Json.newObject()
     for (variable in vars) {
         input.set<JsonNode>(variable.key, TextNode(variable.value))
     }

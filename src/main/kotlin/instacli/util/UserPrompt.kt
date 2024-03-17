@@ -94,7 +94,7 @@ object TestPrompt : UserPrompt {
         if (password) {
             println(KInquirer.renderInput(message, "********"))
         } else {
-            println(KInquirer.renderInput(message, answer.toDisplayString()))
+            println(KInquirer.renderInput(message, answer.toDisplayYaml()))
         }
 
         return answer

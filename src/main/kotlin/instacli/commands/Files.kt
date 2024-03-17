@@ -6,9 +6,9 @@ import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.script.*
+import instacli.util.Json
 import instacli.util.Yaml
-import instacli.util.objectNode
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.createParentDirectories
@@ -35,7 +35,7 @@ object SaveAs : CommandHandler("Save as"), ValueHandler {
         val destinationFile = Path.of(data.textValue())
         destinationFile.createParentDirectories()
 
-        Files.writeString(destinationFile, context.output.toDisplayString())
+        Files.writeString(destinationFile, context.output.toDisplayYaml())
 
         return null
     }
@@ -52,7 +52,7 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
                 throw InstacliCommandError(
                     "File not found: ${file.toRealPath()}",
                     "file not found",
-                    objectNode("file", file.toRealPath().toString())
+                    Json.newObject("file", file.toRealPath().toString())
                 )
             }
         }

@@ -3,7 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.script.CommandFormatException
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 
 
 fun interface Condition {
@@ -104,7 +104,7 @@ fun parseCondition(node: JsonNode): Condition {
                 return Contains(obj, node["in"])
             }
 
-            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'. Was:\n\n  ${node.toDisplayString()}")
+            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'. Was:\n\n  ${node.toDisplayYaml()}")
         }
 
         node.has("all") -> {
@@ -127,7 +127,7 @@ fun parseCondition(node: JsonNode): Condition {
         }
 
         else -> {
-            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayString()}")
+            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayYaml()}")
         }
     }
 }

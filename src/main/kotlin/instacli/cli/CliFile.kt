@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.commands.toPath
 import instacli.script.*
+import instacli.util.Json
 import instacli.util.Yaml
-import instacli.util.objectNode
 import java.nio.file.Path
 import kotlin.io.path.name
 
@@ -41,7 +41,7 @@ object RunScript : CommandHandler("Run script"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val file = data.toPath(context)
-        val input = data["input"] ?: objectNode()
+        val input = data["input"] ?: Json.newObject()
 
         return handleCommand(CliFile(file), input, context)
     }
@@ -49,6 +49,6 @@ object RunScript : CommandHandler("Run script"), ObjectHandler, ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val file = data.toPath(context)
 
-        return handleCommand(CliFile(file), objectNode(), context)
+        return handleCommand(CliFile(file), Json.newObject(), context)
     }
 }

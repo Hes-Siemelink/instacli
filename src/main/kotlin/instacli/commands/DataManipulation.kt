@@ -3,8 +3,8 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
 import instacli.script.*
-import instacli.util.toArrayNode
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
+import instacli.util.toJson
 
 object Add : CommandHandler("Add"), ArrayHandler {
 
@@ -100,7 +100,7 @@ object Sort : CommandHandler("Sort"), ObjectHandler {
 
         val sorted = items.sortedWith(NodeComparator(sortField))
 
-        return sorted.toArrayNode()
+        return sorted.toJson()
     }
 }
 
@@ -158,7 +158,7 @@ object Replace : CommandHandler("Replace"), ObjectHandler {
             throw CommandFormatException("'Replace.find' may contain text only")
         }
 
-        val replacementText = replaceWith.toDisplayString()
+        val replacementText = replaceWith.toDisplayYaml()
         val replacement = source.replace(part.textValue(), replacementText)
 
         return TextNode(replacement)

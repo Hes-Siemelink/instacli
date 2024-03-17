@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 import instacli.util.Yaml
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
 
 object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, ArrayHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        throw InstacliCommandError(data.toDisplayString())
+        throw InstacliCommandError(data.toDisplayYaml())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

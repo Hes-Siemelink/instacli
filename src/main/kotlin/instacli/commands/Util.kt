@@ -1,33 +1,22 @@
 package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 
-object Print : CommandHandler("Print"), ValueHandler, ObjectHandler, ArrayHandler {
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        println(data.asText())
-        return null
-    }
-
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        println(data.toDisplayString())
-        return null
-    }
-
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
-        println(data.toDisplayString())
+object Print : CommandHandler("Print"), AnyHandler {
+    override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+        println(data.toDisplayYaml())
         return null
     }
 }
 
 object Wait : CommandHandler("Wait"), ValueHandler {
+    
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
         if (!data.isNumber) {
             throw CommandFormatException("Invalid value for 'Wait' command.")
         }

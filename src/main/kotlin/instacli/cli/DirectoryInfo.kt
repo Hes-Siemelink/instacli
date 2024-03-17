@@ -3,8 +3,8 @@ package instacli.cli
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
 import instacli.script.CommandInfo
+import instacli.util.Json
 import instacli.util.Yaml.mapper
-import instacli.util.objectNode
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.name
@@ -20,7 +20,7 @@ class DirectoryInfo : CommandInfo {
     override var description: String = ""
 
     val imports = mutableListOf<String>()
-    val connections = objectNode()
+    val connections = Json.newObject()
 
     companion object {
         fun load(dir: Path): DirectoryInfo {

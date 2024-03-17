@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 
 val VARIABLE_REGEX = Regex("\\$\\{([^}]+)}")
 
@@ -48,7 +48,7 @@ private fun resolveVariablesIn(data: JsonNode, variables: Map<String, JsonNode>)
 
 fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): String {
     val replaced = VARIABLE_REGEX.replace(raw) {
-        getValue(it.groupValues[1], variables).toDisplayString()
+        getValue(it.groupValues[1], variables).toDisplayYaml()
     }
     return replaced
 }

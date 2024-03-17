@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import com.github.kinquirer.core.Choice
 import instacli.script.*
 import instacli.util.UserPrompt
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
 
 /**
@@ -53,7 +53,7 @@ private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): J
 
     val choices = parameter.choices?.map {
         if (parameter.display == null) {
-            Choice(it.toDisplayString(), it)
+            Choice(it.toDisplayYaml(), it)
         } else {
             Choice(it[parameter.display].textValue(), it)
         }

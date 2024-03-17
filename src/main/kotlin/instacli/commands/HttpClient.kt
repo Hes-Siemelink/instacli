@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
+import instacli.util.Json
 import instacli.util.Yaml
-import instacli.util.objectNode
-import instacli.util.toDisplayString
+import instacli.util.toDisplayYaml
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.auth.*
@@ -36,7 +36,7 @@ object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHand
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return getFrom(context) ?: objectNode()
+        return getFrom(context) ?: Json.newObject()
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
@@ -149,7 +149,7 @@ private fun processRequestWithoutBody(data: ValueNode, context: ScriptContext, m
 
     val uri = URI(encodePath(data.textValue()))
     val separator = data.textValue().indexOf(uri.path)
-    val parsedData = objectNode("path", uri.toString().substring(separator))
+    val parsedData = Json.newObject("path", uri.toString().substring(separator))
 
     val url = uri.toString().substring(0, separator)
     if (url.isNotEmpty()) {
@@ -217,7 +217,7 @@ private fun HttpRequestBuilder.body(parameters: HttpParameters) {
     if (headers[HttpHeaders.ContentType] == ContentType.Application.FormUrlEncoded.toString()) {
         val formData = Parameters.build {
             parameters.body.fields().forEach {
-                append(it.key, it.value.toDisplayString())
+                append(it.key, it.value.toDisplayYaml())
             }
         }
         setBody(FormDataContent(formData))

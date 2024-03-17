@@ -3,14 +3,9 @@ package instacli.util
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import java.nio.file.Path
-import kotlin.reflect.KClass
 
 object Yaml {
 
@@ -19,7 +14,6 @@ object Yaml {
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
 
     val mapper = ObjectMapper(factory)
-    val jsonMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
 
     init {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
@@ -58,38 +52,10 @@ object Yaml {
     }
 }
 
-fun objectNode(): ObjectNode {
-    return ObjectNode(JsonNodeFactory.instance)
-}
-
-fun <T : Any> JsonNode.toDomainObject(dataClass: KClass<T>): T {
-    return Yaml.mapper.treeToValue(this, dataClass.java)
-}
-
-/**
- * Factory method for JSON objects with single field.
- */
-fun objectNode(key: String, value: String): ObjectNode {
-    return ObjectNode(JsonNodeFactory.instance).put(key, value)
-}
-
-fun objectNode(map: Map<String, String>): ObjectNode {
-    return Yaml.mapper.valueToTree(map)
-}
-
-fun JsonNode?.toDisplayString(): String {
+fun JsonNode?.toDisplayYaml(): String {
     this ?: return ""
     if (isTextual) {
         return textValue()
     }
     return Yaml.mapper.writeValueAsString(this).trim()
-}
-
-fun JsonNode?.toJsonString(): String {
-    this ?: return ""
-    return Yaml.jsonMapper.writeValueAsString(this).trim()
-}
-
-fun List<JsonNode>.toArrayNode(): ArrayNode {
-    return ArrayNode(JsonNodeFactory.instance, this)
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.script.*
-import instacli.util.objectNode
+import instacli.util.Json
 import instacli.util.toDomainObject
 
 object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedResolver {
@@ -31,7 +31,7 @@ private fun handleInput(
     context: ScriptContext,
     inputData: InputData
 ): ObjectNode {
-    val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { objectNode() } as ObjectNode
+    val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
     for ((name, info) in inputData.parameters) when {
 
         // Already exists

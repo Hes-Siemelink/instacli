@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.util.objectNode
+import instacli.util.Json
 
 
 fun runCommand(
@@ -109,7 +109,7 @@ fun handleCommand(handler: CommandHandler, data: JsonNode, context: ScriptContex
 }
 
 fun asCommand(handler: CommandHandler, data: JsonNode): JsonNode {
-    val node = objectNode()
+    val node = Json.newObject()
     node.set<JsonNode>(handler.name, data)
     return node
 }
