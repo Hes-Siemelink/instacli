@@ -1,7 +1,6 @@
 # On my mind
 
 1. Clean up samples/basic and put example from Readme in samples dir
-2. Refactor how tests are being run: follow structure of instacli-spec dir
 
 # Where to take it
 

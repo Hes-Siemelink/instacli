@@ -44,7 +44,7 @@ Available commands:
   greet             Prints a greeting
   multiple-choice   Interaction example
   output            Sets test output
-  simple-question   Simple interactive prompt
+  prompt            Simple interactive prompt
 ```
 
 Using `--help` on the **[greet](/samples/basic/greet.cli)** command will give us a description and show which command
@@ -137,7 +137,7 @@ Simple Instacli example scripts
    greet             Prints a greeting
    multiple-choice   Interaction example
    output            Sets test output
-   simple-question   Simple interactive prompt
+   prompt            Simple interactive prompt
 ```
 
 After choosing a command with cursor keys and enter, ths script will continue.
@@ -156,7 +156,7 @@ Available commands:
   greet             Prints a greeting
   multiple-choice   Interaction example
   output            Sets test output
-  simple-question   Simple interactive prompt
+  prompt            Simple interactive prompt
 ```
 
 When calling a script with a missing parameter in interactive mode, you will get a question on the command line.
@@ -164,6 +164,10 @@ When calling a script with a missing parameter in interactive mode, you will get
 ```commandline cli directory:samples
 cli basic create-greeting
 ```
+
+<!-- cli input
+Your name: ""
+-->
 
 ```cli output
 ? Your name

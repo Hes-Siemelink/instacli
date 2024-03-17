@@ -250,7 +250,7 @@ Available commands:
   greet             Prints a greeting
   multiple-choice   Interaction example
   output            Sets test output
-  simple-question   Simple interactive prompt
+  prompt            Simple interactive prompt
 ```
 
 We can now invoke the **greet** command like this:
