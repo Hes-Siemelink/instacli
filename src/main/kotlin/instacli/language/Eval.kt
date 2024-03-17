@@ -1,34 +1,30 @@
 package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.*
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
+import instacli.util.NodeProcessor
 
 fun eval(data: JsonNode, context: ScriptContext): JsonNode {
-    return when (data) {
-        is ValueNode -> data
-        is ArrayNode -> {
-            val result = data.map { eval(it, context) }
-            ArrayNode(JsonNodeFactory.instance, result)
-        }
-
-        is ObjectNode -> {
-            evalObject(data, context)
-        }
-
-        else -> throw IllegalStateException("Unknown type ${data.javaClass.name}")
-    }
+    return Evaluator(context).process(data)
 }
 
-fun evalObject(node: ObjectNode, context: ScriptContext): JsonNode {
-    for ((key, data) in node.fields()) {
-        val evaluatedData = eval(data, context)
-        node.set<JsonNode>(key, evaluatedData)
-        if (key.startsWith(":")) {
-            val name = key.substring(1)
-            val handler = context.getCommandHandler(name)
-            val result = runCommand(handler, evaluatedData, context)
-            return result ?: TextNode("")
+private class Evaluator(val context: ScriptContext) : NodeProcessor() {
+
+    override fun processObject(node: ObjectNode): JsonNode {
+
+        for ((key, data) in node.fields()) {
+            val evaluatedData = process(data)
+            node.set<JsonNode>(key, evaluatedData)
+
+            if (key.startsWith(":")) {
+                val name = key.substring(1)
+                val handler = context.getCommandHandler(name)
+                val result = runCommand(handler, evaluatedData, context)
+                return result ?: TextNode("")
+            }
         }
+
+        return node
     }
-    return node
 }

@@ -2,21 +2,22 @@ package instacli.language
 
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import instacli.util.NodeProcessor
 import instacli.util.toDisplayYaml
 
 val VARIABLE_REGEX = Regex("\\$\\{([^}]+)}")
 
 fun JsonNode.resolveVariables(variables: Map<String, JsonNode>): JsonNode {
-    return resolveVariablesIn(this, variables)
+    return VariableResolver(variables).process(this)
 }
 
-private fun resolveVariablesIn(data: JsonNode, variables: Map<String, JsonNode>): JsonNode {
-    if (data is TextNode) {
+private class VariableResolver(val variables: Map<String, JsonNode>) : NodeProcessor() {
+
+    override fun processText(node: TextNode): JsonNode {
+        
         // Single variable reference will return full content of variable as node
-        val singleVariableMatch = VARIABLE_REGEX.matchEntire(data.textValue())
+        val singleVariableMatch = VARIABLE_REGEX.matchEntire(node.textValue())
         if (singleVariableMatch != null) {
             val varName = singleVariableMatch.groupValues[1]
             return getValue(varName, variables)
@@ -24,26 +25,12 @@ private fun resolveVariablesIn(data: JsonNode, variables: Map<String, JsonNode>)
 
         // One or more variables mixed in text are replaced with text values
         // Only replace the node is there is a variable in it
-        if (VARIABLE_REGEX.containsMatchIn(data.textValue())) {
-            return TextNode(resolveVariablesInText(data.textValue(), variables))
+        if (VARIABLE_REGEX.containsMatchIn(node.textValue())) {
+            return TextNode(resolveVariablesInText(node.textValue(), variables))
         }
-    }
 
-    // Replace elements of a list containing a variable
-    if (data is ArrayNode) {
-        for (i in 0 until data.size()) {
-            data[i] = resolveVariablesIn(data[i], variables)
-        }
+        return node
     }
-
-    // Replace elements of object containing a variable
-    if (data is ObjectNode) {
-        for (field in data.fields()) {
-            data.set<JsonNode>(field.key, resolveVariablesIn(field.value, variables))
-        }
-    }
-
-    return data
 }
 
 fun resolveVariablesInText(raw: String, variables: Map<String, JsonNode>): String {
@@ -98,3 +85,4 @@ fun toJsonPointer(jsonPath: String): JsonPointer {
 }
 
 data class VariableWithPath(val name: String, val path: String?)
+
