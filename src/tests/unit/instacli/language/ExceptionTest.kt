@@ -1,4 +1,4 @@
-package instacli.script
+package instacli.language
 
 import instacli.TestPaths
 import instacli.cli.InstacliMain

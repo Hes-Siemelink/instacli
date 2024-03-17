@@ -1,4 +1,4 @@
-package instacli.script
+package instacli.language
 
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.TestPaths
@@ -14,7 +14,7 @@ class CliScriptInfoTest {
 
     @Test
     fun scriptInfo() {
-        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
+        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/script-info-sample.cli"))
         assertTrue("Script info" in script)
 
         val scriptInfo = script.get("Script info").toDomainObject(ScriptInfoData::class)
@@ -23,7 +23,7 @@ class CliScriptInfoTest {
 
     @Test
     fun input() {
-        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/greet.cli"))
+        val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/script-info-sample.cli"))
         assertTrue("Script info" in script)
 
         val input = script.get("Script info").get("input").toDomainObject(InputData::class)

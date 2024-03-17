@@ -3,7 +3,7 @@ package instacli.commands
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.*
+import instacli.language.*
 import instacli.util.toDisplayYaml
 
 object Print : CommandHandler("Print"), AnyHandler {
@@ -14,7 +14,7 @@ object Print : CommandHandler("Print"), AnyHandler {
 }
 
 object Wait : CommandHandler("Wait"), ValueHandler {
-    
+
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!data.isNumber) {

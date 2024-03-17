@@ -2,7 +2,7 @@ package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import instacli.script.*
+import instacli.language.*
 import instacli.util.toDisplayYaml
 import instacli.util.toJson
 

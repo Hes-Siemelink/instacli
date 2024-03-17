@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.BooleanNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.github.kinquirer.core.Choice
-import instacli.script.*
+import instacli.language.*
 import instacli.util.UserPrompt
 import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject

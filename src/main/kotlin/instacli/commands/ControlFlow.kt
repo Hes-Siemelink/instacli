@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.*
+import instacli.language.*
 
 object Do : CommandHandler("Do"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

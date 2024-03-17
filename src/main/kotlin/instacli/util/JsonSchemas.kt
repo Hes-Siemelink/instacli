@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.networknt.schema.JsonSchema
 import com.networknt.schema.JsonSchemaFactory
 import com.networknt.schema.SpecVersion
-import instacli.script.CommandFormatException
+import instacli.language.CommandFormatException
 
 object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()

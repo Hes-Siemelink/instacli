@@ -11,7 +11,7 @@ import com.github.kinquirer.components.promptInputPassword
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.commands.StockAnswers
-import instacli.script.CliScriptingException
+import instacli.language.CliScriptingException
 
 interface UserPrompt {
     fun prompt(message: String, default: String = "", password: Boolean = false): JsonNode

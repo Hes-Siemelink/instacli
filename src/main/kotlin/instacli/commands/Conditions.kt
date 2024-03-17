@@ -2,7 +2,7 @@ package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.*
-import instacli.script.CommandFormatException
+import instacli.language.CommandFormatException
 import instacli.util.toDisplayYaml
 
 

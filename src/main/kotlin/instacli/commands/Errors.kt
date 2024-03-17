@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.*
+import instacli.language.*
 import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject

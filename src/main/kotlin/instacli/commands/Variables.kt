@@ -2,7 +2,7 @@ package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.script.*
+import instacli.language.*
 
 class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {

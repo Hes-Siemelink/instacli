@@ -8,6 +8,11 @@ import instacli.commands.CodeExample
 import instacli.commands.Credentials
 import instacli.commands.StockAnswers
 import instacli.commands.TestCase
+import instacli.language.Break
+import instacli.language.Command
+import instacli.language.CommandHandler
+import instacli.language.Script
+import instacli.language.ScriptContext
 import instacli.script.*
 import instacli.util.IO
 import instacli.util.TestPrompt

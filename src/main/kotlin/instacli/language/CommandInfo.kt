@@ -1,4 +1,4 @@
-package instacli.script
+package instacli.language
 
 interface CommandInfo {
     val name: String

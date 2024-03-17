@@ -1,4 +1,4 @@
-package instacli.script
+package instacli.language
 
 import com.fasterxml.jackson.databind.node.TextNode
 import org.junit.jupiter.api.Assertions.assertEquals

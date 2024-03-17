@@ -2,10 +2,10 @@ package instacli.cli
 
 import instacli.cli.OutputOption.JSON
 import instacli.cli.OutputOption.YAML
-import instacli.script.InstacliLanguageException
-import instacli.script.MissingParameterException
-import instacli.script.ScriptContext
-import instacli.script.addInputVariables
+import instacli.language.InstacliLanguageException
+import instacli.language.MissingParameterException
+import instacli.language.ScriptContext
+import instacli.language.addInputVariables
 import instacli.util.toDisplayJson
 import instacli.util.toDisplayYaml
 import java.nio.file.Path

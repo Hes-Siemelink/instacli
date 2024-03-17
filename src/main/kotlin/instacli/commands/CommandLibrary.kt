@@ -1,7 +1,7 @@
 package instacli.commands
 
 import instacli.cli.RunScript
-import instacli.script.CommandHandler
+import instacli.language.CommandHandler
 
 object CommandLibrary {
     val commands = commandMap(
