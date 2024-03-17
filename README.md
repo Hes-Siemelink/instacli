@@ -8,7 +8,7 @@ As-code, but without the complexity of actual code.
 
 ## Full Example
 
-Get a flavor of Instacli with this example file `greeting.cli`:
+Get a flavor of Instacli with this example file `greetings.cli`:
 
 <!-- yaml instacli before
 ${input}:
@@ -16,7 +16,7 @@ ${input}:
     language: English
 -->
 
-```yaml file:greeting.cli
+```yaml file:greetings.cli
 Script info:
   description: Multi-language greeting
   input:
@@ -41,7 +41,7 @@ Print: ${output}
 Run the script with this command:
 
 ```commandline cli
-cli greeting.cli
+cli greetings.cli
 ```
 
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
@@ -65,7 +65,7 @@ Hi Hes!
 You can specify the parameters as arguments. Find out what to pass with the `--help` option:
 
 ```commandline cli
-cli --help greeting.cli
+cli --help greetings.cli
 ```
 
 Will print:
@@ -81,7 +81,7 @@ Options:
 We can call the example again with the parameters filled in:
 
 ```commandline cli
-cli greeting.cli --name Hes --language Spanish
+cli greetings.cli --name Hes --language Spanish
 ```
 
 And we get the result in Spanish:

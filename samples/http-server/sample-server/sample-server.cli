@@ -9,7 +9,7 @@ Http server:
         output: Hello from Instacli!
 
     /greeting:
-      post: handlers/greeting.cli
+      post: handlers/create-greeting.cli
 
     /greetings:
       get:
