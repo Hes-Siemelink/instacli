@@ -55,9 +55,7 @@ private fun runSingleCommand(
         data = if (handler is DelayedResolver) {
             rawData
         } else {
-            // TODO: Make this more efficient so we are not copying the tree like three times
-            val evaluatedData = eval(rawData.deepCopy(), context)
-            evaluatedData.resolveVariables(context.variables)
+            rawData.resolve(context)
         }
 
         handler.validate(data)
@@ -114,4 +112,10 @@ fun asCommand(handler: CommandHandler, data: JsonNode): JsonNode {
     val node = objectNode()
     node.set<JsonNode>(handler.name, data)
     return node
+}
+
+fun JsonNode.resolve(context: ScriptContext, variables: Map<String, JsonNode> = context.variables): JsonNode {
+    // TODO: Make this more efficient so we are not copying the tree like three times
+    val evaluatedData = eval(this.deepCopy(), context)
+    return evaluatedData.resolveVariables(variables)
 }

@@ -22,9 +22,9 @@ object Exit : CommandHandler("Exit"), AnyHandler {
 object If : CommandHandler("If"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
-        val then = evaluateCondition(data, context) ?: return null
+        val branch = evaluateIfStatement(data, context) ?: return null
 
-        return then.runScript(context)
+        return branch.runScript(context)
     }
 }
 
@@ -44,22 +44,22 @@ object When : CommandHandler("When"), ArrayHandler, DelayedResolver {
             }
 
             // Regular 'if'
-            val then = evaluateCondition(ifStatement, context) ?: continue
-            return then.runScript(context)
+            val branch = evaluateIfStatement(ifStatement, context) ?: continue
+            return branch.runScript(context)
         }
         return null
     }
 }
 
-private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNode? {
-    val then = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
-    val else_: JsonNode? = data.remove("else")
+private fun evaluateIfStatement(data: ObjectNode, context: ScriptContext): JsonNode? {
+    val thenBranch = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
+    val elseBranch: JsonNode? = data.remove("else")
 
-    val condition = parseCondition(data.resolveVariables(context.variables))
+    val condition = parseCondition(data.resolve(context))
     return if (condition.isTrue()) {
-        then
+        thenBranch
     } else {
-        else_
+        elseBranch
     }
 }
 
@@ -71,7 +71,7 @@ object ForEach : CommandHandler("For each"), ObjectHandler, DelayedResolver {
 
         val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.output)
         checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
-        val itemListExpanded = itemList.resolveVariables(context.variables)
+        val itemListExpanded = itemList.resolve(context)
         val items = toArrayNode(itemListExpanded)
 
         val output: JsonNode = if (itemListExpanded is ArrayNode) data.arrayNode() else data.objectNode()
@@ -139,7 +139,7 @@ object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedResolver {
             val result = data.deepCopy().runScript(context) ?: context.output
 
             if (until is ObjectNode) {
-                val conditions = until.deepCopy().resolveVariables(context.variables)
+                val conditions = until.deepCopy().resolve(context)
                 finished = parseCondition(conditions).isTrue()
             } else {
                 finished = (result == until)

@@ -129,7 +129,7 @@ Assert that:
       equals: two
 ```
 
-The conditions **any** is a logical OR.
+The condition **any** is a logical OR.
 
 ```yaml instacli
 Code example: Any condition
@@ -142,7 +142,7 @@ Assert that:
       equals: four
 ```
 
-The conditions **not** is the negation
+The condition **not** is the negation
 
 ```yaml instacli
 Code example: Not condition

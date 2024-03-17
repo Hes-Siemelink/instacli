@@ -1,9 +1,7 @@
 # On my mind
 
-1. Document for first user
-2. Email the people from usebruno.com
-3. Clean up samples/basic and put example from Readme in samples dir
-4. Refactor how tests are being run: follow structure of instacli-spec dir
+1. Clean up samples/basic and put example from Readme in samples dir
+2. Refactor how tests are being run: follow structure of instacli-spec dir
 
 # Where to take it
 

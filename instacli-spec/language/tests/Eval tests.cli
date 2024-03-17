@@ -62,3 +62,17 @@ Expected output: State was clean
 Assert equals:
   actual: ${state}
   expected: dirty
+
+---
+Test case: Eval in conditions
+
+If:
+  item: 5
+  equals:
+    :Size: three
+  then:
+    Output: Correct eval
+  else:
+    Output: Not supposed to get here
+
+Expected output: Correct eval
