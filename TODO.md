@@ -54,24 +54,6 @@ if (System.`in`.available() != 0) {
 }
 ```
 
-## BUGS
-
-```commandline
-➜  samples git:(main) ✗ cli digitalai/platform/login/select-account.cli
-? Select account to log in with
- * Create new account
-
-Instacli scripting error
-
-Caused by: java.lang.NullPointerException: textValue(...) must not be null
-
-In select-account.cli:
-
-Set default account:
-target: Digital.ai Platform
-name: null
-```
-
 # Blog topics
 
 * How to Design a Language Without Writing a Parser

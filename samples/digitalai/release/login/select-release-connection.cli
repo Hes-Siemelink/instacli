@@ -23,7 +23,7 @@ As: ${account}
 If:
   empty: ${account.url}
   then:
-    Create account: ""
+    Create release connection: ""
     As: ${account}
 
 ---
