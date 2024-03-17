@@ -16,19 +16,19 @@ import kotlin.io.path.createFile
 import kotlin.io.path.exists
 import kotlin.io.path.name
 
-object GetAccount : CommandHandler("Get account"), ValueHandler {
+object GetCredentials : CommandHandler("Get credentials"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val targetName = data.asText() ?: throw CommandFormatException("Specify connection")
+        val targetName = data.asText() ?: throw CommandFormatException("Specify target resource")
 
-        val connections = Connections.getFrom(context)
-        val target = connections.targets[targetName] ?: return TextNode("")
+        val credentials = Credentials.getFrom(context)
+        val target = credentials.targetResources[targetName] ?: return TextNode("")
         return when {
             target.default != null -> {
-                target.defaultAccount()
+                target.default()
             }
 
-            target.accounts.isNotEmpty() -> {
-                target.accounts.first()
+            target.credentials.isNotEmpty() -> {
+                target.credentials.first()
             }
 
             else -> throw InstacliCommandError(
@@ -41,61 +41,61 @@ object GetAccount : CommandHandler("Get account"), ValueHandler {
 }
 
 
-object CreateAccount : CommandHandler("Create account"), ObjectHandler {
+object CreateCredentials : CommandHandler("Create credentials"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
-        val newAccount = data.toDomainObject(CreateAccountInfo::class)
-        val connections = Connections.getFrom(context)
-        val target = connections.targets.getOrPut(newAccount.target) {
-            ConnectionTarget()
+        val newCredentials = data.toDomainObject(CreateCredentialsInfo::class)
+        val credentials = Credentials.getFrom(context)
+        val target = credentials.targetResources.getOrPut(newCredentials.target) {
+            TargetResource()
         }
 
-        target.accounts.add(newAccount.account)
+        target.credentials.add(newCredentials.credentials)
 
-        connections.save()
+        credentials.save()
 
-        return newAccount.account
+        return newCredentials.credentials
     }
 }
 
-object GetAccounts : CommandHandler("Get accounts"), ValueHandler {
+object GetAllCredentials : CommandHandler("Get all credentials"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val targetName = data.asText()
-        val connections = Connections.getFrom(context)
-        val target = connections.targets[targetName] ?: throw InstacliCommandError(
+        val credentials = Credentials.getFrom(context)
+        val target = credentials.targetResources[targetName] ?: throw InstacliCommandError(
             "Unknown target $targetName",
             "unknown target",
             Json.newObject("target", targetName)
         )
 
-        return target.accounts()
+        return target.credentials()
     }
 }
 
-object SetDefaultAccount : CommandHandler("Set default account"), ObjectHandler {
+object SetDefaultAccount : CommandHandler("Set default credentials"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
-        val account = data.getTextParameter("name")
+        val newDefault = data.getTextParameter("name")
 
-        val connections = Connections.getFrom(context)
-        val target = connections.targets[targetName] ?: return null
-        target.default = account
+        val credentials = Credentials.getFrom(context)
+        val target = credentials.targetResources[targetName] ?: return null
+        target.default = newDefault
 
-        connections.save()
+        credentials.save()
 
         return null
     }
 }
 
-object DeleteAccount : CommandHandler("Delete account"), ObjectHandler {
+object DeleteAccount : CommandHandler("Delete credentials"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
-        val account = data.getTextParameter("name")
+        val oldCredentials = data.getTextParameter("name")
 
-        val connections = Connections.getFrom(context)
-        val target = connections.targets[targetName] ?: return null
-        target.accounts.removeIf { it["name"]?.textValue() == account }
+        val credentials = Credentials.getFrom(context)
+        val target = credentials.targetResources[targetName] ?: return null
+        target.credentials.removeIf { it["name"]?.textValue() == oldCredentials }
 
-        connections.save()
+        credentials.save()
 
         return null
     }
@@ -128,18 +128,18 @@ object ConnectTo : CommandHandler("Connect to"), ValueHandler {
 // Data model
 //
 
-class Connections {
+class Credentials {
 
     @JsonAnySetter
-    var targets: MutableMap<String, ConnectionTarget> = mutableMapOf()
+    var targetResources: MutableMap<String, TargetResource> = mutableMapOf()
 
     @JsonIgnore
     var file: Path? = null
 
     fun save() {
-        checkNotNull(file) { "Can't save Connections object because there is no file associated with it." }
+        checkNotNull(file) { "Can't save Credentials object because there is no file associated with it." }
 
-        Yaml.mapper.writeValue(file?.toFile(), this.targets)
+        Yaml.mapper.writeValue(file?.toFile(), this.targetResources)
     }
 
     fun storeIn(context: ScriptContext) {
@@ -148,28 +148,28 @@ class Connections {
 
     companion object {
 
-        const val FILE_NAME = "connections.yaml"
+        const val FILE_NAME = "credentials.yaml"
         private val CONNECTIONS_YAML: Path = InstacliPaths.INSTACLI_HOME.resolve(FILE_NAME)
 
-        private fun store(context: ScriptContext, value: Connections) {
+        private fun store(context: ScriptContext, value: Credentials) {
             context.session[FILE_NAME] = value
         }
 
-        fun getFrom(context: ScriptContext): Connections {
+        fun getFrom(context: ScriptContext): Credentials {
             return context.session.getOrPut(FILE_NAME) {
                 load()
-            } as Connections
+            } as Credentials
         }
 
-        fun load(file: Path = CONNECTIONS_YAML): Connections {
+        fun load(file: Path = CONNECTIONS_YAML): Credentials {
 
             createIfNotExists(file)
 
             val node = Yaml.readFile(file)
-            val connections = node.toDomainObject(Connections::class)
-            connections.file = file
+            val credentials = node.toDomainObject(Credentials::class)
+            credentials.file = file
 
-            return connections
+            return credentials
         }
 
         private fun createIfNotExists(file: Path = CONNECTIONS_YAML) {
@@ -177,31 +177,31 @@ class Connections {
                 return
             }
             file.createFile()
-            val connections = Connections()
-            connections.file = file
-            connections.save()
+            val credentials = Credentials()
+            credentials.file = file
+            credentials.save()
         }
     }
 }
 
-class ConnectionTarget {
-    var accounts: MutableList<ObjectNode> = mutableListOf()
+class TargetResource {
+    var credentials: MutableList<ObjectNode> = mutableListOf()
     var default: String? = null
 
-    fun defaultAccount(): ObjectNode? {
-        return accounts.find { it["name"]?.textValue() == default }
+    fun default(): ObjectNode? {
+        return credentials.find { it["name"]?.textValue() == default }
     }
 
-    fun accounts(): ArrayNode {
+    fun credentials(): ArrayNode {
         val list = ArrayNode(JsonNodeFactory.instance)
-        for (item in accounts) {
+        for (item in credentials) {
             list.add(item)
         }
         return list
     }
 }
 
-class CreateAccountInfo {
+class CreateCredentialsInfo {
     var target: String = "Default"
-    var account: ObjectNode = Json.newObject()
+    var credentials: ObjectNode = Json.newObject()
 }

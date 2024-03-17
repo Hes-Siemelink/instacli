@@ -11,14 +11,14 @@ Expected output: 12
 
 
 ---
-Get accounts: ${input.target}
+Get all credentials: ${input.target}
 Add to:
   ${output}:
     name: "* Create new account"
 As: ${accounts}
 
 ---
-Get accounts: ${input.target}
+Get all credentials: ${input.target}
 => Add:
   name: "* Create new account"
 =>: ${accounts}

@@ -2,7 +2,7 @@ package samples
 
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
-import instacli.commands.Connections
+import instacli.commands.Credentials
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.Test
 import kotlin.io.path.exists
@@ -16,13 +16,13 @@ class DigitalaiPlatformTests {
 
     private fun test(resource: String) {
         Assumptions.assumeTrue(
-            TestPaths.TEST_CONNECTIONS.exists(),
-            "Missing file: ${TestPaths.TEST_CONNECTIONS}"
+            TestPaths.TEST_CREDENTIALS.exists(),
+            "Missing file: ${TestPaths.TEST_CREDENTIALS}"
         )
 
         val file = toPath(resource)
         val testContext = CliFileContext(file, interactive = false)
-        Connections.load(TestPaths.TEST_CONNECTIONS).storeIn(testContext)
+        Credentials.load(TestPaths.TEST_CREDENTIALS).storeIn(testContext)
         InstacliMain("-q", file.toString()).run(testContext)
     }
 }

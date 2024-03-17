@@ -1,4 +1,4 @@
-Get account: Digital.ai Platform
+Get credentials: Digital.ai Platform
 As: ${defaultAccount}
 
 If:

@@ -6,7 +6,7 @@ Script info:
       default: Digital.ai Release
 
 ---
-Get accounts: ${input.target}
+Get all credentials: ${input.target}
 As: ${accounts}
 
 ---
@@ -17,7 +17,7 @@ Prompt:
   display: name
 As: ${account}
 
-Delete account:
+Delete credentials:
   target: ${input.target}
   name: ${account.name}
 

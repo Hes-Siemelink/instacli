@@ -10,6 +10,6 @@ Script info:
       type: password
     name: Account name
 
-Create account:
+Create credentials:
   target: Digital.ai Release
-  account: ${input}
+  credentials: ${input}

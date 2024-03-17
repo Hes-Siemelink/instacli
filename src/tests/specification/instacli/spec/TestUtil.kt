@@ -5,7 +5,7 @@ import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
 import instacli.commands.CodeExample
-import instacli.commands.Connections
+import instacli.commands.Credentials
 import instacli.commands.StockAnswers
 import instacli.commands.TestCase
 import instacli.script.*
@@ -48,9 +48,9 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
     tempFile.toFile().deleteOnExit()
 
-    val connections = Connections.load(TestPaths.TEST_CONNECTIONS)
-    connections.file = tempFile
-    connections.storeIn(context)
+    val credentials = Credentials.load(TestPaths.TEST_CREDENTIALS)
+    credentials.file = tempFile
+    credentials.storeIn(context)
 
     return script.getTestCases().map { script ->
         dynamicTest(script.getText(TestCase), cliFile.toUri()) {
@@ -124,16 +124,16 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     helperFiles.forEach {
         testDir.resolve(it.key).writeText(it.value)
     }
-    val connections = if (helperFiles.containsKey(Connections.FILE_NAME)) {
-        Connections.load(testDir.resolve(Connections.FILE_NAME))
+    val credentials = if (helperFiles.containsKey(Credentials.FILE_NAME)) {
+        Credentials.load(testDir.resolve(Credentials.FILE_NAME))
     } else {
-        Connections()
+        Credentials()
     }
 
     // Generate tests
     val codeExampleTests = codeExamples
         .map {
-            Script.from(it).toTest(document, CliFileContext(testDir), connections)
+            Script.from(it).toTest(document, CliFileContext(testDir), credentials)
         }
     val cliInvocationTests = commandExamples.map {
         val dir = it.directory ?: testDir
@@ -143,9 +143,9 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     return codeExampleTests + cliInvocationTests
 }
 
-private fun Script.toTest(document: Path, context: ScriptContext, connections: Connections): DynamicTest {
+private fun Script.toTest(document: Path, context: ScriptContext, credentials: Credentials): DynamicTest {
 
-    connections.storeIn(context)
+    credentials.storeIn(context)
     UserPrompt.default = TestPrompt
 
     return dynamicTest(getText(CodeExample), document.toUri()) {

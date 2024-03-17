@@ -10,7 +10,7 @@ If:
     Exit: Already logged in
 
 ---
-Get account: Digital.ai Platform
+Get credentials: Digital.ai Platform
 As: ${endpoint}
 
 ---

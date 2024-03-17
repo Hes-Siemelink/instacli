@@ -1,6 +1,6 @@
-# Command: Get accounts
+# Command: Get all credentials
 
-Gets all accounts from the user's account list.
+Gets all credentials for an endpoint.
 
 | Content type | Supported |
 |--------------|-----------|
@@ -10,13 +10,13 @@ Gets all accounts from the user's account list.
 
 ## Basic usage
 
-With **Get accounts** you get the list of connection details for a certain endpoint.
+With **Get all credentials** you get the list of connection details for a certain endpoint.
 
-Given the following connections in `~/.instacli/connections.yaml`:
+Given the following list of credentials in `~/.instacli/credentials.yaml`:
 
-```yaml file:connections.yaml
+```yaml file:credentials.yaml
 Instacli Sample Server:
-  accounts:
+  credentials:
     - name: Test account 1
       username: admin
       password: admin
@@ -25,12 +25,12 @@ Instacli Sample Server:
       password: user
 ```
 
-You can retrieve all accounts with the following snippet:
+You can retrieve all credentials with the following snippet:
 
 ```yaml instacli
-Code example: Get default account for an endpoint
+Code example: Get all credentials for an endpoint
 
-Get accounts: Instacli Sample Server
+Get all credentials: Instacli Sample Server
 
 Expected output:
   - name: Test account 1

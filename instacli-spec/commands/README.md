@@ -14,15 +14,15 @@ Overview of standard commands in Instacli.
 * [Http request defaults](http/Http%20request%20defaults.md) - Sets the default parameters for all subsequent HTTP
   commands.
 
-### Manage connection credentials
+### Manage credentials
 
 * [Connect to](connections/Connect%20to.md) - Sets up a connection to a named endpoint
-* [Create account](connections/Create%20account.md) - Configures a connection to an endpoint and saves it in the user's
-  preferences.
-* [Get account](connections/Get%20account.md) - Gets the default account from the user's account list.
-* [Get accounts](connections/Get%20accounts.md) - Gets all accounts from the user's account list
-* [Set default account](connections/Set%20default%20account.md) - Sets the default account for the user's account list
-* [Delete account](connections/Delete%20account.md) - Deletes an account from the user's account list
+* [Create credentials](connections/Create%20credentials.md) - Configures a credentials for an endpoint and saves it in
+  the user's preferences.
+* [Get credentials](connections/Get%credentials.md) - Gets the default credentials for an endpoint
+* [Get all credentials](connections/Get%20all%20credentials.md) - Gets all credential for an endpoint
+* [Set default credentials](connections/Set%20default%20credentials.md) - Sets the default credentials for an endpoint
+* [Delete credentials](connections/Delete%credentials.md) - Deletes credentials for an endpoint
 
 ### Http server
 

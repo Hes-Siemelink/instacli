@@ -48,11 +48,8 @@
 * Properly handle: null, empty, boolean, int
 * Note for stdin:
 
-```kotlin
-if (System.`in`.available() != 0) {
-    val input = Yaml.mapper.readTree(System.`in`)
-}
-```
+  if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)
+  }
 
 # Blog topics
 

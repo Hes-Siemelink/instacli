@@ -6,7 +6,7 @@ Script info:
       default: Digital.ai Release
 
 ---
-Get accounts: ${input.target}
+Get all credentials: ${input.target}
 Append:
   name: "* Create new account"
 As: ${accounts}
@@ -27,7 +27,7 @@ If:
     As: ${account}
 
 ---
-Set default account:
+Set default credentials:
   target: ${input.target}
   name: ${account.name}
 

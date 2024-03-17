@@ -76,10 +76,10 @@ object CommandLibrary {
         HttpServer,
 
         // Account connections
-        GetAccount,
+        GetCredentials,
         ConnectTo,
-        CreateAccount,
-        GetAccounts,
+        CreateCredentials,
+        GetAllCredentials,
         SetDefaultAccount,
         DeleteAccount,
     )

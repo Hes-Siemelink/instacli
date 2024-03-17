@@ -2,7 +2,7 @@ Script info:
   description: Get bearer toke for Spotify
   hidden: true
 
-Get account: Spotify
+Get credentials: Spotify
 As: ${app}
 
 ---

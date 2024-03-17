@@ -1,6 +1,6 @@
-# Command: Delete account
+# Command: Delete credentials
 
-Deletes an account from the user's account list.
+Deletes credentials for an endpoint.
 
 | Content type | Supported                |
 |--------------|--------------------------|
@@ -12,13 +12,13 @@ Deletes an account from the user's account list.
 
 ## Basic usage
 
-With **Delete account** you get rid of a previously configured account.
+With **Delete credentials** you get rid of previously configured credentials.
 
-Given the following connections in `~/.instacli/connections.yaml`:
+Given the following list of credentials in `~/.instacli/credentials.yaml`:
 
-```yaml file:connections.yaml
+```yaml file:credentials.yaml
 Instacli Sample Server:
-  accounts:
+  credentials:
     - name: Test account 1
       username: admin
       password: admin
@@ -30,9 +30,9 @@ Instacli Sample Server:
 You can delete Test account 2 with the following snippet:
 
 ```yaml instacli
-Code example: Delete an account for an endpoint
+Code example: Delete credentials for an endpoint
 
-Delete account:
+Delete credentials:
   target: Instacli Sample Server
   name: Test account 2
 ```

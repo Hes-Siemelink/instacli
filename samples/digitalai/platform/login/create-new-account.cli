@@ -50,6 +50,6 @@ Prompt object:
 As: ${account}
 
 ---
-Create account:
+Create credentials:
   target: Digital.ai Platform
-  account: ${account}
+  credentials: ${account}

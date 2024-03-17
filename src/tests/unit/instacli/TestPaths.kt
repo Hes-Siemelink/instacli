@@ -4,5 +4,5 @@ import java.nio.file.Path
 
 object TestPaths {
     val RESOURCES: Path = Path.of("src/tests/resources")
-    val TEST_CONNECTIONS: Path = RESOURCES.resolve("instacli-home/connections.yaml")
+    val TEST_CREDENTIALS: Path = RESOURCES.resolve("instacli-home/credentials.yaml")
 }

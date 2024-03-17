@@ -6,7 +6,7 @@ import kotlin.io.path.exists
 
 object TestPaths {
     val RESOURCES: Path = Path.of("src/integrationTest/resources")
-    val TEST_CONNECTIONS: Path = TestPaths.RESOURCES.resolve("instacli-home/connections.yaml")
+    val TEST_CREDENTIALS: Path = TestPaths.RESOURCES.resolve("instacli-home/credentials.yaml")
 }
 
 fun toPath(resource: String): Path {

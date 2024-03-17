@@ -138,7 +138,7 @@ cli samples/spotify
 ```
 
 When connecting to Spotify for the first time, the script will ask you for your login credentials (App Client ID and
-Client secret -- you should already have those). These will be stored in `~/.instacli/connections.yaml` and will be used
+Client secret -- you should already have those). These will be stored in `~/.instacli/credentials.yaml` and will be used
 for subsequent invocations.
 
 # Highlight Reel

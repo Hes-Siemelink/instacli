@@ -1,6 +1,6 @@
-# Command: Set default account
+# Command: Set default credentials
 
-Sets the default account for the user's account list.
+Sets the default credentials for an endpoint.
 
 | Content type | Supported                |
 |--------------|--------------------------|
@@ -12,14 +12,14 @@ Sets the default account for the user's account list.
 
 ## Basic usage
 
-Use **Set default account** to set another account that will be used for [Get account](Get%20account.md) when there are
-multiple.
+Use **Set default credentials** to set the defeult credentials that will be used
+for [Get credentials](Get%20credentials.md) when there are multiple available.
 
-Given the following connections in `~/.instacli/connections.yaml`:
+Given the following connections in `~/.instacli/credentials.yaml`:
 
-```yaml file:connections.yaml
+```yaml file:credentials.yaml
 Instacli Sample Server:
-  accounts:
+  credentials:
     - name: Test account 1
       username: admin
       password: admin
@@ -28,12 +28,12 @@ Instacli Sample Server:
       password: user
 ```
 
-You can set the default account with the following snippet:
+You can set the default credentials with the following snippet:
 
 ```yaml instacli
-Code example: Set the default account for an endpoint
+Code example: Set the default credentials for an endpoint
 
-Set default account:
+Set default credentials:
   target: Instacli Sample Server
   name: Test account 2
 ```

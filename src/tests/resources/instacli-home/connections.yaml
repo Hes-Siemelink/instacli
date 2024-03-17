@@ -1,12 +1,1 @@
-Default server:
-  default: Default account
-  accounts:
-    - name: Default account
-      description: The one and only
-
-Test server:
-  accounts:
-    - name: First
-      description: First connection
-    - name: Second
-      description: Second connection
+{}

@@ -1,6 +1,6 @@
 Script info: Logs in to Digital.ai Platform
 
-Get account: Digital.ai Release
+Get credentials: Digital.ai Release
 As: ${endpoint}
 
 ---
