@@ -41,8 +41,6 @@
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 * Define 'output type' on Script info
 * Add condition to input fields on Script info and Prompt
-* 'DelayedVariableResolver' should also be 'DelayedEvalResolver' => Eval is done too eagerly within If, for example try
-  doing a 'Prompt' in else
 * Special variables
     * `input`
     * `output`

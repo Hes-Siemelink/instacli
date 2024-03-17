@@ -25,11 +25,9 @@ class Script(val commands: List<Command>) {
             if (context.error != null && !(handler == OnError || handler == OnErrorType)) {  // TODO: introduce interface 'ErrorHandler'
                 continue
             }
-
-            val evaluatedData = eval(command.data.deepCopy(), context)
-
+            
             try {
-                output = runCommand(handler, evaluatedData, context) ?: output
+                output = runCommand(handler, command.data, context) ?: output
             } catch (e: InstacliCommandError) {
                 context.error = e
             }

@@ -87,7 +87,7 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 /**
  * Asks multiple questions at once
  */
-object PromptObject : CommandHandler("Prompt object"), ObjectHandler, DelayedVariableResolver {
+object PromptObject : CommandHandler("Prompt object"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones

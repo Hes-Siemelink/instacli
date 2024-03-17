@@ -43,3 +43,22 @@ Output:
 
 Expected output: 3
 
+---
+Test case: No eager eval
+
+${state}: clean
+
+If:
+  item: ${state}
+  equals: clean
+  then:
+    Output: State was clean
+    Print:
+      :${state}: dirty
+  else:
+    Output: State was not clean
+
+Expected output: State was clean
+Assert equals:
+  actual: ${state}
+  expected: dirty

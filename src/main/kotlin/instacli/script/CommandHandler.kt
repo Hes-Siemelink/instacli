@@ -41,10 +41,10 @@ fun interface AnyHandler {
 }
 
 /**
- * Marker interface that indicates that variables should not be expanded.
- * The CommandHandler will expand the variables at the time needed.
+ * Marker interface for commands that contain other commands, like Do or For each.
+ * Indicates that variables should not be expanded and eval should not take place yet.
  */
-interface DelayedVariableResolver
+interface DelayedResolver
 
 fun JsonNode.getParameter(parameter: String): JsonNode {
     return this[parameter] ?: throw CommandFormatException("Expected field '$parameter'.")

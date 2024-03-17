@@ -8,7 +8,7 @@ import instacli.script.*
 import instacli.util.objectNode
 import instacli.util.toDomainObject
 
-object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedVariableResolver {
+object ScriptInfo : CommandHandler("Script info"), ObjectHandler, ValueHandler, DelayedResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.script.*
 
-object Do : CommandHandler("Do"), ObjectHandler, DelayedVariableResolver {
+object Do : CommandHandler("Do"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return data.runScript(context)
     }
@@ -19,7 +19,7 @@ object Exit : CommandHandler("Exit"), AnyHandler {
     }
 }
 
-object If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
+object If : CommandHandler("If"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val then = evaluateCondition(data, context) ?: return null
@@ -28,7 +28,7 @@ object If : CommandHandler("If"), ObjectHandler, DelayedVariableResolver {
     }
 }
 
-object When : CommandHandler("When"), ArrayHandler, DelayedVariableResolver {
+object When : CommandHandler("When"), ArrayHandler, DelayedResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
 
@@ -65,7 +65,7 @@ private fun evaluateCondition(data: ObjectNode, context: ScriptContext): JsonNod
 
 private val FOR_EACH_VARIABLE = Regex(VARIABLE_REGEX.pattern + " in")
 
-object ForEach : CommandHandler("For each"), ObjectHandler, DelayedVariableResolver {
+object ForEach : CommandHandler("For each"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
@@ -129,7 +129,7 @@ fun toArrayNode(node: JsonNode): ArrayNode {
 }
 
 
-object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedVariableResolver {
+object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'Until'")

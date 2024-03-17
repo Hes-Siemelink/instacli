@@ -24,7 +24,7 @@ private val methods = mapOf(
     "delete" to HandlerType.DELETE
 )
 
-object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedVariableResolver {
+object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedResolver {
 
     private val servers = mutableMapOf<Int, Javalin>()
 

@@ -11,7 +11,7 @@ class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyH
     }
 }
 
-object As : CommandHandler("As"), ValueHandler, DelayedVariableResolver {
+object As : CommandHandler("As"), ValueHandler, DelayedResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey(OUTPUT_VARIABLE)) {

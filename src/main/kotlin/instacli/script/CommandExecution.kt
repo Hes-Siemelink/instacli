@@ -52,7 +52,13 @@ private fun runSingleCommand(
 
     var data = rawData
     try {
-        data = if (handler is DelayedVariableResolver) rawData else rawData.resolveVariables(context.variables)
+        data = if (handler is DelayedResolver) {
+            rawData
+        } else {
+            // TODO: Make this more efficient so we are not copying the tree like three times
+            val evaluatedData = eval(rawData.deepCopy(), context)
+            evaluatedData.resolveVariables(context.variables)
+        }
 
         handler.validate(data)
 
