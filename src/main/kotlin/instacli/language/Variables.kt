@@ -3,7 +3,7 @@ package instacli.language
 import com.fasterxml.jackson.core.JsonPointer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.util.NodeProcessor
+import instacli.util.JsonProcessor
 import instacli.util.toDisplayYaml
 
 val VARIABLE_REGEX = Regex("\\$\\{([^}]+)}")
@@ -12,10 +12,10 @@ fun JsonNode.resolveVariables(variables: Map<String, JsonNode>): JsonNode {
     return VariableResolver(variables).process(this)
 }
 
-private class VariableResolver(val variables: Map<String, JsonNode>) : NodeProcessor() {
+private class VariableResolver(val variables: Map<String, JsonNode>) : JsonProcessor() {
 
     override fun processText(node: TextNode): JsonNode {
-        
+
         // Single variable reference will return full content of variable as node
         val singleVariableMatch = VARIABLE_REGEX.matchEntire(node.textValue())
         if (singleVariableMatch != null) {

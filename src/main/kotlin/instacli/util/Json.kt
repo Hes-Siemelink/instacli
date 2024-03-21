@@ -42,7 +42,7 @@ fun JsonNode?.toDisplayJson(): String {
     return Json.mapper.writeValueAsString(this).trim()
 }
 
-abstract class NodeProcessor {
+abstract class JsonProcessor {
 
     fun process(node: JsonNode): JsonNode {
         return when (node) {
