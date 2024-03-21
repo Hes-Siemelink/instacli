@@ -14,14 +14,13 @@ object JsonSchemas {
     }
 
     fun getSchema(name: String): JsonSchema? {
-        if (!Resources.exists(name)) return null
-
         return schemas.getOrPut(name) {
             loadSchema("schema/$name.schema.json")
         }
     }
 
     private fun loadSchema(schemaFile: String): JsonSchema? {
+        if (!Resources.exists(schemaFile)) return null
         return factory.getSchema(Resources.getUri(schemaFile))
     }
 }
