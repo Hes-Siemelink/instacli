@@ -23,6 +23,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.+")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.+")
     implementation("com.networknt:json-schema-validator:1.0.79")
+    implementation("net.pwall.json:json-kotlin-schema:0.47")
+    implementation("io.kjson:kjson:7.6")
     implementation("io.ktor:ktor-client-core:2.2.+")
     implementation("io.ktor:ktor-client-java:2.2+")
     implementation("io.ktor:ktor-client-auth:2.2+")

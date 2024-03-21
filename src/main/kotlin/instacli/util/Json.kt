@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import io.kjson.JSON
+import io.kjson.JSONValue
 import kotlin.reflect.KClass
 
 object Json {
@@ -42,7 +44,12 @@ fun JsonNode?.toDisplayJson(): String {
     return Json.mapper.writeValueAsString(this).trim()
 }
 
-abstract class NodeProcessor {
+fun JsonNode.toWall(): JSONValue {
+    return JSON.parse(toString()) ?: error("Empty Json")
+}
+
+
+abstract class JsonProcessor {
 
     fun process(node: JsonNode): JsonNode {
         return when (node) {
