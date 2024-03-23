@@ -1,0 +1,4 @@
+all:
+  - any:
+      - item-x: a
+        equals: b
