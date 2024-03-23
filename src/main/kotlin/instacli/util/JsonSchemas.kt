@@ -5,6 +5,7 @@ import com.networknt.schema.JsonSchema
 import com.networknt.schema.JsonSchemaFactory
 import com.networknt.schema.SpecVersion
 import instacli.language.CommandFormatException
+import java.nio.file.Path
 
 object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()
@@ -22,6 +23,10 @@ object JsonSchemas {
     private fun loadSchema(schemaFile: String): JsonSchema? {
         if (!Resources.exists(schemaFile)) return null
         return factory.getSchema(Resources.getUri(schemaFile))
+    }
+
+    fun load(schemaFile: Path): JsonSchema? {
+        return factory.getSchema(schemaFile.toUri())
     }
 }
 

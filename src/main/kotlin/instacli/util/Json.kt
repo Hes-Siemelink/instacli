@@ -44,11 +44,6 @@ fun JsonNode?.toDisplayJson(): String {
     return Json.mapper.writeValueAsString(this).trim()
 }
 
-fun JsonNode.toWall(): JSONValue {
-    return JSON.parse(toString()) ?: error("Empty Json")
-}
-
-
 abstract class JsonProcessor {
 
     fun process(node: JsonNode): JsonNode {
@@ -85,4 +80,12 @@ abstract class JsonProcessor {
     open fun processOther(node: JsonNode): JsonNode {
         return node
     }
+}
+
+//
+// Interop
+//
+
+fun JsonNode.toWall(): JSONValue {
+    return JSON.parse(toString()) ?: error("Empty Json")
 }
