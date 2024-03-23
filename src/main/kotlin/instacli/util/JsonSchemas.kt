@@ -16,12 +16,16 @@ object JsonSchemas {
 
     fun getSchema(name: String): JsonSchema? {
         return schemas.getOrPut(name) {
-            loadSchema("schema/$name.schema.json")
+            loadSchema(name)
         }
     }
 
-    private fun loadSchema(schemaFile: String): JsonSchema? {
-        if (!Resources.exists(schemaFile)) return null
+    private fun loadSchema(name: String): JsonSchema? {
+        val schemaFile = when {
+            Resources.exists("schema/$name.schema.yaml") -> "schema/$name.schema.yaml"
+            Resources.exists("schema/$name.schema.json") -> "schema/$name.schema.json"
+            else -> return null
+        }
         return factory.getSchema(Resources.getUri(schemaFile))
     }
 
