@@ -3,9 +3,20 @@ $ref: "#/definitions/Condition"
 definitions:
   Condition:
     oneOf:
-      - "$ref": "#/definitions/Equals"
       - "$ref": "#/definitions/All"
       - "$ref": "#/definitions/Any"
+      - "$ref": "#/definitions/Empty"
+      - "$ref": "#/definitions/Equals"
+      - "$ref": "#/definitions/In"
+      - "$ref": "#/definitions/Not"
+  Empty:
+    properties:
+      empty:
+        type:
+          - string
+          - array
+          - object
+    additionalProperties: false
   Equals:
     type: object
     additionalProperties: false
@@ -20,6 +31,26 @@ definitions:
           - string
           - array
           - object
+  In:
+    type: object
+    additionalProperties: false
+    properties:
+      item:
+        type:
+          - string
+          - array
+          - object
+      in:
+        type:
+          - string
+          - array
+          - object
+  Not:
+    type: object
+    additionalProperties: false
+    properties:
+      not:
+        "$ref": "#/definitions/Condition"
   All:
     type: object
     additionalProperties: false
