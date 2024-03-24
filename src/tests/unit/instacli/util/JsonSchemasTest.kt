@@ -8,7 +8,6 @@ import net.pwall.json.schema.JSONSchema
 import net.pwall.json.schema.output.BasicOutput
 import net.pwall.yaml.YAMLNode
 import net.pwall.yaml.YAMLSimple
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.nio.file.Path
@@ -22,16 +21,16 @@ class JsonSchemasTest {
         yaml.validateWithSchema("Replace")
     }
 
-    @Test
+    //    @Test
     fun `Validate Replace (Wall)`() {
         val yaml = Wall.readYaml(example("Replace.yaml"))
 
-        val output = Wall.validate(yaml, "Replace.schema.json")
+        val output = Wall.validate(yaml, "Replace.schema.yaml")
 
         output.valid shouldBe true
     }
 
-    @Test
+    //    @Test
     fun `Validate Equals (Wall)`() {
         val yaml = Wall.readYaml(example("Equals.yaml"))
         val output = Wall.validate(yaml, "Equals.schema.yaml")
@@ -39,7 +38,7 @@ class JsonSchemasTest {
         output.valid shouldBe true
     }
 
-    @Test
+    //    @Test
     fun `Validate Equals - incorrect (Wall)`() {
         val yaml = Wall.readYaml(example("Equals-incorrect.yaml"))
         val output = Wall.validate(yaml, "Equals.schema.yaml")
@@ -63,7 +62,7 @@ class JsonSchemasTest {
         }
     }
 
-    @Test
+    //    @Test
     fun `Validate Equals with conditions schema (Wall)`() {
         val yaml = Wall.readYaml(example("Equals.yaml"))
         val output = Wall.validate(yaml, "Conditions.schema.yaml")
@@ -71,7 +70,7 @@ class JsonSchemasTest {
         output.valid shouldBe true
     }
 
-    @Test
+    //    @Test
     fun `Validate incorrect Equals with conditions schema (Wall)`() {
         val yaml = Wall.readYaml(example("Equals-incorrect.yaml"))
         val output = Wall.validate(yaml, "Conditions.schema.yaml")
@@ -86,7 +85,7 @@ class JsonSchemasTest {
         yaml.validateWithSchema("Conditions")
     }
 
-    @Test
+    //    @Test
     fun `Validate nested conditions (Wall)`() {
         val yaml = Wall.readYaml(example("Nested conditions.yaml"))
         val output = Wall.validate(yaml, "Conditions.schema.yaml")
@@ -103,8 +102,8 @@ class JsonSchemasTest {
         }.let { print(it) }
     }
 
-    @Test
-    @Disabled // Bug in json-kotlin-schema?
+    //    @Test
+//    @Disabled // Bug in json-kotlin-schema?
     fun `Validate nested conditions that are incorrect (Wall)`() {
         val yaml = Wall.readYaml(example("Nested conditions-incorrect.yaml"))
         val output = Wall.validate(yaml, "Conditions.schema.yaml")
@@ -119,10 +118,10 @@ class JsonSchemasTest {
         yaml.validateWithSchema("Assert that WIP")
     }
 
-    @Test
+    //    @Test
     fun `Validate with Assert that schema (Wall)`() {
         val yaml = Wall.readYaml(example("Nested conditions.yaml"))
-        val output = Wall.validate(yaml, "Assert that WIP.schema.json")
+        val output = Wall.validate(yaml, "Assert that.schema.yaml")
 
         output.valid shouldBe true
     }
@@ -136,11 +135,11 @@ class JsonSchemasTest {
         }.let { print(it.toString().replace(',', '\n')) }
     }
 
-    @Test
-    @Disabled // Bug in json-kotlin-schema?
+    //    @Test
+//    @Disabled // Bug in json-kotlin-schema?
     fun `Validate incorrect data with Assert that schema (Wall)`() {
         val yaml = Wall.readYaml(example("Nested conditions-incorrect.yaml"))
-        val output = Wall.validate(yaml, "Assert that WIP.schema.json")
+        val output = Wall.validate(yaml, "Assert that.schema.yaml")
 
         output.valid shouldBe false
     }

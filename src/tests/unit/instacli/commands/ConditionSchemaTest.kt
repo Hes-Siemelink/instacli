@@ -21,7 +21,7 @@ class ConditionSchemaTest {
     fun validate(json: String, schemaFile: String) {
 
         val node = Yaml.parse(json)
-        val schema = JsonSchemas.load(TestPaths.SCHEMAS.resolve(schemaFile)) ?: error("Schema not found")
+        val schema = JsonSchemas.load(TestPaths.TEST_SCHEMAS.resolve(schemaFile)) ?: error("Schema not found")
         val messages = schema.validate(node)
         messages.forEach {
             println(it)
