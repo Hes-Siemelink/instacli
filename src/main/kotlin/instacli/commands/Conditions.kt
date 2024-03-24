@@ -127,7 +127,7 @@ fun parseCondition(node: JsonNode): Condition {
         }
 
         else -> {
-            throw CommandFormatException("Condition needs 'object', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayYaml()}")
+            throw CommandFormatException("Condition needs 'item', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayYaml()}")
         }
     }
 }
