@@ -11,7 +11,7 @@ import java.nio.file.Path
 
 val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("language/Writing Instacli documentation.md")
 
-class InstacliDocTest {
+class DocTest {
 
     private val doc = InstacliDoc.scan(REFERENCE_DOC)
 
