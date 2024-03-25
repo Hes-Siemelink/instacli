@@ -1,0 +1,20 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+properties:
+  port:
+    type: integer
+  stop:
+    type: boolean
+  endpoints:
+    type: object
+    additionalProperties:
+      type: object
+      properties:
+        output:
+          type: object
+        script:
+          type: object
+        file:
+          type: string
+#      additionalProperties: false  # FIXME Doesn't work
+additionalProperties: false

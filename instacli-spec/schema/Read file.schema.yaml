@@ -1,0 +1,13 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+oneOf:
+  - type: string
+  - type: object
+    properties:
+      file:
+        type: string
+    additionalProperties: false
+  - type: object
+    properties:
+      resource:
+        type: string
+    additionalProperties: false

@@ -17,9 +17,16 @@ This is what it looks like when writing Markdown:
 
 > This is a Markdown document describing how to run a simple Instacli command
 >
-> \```yaml  
+> \```yaml instacli
 > Code example: Hello world
 >
 > Print: Hello world!  
 > \```
 
+And it will render like this in the documentation:
+
+```yaml instacli
+Code example: Hello world
+
+Print: Hello world!
+```

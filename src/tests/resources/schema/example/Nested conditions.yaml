@@ -1,5 +1,5 @@
 all:
   - any:
       - not:
-          - item: a
-            equals: b
+          item: a
+          equals: b

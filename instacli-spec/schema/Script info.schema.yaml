@@ -1,0 +1,14 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+oneOf:
+  - type: string
+  - type: object
+    properties:
+      description:
+        type: string
+      hidden:
+        type: boolean
+      input:
+        type: object
+        additionalProperties:
+          $ref: "InputParameters.schema.yaml#/definitions/Parameter"
+      additionalProperties: false

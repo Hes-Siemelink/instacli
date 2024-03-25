@@ -1,6 +1,10 @@
 # On my mind
 
-1. Clean up samples/basic and put example from Readme in samples dir
+* Use JSON schemas
+    * Friendly error messages
+    * Reorganize files
+* Use JSON schema to define input (?)
+    * First step is to align ParameterData property names to the ones used in JSON schema.
 
 # Where to take it
 
@@ -21,10 +25,9 @@
 
 # Instacli language
 
-* Use JSON schema to define input
-    * https://github.com/pwall567/json-kotlin-schema
 * Error handling
 * Error reporting -> "StackTrace"
+* Friendly messages when schema doesn't validate
 * Check output from Yaml scripts in tests
 * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.

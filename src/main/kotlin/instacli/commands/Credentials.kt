@@ -71,7 +71,7 @@ object GetAllCredentials : CommandHandler("Get all credentials"), ValueHandler {
     }
 }
 
-object SetDefaultAccount : CommandHandler("Set default credentials"), ObjectHandler {
+object SetDefaultCredentials : CommandHandler("Set default credentials"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val newDefault = data.getTextParameter("name")
@@ -86,7 +86,7 @@ object SetDefaultAccount : CommandHandler("Set default credentials"), ObjectHand
     }
 }
 
-object DeleteAccount : CommandHandler("Delete credentials"), ObjectHandler {
+object DeleteCredentials : CommandHandler("Delete credentials"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val oldCredentials = data.getTextParameter("name")

@@ -80,8 +80,8 @@ object CommandLibrary {
         ConnectTo,
         CreateCredentials,
         GetAllCredentials,
-        SetDefaultAccount,
-        DeleteAccount,
+        SetDefaultCredentials,
+        DeleteCredentials,
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

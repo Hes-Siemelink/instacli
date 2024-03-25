@@ -5,6 +5,7 @@ import com.networknt.schema.JsonSchema
 import com.networknt.schema.JsonSchemaFactory
 import com.networknt.schema.SpecVersion
 import instacli.language.CommandFormatException
+import io.javalin.http.servlet.urlDecode
 import java.nio.file.Path
 
 object JsonSchemas {
@@ -39,6 +40,9 @@ internal fun JsonNode.validateWithSchema(name: String) {
     val schema = JsonSchemas.getSchema(name) ?: return
     val messages = schema.validate(this)
     if (messages.isNotEmpty()) {
-        throw CommandFormatException("Schema validation errors:\n$messages")
+        val schemaName = schema.currentUri.toString().let {
+            urlDecode(it.substring(it.lastIndexOf('/') + 1))
+        }
+        throw CommandFormatException("Schema validation errors according to \"${schemaName}\":\n$messages")
     }
 }

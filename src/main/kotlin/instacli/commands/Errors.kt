@@ -20,6 +20,7 @@ object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, Arra
     }
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+        // Prevent behavior of 'default list handler' for errors
         throw CommandFormatException("Error does not support lists")
     }
 }

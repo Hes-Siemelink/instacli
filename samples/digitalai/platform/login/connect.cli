@@ -5,7 +5,7 @@ Script info: Logs in to Digital.ai Platform
 If:
   not:
     empty:
-      :Http request defaults: ""
+      :Http request defaults: { }
   then:
     Exit: Already logged in
 

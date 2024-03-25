@@ -28,7 +28,7 @@ object AddTo : CommandHandler("Add to"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
             val match = VARIABLE_REGEX.matchEntire(key)
-                ?: throw CliScriptingException("Entries should be in \${..} variable syntax.")
+                ?: throw CommandFormatException("Entries should be in \${..} variable syntax.")
             val varName = match.groupValues[1]
 
             var total = context.variables[varName] ?: throw CliScriptingException("Variable $varName not found.")
