@@ -20,6 +20,7 @@ object CommandLibrary {
         AssertEquals,
         AssertThat,
         ExpectedOutput,
+        ExpectedError,
         StockAnswers,
 
         // Control flow

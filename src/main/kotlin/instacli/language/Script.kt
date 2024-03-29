@@ -1,8 +1,6 @@
 package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.OnError
-import instacli.commands.OnErrorType
 import instacli.commands.ScriptInfo
 import instacli.commands.ScriptInfoData
 import instacli.util.Yaml
@@ -22,7 +20,7 @@ class Script(val commands: List<Command>) {
         for (command in commands) {
             val handler = context.getCommandHandler(command.name)
 
-            if (context.error != null && !(handler == OnError || handler == OnErrorType)) {  // TODO: introduce interface 'ErrorHandler'
+            if (context.error != null && handler !is ErrorHandler) {
                 continue
             }
 

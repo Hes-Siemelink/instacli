@@ -25,14 +25,14 @@ object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, Arra
     }
 }
 
-object OnError : CommandHandler("On error"), ObjectHandler, DelayedResolver {
+object OnError : CommandHandler("On error"), ObjectHandler, DelayedResolver, ErrorHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         runErrorHandling(data, context)
         return null
     }
 }
 
-object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedResolver {
+object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedResolver, ErrorHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         for ((key, value) in data.fields()) {

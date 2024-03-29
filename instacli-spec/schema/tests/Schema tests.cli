@@ -1,0 +1,21 @@
+Test case: Add a single number
+
+Validate:
+  item: 1
+  schema: ../Add.schema.yaml
+
+Expected error: Add should only accept arrays
+
+---
+Test case: No extra properties in If
+
+Validate:
+  item:
+    empty: { }
+    alien: property
+    then:
+      Print: something
+  schema: ../If.schema.yaml
+
+# FIXME: Change the schema to catch this!
+#Expected error: No extra properties allowed in if

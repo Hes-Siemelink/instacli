@@ -1,6 +1,7 @@
 package instacli.commands
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.*
@@ -40,6 +41,22 @@ object ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
             throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
         }
         return null
+    }
+}
+
+object ExpectedError : CommandHandler("Expected error"), ValueHandler, ArrayHandler, ErrorHandler {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        if (context.error == null) {
+            throw InstacliCommandError(data.textValue())
+        }
+
+        context.error = null
+
+        return null
+    }
+
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+        throw CommandFormatException("Arrays are not allowed in 'Expected error'")
     }
 }
 

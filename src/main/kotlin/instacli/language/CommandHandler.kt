@@ -46,6 +46,11 @@ fun interface AnyHandler {
  */
 interface DelayedResolver
 
+/**
+ * Marker interface for commands that handle errors, like On error.
+ */
+interface ErrorHandler
+
 fun JsonNode.getParameter(parameter: String): JsonNode {
     return this[parameter] ?: throw CommandFormatException("Expected field '$parameter'.")
 }
