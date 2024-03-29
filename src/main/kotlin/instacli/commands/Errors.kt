@@ -49,9 +49,9 @@ object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedReso
 // TODO: move this to 'Script'
 
 private fun runErrorHandling(errorHandlingSection: JsonNode, context: ScriptContext) {
-    context.error?.data?.let {
-        context.variables["error"] = Yaml.mapper.valueToTree(it)
-    }
+    val error = context.error ?: return
+
+    context.variables["error"] = Yaml.mapper.valueToTree(error.data)
     context.error = null
 
     errorHandlingSection.runScript(context)
