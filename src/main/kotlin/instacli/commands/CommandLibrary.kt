@@ -82,6 +82,9 @@ object CommandLibrary {
         GetAllCredentials,
         SetDefaultCredentials,
         DeleteCredentials,
+
+        // JSON Schema
+        Validate,
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

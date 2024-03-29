@@ -10,7 +10,7 @@ import java.nio.file.Path
 
 object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()
-    private val factory by lazy {
+    val factory by lazy {
         JsonSchemaFactory.builder(JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V202012))
             .objectMapper(Yaml.mapper).build()
     }
@@ -46,3 +46,4 @@ internal fun JsonNode.validateWithSchema(name: String) {
         throw CommandFormatException("Schema validation errors according to \"${schemaName}\":\n$messages")
     }
 }
+
