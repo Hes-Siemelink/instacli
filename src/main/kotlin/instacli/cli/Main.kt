@@ -190,7 +190,7 @@ class InstacliMain(
     }
 }
 
-private fun reportError(e: InstacliLanguageException, printStackTrace: Boolean) {
+fun reportError(e: InstacliLanguageException, printStackTrace: Boolean) {
     System.err.println("\nInstacli scripting error")
 
     // Exception caused by incorrect instacli script

@@ -8,10 +8,12 @@ items:
     else:
       type: object
   oneOf:
-    - required:
-        - then
-    - required:
-        - else
+    - required: [ "then" ]
+      not:
+        required: [ "else" ]
+    - required: [ "else" ]
+      not:
+        required: [ "then" ]
 
 
 ## TODO add conditions

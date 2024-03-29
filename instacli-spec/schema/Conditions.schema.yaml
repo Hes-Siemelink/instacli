@@ -15,7 +15,7 @@ definitions:
     properties:
       all:
         type: array
-        prefixItems:
+        items:
           $ref: "#/definitions/Condition"
   Any:
     type: object
@@ -23,7 +23,7 @@ definitions:
     properties:
       any:
         type: array
-        prefixItems:
+        items:
           $ref: "#/definitions/Condition"
   Empty:
     type: object

@@ -36,7 +36,7 @@ object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedReso
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         for ((key, value) in data.fields()) {
-            if (key == "any" || key == context.error?.data?.type) {
+            if (key == "any" || key == context.error?.error?.type) {
                 runErrorHandling(value, context)
                 break
             }
@@ -51,7 +51,7 @@ object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedReso
 private fun runErrorHandling(errorHandlingSection: JsonNode, context: ScriptContext) {
     val error = context.error ?: return
 
-    context.variables["error"] = Yaml.mapper.valueToTree(error.data)
+    context.variables["error"] = Yaml.mapper.valueToTree(error.error)
     context.error = null
 
     errorHandlingSection.runScript(context)

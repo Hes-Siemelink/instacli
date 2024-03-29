@@ -8,7 +8,6 @@ import instacli.language.*
 import instacli.util.Json
 import instacli.util.JsonSchemas
 import instacli.util.toJson
-import io.javalin.http.servlet.urlDecode
 
 object Validate : CommandHandler("Validate"), ObjectHandler {
 
@@ -42,9 +41,7 @@ private fun getSchema(data: JsonNode, context: ScriptContext): JsonSchema {
 private fun JsonNode.validateWithSchema(schema: JsonSchema) {
     val messages = schema.validate(this)
     if (messages.isNotEmpty()) {
-        val schemaName = schema.currentUri.toString().let {
-            urlDecode(it.substring(it.lastIndexOf('/') + 1))
-        }
+        val schemaName = schema.toString()
         throw CommandFormatException("Schema validation errors according to \"${schemaName}\":\n$messages")
     }
 }

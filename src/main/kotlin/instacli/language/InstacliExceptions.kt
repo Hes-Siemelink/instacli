@@ -23,7 +23,7 @@ class MissingParameterException(message: String, val name: String, val options: 
 class InstacliImplementationException(message: String, data: JsonNode? = null, cause: Throwable) :
     InstacliLanguageException(message, data, cause)
 
-class InstacliCommandError(message: String, val data: ErrorData = ErrorData(message)) :
+class InstacliCommandError(message: String, val error: ErrorData = ErrorData(message)) :
     Exception(message) {
 
     constructor(message: String, type: String, data: JsonNode? = null) :

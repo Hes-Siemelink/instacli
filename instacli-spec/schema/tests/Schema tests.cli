@@ -1,4 +1,4 @@
-Test case: Add a single number
+Test case: Add a value node
 
 Validate:
   item: 1
@@ -12,10 +12,38 @@ Test case: No extra properties in If
 Validate:
   item:
     empty: { }
-    alien: property
     then:
       Print: something
+    extra: property
   schema: ../If.schema.yaml
 
 # FIXME: Change the schema to catch this!
 #Expected error: No extra properties allowed in if
+
+---
+Test case: When with both 'then' and 'else'
+
+Validate:
+  item:
+    - empty: { }
+      then:
+        Print: something
+      else:
+        Print: else
+  schema: ../When.schema.yaml
+
+Expected error: Having both 'then' and 'else' should trigger a validation error
+
+---
+Test case: Validate conditions in When
+
+Validate:
+  item:
+    - not:
+        strange: property
+      then:
+        Print: something
+  schema: ../When.schema.yaml
+
+# FIXME: Change the schema to catch this!
+#Expected error: Conditions should be properly validated

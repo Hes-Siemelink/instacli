@@ -5,14 +5,14 @@ allOf:
       - properties:
           all:
             type: array
-            prefixItems:
+            items:
               $ref: "Conditions.schema.yaml#/definitions/Condition"
         required:
           - all
       - properties:
           any:
             type: array
-            prefixItems:
+            items:
               $ref: "Conditions.schema.yaml#/definitions/Condition"
         required:
           - any

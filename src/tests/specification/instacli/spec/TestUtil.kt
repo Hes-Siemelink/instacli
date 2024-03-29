@@ -4,15 +4,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.cli.CliFile
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
+import instacli.cli.reportError
 import instacli.commands.CodeExample
 import instacli.commands.Credentials
 import instacli.commands.StockAnswers
 import instacli.commands.TestCase
 import instacli.language.*
-import instacli.util.IO
-import instacli.util.TestPrompt
-import instacli.util.UserPrompt
-import instacli.util.Yaml
+import instacli.util.*
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -54,10 +52,19 @@ fun CliFile.getTestCases(): List<DynamicTest> {
 
     return script.getTestCases().map { script ->
         dynamicTest(script.getText(TestCase), cliFile.toUri()) {
+            context.error = null
             try {
                 script.runScript(context)
             } catch (a: Break) {
                 a.output
+            } catch (e: InstacliCommandError) {
+                e.error.data?.let {
+                    println(it.toDisplayYaml())
+                }
+                throw e
+            } catch (e: InstacliLanguageException) {
+                reportError(e, printStackTrace = false)
+                throw e
             }
         }
     }
