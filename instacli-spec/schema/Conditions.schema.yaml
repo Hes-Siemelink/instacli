@@ -2,6 +2,7 @@ $schema: https://json-schema.org/draft/2020-12/schema
 $ref: "#/definitions/Condition"
 
 definitions:
+
   ConditionBase:
     type: object
     properties:
@@ -16,22 +17,33 @@ definitions:
       in:
         $ref: "#/definitions/Container"
       not:
-        $ref: "#"
+        $ref: "#/definitions/Condition"
 
     oneOf:
-      - required: [ "all" ]
-      - required: [ "any" ]
-      - required: [ "empty" ]
-      - required: [ "item", "equals" ]
-      - required: [ "item", "in" ]
-      - required: [ "not" ]
+      - required:
+          - all
+      - required:
+          - any
+      - required:
+          - empty
+      - required:
+          - item
+          - equals
+      - required:
+          - item
+          - in
+      - required:
+          - not
+
   Condition:
     $ref: "#/definitions/ConditionBase"
     unevaluatedProperties: false
+
   Conditions:
     type: array
     items:
-      $ref: "#"
+      $ref: "#/definitions/Condition"
+
   Container:
     type:
       - string

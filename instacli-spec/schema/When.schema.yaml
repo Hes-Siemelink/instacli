@@ -8,10 +8,14 @@ items:
     else:
       type: object
   oneOf:
-    - required: [ "then" ]
+    - required:
+        - then
       not:
-        required: [ "else" ]
+        required:
+          - else
       $ref: "Conditions.schema.yaml#/definitions/ConditionBase"
-    - required: [ "else" ]
+    - required:
+        - else
       not:
-        required: [ "then" ]
+        required:
+          - then

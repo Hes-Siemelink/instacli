@@ -54,7 +54,7 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedResolve
         return null
     }
 
-    private fun addHandler(port: Int, path: String, data: PathData, context: ScriptContext) {
+    private fun addHandler(port: Int, path: String, data: EndpointData, context: ScriptContext) {
         val server = servers.getOrPut(port) {
             println("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
             Javalin.create().start(port)
@@ -66,7 +66,7 @@ object HttpServer : CommandHandler("Http server"), ObjectHandler, DelayedResolve
 }
 
 
-fun Javalin.addHandler(path: String, method: String, data: HandlerData, scriptContext: ScriptContext) {
+fun Javalin.addHandler(path: String, method: String, data: MethodHandlerData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
     this.addHandler(methodType, path) { httpContext ->
 //        println("$method ${httpContext.path()}")
@@ -75,7 +75,7 @@ fun Javalin.addHandler(path: String, method: String, data: HandlerData, scriptCo
 }
 
 private fun handleRequest(
-    data: HandlerData,
+    data: MethodHandlerData,
     httpContext: Context,
     scriptContext: ScriptContext
 ) {
@@ -171,15 +171,15 @@ fun Context.cookiesAsJson(): ObjectNode {
 
 class HttpEndpoints {
     @JsonAnySetter
-    var paths: MutableMap<String, PathData> = mutableMapOf()
+    var paths: MutableMap<String, EndpointData> = mutableMapOf()
 }
 
-class PathData {
+class EndpointData {
     @JsonAnySetter
-    var methodHandlers: Map<String, HandlerData> = mutableMapOf()
+    var methodHandlers: Map<String, MethodHandlerData> = mutableMapOf()
 }
 
-class HandlerData {
+class MethodHandlerData {
     var output: JsonNode? = null
     var script: JsonNode? = null
     var file: String? = null

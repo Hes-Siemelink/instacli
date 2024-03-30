@@ -10,7 +10,15 @@ oneOf:
       input: { }
       additionalProperties: false
     oneOf:
-      - required: [ "file" ]
-      - required: [ "resource" ]
+      - required:
+          - file
+        not:
+          required:
+            - resource
+      - required:
+          - resource
+        not:
+          required:
+            - file
 
 

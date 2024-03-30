@@ -1,27 +1,25 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-definitions:
-  Parameter:
-    oneOf:
-      - type: string
-      - type: object
-        properties:
-          description:
-            type: string
-          default: { }
-          type:
-            enum:
-              - select one
-              - select multiple
-              - password
-              - boolean
-          choices:
-            type: array
-          display:
-            type: string
-          value:
-            type: string
-          condition:
-            $ref: "Conditions.schema.yaml"
-          short option:
-            type: string
-        additionalProperties: false
+oneOf:
+  - type: string
+  - type: object
+    properties:
+      description:
+        type: string
+      default: { }
+      type:
+        enum:
+          - select one
+          - select multiple
+          - password
+          - boolean
+      choices:
+        type: array
+      display:
+        type: string
+      value:
+        type: string
+      condition:
+        $ref: "Conditions.schema.yaml"
+      short option:
+        type: string
+    additionalProperties: false

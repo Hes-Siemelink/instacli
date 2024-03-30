@@ -1,18 +1,6 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 properties:
-  actual:
-    type:
-      - string
-      - number
-      - boolean
-      - array
-      - object
-  expected:
-    type:
-      - string
-      - number
-      - boolean
-      - array
-      - object
+  actual: { }
+  expected: { }
 additionalProperties: false

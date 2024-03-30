@@ -8,13 +8,33 @@ properties:
   endpoints:
     type: object
     additionalProperties:
-      type: object
-      properties:
-        output:
-          type: object
-        script:
-          type: object
-        file:
-          type: string
-#      additionalProperties: false  # FIXME Doesn't work
+      $ref: "#/definitions/Endpoint"
 additionalProperties: false
+
+definitions:
+
+  Endpoint:
+    type: object
+    properties:
+      get:
+        $ref: "#/definitions/MethodHandler"
+      post:
+        $ref: "#/definitions/MethodHandler"
+      patch:
+        $ref: "#/definitions/MethodHandler"
+      put:
+        $ref: "#/definitions/MethodHandler"
+      delete:
+        $ref: "#/definitions/MethodHandler"
+
+  MethodHandler:
+    type:
+      - string
+      - object
+    properties:
+      output: { }
+      script:
+        type: object
+      file:
+        type: string
+    additionalProperties: false

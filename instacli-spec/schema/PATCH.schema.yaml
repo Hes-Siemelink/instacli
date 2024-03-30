@@ -1,2 +1,2 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$ref: "HttpParameters.schema.yaml#/definitions/HttpParameters"
+$ref: "HttpParameters.schema.yaml"
