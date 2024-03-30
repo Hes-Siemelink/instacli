@@ -1,7 +1,7 @@
 Test case: Add a value node
 
 Validate:
-  item: 1
+  data: 1
   schema: ../Add.schema.yaml
 
 Expected error: Add should only accept arrays
@@ -10,7 +10,7 @@ Expected error: Add should only accept arrays
 Test case: No extra properties in If
 
 Validate:
-  item:
+  data:
     empty: { }
     then:
       Print: something
@@ -24,7 +24,7 @@ Validate:
 Test case: When with both 'then' and 'else'
 
 Validate:
-  item:
+  data:
     - empty: { }
       then:
         Print: something
@@ -38,7 +38,7 @@ Expected error: Having both 'then' and 'else' should trigger a validation error
 Test case: Validate conditions in When
 
 Validate:
-  item:
+  data:
     - not:
         strange: property
       then:

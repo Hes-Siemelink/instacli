@@ -1,7 +1,7 @@
 Test case: Validation with external schema
 
 Validate:
-  item: Hello world
+  data: Hello world
   schema: string.schema.json
 
 On error:
@@ -14,7 +14,7 @@ Expected output: valid
 Test case: Validation with external schema -- failure
 
 Validate:
-  item: Hello world
+  data: Hello world
   schema: object.schema.json
 
 On error:

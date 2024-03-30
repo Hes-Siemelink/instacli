@@ -18,7 +18,7 @@ Use **Validate** to check if data is valid according to a JSON Schema
 Code example: Validate with inline JSON schema
 
 Validate:
-  item: Hello world
+  data: Hello world
   schema:
     type: string
     pattern: "Hello"
@@ -48,7 +48,7 @@ Suppose you have the data in a file called `myschema.json`
 Code example: Validate with JSON schema from file
 
 Validate:
-  item: Hello world
+  data: Hello world
   schema: myschema.json
 
 Expected output: valid
@@ -58,13 +58,13 @@ Note: the file is resolved relative to the script itself, not to the working dir
 
 ## Invalid data
 
-If the data in `item` is invalid, you will get an error
+If the data in `data` is invalid, you will get an error
 
 ```yaml instacli
 Code example: Invalid data with JSON schema
 
 Validate:
-  item: Hello world
+  data: Hello world
   schema:
     type: object
 

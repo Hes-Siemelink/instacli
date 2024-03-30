@@ -12,10 +12,10 @@ import instacli.util.toJson
 object Validate : CommandHandler("Validate"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val item = data.getParameter("item")
+        val json = data.getParameter("data")
         val schema = getSchema(data.getParameter("schema"), context)
 
-        val messages = schema.validate(item)
+        val messages = schema.validate(json)
 
         return if (messages.isEmpty()) {
             TextNode("valid")
