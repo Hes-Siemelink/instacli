@@ -20,7 +20,6 @@ Assert that:
   item: one
   equals: one
 
-
 ---
 Test case: Use assert with complicated 'if' syntax
 

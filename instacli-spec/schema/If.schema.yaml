@@ -1,74 +1,8 @@
 $schema: "https://json-schema.org/draft/2020-12/schema"
-type: object
-allOf:
-  - oneOf:
-      - properties:
-          all:
-            type: array
-            items:
-              $ref: "Conditions.schema.yaml#/definitions/Condition"
-        required:
-          - all
-      - properties:
-          any:
-            type: array
-            items:
-              $ref: "Conditions.schema.yaml#/definitions/Condition"
-        required:
-          - any
-      - properties:
-          empty:
-            type:
-              - string
-              - array
-              - object
-        required:
-          - empty
-      - properties:
-          item:
-            type:
-              - string
-              - number
-              - boolean
-              - array
-              - object
-          equals:
-            type:
-              - string
-              - number
-              - boolean
-              - string
-              - array
-              - object
-        required:
-          - item
-          - equals
-      - properties:
-          item:
-            type:
-              - string
-              - array
-              - object
-          in:
-            type:
-              - string
-              - array
-              - object
-        required:
-          - item
-          - in
-      - properties:
-          not:
-            $ref: "Conditions.schema.yaml#/definitions/Condition"
-        required:
-          - not
-  - properties:
-      then:
-        type: object
-      else:
-        type: object
-#    additionalProperties: false  # <= doesn't work!
-
-# TODO
-# - Clean this up and avoid duplication of parts defined in Condition
-# - Find a way to restrict additionalProperties on top level
+$ref: "Conditions.schema.yaml#/definitions/ConditionBase"
+properties:
+  then: object
+  else: object
+required:
+  - then
+unevaluatedProperties: false

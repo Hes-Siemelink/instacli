@@ -21,7 +21,7 @@ definitions:
           value:
             type: string
           condition:
-            $ref: "Conditions.schema.yaml#/definitions/Condition"
+            $ref: "Conditions.schema.yaml"
           short option:
             type: string
         additionalProperties: false

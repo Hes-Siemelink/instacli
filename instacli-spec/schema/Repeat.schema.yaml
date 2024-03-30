@@ -7,4 +7,4 @@ properties:
       - type: boolean
       - type: number
       - type: array
-      - $ref: "Conditions.schema.yaml#/definitions/Condition"
+      - $ref: "Conditions.schema.yaml"

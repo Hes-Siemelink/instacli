@@ -11,9 +11,7 @@ items:
     - required: [ "then" ]
       not:
         required: [ "else" ]
+      $ref: "Conditions.schema.yaml#/definitions/ConditionBase"
     - required: [ "else" ]
       not:
         required: [ "then" ]
-
-
-## TODO add conditions

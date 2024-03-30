@@ -17,8 +17,17 @@ Validate:
     extra: property
   schema: ../If.schema.yaml
 
-# FIXME: Change the schema to catch this!
-#Expected error: No extra properties allowed in if
+Expected error: Schema should not allow extra properties in If
+
+---
+Test case: If without then
+
+Validate:
+  data:
+    empty: { }
+  schema: ../If.schema.yaml
+
+Expected error: Schema should not allow missing 'then'
 
 ---
 Test case: When with both 'then' and 'else'
@@ -45,5 +54,33 @@ Validate:
         Print: something
   schema: ../When.schema.yaml
 
-# FIXME: Change the schema to catch this!
-#Expected error: Conditions should be properly validated
+Expected error: Conditions should be properly validated
+
+---
+Test case: Schema magic - additional properties and oneOf
+
+Validate:
+  data:
+    cereal: maybe
+    fruit: yes
+    sugar: no
+  schema:
+    type: object
+    properties:
+      cereal: { }
+      eggs: { }
+      fruit: { }
+    additionalProperties: false
+    allOf:
+      - oneOf:
+          - required:
+              - cereal
+          - required:
+              - eggs
+      - properties:
+          required:
+            - fruit
+
+Expected error: Schema should not allow 'sugar'
+
+
