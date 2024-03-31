@@ -54,5 +54,5 @@ Http request defaults:
 ```
 
 This is a very simple example, but you can put more in this script. For example, managing user credentials, obtaining a
-session token, etc. See the [samples](../../../samples) directory for some real world examples, for example on how to
+session token, etc. See the [samples](../../../../samples) directory for some real world examples, for example on how to
 connect to Spotify.

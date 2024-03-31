@@ -1,6 +1,6 @@
-# Command: PATCH
+# Command: PUT
 
-`PATCH` sends a PATCH request to an HTTP endpoint.
+`PUT` sends a PUT request to an HTTP endpoint.
 
 | Content type | Supported                         |
 |--------------|-----------------------------------|
@@ -17,32 +17,36 @@
 
 ## Basic usage
 
-Specify `url` and `body` to send a **PATCH** request.
+Specify `url` and `body` to send a **PUT** request.
 
 ```yaml instacli
-Code example: Simple PATCH
+Code example: Simple PUT
 
-PATCH:
+PUT:
   url: http://localhost:2525/items
   body:
-    item: one
+    1: One
+    2: Two
+    3: Three
 ```
 
 ## Http request defaults
 
-As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
-common fields.
+As with all Http commands, you can use [Http request defaults](Http request defaults.md) to set the defaults for common
+fields.
 
 ```yaml instacli
-Code example: Http request defaults and PATCH
+Code example: Http request defaults and PUT
 
 Http request defaults:
   url: http://localhost:2525
 
-PATCH:
+PUT:
   path: /items
   body:
-    item: one
+    1: One
+    2: Two
+    3: Three
 ```
 
-See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.
+See [Http request defaults](Http request defaults.md) for more information on how to configure all fields.

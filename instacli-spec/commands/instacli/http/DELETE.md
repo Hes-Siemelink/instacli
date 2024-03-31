@@ -1,6 +1,6 @@
-# Command: PUT
+# Command: DELETE
 
-`PUT` sends a PUT request to an HTTP endpoint.
+`DELETE` sends a DELETE request to an HTTP endpoint.
 
 | Content type | Supported                         |
 |--------------|-----------------------------------|
@@ -17,36 +17,37 @@
 
 ## Basic usage
 
-Specify `url` and `body` to send a **PUT** request.
+Just specify the endpoint to send the **DELETE** request to.
 
 ```yaml instacli
-Code example: Simple PUT
+Code example: Simple DELETE
 
-PUT:
+DELETE: http://localhost:2525/items
+```
+
+or use the longer form if you need to specify more details
+
+```yaml instacli
+Code example: DELETE with more properties
+
+DELETE:
   url: http://localhost:2525/items
-  body:
-    1: One
-    2: Two
-    3: Three
+  username: admin
+  password: admin
 ```
 
 ## Http request defaults
 
-As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
-common fields.
+As with all Http commands, you can use [Http request defaults](Http request defaults.md) to set the defaults for common
+fields.
 
 ```yaml instacli
-Code example: Http request defaults and PUT
+Code example: Http request defaults and DELETE
 
 Http request defaults:
   url: http://localhost:2525
 
-PUT:
-  path: /items
-  body:
-    1: One
-    2: Two
-    3: Three
+DELETE: /items
 ```
 
-See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.
+See [Http request defaults](Http request defaults.md) for more information on how to configure all fields.

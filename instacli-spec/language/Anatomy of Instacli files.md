@@ -124,7 +124,7 @@ separator helps you to visually divide sections in your code if placed strategic
 ### Script info
 
 You can specify the description of your script with the
-**[Script info](../commands/script-info/Script%20info.md)** command.
+**[Script info](../commands/instacli/script-info/Script%20info.md)** command.
 
 Take this file `simple-greeting.cli`:
 
@@ -182,7 +182,7 @@ Hello Bob!
 
 ### Script output
 
-You can set the actual output of the script with the **[Output](../commands/variables/Output.md)** command.
+You can set the actual output of the script with the **[Output](../commands/instacli/variables/Output.md)** command.
 
 For example, with script `hello.cli`
 
@@ -311,7 +311,7 @@ data.
 ### Calling another Instacli script
 
 We showed above the you can call another Instacli script from within an Instacli script with the
-**[Run script](../commands/files/Run%20script.md)** command.
+**[Run script](../commands/instacli/files/Run%20script.md)** command.
 
 Another way is to use it as a regualr command. Instacli reads all cli files in the same directory and makes them
 available as commands in the current script. While doing so, it transforms file names in "kebab-style" to "Sentence
@@ -403,7 +403,7 @@ Expected output: Something funny
 ### Specifying connection data
 
 The `.instacli.yaml` file also contains a `connections` settings for retrieving HTTP connection credentials. See the
-**[Connect to](../commands/connections/Connect%20to.md)** command for more details.
+**[Connect to](../commands/instacli/connections/Connect%20to.md)** command for more details.
 
 <!--
 Explain hidden commands

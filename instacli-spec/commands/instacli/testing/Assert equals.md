@@ -12,7 +12,7 @@
 
 ## Basic usage
 
-**Assert equals** is a synonym for [Assert that](Assert%20that.md#object-equals) equality, but using parameters `actual`
+**Assert equals** is a synonym for [Assert that](Assert that.md#object-equals) equality, but using parameters `actual`
 and `expected` that make it read nicer in tests.
 
 It works for simple values

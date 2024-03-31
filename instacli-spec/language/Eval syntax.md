@@ -40,8 +40,9 @@ Expected output: 6
 ## Example with For each
 
 Here's another example of how you could use this. Let's say we want to sum the ages of the main characters. Remember
-that **For each** returns [a list of outputs for each item](../commands/control-flow/For%20each.md#transform-a-list). We
-can then use that list in **Add**.
+that **For each**
+returns [a list of outputs for each item](../commands/instacli/control-flow/For%20each.md#transform-a-list). We can then
+use that list in **Add**.
 
 ```yaml instacli
 Code example: Eval with for each

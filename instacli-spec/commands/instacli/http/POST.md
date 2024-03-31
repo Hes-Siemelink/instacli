@@ -32,8 +32,8 @@ POST:
 
 ## Http request defaults
 
-As with all Http commands, you can use [Http request defaults](Http%20request%20defaults.md) to set the defaults for
-common fields.
+As with all Http commands, you can use [Http request defaults](Http request defaults.md) to set the defaults for common
+fields.
 
 ```yaml instacli
 Code example: Http request defaults and POST
@@ -49,4 +49,4 @@ POST:
     3: Three
 ```
 
-See [Http request defaults](Http%20request%20defaults.md) for more information on how to configure all fields.
+See [Http request defaults](Http request defaults.md) for more information on how to configure all fields.
