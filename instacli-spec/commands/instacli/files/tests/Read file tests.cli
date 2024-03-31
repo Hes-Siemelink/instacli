@@ -15,37 +15,6 @@ Expected output:
   loaded: true
 
 ---
-Test case: Read file with variable syntax
-
-Read file: instacli-spec/commands/instacli/files/tests/content/with variables.yaml
-${raw}: ${output}  # triggers variable substitution
-
-Assert that:
-  - item:
-      test: true
-      something: else
-    in:
-      ${output}
-
----
-Test case: Fill variables in file
-
-Read file: instacli-spec/commands/instacli/files/tests/content/with variables.yaml
-As: ${raw}
-
-${unknown}: known
-${nested}:
-  something: there
-
-Apply variables: ${raw}
-
-Expected output:
-  test: true
-  something: else
-  variable: known
-  nested: there
-
----
 Test case: Read file with variable syntax and multiple documents
 
 Read file: instacli-spec/commands/instacli/files/tests/content/multiple documents.yaml

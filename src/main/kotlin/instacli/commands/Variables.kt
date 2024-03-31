@@ -36,13 +36,6 @@ object As : CommandHandler("As", "instacli/variables"), ValueHandler, DelayedRes
     }
 }
 
-// TODO Remove
-object ApplyVariables : CommandHandler("Apply variables", null), AnyHandler {
-    override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
-        return data.resolveVariables(context.variables)
-    }
-}
-
 /**
  * Returns the input as output.
  */

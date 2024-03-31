@@ -11,7 +11,6 @@ object CommandLibrary {
 
         // Variables
         As,
-        ApplyVariables,
         Output,
 
         // Testing
