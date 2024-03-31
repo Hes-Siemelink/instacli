@@ -14,7 +14,7 @@ import instacli.util.toDomainObject
 /**
  * Asks user through simple text prompt
  */
-object Prompt : CommandHandler("Prompt"), ValueHandler, ObjectHandler {
+object Prompt : CommandHandler("Prompt", "instacli/user-interaction"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return UserPrompt.prompt(data.textValue())
@@ -87,7 +87,7 @@ private fun onlyWithField(node: JsonNode, field: String?): JsonNode {
 /**
  * Asks multiple questions at once
  */
-object PromptObject : CommandHandler("Prompt object"), ObjectHandler, DelayedResolver {
+object PromptObject : CommandHandler("Prompt object", "instacli/user-interaction"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones

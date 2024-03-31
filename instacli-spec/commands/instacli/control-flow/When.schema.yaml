@@ -13,7 +13,7 @@ items:
       not:
         required:
           - else
-      $ref: "Conditions.schema.yaml#/definitions/ConditionBase"
+      $ref: "../Conditions.schema.yaml#/definitions/ConditionBase"
     - required:
         - else
       not:

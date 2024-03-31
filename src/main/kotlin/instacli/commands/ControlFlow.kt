@@ -7,19 +7,19 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.*
 
-object Do : CommandHandler("Do"), ObjectHandler, DelayedResolver {
+object Do : CommandHandler("Do", "instacli/control-flow"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return data.runScript(context)
     }
 }
 
-object Exit : CommandHandler("Exit"), AnyHandler {
+object Exit : CommandHandler("Exit", "instacli/control-flow"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         throw Break(data)
     }
 }
 
-object If : CommandHandler("If"), ObjectHandler, DelayedResolver {
+object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         val branch = evaluateIfStatement(data, context) ?: return null
@@ -28,7 +28,7 @@ object If : CommandHandler("If"), ObjectHandler, DelayedResolver {
     }
 }
 
-object When : CommandHandler("When"), ArrayHandler, DelayedResolver {
+object When : CommandHandler("When", "instacli/control-flow"), ArrayHandler, DelayedResolver {
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
         for (ifStatement in data) {
 
@@ -65,7 +65,7 @@ private fun evaluateIfStatement(data: ObjectNode, context: ScriptContext): JsonN
 
 private val FOR_EACH_VARIABLE = Regex(VARIABLE_REGEX.pattern + " in")
 
-object ForEach : CommandHandler("For each"), ObjectHandler, DelayedResolver {
+object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
@@ -129,7 +129,7 @@ fun toArrayNode(node: JsonNode): ArrayNode {
 }
 
 
-object Repeat : CommandHandler("Repeat"), ObjectHandler, DelayedResolver {
+object Repeat : CommandHandler("Repeat", "instacli/control-flow"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'Until'")

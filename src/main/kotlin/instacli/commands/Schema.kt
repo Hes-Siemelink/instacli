@@ -9,9 +9,9 @@ import instacli.util.Json
 import instacli.util.JsonSchemas
 import instacli.util.toJson
 
-object Validate : CommandHandler("Validate"), ObjectHandler {
+object Validate : CommandHandler("Validate", "instacli/schema"), ObjectHandler {
 
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val json = data.getParameter("data")
         val schema = getSchema(data.getParameter("schema"), context)
 

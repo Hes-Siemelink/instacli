@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.*
 
-object AssertThat : CommandHandler("Assert that"), ObjectHandler {
+object AssertThat : CommandHandler("Assert that", "instacli/testing"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val condition = parseCondition(data)
@@ -19,7 +19,7 @@ object AssertThat : CommandHandler("Assert that"), ObjectHandler {
     }
 }
 
-object AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
+object AssertEquals : CommandHandler("Assert equals", "instacli/testing"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val actual = data["actual"] ?: throw ConditionException("Assert equals needs 'actual' field.")
@@ -33,7 +33,7 @@ object AssertEquals : CommandHandler("Assert equals"), ObjectHandler {
     }
 }
 
-object ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
+object ExpectedOutput : CommandHandler("Expected output", "instacli/testing"), AnyHandler {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val output = context.output
@@ -44,7 +44,7 @@ object ExpectedOutput : CommandHandler("Expected output"), AnyHandler {
     }
 }
 
-object ExpectedError : CommandHandler("Expected error"), ValueHandler, ArrayHandler, ErrorHandler {
+object ExpectedError : CommandHandler("Expected error", "instacli/testing"), ValueHandler, ArrayHandler, ErrorHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (context.error == null) {
             throw InstacliCommandError(data.textValue())
@@ -60,14 +60,14 @@ object ExpectedError : CommandHandler("Expected error"), ValueHandler, ArrayHand
     }
 }
 
-object TestCase : CommandHandler("Test case"), ValueHandler {
+object TestCase : CommandHandler("Test case", "instacli/testing"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
     }
 }
 
-object CodeExample : CommandHandler("Code example"), ValueHandler {
+object CodeExample : CommandHandler("Code example", "instacli/testing"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return null
@@ -77,7 +77,7 @@ object CodeExample : CommandHandler("Code example"), ValueHandler {
 /**
  * Records answers to be replayed in test cases for user input commands.
  */
-object StockAnswers : CommandHandler("Stock answers"), ObjectHandler {
+object StockAnswers : CommandHandler("Stock answers", "instacli/testing"), ObjectHandler {
     val recordedAnswers = mutableMapOf<String, JsonNode>()
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {

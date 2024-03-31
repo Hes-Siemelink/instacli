@@ -16,7 +16,7 @@ import kotlin.io.path.createFile
 import kotlin.io.path.exists
 import kotlin.io.path.name
 
-object GetCredentials : CommandHandler("Get credentials"), ValueHandler {
+object GetCredentials : CommandHandler("Get credentials", "instacli/connections"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val targetName = data.asText() ?: throw CommandFormatException("Specify target resource")
 
@@ -41,7 +41,7 @@ object GetCredentials : CommandHandler("Get credentials"), ValueHandler {
 }
 
 
-object CreateCredentials : CommandHandler("Create credentials"), ObjectHandler {
+object CreateCredentials : CommandHandler("Create credentials", "instacli/connections"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val newCredentials = data.toDomainObject(CreateCredentialsInfo::class)
         val credentials = Credentials.getFrom(context)
@@ -57,7 +57,7 @@ object CreateCredentials : CommandHandler("Create credentials"), ObjectHandler {
     }
 }
 
-object GetAllCredentials : CommandHandler("Get all credentials"), ValueHandler {
+object GetAllCredentials : CommandHandler("Get all credentials", "instacli/connections"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val targetName = data.asText()
         val credentials = Credentials.getFrom(context)
@@ -71,7 +71,7 @@ object GetAllCredentials : CommandHandler("Get all credentials"), ValueHandler {
     }
 }
 
-object SetDefaultCredentials : CommandHandler("Set default credentials"), ObjectHandler {
+object SetDefaultCredentials : CommandHandler("Set default credentials", "instacli/connections"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val newDefault = data.getTextParameter("name")
@@ -86,7 +86,7 @@ object SetDefaultCredentials : CommandHandler("Set default credentials"), Object
     }
 }
 
-object DeleteCredentials : CommandHandler("Delete credentials"), ObjectHandler {
+object DeleteCredentials : CommandHandler("Delete credentials", "instacli/connections"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val targetName = data.getTextParameter("target")
         val oldCredentials = data.getTextParameter("name")
@@ -101,7 +101,7 @@ object DeleteCredentials : CommandHandler("Delete credentials"), ObjectHandler {
     }
 }
 
-object ConnectTo : CommandHandler("Connect to"), ValueHandler {
+object ConnectTo : CommandHandler("Connect to", "instacli/connections"), ValueHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (context !is CliFileContext) {
             error("'Connect to' is only supported when running files.")

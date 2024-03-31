@@ -188,3 +188,12 @@ Assert equals:
     actual: ${index}
   - expected: 50
     actual: ${offset}
+
+---
+Test case: Schema validation - Add should only accept arrays
+
+Validate:
+  data: 1
+  schema: ../Add.schema.yaml
+
+Expected error: Add should only accept arrays

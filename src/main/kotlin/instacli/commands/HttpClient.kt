@@ -23,7 +23,7 @@ import java.net.URI
 import java.nio.file.Path
 import kotlin.collections.set
 
-object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHandler, ValueHandler {
+object HttpRequestDefaults : CommandHandler("Http request defaults", "instacli/http"), ObjectHandler, ValueHandler {
 
     private const val HTTP_DEFAULTS = "http.defaults"
 
@@ -46,7 +46,7 @@ object HttpRequestDefaults : CommandHandler("Http request defaults"), ObjectHand
 }
 
 
-object HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
+object HttpGet : CommandHandler("GET", "instacli/http"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return processRequestWithoutBody(data, context, HttpMethod.Get)
@@ -57,28 +57,28 @@ object HttpGet : CommandHandler("GET"), ValueHandler, ObjectHandler {
     }
 }
 
-object HttpPost : CommandHandler("POST"), ObjectHandler {
+object HttpPost : CommandHandler("POST", "instacli/http"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Post)
     }
 }
 
-object HttpPut : CommandHandler("PUT"), ObjectHandler {
+object HttpPut : CommandHandler("PUT", "instacli/http"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Put)
     }
 }
 
-object HttpPatch : CommandHandler("PATCH"), ObjectHandler {
+object HttpPatch : CommandHandler("PATCH", "instacli/http"), ObjectHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         return processRequest(data, context, HttpMethod.Patch)
     }
 }
 
-object HttpDelete : CommandHandler("DELETE"), ValueHandler, ObjectHandler {
+object HttpDelete : CommandHandler("DELETE", "instacli/http"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return processRequestWithoutBody(data, context, HttpMethod.Delete)

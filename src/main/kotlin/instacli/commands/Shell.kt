@@ -11,7 +11,7 @@ import instacli.language.*
 import instacli.util.Json
 import java.nio.file.Path
 
-object Shell : CommandHandler("Shell"), ObjectHandler, ValueHandler {
+object Shell : CommandHandler("Shell", "instacli/files"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         return execute(data.textValue(), context.workingDir)

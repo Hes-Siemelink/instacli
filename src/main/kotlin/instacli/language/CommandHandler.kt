@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.util.validateWithSchema
 
-abstract class CommandHandler(open val name: String) {
+abstract class CommandHandler(open val name: String, open val namespace: String?) {
 
     fun handlesLists(): Boolean {
         return when (this) {
@@ -19,8 +19,12 @@ abstract class CommandHandler(open val name: String) {
     }
 
     open fun validate(data: JsonNode) {
-        data.validateWithSchema(name)
+        val prefix = namespace?.replace('.', '/') ?: return
+        val schemaName = "$prefix/$name.schema"
+
+        data.validateWithSchema(schemaName)
     }
+
 }
 
 

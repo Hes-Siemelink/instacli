@@ -6,9 +6,9 @@ import instacli.language.*
 import instacli.util.toDisplayYaml
 import instacli.util.toJson
 
-object Add : CommandHandler("Add"), ArrayHandler {
+object Add : CommandHandler("Add", "instacli/data-manipulation"), ArrayHandler {
 
-    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ArrayNode, context: ScriptContext): JsonNode {
         var total: JsonNode = data.first()
         for (item in data.drop(1)) {
             total = add(total, item)
@@ -24,7 +24,7 @@ private fun asArrayNode(node: JsonNode): ArrayNode {
     }
 }
 
-object AddTo : CommandHandler("Add to"), ObjectHandler {
+object AddTo : CommandHandler("Add to", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         for ((key, value) in data.fields()) {
             val match = VARIABLE_REGEX.matchEntire(key)
@@ -41,7 +41,7 @@ object AddTo : CommandHandler("Add to"), ObjectHandler {
     }
 }
 
-object Append : CommandHandler("Append"), AnyHandler {
+object Append : CommandHandler("Append", "instacli/data-manipulation"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         var total = context.output ?: return data
         for (item in asArrayNode(data)) {
@@ -89,7 +89,7 @@ fun addToInt(target: IntNode, item: JsonNode): IntNode {
     }
 }
 
-object Sort : CommandHandler("Sort"), ObjectHandler {
+object Sort : CommandHandler("Sort", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val items = data["items"]
             ?: context.output
@@ -118,7 +118,7 @@ class NodeComparator(val field: String) : Comparator<JsonNode> {
     }
 }
 
-object Replace : CommandHandler("Replace"), ObjectHandler {
+object Replace : CommandHandler("Replace", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
         val source = data.getParameter("in")
         val part = data.getParameter("find")
@@ -181,7 +181,7 @@ object Replace : CommandHandler("Replace"), ObjectHandler {
     }
 }
 
-object Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler {
+object Size : CommandHandler("Size", "instacli/data-manipulation"), ValueHandler, ArrayHandler, ObjectHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         when (data) {
             is NumericNode -> {
@@ -208,7 +208,7 @@ object Size : CommandHandler("Size"), ValueHandler, ArrayHandler, ObjectHandler 
     }
 }
 
-object Find : CommandHandler("Find"), ObjectHandler {
+object Find : CommandHandler("Find", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val path = data.getTextParameter("path")
         val source = data.getParameter("in")
@@ -217,7 +217,7 @@ object Find : CommandHandler("Find"), ObjectHandler {
     }
 }
 
-object Fields : CommandHandler("Fields"), ObjectHandler {
+object Fields : CommandHandler("Fields", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fields = data.arrayNode()
         for ((key, _) in data.fields()) {
@@ -227,7 +227,7 @@ object Fields : CommandHandler("Fields"), ObjectHandler {
     }
 }
 
-object Values : CommandHandler("Values"), ObjectHandler {
+object Values : CommandHandler("Values", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val fields = data.arrayNode()
         for ((_, value) in data.fields()) {

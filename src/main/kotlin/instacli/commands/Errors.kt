@@ -9,7 +9,7 @@ import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
 
-object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, ArrayHandler {
+object ErrorCommand : CommandHandler("Error", "instacli/errors"), ValueHandler, ObjectHandler, ArrayHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         throw InstacliCommandError(data.toDisplayYaml())
     }
@@ -25,14 +25,14 @@ object ErrorCommand : CommandHandler("Error"), ValueHandler, ObjectHandler, Arra
     }
 }
 
-object OnError : CommandHandler("On error"), ObjectHandler, DelayedResolver, ErrorHandler {
+object OnError : CommandHandler("On error", "instacli/errors"), ObjectHandler, DelayedResolver, ErrorHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         runErrorHandling(data, context)
         return null
     }
 }
 
-object OnErrorType : CommandHandler("On error type"), ObjectHandler, DelayedResolver, ErrorHandler {
+object OnErrorType : CommandHandler("On error type", "instacli/errors"), ObjectHandler, DelayedResolver, ErrorHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         for ((key, value) in data.fields()) {

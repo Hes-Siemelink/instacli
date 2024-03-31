@@ -10,5 +10,5 @@ oneOf:
       input:
         type: object
         additionalProperties:
-          $ref: "InputParameters.schema.yaml"
+          $ref: "../InputParameters.schema.yaml"
       additionalProperties: false

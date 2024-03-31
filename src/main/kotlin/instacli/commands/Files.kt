@@ -14,7 +14,7 @@ import java.nio.file.Path
 import kotlin.io.path.createParentDirectories
 import kotlin.io.path.exists
 
-object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
+object ReadFile : CommandHandler("Read file", "instacli/files"), ValueHandler, ObjectHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         val file = data.toPath(context)
@@ -29,7 +29,7 @@ object ReadFile : CommandHandler("Read file"), ValueHandler, ObjectHandler {
     }
 }
 
-object SaveAs : CommandHandler("Save as"), ValueHandler {
+object SaveAs : CommandHandler("Save as", "instacli/files"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         val destinationFile = Path.of(data.textValue())

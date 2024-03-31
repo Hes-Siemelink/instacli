@@ -4,14 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.*
 
-class AssignVariable(private val varName: String) : CommandHandler("\${}"), AnyHandler {
+class AssignVariable(private val varName: String) : CommandHandler("\${}", null), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         context.variables[varName] = data
         return null
     }
 }
 
-object As : CommandHandler("As"), ValueHandler, DelayedResolver {
+object As : CommandHandler("As", "instacli/variables"), ValueHandler, DelayedResolver {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (!context.variables.containsKey(OUTPUT_VARIABLE)) {
@@ -36,7 +36,8 @@ object As : CommandHandler("As"), ValueHandler, DelayedResolver {
     }
 }
 
-object ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
+// TODO Remove
+object ApplyVariables : CommandHandler("Apply variables", null), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data.resolveVariables(context.variables)
     }
@@ -45,7 +46,7 @@ object ApplyVariables : CommandHandler("Apply variables"), AnyHandler {
 /**
  * Returns the input as output.
  */
-object Output : CommandHandler("Output"), AnyHandler {
+object Output : CommandHandler("Output", "instacli/variables"), AnyHandler {
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode {
         return data
     }

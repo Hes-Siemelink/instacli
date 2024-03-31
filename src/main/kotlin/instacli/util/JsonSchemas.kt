@@ -11,18 +11,18 @@ import java.nio.file.Path
 object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()
     val factory = JsonSchemaFactory.getInstance(VersionFlag.V202012)
-    
 
-    fun getSchema(name: String): JsonSchema? {
-        return schemas.getOrPut(name) {
-            loadSchema(name)
+
+    fun getSchema(schemaName: String): JsonSchema? {
+        return schemas.getOrPut(schemaName) {
+            loadSchema(schemaName)
         }
     }
 
-    private fun loadSchema(name: String): JsonSchema? {
+    private fun loadSchema(schemaName: String): JsonSchema? {
         val schemaFile = when {
-            Resources.exists("schema/$name.schema.yaml") -> "schema/$name.schema.yaml"
-            Resources.exists("schema/$name.schema.json") -> "schema/$name.schema.json"
+            Resources.exists("commands/$schemaName.yaml") -> "commands/$schemaName.yaml"
+            Resources.exists("commands/$schemaName.json") -> "commands/$schemaName.json"
             else -> return null
         }
         return factory.getSchema(Resources.getUri(schemaFile))
@@ -34,12 +34,10 @@ object JsonSchemas {
 }
 
 
-internal fun JsonNode.validateWithSchema(name: String) {
-    val schema = JsonSchemas.getSchema(name) ?: return
+internal fun JsonNode.validateWithSchema(schemaName: String) {
+    val schema = JsonSchemas.getSchema(schemaName) ?: return
     val messages = schema.validate(this)
     if (messages.isNotEmpty()) {
-        val schemaName = schema.toString()
-
         throw CommandFormatException("Schema validation errors according to \"${schemaName}\":\n$messages")
     }
 }
