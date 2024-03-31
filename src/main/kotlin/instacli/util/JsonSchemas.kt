@@ -7,11 +7,15 @@ import com.networknt.schema.SpecVersion.VersionFlag
 import instacli.language.CommandFormatException
 import java.nio.file.Path
 
-
 object JsonSchemas {
-    private val schemas = mutableMapOf<String, JsonSchema?>()
-    val factory = JsonSchemaFactory.getInstance(VersionFlag.V202012)
 
+    private val schemas = mutableMapOf<String, JsonSchema?>()
+
+    val factory: JsonSchemaFactory = JsonSchemaFactory.getInstance(VersionFlag.V202012) {
+        it.schemaMappers() { schemaMappers ->
+            schemaMappers.mapPrefix("https://instacli.spec.it/v1/commands", "classpath:commands")
+        }
+    }
 
     fun getSchema(schemaName: String): JsonSchema? {
         return schemas.getOrPut(schemaName) {

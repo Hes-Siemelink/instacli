@@ -1,8 +1,7 @@
 # On my mind
 
 * Use JSON schemas
-    * Friendly error messages
-    * Reorganize files
+    * Friendly error messages: https://github.com/networknt/json-schema-validator/blob/master/doc/cust-msg.md
 * Use JSON schema to define input (?)
     * First step is to align ParameterData property names to the ones used in JSON schema.
 
@@ -10,6 +9,12 @@
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
   explicitly. For example: content type, variable replacement yes/no, etc.
+* Spec.it - Extract into a separate module:
+    * Markdown doc
+    * Cli tests
+    * Schema stuff
+    * Http server
+    * ...what's left not to extract?
 * Run Release templates
 
 # Command-line support

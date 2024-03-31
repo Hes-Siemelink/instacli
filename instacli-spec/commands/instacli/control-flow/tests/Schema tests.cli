@@ -6,7 +6,7 @@ Validate:
     then:
       Print: something
     extra: property
-  schema: If.schema.yaml
+  schema: ../If.schema.yaml
 
 Expected error: Schema should not allow extra properties in If
 
@@ -16,7 +16,7 @@ Test case: If without then
 Validate:
   data:
     empty: { }
-  schema: If.schema.yaml
+  schema: ../If.schema.yaml
 
 Expected error: Schema should not allow missing 'then'
 
@@ -30,7 +30,7 @@ Validate:
         Print: something
       else:
         Print: else
-  schema: When.schema.yaml
+  schema: ../When.schema.yaml
 
 Expected error: Having both 'then' and 'else' should trigger a validation error
 
@@ -43,7 +43,7 @@ Validate:
         strange: property
       then:
         Print: something
-  schema: When.schema.yaml
+  schema: ../When.schema.yaml
 
 Expected error: Conditions should be properly validated
 

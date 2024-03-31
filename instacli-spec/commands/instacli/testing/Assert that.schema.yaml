@@ -1,2 +1,4 @@
+$id: "https://instacli.spec.it/v1/commands/instacli/testing/Assert_that"
 $schema: "https://json-schema.org/draft/2020-12/schema"
-$ref: "../Conditions.schema.yaml"
+$ref: "/v1/commands/instacli/Conditions.schema.yaml"
+
