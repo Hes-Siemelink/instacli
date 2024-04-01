@@ -4,23 +4,23 @@ oneOf:
   - type: string
 
   - type: object
-    required:
-      - file
-    not:
-      required:
-        - resource
+
     properties:
       file:
         type: string
-    additionalProperties: false
-
-  - type: object
-    required:
-      - resource
-    not:
-      required:
-        - file
-    properties:
       resource:
         type: string
     additionalProperties: false
+
+    oneOf:
+      - required:
+          - file
+        not:
+          required:
+            - resource
+
+      - required:
+          - resource
+        not:
+          required:
+            - file
