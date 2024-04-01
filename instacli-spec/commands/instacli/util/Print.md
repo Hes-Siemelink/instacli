@@ -8,6 +8,8 @@
 | List         | yes       |
 | Object       | yes       |
 
+[Print.schema.yaml](Print.schema.yaml)
+
 ## Basic usage
 
 Use **Print** to print a message to the console
@@ -25,7 +27,7 @@ Object content is printed as Yaml
 ```yaml instacli
 Code example: Print Yaml
 
-Print: 
+Print:
   greeting: Hello, World!
 ```
 

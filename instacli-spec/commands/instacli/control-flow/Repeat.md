@@ -2,13 +2,13 @@
 
 Executes a block of code until a condition is satisfied.
 
-| Content type                         | Supported |
-|--------------------------------------|-----------|
-| Value                                | no        |
-| List                                 | implicit  |
-| Object                               | yes       |
-| _Actions_                            | optional  |
-| `until`: _[Conditions](#Conditions)_ | required  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Repeat.schema.yaml](Repeat.schema.yaml)
 
 ## Basic usage
 

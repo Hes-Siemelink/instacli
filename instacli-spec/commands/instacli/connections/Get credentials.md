@@ -8,6 +8,8 @@ Gets the default credentials for an endpoint.
 | List         | implicit  |
 | Object       | no        |
 
+[Get credentials.schema.yaml](Get%20credentials.schema.yaml)
+
 ## Basic usage
 
 With **Get credentials** you get the default connection details for a certain endpoint.

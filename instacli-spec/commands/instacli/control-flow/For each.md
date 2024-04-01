@@ -7,8 +7,8 @@ Use `For each` to loop over a list and do stuff.
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `${..} in`   | optional  |
-| _Actions_    | optional  |
+
+$schema: https://json-schema.org/draft/2020-12/schema
 
 ## Basic usage
 

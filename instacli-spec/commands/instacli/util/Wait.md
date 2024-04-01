@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | no        |
 
+[Wait.schema.yaml](Wait.schema.yaml)
+
 ## Basic usage
 
 Use **Wait** to pause for the amount of seconds specified.

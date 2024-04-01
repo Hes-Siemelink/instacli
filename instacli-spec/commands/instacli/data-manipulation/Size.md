@@ -8,6 +8,8 @@
 | List         | yes       |
 | Object       | yes       |
 
+[Size.schema.yaml](Size.schema.yaml)
+
 ## Basic usage
 
 Get the size of a list with Size

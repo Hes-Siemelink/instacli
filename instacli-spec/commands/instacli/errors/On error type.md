@@ -2,13 +2,13 @@
 
 Error handling in CLI scripts
 
-| Content type | Supported                       |
-|--------------|---------------------------------|
-| Value        | no                              |
-| List         | implicit                        |
-| Object       | Yes                             |
-| `any`        | default error handler           |
-| `*`          | handler for specifc error codes |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | Yes       |
+
+[On error type.schema.yaml](On%20error%20type.schema.yaml)
 
 ## Basic usage
 

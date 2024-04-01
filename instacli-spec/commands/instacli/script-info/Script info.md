@@ -2,13 +2,13 @@
 
 `Script info` contains the description of a script and the definition of the input.
 
-| Content type  | Supported                              |
-|---------------|----------------------------------------|
-| Value         | yes                                    |
-| List          | no                                     |
-| Object        | yes                                    |
-| `description` | The description of the script          |
-| `input`       | The definition of the input parameters |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | no        |
+| Object       | yes       |
+
+[Script info.schema.yaml](Script%20info.schema.yaml)
 
 ## Basic usage
 

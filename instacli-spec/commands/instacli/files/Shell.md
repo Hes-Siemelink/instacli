@@ -2,12 +2,13 @@
 
 Use **Shell** to execute a shell command
 
-| Content type | Supported                    |
-|--------------|------------------------------|
-| Value        | yes                          |
-| List         | implicit                     |
-| Object       | yes                          |
-| `script`     | The name of the shell script |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | implicit  |
+| Object       | yes       |
+
+[Shell.schema.yaml](Shell.schema.yaml)
 
 ## Basic usage
 

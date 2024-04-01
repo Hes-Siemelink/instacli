@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | yes       |
 
+[Stock answers.schema.yaml](Stock%20answers.schema.yaml)
+
 ## Basic usage
 
 Automated tests will hang on user interaction. With **Stock answers**, you can define the canned response so the tests

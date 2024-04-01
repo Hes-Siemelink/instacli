@@ -8,6 +8,8 @@
 | List         | yes       |
 | Object       | yes       |
 
+[Output.schema.yaml](Output.schema.yaml)
+
 ## Basic usage
 
 Instacli assigns the result of a command to the `${ouput}` variable
@@ -27,7 +29,7 @@ Print: ${output}
 Expected output: Hello World!
 ```
 
-With **Output** you explicitly set the the `${output}` variable.
+With **Output**, you explicitly set the the `${output}` variable.
 
 ```yaml instacli
 Code example: Set the output variable expicitly

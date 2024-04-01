@@ -9,6 +9,8 @@ the scenes.
 | List         | implicit  |
 | Object       | no        |
 
+[Connect to.schema.yaml](Connect%20to.schema.yaml)
+
 ## Basic usage
 
 **Connect to** takes a symbolic name and usually

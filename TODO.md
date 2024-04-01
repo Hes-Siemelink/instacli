@@ -1,7 +1,6 @@
 # On my mind
 
 * Use JSON schemas
-    * Friendly error messages: https://github.com/networknt/json-schema-validator/blob/master/doc/cust-msg.md
 * Use JSON schema to define input (?)
     * First step is to align ParameterData property names to the ones used in JSON schema.
 

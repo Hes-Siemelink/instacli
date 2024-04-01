@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | no        |
 
+[Test case.schema.yaml](Test%20case.schema.yaml)
+
 ## Basic usage
 
 With **Test case** you give a name to a test. The test runner sees the **Test case** command as the beginning of a test.

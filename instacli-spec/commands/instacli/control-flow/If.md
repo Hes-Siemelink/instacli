@@ -2,13 +2,13 @@
 
 `If` exectues commands if a condition holds
 
-| Content type                | Supported |
-|-----------------------------|-----------|
-| Value                       | no        |
-| List                        | implicit  |
-| Object                      | yes       |
-| _[Conditions](#Conditions)_ | required  |
-| `then`                      | required  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[If.schema.yaml](If.schema.yaml)
 
 ## Basic usage
 

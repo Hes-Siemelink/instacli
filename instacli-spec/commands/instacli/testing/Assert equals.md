@@ -7,8 +7,8 @@
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `actual:`    | required  |
-| `expected:`  | required  |
+
+[Assert equals.schema.yaml](Assert%20equals.schema.yaml)
 
 ## Basic usage
 

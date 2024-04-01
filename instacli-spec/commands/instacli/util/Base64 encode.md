@@ -8,6 +8,8 @@ Use `Base64 encode` to encode stuff. See [Base64 decode](Base64 decode).
 | List         | no        |
 | Object       | no        |
 
+[Base64 encode.schema.yaml](Base64%20encode.schema.yaml)
+
 ## Basic usage
 
 Use **Base64 encode** to encode a message

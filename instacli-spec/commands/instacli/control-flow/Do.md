@@ -7,7 +7,8 @@ Use `Do` to execute one or more other commands.
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| _Actions_    | optional  |
+
+[Do.schema.yaml](Do.schema.yaml)
 
 ## Basic usage
 

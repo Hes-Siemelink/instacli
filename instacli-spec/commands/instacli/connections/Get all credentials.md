@@ -8,6 +8,8 @@ Gets all credentials for an endpoint.
 | List         | implicit  |
 | Object       | no        |
 
+[Get all credentials.schema.yaml](Get%20all%20credentials.schema.yaml)
+
 ## Basic usage
 
 With **Get all credentials** you get the list of connection details for a certain endpoint.

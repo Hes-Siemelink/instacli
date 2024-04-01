@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | no        |
 
+[Save as.schema.yaml](Save%20as.schema.yaml)
+
 ## Basic usage
 
 Use **Save as** store the contents of the `${output}` variable in a file.

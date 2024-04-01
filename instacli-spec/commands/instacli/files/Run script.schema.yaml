@@ -1,6 +1,7 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 oneOf:
   - type: string
+
   - type: object
     properties:
       file:
@@ -9,6 +10,7 @@ oneOf:
         type: string
       input: { }
       additionalProperties: false
+
     oneOf:
       - required:
           - file

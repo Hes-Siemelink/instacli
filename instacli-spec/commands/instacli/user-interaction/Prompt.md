@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | yes       |
 
+[Prompt.schema.yaml](Prompt.schema.yaml)
+
 ## Basic usage
 
 With **Prompt**, you can ask the user a question.

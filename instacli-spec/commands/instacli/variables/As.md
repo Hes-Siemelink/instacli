@@ -8,6 +8,8 @@
 | List         | implicit  |
 | Object       | no        |
 
+[As.schema.yaml](As.schema.yaml)
+
 ## Basic usage
 
 **As** puts the `${output}` into a new variable

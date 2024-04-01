@@ -8,6 +8,8 @@
 | List         | yes       |
 | Object       | yes       |
 
+[Expected output.schema.yaml](Expected%20output.schema.yaml)
+
 ## Basic usage
 
 **Expected output** is a shortcut for [Assert that](Assert that.md#object-equals) equality, comparing

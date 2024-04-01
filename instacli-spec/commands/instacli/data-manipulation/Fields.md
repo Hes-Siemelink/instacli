@@ -8,6 +8,8 @@
 | List         | implicit  |
 | Object       | yes       |
 
+[Fields.schema.yaml](Fields.schema.yaml)
+
 ## Basic usage
 
 **Fields** strips the fields (keys) of an object

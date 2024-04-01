@@ -2,17 +2,13 @@
 
 `GET` sends a GET request to an HTTP endpoint.
 
-| Content type | Supported                         |
-|--------------|-----------------------------------|
-| Value        | yes                               |
-| List         | implicit                          |
-| Object       | yes                               |
-| url          | base URL of the request           |
-| path         | path of the request               |
-| username     | username for Basic authentication |
-| password     | password for Basic authentication |
-| headers      | request headers                   |
-| saveAs       | save the result to a file         |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | implicit  |
+| Object       | yes       |
+
+[GET.schema.yaml](GET.schema.yaml)
 
 ## Basic usage
 

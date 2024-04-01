@@ -2,14 +2,13 @@
 
 Does a text-based find&replace.
 
-| Content type   | Supported |
-|----------------|-----------|
-| Value          | yes       |
-| List           | yes       |
-| Object         | yes       |
-| `in`           | required  |
-| `find`         | required  |
-| `replace with` | required  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | yes       |
+| Object       | yes       |
+
+[Replace.schema.yaml](Replace.schema.yaml)
 
 ## Basic usage
 

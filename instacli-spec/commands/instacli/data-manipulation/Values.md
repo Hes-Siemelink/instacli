@@ -8,6 +8,8 @@
 | List         | implicit  |
 | Object       | yes       |
 
+[Values.schema.yaml](Values.schema.yaml)
+
 ## Basic usage
 
 **Values** strips the object of its fields and returns a list of the contents.

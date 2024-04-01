@@ -2,13 +2,13 @@
 
 Deletes credentials for an endpoint.
 
-| Content type | Supported                |
-|--------------|--------------------------|
-| Value        | no                       |
-| List         | implicit                 |
-| Object       | yes                      |
-| `target`     | The name of the endpoint |
-| `name`       | The name of the account  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Delete credentials.schema.yaml](Delete%20credentials.schema.yaml)
 
 ## Basic usage
 

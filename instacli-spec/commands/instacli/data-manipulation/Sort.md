@@ -7,8 +7,8 @@
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `items`      | optional  |
-| `by`         | required  |
+
+[Sort.schema.yaml](Sort.schema.yaml)
 
 ## Basic usage
 

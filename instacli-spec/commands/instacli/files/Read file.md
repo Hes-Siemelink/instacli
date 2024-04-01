@@ -2,12 +2,13 @@
 
 `Read file` loads Yaml from a file
 
-| Content type | Supported                                        |
-|--------------|--------------------------------------------------|
-| Value        | yes                                              |
-| List         | no                                               |
-| Object       | no                                               |
-| `resource`   | the file to load, relative to the current script |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | yes       |
+| List         | no        |
+| Object       | no        |
+
+[Read file.schema.yaml](Read%20file.schema.yaml)
 
 ## Basic usage
 

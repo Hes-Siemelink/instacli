@@ -2,14 +2,13 @@
 
 Use **Run script** to run another Instacli script. See also [Instacli files as commands](Instacli files as commands.md)
 
-| Content type | Supported                                                |
-|--------------|----------------------------------------------------------|
-| Value        | no                                                       |
-| List         | implicit                                                 |
-| Object       | yes                                                      |
-| `file`       | the Instacli file to run, in the current directory       |
-| `resouce`    | the Instacli file to run, relative to the current script |
-| `input`      | The input passed to the script                           |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Run script.schema.yaml](Run%20script.schema.yaml)
 
 ## Basic usage
 

@@ -3,12 +3,13 @@
 `Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.md)
 and [Repeat](../control-flow/Repeat.md)
 
-| Content type                | Supported |
-|-----------------------------|-----------|
-| Value                       | no        |
-| List                        | implicit  |
-| Object                      | yes       |
-| _[Conditions](#Conditions)_ | required  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Assert that.schema.yaml](Assert%20that.schema.yaml)
 
 ## Basic usage
 

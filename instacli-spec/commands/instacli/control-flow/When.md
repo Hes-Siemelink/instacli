@@ -2,13 +2,13 @@
 
 `When` executes a single command from a list of conditions
 
-| Content type                | Supported |
-|-----------------------------|-----------|
-| Value                       | no        |
-| List                        | yes       |
-| Object                      | no        |
-| _[Conditions](#Conditions)_ | required  |
-| `then`                      | required  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | yes       |
+| Object       | no        |
+
+[When.schema.yaml](When.schema.yaml)
 
 ## Basic usage
 

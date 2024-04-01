@@ -7,8 +7,8 @@ Validates data with JSON schema
 | Value        | no        |
 | List         | implicit  |
 | Object       | yes       |
-| `item`       | any       |
-| `schema`     | any       |
+
+[Validate.schema.yaml](Validate.schema.yaml)
 
 ## Basic usage
 

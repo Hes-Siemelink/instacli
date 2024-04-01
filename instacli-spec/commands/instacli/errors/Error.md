@@ -8,6 +8,8 @@ Error handling in CLI scripts
 | List         | no        |
 | Object       | Yes       |
 
+[Error.schema.yaml](Error.schema.yaml)
+
 ## Basic usage
 
 Use **Error** to raise an error and **[On error](On error.md)** to handle it.

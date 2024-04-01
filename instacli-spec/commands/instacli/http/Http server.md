@@ -3,14 +3,13 @@
 `Http server` starts an embedded HTTP server, based on an OpenAPI-flavored spec and backed by Instacli scripts. Use
 **Http server** to quickly prototype and API.
 
-| Content type         | Supported                            |
-|----------------------|--------------------------------------|
-| Value                | no                                   |
-| List                 | implicit                             |
-| Object               | yes                                  |
-| `port` (int)         | Port number to serve the requests on |
-| `endpoints` (object) | Endpoint defintions                  |
-| `stop` (boolean)     | Stop command                         |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Http server.schema.yaml](Http%20server.schema.yaml)
 
 ## Basic usage
 

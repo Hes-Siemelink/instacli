@@ -3,18 +3,13 @@
 `Http request defaults` sets the default parameters for all subsequent HTTP commands
 like [GET](GET.md), [POST](POST.md), etc.
 
-| Content type | Supported                         |
-|--------------|-----------------------------------|
-| Value        | no                                |
-| List         | implicit                          |
-| Object       | yes                               |
-| url          | base URL of the request           |
-| path         | path of the request               |
-| body         | request body                      |
-| username     | username for Basic authentication |
-| password     | password for Basic authentication |
-| headers      | request headers                   |
-| saveAs       | save the result to a file         |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Http request defaults.schema.yaml](Http%20request%20defaults.schema.yaml)
 
 ## Basic usage
 

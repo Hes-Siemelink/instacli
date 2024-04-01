@@ -2,18 +2,13 @@
 
 `POST` sends a POST request to an HTTP endpoint.
 
-| Content type | Supported                         |
-|--------------|-----------------------------------|
-| Value        | no                                |
-| List         | implicit                          |
-| Object       | yes                               |
-| url          | base URL of the request           |
-| path         | path of the request               |
-| body         | request body                      |
-| username     | username for Basic authentication |
-| password     | password for Basic authentication |
-| headers      | request headers                   |
-| saveAs       | save the result to a file         |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[POST.schema.yaml](POST.schema.yaml)
 
 ## Basic usage
 

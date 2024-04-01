@@ -2,13 +2,13 @@
 
 `Find` retrieves a snippet of JSON from a larger object
 
-| Content type | Supported               |
-|--------------|-------------------------|
-| Value        | no                      |
-| List         | implicit                |
-| Object       | yes                     |
-| `path`       | the path to retrieve    |
-| `in`         | the object to search in |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Find.schema.yaml](Find.schema.yaml)
 
 ## Basic usage
 

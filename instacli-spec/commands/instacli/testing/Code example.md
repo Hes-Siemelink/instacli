@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | no        |
 
+[Code example.schema.yaml](Code%20example.schema.yaml)
+
 ## Basic usage
 
 With **Code example** you give a name to snippet of code inside a Markdown document. This can be picked up by the test

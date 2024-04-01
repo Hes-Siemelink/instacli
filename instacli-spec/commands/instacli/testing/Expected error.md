@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | no        |
 
+[Expected error.schema.yaml](Expected%20error.schema.yaml)
+
 ## Basic usage
 
 **Expected error** is a shortcut for checking if an error was raised. If there is an error, it will just pass. If there

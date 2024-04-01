@@ -8,6 +8,8 @@
 | List         | implicit  |
 | Object       | yes       |
 
+[Add.schema.yaml](Add.schema.yaml)
+
 ## Basic usage
 
 Add some numbers

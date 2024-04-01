@@ -2,13 +2,13 @@
 
 Sets the default credentials for an endpoint.
 
-| Content type | Supported                |
-|--------------|--------------------------|
-| Value        | no                       |
-| List         | implicit                 |
-| Object       | yes                      |
-| `target`     | The name of the endpoint |
-| `name`       | The name of the account  |
+| Content type | Supported |
+|--------------|-----------|
+| Value        | no        |
+| List         | implicit  |
+| Object       | yes       |
+
+[Set default credentials.schema.yaml](Set%20default%20credentials.schema.yaml)
 
 ## Basic usage
 

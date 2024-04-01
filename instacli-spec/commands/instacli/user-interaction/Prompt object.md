@@ -8,6 +8,8 @@
 | List         | no        |
 | Object       | yes       |
 
+[Prompt object.schema.yaml](Prompt%20object.schema.yaml)
+
 ## Basic usage
 
 Use **Prompt object** to fire multiple questions at once and capture the answers in the output variable.
