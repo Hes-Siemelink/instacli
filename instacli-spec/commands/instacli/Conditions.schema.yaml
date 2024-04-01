@@ -28,13 +28,15 @@ definitions:
       - required:
           - empty
       - required:
-          - item
           - equals
+          - item
       - required:
           - item
           - in
       - required:
           - not
+    message:
+      oneOf: "Invalid condition syntax in {0}"
 
   Condition:
     $ref: "#/definitions/ConditionBase"
