@@ -1,3 +1,4 @@
 $id: "https://instacli.spec.it/v1/commands/instacli/user-interaction/Prompt_all"
 $schema: https://json-schema.org/draft/2020-12/schema
+
 $ref: "/v1/commands/instacli/InputParameters.schema.yaml"
