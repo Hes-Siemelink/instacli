@@ -85,8 +85,8 @@ Overview of standard commands in Instacli.
 
 ### Files
 
-* [ReadFile](instacli/files/Read%20file.md) - Loads Yaml or Json from a file
-* [SaveAs](instacli/files/Save%20as.md) - Saves content to a file as Yaml
+* [Read file](instacli/files/Read%20file.md) - Loads Yaml or Json from a file
+* [Save as](instacli/files/Save%20as.md) - Saves content to a file as Yaml
 
 ### Call other scripts
 

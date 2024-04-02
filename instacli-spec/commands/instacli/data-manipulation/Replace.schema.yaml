@@ -1,11 +1,8 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 
 type: object
+
 properties:
-  required:
-    - in
-    - find
-    - replace with
   in:
     type:
       - string
@@ -15,4 +12,9 @@ properties:
     type: string
   replace with:
     type: string
+
+required:
+  - in
+  - find
+  - replace with
 additionalProperties: false

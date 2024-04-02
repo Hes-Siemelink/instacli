@@ -1,10 +1,8 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 
 type: object
+
 properties:
-  required:
-    - path
-    - in
   path:
     type: string
   in:
@@ -12,4 +10,8 @@ properties:
       - string
       - array
       - object
+
+required:
+  - path
+  - in
 additionalProperties: false
