@@ -10,6 +10,5 @@ GET: /search?q=${input.name}&type=artist
 
 Prompt:
   description: Select artist
-  choices: ${output.artists.items}
-  type: select one
-  display: name
+  enum: ${output.artists.items}
+  display property: name

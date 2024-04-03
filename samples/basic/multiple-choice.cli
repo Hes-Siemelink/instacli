@@ -2,8 +2,8 @@ Script info: Interaction example
 
 Prompt:
   description: Select ingredients
-  type: select multiple
-  choices:
+  select: multiple
+  enum:
     - Apple
     - Banana
     - Cake

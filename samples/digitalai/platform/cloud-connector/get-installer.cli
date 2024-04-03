@@ -16,9 +16,8 @@ If:
 
 Prompt:
   description: Select Cloud Connector
-  choices: ${cloud_connectors}
-  type: select one
-  display: name
+  enum: ${cloud_connectors}
+  display property: name
 As: ${cloud_connector}
 
 ---

@@ -41,9 +41,9 @@ You can specify various properties:
 * `description`: The question to ask the user.
 * `default`: The default value
 * `type`: The type of input: `select one`, `select multiple` or `password`
-* `choices`: a list of objects to choose from. This will render a dropdown list when presented to the user.
-* `display`: the field to display when passing a list of objects to `choices`
-* `value`: if passing an object to `choices`, the result will be the value of this field and not the entire object
+* `enum`: a list of objects to choose from. This will render a dropdown list when presented to the user.
+* `display property`: the field to display when passing a list of objects to `enum`
+* `value property`: if passing an object to `enum`, the result will be the value of this field and not the entire object
 
 ## Using a default value
 
@@ -105,8 +105,7 @@ Code example: Choose one item from a list
 
 Prompt:
   description: What is your favorite color?
-  type: select one
-  choices:
+  enum:
     - Red
     - Green
     - Blue
@@ -135,11 +134,11 @@ Code example: Choose mutliple items from a list
 
 Prompt:
   description: What are your favorite colors?
-  type: select multiple
-  choices:
+  enum:
     - Red
     - Green
     - Blue
+  select: multiple
 ```
 
 Here you can select the items you want by hitting the spacebar, before confirming with enter:
@@ -153,8 +152,8 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 
 ## Choosing an object
 
-You can pass entire objects as choices. Then you need to specify the field that will be used to select the object with
-the `display` property. The entire object will be given as output.
+You can pass entire objects as choices into  `enum`. Then you need to specify the field that will be used to select the
+object with the `display property` field. The entire object will be given as output.
 
 <!-- yaml instacli before
 Stock answers:
@@ -172,9 +171,8 @@ ${users}:
 
 Prompt:
   description: Select a user
-  type: select one
-  choices: ${users}
-  display: name
+  enum: ${users}
+  display property: name
 
 Print:
   You chose: ${output}
@@ -189,7 +187,7 @@ You chose:
   id: 123
 ```
 
-If you are only interested in a single field form an object, you can specify that with the `value` property
+If you are only interested in a single field form an object, you can specify that with `value property`.
 
 <!-- yaml instacli before
 Stock answers:
@@ -197,7 +195,7 @@ Stock answers:
 -->
 
 ```yaml instacli
-Code example: Only use a value when choosing an object
+Code example: Only use the value of a specific field when selecting from an enum list
 
 ${users}:
   - name: Alice
@@ -207,10 +205,9 @@ ${users}:
 
 Prompt:
   description: Select a user
-  type: select one
-  choices: ${users}
-  display: name
-  value: id
+  enum: ${users}
+  display property: name
+  value property: id
 
 Print:
   You chose: ${output}

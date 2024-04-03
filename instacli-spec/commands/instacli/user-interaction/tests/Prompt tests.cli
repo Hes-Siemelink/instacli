@@ -40,8 +40,7 @@ Stock answers:
 
 Prompt:
   description: Select account
-  type: select one
-  choices:
+  enum:
     - name: dev
       id: 123
       password: xxxx
@@ -51,7 +50,7 @@ Prompt:
     - name: prod
       id: 789
       password: xxxx
-  display: name
+  display property: name
 
 Expected output:
   name: dev
@@ -68,8 +67,8 @@ Stock answers:
 
 Prompt:
   description: What flavors do you like?
-  type: select multiple
-  choices:
+  select: multiple
+  enum:
     - Vanilla
     - Mango
     - Coconut
@@ -87,14 +86,13 @@ Stock answers:
 
 Prompt:
   description: Favorite channel
-  type: select one
-  choices:
+  enum:
     - name: The News
       preset: 1
     - name: Sports Unlimited
       preset: 2
-  display: name
-  value: preset
+  display property: name
+  value property: preset
 
 Expected output: 1
 
@@ -108,35 +106,17 @@ Stock answers:
 
 Prompt:
   description: Favorite channel
-  type: select multiple
-  choices:
+  enum:
     - name: The News
       preset: 1
     - name: Sports Unlimited
       preset: 2
     - name: Cartoon Channel
       preset: 3
-  display: name
-  value: preset
+  select: multiple
+  display property: name
+  value property: preset
 
 Expected output:
   - 1
   - 2
-
----
-Test case: Prompt with choices from output
-
-Output:
-  - Vanilla
-  - Mango
-  - Coconut
-  - Pineapple
-
-Stock answers:
-  What flavor do you like?: Coconut
-
-Prompt:
-  description: What flavor do you like?
-  type: select one
-
-Expected output: Coconut

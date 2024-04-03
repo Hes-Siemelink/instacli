@@ -47,9 +47,14 @@ class ParameterData {
     var description: String = ""
     var default: JsonNode? = null
     var type: String = ""
-    var choices: List<JsonNode>? = null
-    var display: String? = null
-    var value: String? = null
+    var enum: List<JsonNode>? = null
+    var select: String = "single" // TODO use enum
+
+    @JsonProperty("display property")
+    var displayProperty: String? = null
+
+    @JsonProperty("value property")
+    var valueProperty: String? = null
     var condition: JsonNode? = null
 
     @JsonProperty("short option")

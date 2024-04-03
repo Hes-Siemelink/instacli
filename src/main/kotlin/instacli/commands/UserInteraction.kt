@@ -23,19 +23,16 @@ object Prompt : CommandHandler("Prompt", "instacli/user-interaction"), ValueHand
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val parameter = data.toDomainObject(ParameterData::class)
 
-        parameter.choices = parameter.choices
-            ?: context.output?.toList()
-
         return prompt(parameter)
     }
 }
 
 internal fun prompt(parameter: ParameterData): JsonNode {
-    return when (parameter.type) {
-        "select one" -> promptChoice(parameter)
-        "select multiple" -> promptChoice(parameter, true)
-        "password" -> promptText(parameter, password = true)
-        "boolean" -> promptBoolean(parameter)
+    return when {
+        parameter.enum != null && parameter.select == "single" -> promptChoice(parameter)
+        parameter.enum != null && parameter.select == "multiple" -> promptChoice(parameter, true)
+        parameter.type == "password" -> promptText(parameter, password = true)
+        parameter.type == "boolean" -> promptBoolean(parameter)
         else -> promptText(parameter)
     }
 }
@@ -51,17 +48,17 @@ private fun promptBoolean(parameter: ParameterData, password: Boolean = false): 
 
 private fun promptChoice(parameter: ParameterData, multiple: Boolean = false): JsonNode {
 
-    val choices = parameter.choices?.map {
-        if (parameter.display == null) {
+    val choices = parameter.enum?.map {
+        if (parameter.displayProperty == null) {
             Choice(it.toDisplayYaml(), it)
         } else {
-            Choice(it[parameter.display].textValue(), it)
+            Choice(it[parameter.displayProperty].textValue(), it)
         }
     } ?: emptyList()
 
     val answer = UserPrompt.select(parameter.description, choices, multiple)
 
-    return onlyWithField(answer, parameter.value)
+    return onlyWithField(answer, parameter.valueProperty)
 }
 
 private fun onlyWithField(node: JsonNode, field: String?): JsonNode {

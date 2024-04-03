@@ -4,8 +4,7 @@ Script info:
     name: Enter your name
     language:
       description: Select a language
-      type: select one
-      choices:
+      enum:
         - English
         - Spanish
         - Dutch

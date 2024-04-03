@@ -16,9 +16,8 @@ If:
 
 Prompt:
   description: Select Cloud Connector
-  choices: ${cloud_connectors}
-  type: select one
-  display: name
+  enum: ${cloud_connectors}
+  display property: name
 As: ${cloud_connector}
 
 ---
@@ -30,9 +29,8 @@ ${agent_definitions}: ${output.agent_runtimes}
 
 Prompt:
   description: Select agent definition
-  choices: ${agent_definitions}
-  type: select one
-  display: name
+  enum: ${agent_definitions}
+  display property: name
 As: ${agent_definition}
 
 ---

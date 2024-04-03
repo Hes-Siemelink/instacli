@@ -13,9 +13,9 @@ If:
 
 Prompt:
   description: Select Cloud Connector to delete
-  choices: ${cloud_connectors}
-  type: select multiple
-  display: name
+  enum: ${cloud_connectors}
+  select: multiple
+  display property: name
 
 For each:
   Print: DELETE /workload/v1/cloud_connectors/${item.id}

@@ -14,9 +14,8 @@ As: ${accounts}
 ---
 Prompt:
   description: Select account to log in with
-  choices: ${accounts}
-  type: select one
-  display: name
+  enum: ${accounts}
+  display property: name
 As: ${account}
 
 ---

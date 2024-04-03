@@ -14,9 +14,9 @@ If:
 
 Prompt:
   description: Select agents to delete
-  choices: ${agents}
-  type: select multiple
-  display: alias
+  enum: ${agents}
+  select: multiple
+  display property: alias
 
 For each:
   Print: DELETE /workload/v1/agent_instances/${item.id}

@@ -8,21 +8,19 @@ Prompt object:
 
   url:
     description: Digital.ai Platform target
-    choices:
+    enum:
       - name: Staging
         url: https://api.staging.digitalai.cloud
       - name: Production
         url: https://api.us.digitalai.cloud
-    type: select one
-    display: name
-    value: url
+    display property: name
+    value property: url
 
   id: Tenant ID
 
   method:
     description: Authentication method
-    type: select one
-    choices:
+    enum:
       - Username and password
       - Token
 

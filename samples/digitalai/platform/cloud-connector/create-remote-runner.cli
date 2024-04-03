@@ -15,9 +15,8 @@ ${runtimes}: ${output.agent_runtimes}
 
 Prompt:
   description: Select runtime to add
-  type: select one
-  choices: ${runtimes}
-  display: name
+  enum: ${runtimes}
+  display property: name
 As: ${runtime}
 
 ---

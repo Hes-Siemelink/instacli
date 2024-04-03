@@ -53,7 +53,7 @@ writing JSON.
 
 ### Multiple commands and `---`
 
-You can have multiple commands in a file and they will be executed in order:
+You can have multiple commands in a file, and they will be executed in order:
 
 ```yaml file:prompt.cli
 Prompt: What is your name?
@@ -310,7 +310,7 @@ data.
 
 ### Calling another Instacli script
 
-We showed above the you can call another Instacli script from within an Instacli script with the
+We showed above that you can call another Instacli script from within an Instacli script with the
 **[Run script](../commands/instacli/files/Run%20script.md)** command.
 
 Another way is to use it as a regualr command. Instacli reads all cli files in the same directory and makes them

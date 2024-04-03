@@ -20,9 +20,8 @@ If:
   else:
     Prompt:
       description: Select account to edit
-      choices: ${accounts}
-      type: select one
-      display: name
+      enum: ${accounts}
+      display property: name
     As: ${account}
 
 Print: Editing account ${account.name}

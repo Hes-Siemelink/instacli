@@ -12,9 +12,9 @@ As: ${accounts}
 ---
 Prompt:
   description: Select account to delete
-  choices: ${accounts}
+  enum: ${accounts}
   type: select one
-  display: name
+  display property: name
 As: ${account}
 
 Delete credentials:

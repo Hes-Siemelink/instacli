@@ -49,10 +49,9 @@ Stock answers:
 Prompt object:
   enabled:
     description: Enabled
-    choices:
+    enum:
       - true
       - false
-    type: select one
 
 Expected output:
   enabled: true

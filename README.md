@@ -23,8 +23,7 @@ Script info:
     name: Your name
     language:
       description: Select a language
-      type: select one
-      choices:
+      enum:
         - English
         - Spanish
         - Dutch
@@ -327,8 +326,7 @@ Here's an example of how to ask the user to pick something from a list, in a fil
 ```yaml file:prompt.cli 
 Prompt:
   description: Select a language
-  type: select one
-  choices:
+  enum:
     - English
     - Spanish
     - Dutch

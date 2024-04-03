@@ -11,15 +11,18 @@ oneOf:
       default: { }
       type:
         enum:
-          - select one
-          - select multiple
           - password
           - boolean
-      choices:
+      select:
+        enum:
+          - single
+          - multiple
+        default: single
+      enum:
         type: array
-      display:
+      display property:
         type: string
-      value:
+      value property:
         type: string
       condition:
         $ref: "/v1/commands/instacli/Conditions.schema.yaml"
