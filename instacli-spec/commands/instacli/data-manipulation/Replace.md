@@ -18,24 +18,24 @@ Use **Replace** to modify text
 Code example: Replace in text
 
 Replace:
+  text: me
   in: Hello me
-  find: me
   replace with: World!
 
 Expected output: Hello World!
 ```
 
-This also works when in lists
+Replace also works when in lists
 
 ```yaml instacli
 Code example: Replace in list
 
 Replace:
+  text: o
   in:
     - one
     - two
     - three
-  find: o
   replace with: a
 
 Expected output:
@@ -50,9 +50,9 @@ And in objects
 Code example: Replace in object
 
 Replace:
+  text: me
   in:
     greeting: Hello me
-  find: me
   replace with: World!
 
 Expected output:

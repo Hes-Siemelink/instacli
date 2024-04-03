@@ -3,18 +3,18 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 
 properties:
+  text:
+    type: string
   in:
     type:
       - string
       - array
       - object
-  find:
-    type: string
   replace with:
     type: string
 
 required:
+  - text
   - in
-  - find
   - replace with
 additionalProperties: false

@@ -18,8 +18,8 @@ Instacli assigns the result of a command to the `${ouput}` variable
 Code example: Output variable is automatically set
 
 Replace:
+  text: me
   in: Hello me
-  find: me
   replace with: World!
 
 # Prints Hello World!

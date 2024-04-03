@@ -1,8 +1,8 @@
 Test case: Replace in text
 
 Replace:
+  text: me
   in: Hello me
-  find: me
   replace with: World
 
 Expected output: Hello World
@@ -11,11 +11,11 @@ Expected output: Hello World
 Test case: Replace in list
 
 Replace:
+  text: o
   in:
     - one
     - two
     - three
-  find: o
   replace with: a
 
 Expected output:
@@ -27,13 +27,13 @@ Expected output:
 Test case: Replace in object
 
 Replace:
+  text: vinyl
   in:
     building:
       room:
         kitchen: vinyl
         bathroom: vinyl
         living room: wood
-  find: vinyl
   replace with: tiles
 
 Expected output:

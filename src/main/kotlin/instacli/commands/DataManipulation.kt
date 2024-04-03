@@ -120,11 +120,11 @@ class NodeComparator(val field: String) : Comparator<JsonNode> {
 
 object Replace : CommandHandler("Replace", "instacli/data-manipulation"), ObjectHandler {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
+        val text = data.getParameter("text")
         val source = data.getParameter("in")
-        val part = data.getParameter("find")
-        val replaceWith = data.getParameter("replace with")
+        val replacement = data.getParameter("replace with")
 
-        val result = replace(source, part, replaceWith)
+        val result = replace(source, text, replacement)
 
         return result ?: data
     }
@@ -132,20 +132,20 @@ object Replace : CommandHandler("Replace", "instacli/data-manipulation"), Object
     private fun replace(
         source: JsonNode,
         part: JsonNode,
-        replaceWith: JsonNode
+        replacement: JsonNode
     ): JsonNode? {
 
         return when (source) {
             is TextNode -> {
-                replaceText(source.textValue(), part, replaceWith)
+                replaceText(source.textValue(), part, replacement)
             }
 
             is ArrayNode -> {
-                replaceArray(source, part, replaceWith)
+                replaceArray(source, part, replacement)
             }
 
             is ObjectNode -> {
-                replaceObject(source, part, replaceWith)
+                replaceObject(source, part, replacement)
             }
 
             else -> null
