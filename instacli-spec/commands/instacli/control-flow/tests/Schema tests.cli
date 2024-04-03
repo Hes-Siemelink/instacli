@@ -8,7 +8,7 @@ Validate:
     extra: property
   schema: ../If.schema.yaml
 
-Expected error: Schema should not allow extra properties in If
+Error expected: Schema should not allow extra properties in If
 
 ---
 Test case: If without then
@@ -18,7 +18,7 @@ Validate:
     empty: { }
   schema: ../If.schema.yaml
 
-Expected error: Schema should not allow missing 'then'
+Error expected: Schema should not allow missing 'then'
 
 ---
 Test case: When with both 'then' and 'else'
@@ -32,7 +32,7 @@ Validate:
         Print: else
   schema: ../When.schema.yaml
 
-Expected error: Having both 'then' and 'else' should trigger a validation error
+Error expected: Having both 'then' and 'else' should trigger a validation error
 
 ---
 Test case: Validate conditions in When
@@ -45,5 +45,5 @@ Validate:
         Print: something
   schema: ../When.schema.yaml
 
-Expected error: Conditions should be properly validated
+Error expected: Conditions should be properly validated
 

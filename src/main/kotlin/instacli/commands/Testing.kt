@@ -44,7 +44,7 @@ object ExpectedOutput : CommandHandler("Expected output", "instacli/testing"), A
     }
 }
 
-object ExpectedError : CommandHandler("Expected error", "instacli/testing"), ValueHandler, ArrayHandler, ErrorHandler {
+object ErrorExpected : CommandHandler("Error expected", "instacli/testing"), ValueHandler, ArrayHandler, ErrorHandler {
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         if (context.error == null) {
             throw InstacliCommandError(data.textValue())
@@ -56,7 +56,7 @@ object ExpectedError : CommandHandler("Expected error", "instacli/testing"), Val
     }
 
     override fun execute(data: ArrayNode, context: ScriptContext): JsonNode? {
-        throw CommandFormatException("Arrays are not allowed in 'Expected error'")
+        throw CommandFormatException("Arrays are not allowed in 'Error expected'")
     }
 }
 
