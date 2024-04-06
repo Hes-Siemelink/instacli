@@ -1,8 +1,6 @@
 # On my mind
 
-* Use JSON schemas
-* Use JSON schema to define input (?)
-    * First step is to align ParameterData property names to the ones used in JSON schema.
+* Don't use JSON schemas to define input
 
 # Where to take it
 
