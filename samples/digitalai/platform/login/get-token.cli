@@ -1,18 +1,47 @@
+Print:
+  Get token input: ${input}
+
 Script info:
-  description: Gets a login token
+  description: Gets a login token for Digital.ai Platform
   input:
+    url: API endpoint
     id: Tenant ID
-    username: Username
+
+    grant_type:
+      description: Grant type
+      enum:
+        - value: password
+          description: Password
+        - value: client_credentials
+          description: Client Credentials
+      display property: description
+      value property: value
+
+    username:
+      description: Username
+      condition:
+        item: ${input.grant_type}
+        equals: password
+
     password:
       description: Password
       type: password
+      condition:
+        item: ${input.grant_type}
+        equals: password
+
     client_id:
       description: Client ID
-      default: dai-svc-consumer
+      condition:
+        item: ${input.grant_type}
+        equals: client_credentials
+
     client_secret:
       description: Client secret
       type: password
-    url: The actual endpoint
+      condition:
+        item: ${input.grant_type}
+        equals: client_credentials
 
 ---
 # Get authorization URL
@@ -25,10 +54,10 @@ ${token_endpoint}: ${output.configuration.token_endpoint}
 # Get token
 
 When:
-
-  - item: ${input.client_id}
-    equals: dai-svc-consumer
+  - item: ${input.grant_type}
+    equals: password
     then:
+
       POST:
         url: ${token_endpoint}
         headers:
@@ -41,6 +70,7 @@ When:
           scope: "openid dai-svc"
 
   - else:
+
       POST:
         url: ${token_endpoint}
         headers:

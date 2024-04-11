@@ -19,7 +19,7 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
         val scriptInfoData = data.toDomainObject(ScriptInfoData::class)
         val input = scriptInfoData.input ?: return null
 
-        return handleInput(context, input)
+        return handleInput(input, context)
     }
 }
 
@@ -29,32 +29,41 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
  * Ask for a value if there is no default value and running in interactive mode.
  * Throws exception if there is no default value.
  */
-private fun handleInput(
-    context: ScriptContext,
-    inputData: InputData
-): ObjectNode {
+private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
+
     val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
-    for ((name, info) in inputData.parameters) when {
+
+    // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
+    val variables = context.variables.toMutableMap()
+
+    for ((name, info) in data.fields()) {
 
         // Already exists
-        input.contains(name) -> {
+        if (input.contains(name)) {
             continue
         }
 
-        // Use default value
-        info.default != null -> {
-            input.set<JsonNode>(name, info.default as JsonNode)
+        // Resolve variables
+        val parameterData = info.resolveVariables(variables).toDomainObject(ParameterData::class)
+
+        // Skip if condition is not valid
+        if (!parameterData.conditionValid()) {
+            continue
         }
 
-        // Ask user
-        context.interactive -> {
-            val answer = prompt(info)
-            input.set<JsonNode>(name, answer)
-        }
+        val answer = when {
+            info.has("default") -> info["default"]
 
-        else -> {
-            throw MissingParameterException("No value provided for: $name", name, inputData)
+            context.interactive -> prompt(parameterData)
+
+            else -> throw MissingParameterException(
+                "No value provided for: $name",
+                name,
+                data.toDomainObject(InputData::class)
+            )
         }
+        input.set<JsonNode>(name, answer)
+        variables[name] = answer
     }
 
     return input
@@ -67,11 +76,15 @@ private fun handleInput(
 class ScriptInfoData {
 
     var description: String? = null
-    var input: InputData? = null
+    var input: ObjectNode? = null
     var hidden: Boolean = false
 
     constructor()
     constructor(textValue: String) {
         description = textValue
+    }
+
+    fun inputData(): InputData? {
+        return input?.toDomainObject(InputData::class)
     }
 }

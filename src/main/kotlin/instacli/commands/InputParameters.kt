@@ -65,9 +65,10 @@ class ParameterData {
         description = textValue
     }
 
-    fun parseCondition(): Condition? {
-        return condition?.let {
-            parseCondition(it)
+    fun conditionValid(): Boolean {
+        condition?.let {
+            return parseCondition(it).isTrue()
         }
+        return true
     }
 }

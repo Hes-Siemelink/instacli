@@ -16,18 +16,22 @@ import instacli.util.toDomainObject
  */
 object Prompt : CommandHandler("Prompt", "instacli/user-interaction"), ValueHandler, ObjectHandler {
 
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode {
         return UserPrompt.prompt(data.textValue())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val parameter = data.toDomainObject(ParameterData::class)
+        val parameterData = data.toDomainObject(ParameterData::class)
 
-        return prompt(parameter)
+        // Only ask if condition is true
+        parameterData.conditionValid() || return null
+
+        return prompt(parameterData)
     }
 }
 
-internal fun prompt(parameter: ParameterData): JsonNode {
+
+fun prompt(parameter: ParameterData): JsonNode {
     return when {
         parameter.enum != null && parameter.select == "single" -> promptChoice(parameter)
         parameter.enum != null && parameter.select == "multiple" -> promptChoice(parameter, true)
@@ -94,13 +98,10 @@ object PromptObject : CommandHandler("Prompt object", "instacli/user-interaction
         for ((field, rawParameter) in data.fields()) {
 
             // Resolve variables
-            val parameterData = rawParameter.resolve(context, variables).toDomainObject(ParameterData::class)
+            val parameterData = rawParameter.resolveVariables(variables).toDomainObject(ParameterData::class)
 
-            // Only assign if condition is true
-            val condition = parameterData.parseCondition()
-            if (condition != null && condition.isFalse()) {
-                continue
-            }
+            // Only ask if condition is true
+            parameterData.conditionValid() || continue
 
             // Ask user
             val answer = prompt(parameterData)
@@ -113,3 +114,4 @@ object PromptObject : CommandHandler("Prompt object", "instacli/user-interaction
         return answers
     }
 }
+

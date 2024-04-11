@@ -67,7 +67,7 @@ object StandardOutput : ConsoleOutput {
 
     private fun printInputParameters(script: Script) {
 
-        val inputData = script.info?.input ?: return
+        val inputData = script.info?.inputData() ?: return
 
         println("\nOptions:")
         println(inputData.toDisplayString())

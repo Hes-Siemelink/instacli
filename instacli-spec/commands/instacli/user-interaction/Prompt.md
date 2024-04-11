@@ -219,3 +219,21 @@ Here's the result of that:
 ? Select a user Alice
 You chose: 123
 ```
+
+## Conditions
+
+Prompts support inline conditions. If the condition is false, the prompt is skipped.
+
+```yaml instacli
+Code example: Prompt with condition
+
+Output: Already there
+
+Prompt:
+  description: What is the result?
+  condition:
+    empty: ${output}
+
+Expected output: Already there
+
+```
