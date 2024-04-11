@@ -6,6 +6,12 @@ Script info:
     password:
       description: Password
       type: password
+    client_id:
+      description: Client ID
+      default: dai-svc-consumer
+    client_secret:
+      description: Client secret
+      type: password
     url: The actual endpoint
 
 ---
@@ -17,14 +23,31 @@ ${token_endpoint}: ${output.configuration.token_endpoint}
 
 ---
 # Get token
-POST:
-  url: ${token_endpoint}
-  headers:
-    Content-Type: application/x-www-form-urlencoded
-  body:
-    grant_type: password
-    client_id: dai-svc-consumer
-    username: ${input.username}
-    password: ${input.password}
-    scope: "openid dai-svc"
+
+When:
+
+  - item: ${input.client_id}
+    equals: dai-svc-consumer
+    then:
+      POST:
+        url: ${token_endpoint}
+        headers:
+          Content-Type: application/x-www-form-urlencoded
+        body:
+          grant_type: password
+          client_id: dai-svc-consumer
+          username: ${input.username}
+          password: ${input.password}
+          scope: "openid dai-svc"
+
+  - else:
+      POST:
+        url: ${token_endpoint}
+        headers:
+          Content-Type: application/x-www-form-urlencoded
+        body:
+          grant_type: client_credentials
+          client_id: ${input.client_id}
+          client_secret: ${input.client_secret}
+          scope: "openid dai-svc"
 
