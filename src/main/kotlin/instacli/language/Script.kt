@@ -1,8 +1,8 @@
 package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.commands.ScriptInfo
-import instacli.commands.ScriptInfoData
+import instacli.commands.scriptinfo.ScriptInfo
+import instacli.commands.scriptinfo.ScriptInfoData
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 

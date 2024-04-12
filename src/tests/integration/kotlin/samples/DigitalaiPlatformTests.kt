@@ -2,7 +2,7 @@ package samples
 
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
-import instacli.commands.Credentials
+import instacli.commands.connections.Credentials
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.Test
 import kotlin.io.path.exists

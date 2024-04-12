@@ -87,13 +87,13 @@ Overview of standard commands in Instacli.
 
 * [Read file](instacli/files/Read%20file.md) - Loads Yaml or Json from a file
 * [Save as](instacli/files/Save%20as.md) - Saves content to a file as Yaml
-
-### Call other scripts
-
+* [Run script](instacli/files/Run%20script.md) - Runs another Instacli script
 * [Instacli files as commands](instacli/files/Instacli%20files%20as%20commands.md) - To run any instacli file in the
   same directory as a regular command
-* [Run script](instacli/files/Run%20script.md) - Runs another Instacli script
-* [Shell](instacli/files/Shell.md) - Executes a shell command
+
+### Shell
+
+* [Shell](instacli/shell/Shell.md) - Executes a shell command
 
 ### Util
 

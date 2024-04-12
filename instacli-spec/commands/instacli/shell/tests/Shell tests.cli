@@ -1,0 +1,18 @@
+Test case: Run command
+
+Shell: echo Hello
+Expected output: Hello
+
+---
+Test case: Run shell script
+
+Shell: instacli-spec/commands/instacli/shell/tests/helloworld.sh
+Expected output: Hello World
+
+---
+Test case: Run shell in same directory as script
+
+Shell:
+  resource: sh helloworld.sh
+Expected output: Hello World
+

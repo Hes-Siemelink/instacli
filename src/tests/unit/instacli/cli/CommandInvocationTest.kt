@@ -1,7 +1,7 @@
 package instacli.cli
 
 import instacli.TestPaths
-import instacli.commands.InputData
+import instacli.commands.InputParameters
 import instacli.language.CommandInfo
 import instacli.language.Script
 import io.kotest.matchers.shouldBe
@@ -125,7 +125,7 @@ class MockOutput : ConsoleOutput {
     var scriptInfoPrinted: Script? = null
     var outputPrinted: Boolean = false
 
-    override fun printUsage(globalOptions: InputData) {
+    override fun printUsage(globalOptions: InputParameters) {
         usagePrinted = true
     }
 

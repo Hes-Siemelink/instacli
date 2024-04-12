@@ -4,7 +4,7 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
-import instacli.commands.InputData
+import instacli.commands.InputParameters
 import instacli.language.CommandInfo
 import instacli.language.Script
 
@@ -13,7 +13,7 @@ interface UserInput {
 }
 
 interface ConsoleOutput {
-    fun printUsage(globalOptions: InputData)
+    fun printUsage(globalOptions: InputParameters)
     fun printScriptInfo(script: Script)
     fun printCommands(commands: List<CommandInfo>)
     fun printDirectoryInfo(info: DirectoryInfo)
@@ -73,7 +73,7 @@ object StandardOutput : ConsoleOutput {
         println(inputData.toDisplayString())
     }
 
-    override fun printUsage(globalOptions: InputData) {
+    override fun printUsage(globalOptions: InputParameters) {
         println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
         println("Usage:\n   cli [global options] file | directory [command options]")

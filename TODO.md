@@ -1,6 +1,8 @@
 # On my mind
 
-* Don't use JSON schemas to define input
+* Split Kotlin commands
+* Move shell to its own package
+* Move schemas to 'schemas/' subdir like tests
 
 # Where to take it
 
@@ -27,6 +29,7 @@
 
 # Instacli language
 
+* Don't use JSON schemas to define input
 * Error handling
 * Error reporting -> "StackTrace"
 * Friendly messages when schema doesn't validate

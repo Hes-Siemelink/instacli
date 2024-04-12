@@ -1,6 +1,27 @@
 package instacli.commands
 
-import instacli.cli.RunScript
+import instacli.commands.connections.*
+import instacli.commands.controlflow.*
+import instacli.commands.datamanipulation.*
+import instacli.commands.errors.ErrorCommand
+import instacli.commands.errors.OnError
+import instacli.commands.errors.OnErrorType
+import instacli.commands.files.ReadFile
+import instacli.commands.files.RunScript
+import instacli.commands.files.SaveAs
+import instacli.commands.http.*
+import instacli.commands.schema.Validate
+import instacli.commands.scriptinfo.ScriptInfo
+import instacli.commands.shell.Shell
+import instacli.commands.testing.*
+import instacli.commands.userinteraction.Prompt
+import instacli.commands.userinteraction.PromptObject
+import instacli.commands.util.Base64Decode
+import instacli.commands.util.Base64Encode
+import instacli.commands.util.Print
+import instacli.commands.util.Wait
+import instacli.commands.variables.As
+import instacli.commands.variables.Output
 import instacli.language.CommandHandler
 
 object CommandLibrary {
@@ -65,12 +86,12 @@ object CommandLibrary {
         Shell,
 
         // HTTP client
+        Get,
+        Post,
+        Put,
+        Patch,
+        Delete,
         HttpRequestDefaults,
-        HttpGet,
-        HttpPost,
-        HttpPut,
-        HttpPatch,
-        HttpDelete,
 
         // Http server
         HttpServer,
