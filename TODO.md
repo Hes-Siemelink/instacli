@@ -1,7 +1,6 @@
 # On my mind
 
 * Analytics
-    * Fix Http error handling (401, 404, etc.)
     * Use ${input.var} in Prompt object and Script info, not just ${var}
 * Don't use JSON schemas to define input
 

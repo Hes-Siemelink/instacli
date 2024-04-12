@@ -63,7 +63,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
                 }
                 throw e
             } catch (e: InstacliLanguageException) {
-                reportError(e, printStackTrace = false)
+                e.reportError(printStackTrace = false)
                 throw e
             }
         }
