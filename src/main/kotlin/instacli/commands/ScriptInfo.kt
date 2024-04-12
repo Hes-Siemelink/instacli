@@ -23,18 +23,9 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
     }
 }
 
-/**
- * Checks if a variable is set.
- * If not, assigns the default value.
- * Ask for a value if there is no default value and running in interactive mode.
- * Throws exception if there is no default value.
- */
 private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
 
     val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
-
-    // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
-    val variables = context.variables.toMutableMap()
 
     for ((name, info) in data.fields()) {
 
@@ -44,16 +35,20 @@ private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
         }
 
         // Resolve variables
-        val parameterData = info.resolveVariables(variables).toDomainObject(ParameterData::class)
+        val parameterData = info.resolveVariables(context.variables).toDomainObject(ParameterData::class)
 
         // Skip if condition is not valid
         if (!parameterData.conditionValid()) {
             continue
         }
 
+        // Find answer
         val answer = when {
+
+            // Get default value
             info.has("default") -> info["default"]
 
+            // Ask user
             context.interactive -> prompt(parameterData)
 
             else -> throw MissingParameterException(
@@ -63,7 +58,6 @@ private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
             )
         }
         input.set<JsonNode>(name, answer)
-        variables[name] = answer
     }
 
     return input

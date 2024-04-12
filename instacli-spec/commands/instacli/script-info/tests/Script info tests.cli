@@ -19,19 +19,22 @@ ${input}: { }
 Script info:
   description: A script with a choice
   input:
+
     switch:
       description: Choose a or b
       default: a
+
     property-A:
       description: What is the value for A?
       condition:
-        item: ${switch}
+        item: ${input.switch}
         equals: a
       default: Ananas
+
     property-B:
       description: What is the value for B?
       condition:
-        item: ${switch}
+        item: ${input.switch}
         equals: b
       default: Bologna
 

@@ -110,8 +110,8 @@ Expected output:
 
 ## Depending questions
 
-You can also make questions depend on previous questions. The answers to previous questions are available as variables (
-within the scope of **Prompt object**). You can use those variables in conditions.
+You can also make questions depend on previous questions. The answers to previous questions are available as variables
+(within the scope of **Prompt object**). You can use those variables in conditions.
 
 This example will prompt which variable to set, and depending on the result will ask the following question a or b.
 

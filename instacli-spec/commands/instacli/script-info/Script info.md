@@ -133,3 +133,50 @@ Script info:
 ```
 
 See [Prompt Properties](../user-interaction/Prompt.md#prompt-properties) for a full description.
+
+## Variables and conditions
+
+You can define input depending on other input properties being set. The properties that are being referred to need to be
+defined before the property that is using them. You can to them as part of the `${input}` variable, for
+example `${input.otherVariable}`.
+
+This example uses the ${input.switch} to determine which variable will be part of the input. By setting `switch` to `a`,
+the `property-A` is set but not `property-B`.
+
+<!-- yaml instacli before
+${input}: { }
+-->
+
+<!-- TODO Make this run in interactive mode, so we can use 'Stock answers' for a more compelling example. --> 
+
+```yaml instacli
+Code example: Script info with variables and conditions
+
+Script info:
+  description: A script with a choice
+  input:
+
+    switch:
+      description: Choose a or b
+      default: a
+
+    property-A:
+      description: What is the value for A?
+      condition:
+        item: ${input.switch}
+        equals: a
+      default: Ananas
+
+    property-B:
+      description: What is the value for B?
+      condition:
+        item: ${input.switch}
+        equals: b
+      default: Bologna
+
+Assert equals:
+  actual: ${input}
+  expected:
+    switch: a
+    property-A: Ananas
+```

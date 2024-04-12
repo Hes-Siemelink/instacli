@@ -1,7 +1,5 @@
 # On my mind
 
-* Analytics
-    * Use ${input.var} in Prompt object and Script info, not just ${var}
 * Don't use JSON schemas to define input
 
 # Where to take it
