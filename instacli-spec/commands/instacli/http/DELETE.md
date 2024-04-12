@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[DELETE.schema.yaml](DELETE.schema.yaml)
+[DELETE.schema.yaml](schema/DELETE.schema.yaml)
 
 ## Basic usage
 

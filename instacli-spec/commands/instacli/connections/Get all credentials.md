@@ -8,7 +8,7 @@ Gets all credentials for an endpoint.
 | List         | implicit  |
 | Object       | no        |
 
-[Get all credentials.schema.yaml](Get%20all%20credentials.schema.yaml)
+[Get all credentials.schema.yaml](schema/Get%20all%20credentials.schema.yaml)
 
 ## Basic usage
 

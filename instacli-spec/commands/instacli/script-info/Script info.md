@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | yes       |
 
-[Script info.schema.yaml](Script%20info.schema.yaml)
+[Script info.schema.yaml](schema/Script%20info.schema.yaml)
 
 ## Basic usage
 

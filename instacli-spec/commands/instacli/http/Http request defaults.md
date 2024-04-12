@@ -9,7 +9,7 @@ like [GET](GET.md), [POST](POST.md), etc.
 | List         | implicit  |
 | Object       | yes       |
 
-[Http request defaults.schema.yaml](Http%20request%20defaults.schema.yaml)
+[Http request defaults.schema.yaml](schema/Http%20request%20defaults.schema.yaml)
 
 ## Basic usage
 

@@ -8,7 +8,7 @@ Configures credentials for an endpoint and saves it in the user's preferences.
 | List         | implicit  |
 | Object       | yes       |
 
-[Create credentials.schema.yaml](Create%20credentials.schema.yaml)
+[Create credentials.schema.yaml](schema/Create%20credentials.schema.yaml)
 
 ## Basic usage
 

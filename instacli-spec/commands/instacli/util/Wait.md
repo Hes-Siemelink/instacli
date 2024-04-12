@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Wait.schema.yaml](Wait.schema.yaml)
+[Wait.schema.yaml](schema/Wait.schema.yaml)
 
 ## Basic usage
 

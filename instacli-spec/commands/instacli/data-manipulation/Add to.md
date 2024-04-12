@@ -8,7 +8,7 @@ With `Add to`, you can add stuff to variables in a concise way.
 | List         | implicit  |
 | Object       | yes       |
 
-[Add to.schema.yaml](Add%20to.schema.yaml)
+[Add to.schema.yaml](schema/Add%20to.schema.yaml)
 
 ## Basic usage
 

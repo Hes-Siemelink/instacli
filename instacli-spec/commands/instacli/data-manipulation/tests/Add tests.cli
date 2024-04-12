@@ -194,6 +194,6 @@ Test case: Schema validation - Add should only accept arrays
 
 Validate:
   data: 1
-  schema: ../Add.schema.yaml
+  schema: ../schema/Add.schema.yaml
 
 Error expected: Add should only accept arrays

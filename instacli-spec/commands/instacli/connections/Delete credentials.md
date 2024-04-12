@@ -8,7 +8,7 @@ Deletes credentials for an endpoint.
 | List         | implicit  |
 | Object       | yes       |
 
-[Delete credentials.schema.yaml](Delete%20credentials.schema.yaml)
+[Delete credentials.schema.yaml](schema/Delete%20credentials.schema.yaml)
 
 ## Basic usage
 

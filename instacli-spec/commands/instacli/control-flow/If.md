@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[If.schema.yaml](If.schema.yaml)
+[If.schema.yaml](schema/If.schema.yaml)
 
 ## Basic usage
 

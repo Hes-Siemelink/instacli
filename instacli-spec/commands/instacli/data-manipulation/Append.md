@@ -8,7 +8,7 @@ Use `Append` to add stuff to the output variable.
 | List         | implicit  |
 | Object       | yes       |
 
-[Append.schema.yaml](Append.schema.yaml)
+[Append.schema.yaml](schema/Append.schema.yaml)
 
 ## Basic usage
 

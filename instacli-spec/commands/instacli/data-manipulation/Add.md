@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Add.schema.yaml](Add.schema.yaml)
+[Add.schema.yaml](schema/Add.schema.yaml)
 
 ## Basic usage
 

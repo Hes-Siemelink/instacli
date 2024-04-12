@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Test case.schema.yaml](Test%20case.schema.yaml)
+[Test case.schema.yaml](schema/Test%20case.schema.yaml)
 
 ## Basic usage
 

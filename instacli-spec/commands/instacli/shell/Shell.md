@@ -8,7 +8,7 @@ Use **Shell** to execute a shell command
 | List         | implicit  |
 | Object       | yes       |
 
-[Shell.schema.yaml](Shell.schema.yaml)
+[Shell.schema.yaml](schema/Shell.schema.yaml)
 
 ## Basic usage
 

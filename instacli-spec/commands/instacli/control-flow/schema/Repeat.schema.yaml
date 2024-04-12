@@ -1,3 +1,4 @@
+$id: "https://instacli.spec.it/v1/commands/instacli/control-flow/Repeat"
 $schema: https://json-schema.org/draft/2020-12/schema
 
 type: object
@@ -8,4 +9,4 @@ properties:
       - type: boolean
       - type: number
       - type: array
-      - $ref: "../Conditions.schema.yaml"
+      - $ref: "/v1/commands/instacli/Conditions.schema.yaml"

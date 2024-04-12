@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Save as.schema.yaml](Save%20as.schema.yaml)
+[Save as.schema.yaml](schema/Save%20as.schema.yaml)
 
 ## Basic usage
 

@@ -20,7 +20,7 @@ abstract class CommandHandler(open val name: String, open val namespace: String?
 
     open fun validate(data: JsonNode) {
         val prefix = namespace?.replace('.', '/') ?: return
-        val schemaName = "$prefix/$name.schema"
+        val schemaName = "$prefix/schema/$name.schema"
 
         data.validateWithSchema(schemaName)
     }

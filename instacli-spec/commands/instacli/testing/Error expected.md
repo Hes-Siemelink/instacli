@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Error expected.schema.yaml](Expected%20error.schema.yaml)
+[Error expected.schema.yaml](schema/Expected%20error.schema.yaml)
 
 ## Basic usage
 

@@ -8,7 +8,7 @@ Sets the default credentials for an endpoint.
 | List         | implicit  |
 | Object       | yes       |
 
-[Set default credentials.schema.yaml](Set%20default%20credentials.schema.yaml)
+[Set default credentials.schema.yaml](schema/Set%20default%20credentials.schema.yaml)
 
 ## Basic usage
 

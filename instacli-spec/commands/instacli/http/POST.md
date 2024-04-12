@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[POST.schema.yaml](POST.schema.yaml)
+[POST.schema.yaml](schema/POST.schema.yaml)
 
 ## Basic usage
 

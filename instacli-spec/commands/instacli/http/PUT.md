@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[PUT.schema.yaml](PUT.schema.yaml)
+[PUT.schema.yaml](schema/PUT.schema.yaml)
 
 ## Basic usage
 

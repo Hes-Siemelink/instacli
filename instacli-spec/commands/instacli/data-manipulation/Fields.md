@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Fields.schema.yaml](Fields.schema.yaml)
+[Fields.schema.yaml](schema/Fields.schema.yaml)
 
 ## Basic usage
 

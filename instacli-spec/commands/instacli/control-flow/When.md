@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | no        |
 
-[When.schema.yaml](When.schema.yaml)
+[When.schema.yaml](schema/When.schema.yaml)
 
 ## Basic usage
 

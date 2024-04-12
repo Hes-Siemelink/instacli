@@ -9,7 +9,7 @@ the scenes.
 | List         | implicit  |
 | Object       | no        |
 
-[Connect to.schema.yaml](Connect%20to.schema.yaml)
+[Connect to.schema.yaml](schema/Connect%20to.schema.yaml)
 
 ## Basic usage
 

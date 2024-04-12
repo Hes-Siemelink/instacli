@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[PATCH.schema.yaml](PATCH.schema.yaml)
+[PATCH.schema.yaml](schema/PATCH.schema.yaml)
 
 ## Basic usage
 

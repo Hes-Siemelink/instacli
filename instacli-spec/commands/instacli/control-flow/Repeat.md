@@ -8,7 +8,7 @@ Executes a block of code until a condition is satisfied.
 | List         | implicit  |
 | Object       | yes       |
 
-[Repeat.schema.yaml](Repeat.schema.yaml)
+[Repeat.schema.yaml](schema/Repeat.schema.yaml)
 
 ## Basic usage
 

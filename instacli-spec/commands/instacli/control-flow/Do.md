@@ -8,7 +8,7 @@ Use `Do` to execute one or more other commands.
 | List         | implicit  |
 | Object       | yes       |
 
-[Do.schema.yaml](Do.schema.yaml)
+[Do.schema.yaml](schema/Do.schema.yaml)
 
 ## Basic usage
 

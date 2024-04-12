@@ -9,7 +9,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Http server.schema.yaml](Http%20server.schema.yaml)
+[Http server.schema.yaml](schema/Http%20server.schema.yaml)
 
 ## Basic usage
 

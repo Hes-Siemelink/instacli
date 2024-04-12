@@ -8,7 +8,7 @@ Does a text-based find&replace.
 | List         | yes       |
 | Object       | yes       |
 
-[Replace.schema.yaml](Replace.schema.yaml)
+[Replace.schema.yaml](schema/Replace.schema.yaml)
 
 ## Basic usage
 

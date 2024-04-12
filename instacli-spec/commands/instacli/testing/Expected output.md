@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | yes       |
 
-[Expected output.schema.yaml](Expected%20output.schema.yaml)
+[Expected output.schema.yaml](schema/Expected%20output.schema.yaml)
 
 ## Basic usage
 

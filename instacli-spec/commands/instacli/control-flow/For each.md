@@ -8,7 +8,7 @@ Use `For each` to loop over a list and do stuff.
 | List         | implicit  |
 | Object       | yes       |
 
-$schema: https://json-schema.org/draft/2020-12/schema
+[For each.schema.yaml](schema/For%20each.schema.yaml)
 
 ## Basic usage
 

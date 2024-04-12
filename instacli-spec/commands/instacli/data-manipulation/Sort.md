@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Sort.schema.yaml](Sort.schema.yaml)
+[Sort.schema.yaml](schema/Sort.schema.yaml)
 
 ## Basic usage
 

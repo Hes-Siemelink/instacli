@@ -8,7 +8,7 @@ Gets the default credentials for an endpoint.
 | List         | implicit  |
 | Object       | no        |
 
-[Get credentials.schema.yaml](Get%20credentials.schema.yaml)
+[Get credentials.schema.yaml](schema/Get%20credentials.schema.yaml)
 
 ## Basic usage
 

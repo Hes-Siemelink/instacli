@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | yes       |
 
-[Print.schema.yaml](Print.schema.yaml)
+[Print.schema.yaml](schema/Print.schema.yaml)
 
 ## Basic usage
 

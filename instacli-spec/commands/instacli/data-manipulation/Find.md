@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Find.schema.yaml](Find.schema.yaml)
+[Find.schema.yaml](schema/Find.schema.yaml)
 
 ## Basic usage
 

@@ -8,7 +8,7 @@ Use **Run script** to run another Instacli script. See also [Instacli files as c
 | List         | implicit  |
 | Object       | yes       |
 
-[Run script.schema.yaml](Run%20script.schema.yaml)
+[Run script.schema.yaml](schema/Run%20script.schema.yaml)
 
 ## Basic usage
 

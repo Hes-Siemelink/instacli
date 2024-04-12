@@ -9,7 +9,7 @@ and [Repeat](../control-flow/Repeat.md)
 | List         | implicit  |
 | Object       | yes       |
 
-[Assert that.schema.yaml](Assert%20that.schema.yaml)
+[Assert that.schema.yaml](schema/Assert%20that.schema.yaml)
 
 ## Basic usage
 

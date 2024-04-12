@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Read file.schema.yaml](Read%20file.schema.yaml)
+[Read file.schema.yaml](schema/Read%20file.schema.yaml)
 
 ## Basic usage
 

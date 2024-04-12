@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | yes       |
 
-[Exit.schema.yaml](Exit.schema.yaml)
+[Exit.schema.yaml](schema/Exit.schema.yaml)
 
 ## Basic usage
 

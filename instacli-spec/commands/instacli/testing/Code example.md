@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Code example.schema.yaml](Code%20example.schema.yaml)
+[Code example.schema.yaml](schema/Code%20example.schema.yaml)
 
 ## Basic usage
 

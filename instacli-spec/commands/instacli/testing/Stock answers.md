@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | yes       |
 
-[Stock answers.schema.yaml](Stock%20answers.schema.yaml)
+[Stock answers.schema.yaml](schema/Stock%20answers.schema.yaml)
 
 ## Basic usage
 

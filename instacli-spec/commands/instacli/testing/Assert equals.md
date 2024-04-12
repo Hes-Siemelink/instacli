@@ -8,7 +8,7 @@
 | List         | implicit  |
 | Object       | yes       |
 
-[Assert equals.schema.yaml](Assert%20equals.schema.yaml)
+[Assert equals.schema.yaml](schema/Assert%20equals.schema.yaml)
 
 ## Basic usage
 

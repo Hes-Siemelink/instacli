@@ -8,7 +8,7 @@
 | List         | yes       |
 | Object       | yes       |
 
-[Size.schema.yaml](Size.schema.yaml)
+[Size.schema.yaml](schema/Size.schema.yaml)
 
 ## Basic usage
 

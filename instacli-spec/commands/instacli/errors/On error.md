@@ -8,7 +8,7 @@ Error handling in CLI scripts
 | List         | implicit  |
 | Object       | Yes       |
 
-[On error.schema.yaml](On%20error.schema.yaml)
+[On error.schema.yaml](schema/On%20error.schema.yaml)
 
 ## Basic usage
 
