@@ -1,11 +1,10 @@
 package instacli.cli
 
+import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.OutputOption.JSON
 import instacli.cli.OutputOption.YAML
-import instacli.language.InstacliLanguageException
-import instacli.language.MissingParameterException
-import instacli.language.ScriptContext
-import instacli.language.addInputVariables
+import instacli.language.*
+import instacli.util.Json
 import instacli.util.toDisplayJson
 import instacli.util.toDisplayYaml
 import java.nio.file.Path
@@ -181,7 +180,11 @@ class InstacliMain(
                 return 1
 
             } catch (e: InstacliLanguageException) {
-                reportError(e, options.debug)
+                e.reportError(options.debug)
+                return 1
+
+            } catch (e: InstacliCommandError) {
+                e.reportError()
                 return 1
             }
 
@@ -190,26 +193,35 @@ class InstacliMain(
     }
 }
 
-fun reportError(e: InstacliLanguageException, printStackTrace: Boolean) {
+fun InstacliLanguageException.reportError(printStackTrace: Boolean) {
     System.err.println("\nInstacli scripting error")
 
     // Exception caused by incorrect instacli script
-    if (e.cause == null || e.cause is InstacliLanguageException) {
-        System.err.println("\n${e.message}")
+    if (cause == null || cause is InstacliLanguageException) {
+        System.err.println("\n${message}")
     } else {
         // Unexpected exception from command handler implementation
         if (printStackTrace) {
             System.err.print("\nCaused by: ")
-            e.cause?.printStackTrace()
+            cause?.printStackTrace()
         } else {
-            System.err.println("\nCaused by: ${e.cause}")
+            System.err.println("\nCaused by: ${cause}")
         }
     }
 
     // Print Instacli context
-    e.data?.let {
-        val yaml = e.data.toDisplayYaml().prependIndent("  ")
-        val message = "In ${e.context ?: "command"}:"
+    data?.let {
+        val yaml = data.toDisplayYaml().prependIndent("  ")
+        val message = "In ${context ?: "command"}:"
         System.err.println("\n\n$message\n\n${yaml}".trimMargin())
     }
+}
+
+fun InstacliCommandError.reportError() {
+    System.err.println(message)
+    if (message != error.message) {
+        System.err.println(error.message)
+    }
+    val details = Json.newObject().set<JsonNode>(error.type, error.data)
+    System.err.println(details.toDisplayYaml())
 }

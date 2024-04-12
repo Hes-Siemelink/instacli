@@ -235,7 +235,7 @@ private suspend fun parseResponse(
     if (!response.status.isSuccess()) {
         val data = Yaml.parse(response.bodyAsText())
         val type = response.status.value.toString()
-        throw InstacliCommandError("Http error", type, data)
+        throw InstacliCommandError("Http request returned an error", type, data)
     }
 
     // No content

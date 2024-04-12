@@ -1,3 +1,5 @@
 Connect to: Digital.ai Platform
 
 GET: /metadata/bi/dashboards
+
+Output: ${output.results}
