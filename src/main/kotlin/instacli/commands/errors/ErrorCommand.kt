@@ -9,12 +9,14 @@ import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
 
 object ErrorCommand : CommandHandler("Error", "instacli/errors"), ValueHandler, ObjectHandler, ArrayHandler {
+
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
         throw InstacliCommandError(data.toDisplayYaml())
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val errorData = data.toDomainObject(ErrorData::class)
+
         throw InstacliCommandError(errorData.message, errorData)
     }
 

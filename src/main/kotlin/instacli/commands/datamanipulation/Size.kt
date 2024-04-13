@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.node.*
 import instacli.language.*
 
 object Size : CommandHandler("Size", "instacli/data-manipulation"), ValueHandler, ArrayHandler, ObjectHandler {
+
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
         when (data) {
             is NumericNode -> {
                 return data
@@ -19,6 +21,7 @@ object Size : CommandHandler("Size", "instacli/data-manipulation"), ValueHandler
                 return IntNode(data.textValue().length)
             }
         }
+
         throw CommandFormatException("Unsupported type: ${data.javaClass}")
     }
 

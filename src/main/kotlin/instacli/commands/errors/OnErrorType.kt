@@ -6,6 +6,7 @@ import instacli.commands.errors.OnError.runErrorHandling
 import instacli.language.*
 
 object OnErrorType : CommandHandler("On error type", "instacli/errors"), ObjectHandler, DelayedResolver, ErrorHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
         for ((key, value) in data.fields()) {

@@ -10,6 +10,7 @@ import instacli.util.Json
 object RunScript : CommandHandler("Run script", "instacli.files"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
         val file = data.toPath(context)
         val input = data["input"] ?: Json.newObject()
 
@@ -17,6 +18,7 @@ object RunScript : CommandHandler("Run script", "instacli.files"), ObjectHandler
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
         val file = data.toPath(context)
 
         return handleCommand(CliFile(file), Json.newObject(), context)

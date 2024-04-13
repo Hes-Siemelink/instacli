@@ -8,11 +8,12 @@ import instacli.language.*
 import instacli.util.toJson
 
 object Sort : CommandHandler("Sort", "instacli/data-manipulation"), ObjectHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
         val items = data["items"]
             ?: context.output
             ?: throw CliScriptingException("Specify 'items' or make sure \${output} is set.")
-
         if (items !is ArrayNode) throw CommandFormatException("items should be an array")
         val sortField = data.getTextParameter("by")
 
@@ -23,6 +24,7 @@ object Sort : CommandHandler("Sort", "instacli/data-manipulation"), ObjectHandle
 }
 
 private class NodeComparator(val field: String) : Comparator<JsonNode> {
+
     override fun compare(node1: JsonNode, node2: JsonNode): Int {
 
         val value1 = node1[field] ?: return 0

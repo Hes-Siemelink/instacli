@@ -13,6 +13,7 @@ import kotlin.io.path.createParentDirectories
 object SaveAs : CommandHandler("Save as", "instacli/files"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
         val destinationFile = Path.of(data.textValue())
         destinationFile.createParentDirectories()
 

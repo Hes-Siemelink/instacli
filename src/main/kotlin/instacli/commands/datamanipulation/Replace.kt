@@ -9,7 +9,9 @@ import instacli.language.*
 import instacli.util.toDisplayYaml
 
 object Replace : CommandHandler("Replace", "instacli/data-manipulation"), ObjectHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
+
         val text = data.getParameter("text")
         val source = data.getParameter("in")
         val replacement = data.getParameter("replace with")
@@ -40,7 +42,6 @@ object Replace : CommandHandler("Replace", "instacli/data-manipulation"), Object
 
             else -> null
         }
-
     }
 
     private fun replaceText(source: String, part: JsonNode, replaceWith: JsonNode): JsonNode {
