@@ -8,7 +8,8 @@ import instacli.language.*
 object Repeat : CommandHandler("Repeat", "instacli/control-flow"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'Until'")
+
+        val until = data.remove("until") ?: throw CommandFormatException("Repeat needs 'until'")
 
         var finished = false
         while (!finished) {

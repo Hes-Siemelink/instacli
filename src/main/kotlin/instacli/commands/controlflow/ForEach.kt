@@ -13,14 +13,13 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
-        val (loopVar, itemList) = removeLoopVariable(data) ?: Pair("item", context.output)
-        checkNotNull(itemList) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
+        val (loopVar, itemData) = removeLoopVariable(data) ?: Pair("item", context.output)
+        checkNotNull(itemData) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
 
-        val itemListExpanded = itemList.resolve(context)
-        val items = itemList.resolve(context).asArrayNode()
+        val items = itemData.resolve(context)
+        val output: JsonNode = if (items is ArrayNode) data.arrayNode() else data.objectNode()
 
-        val output: JsonNode = if (itemListExpanded is ArrayNode) data.arrayNode() else data.objectNode()
-        for (item in items) {
+        for (item in items.enumerateForEach()) {
 
             // Set variable
             // XXX The loop variable is NOT removed after use.
@@ -33,11 +32,11 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
             // Execute
             val result = copy.runScript(context)
 
-            if (result != null) {
-                if (output is ArrayNode) {
-                    output.add(result)
-                } else if (output is ObjectNode) {
-                    output.set<JsonNode>(item["key"].textValue(), result)
+            result?.let {
+                when (output) {
+                    is ArrayNode -> output.add(result)
+                    is ObjectNode -> output.set(item["key"].textValue(), result)
+                    else -> {}
                 }
             }
         }
@@ -54,7 +53,7 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
     }
 }
 
-private fun JsonNode.asArrayNode(): ArrayNode {
+private fun JsonNode.enumerateForEach(): ArrayNode {
     when (this) {
         is ArrayNode -> return this
         is ValueNode -> return ArrayNode(JsonNodeFactory.instance).add(this)

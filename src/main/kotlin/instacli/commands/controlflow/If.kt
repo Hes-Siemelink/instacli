@@ -6,18 +6,21 @@ import instacli.commands.parseCondition
 import instacli.language.*
 
 object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, DelayedResolver {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
 
-        val branch = evaluateIfStatement(data, context) ?: return null
+        val branch = evaluate(data, context)
 
-        return branch.runScript(context)
+        return branch?.runScript(context)
     }
 
-    fun evaluateIfStatement(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val thenBranch = data.remove("then") ?: throw CommandFormatException("Command 'If' needs a 'then' parameter.")
+    fun evaluate(data: ObjectNode, context: ScriptContext): JsonNode? {
+
+        val thenBranch = data.remove("then") ?: throw CommandFormatException("Expected field 'then'.")
         val elseBranch: JsonNode? = data.remove("else")
 
         val condition = parseCondition(data.resolve(context))
+
         return if (condition.isTrue()) {
             thenBranch
         } else {
