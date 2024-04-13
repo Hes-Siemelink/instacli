@@ -8,14 +8,15 @@ import instacli.language.ScriptContext
 import instacli.language.getTextParameter
 
 object DeleteCredentials : CommandHandler("Delete credentials", "instacli/connections"), ObjectHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
         val targetName = data.getTextParameter("target")
         val oldCredentials = data.getTextParameter("name")
-
-        val credentials = Credentials.getFrom(context)
+        val credentials = context.getCredentials()
         val target = credentials.targetResources[targetName] ?: return null
-        target.credentials.removeIf { it["name"]?.textValue() == oldCredentials }
 
+        target.credentials.removeIf { it["name"]?.textValue() == oldCredentials }
         credentials.save()
 
         return null

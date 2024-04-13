@@ -7,11 +7,13 @@ import instacli.language.*
 import instacli.util.Json
 
 object GetCredentials : CommandHandler("Get credentials", "instacli/connections"), ValueHandler {
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val targetName = data.asText() ?: throw CommandFormatException("Specify target resource")
 
-        val credentials = Credentials.getFrom(context)
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
+        val targetName = data.asText() ?: throw CommandFormatException("Specify target resource")
+        val credentials = context.getCredentials()
         val target = credentials.targetResources[targetName] ?: return TextNode("")
+
         return when {
             target.default != null -> {
                 target.default()

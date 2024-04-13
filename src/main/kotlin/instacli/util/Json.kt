@@ -37,6 +37,10 @@ fun <T : Any> JsonNode.toDomainObject(dataClass: KClass<T>): T {
     return Json.mapper.treeToValue(this, dataClass.java)
 }
 
+fun <T : Any> T.updateWith(content: JsonNode): T {
+    return Json.mapper.readerForUpdating(this).readValue(content)
+}
+
 fun JsonNode?.toDisplayJson(): String {
     this ?: return ""
     return Json.mapper.writeValueAsString(this).trim()

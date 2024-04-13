@@ -12,8 +12,6 @@ Use `For each` to loop over a list and do stuff.
 
 ## Basic usage
 
-### Basic example
-
 **For each** always takes an object.
 
 In the first field you can declare the loop variable. The variable is defined in the field name with syntax
@@ -43,7 +41,7 @@ The console output of the above example would be:
     Hello Bob!
     Hello Carol!
 
-### Transform a list
+## Transform a list
 
 **For each** will store the output of the last command for each item in a list. You can use this feature to transform a
 list into something else, like the `map()` function in some programming languages.
@@ -64,7 +62,7 @@ Expected output:
   - Hello Carol!
 ```
 
-### Loop over the output variable
+## Loop over the output variable
 
 If you don't specify a loop variable in **For each**, it will loop over the current value of `${output}`, with loop
 variable `${item}`.

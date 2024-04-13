@@ -8,7 +8,9 @@ import instacli.language.*
 import kotlin.io.path.name
 
 object ConnectTo : CommandHandler("Connect to", "instacli/connections"), ValueHandler {
+
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
         if (context !is CliFileContext) {
             error("'Connect to' is only supported when running files.")
         }

@@ -3,6 +3,7 @@ package samples
 import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
 import instacli.commands.connections.Credentials
+import instacli.commands.connections.setCredentials
 import org.junit.jupiter.api.Assumptions
 import org.junit.jupiter.api.Test
 import kotlin.io.path.exists
@@ -22,7 +23,9 @@ class DigitalaiPlatformTests {
 
         val file = toPath(resource)
         val testContext = CliFileContext(file, interactive = false)
-        Credentials.load(TestPaths.TEST_CREDENTIALS).storeIn(testContext)
+        val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
+        testContext.setCredentials(credentials)
+
         InstacliMain("-q", file.toString()).run(testContext)
     }
 }

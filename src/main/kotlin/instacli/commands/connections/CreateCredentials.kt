@@ -8,9 +8,11 @@ import instacli.language.ScriptContext
 import instacli.util.toDomainObject
 
 object CreateCredentials : CommandHandler("Create credentials", "instacli/connections"), ObjectHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
+
         val newCredentials = data.toDomainObject(CreateCredentialsInfo::class)
-        val credentials = Credentials.getFrom(context)
+        val credentials = context.getCredentials()
         val target = credentials.targetResources.getOrPut(newCredentials.target) {
             TargetResource()
         }

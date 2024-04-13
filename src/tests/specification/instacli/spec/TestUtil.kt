@@ -6,6 +6,8 @@ import instacli.cli.CliFileContext
 import instacli.cli.InstacliMain
 import instacli.cli.reportError
 import instacli.commands.connections.Credentials
+import instacli.commands.connections.CredentialsFile
+import instacli.commands.connections.setCredentials
 import instacli.commands.testing.CodeExample
 import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
@@ -47,12 +49,13 @@ fun Path.getTestCases(): List<DynamicNode> {
 fun CliFile.getTestCases(): List<DynamicTest> {
     val context = CliFileContext(cliFile)
 
+    val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
+
     val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
     tempFile.toFile().deleteOnExit()
-
-    val credentials = Credentials.load(TestPaths.TEST_CREDENTIALS)
     credentials.file = tempFile
-    credentials.storeIn(context)
+
+    context.setCredentials(credentials)
 
     return script.getTestCases().map { script ->
         dynamicTest(script.getText(TestCase), cliFile.toUri()) {
@@ -136,9 +139,9 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
         testDir.resolve(it.key).writeText(it.value)
     }
     val credentials = if (helperFiles.containsKey(Credentials.FILE_NAME)) {
-        Credentials.load(testDir.resolve(Credentials.FILE_NAME))
+        Credentials.fromFile(testDir.resolve(Credentials.FILE_NAME))
     } else {
-        Credentials()
+        CredentialsFile()
     }
 
     // Generate tests
@@ -154,9 +157,9 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     return codeExampleTests + cliInvocationTests
 }
 
-private fun Script.toTest(document: Path, context: ScriptContext, credentials: Credentials): DynamicTest {
+private fun Script.toTest(document: Path, context: ScriptContext, credentials: CredentialsFile): DynamicTest {
 
-    credentials.storeIn(context)
+    context.setCredentials(credentials)
     UserPrompt.default = TestPrompt
 
     return dynamicTest(getText(CodeExample), document.toUri()) {

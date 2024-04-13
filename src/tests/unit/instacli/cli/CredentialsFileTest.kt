@@ -6,11 +6,11 @@ import io.kotest.matchers.maps.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
-class CredentialsTest {
+class CredentialsFileTest {
 
     @Test
     fun loadConnection() {
-        val credentials = Credentials.load(TestPaths.TEST_CREDENTIALS)
+        val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
 
         credentials.targetResources shouldHaveSize 2
 

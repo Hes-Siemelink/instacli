@@ -1,9 +1,5 @@
 # On my mind
 
-* Split Kotlin commands
-* Move shell to its own package
-* Move schemas to 'schemas/' subdir like tests
-
 # Where to take it
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined

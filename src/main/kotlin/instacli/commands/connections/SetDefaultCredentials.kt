@@ -8,14 +8,15 @@ import instacli.language.ScriptContext
 import instacli.language.getTextParameter
 
 object SetDefaultCredentials : CommandHandler("Set default credentials", "instacli/connections"), ObjectHandler {
+
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
         val targetName = data.getTextParameter("target")
         val newDefault = data.getTextParameter("name")
-
-        val credentials = Credentials.getFrom(context)
+        val credentials = context.getCredentials()
         val target = credentials.targetResources[targetName] ?: return null
-        target.default = newDefault
 
+        target.default = newDefault
         credentials.save()
 
         return null
