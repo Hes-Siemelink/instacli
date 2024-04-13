@@ -33,6 +33,14 @@ fun List<JsonNode>.toJson(): ArrayNode {
     return ArrayNode(JsonNodeFactory.instance, this)
 }
 
+fun JsonNode.asArray(): ArrayNode {
+    return when (this) {
+        is ArrayNode -> this
+        else -> ArrayNode(JsonNodeFactory.instance).add(this)
+    }
+}
+
+
 fun <T : Any> JsonNode.toDomainObject(dataClass: KClass<T>): T {
     return Json.mapper.treeToValue(this, dataClass.java)
 }
