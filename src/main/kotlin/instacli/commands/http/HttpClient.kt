@@ -23,7 +23,6 @@ import kotlinx.coroutines.runBlocking
 import java.net.URI
 import java.nio.file.Path
 
-
 object HttpClient {
 
     fun processRequest(data: ValueNode, context: ScriptContext, method: HttpMethod): JsonNode? {
@@ -36,6 +35,7 @@ object HttpClient {
         if (url.isNotEmpty()) {
             parsedData.put("url", url)
         }
+
         return processRequest(parsedData, context, method)
     }
 
@@ -47,54 +47,60 @@ object HttpClient {
 
     private suspend fun processRequest(parameters: HttpParameters): JsonNode? {
 
-        val client = HttpClient {
-            if (parameters.username != null) {
-                install(Auth) {
-                    basic {
-                        credentials {
-                            BasicAuthCredentials(username = parameters.username, password = parameters.password ?: "")
-                        }
+        val client = createClient(parameters)
+
+        val response: HttpResponse =
+            client.request(parameters.url, createRequest(parameters))
+
+        return handleResponse(response, parameters)
+    }
+
+    private fun createClient(parameters: HttpParameters) = HttpClient {
+        if (parameters.username != null) {
+            install(Auth) {
+                basic {
+                    credentials {
+                        BasicAuthCredentials(
+                            username = parameters.username,
+                            password = parameters.password ?: ""
+                        )
                     }
                 }
             }
         }
-
-        val response: HttpResponse =
-            client.request(parameters.url) {
-                method = parameters.method
-                cookies(parameters)
-
-                headers(parameters)
-                if (!headers.contains(HttpHeaders.ContentType)) {
-                    contentType(ContentType.Application.Json)
-                }
-
-                if (!headers.contains(HttpHeaders.Accept)) {
-                    accept(ContentType.Any)
-                }
-                body(parameters)
-            }
-
-        return parseResponse(response, parameters)
     }
 
+    private fun createRequest(parameters: HttpParameters): HttpRequestBuilder.() -> Unit =
+        {
+            method = parameters.method
+
+            headers(parameters)
+            cookies(parameters)
+            body(parameters)
+        }
 
     private fun HttpRequestBuilder.headers(parameters: HttpParameters) {
-        parameters.headers ?: return
-        for (header in parameters.headers.fields()) {
+        parameters.headers?.fields()?.forEach { header ->
             header(header.key, header.value.textValue())
+        }
+
+        if (!headers.contains(HttpHeaders.ContentType)) {
+            contentType(ContentType.Application.Json)
+        }
+        if (!headers.contains(HttpHeaders.Accept)) {
+            accept(ContentType.Any)
         }
     }
 
     private fun HttpRequestBuilder.cookies(parameters: HttpParameters) {
-        parameters.cookies ?: return
-        for (cookie in parameters.cookies.fields()) {
+        parameters.cookies?.fields()?.forEach { cookie ->
             cookie(cookie.key, cookie.value.textValue())
         }
     }
 
     private fun HttpRequestBuilder.body(parameters: HttpParameters) {
         parameters.body ?: return
+
         if (headers[HttpHeaders.ContentType] == ContentType.Application.FormUrlEncoded.toString()) {
             val formData = Parameters.build {
                 parameters.body.fields().forEach {
@@ -107,7 +113,7 @@ object HttpClient {
         }
     }
 
-    private suspend fun parseResponse(
+    private suspend fun handleResponse(
         response: HttpResponse,
         parameters: HttpParameters
     ): JsonNode? {

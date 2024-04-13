@@ -14,32 +14,16 @@ import io.javalin.http.HandlerType
 import io.javalin.http.bodyAsClass
 import kotlin.io.path.name
 
-const val REQUEST_VARIABLE = "request"
-
-private val methods = mapOf(
-    "get" to HandlerType.GET,
-    "post" to HandlerType.POST,
-    "put" to HandlerType.PUT,
-    "patch" to HandlerType.PATCH,
-    "delete" to HandlerType.DELETE
-)
-
 object HttpServer : CommandHandler("Http server", "instacli/http"), ObjectHandler, DelayedResolver {
 
     private val servers = mutableMapOf<Int, Javalin>()
-
-    fun stop(port: Int) {
-        print("Stopping Instacli Http Server on port $port\")")
-        servers[port]?.stop()
-        servers.remove(port)
-    }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val port = data.getParameter("port").intValue()
 
         // Stop server
         data["stop"]?.let {
-            if (it.booleanValue() == true) {
+            if (it.booleanValue()) {
                 stop(port)
                 return null
             }
@@ -54,17 +38,33 @@ object HttpServer : CommandHandler("Http server", "instacli/http"), ObjectHandle
         return null
     }
 
+    fun stop(port: Int) {
+        print("Stopping Instacli Http Server on port $port\")")
+        servers[port]?.stop()
+        servers.remove(port)
+    }
+
     private fun addHandler(port: Int, path: String, data: EndpointData, context: ScriptContext) {
         val server = servers.getOrPut(port) {
             println("Starting Instacli Http Server for ${context.cliFile.name} on port $port")
             Javalin.create().start(port)
         }
+
         data.methodHandlers.forEach {
             server.addHandler(path, it.key, it.value, context)
         }
     }
 }
 
+const val REQUEST_VARIABLE = "request"
+
+private val methods = mapOf(
+    "get" to HandlerType.GET,
+    "post" to HandlerType.POST,
+    "put" to HandlerType.PUT,
+    "patch" to HandlerType.PATCH,
+    "delete" to HandlerType.DELETE
+)
 
 fun Javalin.addHandler(path: String, method: String, data: MethodHandlerData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
