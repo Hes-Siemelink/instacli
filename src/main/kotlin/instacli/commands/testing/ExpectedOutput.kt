@@ -8,10 +8,13 @@ import instacli.language.ScriptContext
 object ExpectedOutput : CommandHandler("Expected output", "instacli/testing"), AnyHandler {
 
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
+
         val output = context.output
-        if (output == null || output != data) {
+
+        if (output != data) {
             throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
         }
+
         return null
     }
 }

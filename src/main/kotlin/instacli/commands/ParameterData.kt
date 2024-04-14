@@ -27,8 +27,8 @@ class ParameterData {
     }
 
     fun conditionValid(): Boolean {
-        condition?.let {
-            return parseCondition(it).isTrue()
+        condition?.let { node ->
+            return node.toCondition().isTrue()
         }
         return true
     }

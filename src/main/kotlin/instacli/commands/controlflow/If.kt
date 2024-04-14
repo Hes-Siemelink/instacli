@@ -2,7 +2,7 @@ package instacli.commands.controlflow
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.commands.parseCondition
+import instacli.commands.toCondition
 import instacli.language.*
 
 object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, DelayedResolver {
@@ -19,7 +19,7 @@ object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, Delaye
         val thenBranch = data.remove("then") ?: throw CommandFormatException("Expected field 'then'.")
         val elseBranch: JsonNode? = data.remove("else")
 
-        val condition = parseCondition(data.resolve(context))
+        val condition = data.resolve(context).toCondition()
 
         return if (condition.isTrue()) {
             thenBranch

@@ -91,43 +91,43 @@ class Not(private val condition: Condition) : Condition {
     }
 }
 
-fun parseCondition(node: JsonNode): Condition {
+fun JsonNode.toCondition(): Condition {
     when {
-        node.has("item") -> {
-            val obj = node["item"]
+        has("item") -> {
+            val obj = get("item")
 
-            if (node.has("equals")) {
-                return Equals(obj, node["equals"])
+            if (has("equals")) {
+                return Equals(obj, get("equals"))
             }
 
-            if (node.has("in")) {
-                return Contains(obj, node["in"])
+            if (has("in")) {
+                return Contains(obj, get("in"))
             }
 
-            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'. Was:\n\n  ${node.toDisplayYaml()}")
+            throw CommandFormatException("Condition with 'object' should have either 'equals' or 'in'. Was:\n\n  ${toDisplayYaml()}")
         }
 
-        node.has("all") -> {
-            val conditions = node["all"]
-            return All(conditions.map { parseCondition(it) })
+        has("all") -> {
+            val conditions = get("all")
+            return All(conditions.map { it.toCondition() })
         }
 
-        node.has("any") -> {
-            val conditions = node["any"]
-            return AnyCondition(conditions.map { parseCondition(it) })
+        has("any") -> {
+            val conditions = get("any")
+            return AnyCondition(conditions.map { it.toCondition() })
         }
 
-        node.has("not") -> {
-            val condition = node["not"]
-            return Not(parseCondition(condition))
+        has("not") -> {
+            val condition = get("not")
+            return Not(condition.toCondition())
         }
 
-        node.has("empty") -> {
-            return Empty(node["empty"])
+        has("empty") -> {
+            return Empty(get("empty"))
         }
 
         else -> {
-            throw CommandFormatException("Condition needs 'item', 'all', 'any', 'not' or empty. Was:\n\n  ${node.toDisplayYaml()}")
+            throw CommandFormatException("Condition needs 'item', 'all', 'any', 'not' or empty. Was:\n\n  ${toDisplayYaml()}")
         }
     }
 }

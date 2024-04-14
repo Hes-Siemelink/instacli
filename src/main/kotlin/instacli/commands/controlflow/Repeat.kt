@@ -2,7 +2,7 @@ package instacli.commands.controlflow
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.commands.parseCondition
+import instacli.commands.toCondition
 import instacli.language.*
 
 object Repeat : CommandHandler("Repeat", "instacli/control-flow"), ObjectHandler, DelayedResolver {
@@ -16,8 +16,8 @@ object Repeat : CommandHandler("Repeat", "instacli/control-flow"), ObjectHandler
             val result = data.deepCopy().runScript(context) ?: context.output
 
             if (until is ObjectNode) {
-                val conditions = until.deepCopy().resolve(context)
-                finished = parseCondition(conditions).isTrue()
+                val conditon = until.deepCopy().resolve(context).toCondition()
+                finished = conditon.isTrue()
             } else {
                 finished = (result == until)
             }
