@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.CommandHandler
 import instacli.language.ScriptContext
 import instacli.language.ValueHandler
+import java.util.*
 
 object Base64Decode : CommandHandler("Base64 decode", "instacli/util"), ValueHandler {
+
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return TextNode(String(java.util.Base64.getDecoder().decode(data.asText())))
+        return TextNode(String(Base64.getDecoder().decode(data.asText())))
     }
 }

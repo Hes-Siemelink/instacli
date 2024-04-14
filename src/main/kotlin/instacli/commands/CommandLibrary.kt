@@ -25,6 +25,7 @@ import instacli.commands.variables.Output
 import instacli.language.CommandHandler
 
 object CommandLibrary {
+
     val commands = commandMap(
 
         // Script definition

@@ -14,8 +14,8 @@ object Wait : CommandHandler("Wait", "instacli/util"), ValueHandler {
         if (!data.isNumber) {
             throw CommandFormatException("Invalid value for 'Wait' command.")
         }
-
         val duration = data.doubleValue() * 1000
+
         Thread.sleep(duration.toLong())
 
         return null

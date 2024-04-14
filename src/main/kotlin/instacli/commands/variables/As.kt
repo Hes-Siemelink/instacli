@@ -13,6 +13,7 @@ object As : CommandHandler("As", "instacli/variables"), ValueHandler, DelayedRes
 
         // Support both variable syntax and plain variable name
         val variableName = getVariableName(data.asText())
+
         context.variables[variableName] = context.variables.getValue(OUTPUT_VARIABLE)
 
         return null

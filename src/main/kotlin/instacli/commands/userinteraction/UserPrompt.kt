@@ -16,10 +16,12 @@ import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 
 interface UserPrompt {
+
     fun prompt(message: String, default: String = "", password: Boolean = false): JsonNode
     fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean = false): JsonNode
 
     companion object : UserPrompt {
+
         var default: UserPrompt = KInquirerPrompt
 
         override fun prompt(message: String, default: String, password: Boolean): JsonNode {
@@ -33,6 +35,7 @@ interface UserPrompt {
 }
 
 object KInquirerPrompt : UserPrompt {
+
     override fun prompt(message: String, default: String, password: Boolean): TextNode {
 
         val answer = if (password) {
@@ -40,20 +43,22 @@ object KInquirerPrompt : UserPrompt {
         } else {
             KInquirer.promptInput(message, default)
         }
+
         return TextNode(answer)
     }
 
-    override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
+    override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode =
         if (multiple) {
             val answers = KInquirer.promptCheckboxObject(message, choices, minNumOfSelection = 1)
-            return Yaml.mapper.valueToTree(answers)
+            Yaml.mapper.valueToTree(answers)
         } else {
-            return KInquirer.promptListObject(message, choices)
+            KInquirer.promptListObject(message, choices)
         }
-    }
 }
 
+
 private fun KInquirer.renderInput(message: String, answer: String = ""): String = buildString {
+
     append("? ")
     append(message)
     append(" ")
@@ -87,6 +92,7 @@ private fun KInquirer.renderInput(message: String, choices: List<Choice<JsonNode
 object TestPrompt : UserPrompt {
 
     override fun prompt(message: String, default: String, password: Boolean): JsonNode {
+
         val answer: JsonNode = StockAnswers.recordedAnswers[message] ?: if (default.isNotEmpty()) {
             TextNode(default)
         } else {
@@ -103,6 +109,7 @@ object TestPrompt : UserPrompt {
     }
 
     override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
+
         val selectedAnswer =
             StockAnswers.recordedAnswers[message] ?: throw IllegalStateException("No prerecorded answer for '$message'")
 
@@ -126,8 +133,6 @@ object TestPrompt : UserPrompt {
             println(KInquirer.renderInput(message, choices, selection.displayName))
 
             return selection.data
-
         }
     }
 }
-

@@ -20,6 +20,7 @@ object Prompt : CommandHandler("Prompt", "instacli/user-interaction"), ValueHand
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
         val parameterData = data.toDomainObject(ParameterData::class)
 
         // Only ask if condition is true

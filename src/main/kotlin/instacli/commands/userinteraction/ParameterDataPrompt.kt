@@ -2,7 +2,8 @@ package instacli.commands.userinteraction
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.BooleanNode
+import com.fasterxml.jackson.databind.node.BooleanNode.FALSE
+import com.fasterxml.jackson.databind.node.BooleanNode.TRUE
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.kinquirer.core.Choice
 import instacli.commands.ParameterData
@@ -24,17 +25,20 @@ private fun ParameterData.promptText(password: Boolean = false): JsonNode {
 }
 
 private fun ParameterData.promptBoolean(): JsonNode {
+
     val answer = UserPrompt.prompt(description, default?.asText() ?: "")
-    return if (answer.textValue() == "true") BooleanNode.TRUE else BooleanNode.FALSE
+
+    return if (answer.textValue() == "true") TRUE
+    else FALSE
 }
 
 private fun ParameterData.promptChoice(multiple: Boolean = false): JsonNode {
 
-    val choices = enum?.map {
+    val choices = enum?.map { choiceData ->
         if (displayProperty == null) {
-            Choice(it.toDisplayYaml(), it)
+            Choice(choiceData.toDisplayYaml(), choiceData)
         } else {
-            Choice(it[displayProperty].textValue(), it)
+            Choice(choiceData[displayProperty].textValue(), choiceData)
         }
     } ?: emptyList()
 
@@ -44,12 +48,15 @@ private fun ParameterData.promptChoice(multiple: Boolean = false): JsonNode {
 }
 
 private fun JsonNode.onlyWith(field: String?): JsonNode {
+
     if (field == null) {
         return this
     }
 
     return when (this) {
+
         is ObjectNode -> this[field]
+
         is ArrayNode -> {
             val copy = arrayNode()
             for (item in this) {

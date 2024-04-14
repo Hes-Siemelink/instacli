@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.node.*
 import instacli.language.CommandFormatException
 import instacli.util.toDisplayYaml
 
-
 fun interface Condition {
     fun isTrue(): Boolean
 }
@@ -14,9 +13,8 @@ fun Condition.isFalse(): Boolean {
     return !isTrue()
 }
 
-class ConditionException(message: String) : Exception(message)
-
 class Equals(private val actual: Any, private val expected: Any) : Condition {
+
     override fun isTrue(): Boolean {
         return actual == expected
     }
@@ -27,8 +25,8 @@ class Contains(
     private val container: JsonNode
 ) : Condition {
 
-    override fun isTrue(): Boolean {
-        return when {
+    override fun isTrue(): Boolean =
+        when {
             container is ArrayNode -> {
                 container.contains(node)
             }
@@ -42,16 +40,19 @@ class Contains(
             }
 
             else -> {
-                throw ConditionException("You can't check if a ${node.javaClass.simpleName} is in a ${container.javaClass.simpleName}.")
+                throw CommandFormatException("You can't check if a ${node.javaClass.simpleName} is in a ${container.javaClass.simpleName}.")
             }
         }
-    }
 
     private fun inObject(obj: JsonNode, container: ObjectNode): Boolean {
         if (obj is ObjectNode) {
             for (field in obj.fields()) {
-                if (!container.has(field.key)) return false
-                if (field.value != container[field.key]) return false
+                if (!container.has(field.key)) {
+                    return false
+                }
+                if (field.value != container[field.key]) {
+                    return false
+                }
             }
             return true
         } else {
@@ -60,39 +61,36 @@ class Contains(
     }
 }
 
+
 class Empty(private val node: JsonNode) : Condition {
-    override fun isTrue(): Boolean {
+    override fun isTrue(): Boolean =
         when (node) {
-            is NullNode -> return true
-            is ArrayNode -> return node.isEmpty()
-            is ObjectNode -> return node.isEmpty()
-            is NumericNode -> return node.asInt() == 0
-            is ValueNode -> return node.textValue() == null || node.textValue().isEmpty()
+            is NullNode -> true
+            is ArrayNode -> node.isEmpty()
+            is ObjectNode -> node.isEmpty()
+            is NumericNode -> node.asInt() == 0
+            is ValueNode -> node.textValue() == null || node.textValue().isEmpty()
+            else -> node.isEmpty
         }
-        return node.isEmpty
-    }
 }
 
+
 class All(private val conditions: List<Condition>) : Condition {
-    override fun isTrue(): Boolean {
-        return conditions.all { it.isTrue() }
-    }
+    override fun isTrue() = conditions.all { it.isTrue() }
 }
 
 class AnyCondition(private val conditions: List<Condition>) : Condition {
-    override fun isTrue(): Boolean {
-        return conditions.any { it.isTrue() }
-    }
+    override fun isTrue() = conditions.any { it.isTrue() }
 }
 
 class Not(private val condition: Condition) : Condition {
-    override fun isTrue(): Boolean {
-        return !condition.isTrue()
-    }
+    override fun isTrue() = !condition.isTrue()
 }
 
 fun JsonNode.toCondition(): Condition {
+
     when {
+
         has("item") -> {
             val obj = get("item")
 
@@ -108,18 +106,15 @@ fun JsonNode.toCondition(): Condition {
         }
 
         has("all") -> {
-            val conditions = get("all")
-            return All(conditions.map { it.toCondition() })
+            return All(get("all").map { it.toCondition() })
         }
 
         has("any") -> {
-            val conditions = get("any")
-            return AnyCondition(conditions.map { it.toCondition() })
+            return AnyCondition(get("any").map { it.toCondition() })
         }
 
         has("not") -> {
-            val condition = get("not")
-            return Not(condition.toCondition())
+            return Not(get("not").toCondition())
         }
 
         has("empty") -> {

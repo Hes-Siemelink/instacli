@@ -12,10 +12,12 @@ import instacli.util.toDomainObject
 object PromptObject : CommandHandler("Prompt object", "instacli/user-interaction"), ObjectHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
+        val answers = data.objectNode()
+
         // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
         val variables = context.variables.toMutableMap()
 
-        val answers = data.objectNode()
         for ((field, rawParameter) in data.fields()) {
 
             // Resolve variables
