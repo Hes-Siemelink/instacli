@@ -68,7 +68,7 @@ private val methods = mapOf(
 
 fun Javalin.addHandler(path: String, method: String, data: MethodHandlerData, scriptContext: ScriptContext) {
     val methodType = methods[method] ?: throw CommandFormatException("Unsupported HTTP method: $method")
-    this.addHandler(methodType, path) { httpContext ->
+    this.addHttpHandler(methodType, path) { httpContext ->
 //        println("$method ${httpContext.path()}")
         handleRequest(data, httpContext, scriptContext)
     }
