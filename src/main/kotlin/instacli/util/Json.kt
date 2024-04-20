@@ -7,10 +7,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import kotlin.reflect.KClass
 
 object Json {
-    val mapper: ObjectMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT)
+
+    val mapper: ObjectMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).registerKotlinModule()
 
     fun newObject(): ObjectNode {
         return ObjectNode(JsonNodeFactory.instance)

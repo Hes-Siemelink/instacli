@@ -1,6 +1,7 @@
 package instacli.commands.http
 
-import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
@@ -169,23 +170,22 @@ fun Context.cookiesAsJson(): ObjectNode {
 }
 
 
-class Endpoints {
-    @JsonAnySetter
-    var paths: MutableMap<String, EndpointData> = mutableMapOf()
-}
+data class Endpoints(
+    @get:JsonAnyGetter
+    val paths: MutableMap<String, EndpointData> = mutableMapOf()
+)
 
-class EndpointData {
-    @JsonAnySetter
-    var methodHandlers: Map<String, MethodHandlerData> = mutableMapOf()
-}
 
-class MethodHandlerData {
-    var output: JsonNode? = null
-    var script: JsonNode? = null
-    var file: String? = null
+data class EndpointData(
+    @get:JsonAnyGetter
+    val methodHandlers: Map<String, MethodHandlerData> = mutableMapOf()
+)
 
-    constructor()
-    constructor(textValue: String) {
-        file = textValue
-    }
+data class MethodHandlerData(
+    val output: JsonNode? = null,
+    val script: JsonNode? = null,
+    val file: String? = null
+) {
+    @JsonCreator
+    constructor(textValue: String) : this(file = textValue)
 }

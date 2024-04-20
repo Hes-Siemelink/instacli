@@ -1,19 +1,18 @@
 package instacli.commands.scriptinfo
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.commands.InputParameters
 import instacli.util.toDomainObject
 
-class ScriptInfoData {
+data class ScriptInfoData(
+    val description: String? = null,
+    val input: ObjectNode? = null,
+    val hidden: Boolean = false
+) {
 
-    var description: String? = null
-    var input: ObjectNode? = null
-    var hidden: Boolean = false
-
-    constructor()
-    constructor(textValue: String) {
-        description = textValue
-    }
+    @JsonCreator
+    constructor(textValue: String) : this(description = textValue)
 
     fun inputData(): InputParameters? {
         return input?.toDomainObject(InputParameters::class)

@@ -1,17 +1,12 @@
 package instacli.commands
 
-import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonAnyGetter
 import instacli.cli.infoString
 
-class InputParameters {
-
-    @JsonAnySetter
-    var parameters: Map<String, ParameterData> = mutableMapOf()
-
-    constructor()
-    constructor(parameters: Map<String, ParameterData>) {
-        this.parameters = parameters
-    }
+data class InputParameters(
+    @get:JsonAnyGetter
+    val parameters: Map<String, ParameterData> = mutableMapOf()
+) {
 
     fun contains(option: String): Boolean {
         return parameters.contains(option)

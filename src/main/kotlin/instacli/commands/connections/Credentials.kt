@@ -55,15 +55,14 @@ fun ScriptContext.getCredentials(): CredentialsFile {
 //
 
 class CredentialsFile(@JsonIgnore var file: Path? = null) {
-
     @JsonAnySetter
     var targetResources: MutableMap<String, TargetResource> = mutableMapOf()
 }
 
-class TargetResource {
-
-    var credentials: MutableList<ObjectNode> = mutableListOf()
+data class TargetResource(
+    val credentials: MutableList<ObjectNode> = mutableListOf(),
     var default: String? = null
+) {
 
     fun default(): ObjectNode? {
         return credentials.find { it["name"]?.textValue() == default }
@@ -78,8 +77,7 @@ class TargetResource {
     }
 }
 
-class CreateCredentialsInfo {
-
-    var target: String = "Default"
-    var credentials: ObjectNode = Json.newObject()
-}
+data class CreateCredentialsInfo(
+    val target: String = "Default",
+    val credentials: ObjectNode = Json.newObject()
+)

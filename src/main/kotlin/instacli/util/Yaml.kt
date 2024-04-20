@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.nio.file.Path
 
 object Yaml {
@@ -13,7 +14,7 @@ object Yaml {
         .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
         .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
 
-    val mapper = ObjectMapper(factory)
+    val mapper = ObjectMapper(factory).registerKotlinModule()
 
     init {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL)
