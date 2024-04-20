@@ -1,0 +1,95 @@
+# Before:
+
+Script info:
+
+  description: Gets a login token for Digital.ai Platform
+  input:
+    url: API endpoint
+    id: Tenant ID
+
+    grant_type:
+      description: Grant type
+      enum:
+        - value: password
+          description: Password
+        - value: client_credentials
+          description: Client Credentials
+      display property: description
+      value property: value
+
+    username:
+      description: Username
+      condition:
+        item: ${input.grant_type}
+        equals: password
+
+    password:
+      description: Password
+      secret: true
+      condition:
+        item: ${input.grant_type}
+        equals: password
+
+    client_id:
+      description: Client ID
+      condition:
+        item: ${input.grant_type}
+        equals: client_credentials
+
+    client_secret:
+      description: Client secret
+      secret: true
+      condition:
+        item: ${input.grant_type}
+        equals: client_credentials
+
+---
+# After:
+
+Script info:
+
+  description: Gets a login token for Digital.ai Platform
+
+  input type:
+    object:
+      url:
+        label: API endpoint
+      id:
+        label: Tenant ID
+      credentials:
+        - PasswordCredentials
+        - ClientCredentials
+
+  output:
+    object:
+      access_token: string
+      expires_in: number
+      refresh_expires_in: number
+      token_type: string
+      id_token: string
+      not-before-policy: number
+      scope: string
+
+Types:
+
+  PasswordCredentials:
+    label: Password credentials
+    properties:
+      grant_type:
+        value: password
+      username:
+        label: Username
+      password:
+        label: Password
+        secret: true
+
+  ClientCredentials:
+    label: Client credentials
+    properties:
+      grant_type:
+        value: client_credentials
+      client_id:
+        label: Client ID
+      client_secret:
+        label: Client secret
+        secret: true

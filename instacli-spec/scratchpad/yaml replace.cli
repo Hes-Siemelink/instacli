@@ -1,0 +1,18 @@
+Output:
+  Script info:
+    description: Simple greeting
+    input:
+      name: What is your name?
+
+
+JSON Patch:
+  op: move
+  from: /Script info/input
+  path: /Script info/input properties
+
+
+Expected output:
+  Script info:
+    description: Simple greeting
+    input properties:
+      name: What is your name?

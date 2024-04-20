@@ -1,0 +1,75 @@
+$schema: "https://spec.it/schemas/instacli-types/v1-beta"
+
+imports:
+  - InstacliScript
+
+types:
+
+  If:
+    union:
+      - ConditionBase
+      - Then
+      - Else
+
+  When:
+    array:
+      oneOf:
+        - union:
+            - type: Condition
+            - object:
+                then:
+                  type: InstacliScript
+                  required: true
+        - object:
+            else:
+              type: InstacliScript
+              required: true
+          maxOccurs: 1
+
+---
+types:
+
+  Condition:
+    oneOf:
+      - All
+      - Any
+      - Empty
+      - Equals
+      - In
+      - Not
+
+
+  Container:
+    oneOf:
+      - string
+      - array
+      - object
+
+  Equals:
+    object:
+      item: any
+      equals: any
+
+  All:
+    object:
+      all:
+        array: Condition
+
+  Any:
+    object:
+      any:
+        array: Condition
+
+  Not:
+    object:
+      not: Condition
+
+  Empty:
+    object:
+      empty: Container
+
+  In:
+    object:
+      in: Container
+
+

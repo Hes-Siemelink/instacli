@@ -1,5 +1,13 @@
 # On my mind
 
+* Types
+* Deifne commands
+* Define on different scopes: script, dir, global
+* Serialize more Kotlin like
+* Script info with types
+* Turn types into JSON schema
+* Implement JSON Patch
+
 # Where to take it
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined

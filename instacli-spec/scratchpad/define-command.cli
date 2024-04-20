@@ -1,0 +1,13 @@
+Define command:
+  name: Get full name
+  input type: FullName
+  output type: string
+  do:
+    Output: ${input.first_name} ${input.last_name}
+
+Get full name:
+  first_name: Alice
+  last_name: Bob
+
+---
+Expected output: Alice Bob
