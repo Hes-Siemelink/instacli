@@ -23,7 +23,7 @@ Validate:
     type: string
     pattern: "Hello"
 
-Expected output: valid
+Expected output: true
 ```
 
 By default, Instacli uses
@@ -51,7 +51,7 @@ Validate:
   data: Hello world
   schema: myschema.json
 
-Expected output: valid
+Expected output: true
 ```
 
 Note: the file is resolved relative to the script itself, not to the working directory.

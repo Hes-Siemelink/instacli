@@ -1,13 +1,18 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 
 type: object
+
 required:
   - data
-  - schema
+
 properties:
-  data: { }
-  schema:
+  "data": { }
+  "schema":
     type:
-      - object  # JSON Schema
-      - string
+      - object  # Inline JSON Schema
+      - string  # JSON schema file
+  "type":
+    type:
+      - object  # Inline type definition
+      - string  # Type name
 additionalProperties: false

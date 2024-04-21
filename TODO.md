@@ -18,6 +18,7 @@
     * Schema stuff
     * Http server
     * ...what's left not to extract?
+* HouseApp
 * Run Release templates
 
 # Command-line support

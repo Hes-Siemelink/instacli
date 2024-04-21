@@ -10,7 +10,7 @@ object ErrorExpected : CommandHandler("Error expected", "instacli/testing"), Val
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
         if (context.error == null) {
-            throw InstacliCommandError(data.textValue())
+            throw MissingExpectedError(data.textValue())
         }
 
         context.error = null
@@ -22,3 +22,5 @@ object ErrorExpected : CommandHandler("Error expected", "instacli/testing"), Val
         throw CommandFormatException("Arrays are not allowed in 'Error expected'")
     }
 }
+
+class MissingExpectedError(message: String) : InstacliCommandError(message)

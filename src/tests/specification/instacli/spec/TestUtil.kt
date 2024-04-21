@@ -167,6 +167,14 @@ private fun Script.toTest(document: Path, context: ScriptContext, credentials: C
             runScript(context)
         } catch (a: Break) {
             a.output
+        } catch (e: InstacliCommandError) {
+            e.error.data?.let {
+                println(it.toDisplayYaml())
+            }
+            throw e
+        } catch (e: InstacliLanguageException) {
+            e.reportError(printStackTrace = false)
+            throw e
         }
     }
 }

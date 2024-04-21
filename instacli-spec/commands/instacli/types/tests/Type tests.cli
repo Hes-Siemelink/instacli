@@ -1,0 +1,53 @@
+Test case: String type
+
+Validate:
+  data: Hes
+  type: string
+
+Expected output: true
+
+---
+Test case: Object type
+
+Validate:
+  data:
+    name: Hes
+  type: object
+
+Expected output: true
+
+---
+Test case: Object properties
+
+Validate:
+  data:
+    name: Hes
+  type:
+    object:
+      "name": string
+
+Expected output: true
+
+---
+Test case: Invalid object property
+
+Validate:
+  data:
+    name: Hes
+  type:
+    object:
+      "name": object
+
+Error expected: Validation should fail because name is a string, not an object
+
+---
+Test case: Array type
+
+Validate:
+  data:
+    - name: Hes
+  type: array
+
+Expected output: true
+
+
