@@ -25,7 +25,7 @@ object Validate : CommandHandler("Validate", "instacli/schema"), ObjectHandler {
 
         // Type validation
         data.get("type")?.let {
-            validateWithType(json, it)
+            validateWithType(json, it, context)
         }
 
         return BooleanNode.TRUE
@@ -64,9 +64,9 @@ private fun JsonNode.getSchema(context: ScriptContext): JsonSchema {
 // Types
 //
 
-private fun validateWithType(data: JsonNode, typeInfo: TypeNode) {
+private fun validateWithType(data: JsonNode, typeInfo: JsonNode, context: ScriptContext) {
 
-    val type = typeInfo.getType()
+    val type = getType(context, typeInfo)
 
     val messages = type.validate(data)
 
@@ -79,19 +79,20 @@ private fun validateWithType(data: JsonNode, typeInfo: TypeNode) {
     }
 }
 
-typealias TypeNode = JsonNode
-
-private fun TypeNode.getType(): Type {
-    if (this is TextNode) {
-        return BuiltinTypes.types[textValue()] ?: throw InstacliCommandError("Unknown type:  ${textValue()}")
+private fun getType(context: ScriptContext, typeInfo: JsonNode): Type {
+    if (typeInfo is TextNode) {
+        val typeName = typeInfo.textValue()
+        return BuiltinTypes.types[typeName]
+            ?: context.getType(typeName)
+            ?: throw InstacliCommandError("Unknown type:  ${typeInfo.textValue()}")
     }
 
-    if (contains("object")) {
-        return get("object").toDomainObject(ObjectProperties::class)
+    if (typeInfo.contains("object")) {
+        return typeInfo.get("object").toDomainObject(ObjectProperties::class)
     }
 
     throw InstacliCommandError(
         type = "Unknown type",
-        message = "Unknown type:  ${toDisplayYaml()}"
+        message = "Unknown type: ${typeInfo.toDisplayYaml()}"
     )
 }

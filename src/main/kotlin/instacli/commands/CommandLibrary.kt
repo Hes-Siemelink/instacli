@@ -14,6 +14,7 @@ import instacli.commands.schema.Validate
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.shell.Shell
 import instacli.commands.testing.*
+import instacli.commands.types.DefineType
 import instacli.commands.userinteraction.Prompt
 import instacli.commands.userinteraction.PromptObject
 import instacli.commands.util.Base64Decode
@@ -107,6 +108,9 @@ object CommandLibrary {
 
         // JSON Schema
         Validate,
+        
+        // Types
+        DefineType,
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

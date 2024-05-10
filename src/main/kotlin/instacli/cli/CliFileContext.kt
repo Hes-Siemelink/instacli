@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
+import instacli.language.types.Type
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
@@ -55,6 +56,7 @@ class CliFileContext(
     private val importedFileCommands: Map<String, CliFile> by lazy { findImportedCommands() }
     private val subdirectoryCommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
+    private val types = mutableMapOf<String, Type>()
 
     override fun getCommandHandler(command: String): CommandHandler {
 
@@ -81,6 +83,14 @@ class CliFileContext(
 
         // No handler found for command
         throw CliScriptingException("Unknown command: $command")
+    }
+
+    override fun getType(name: String): Type? {
+        return types[name]
+    }
+
+    override fun registerType(name: String, type: Type) {
+        types[name] = type
     }
 
     private fun findLocalFileCommands(): Map<String, CliFile> {
@@ -142,6 +152,7 @@ class CliFileContext(
         val command = asCliCommand(rawCommand)
         return subdirectoryCommands[command]
     }
+
 }
 
 private fun Path.hasCliCommands(): Boolean {

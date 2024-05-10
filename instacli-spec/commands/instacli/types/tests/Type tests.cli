@@ -27,6 +27,38 @@ Validate:
 Expected output: true
 
 ---
+Test case: Not a string
+
+Validate:
+  data:
+    - Hes
+  type: string
+
+Expected error:
+  Type validation: Provided data is an array, not a string
+
+---
+Test case: Not an object
+
+Validate:
+  data: Hes
+  type: object
+
+Expected error:
+  Type validation: Provided data is string, not an object
+
+---
+Test case: Not an array
+
+Validate:
+  data:
+    name: Hes
+  type: array
+
+Expected error:
+  Type validation: Provided data is an object, not an array
+
+---
 Test case: Object properties
 
 Validate:
@@ -50,3 +82,18 @@ Validate:
 
 Expected error:
   Type validation: Validation should fail because name is a string, not an object
+
+---
+Test case: Define a type
+
+Type:
+  Person:
+    object:
+      "name": string
+
+Validate:
+  data:
+    name: Hes
+  type: Person
+
+Expected output: true

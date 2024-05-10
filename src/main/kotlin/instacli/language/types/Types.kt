@@ -11,23 +11,17 @@ interface TypeRegistry {
     val types: Map<String, Type>
 }
 
-abstract class Type(val name: String) {
-    abstract fun validate(data: JsonNode): List<String>
+interface Type {
+    fun validate(data: JsonNode): List<String>
 }
 
 object BuiltinTypes : TypeRegistry {
-    override val types: Map<String, Type>
-        get() = _types
-
-    private val _types = typeMap(
-        StringType,
-        ObjectType,
-        ArrayType
+    override val types = mapOf(
+        "string" to StringType,
+        "object" to ObjectType,
+        "array" to ArrayType
     )
 
-    private fun typeMap(vararg types: Type): Map<String, Type> {
-        return types.associateBy { it.name }
-    }
 }
 
 //
@@ -36,7 +30,7 @@ object BuiltinTypes : TypeRegistry {
 
 private val OK = listOf<String>()
 
-object StringType : Type("string") {
+object StringType : Type {
     override fun validate(data: JsonNode): List<String> {
         if (data !is TextNode) {
             return listOf("Data should be string but is ${data::class.simpleName}")
@@ -45,7 +39,7 @@ object StringType : Type("string") {
     }
 }
 
-object ObjectType : Type("object") {
+object ObjectType : Type {
     override fun validate(data: JsonNode): List<String> {
         if (data !is ObjectNode) {
             return listOf("Data should be object but is ${data::class.simpleName}")
@@ -54,7 +48,7 @@ object ObjectType : Type("object") {
     }
 }
 
-object ArrayType : Type("array") {
+object ArrayType : Type {
     override fun validate(data: JsonNode): List<String> {
         if (data !is ArrayNode) {
             return listOf("Data should be array but is ${data::class.simpleName}")
@@ -67,7 +61,7 @@ object ArrayType : Type("array") {
 data class ObjectProperties(
     @get:JsonAnyGetter
     val properties: Map<String, JsonNode> = mutableMapOf()
-) : Type("object") {
+) : Type {
 
     override fun validate(data: JsonNode): List<String> {
         val messages = mutableListOf<String>()
