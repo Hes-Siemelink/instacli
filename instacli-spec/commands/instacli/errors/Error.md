@@ -50,5 +50,3 @@ On error type:
 Expected output:
   diagnostics: example
 ```
-
-```

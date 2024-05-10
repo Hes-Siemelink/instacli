@@ -1,0 +1,34 @@
+Data:
+  - person:
+      name: Brian
+      father: John
+      mother: Mary
+
+Deduce:
+  - that:
+      person:
+        father: ${name}
+        parent: ${name}
+  - that:
+      person:
+        father: ${name}
+        parent: ${name}
+
+---
+Deduce:
+  that:
+    person:
+      name: ${younger}
+      ancestor: ${elder}
+  if either:
+    - exists:
+        person:
+          name: ${younger}
+          parent: ${elder}
+    - exists:
+        - person:
+            name: ${younger}
+            parent: ${X}
+        - person:
+            name: ${X}
+            parent: ${elder}

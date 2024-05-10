@@ -49,6 +49,7 @@ Overview of standard commands in Instacli.
 * [Assert equals](instacli/testing/Assert%20equals.md) - Tests two objects for equality
 * [Code example](instacli/testing/Code%20example.md) - Marks example code
 * [Expected output](instacli/testing/Expected%20output.md) - Tests the output variable against a given value
+* [Expected error](instacli/testing/Expected%20error.md) - Tests if an error was raised
 * [Stock answers](instacli/testing/Stock%20answers.md) - Prerecords answers for prompts, so they can pass automated
   tests.
 

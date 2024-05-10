@@ -122,7 +122,7 @@ object HttpClient {
         if (!response.status.isSuccess()) {
             val data = Yaml.parse(response.bodyAsText())
             val type = response.status.value.toString()
-            throw InstacliCommandError("Http request returned an error", type, data)
+            throw InstacliCommandError(type, "Http request returned an error", data)
         }
 
         // No content

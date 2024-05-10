@@ -14,7 +14,6 @@ object OnError : CommandHandler("On error", "instacli/errors"), ObjectHandler, D
         return null
     }
 
-    // TODO: move this to 'Script'
     fun runErrorHandling(errorHandlingSection: JsonNode, context: ScriptContext) {
 
         val error = context.error ?: return

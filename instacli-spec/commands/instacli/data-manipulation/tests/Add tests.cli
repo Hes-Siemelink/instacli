@@ -196,4 +196,5 @@ Validate:
   data: 1
   schema: ../schema/Add.schema.yaml
 
-Error expected: Add should only accept arrays
+Expected error:
+  Schema validation error: Add should only accept arrays

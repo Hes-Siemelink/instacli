@@ -41,7 +41,7 @@ object CommandLibrary {
         AssertEquals,
         AssertThat,
         ExpectedOutput,
-        ErrorExpected,
+        ExpectedError,
         StockAnswers,
 
         // Control flow

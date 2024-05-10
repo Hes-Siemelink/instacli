@@ -35,8 +35,8 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
                 file
             } else {
                 throw InstacliCommandError(
-                    "File not found: ${file.toRealPath()}",
                     "file not found",
+                    "File not found: ${file.toRealPath()}",
                     Json.newObject("file", file.toRealPath().toString())
                 )
             }

@@ -17,6 +17,16 @@ Validate:
 Expected output: true
 
 ---
+Test case: Array type
+
+Validate:
+  data:
+    - name: Hes
+  type: array
+
+Expected output: true
+
+---
 Test case: Object properties
 
 Validate:
@@ -38,16 +48,5 @@ Validate:
     object:
       "name": object
 
-Error expected: Validation should fail because name is a string, not an object
-
----
-Test case: Array type
-
-Validate:
-  data:
-    - name: Hes
-  type: array
-
-Expected output: true
-
-
+Expected error:
+  Type validation: Validation should fail because name is a string, not an object

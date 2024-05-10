@@ -15,8 +15,8 @@ object GetAllCredentials : CommandHandler("Get all credentials", "instacli/conne
         val targetName = data.asText()
         val credentials = context.getCredentials()
         val target = credentials.targetResources[targetName] ?: throw InstacliCommandError(
-            "Unknown target $targetName",
             "unknown target",
+            "Unknown target $targetName",
             Json.newObject("target", targetName)
         )
 

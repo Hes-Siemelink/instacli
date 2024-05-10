@@ -37,6 +37,7 @@ Validate:
     name: Hes
   type: string
 
-Error expected: Validation should fail because the provided data is not a string
+Expected error:
+  Type validation: Validation should fail because the provided data is not a string
 ```
 

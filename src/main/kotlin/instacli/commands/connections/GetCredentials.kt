@@ -24,8 +24,8 @@ object GetCredentials : CommandHandler("Get credentials", "instacli/connections"
             }
 
             else -> throw InstacliCommandError(
-                "No accounts defined for $targetName",
                 "no accounts",
+                "No accounts defined for $targetName",
                 Json.newObject("target", targetName)
             )
         }

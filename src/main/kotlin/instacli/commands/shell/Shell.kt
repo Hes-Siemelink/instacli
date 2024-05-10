@@ -33,9 +33,9 @@ private fun execute(commandLine: String, workingDir: Path): TextNode {
         return TextNode(output)
 
     } catch (e: ShellCommandNotFoundException) {
-        throw InstacliCommandError("Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}", "shell")
+        throw InstacliCommandError("shell", "Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}")
     } catch (e: ShellRunException) {
-        throw InstacliCommandError(e.message!!, "shell", Json.newObject("exitCode", e.exitCode.toString()))
+        throw InstacliCommandError("shell", e.message!!, Json.newObject("exitCode", e.exitCode.toString()))
     }
 }
 

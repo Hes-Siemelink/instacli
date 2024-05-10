@@ -64,7 +64,7 @@ private fun JsonNode.getSchema(context: ScriptContext): JsonSchema {
 // Types
 //
 
-private fun validateWithType(data: JsonNode, typeInfo: JsonNode) {
+private fun validateWithType(data: JsonNode, typeInfo: TypeNode) {
 
     val type = typeInfo.getType()
 
@@ -75,11 +75,13 @@ private fun validateWithType(data: JsonNode, typeInfo: JsonNode) {
             TextNode(it)
         }.toJson()
 
-        throw InstacliCommandError("Type validation errors", "Type validation errors", validationErrors)
+        throw InstacliCommandError("Type validation", "Type validation errors", validationErrors)
     }
 }
 
-private fun JsonNode.getType(): Type {
+typealias TypeNode = JsonNode
+
+private fun TypeNode.getType(): Type {
     if (this is TextNode) {
         return BuiltinTypes.types[textValue()] ?: throw InstacliCommandError("Unknown type:  ${textValue()}")
     }
@@ -88,5 +90,8 @@ private fun JsonNode.getType(): Type {
         return get("object").toDomainObject(ObjectProperties::class)
     }
 
-    throw InstacliCommandError("Unknown type:  ${toDisplayYaml()}")
+    throw InstacliCommandError(
+        type = "Unknown type",
+        message = "Unknown type:  ${toDisplayYaml()}"
+    )
 }
