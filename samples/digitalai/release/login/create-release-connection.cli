@@ -7,7 +7,7 @@ Script info:
     username: Username
     password:
       description: Password
-      type: password
+      secret: true
     name: Account name
 
 Create credentials:

@@ -11,8 +11,13 @@ oneOf:
       default: { }
       type:
         enum:
-          - password
+          - string
           - boolean
+          - number
+          - object
+          - array
+      secret:
+        type: boolean
       select:
         enum:
           - single

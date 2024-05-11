@@ -70,25 +70,26 @@ The default value is a suggestion that is printed but can be overwritten by the 
 
 ## Asking for a password
 
-When asking for a password, the user prompt will mask the input that the user is typing in.
+When asking for a password, the user prompt will mask the input that the user is typing in if you indicate it to
+have `secret: true`.
 
 <!-- yaml instacli before
 Stock answers:
-  What is your secret?: ssh
+  What is your password?: ssh
 -->
 
 ```yaml instacli
 Code example: Asking for a password
 
 Prompt:
-  description: What is your secret?
-  type: password
+  description: What is your password?
+  secret: true
 ```
 
 will display as:
 
 ```commandline
-? What is your secret? ***
+? What is your password? ***
 ```
 
 ## Choosing from a list

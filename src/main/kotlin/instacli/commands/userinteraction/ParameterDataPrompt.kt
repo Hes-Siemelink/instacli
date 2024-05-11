@@ -14,7 +14,7 @@ fun ParameterData.prompt(): JsonNode {
     return when {
         enum != null && select == "single" -> promptChoice()
         enum != null && select == "multiple" -> promptChoice(multiple = true)
-        type == "password" -> promptText(password = true)
+        secret -> promptText(password = true)
         type == "boolean" -> promptBoolean()
         else -> promptText()
     }

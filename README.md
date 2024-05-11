@@ -227,7 +227,7 @@ Script info:
       short option: u
     password:
       description: Password
-      type: password
+      secret: true
       short option: p
 ```
 

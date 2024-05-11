@@ -35,8 +35,8 @@ Stock answers:
 Script info:
   description: Get name details
 
-  input type: FullName
-  output type: string
+  input: FullName
+  output: string
 
 Output: ${input.first_name} ${input.last_name}
 

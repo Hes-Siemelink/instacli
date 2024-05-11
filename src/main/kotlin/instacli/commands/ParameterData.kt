@@ -8,7 +8,8 @@ data class ParameterData(
 
     val description: String = "",
     val default: JsonNode? = null,
-    val type: String = "",
+    val type: String = "", // TODO enum
+    val secret: Boolean = false,
     val enum: List<JsonNode>? = null,
     val select: String = "single", // TODO use enum
 

@@ -38,7 +38,7 @@ Prompt object:
 
   password:
     description: Password
-    type: password
+    secret: true
     condition:
       item: ${method}
       equals: Username and password
