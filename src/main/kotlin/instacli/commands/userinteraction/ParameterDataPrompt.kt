@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.BooleanNode.FALSE
 import com.fasterxml.jackson.databind.node.BooleanNode.TRUE
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.kinquirer.core.Choice
-import instacli.commands.ParameterData
+import instacli.language.types.ParameterData
 import instacli.util.toDisplayYaml
 
 

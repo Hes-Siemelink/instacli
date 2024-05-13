@@ -1,4 +1,4 @@
-package instacli.commands
+package instacli.language.types
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import instacli.cli.infoString

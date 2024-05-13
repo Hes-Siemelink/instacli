@@ -2,8 +2,8 @@ package instacli.commands.userinteraction
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.commands.ParameterData
 import instacli.language.*
+import instacli.language.types.ParameterData
 import instacli.util.toDomainObject
 
 /**

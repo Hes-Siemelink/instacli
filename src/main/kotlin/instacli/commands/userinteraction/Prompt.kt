@@ -3,11 +3,11 @@ package instacli.commands.userinteraction
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.commands.ParameterData
 import instacli.language.CommandHandler
 import instacli.language.ObjectHandler
 import instacli.language.ScriptContext
 import instacli.language.ValueHandler
+import instacli.language.types.ParameterData
 import instacli.util.toDomainObject
 
 /**

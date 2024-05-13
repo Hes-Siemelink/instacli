@@ -1,8 +1,8 @@
 package instacli.cli
 
 import instacli.cli.ArgType.*
-import instacli.commands.InputParameters
-import instacli.commands.ParameterData
+import instacli.language.types.InputParameters
+import instacli.language.types.ParameterData
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 

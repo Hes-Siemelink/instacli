@@ -2,8 +2,8 @@ package instacli.language
 
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.TestPaths
-import instacli.commands.InputParameters
 import instacli.commands.scriptinfo.ScriptInfoData
+import instacli.language.types.InputParameters
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 import org.junit.jupiter.api.Assertions.assertEquals

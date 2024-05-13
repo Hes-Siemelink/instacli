@@ -2,7 +2,7 @@ package instacli.commands.scriptinfo
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.commands.InputParameters
+import instacli.language.types.InputParameters
 import instacli.util.toDomainObject
 
 data class ScriptInfoData(

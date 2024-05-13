@@ -1,14 +1,15 @@
-package instacli.commands
+package instacli.language.types
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
+import instacli.commands.toCondition
 
 data class ParameterData(
 
     val description: String = "",
     val default: JsonNode? = null,
-    val type: String = "", // TODO enum
+    val type: String = "",
     val secret: Boolean = false,
     val enum: List<JsonNode>? = null,
     val select: String = "single", // TODO use enum

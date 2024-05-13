@@ -1,9 +1,9 @@
 package instacli.cli
 
 import instacli.TestPaths
-import instacli.commands.InputParameters
 import instacli.language.CommandInfo
 import instacli.language.Script
+import instacli.language.types.InputParameters
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
