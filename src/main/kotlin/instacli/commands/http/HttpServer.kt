@@ -89,15 +89,15 @@ private fun handleRequest(
     val output =
         when {
             data.output != null -> {
-                data.output?.resolve(localContext)
+                data.output.resolve(localContext)
             }
 
             data.script != null -> {
-                data.script?.runScript(localContext)
+                data.script.runScript(localContext)
             }
 
             data.file != null -> {
-                val script = localContext.scriptDir.resolve(data.file!!)
+                val script = localContext.scriptDir.resolve(data.file)
                 CliFile(script).run(localContext)
             }
 

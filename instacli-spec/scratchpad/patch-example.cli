@@ -1,0 +1,28 @@
+Patch:
+  source:
+    Script info:
+      description: Multi-language greeting
+      input:
+        name: Your name
+        language:
+          description: Select a language
+          enum:
+            - English
+            - Spanish
+            - Dutch
+  replace:
+    path: Script info.input
+    with: object.$0
+
+Expected output:
+  Script info:
+    description: Multi-language greeting
+    input:
+      object:
+        name: Your name
+        language:
+          description: Select a language
+          enum:
+            - English
+            - Spanish
+            - Dutch

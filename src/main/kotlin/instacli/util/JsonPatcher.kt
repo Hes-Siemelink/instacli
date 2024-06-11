@@ -41,7 +41,7 @@ private fun perform(operation: ObjectNode, doc: JsonNode): JsonNode {
         throw IllegalArgumentException("Invalid \"path\" property: $pathNode")
     }
     val path = pathNode.asText()
-    if (path.length != 0 && path[0] != '/') {
+    if (path.isNotEmpty() && path[0] != '/') {
         throw IllegalArgumentException("Invalid \"path\" property: $path")
     }
 
@@ -66,7 +66,7 @@ private fun perform(operation: ObjectNode, doc: JsonNode): JsonNode {
                 throw IllegalArgumentException("Invalid \"from\" property: $fromNode")
             }
             val from = fromNode.asText()
-            if (from.length != 0 && from[0] != '/') {
+            if (from.isNotEmpty() && from[0] != '/') {
                 throw IllegalArgumentException("Invalid \"from\" property: $fromNode")
             }
             return move(doc, path, from)
@@ -78,7 +78,7 @@ private fun perform(operation: ObjectNode, doc: JsonNode): JsonNode {
                 throw IllegalArgumentException("Invalid \"from\" property: $fromNode")
             }
             val from = fromNode.asText()
-            if (from.length != 0 && from[0] != '/') {
+            if (from.isNotEmpty() && from[0] != '/') {
                 throw IllegalArgumentException("Invalid \"from\" property: $fromNode")
             }
             return copy(doc, path, from)
@@ -103,30 +103,28 @@ fun add(doc: JsonNode, path: String, value: JsonNode): JsonNode {
 
 
     // get the path parent
-    var parent: JsonNode? = null
     val lastPathIndex = path.lastIndexOf('/')
-    if (lastPathIndex < 1) {
-        parent = doc
+    val parent: JsonNode = if (lastPathIndex < 1) {
+        doc
     } else {
-        val parentPath = path.substring(0, lastPathIndex)
-        parent = doc.at(parentPath)
+        doc.at(path.substring(0, lastPathIndex))
     }
 
 
     // adding to an object
-    if (parent!!.isObject) {
-        val parentObject = parent as ObjectNode?
+    if (parent.isObject) {
+        val parentObject = parent as ObjectNode
         val key = path.substring(lastPathIndex + 1)
-        parentObject!!.set<JsonNode>(key, value)
+        parentObject.set<JsonNode>(key, value)
     } else if (parent.isArray) {
         val key = path.substring(lastPathIndex + 1)
-        val parentArray = parent as ArrayNode?
+        val parentArray = parent as ArrayNode
         if ((key == "-")) {
-            parentArray!!.add(value)
+            parentArray.add(value)
         } else {
             try {
                 val idx = key.toInt()
-                if (idx > parentArray!!.size() || idx < 0) {
+                if (idx > parentArray.size() || idx < 0) {
                     throw IllegalArgumentException("Array index is out of bounds: $idx")
                 }
                 parentArray.insert(idx, value)
@@ -145,7 +143,7 @@ fun add(doc: JsonNode, path: String, value: JsonNode): JsonNode {
  * Perform a JSON patch "remove" operation on a JSON document
  */
 fun remove(doc: JsonNode, path: String): JsonNode {
-    if ((path == "")) {
+    if (path == "") {
         if (doc.isObject) {
             val docObject = doc as ObjectNode
             docObject.removeAll()
@@ -159,35 +157,35 @@ fun remove(doc: JsonNode, path: String): JsonNode {
 
 
     // get the path parent
-    var parent: JsonNode? = null
     val lastPathIndex = path.lastIndexOf('/')
-    if (lastPathIndex == 0) {
-        parent = doc
+    val parent: JsonNode = if (lastPathIndex == 0) {
+        doc
     } else {
         val parentPath = path.substring(0, lastPathIndex)
-        parent = doc.at(parentPath)
-        if (parent.isMissingNode()) {
-            throw IllegalArgumentException("Path does not exist: $path")
-        }
+        doc.at(parentPath)
+    }
+
+    if (parent.isMissingNode()) {
+        throw IllegalArgumentException("Path does not exist: $path")
     }
 
 
     // removing from an object
     val key = path.substring(lastPathIndex + 1)
-    if (parent!!.isObject) {
-        val parentObject = parent as ObjectNode?
+    if (parent.isObject) {
+        val parentObject = parent as ObjectNode
         if (!parent.has(key)) {
             throw IllegalArgumentException("Property does not exist: $key")
         }
-        parentObject!!.remove(key)
+        parentObject.remove(key)
     } else if (parent.isArray) {
         try {
-            val parentArray = parent as ArrayNode?
+            val parentArray = parent as ArrayNode
             val idx = key.toInt()
             if (!parent.has(idx)) {
                 throw IllegalArgumentException("Index does not exist: $key")
             }
-            parentArray!!.remove(idx)
+            parentArray.remove(idx)
         } catch (e: NumberFormatException) {
             throw IllegalArgumentException("Invalid array index: $key")
         }
@@ -202,9 +200,8 @@ fun remove(doc: JsonNode, path: String): JsonNode {
  * Perform a JSON patch "replace" operation on a JSON document
  */
 fun replace(doc: JsonNode, path: String, value: JsonNode): JsonNode {
-    var doc = doc
-    doc = remove(doc, path)
-    return add(doc, path, value)
+    val strippedDoc = remove(doc, path)
+    return add(strippedDoc, path, value)
 }
 
 /**
@@ -212,7 +209,6 @@ fun replace(doc: JsonNode, path: String, value: JsonNode): JsonNode {
  */
 fun move(doc: JsonNode, path: String, from: String): JsonNode {
     // get the value
-    var doc = doc
     val value = doc.at(from)
     if (value.isMissingNode) {
         throw IllegalArgumentException("Invalid \"from\" property: $from")
@@ -220,8 +216,8 @@ fun move(doc: JsonNode, path: String, from: String): JsonNode {
 
 
     // do remove and then add
-    doc = remove(doc, from)
-    return add(doc, path, value)
+    val strippedDoc = remove(doc, from)
+    return add(strippedDoc, path, value)
 }
 
 /**
