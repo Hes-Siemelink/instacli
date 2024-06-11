@@ -1,0 +1,29 @@
+Test case: Patch add
+
+Json patch:
+  doc:
+    1: one
+  patch:
+    - op: add
+      path: /2
+      value: two
+
+Expected output:
+  1: one
+  2: two
+
+---
+Test case: Patch output
+
+Output:
+  3: three
+
+Json patch:
+  patch:
+    - op: add
+      path: /2
+      value: two
+
+Expected output:
+  2: two
+  3: three

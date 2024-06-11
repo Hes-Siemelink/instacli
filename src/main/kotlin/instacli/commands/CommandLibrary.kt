@@ -68,6 +68,7 @@ object CommandLibrary {
         AddTo,
         Append,
         Fields,
+        JsonPatch,
         Replace,
         Size,
         Sort,
@@ -108,7 +109,7 @@ object CommandLibrary {
 
         // JSON Schema
         Validate,
-        
+
         // Types
         DefineType,
     )
