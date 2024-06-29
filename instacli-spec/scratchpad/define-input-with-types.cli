@@ -50,7 +50,7 @@ Script info:
 
   description: Gets a login token for Digital.ai Platform
 
-  input type:
+  input:
     object:
       url:
         label: API endpoint

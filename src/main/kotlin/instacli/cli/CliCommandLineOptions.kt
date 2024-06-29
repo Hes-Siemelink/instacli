@@ -120,6 +120,7 @@ internal fun toParameterMap(args: List<String>): Map<String, String> {
             parameters[currentArgument] = argument
         }
     }
+
     return parameters
 }
 
