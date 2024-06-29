@@ -65,8 +65,9 @@ Validate:
   data:
     name: Hes
   type:
-    object:
-      "name": string
+    type: object
+    properties:
+      name: string
 
 Expected output: true
 
@@ -77,8 +78,9 @@ Validate:
   data:
     name: Hes
   type:
-    object:
-      "name": object
+    type: object
+    properties:
+      name: object
 
 Expected error:
   Type validation: Validation should fail because name is a string, not an object
@@ -86,10 +88,11 @@ Expected error:
 ---
 Test case: Define a type
 
-Type:
+Define type:
   Person:
-    object:
-      "name": string
+    type: object
+    properties:
+      name: string
 
 Validate:
   data:

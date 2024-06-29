@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.BooleanNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
-import com.fasterxml.jackson.module.kotlin.contains
 import com.networknt.schema.JsonSchema
+import instacli.commands.types.TypeDefinition
 import instacli.language.*
 import instacli.language.types.BuiltinTypes
-import instacli.language.types.ObjectProperties
 import instacli.language.types.Type
 import instacli.util.*
 
@@ -87,12 +86,5 @@ private fun getType(context: ScriptContext, typeInfo: JsonNode): Type {
             ?: throw InstacliCommandError("Unknown type:  ${typeInfo.textValue()}")
     }
 
-    if (typeInfo.contains("object")) {
-        return typeInfo.get("object").toDomainObject(ObjectProperties::class)
-    }
-
-    throw InstacliCommandError(
-        type = "Unknown type",
-        message = "Unknown type: ${typeInfo.toDisplayYaml()}"
-    )
+    return typeInfo.toDomainObject(TypeDefinition::class)
 }

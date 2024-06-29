@@ -51,7 +51,8 @@ Script info:
   description: Gets a login token for Digital.ai Platform
 
   input:
-    object:
+    base: object
+    properties:
       url:
         label: API endpoint
       id:
@@ -61,7 +62,8 @@ Script info:
         - ClientCredentials
 
   output:
-    object:
+    type: object
+    properties:
       access_token: string
       expires_in: number
       refresh_expires_in: number
@@ -74,6 +76,7 @@ Types:
 
   PasswordCredentials:
     label: Password credentials
+    type: object
     properties:
       grant_type:
         value: password
@@ -85,6 +88,7 @@ Types:
 
   ClientCredentials:
     label: Client credentials
+    type: object
     properties:
       grant_type:
         value: client_credentials
