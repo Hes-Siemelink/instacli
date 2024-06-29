@@ -20,13 +20,14 @@ ${input}:
 Script info:
   description: Multi-language greeting
   input:
-    name: Your name
-    language:
-      description: Select a language
-      enum:
-        - English
-        - Spanish
-        - Dutch
+    properties:
+      name: Your name
+      language:
+        description: Select a language
+        enum:
+          - English
+          - Spanish
+          - Dutch
 
 POST:
   url: http://localhost:2525/greeting
@@ -196,8 +197,9 @@ Define all command-line options in Yaml. Take this file `simple-options.cli`
 Script info:
   description: Call Acme
   input:
-    user: Username
-    language: Preferred language
+    properties:
+      user: Username
+      language: Preferred language
 ```
 
 This will automatically generate a command description and command line options:
@@ -222,13 +224,14 @@ Instacli allows you to specify the type and format of input properties. Here's a
 Script info:
   description: Different input options
   input:
-    user:
-      description: Username
-      short option: u
-    password:
-      description: Password
-      secret: true
-      short option: p
+    properties:
+      user:
+        description: Username
+        short option: u
+      password:
+        description: Password
+        secret: true
+        short option: p
 ```
 
 ```commandline cli

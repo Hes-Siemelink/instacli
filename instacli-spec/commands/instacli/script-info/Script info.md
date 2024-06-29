@@ -55,26 +55,30 @@ If the script uses input parameters, you can define them in **Script info** with
 
 <!-- yaml instacli before
 ${input}:
-   name: world
+ name: world
 -->
 
-```yaml instacli
-Code example: Script info with input
+ ```yaml instacli
+  Code example: Script info with input
 
-Script info:
-  input:
-    name: The name to greet
+  Script info:
+    input:
+      properties:
+        name: The name to greet
 
-Print: Hello, ${input.name}!
+  Print: Hello, ${input.name}!
 ```
+
+The most common way is to define a set of properties with a description. You do this with the `properties` field. You
+could also define string or array input.
 
 When running this, there are three possibilities
 
-1. The variable `${name}` is defined. In that case all is good and nothing happens.
-2. The variable `${name}` is not defined, and the script is run in interactive mode. Then the user is prompted with the
+1. The variable `${name}` is provided as input. In that case all is good and nothing happens.
+2. The variable `${name}` is not provided, and the script is run in interactive mode. Then the user is prompted with the
    questions **What is your name?** and the result is stored in the `${name}` variable.
-3. The variable `${name}` is not defined, and the script is not run in interactive mode. Then an error is thrown and the
-   script is aborted.
+3. The variable `${name}` is not provided, and the script is not run in interactive mode. Then an error is thrown and
+   the script is aborted.
 
 ## Cli help
 
@@ -103,8 +107,9 @@ Code example: Define input with multiple variables
 
 Script info:
   input:
-    greeting: What is your greeting?
-    name: What is your name?
+    properties:
+      greeting: What is your greeting?
+      name: What is your name?
 
 Print: ${input.greeting}, ${input.name}!
 ```
@@ -127,9 +132,10 @@ Code example: Input with default value
 
 Script info:
   input:
-    name:
-      description: What is your name?
-      default: World
+    properties:
+      name:
+        description: What is your name?
+        default: World
 ```
 
 See [Prompt Properties](../user-interaction/Prompt.md#prompt-properties) for a full description.
@@ -155,24 +161,25 @@ Code example: Script info with variables and conditions
 Script info:
   description: A script with a choice
   input:
+    properties:
 
-    switch:
-      description: Choose a or b
-      default: a
+      switch:
+        description: Choose a or b
+        default: a
 
-    property-A:
-      description: What is the value for A?
-      condition:
-        item: ${input.switch}
-        equals: a
-      default: Ananas
+      property-A:
+        description: What is the value for A?
+        condition:
+          item: ${input.switch}
+          equals: a
+        default: Ananas
 
-    property-B:
-      description: What is the value for B?
-      condition:
-        item: ${input.switch}
-        equals: b
-      default: Bologna
+      property-B:
+        description: What is the value for B?
+        condition:
+          item: ${input.switch}
+          equals: b
+        default: Bologna
 
 Assert equals:
   actual: ${input}

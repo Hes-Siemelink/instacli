@@ -1,7 +1,8 @@
 Script info:
   description: Echos the input
   input:
-    text: Input that becomes output
+    properties:
+      text: Input that becomes output
 
 ---
 Output: ${input.text}

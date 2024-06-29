@@ -11,8 +11,9 @@ oneOf:
         type: boolean
       input:
         type: object
-        additionalProperties:
-          $ref: "/v1/commands/instacli/InputParameters.schema.yaml"
+        # FIXME Make it work with type system
+      #        additionalProperties:
+      #          $ref: "/v1/commands/instacli/InputParameters.schema.yaml"
       input type:
         type: object
       additionalProperties: false

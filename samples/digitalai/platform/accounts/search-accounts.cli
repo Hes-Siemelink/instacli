@@ -1,7 +1,8 @@
 Script info:
   description: Searches for accounts in Digital.ai Platform
   input:
-    name: Account name (leave empty for all accounts)
+    properties:
+      name: Account name (leave empty for all accounts)
 
 ---
 Connect to: Digital.ai Platform

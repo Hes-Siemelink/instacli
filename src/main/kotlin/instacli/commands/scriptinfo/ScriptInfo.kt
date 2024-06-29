@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
+import instacli.commands.types.TypeDefinition
 import instacli.commands.userinteraction.prompt
 import instacli.language.*
-import instacli.language.types.InputParameters
 import instacli.language.types.ParameterData
 import instacli.util.Json
 import instacli.util.toDomainObject
@@ -20,20 +20,21 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val scriptInfoData = data.toDomainObject(ScriptInfoData::class)
-        val input = scriptInfoData.input ?: return null
+        val inputType = scriptInfoData.input ?: return null
 
-        return handleInput(input, context)
+        val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
+
+        return handleInput(input, inputType, context)
     }
 }
 
-private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
+private fun handleInput(providedInput: ObjectNode, inputType: TypeDefinition, context: ScriptContext): ObjectNode {
 
-    val input: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
 
-    for ((name, info) in data.fields()) {
+    for ((name, info) in inputType.properties.parameters.entries) {
 
         // Already exists
-        if (input.contains(name)) {
+        if (providedInput.contains(name)) {
             continue
         }
 
@@ -57,11 +58,11 @@ private fun handleInput(data: ObjectNode, context: ScriptContext): ObjectNode {
             else -> throw MissingParameterException(
                 "No value provided for: $name",
                 name,
-                data.toDomainObject(InputParameters::class)
+                inputType
             )
         }
-        input.set<JsonNode>(name, answer)
+        providedInput.set<JsonNode>(name, answer)
     }
 
-    return input
+    return providedInput
 }

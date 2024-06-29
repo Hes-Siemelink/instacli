@@ -167,9 +167,10 @@ Code example: Populating the input variable
 Script info:
   description: Creates a greeting
   input:
-    name:
-      description: Your name
-      default: World
+    properties:
+      name:
+        description: Your name
+        default: World
 
 Assert equals:
   actual: ${input}
@@ -187,8 +188,9 @@ Code example: Input and output when defining a script
 Script info:
   description: Creates a greeting
   input:
-    name:
-      description: Your name
+    properties:
+      name:
+        description: Your name
 
 Output: Hello ${input.name}!
 ```

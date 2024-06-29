@@ -1,8 +1,9 @@
 Script info:
   description: Creates a Remote Runner agent in Platform
   input:
-    host: Release URL
-    token: Access token for Remote Runner
+    properties:
+      host: Release URL
+      token: Access token for Remote Runner
 
 ---
 Connect to: Digital.ai Platform

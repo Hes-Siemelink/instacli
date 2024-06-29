@@ -1,7 +1,8 @@
 Script info:
   description: Lists accounts in Digital.ai Platform
   input:
-    name: Account name (leave empty to show all accounts)
+    properties:
+      name: Account name (leave empty to show all accounts)
 
 ---
 Connect to: Digital.ai Platform

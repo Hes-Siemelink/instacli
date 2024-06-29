@@ -77,9 +77,10 @@ Code example: Define input and output in a script
 Script info:
   description: Create a greeting
   input:
-    name:
-      description: Person to greet
-      default: Nobody
+    properties:
+      name:
+        description: Person to greet
+        default: Nobody
 
 Output: Hello ${input.name}!
 ```

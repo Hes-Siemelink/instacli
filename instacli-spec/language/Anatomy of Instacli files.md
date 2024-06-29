@@ -152,7 +152,8 @@ Prints a simple greeting
 Script info:
   description: Prints a personalized greeting
   input:
-    name: Your name
+    properties:
+      name: Your name
 
 Print: Hello ${input.name}!
 ```
@@ -323,7 +324,8 @@ For example, suppose we have a file `create-greeting.cli`, that creates a greeti
 Script info:
   description: Creates a greeting
   input:
-    name: Your name
+    properties:
+      name: Your name
 
 Output: Hello ${input.name}!
 ```

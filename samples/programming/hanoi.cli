@@ -1,18 +1,19 @@
 Script info:
   description: Tower of Hanoi
   input:
-    size:
-      description: Size of the tower
-      default: 3
-    from:
-      description: Tower to move from
-      default: A
-    to:
-      description: Tower to move to
-      default: B
-    helper:
-      description: Another tower
-      default: C
+    properties:
+      size:
+        description: Size of the tower
+        default: 3
+      from:
+        description: Tower to move from
+        default: A
+      to:
+        description: Tower to move to
+        default: B
+      helper:
+        description: Another tower
+        default: C
 
 ---
 If:

@@ -1,6 +1,9 @@
 # On my mind
 
 * Types
+    * Merge Script info input with type system
+    * Get rid of old InputParameter types
+    * Define array and string types in type system
 * Define commands in Instacli
 * Define on different scopes: script, dir, global
 * Serialize more Kotlin like

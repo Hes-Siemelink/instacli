@@ -1,10 +1,11 @@
 Script info:
   description: Creates a greeting
   input:
-    name:
-      description: The name to greet
-      default: world
-      type: text
-    language: en
+    properties:
+      name:
+        description: The name to greet
+        default: world
+        type: text
+      language: en
 
 Output: Hello ${input.name}!

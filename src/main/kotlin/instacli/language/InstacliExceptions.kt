@@ -2,7 +2,7 @@ package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.errors.ErrorData
-import instacli.language.types.InputParameters
+import instacli.commands.types.TypeDefinition
 
 open class InstacliLanguageException(
     message: String,
@@ -17,7 +17,7 @@ class CommandFormatException(message: String) : InstacliLanguageException(messag
 
 class CliScriptingException(message: String, data: JsonNode? = null) : InstacliLanguageException(message, data)
 
-class MissingParameterException(message: String, val name: String, val options: InputParameters) :
+class MissingParameterException(message: String, val name: String, val options: TypeDefinition) :
     InstacliLanguageException(message)
 
 class InstacliImplementationException(message: String, data: JsonNode? = null, cause: Throwable) :

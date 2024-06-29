@@ -72,6 +72,18 @@ Validate:
 Expected output: true
 
 ---
+Test case: Implicit object definition
+
+Validate:
+  data:
+    name: Hes
+  type:
+    properties:
+      name: string
+
+Expected output: true
+
+---
 Test case: Invalid object property
 
 Validate:
@@ -100,3 +112,4 @@ Validate:
   type: Person
 
 Expected output: true
+

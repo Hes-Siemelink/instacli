@@ -11,15 +11,15 @@ import instacli.language.InstacliCommandError
 
 data class ObjectProperties(
     @get:JsonAnyGetter
-    val properties: Map<String, JsonNode> = mutableMapOf()
+    val parameters: Map<String, JsonNode> = mutableMapOf()
 ) : Type {
 
     override fun validate(data: JsonNode): List<String> {
         val messages = mutableListOf<String>()
 
         for ((field, value) in data.fields()) {
-            if (field in properties.keys) {
-                val typeInfo = properties[field]
+            if (field in parameters.keys) {
+                val typeInfo = parameters[field]
                 val type = BuiltinTypes.types[typeInfo?.textValue()]
                     ?: throw InstacliCommandError("Unknown type:  ${typeInfo?.textValue()}")
                 messages.addAll(type.validate(value))
