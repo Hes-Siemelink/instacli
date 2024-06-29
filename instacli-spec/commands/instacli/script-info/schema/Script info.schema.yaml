@@ -5,15 +5,19 @@ oneOf:
   - type: string
   - type: object
     properties:
-      description:
+      "description":
         type: string
-      hidden:
+      "hidden":
         type: boolean
-      input:
+      "input":
         type: object
-        # FIXME Make it work with type system
-      #        additionalProperties:
-      #          $ref: "/v1/commands/instacli/InputParameters.schema.yaml"
-      input type:
-        type: object
+        properties:
+          "type":
+            type: string
+          "properties":
+            additionalProperties:
+              $ref: "/v1/commands/instacli/ParameterData.schema.yaml"
+            unevaluatedProperties: false
+        required:
+          - "properties"
       additionalProperties: false

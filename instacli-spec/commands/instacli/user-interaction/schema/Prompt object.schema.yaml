@@ -3,4 +3,4 @@ $schema: https://json-schema.org/draft/2020-12/schema
 
 type: object
 additionalProperties:
-  $ref: "/v1/commands/instacli/InputParameters.schema.yaml"
+  $ref: "/v1/commands/instacli/ParameterData.schema.yaml"
