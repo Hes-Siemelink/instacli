@@ -6,14 +6,13 @@ import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.language.CommandInfo
 import instacli.language.Script
-import instacli.language.types.InputParameters
 
 interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String
 }
 
 interface ConsoleOutput {
-    fun printUsage(globalOptions: InputParameters)
+    fun printUsage(globalOptions: CommandLineParameters)
     fun printScriptInfo(script: Script)
     fun printCommands(commands: List<CommandInfo>)
     fun printDirectoryInfo(info: DirectoryInfo)
@@ -70,10 +69,10 @@ object StandardOutput : ConsoleOutput {
         val inputData = script.info?.input ?: return
 
         println("\nOptions:")
-        println(inputData.toDisplayString())
+        println(CommandLineParameters.from(inputData).toDisplayString())
     }
 
-    override fun printUsage(globalOptions: InputParameters) {
+    override fun printUsage(globalOptions: CommandLineParameters) {
         println("Instacli -- Instantly create CLI applications with light scripting!")
         println()
         println("Usage:\n   cli [global options] file | directory [command options]")

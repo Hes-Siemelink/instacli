@@ -3,7 +3,6 @@ package instacli.cli
 import instacli.TestPaths
 import instacli.language.CommandInfo
 import instacli.language.Script
-import instacli.language.types.InputParameters
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -125,7 +124,7 @@ class MockOutput : ConsoleOutput {
     var scriptInfoPrinted: Script? = null
     var outputPrinted: Boolean = false
 
-    override fun printUsage(globalOptions: InputParameters) {
+    override fun printUsage(globalOptions: CommandLineParameters) {
         usagePrinted = true
     }
 

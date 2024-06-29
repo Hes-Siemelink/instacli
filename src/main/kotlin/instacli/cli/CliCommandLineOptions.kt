@@ -1,7 +1,6 @@
 package instacli.cli
 
 import instacli.cli.ArgType.*
-import instacli.language.types.InputParameters
 import instacli.language.types.ParameterData
 import instacli.util.Yaml
 import instacli.util.toDomainObject
@@ -21,8 +20,8 @@ class CliCommandLineOptions private constructor(
 
     companion object {
 
-        val definedOptions: InputParameters by lazy {
-            Yaml.readResource("cli/instacli-command-line-options.yaml").toDomainObject(InputParameters::class)
+        val definedOptions: CommandLineParameters by lazy {
+            Yaml.readResource("cli/instacli-command-line-options.yaml").toDomainObject(CommandLineParameters::class)
         }
 
         operator fun invoke(args: List<String> = emptyList()): CliCommandLineOptions {
@@ -42,17 +41,17 @@ class CliCommandLineOptions private constructor(
     }
 }
 
-private fun InputParameters.validateArgs(options: List<String>): InputParameters {
+private fun CommandLineParameters.validateArgs(options: List<String>): CommandLineParameters {
     val parameters = mutableMapOf<String, ParameterData>()
     options.forEach {
         val (key, value) = getOption(it)
         parameters[key] = value
     }
 
-    return InputParameters(parameters)
+    return CommandLineParameters(parameters)
 }
 
-private fun InputParameters.getOption(option: String): Pair<String, ParameterData> {
+private fun CommandLineParameters.getOption(option: String): Pair<String, ParameterData> {
     for ((key, value) in parameters) {
         if (key == option || value.shortOption == option) {
             return Pair(key, value)
@@ -61,7 +60,7 @@ private fun InputParameters.getOption(option: String): Pair<String, ParameterDat
     throw CliInvocationException("Invalid option: $option")
 }
 
-private fun InputParameters.getOutputOption(): OutputOption = when {
+private fun CommandLineParameters.getOutputOption(): OutputOption = when {
     contains("output") -> OutputOption.YAML
     contains("output-json") -> OutputOption.JSON
     else -> OutputOption.NONE

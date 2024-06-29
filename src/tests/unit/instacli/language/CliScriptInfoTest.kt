@@ -3,8 +3,8 @@ package instacli.language
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.TestPaths
 import instacli.commands.scriptinfo.ScriptInfoData
-import instacli.commands.types.TypeDefinition
 import instacli.language.types.ParameterData
+import instacli.language.types.TypeDefinition
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 import org.junit.jupiter.api.Assertions.assertEquals

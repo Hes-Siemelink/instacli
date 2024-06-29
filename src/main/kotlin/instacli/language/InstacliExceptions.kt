@@ -2,7 +2,7 @@ package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.errors.ErrorData
-import instacli.commands.types.TypeDefinition
+import instacli.language.types.TypeDefinition
 
 open class InstacliLanguageException(
     message: String,

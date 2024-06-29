@@ -1,7 +1,7 @@
 package instacli.commands.scriptinfo
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import instacli.commands.types.TypeDefinition
+import instacli.language.types.TypeDefinition
 
 data class ScriptInfoData(
     val description: String? = null,

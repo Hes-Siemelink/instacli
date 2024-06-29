@@ -176,7 +176,7 @@ class InstacliMain(
             } catch (e: MissingParameterException) {
                 System.err.println("Missing parameter: --${e.name}")
                 System.err.println("\nOptions:")
-                System.err.println(e.options.toDisplayString())
+                System.err.println(CommandLineParameters.from(e.options).toDisplayString())
                 return 1
 
             } catch (e: InstacliLanguageException) {

@@ -1,9 +1,16 @@
-package instacli.language.types
+package instacli.cli
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
-import instacli.cli.infoString
+import instacli.language.types.ParameterData
+import instacli.language.types.TypeDefinition
+import instacli.util.toDomainObject
+import java.lang.StringBuilder
+import kotlin.collections.contains
+import kotlin.collections.forEach
+import kotlin.collections.maxOf
+import kotlin.text.appendLine
 
-data class InputParameters(
+data class CommandLineParameters(
     @get:JsonAnyGetter
     val parameters: Map<String, ParameterData> = mutableMapOf()
 ) {
@@ -32,6 +39,16 @@ data class InputParameters(
         }
 
         return builder.toString()
+    }
+
+    companion object {
+        fun from(type: TypeDefinition): CommandLineParameters {
+            val transformedParameters: Map<String, ParameterData> = type.properties.parameters.mapValues { parameter ->
+                parameter.value.toDomainObject(ParameterData::class)
+            }
+
+            return CommandLineParameters(transformedParameters)
+        }
     }
 }
 

@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.node.BooleanNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.networknt.schema.JsonSchema
-import instacli.commands.types.TypeDefinition
 import instacli.language.*
 import instacli.language.types.BuiltinTypes
 import instacli.language.types.Type
+import instacli.language.types.TypeDefinition
 import instacli.util.*
 
 object Validate : CommandHandler("Validate", "instacli/schema"), ObjectHandler {

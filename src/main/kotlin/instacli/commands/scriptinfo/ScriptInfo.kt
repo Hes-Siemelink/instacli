@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import com.fasterxml.jackson.module.kotlin.contains
-import instacli.commands.types.TypeDefinition
 import instacli.commands.userinteraction.prompt
 import instacli.language.*
 import instacli.language.types.ParameterData
+import instacli.language.types.TypeDefinition
 import instacli.util.Json
 import instacli.util.toDomainObject
 
