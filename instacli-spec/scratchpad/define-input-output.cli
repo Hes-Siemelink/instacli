@@ -2,7 +2,7 @@ Script info:
   description: Define input with schema dialect
 
   input:
-    type: object  # Optional , default is 'object'. Or optional if 'properties' is present
+    base: object  # Optional , default is 'object'. Or optional if 'properties' is present
     properties:
       name:
         type: string
@@ -17,6 +17,6 @@ Script info:
           - Dutch
 
   output:
-    type: string
+    base: string
     description: The greeting in another language
 

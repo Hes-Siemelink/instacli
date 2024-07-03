@@ -62,7 +62,7 @@ Script info:
         - ClientCredentials
 
   output:
-    type: object
+    base: object
     properties:
       access_token: string
       expires_in: number
@@ -76,7 +76,7 @@ Types:
 
   PasswordCredentials:
     label: Password credentials
-    type: object
+    base: object
     properties:
       grant_type:
         value: password
@@ -88,7 +88,7 @@ Types:
 
   ClientCredentials:
     label: Client credentials
-    type: object
+    base: object
     properties:
       grant_type:
         value: client_credentials

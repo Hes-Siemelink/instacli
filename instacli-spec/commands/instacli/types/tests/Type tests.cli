@@ -65,7 +65,7 @@ Validate:
   data:
     name: Hes
   type:
-    type: object
+    base: object
     properties:
       name: string
 
@@ -90,7 +90,7 @@ Validate:
   data:
     name: Hes
   type:
-    type: object
+    base: object
     properties:
       name: object
 
@@ -102,7 +102,7 @@ Test case: Define a type
 
 Define type:
   Person:
-    type: object
+    base: object
     properties:
       name: string
 

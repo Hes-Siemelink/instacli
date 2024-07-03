@@ -3,7 +3,7 @@ package instacli.language.types
 import com.fasterxml.jackson.databind.JsonNode
 
 data class TypeDefinition(
-    val type: String? = "object",
+    val base: String? = "object",
     val properties: ObjectProperties
 ) : Type {
 
