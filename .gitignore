@@ -1,8 +1,11 @@
+# Build system
 /.idea
 /.gradle
 /build
 /out
+/.kotlin
 
+# Intacli runtime files
 .instacli
 
 install-cloud-connector.sh
