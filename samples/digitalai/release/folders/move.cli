@@ -13,7 +13,6 @@ Prompt:
   description: Select source
   enum: ${folders}
   display property: title
-  value property: id
 As: ${source}
 
 ---
@@ -21,12 +20,11 @@ Prompt:
   description: Select target
   enum: ${folders}
   display property: title
-  value property: id
 As: ${target}
 
 ---
 POST:
-  path: /api/v1/folders/${source}/move?newParentId=${target}
+  path: /api/v1/folders/${source.id}/move?newParentId=${target.id}
   body: { }
 
 ---

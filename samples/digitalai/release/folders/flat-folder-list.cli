@@ -2,20 +2,20 @@ Script info:
   description: Get all folder names
   input:
     properties:
+      folders:
+        description: List of folders coming from Release
       prefix:
         description: Prefix for folder names
         default: ''
-      folders:
-        description: List of folders
   hidden: true
 
 ---
-${all_folders}: [ ]
+${folder_list}: [ ]
 
 For each:
   ${folder} in: ${input.folders}
   Add to:
-    ${all_folders}:
+    ${folder_list}:
       title: ${input.prefix}${folder.title}
       id: ${folder.id}
   If:
@@ -23,9 +23,9 @@ For each:
       empty: ${folder.children}
     then:
       Flat folder list:
-        prefix: ${input.prefix}${folder.title}/
         folders: ${folder.children}
+        prefix: ${input.prefix}${folder.title}/
       Add to:
-        ${all_folders}: ${output}
+        ${folder_list}: ${output}
 
-Output: ${all_folders}
+Output: ${folder_list}
