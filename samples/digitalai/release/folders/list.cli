@@ -1,0 +1,13 @@
+Script info: Lists all folders
+
+Connect to: Digital.ai Release
+
+---
+GET: /api/v1/folders/list?depth=10
+
+Flat folder list:
+  folders: ${output}
+
+For each:
+  ${folder} in: ${output}
+  Print: ${folder.title}

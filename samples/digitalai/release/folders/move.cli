@@ -1,0 +1,34 @@
+Script info: Moves a folder
+
+Connect to: Digital.ai Release
+
+---
+GET: /api/v1/folders/list?depth=10
+Flat folder list:
+  folders: ${output}
+As: ${folders}
+
+---
+Prompt:
+  description: Select source
+  enum: ${folders}
+  display property: title
+  value property: id
+As: ${source}
+
+---
+Prompt:
+  description: Select target
+  enum: ${folders}
+  display property: title
+  value property: id
+As: ${target}
+
+---
+POST:
+  path: /api/v1/folders/${source}/move?newParentId=${target}
+  body: { }
+
+---
+Print: "New folder structure:\n"
+List: ""
