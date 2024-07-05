@@ -13,11 +13,14 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
-        val (loopVar, itemData) = removeLoopVariable(data) ?: Pair("item", context.output)
+        // Copy the data because we will modify it
+        val body = data.deepCopy()
+
+        val (loopVar, itemData) = removeLoopVariable(body) ?: Pair("item", context.output)
         checkNotNull(itemData) { "For each without loop variable takes items from  \${output}, but \${output} is null" }
 
         val items = itemData.resolve(context)
-        val output: JsonNode = if (items is ArrayNode) data.arrayNode() else data.objectNode()
+        val output: JsonNode = if (items is ArrayNode) body.arrayNode() else body.objectNode()
 
         for (item in items.enumerateForEach()) {
 
@@ -27,7 +30,7 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
             context.variables[loopVar] = item
 
             // Copy the body statement because variable resolution is in-place and modifies the data
-            val copy = data.deepCopy()
+            val copy = body.deepCopy()
 
             // Execute
             val result = copy.runScript(context)

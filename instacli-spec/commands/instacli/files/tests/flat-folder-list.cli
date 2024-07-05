@@ -1,0 +1,30 @@
+Script info:
+  description: Returns a flat list
+  input:
+    properties:
+      prefix:
+        description: Prefix for folder names
+        default: ''
+      folders:
+        description: List of folders
+  hidden: true
+
+---
+${all}: [ ]
+
+For each:
+  ${folder} in: ${input.folders}
+  Add to:
+    ${all}:
+      name: ${input.prefix}${folder.name}
+  If:
+    not:
+      empty: ${folder.children}
+    then:
+      Flat folder list:
+        prefix: ${input.prefix}${folder.name}/
+        folders: ${folder.children}
+      Add to:
+        ${all}: ${output}
+
+Output: ${all}

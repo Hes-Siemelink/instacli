@@ -40,3 +40,40 @@ Call helper:
 
 Expected output: Thanks for your help, Fay!
 
+---
+Test case: Recursively run a script - deeply nested
+
+Flat folder list:
+  folders:
+    - name: root
+      children:
+        - name: folder1
+          children:
+            - name: folder2
+              children:
+                - name: folder3
+                  children: [ ]
+
+Expected output:
+  - name: root
+  - name: root/folder1
+  - name: root/folder1/folder2
+  - name: root/folder1/folder2/folder3
+
+---
+Test case: Recursively run a script - multiple siblings
+
+Flat folder list:
+  folders:
+    - name: root1
+      children:
+        - name: folder1
+    - name: root2
+      children:
+        - name: folder1
+
+Expected output:
+  - name: root1
+  - name: root1/folder1
+  - name: root2
+  - name: root2/folder1
