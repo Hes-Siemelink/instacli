@@ -1,0 +1,5 @@
+Script info: Moves a folder
+
+Connect to: Digital.ai Release
+
+GET: /api/v1/folders/list?depth=10

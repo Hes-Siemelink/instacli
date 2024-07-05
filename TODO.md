@@ -34,6 +34,10 @@
 * Shell and pipe support
 * Database support (SQLite or something)
 
+# Bugs
+
+* Script info.hidden is not documented
+
 # Instacli language
 
 * Don't use JSON schemas to define input

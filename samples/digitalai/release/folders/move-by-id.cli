@@ -1,0 +1,18 @@
+Script info: Moves a folder
+
+Connect to: Digital.ai Release
+
+Prompt:
+  description: Select source
+As: ${source}
+
+---
+Prompt:
+  description: Select target
+As: ${target}
+
+---
+POST:
+  path: /api/v1/folders/${source}/move?newParentId=${target}
+  body: { }
+
