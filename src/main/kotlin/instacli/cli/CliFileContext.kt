@@ -50,7 +50,7 @@ class CliFileContext(
         get() = variables[OUTPUT_VARIABLE]
     override var error: InstacliCommandError? = null
 
-    val info: DirectoryInfo by lazy { DirectoryInfo.load(scriptDir) }
+    val info: DirectoryInfo by lazy { InstacliDirectories.get(scriptDir) }
     val name: String
         get() = scriptDir.name
 
@@ -133,7 +133,7 @@ class CliFileContext(
         Files.list(scriptDir)
             .filter { it.isDirectory() && it.name != "tests" && it.hasCliCommands() }
             .forEach { dir ->
-                subcommands[asCliCommand(dir.name)] = DirectoryInfo.load(dir)
+                subcommands[asCliCommand(dir.name)] = InstacliDirectories.get(dir)
             }
 
         return subcommands

@@ -1,0 +1,10 @@
+Transform command:
+  - name: Script info
+    from: 1.0
+    to: 1.1
+    transform:
+      Output:
+        Script info:
+          description: ${old.description}
+          input:
+            properties: ${old.input}

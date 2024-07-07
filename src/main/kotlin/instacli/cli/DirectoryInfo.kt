@@ -47,3 +47,14 @@ class DirectoryInfo : CommandInfo {
         }
     }
 }
+
+object InstacliDirectories {
+    val directories = mutableMapOf<Path, DirectoryInfo>()
+
+    fun get(dir: Path): DirectoryInfo {
+        val key = dir.toAbsolutePath().normalize()
+        return directories.getOrPut(key) {
+            DirectoryInfo.load(dir)
+        }
+    }
+}

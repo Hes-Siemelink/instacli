@@ -4,6 +4,7 @@
 * Define 'output type' on Script info
 * Turn types into JSON schema
 * Refactor types and directory info
+* Transform JSON
 
 # Where to take it
 

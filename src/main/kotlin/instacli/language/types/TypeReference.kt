@@ -23,8 +23,7 @@ class TypeReferenceDeserializer : JsonDeserializer<TypeReference>() {
             }
 
             else -> {
-                val def: TypeDefinition = node.toDomainObject(TypeDefinition::class)
-                TypeReference(definition = def)
+                TypeReference(definition = node.toDomainObject(TypeDefinition::class))
             }
         }
     }
