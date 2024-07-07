@@ -5,6 +5,8 @@ import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
 import instacli.language.types.Type
+import instacli.language.types.TypeDefinition
+import instacli.util.toDomainObject
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
@@ -56,7 +58,9 @@ class CliFileContext(
     private val importedFileCommands: Map<String, CliFile> by lazy { findImportedCommands() }
     private val subdirectoryCommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
-    private val types = mutableMapOf<String, Type>()
+    private val types: MutableMap<String, Type> by lazy {
+        loadTypes()
+    }
 
     override fun getCommandHandler(command: String): CommandHandler {
 
@@ -153,6 +157,16 @@ class CliFileContext(
         return subdirectoryCommands[command]
     }
 
+    private fun loadTypes(): MutableMap<String, Type> {
+        val types = mutableMapOf<String, Type>()
+
+        // Load types from directory
+        for ((name, type) in info.types.fields()) {
+            types[name] = type.toDomainObject(TypeDefinition::class)
+        }
+
+        return types
+    }
 }
 
 private fun Path.hasCliCommands(): Boolean {

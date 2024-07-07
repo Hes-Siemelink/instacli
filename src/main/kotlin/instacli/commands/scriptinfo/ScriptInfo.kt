@@ -8,6 +8,7 @@ import instacli.commands.userinteraction.prompt
 import instacli.language.*
 import instacli.language.types.ParameterData
 import instacli.language.types.TypeDefinition
+import instacli.language.types.TypeReference
 import instacli.util.Json
 import instacli.util.toDomainObject
 
@@ -28,8 +29,13 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
     }
 }
 
-private fun handleInput(providedInput: ObjectNode, inputType: TypeDefinition, context: ScriptContext): ObjectNode {
+private fun handleInput(providedInput: ObjectNode, input: TypeReference, context: ScriptContext): ObjectNode {
 
+    val inputType = input.name?.let {
+        context.getType(it) as TypeDefinition? ?: throw CliScriptingException("Type not found: $it")
+    }
+        ?: input.definition
+        ?: throw CommandFormatException("Missing type definition on Script info input ")
 
     for ((name, info) in inputType.properties.parameters.entries) {
 

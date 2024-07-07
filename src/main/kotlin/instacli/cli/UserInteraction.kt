@@ -66,7 +66,8 @@ object StandardOutput : ConsoleOutput {
 
     private fun printInputParameters(script: Script) {
 
-        val inputData = script.info?.input ?: return
+        // TODO Also handle type references
+        val inputData = script.info?.input?.definition ?: return
 
         println("\nOptions:")
         println(CommandLineParameters.from(inputData).toDisplayString())

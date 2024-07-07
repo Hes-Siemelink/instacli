@@ -1,14 +1,9 @@
 # On my mind
 
-* Types
-    * Define array and string types in type system
-    * Define types on directories
-* Define commands in Instacli
-* Define on different scopes: script, dir, global
-* Serialize more Kotlin like
-* Script info with types
+* Define array and string types in type system
+* Define 'output type' on Script info
 * Turn types into JSON schema
-* Implement JSON Patch
+* Refactor types and directory info
 
 # Where to take it
 
@@ -22,29 +17,22 @@
     * ...what's left not to extract?
 * HouseApp
 * Run Release templates
+* Instacli as glue
+    * Shell and pipe support
+    * Database support (SQLite or something)
 
-# Command-line support
+# Package
 
+* Produce a clean, lightweight, native library
 * Kotlin native? => Use Pure Kotlin libraries
 * Go?
 * Node / TypeScript?
-
-# Instacli as glue
-
-* Shell and pipe support
-* Database support (SQLite or something)
-
-# Bugs
-
-* Script info.hidden is not documented
+* Compile to WASM
 
 # Instacli language
 
-* Don't use JSON schemas to define input
-* Error handling
 * Error reporting -> "StackTrace"
-* Friendly messages when schema doesn't validate
-* Check output from Yaml scripts in tests
+* Define commands in Instacli
 * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.
 * Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only
@@ -55,7 +43,6 @@
 * Secrets
 * Raw and live / Apply variables
 * CommandLibrary should store commands in canonical form: all lower case and spaces
-* Define 'output type' on Script info
 * Add condition to input fields on Script info and Prompt
 * Special variables
     * `input`
@@ -66,7 +53,12 @@
 * Properly handle: null, empty, boolean, int
 * Note for stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
-* Compile to WASM
+
+# Implementation improvements
+
+* Script info.hidden is not documented
+* Slow startup
+* Serialize more Kotlin like
 
 # Blog topics
 

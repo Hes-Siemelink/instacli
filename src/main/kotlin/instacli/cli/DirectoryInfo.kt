@@ -22,6 +22,8 @@ class DirectoryInfo : CommandInfo {
     val imports = mutableListOf<String>()
     val connections = Json.newObject()
 
+    var types = Json.newObject()
+
     companion object {
         fun load(dir: Path): DirectoryInfo {
             val infoFile = dir.resolve(".instacli.yaml")
@@ -34,6 +36,11 @@ class DirectoryInfo : CommandInfo {
 
             if (info.name.isEmpty()) {
                 info.name = dir.name
+            }
+
+            val typesFile = dir.resolve("types.yaml")
+            if (typesFile.exists()) {
+                info.types = mapper.readValue(typesFile.toFile())
             }
 
             return info
