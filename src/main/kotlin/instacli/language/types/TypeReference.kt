@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.node.TextNode
+import instacli.util.toDomainObject
 
 @JsonDeserialize(using = TypeReferenceDeserializer::class)
 data class TypeReference(
@@ -22,7 +23,8 @@ class TypeReferenceDeserializer : JsonDeserializer<TypeReference>() {
             }
 
             else -> {
-                TypeReference(definition = parser.readValueAsTree())
+                val def: TypeDefinition = node.toDomainObject(TypeDefinition::class)
+                TypeReference(definition = def)
             }
         }
     }
