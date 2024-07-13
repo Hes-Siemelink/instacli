@@ -1,10 +1,8 @@
 # On my mind
 
-* Define array and string types in type system
-* Define 'output type' on Script info
-* Turn types into JSON schema
-* Refactor types and directory info
-* Transform JSON
+* Make a release
+* Performance
+* Versioning and auto-upgrading of commands
 
 # Where to take it
 
@@ -32,28 +30,34 @@
 
 # Instacli language
 
-* Error reporting -> "StackTrace"
+* Error reporting
+    * Proper "StackTrace"
+* Types
+    * Document types
+    * Define array and string types in type system
+    * Define 'output type' on Script info
+    * Turn types into JSON schema
+    * Refactor types and directory info
 * Define commands in Instacli
-* Run CLI command as 'semi-interactive': print mock output and exit.
+* Docs
+    * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.
-* Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only
-  checks if something has been set as Http defaults
-* Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn into
-  code'.
+* Http
+    * Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai
+      only checks if something has been set as Http defaults
+    * Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn
+      into code'.
 * Review Script info on directories
 * Secrets
 * Raw and live / Apply variables
 * CommandLibrary should store commands in canonical form: all lower case and spaces
-* Add condition to input fields on Script info and Prompt
-* Special variables
-    * `input`
-    * `output`
-    * `request`
-    * `session`
-    * `settings`
 * Properly handle: null, empty, boolean, int
 * Note for stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
+
+# Bugs
+
+* Imported commands show up in directory help
 
 # Implementation improvements
 
