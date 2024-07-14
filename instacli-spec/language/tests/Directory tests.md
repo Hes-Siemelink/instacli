@@ -2,8 +2,6 @@
 
 This contains Instacli behavior that is too boring for the main spec but should be tested.
 
-## Directory description
-
 ## Empty directory
 
 This is what happens when you run `cli` in an empty directory.
@@ -28,3 +26,4 @@ This is an example directory
 
 No commands available.
 ```
+

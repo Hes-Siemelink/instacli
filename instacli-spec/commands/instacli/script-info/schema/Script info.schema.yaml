@@ -9,6 +9,8 @@ oneOf:
         type: string
       "hidden":
         type: boolean
+      "instacli-spec":
+        type: string
       "input":
         type:
           - object
@@ -22,4 +24,4 @@ oneOf:
             unevaluatedProperties: false
         required:
           - "properties"
-      additionalProperties: false
+    additionalProperties: false

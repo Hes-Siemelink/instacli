@@ -61,7 +61,6 @@
 
 # Implementation improvements
 
-* Script info.hidden is not documented
 * Slow startup
 * Serialize more Kotlin like
 

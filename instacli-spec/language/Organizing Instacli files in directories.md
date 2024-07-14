@@ -144,6 +144,26 @@ Available commands:
 
 ### Hidden directory
 
+You can hide the directory from the interactive command chooser by setting the `hidden` property to `true`.
+
+For example take the following `.instacli.yaml` file in the `subcommand` directory:
+
+```yaml file:subcommand/.instacli.yaml
+Script info:
+  hiddent: true
+```
+
+It will not show up as a subcommand when invoking `cli --help`.
+
+### Instacli version
+
+You can indicate the version of the Instacli spec that the script is using.
+
+```yaml instacli
+Script info:
+  instacli-spec: v0.1
+```
+
 ### Importing files from another directory
 
 Out-of-the-box, you

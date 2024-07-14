@@ -12,6 +12,7 @@ class CliFile(val cliFile: Path) : CommandInfo, CommandHandler(asScriptCommand(c
     override val name: String = asCliCommand(cliFile.name)
     override val description: String by lazy { script.info?.description ?: asScriptCommand(name) }
     override val hidden: Boolean by lazy { script.info?.hidden ?: false }
+    override val instacliSpec: String by lazy { script.info?.instacliSpec ?: "unknown" }
 
     val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(cliFile) }

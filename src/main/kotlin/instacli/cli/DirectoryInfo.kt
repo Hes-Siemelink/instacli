@@ -12,12 +12,15 @@ import kotlin.io.path.name
 class DirectoryInfo : CommandInfo {
 
     var dir: Path = Path.of(".")
-    override var hidden: Boolean = false
 
+    override var hidden: Boolean = false
     override var name: String = ""
 
     @JsonProperty("Script info")
     override var description: String = ""
+
+    @JsonProperty("instacli-spec")
+    override var instacliSpec: String = "unknown"
 
     val imports = mutableListOf<String>()
     val connections = Json.newObject()

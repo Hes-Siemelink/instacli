@@ -214,6 +214,15 @@ cli --help .
 No commands available.
 ```
 
+### Instacli version
+
+You can indicate the version of the Instacli spec that the script is using.
+
+```yaml instacli
+Script info:
+  instacli-spec: v0.1
+```
+
 ## Using types
 
 You can define the input and output of a Script as types.
