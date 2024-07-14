@@ -108,11 +108,6 @@ class InstacliMain(
         options: CliCommandLineOptions
     ) {
 
-        // No Instacli scripts in directory
-        if (context.getAllCommands().isEmpty()) {
-            throw CliInvocationException("No Instacli commands in ${cliDir.toAbsolutePath()}")
-        }
-
         // Parse command
         val rawCommand = getCommand(args, context, context.interactive) ?: return
 

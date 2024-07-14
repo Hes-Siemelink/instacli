@@ -188,6 +188,32 @@ Assert equals:
     property-A: Ananas
 ```
 
+### Hidden commands
+
+When invoking Instacli interactively, `cli --help` will show the contents of the directory as commands. If you don't
+want to expose a script this way, for example a helper script, then you can hide it with the `hide` property in **Script
+info**.
+
+For example, consider the file `helper.cli`:
+
+```yaml file:helper.cli
+Script info:
+  description: Helper script
+  hidden: true
+
+Output: Something useful
+```
+
+It is not included in the directory listing:
+
+```commandline cli
+cli --help .
+```
+
+```cli output
+No commands available.
+```
+
 ## Using types
 
 You can define the input and output of a Script as types.
@@ -227,3 +253,4 @@ Output: Hello, ${input.first_name} ${input.last_name}
 
 Expected output: Hello, Alice Wonderland
 -->
+

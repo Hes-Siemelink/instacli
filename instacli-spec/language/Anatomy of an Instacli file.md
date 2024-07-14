@@ -158,7 +158,7 @@ Script info:
 Print: Hello ${input.name}!
 ```
 
-It has input parameter `description`:
+It has input parameter `name`:
 
 ```commandline cli
 cli --help greeting.cli
@@ -181,9 +181,11 @@ cli greeting.cli --name Bob
 Hello Bob!
 ```
 
+For more information, refer to the **[Script info](../commands/instacli/script-info/Script%20info.md)** command.
+
 ### Script output
 
-You can set the actual output of the script with the **[Output](../commands/instacli/variables/Output.md)** command.
+You can set the output of the script with the **[Output](../commands/instacli/variables/Output.md)** command.
 
 For example, with script `hello.cli`
 
@@ -219,117 +221,3 @@ Expected output:
   c: three
 ```
 
-## Organizing multiple Instacli files in directories
-
-With multiple files in a directory, you can run the directory as a cli command. The Instacli scripts will be
-subcommands.
-
-For this example we run from the **[samples](/samples)** directory. It contains a directory `basic` with the following
-files:
-
-```
-create-greeting.cli
-greet.cli
-greeting.yaml
-multiple-choice.cli
-output.cli
-simple-question.cli
-```
-
-We can now run **basic** as a cli command with subcommands for each of the files. First, let's use the `--help` option
-to see some more descriptions
-
-```commandline cli directory:samples
-cli --help basic
-```
-
-```cli output
-Simple Instacli example scripts
-
-Available commands:
-  create-greeting   Creates a greeting and puts it in the output
-  greet             Prints a greeting
-  multiple-choice   Interaction example
-  output            Sets test output
-  prompt            Simple interactive prompt
-```
-
-We can now invoke the **greet** command like this:
-
-```commandline cli directory:samples
-cli basic greet
-```
-
-With the expected output:
-
-```cli output
-Hello, World!
-```
-
-Note that it's optional to specify the `.cli` extension. The following three commands are equivalent:
-
-```commandline cli directory:samples
-cli basic greet
-```
-
-```commandline cli directory:samples
-cli basic greet.cli
-```
-
-```commandline cli directory:samples
-cli basic/greet.cli
-```
-
-### Interactive command chooser
-
-When invoking a directory without the `--help` parameter, Instacli lets you select the command with an interactive
-prompt. This is a great way to explore the commands and subcommands!
-
-<!-- Insert gif here -->
-
-```commandline
-cli basic       
-```
-
-```
-Simple Instacli example scripts
-
-* Available commands: 
- > create-greeting          Creates a greeting and puts it in the output
-   greet                    Prints a greeting
-   output                   Sets test output
-   prompt-multiple-choice   Interaction example
-   prompt-simple-question   Simple interactive prompt
-```
-
-### Calling another Instacli script
-
-We showed above that you can call another Instacli script from within an Instacli script with the
-**[Run script](../commands/instacli/files/Run%20script.md)** command.
-
-Another way is to use it as a regular command. Instacli reads all cli files in the same directory and makes them
-available as commands in the current script. While doing so, it transforms file names in "kebab-style" to "Sentence
-style".
-
-For example, suppose we have a file `create-greeting.cli`, that creates a greeting and puts it in the output:
-
-```yaml file:create-greeting.cli
-Script info:
-  description: Creates a greeting
-  input:
-    properties:
-      name: Your name
-
-Output: Hello ${input.name}!
-```
-
-We can now call it as `Create greeting` from a script in the same directory:
-
-```yaml instacli
-Code example: Calling another cli file
-
-Create greeting:
-  name: Cray
-
-Expected output: Hello Cray!
-```

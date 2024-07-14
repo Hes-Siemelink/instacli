@@ -38,21 +38,27 @@ object StandardInput : UserInput {
 
 object StandardOutput : ConsoleOutput {
     override fun printCommands(commands: List<CommandInfo>) {
-        println("Available commands:")
 
-        val width = commands.maxOf { it.name.length }
-        commands.forEach {
-            println("  ${infoString(it.name, it.description, width)}")
+        if (commands.isEmpty()) {
+            println("No commands available.")
+        } else {
+            println("Available commands:")
+
+            val width = commands.maxOf { it.name.length }
+            commands.forEach {
+                println("  ${infoString(it.name, it.description, width)}")
+            }
         }
     }
 
     override fun printDirectoryInfo(info: DirectoryInfo) {
         if (info.description.isNotEmpty()) {
             println(info.description.trim())
-        } else {
-            println("${info.name} has several subcommands.")
+            println()
         }
-        println()
+//        else {
+//            println("${info.name} has several subcommands.")
+//        }
     }
 
     override fun printScriptInfo(script: Script) {

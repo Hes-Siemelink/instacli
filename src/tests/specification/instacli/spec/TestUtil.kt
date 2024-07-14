@@ -136,7 +136,10 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
     helperFiles.forEach {
-        testDir.resolve(it.key).writeText(it.value)
+        println("Helper file: ${it.key}")
+        val targetFile = testDir.resolve(it.key)
+        Files.createDirectories(targetFile.parent)
+        targetFile.writeText(it.value)
     }
     val credentials = if (helperFiles.containsKey(Credentials.FILE_NAME)) {
         Credentials.fromFile(testDir.resolve(Credentials.FILE_NAME))
