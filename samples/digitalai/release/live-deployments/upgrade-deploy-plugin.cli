@@ -1,0 +1,5 @@
+Connect to: Digital.ai Release
+
+#POST: /api/v1/plugin-manager/repositories/xlr-official/update/com.xebialabs.xlrelease.plugins/release-deploy-integration/24.3.0-beta.3
+
+POST: /api/v1/plugin-manager/repositories/xlr-official/install-or-update/com.xebialabs.xlrelease.plugins/release-deploy-integration.zip/24.3.0-beta.3

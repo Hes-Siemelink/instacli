@@ -1,8 +1,13 @@
 # On my mind
 
-* Make a release
 * Performance
-* Versioning and auto-upgrading of commands
+    * Typescript / Node
+* Configuring connections pout of the box with packaged instacli scripts
+* Run Markdown from cli
+* Tiered tests
+    * Level 1: Core functionality
+    * Level 2: Nice to haves
+    * Level 3: Edge cases
 
 # Where to take it
 
@@ -20,7 +25,7 @@
     * Shell and pipe support
     * Database support (SQLite or something)
 
-# Package
+# Installable artifact
 
 * Produce a clean, lightweight, native library
 * Kotlin native? => Use Pure Kotlin libraries
@@ -38,7 +43,11 @@
     * Define 'output type' on Script info
     * Turn types into JSON schema
     * Refactor types and directory info
-* Define commands in Instacli
+* Core
+    * Define commands in Instacli
+    * Secrets
+    * Raw and live / Apply variables
+    * Properly handle: null, empty, boolean, int
 * Docs
     * Run CLI command as 'semi-interactive': print mock output and exit.
     * Check with Running instacli and command line examples.
@@ -47,17 +56,17 @@
       only checks if something has been set as Http defaults
     * Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn
       into code'.
-* Review Script info on directories
-* Secrets
-* Raw and live / Apply variables
-* CommandLibrary should store commands in canonical form: all lower case and spaces
-* Properly handle: null, empty, boolean, int
-* Note for stdin:
+* Code organization
+    * Versioning and auto-upgrading of commands
+    * Review Script info on directories
+    * Support modules
+* Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
 
 # Bugs
 
 * Imported commands show up in directory help
+* CommandLibrary should store commands in canonical form: all lower case and spaces
 
 # Implementation improvements
 

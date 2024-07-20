@@ -250,7 +250,7 @@ ${input}:
 -->
 
 ```yaml instacli
-Code example: Define input and output types on script
+Code example: Define script input and output with types
 
 Script info:
   description: Get name details
