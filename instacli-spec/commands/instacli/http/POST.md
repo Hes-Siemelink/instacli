@@ -25,6 +25,18 @@ POST:
     3: Three
 ```
 
+## Post without body
+
+You can use the shortcut notation to send a POST request without a body.
+
+```yaml instacli
+Code example: POST without body
+
+POST: http://localhost:2525/echo/body
+
+Expected output: { }
+```
+
 ## Http request defaults
 
 As with all Http commands, you can use [Http request defaults](Http request defaults.md) to set the defaults for common
