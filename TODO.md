@@ -5,6 +5,7 @@
 * Configuring connections pout of the box with packaged instacli scripts
 * Run Markdown from cli
 * Tiered tests
+    * Level 0: Bootstrap
     * Level 1: Core functionality
     * Level 2: Nice to haves
     * Level 3: Edge cases

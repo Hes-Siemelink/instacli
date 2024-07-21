@@ -254,7 +254,8 @@ Code example: Define script input and output with types
 
 Script info:
   description: Get name details
-  input: FullName
+  input:
+    type: FullName
 ```
 
 <!-- yaml instacli after

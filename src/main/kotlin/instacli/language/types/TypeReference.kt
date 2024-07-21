@@ -17,9 +17,9 @@ data class TypeReference(
 class TypeReferenceDeserializer : JsonDeserializer<TypeReference>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext): TypeReference {
         val node: JsonNode = parser.getCodec().readTree(parser)
-        return when (node) {
-            is TextNode -> {
-                TypeReference(name = node.textValue())
+        return when {
+            node.has("type") && node["type"] is TextNode -> {
+                TypeReference(name = node["type"].textValue())
             }
 
             else -> {

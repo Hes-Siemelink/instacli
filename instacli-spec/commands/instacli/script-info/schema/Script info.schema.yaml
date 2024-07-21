@@ -14,7 +14,6 @@ oneOf:
       "input":
         type:
           - object
-          - string
         properties:
           "type":
             type: string
@@ -22,6 +21,5 @@ oneOf:
             additionalProperties:
               $ref: "/v1/commands/instacli/ParameterData.schema.yaml"
             unevaluatedProperties: false
-        required:
-          - "properties"
+          additionalProperties: false
     additionalProperties: false
