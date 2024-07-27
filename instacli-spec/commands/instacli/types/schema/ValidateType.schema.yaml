@@ -3,12 +3,12 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 
 required:
-  - data
+  - "type"
 
 properties:
-  "data": { }
-  "schema":
+  "item": { }
+  "type":
     type:
-      - object  # Inline JSON Schema
-      - string  # JSON schema file
+      - object  # Inline type definition
+      - string  # Type name
 additionalProperties: false

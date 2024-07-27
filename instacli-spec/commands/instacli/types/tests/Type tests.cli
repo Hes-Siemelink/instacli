@@ -1,7 +1,7 @@
 Test case: String type
 
-Validate:
-  data: Hes
+Validate type:
+  item: Hes
   type: string
 
 Expected output: true
@@ -9,8 +9,8 @@ Expected output: true
 ---
 Test case: Object type
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type: object
 
@@ -19,8 +19,8 @@ Expected output: true
 ---
 Test case: Array type
 
-Validate:
-  data:
+Validate type:
+  item:
     - name: Hes
   type: array
 
@@ -29,8 +29,8 @@ Expected output: true
 ---
 Test case: Not a string
 
-Validate:
-  data:
+Validate type:
+  item:
     - Hes
   type: string
 
@@ -40,8 +40,8 @@ Expected error:
 ---
 Test case: Not an object
 
-Validate:
-  data: Hes
+Validate type:
+  item: Hes
   type: object
 
 Expected error:
@@ -50,8 +50,8 @@ Expected error:
 ---
 Test case: Not an array
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type: array
 
@@ -61,8 +61,8 @@ Expected error:
 ---
 Test case: Object properties
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type:
     base: object
@@ -74,8 +74,8 @@ Expected output: true
 ---
 Test case: Implicit object definition
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type:
     properties:
@@ -86,8 +86,8 @@ Expected output: true
 ---
 Test case: Invalid object property
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type:
     base: object
@@ -106,8 +106,8 @@ Define type:
     properties:
       name: string
 
-Validate:
-  data:
+Validate type:
+  item:
     name: Hes
   type: Person
 

@@ -1,41 +1,24 @@
 # On my mind
 
-* Performance
-    * Typescript / Node
-* Configuring connections pout of the box with packaged instacli scripts
-* Run Markdown from cli
-* Tiered tests
-    * Level 0: Bootstrap
-    * Level 1: Core functionality
-    * Level 2: Nice to haves
-    * Level 3: Edge cases
-
-# Where to take it
-
-* Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
-  explicitly. For example: content type, variable replacement yes/no, etc.
-* Spec.it - Extract into a separate module:
-    * Markdown doc
-    * Cli tests
-    * Schema stuff
-    * Http server
-    * ...what's left not to extract?
-* HouseApp
-* Run Release templates
-* Instacli as glue
-    * Shell and pipe support
-    * Database support (SQLite or something)
+* Home Recipes
+    * Store stuff on file system with a construct like Connect to
+    * Store stuff on sqlite using same construct
+    * Edit lists
+* Add tests for samples
+    * Test script for a directory, using multiple commands
 
 # Installable artifact
 
 * Produce a clean, lightweight, native library
+* Node / TypeScript?
 * Kotlin native? => Use Pure Kotlin libraries
 * Go?
-* Node / TypeScript?
 * Compile to WASM
 
 # Instacli language
 
+* Run Markdown from cli
+* Configuring connections out of the box with packaged instacli scripts
 * Error reporting
     * Proper "StackTrace"
 * Types
@@ -57,22 +40,43 @@
       only checks if something has been set as Http defaults
     * Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn
       into code'.
+* Support stdin:
+  if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
+
+# Code improvements
+
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
     * Support modules
-* Support stdin:
-  if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
+* Tiered tests
+    * Level 0: Bootstrap
+    * Level 1: Core functionality
+    * Level 2: Nice to haves
+    * Level 3: Edge cases
+* Improve slow startup
+* Serialize more Kotlin like
 
 # Bugs
 
 * Imported commands show up in directory help
 * CommandLibrary should store commands in canonical form: all lower case and spaces
 
-# Implementation improvements
+# Where to take it
 
-* Slow startup
-* Serialize more Kotlin like
+* Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
+  explicitly. For example: content type, variable replacement yes/no, etc.
+* Spec.it - Extract into a separate module:
+    * Markdown doc
+    * Cli tests
+    * Schema stuff
+    * Http server
+    * ...what's left not to extract?
+* HouseApp
+* Run Release templates
+* Instacli as glue
+    * Shell and pipe support
+    * Database support (SQLite or something)
 
 # Blog topics
 

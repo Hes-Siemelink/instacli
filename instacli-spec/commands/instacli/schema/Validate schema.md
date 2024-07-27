@@ -12,12 +12,12 @@ Validates data with JSON schema
 
 ## Basic usage
 
-Use **Validate** to check if data is valid according to a JSON Schema
+Use **Validate schema** to check if data is valid according to a JSON Schema
 
 ```yaml instacli
 Code example: Validate with inline JSON schema
 
-Validate:
+Validate schema:
   data: Hello world
   schema:
     type: string
@@ -47,7 +47,7 @@ Suppose you have the data in a file called `myschema.json`
 ```yaml instacli
 Code example: Validate with JSON schema from file
 
-Validate:
+Validate schema:
   data: Hello world
   schema: myschema.json
 
@@ -63,7 +63,7 @@ If the data in `data` is invalid, you will get an error
 ```yaml instacli
 Code example: Invalid data with JSON schema
 
-Validate:
+Validate schema:
   data: Hello world
   schema:
     type: object

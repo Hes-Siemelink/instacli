@@ -1,6 +1,6 @@
 Test case: Validation with external schema
 
-Validate:
+Validate schema:
   data: Hello world
   schema: string.schema.json
 
@@ -13,7 +13,7 @@ Expected output: true
 ---
 Test case: Validation with external schema -- failure
 
-Validate:
+Validate schema:
   data: Hello world
   schema: object.schema.json
 

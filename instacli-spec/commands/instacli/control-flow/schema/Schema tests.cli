@@ -1,6 +1,6 @@
 Test case: No extra properties in If
 
-Validate:
+Validate schema:
   data:
     empty: { }
     then:
@@ -14,7 +14,7 @@ Expected error:
 ---
 Test case: If without then
 
-Validate:
+Validate schema:
   data:
     empty: { }
   schema: If.schema.yaml
@@ -25,7 +25,7 @@ Expected error:
 ---
 Test case: When with both 'then' and 'else'
 
-Validate:
+Validate schema:
   data:
     - empty: { }
       then:
@@ -40,7 +40,7 @@ Expected error:
 ---
 Test case: Validate conditions in When
 
-Validate:
+Validate schema:
   data:
     - not:
         strange: property

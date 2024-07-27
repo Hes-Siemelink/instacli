@@ -192,7 +192,7 @@ Assert equals:
 ---
 Test case: Schema validation - Add should only accept arrays
 
-Validate:
+Validate schema:
   data: 1
   schema: ../schema/Add.schema.yaml
 

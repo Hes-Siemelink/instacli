@@ -10,7 +10,8 @@ import instacli.commands.files.ReadFile
 import instacli.commands.files.RunScript
 import instacli.commands.files.SaveAs
 import instacli.commands.http.*
-import instacli.commands.schema.Validate
+import instacli.commands.schema.ValidateSchema
+import instacli.commands.schema.ValidateType
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.shell.Shell
 import instacli.commands.testing.*
@@ -108,9 +109,10 @@ object CommandLibrary {
         DeleteCredentials,
 
         // JSON Schema
-        Validate,
+        ValidateSchema,
 
         // Types
+        ValidateType,
         DefineType,
     )
 
