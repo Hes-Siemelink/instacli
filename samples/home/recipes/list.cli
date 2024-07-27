@@ -1,0 +1,8 @@
+Script info: Shows list of recipes
+
+Read file:
+  resource: db/recipes.yaml
+As: ${recipes}
+
+For each:
+  Output: ${item.title}

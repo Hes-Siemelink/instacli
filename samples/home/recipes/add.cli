@@ -1,0 +1,11 @@
+Script info:
+  description: Adds a recipe
+  input:
+    type: Recipe
+
+---
+Read file: db/recipes.yaml
+
+Append: ${input}
+
+Save as: db/recipes.yaml
