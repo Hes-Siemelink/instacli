@@ -113,3 +113,14 @@ Validate type:
 
 Expected output: true
 
+#---
+#Test case: Define a list
+#
+#Validate type:
+#  item:
+#    - name: Alice
+#    - name: Bob
+#  type:
+#    list of: Person
+#
+#Expected output: true

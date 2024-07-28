@@ -37,6 +37,9 @@ private fun handleInput(providedInput: ObjectNode, input: TypeReference, context
         ?: input.definition
         ?: throw CommandFormatException("Missing type definition on Script info input ")
 
+    // TODO - Handle listOf
+    inputType.properties ?: throw CommandFormatException("Missing properties on Script info input ")
+
     for ((name, info) in inputType.properties.parameters.entries) {
 
         // Already exists

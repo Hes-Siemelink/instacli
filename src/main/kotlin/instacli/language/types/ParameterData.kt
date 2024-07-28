@@ -5,28 +5,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.toCondition
 
-data class ParameterData(
+abstract class PropertyDefinition {
 
-    val description: String = "",
-    val default: JsonNode? = null,
-    val type: String = "",
-    val secret: Boolean = false,
-    val enum: List<JsonNode>? = null,
-    val select: String = "single", // TODO use enum
+    abstract val description: String
+    abstract val default: JsonNode?
+    abstract val type: TypeReference
+    abstract val secret: Boolean
+    abstract val enum: List<JsonNode>?
+    abstract val select: String
+    abstract val displayProperty: String?
+    abstract val valueProperty: String?
+    abstract val condition: JsonNode?
+    abstract val shortOption: String?
 
-    @JsonProperty("display property")
-    val displayProperty: String? = null,
-
-    @JsonProperty("value property")
-    val valueProperty: String? = null,
-    val condition: JsonNode? = null,
-
-    @JsonProperty("short option")
-    val shortOption: String? = null,
-) {
-
-    @JsonCreator
-    constructor(textValue: String) : this(description = textValue)
 
     fun conditionValid(): Boolean {
         condition?.let { node ->
@@ -35,3 +26,28 @@ data class ParameterData(
         return true
     }
 }
+
+data class ParameterData(
+
+    override val description: String = "",
+    override val default: JsonNode? = null,
+    override val type: TypeReference = TypeReference("string"),
+    override val secret: Boolean = false,
+    override val enum: List<JsonNode>? = null,
+    override val select: String = "single",
+
+    @JsonProperty("display property")
+    override val displayProperty: String? = null,
+
+    @JsonProperty("value property")
+    override val valueProperty: String? = null,
+    override val condition: JsonNode? = null,
+
+    @JsonProperty("short option")
+    override val shortOption: String? = null,
+) : PropertyDefinition() {
+
+    @JsonCreator
+    constructor(textValue: String) : this(description = textValue)
+}
+

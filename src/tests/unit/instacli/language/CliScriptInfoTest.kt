@@ -28,13 +28,15 @@ class CliScriptInfoTest {
         assertTrue("Script info" in script)
 
         val input = script.get("Script info").get("input").toDomainObject(TypeDefinition::class)
+        input.properties ?: throw CommandFormatException("Missing properties on Script info input ")
+
         val parameters = input.properties.parameters
 
         assertTrue("name" in parameters.keys)
         val name = parameters["name"]?.toDomainObject(ParameterData::class)
         assertEquals("The name to greet", name?.description)
         assertEquals("world", name?.default?.asText())
-        assertEquals("text", name?.type)
+        assertEquals("text", name?.type?.name)
 
         assertTrue("language" in parameters.keys)
         val language = parameters["language"]?.toDomainObject(ParameterData::class)

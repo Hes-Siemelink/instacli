@@ -1,0 +1,64 @@
+---
+Script info:
+  description: Select an account
+  input parameters: # Syntactic sugar for 'input' type` based on flat property list
+    name: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input type: AccountName
+  output type: Account
+
+---
+Script info:
+  description: Define input with schema dialect
+
+  input type:
+    base: object  # Optional , default is 'object'. Or optional if 'properties' is present
+    properties:
+      name:
+        type: string
+        description: Enter your name
+      name2: Enter your name # Shortcut for type string with description
+      language:
+        type: string
+        description: Select a language
+        enum:
+          - English
+          - Spanish
+          - Dutch
+
+  output type:
+    base: string
+    description: The greeting in another language
+
+
+---
+Script info:
+  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+  input:
+    properties:
+      host: Release URL
+      token: Access token for Remote Runner
+      alias: Alias for agent (unique per Digital.ai Platform user)
+
+---
+Script info:
+  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+  input type:
+    properties:
+      host:
+        description: Release URL
+      token:
+        description: Access token for Remote Runner
+      alias:
+        description: Alias for agent (unique per Digital.ai Platform user)
+
+---
+Script info:
+  description: Creates a new agent to run in the Cloud Connector, based on a runtime definition
+  input parameters:
+    host: Release URL
+    token: Access token for Remote Runner
+    alias: Alias for agent (unique per Digital.ai Platform user)

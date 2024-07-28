@@ -43,9 +43,11 @@ data class CommandLineParameters(
 
     companion object {
         fun from(type: TypeDefinition): CommandLineParameters {
-            val transformedParameters: Map<String, ParameterData> = type.properties.parameters.mapValues { parameter ->
-                parameter.value.toDomainObject(ParameterData::class)
-            }
+            val transformedParameters: Map<String, ParameterData> = type.properties?.let {
+                it.parameters.mapValues { parameter ->
+                    parameter.value.toDomainObject(ParameterData::class)
+                }
+            } ?: emptyMap()
 
             return CommandLineParameters(transformedParameters)
         }

@@ -20,3 +20,48 @@ Script info:
     base: string
     description: The greeting in another language
 
+
+
+---
+Script info:
+  description: Select an account
+  input:
+    properties:
+      name: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input:
+    properties:
+      name:
+        description: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input type:
+    properties:
+      name:
+        description: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input:
+    $type:
+      properties:
+        name:
+          description: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input:
+    name: Account name (leave empty to show all accounts)
+
+---
+Script info:
+  description: Select an account
+  input properties:
+    name: Account name (leave empty to show all accounts)
