@@ -22,8 +22,6 @@ Validate schema:
   schema:
     type: string
     pattern: "Hello"
-
-Expected output: true
 ```
 
 By default, Instacli uses
@@ -50,8 +48,6 @@ Code example: Validate with JSON schema from file
 Validate schema:
   data: Hello world
   schema: myschema.json
-
-Expected output: true
 ```
 
 Note: the file is resolved relative to the script itself, not to the working directory.

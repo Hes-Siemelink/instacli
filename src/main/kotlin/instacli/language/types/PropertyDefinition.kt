@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.toCondition
+import instacli.language.ScriptContext
 
 abstract class PropertyDefinition {
 
@@ -81,3 +82,21 @@ data class ParameterData(
     constructor(textValue: String) : this(description = textValue)  // Defaults to description
 }
 
+
+fun PropertyData.resolveTypes(context: ScriptContext): PropertyData {
+
+    val actualType = type.resolveTypes(context)
+
+    return PropertyData(
+        description = description,
+        default = default,
+        type = TypeReference(actualType),
+        secret = secret,
+        enum = enum,
+        select = select,
+        displayProperty = displayProperty,
+        valueProperty = valueProperty,
+        condition = condition,
+        shortOption = shortOption
+    )
+}

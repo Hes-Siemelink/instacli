@@ -8,7 +8,8 @@ import instacli.commands.toCondition
 import instacli.commands.userinteraction.prompt
 import instacli.language.*
 import instacli.language.types.ObjectDefinition
-import instacli.language.types.TypeDefinition
+import instacli.language.types.TypeReference
+import instacli.language.types.resolveTypes
 import instacli.util.Json
 import instacli.util.toDomainObject
 
@@ -29,13 +30,7 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
             }
 
             scriptInfoData.inputType != null -> {
-                val input = scriptInfoData.inputType.name?.let {
-                    context.getType(it) as TypeDefinition? ?: throw CliScriptingException("Type not found: $it")
-                }
-                    ?: scriptInfoData.inputType.definition
-                    ?: throw CommandFormatException("Missing type definition on Script info input ")
-
-                handleInput(providedInput, input.properties, context)
+                handleInputType(providedInput, scriptInfoData.inputType, context)
             }
 
             else -> {
@@ -43,6 +38,23 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
             }
         }
     }
+}
+
+private fun handleInputType(
+    providedInput: ObjectNode,
+    inputType: TypeReference,
+    context: ScriptContext
+): ObjectNode {
+
+    val input = inputType.resolveTypes(context)
+
+    if (input.properties != null) {
+        handleInput(providedInput, input.properties, context)
+    } else {
+        // TODO handle array and simple types
+    }
+
+    return providedInput
 }
 
 private fun handleInput(

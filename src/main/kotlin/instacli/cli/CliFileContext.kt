@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
+import instacli.language.types.BuiltinTypes
 import instacli.language.types.Type
 import instacli.language.types.TypeDefinition
 import instacli.util.toDomainObject
@@ -90,7 +91,8 @@ class CliFileContext(
     }
 
     override fun getType(name: String): Type? {
-        return types[name]
+        return BuiltinTypes.types[name]
+            ?: types[name]
     }
 
     override fun registerType(name: String, type: Type) {

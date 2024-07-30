@@ -4,8 +4,6 @@ Validate type:
   item: Hes
   type: string
 
-Expected output: true
-
 ---
 Test case: Object type
 
@@ -14,8 +12,6 @@ Validate type:
     name: Hes
   type: object
 
-Expected output: true
-
 ---
 Test case: Array type
 
@@ -23,8 +19,6 @@ Validate type:
   item:
     - name: Hes
   type: array
-
-Expected output: true
 
 ---
 Test case: Not a string
@@ -69,8 +63,6 @@ Validate type:
     properties:
       name: string
 
-Expected output: true
-
 ---
 Test case: Implicit object definition
 
@@ -80,8 +72,6 @@ Validate type:
   type:
     properties:
       name: string
-
-Expected output: true
 
 ---
 Test case: Invalid object property
@@ -111,16 +101,37 @@ Validate type:
     name: Hes
   type: Person
 
-Expected output: true
+---
+Test case: Define a list
 
-#---
-#Test case: Define a list
-#
-#Validate type:
-#  item:
-#    - name: Alice
-#    - name: Bob
-#  type:
-#    list of: Person
-#
-#Expected output: true
+Validate type:
+  item:
+    - name: Alice
+    - name: Bob
+  type:
+    base: array
+    list of: Person
+
+---
+Test case: Faulty object
+
+Validate type:
+  item:
+    name-x: Alice
+  type: Person
+
+Expected error:
+  Type validation: Validation should fail because the property name-x is not defined in the Person type
+
+---
+Test case: Faulty list
+
+Validate type:
+  item:
+    - name-x: Alice
+  type:
+    base: array
+    list of: Person
+
+Expected error:
+  Type validation: Validation should fail because the property name-x is not defined in the Person type

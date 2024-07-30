@@ -21,8 +21,6 @@ Validate type:
   item:
     name: Hes
   type: object
-
-Expected output: true
 ```
 
 If the validation is false, you will get an error,

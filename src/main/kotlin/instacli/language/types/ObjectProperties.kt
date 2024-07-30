@@ -3,7 +3,7 @@ package instacli.language.types
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.infoString
-import instacli.language.InstacliCommandError
+import instacli.language.ScriptContext
 
 interface ObjectDefinition {
     val properties: Map<String, PropertyDefinition>
@@ -42,12 +42,18 @@ data class ObjectProperties(
         for ((field, value) in data.fields()) {
             if (field in properties.keys) {
                 val parameter = properties[field]!!
-                val type = BuiltinTypes.types[parameter.type.name]
-                    ?: throw InstacliCommandError("Unknown type:  ${parameter.type.name}")
-                messages.addAll(type.validate(value))
+                parameter.type.definition?.let { type ->
+                    messages.addAll(type.validate(value))
+                }
+            } else {
+                messages.add("Unknown property: $field")
             }
         }
 
         return messages
     }
+}
+
+fun ObjectProperties.resolveTypes(context: ScriptContext): ObjectProperties {
+    return ObjectProperties(properties.mapValues { it.value.resolveTypes(context) })
 }

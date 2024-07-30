@@ -1,32 +1,29 @@
 package instacli.commands.schema
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.BooleanNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.language.*
-import instacli.language.types.BuiltinTypes
 import instacli.language.types.Type
-import instacli.language.types.TypeDefinition
+import instacli.language.types.TypeReference
+import instacli.language.types.resolveTypes
 import instacli.util.*
 
 object ValidateType : CommandHandler("Validate type", "instacli/schema"), ObjectHandler {
 
-    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
+    override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val json = data.getParameter("item")
+        val typeData = data.getParameter("type")
+        val type = getType(typeData, context)
 
-        // Type validation
-        data.get("type")?.let {
-            validateWithType(json, it, context)
-        }
+        // Type validation throws exception when invalid
+        validate(json, type)
 
-        return BooleanNode.TRUE
+        return null
     }
 }
 
-private fun validateWithType(data: JsonNode, typeInfo: JsonNode, context: ScriptContext) {
-
-    val type = getType(context, typeInfo)
+private fun validate(data: JsonNode, type: Type) {
 
     val messages = type.validate(data)
 
@@ -39,13 +36,18 @@ private fun validateWithType(data: JsonNode, typeInfo: JsonNode, context: Script
     }
 }
 
-private fun getType(context: ScriptContext, typeInfo: JsonNode): Type {
-    if (typeInfo is TextNode) {
-        val typeName = typeInfo.textValue()
-        return BuiltinTypes.types[typeName]
-            ?: context.getType(typeName)
-            ?: throw InstacliCommandError("Unknown type:  ${typeInfo.textValue()}")
-    }
+private fun getType(typeData: JsonNode, context: ScriptContext): Type {
 
-    return typeInfo.toDomainObject(TypeDefinition::class)
+    val typeRef = typeData.toDomainObject(TypeReference::class)
+
+    val type = typeRef.resolveTypes(context)
+
+    return type
+//    if (typeData is TextNode) {
+//        val typeName = typeData.textValue()
+//        return BuiltinTypes.types[typeName]
+//            ?: context.getType(typeName)
+//            ?: throw InstacliCommandError("Unknown type:  ${typeData.textValue()}")
+//    }
+//
 }

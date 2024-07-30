@@ -8,8 +8,6 @@ On error:
   Print: ${error}
   Output: invalid data
 
-Expected output: true
-
 ---
 Test case: Validation with external schema -- failure
 
