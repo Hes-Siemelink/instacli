@@ -1,8 +1,7 @@
 Script info:
   description: Finds an artist
   input:
-    properties:
-      name: Name of the artist
+    name: Name of the artist
 
 ---
 Connect to: Spotify

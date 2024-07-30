@@ -39,7 +39,7 @@ object ExpectedError :
         }
 
         if (context.error == null) {
-            throw MissingExpectedError(data.textValue())
+            throw MissingExpectedError(data.toDisplayYaml())
         } else {
             throw MissingExpectedError("${data.toDisplayYaml()}\nGot instead: ${context.error?.error} ")
         }

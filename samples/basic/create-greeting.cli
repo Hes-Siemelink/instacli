@@ -1,8 +1,7 @@
 Script info:
   description: Creates a greeting and puts it in the output
   input:
-    properties:
-      name:
-        description: Your name
+    name:
+      description: Your name
 
 Output: Hello ${input.name}!

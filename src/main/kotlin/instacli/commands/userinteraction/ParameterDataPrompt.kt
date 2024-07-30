@@ -6,11 +6,11 @@ import com.fasterxml.jackson.databind.node.BooleanNode.FALSE
 import com.fasterxml.jackson.databind.node.BooleanNode.TRUE
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.kinquirer.core.Choice
-import instacli.language.types.ParameterData
+import instacli.language.types.PropertyDefinition
 import instacli.util.toDisplayYaml
 
 
-fun ParameterData.prompt(): JsonNode {
+fun PropertyDefinition.prompt(): JsonNode {
     return when {
         enum != null && select == "single" -> promptChoice()
         enum != null && select == "multiple" -> promptChoice(multiple = true)
@@ -20,11 +20,11 @@ fun ParameterData.prompt(): JsonNode {
     }
 }
 
-private fun ParameterData.promptText(password: Boolean = false): JsonNode {
+private fun PropertyDefinition.promptText(password: Boolean = false): JsonNode {
     return UserPrompt.prompt(description, default?.asText() ?: "", password)
 }
 
-private fun ParameterData.promptBoolean(): JsonNode {
+private fun PropertyDefinition.promptBoolean(): JsonNode {
 
     val answer = UserPrompt.prompt(description, default?.asText() ?: "")
 
@@ -32,7 +32,7 @@ private fun ParameterData.promptBoolean(): JsonNode {
     else FALSE
 }
 
-private fun ParameterData.promptChoice(multiple: Boolean = false): JsonNode {
+private fun PropertyDefinition.promptChoice(multiple: Boolean = false): JsonNode {
 
     val choices = enum?.map { choiceData ->
         if (displayProperty == null) {

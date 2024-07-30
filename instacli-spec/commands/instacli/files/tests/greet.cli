@@ -1,8 +1,7 @@
 Script info:
   description: Creates a greeting
   input:
-    properties:
-      name:
-        default: world
+    name:
+      default: world
 
 Output: Hello ${input.name}!

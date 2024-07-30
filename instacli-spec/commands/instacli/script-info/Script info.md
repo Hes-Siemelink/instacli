@@ -63,8 +63,7 @@ ${input}:
 
   Script info:
     input:
-      properties:
-        name: The name to greet
+      name: The name to greet
 
   Print: Hello, ${input.name}!
 ```
@@ -107,9 +106,8 @@ Code example: Define input with multiple variables
 
 Script info:
   input:
-    properties:
-      greeting: What is your greeting?
-      name: What is your name?
+    greeting: What is your greeting?
+    name: What is your name?
 
 Print: ${input.greeting}, ${input.name}!
 ```
@@ -132,10 +130,9 @@ Code example: Input with default value
 
 Script info:
   input:
-    properties:
-      name:
-        description: What is your name?
-        default: World
+    name:
+      description: What is your name?
+      default: World
 ```
 
 See [Prompt Properties](../user-interaction/Prompt.md#prompt-properties) for a full description.
@@ -161,25 +158,24 @@ Code example: Script info with variables and conditions
 Script info:
   description: A script with a choice
   input:
-    properties:
 
-      switch:
-        description: Choose a or b
-        default: a
+    switch:
+      description: Choose a or b
+      default: a
 
-      property-A:
-        description: What is the value for A?
-        condition:
-          item: ${input.switch}
-          equals: a
-        default: Ananas
+    property-A:
+      description: What is the value for A?
+      condition:
+        item: ${input.switch}
+        equals: a
+      default: Ananas
 
-      property-B:
-        description: What is the value for B?
-        condition:
-          item: ${input.switch}
-          equals: b
-        default: Bologna
+    property-B:
+      description: What is the value for B?
+      condition:
+        item: ${input.switch}
+        equals: b
+      default: Bologna
 
 Assert equals:
   actual: ${input}
@@ -254,7 +250,7 @@ Code example: Define script input and output with types
 
 Script info:
   description: Get name details
-  input:
+  input type:
     type: FullName
 ```
 

@@ -6,6 +6,8 @@ import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
 import instacli.language.CommandInfo
 import instacli.language.Script
+import instacli.language.types.ObjectDefinition
+import instacli.language.types.toDisplayString
 
 interface UserInput {
     fun askForCommand(commands: List<CommandInfo>): String
@@ -72,11 +74,12 @@ object StandardOutput : ConsoleOutput {
 
     private fun printInputParameters(script: Script) {
 
-        // TODO Also handle type references
-        val inputData = script.info?.input?.definition ?: return
+        val inputData: ObjectDefinition = script.info ?: return
+
+        if (inputData.properties.isEmpty()) return
 
         println("\nOptions:")
-        println(CommandLineParameters.from(inputData).toDisplayString())
+        println(inputData.toDisplayString())
     }
 
     override fun printUsage(globalOptions: CommandLineParameters) {

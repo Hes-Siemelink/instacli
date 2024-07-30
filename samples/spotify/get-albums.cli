@@ -1,8 +1,7 @@
 Script info:
   description: Show albums of an artist
   input:
-    properties:
-      name: Name of the artist
+    name: Name of the artist
 
 ---
 Get artist info:

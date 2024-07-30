@@ -2,10 +2,9 @@ Script info:
   description: Simple proxy server
 
   input:
-    properties:
-      storageDir:
-        description: Directory where requests will be stored
-        default: recorded-data
+    storageDir:
+      description: Directory where requests will be stored
+      default: recorded-data
 
 ${storageDir}: ${input.storageDir}
 

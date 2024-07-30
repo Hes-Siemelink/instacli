@@ -1,8 +1,7 @@
 Script info:
   description: Select an account
   input:
-    properties:
-      name: Account name (leave empty to show all accounts)
+    name: Account name (leave empty to show all accounts)
 
 ---
 # Select account

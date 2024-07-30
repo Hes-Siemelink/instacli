@@ -152,8 +152,7 @@ Prints a simple greeting
 Script info:
   description: Prints a personalized greeting
   input:
-    properties:
-      name: Your name
+    name: Your name
 
 Print: Hello ${input.name}!
 ```

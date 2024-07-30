@@ -1,12 +1,11 @@
 Script info:
   description: Returns a flat list
   input:
-    properties:
-      prefix:
-        description: Prefix for folder names
-        default: ''
-      folders:
-        description: List of folders
+    prefix:
+      description: Prefix for folder names
+      default: ''
+    folders:
+      description: List of folders
   hidden: true
 
 ---

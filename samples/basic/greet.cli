@@ -1,10 +1,9 @@
 Script info:
   description: Prints a greeting
   input:
-    properties:
-      name:
-        description: Your name
-        default: World
+    name:
+      description: Your name
+      default: World
 
 ---
 Print: Hello, ${input.name}!

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.OutputOption.JSON
 import instacli.cli.OutputOption.YAML
 import instacli.language.*
+import instacli.language.types.toDisplayString
 import instacli.util.Json
 import instacli.util.toDisplayJson
 import instacli.util.toDisplayYaml
@@ -171,7 +172,7 @@ class InstacliMain(
             } catch (e: MissingParameterException) {
                 System.err.println("Missing parameter: --${e.name}")
                 System.err.println("\nOptions:")
-                System.err.println(CommandLineParameters.from(e.options).toDisplayString())
+                System.err.println(e.parameters.toDisplayString())
                 return 1
 
             } catch (e: InstacliLanguageException) {

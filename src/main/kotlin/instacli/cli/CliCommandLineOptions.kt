@@ -52,7 +52,7 @@ private fun CommandLineParameters.validateArgs(options: List<String>): CommandLi
 }
 
 private fun CommandLineParameters.getOption(option: String): Pair<String, ParameterData> {
-    for ((key, value) in parameters) {
+    for ((key, value) in properties) {
         if (key == option || value.shortOption == option) {
             return Pair(key, value)
         }

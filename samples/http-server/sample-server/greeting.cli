@@ -1,14 +1,13 @@
 Script info:
   description: Multi-language greeting
   input:
-    properties:
-      name: Enter your name
-      language:
-        description: Select a language
-        enum:
-          - English
-          - Spanish
-          - Dutch
+    name: Enter your name
+    language:
+      description: Select a language
+      enum:
+        - English
+        - Spanish
+        - Dutch
 
 POST:
   url: http://localhost:2525/greeting

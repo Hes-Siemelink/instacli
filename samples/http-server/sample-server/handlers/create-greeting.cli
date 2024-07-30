@@ -1,9 +1,8 @@
 Script info:
   description: Creates a greeting in different languages
   input:
-    properties:
-      name: the person to greet
-      language: the language to greet in
+    name: the person to greet
+    language: the language to greet in
 
 Find:
   path: ${input.language}

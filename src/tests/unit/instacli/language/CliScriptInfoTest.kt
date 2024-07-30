@@ -3,8 +3,6 @@ package instacli.language
 import com.fasterxml.jackson.module.kotlin.contains
 import instacli.TestPaths
 import instacli.commands.scriptinfo.ScriptInfoData
-import instacli.language.types.ParameterData
-import instacli.language.types.TypeDefinition
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -27,20 +25,19 @@ class CliScriptInfoTest {
         val script = Yaml.readFile(TestPaths.RESOURCES.resolve("script-info/script-info-sample.cli"))
         assertTrue("Script info" in script)
 
-        val input = script.get("Script info").get("input").toDomainObject(TypeDefinition::class)
-        input.properties ?: throw CommandFormatException("Missing properties on Script info input ")
+        val scriptInfo = script.get("Script info").toDomainObject(ScriptInfoData::class)
 
-        val parameters = input.properties.parameters
+        val parameters = scriptInfo.input ?: throw CommandFormatException("Missing Script info input ")
 
         assertTrue("name" in parameters.keys)
-        val name = parameters["name"]?.toDomainObject(ParameterData::class)
-        assertEquals("The name to greet", name?.description)
-        assertEquals("world", name?.default?.asText())
-        assertEquals("text", name?.type?.name)
+        val name = parameters["name"]!!
+        assertEquals("The name to greet", name.description)
+        assertEquals("world", name.default?.asText())
+        assertEquals("text", name.type.name)
 
         assertTrue("language" in parameters.keys)
-        val language = parameters["language"]?.toDomainObject(ParameterData::class)
-        assertEquals("en", language?.description)
+        val language = parameters["language"]!!
+        assertEquals("en", language.description)
     }
 }
 

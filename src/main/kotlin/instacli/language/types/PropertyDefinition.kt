@@ -27,6 +27,36 @@ abstract class PropertyDefinition {
     }
 }
 
+/**
+ * Used in type definitions to define properties
+ */
+data class PropertyData(
+
+    override val description: String = "",
+    override val default: JsonNode? = null,
+    override val type: TypeReference = TypeReference("string"),
+    override val secret: Boolean = false,
+    override val enum: List<JsonNode>? = null,
+    override val select: String = "single",
+
+    @JsonProperty("display property")
+    override val displayProperty: String? = null,
+
+    @JsonProperty("value property")
+    override val valueProperty: String? = null,
+    override val condition: JsonNode? = null,
+
+    @JsonProperty("short option")
+    override val shortOption: String? = null,
+) : PropertyDefinition() {
+
+    @JsonCreator
+    constructor(textValue: String) : this(type = TypeReference(textValue)) // Defaults to type name reference
+}
+
+/**
+ * Used in Prompt and ScriptInfo to define parameters
+ */
 data class ParameterData(
 
     override val description: String = "",
@@ -48,6 +78,6 @@ data class ParameterData(
 ) : PropertyDefinition() {
 
     @JsonCreator
-    constructor(textValue: String) : this(description = textValue)
+    constructor(textValue: String) : this(description = textValue)  // Defaults to description
 }
 

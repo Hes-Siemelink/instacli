@@ -1,8 +1,7 @@
 Script info:
   description: Creates a new OIDC client
   input:
-    properties:
-      client_id: Client ID
+    client_id: Client ID
 
 ---
 Connect to: Digital.ai Platform

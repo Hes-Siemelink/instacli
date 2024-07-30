@@ -1,12 +1,11 @@
 Script info:
   description: Get all folder names
   input:
-    properties:
-      folders:
-        description: List of folders coming from Release
-      prefix:
-        description: Prefix for folder names
-        default: ''
+    folders:
+      description: List of folders coming from Release
+    prefix:
+      description: Prefix for folder names
+      default: ''
   hidden: true
 
 ---

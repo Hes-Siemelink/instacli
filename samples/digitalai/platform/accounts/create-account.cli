@@ -1,9 +1,8 @@
 Script info:
   description: Creates a new account
   input:
-    properties:
-      name: Customer name
-      id: Customer ID
+    name: Customer name
+    id: Customer ID
 
 ---
 Connect to: Digital.ai Platform

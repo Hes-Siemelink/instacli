@@ -1,8 +1,7 @@
 Script info:
   description: A simple helper function, to be called from another script
   input:
-    properties:
-      name:
-        default: world
+    name:
+      default: world
 
 Output: Thanks for your help, ${input.name}!

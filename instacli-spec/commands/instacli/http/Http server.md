@@ -169,8 +169,7 @@ Suppose you have a file `greet.cli`
 Script info:
   description: Creates a greeting
   input:
-    properties:
-      name: Your name
+    name: Your name
 
 Output: Hello ${input.name}!
 ```

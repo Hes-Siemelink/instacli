@@ -12,6 +12,10 @@ oneOf:
       "instacli-spec":
         type: string
       "input":
+        type: object
+        additionalProperties:
+          $ref: "/v1/commands/instacli/ParameterData.schema.yaml"
+      "input type":
         type:
           - object
         properties:

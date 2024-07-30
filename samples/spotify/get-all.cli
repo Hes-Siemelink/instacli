@@ -1,8 +1,7 @@
 Script info:
   description: Get complete results by getting all paginated ones.
   input:
-    properties:
-      url: Spotify url to GET
+    url: Spotify url to GET
   hidden: true
 
 ---
