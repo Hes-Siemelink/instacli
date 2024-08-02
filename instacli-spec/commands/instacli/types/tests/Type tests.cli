@@ -88,20 +88,6 @@ Expected error:
   Type validation: Validation should fail because name is a string, not an object
 
 ---
-Test case: Define a type
-
-Define type:
-  Person:
-    base: object
-    properties:
-      name: string
-
-Validate type:
-  item:
-    name: Hes
-  type: Person
-
----
 Test case: Define a list
 
 Validate type:

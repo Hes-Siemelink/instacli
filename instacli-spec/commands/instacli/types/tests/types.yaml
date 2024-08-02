@@ -1,0 +1,4 @@
+Person:
+  base: object
+  properties:
+    name: string
