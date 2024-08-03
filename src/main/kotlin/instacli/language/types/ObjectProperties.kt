@@ -41,8 +41,8 @@ data class ObjectProperties(
 
         for ((field, value) in data.fields()) {
             if (field in properties.keys) {
-                val parameter = properties[field]!!
-                parameter.type.definition?.let { type ->
+                val parameter = properties[field]
+                parameter?.type?.definition?.let { type ->
                     messages.addAll(type.validate(value))
                 }
             } else {
