@@ -18,20 +18,20 @@ object PromptObject : CommandHandler("Prompt object", "instacli/user-interaction
         // Temporary variables that will hold the contents of the entries so later ones can refer to previous ones
         val variables = context.variables.toMutableMap()
 
-        for ((field, rawParameter) in data.fields()) {
+        for ((name, parameterData) in data.fields()) {
 
             // Resolve variables
-            val parameterData = rawParameter.resolveVariables(variables).toDomainObject(ParameterData::class)
+            val parameter = parameterData.resolveVariables(variables).toDomainObject(ParameterData::class)
 
             // Only ask if condition is true
-            parameterData.conditionValid() || continue
+            parameter.conditionValid() || continue
 
             // Ask user
-            val answer = parameterData.prompt()
+            val answer = parameter.prompt(name)
 
             // Add answer to result and to list of variables
-            answers.set<JsonNode>(field, answer)
-            variables[field] = answer
+            answers.set<JsonNode>(name, answer)
+            variables[name] = answer
         }
 
         return answers

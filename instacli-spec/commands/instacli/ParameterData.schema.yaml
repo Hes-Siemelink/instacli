@@ -6,31 +6,25 @@ oneOf:
 
   - type: object
     properties:
-      description:
+      "description":
         type: string
-      default: { }
-      type:
-        enum:
-          - string
-          - boolean
-          - number
-          - object
-          - array
-      secret:
+      "default": { }
+      "type": string
+      "secret":
         type: boolean
-      select:
+      "select":
         enum:
           - single
           - multiple
         default: single
-      enum:
+      "enum":
         type: array
-      display property:
+      "display property":
         type: string
-      value property:
+      "value property":
         type: string
-      condition:
+      "condition":
         $ref: "/v1/commands/instacli/Conditions.schema.yaml"
-      short option:
+      "short option":
         type: string
     additionalProperties: false

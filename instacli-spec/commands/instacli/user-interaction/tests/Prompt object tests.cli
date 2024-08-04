@@ -55,3 +55,16 @@ Prompt object:
 
 Expected output:
   enabled: true
+
+---
+Test case: Use field name for prompt if there is no description
+
+Stock answers:
+  name: Alice
+
+Prompt object:
+  name:
+    type: string
+
+Expected output:
+  name: Alice

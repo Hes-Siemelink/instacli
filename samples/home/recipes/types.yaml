@@ -4,7 +4,8 @@ Recipe:
     title: Title
     ingredients:
       description: Ingredients
-      list of: Ingredient
+      type:
+        list of: Ingredient
     steps: Steps
 
 Ingredient:

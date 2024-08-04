@@ -24,7 +24,7 @@ fun ObjectDefinition.toDisplayString(): String {
             }
         }
         builder.append("  ")
-        builder.append(infoString(key, it.value.description, width))
+        builder.append(infoString(key, it.value.description ?: "", width))
         builder.appendLine()
     }
 

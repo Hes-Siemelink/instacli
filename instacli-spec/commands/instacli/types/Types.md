@@ -36,3 +36,4 @@ Validate type:
 Expected error:
   Type validation: Validation should fail because the provided data is not a string
 ```
+

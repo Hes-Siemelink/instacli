@@ -8,9 +8,9 @@ import instacli.language.ScriptContext
 
 abstract class PropertyDefinition {
 
-    abstract val description: String
+    abstract val description: String?
     abstract val default: JsonNode?
-    abstract val type: TypeReference
+    abstract val type: TypeReference?
     abstract val secret: Boolean
     abstract val enum: List<JsonNode>?
     abstract val select: String
@@ -33,9 +33,9 @@ abstract class PropertyDefinition {
  */
 data class PropertyData(
 
-    override val description: String = "",
+    override val description: String? = null,
     override val default: JsonNode? = null,
-    override val type: TypeReference = TypeReference("string"),
+    override val type: TypeReference? = null,
     override val secret: Boolean = false,
     override val enum: List<JsonNode>? = null,
     override val select: String = "single",
@@ -60,9 +60,9 @@ data class PropertyData(
  */
 data class ParameterData(
 
-    override val description: String = "",
+    override val description: String? = null,
     override val default: JsonNode? = null,
-    override val type: TypeReference = TypeReference("string"),
+    override val type: TypeReference? = null,
     override val secret: Boolean = false,
     override val enum: List<JsonNode>? = null,
     override val select: String = "single",
@@ -85,12 +85,12 @@ data class ParameterData(
 
 fun PropertyData.resolveTypes(context: ScriptContext): PropertyData {
 
-    val actualType = type.resolveTypes(context)
+    val actualType = type?.resolveTypes(context)?.toTypeReference()
 
     return PropertyData(
         description = description,
         default = default,
-        type = TypeReference(actualType),
+        type = actualType,
         secret = secret,
         enum = enum,
         select = select,

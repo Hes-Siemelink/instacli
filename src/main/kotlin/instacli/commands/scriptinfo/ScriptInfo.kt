@@ -82,7 +82,7 @@ private fun handleInput(
             info.default != null -> info.default
 
             // Ask user
-            context.interactive -> info.prompt()
+            context.interactive -> info.prompt(name)
 
             else -> throw MissingParameterException(
                 "No value provided for: $name",

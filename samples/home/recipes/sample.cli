@@ -1,0 +1,24 @@
+Print:
+  name: Mango and coconut ice cream
+  vegetarian: true
+  ingredients:
+    - quantity: '2'
+      name: Mangos
+      type: Fruit
+    - quantity: 1 can
+      name: Coconut milk
+      type: Diary
+    - quantity: 1 can
+      name: Condensed milk
+      type: Diary
+    - quantity: 4 seeds
+      name: Cardamom
+      type: Condiments
+    - quantity: 2 tbsp
+      name: Sugar
+      type: Condiments
+  steps:
+    - Put everything in the blender and mix it twice in 'Smoothie' mode.
+    - Let it cool in the fridge for two hours
+    - Mix in ice cream maker for 20 minutes
+    - Freeze for 30 minutes, mix with hand mixer. Do this twice

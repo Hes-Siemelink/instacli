@@ -32,10 +32,12 @@ fun TypeReference.resolveTypes(context: ScriptContext): TypeDefinition {
         else -> {
             throw IllegalStateException("TypeReference must have either a name or a definition")
         }
-
     }
 }
 
+fun TypeDefinition.toTypeReference(): TypeReference {
+    return TypeReference(this)
+}
 
 class TypeReferenceDeserializer : JsonDeserializer<TypeReference>() {
     override fun deserialize(parser: JsonParser, context: DeserializationContext): TypeReference {

@@ -1,0 +1,6 @@
+Prompt:
+  description: Enter your name
+  type:
+    properties:
+      first_name: First name
+      last_name: Last name
