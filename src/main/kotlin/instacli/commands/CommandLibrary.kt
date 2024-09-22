@@ -20,6 +20,7 @@ import instacli.commands.userinteraction.PromptObject
 import instacli.commands.util.Base64Decode
 import instacli.commands.util.Base64Encode
 import instacli.commands.util.Print
+import instacli.commands.util.PrintJson
 import instacli.commands.util.Wait
 import instacli.commands.variables.As
 import instacli.commands.variables.Output
@@ -76,6 +77,7 @@ object CommandLibrary {
 
         // Util
         Print,
+        PrintJson,
         Wait,
         Base64Encode,
         Base64Decode,
