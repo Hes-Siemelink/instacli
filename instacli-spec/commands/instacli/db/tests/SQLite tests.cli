@@ -1,0 +1,93 @@
+Test case: Simple DB
+
+Shell: rm -f out/sample.db
+
+SQLite:
+  file: out/sample.db
+  update:
+    - create table users (id integer primary key, name text)
+    - insert into users (name) values ('Alice')
+  query: select * from users
+
+Expected output:
+  - id: 1
+    name: Alice
+
+---
+Test case: Simple DB with query
+
+Shell: rm -f out/sample.db
+
+SQLite:
+  file: out/sample.db
+  update:
+    - create table users (id integer primary key, name text, age integer)
+    - insert into users (name, age) values ('Alice', 16)
+    - insert into users (name, age) values ('Bob', 17)
+    - insert into users (name, age ) values ('Charlie', 18)
+  query: select name, age from users where age < 18
+
+Expected output:
+  - name: Alice
+    age: 16
+  - name: Bob
+    age: 17
+
+
+---
+Test case: Create JSON DB
+
+Shell: rm -f out/json_sample.db
+
+Json:
+  - greeting: Hello
+    language: English
+  - greeting: Hola
+    language: Spanish
+As: ${data}
+
+SQLite:
+  file: out/json_sample.db
+  update:
+    - create table json_data (id integer primary key, data TEXT)
+    - insert into json_data (data) values (json('${data}'))
+  query: select json(data) as data from json_data
+
+Expected output:
+  - data:
+      - greeting: Hello
+        language: English
+      - greeting: Hola
+        language: Spanish
+
+---
+Test case: Query multiple JSON entries
+
+Shell: rm -f out/json_sample.db
+
+Json:
+  - greeting: Hello
+    language: English
+  - greeting: Hola
+    language: Spanish
+As: ${data}
+
+SQLite:
+  file: out/json_sample.db
+  update:
+    - create table json_data (id integer primary key, data TEXT)
+    - insert into json_data (data) values (json('${data}'))
+    - insert into json_data (data) values (json('${data}'))
+  query: select json(data) as data from json_data
+
+Expected output:
+  - data:
+      - greeting: Hello
+        language: English
+      - greeting: Hola
+        language: Spanish
+  - data:
+      - greeting: Hello
+        language: English
+      - greeting: Hola
+        language: Spanish

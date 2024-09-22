@@ -14,6 +14,10 @@ object Json {
 
     val mapper: ObjectMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).registerKotlinModule()
 
+    fun newArray(): ArrayNode {
+        return ArrayNode(JsonNodeFactory.instance)
+    }
+
     fun newObject(): ObjectNode {
         return ObjectNode(JsonNodeFactory.instance)
     }

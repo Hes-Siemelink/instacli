@@ -3,6 +3,7 @@ package instacli.commands
 import instacli.commands.connections.*
 import instacli.commands.controlflow.*
 import instacli.commands.datamanipulation.*
+import instacli.commands.db.SQLite
 import instacli.commands.errors.ErrorCommand
 import instacli.commands.errors.OnError
 import instacli.commands.errors.OnErrorType
@@ -21,6 +22,7 @@ import instacli.commands.util.Base64Decode
 import instacli.commands.util.Base64Encode
 import instacli.commands.util.Print
 import instacli.commands.util.PrintJson
+import instacli.commands.util.ToJson
 import instacli.commands.util.Wait
 import instacli.commands.variables.As
 import instacli.commands.variables.Output
@@ -78,6 +80,7 @@ object CommandLibrary {
         // Util
         Print,
         PrintJson,
+        ToJson,
         Wait,
         Base64Encode,
         Base64Decode,
@@ -114,6 +117,9 @@ object CommandLibrary {
 
         // Types
         ValidateType,
+
+        // Database
+        SQLite
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
