@@ -1,5 +1,5 @@
 Print:
-  name: Mango and coconut ice cream
+  title: Mango and coconut ice cream
   vegetarian: true
   ingredients:
     - quantity: '2'

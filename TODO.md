@@ -55,6 +55,9 @@
     * Level 2: Nice to haves
     * Level 3: Edge cases
 * Improve slow startup
+    * Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
+    * Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
+    * Or rewrite as Go or TypeScript
 * Serialize more Kotlin like
 
 # Bugs

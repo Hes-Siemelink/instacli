@@ -1,7 +1,8 @@
 Recipe:
   base: object
   properties:
-    title: Title
+    title:
+      description: Title
     ingredients:
       description: Ingredients
       type:
