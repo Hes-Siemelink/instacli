@@ -2,8 +2,8 @@ group = "hes.instacli"
 version = "0.2.0-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") version "2.0.0"
-    kotlin("plugin.serialization") version "2.0.0"
+    kotlin("jvm") version "2.0.20"
+    kotlin("plugin.serialization") version "2.0.20"
 }
 
 kotlin {
@@ -33,6 +33,7 @@ dependencies {
     implementation("org.fusesource.jansi:jansi:2.4.0")
     implementation("com.lordcodes.turtle:turtle:0.8.0")
     implementation("io.javalin:javalin:6.1.+")
+    implementation("org.xerial:sqlite-jdbc:3.46.1.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
