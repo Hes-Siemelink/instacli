@@ -4,6 +4,7 @@ import instacli.commands.connections.*
 import instacli.commands.controlflow.*
 import instacli.commands.datamanipulation.*
 import instacli.commands.db.SQLite
+import instacli.commands.db.Store
 import instacli.commands.errors.ErrorCommand
 import instacli.commands.errors.OnError
 import instacli.commands.errors.OnErrorType
@@ -119,7 +120,8 @@ object CommandLibrary {
         ValidateType,
 
         // Database
-        SQLite
+        SQLite,
+        Store
     )
 
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {

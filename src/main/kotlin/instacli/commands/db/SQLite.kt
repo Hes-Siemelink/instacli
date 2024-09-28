@@ -31,13 +31,13 @@ object SQLite : CommandHandler("SQLite", "instacli/db"), ObjectHandler {
     }
 }
 
-private fun Connection.doUpdate(update: String) {
+fun Connection.doUpdate(update: String) {
     this.createStatement().use { statement ->
         statement.executeUpdate(update)
     }
 }
 
-private fun Connection.doQuery(query: String): List<Map<String, Any>> {
+fun Connection.doQuery(query: String): List<Map<String, Any>> {
     val results = mutableListOf<Map<String, Any>>()
     this.createStatement().use { statement ->
         statement.executeQuery(query).use { resultSet ->

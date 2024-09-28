@@ -13,6 +13,7 @@ import kotlin.reflect.KClass
 object Json {
 
     val mapper: ObjectMapper = ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT).registerKotlinModule()
+    val compactMapper: ObjectMapper = ObjectMapper().registerKotlinModule()
 
     fun newArray(): ArrayNode {
         return ArrayNode(JsonNodeFactory.instance)
@@ -58,6 +59,11 @@ fun <T : Any> T.updateWith(content: JsonNode): T {
 fun JsonNode?.toDisplayJson(): String {
     this ?: return ""
     return Json.mapper.writeValueAsString(this).trim()
+}
+
+fun JsonNode?.toCompactJson(): String {
+    this ?: return ""
+    return Json.compactMapper.writeValueAsString(this).trim()
 }
 
 abstract class JsonProcessor {

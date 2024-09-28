@@ -1,0 +1,44 @@
+Test case: Select with where clause
+
+Shell: rm -f out/json_sample.db
+
+Store:
+  file: out/json_sample.db
+  table: json_data
+  insert:
+    - greeting: Hello
+      language: English
+    - greeting: Hola
+      language: Spanish
+  query:
+    where: $.language = 'Spanish'
+
+Expected output:
+  - greeting: Hola
+    language: Spanish
+
+---
+Test case: Selected fields
+
+Shell: rm -f out/sample.db
+
+Store:
+  file: out/sample.db
+  table: users
+  insert:
+    - name: Alice
+      age: 16
+    - name: Bob
+      age: 17
+    - name: Charlie
+      age: 18
+  query:
+    select:
+      - name
+    where: $.age < 18
+
+Expected output:
+  - name: Alice
+  - name: Bob
+
+

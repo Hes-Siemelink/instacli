@@ -1,0 +1,56 @@
+Code example: Simple DB with schema
+
+Shell: rm -f out/sample.db
+
+Store:
+  db: out/sample.db
+  table: users
+  schema:
+    id: id
+    name: string
+    age: number
+  insert:
+    - name: Alice
+      age: 16
+    - name: Bob
+      age: 17
+    - name: Charlie
+      age: 18
+  query:
+    select:
+      - name
+      - age
+    where: age < 18
+
+Expected output:
+  - name: Alice
+    age: 16
+  - name: Bob
+    age: 17
+
+---
+Code example: Json DB with schema
+
+Shell: rm -f out/json_sample.db
+
+Store:
+  db: out/json_sample.db
+  table: json_data
+  schema:
+    id: id
+    data: object
+  insert:
+    data:
+      - greeting: Hello
+        language: English
+      - greeting: Hola
+        language: Spanish
+  query: all
+
+Expected output:
+  - data:
+      - greeting: Hello
+        language: English
+      - greeting: Hola
+        language: Spanish
+
