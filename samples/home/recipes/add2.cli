@@ -1,0 +1,10 @@
+Script info:
+  description: Adds a recipe
+  input type: Recipe
+
+---
+Store:
+  file: db/sample.db
+  table: recipes
+  insert:
+    - ${input}

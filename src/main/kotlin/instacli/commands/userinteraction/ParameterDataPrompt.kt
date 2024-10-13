@@ -6,10 +6,13 @@ import com.fasterxml.jackson.databind.node.BooleanNode.FALSE
 import com.fasterxml.jackson.databind.node.BooleanNode.TRUE
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.kinquirer.core.Choice
+import instacli.language.CommandFormatException
+import instacli.language.InstacliImplementationException
 import instacli.language.types.ObjectProperties
 import instacli.language.types.PropertyDefinition
 import instacli.language.types.TypeReference
 import instacli.util.Json
+import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 
 
@@ -72,10 +75,17 @@ private fun PropertyDefinition.promptByType(message: String, typeReference: Type
 
     val type = typeReference.definition ?: error("Unresolved type reference: ${typeReference.name}")
 
-    return type.properties?.promptObject() ?: error("Type has no properties: $type")
+    return when {
+        type.properties != null -> type.properties.promptObject()
+        type.listOf != null -> throw InstacliImplementationException(
+            "Type list not supported yet:\n${Yaml.mapper.writeValueAsString(type)}"
+        )
+
+        else -> throw CommandFormatException("Type not supported: $type")
+    }
 }
 
-private fun ObjectProperties.promptObject(): JsonNode? {
+private fun ObjectProperties.promptObject(): JsonNode {
 
     val answers = Json.newObject()
 

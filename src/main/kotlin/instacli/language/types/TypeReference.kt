@@ -21,7 +21,8 @@ data class TypeReference(
 fun TypeReference.resolveTypes(context: ScriptContext): TypeDefinition {
     return when {
         name != null -> {
-            (context.getType(name) ?: throw CliScriptingException("Type not found: $name")) as TypeDefinition
+            val type = (context.getType(name) ?: throw CliScriptingException("Type not found: $name")) as TypeDefinition
+            type.resolveTypes(context)
         }
 
         definition != null -> {

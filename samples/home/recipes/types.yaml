@@ -7,10 +7,12 @@ Recipe:
       description: Ingredients
       type:
         list of: Ingredient
-    steps: Steps
+    steps: string
 
 Ingredient:
   base: object
   properties:
-    name: Ingredient
-    quantity: Quantity
+    name:
+      description: Ingredient
+    quantity:
+      description: Quantity

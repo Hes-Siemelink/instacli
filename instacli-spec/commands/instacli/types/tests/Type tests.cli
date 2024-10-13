@@ -107,7 +107,7 @@ Validate type:
   type: Person
 
 Expected error:
-  Type validation: Validation should fail because the property name-x is not defined in the Person type
+  Type validation: Validation should fail because the property name is expected in the Person type
 
 ---
 Test case: Faulty list
@@ -120,4 +120,4 @@ Validate type:
     list of: Person
 
 Expected error:
-  Type validation: Validation should fail because the property name-x is not defined in the Person type
+  Type validation: Validation should fail because the property name is expected in the Person type

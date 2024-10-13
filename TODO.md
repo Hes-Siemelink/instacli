@@ -79,6 +79,7 @@
 * Run Release templates
 * Instacli as glue
     * Shell and pipe support
+    * https://www.gnu.org/software/bash/manual/bash.html
     * Database support (SQLite or something)
 
 # Blog topics

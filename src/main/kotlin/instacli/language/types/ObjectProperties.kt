@@ -39,14 +39,15 @@ data class ObjectProperties(
     override fun validate(data: JsonNode): List<String> {
         val messages = mutableListOf<String>()
 
-        for ((field, value) in data.fields()) {
-            if (field in properties.keys) {
+        for (field in properties.keys) {
+            if (data.has(field)) {
                 val parameter = properties[field]
+                val value = data[field]
                 parameter?.type?.definition?.let { type ->
                     messages.addAll(type.validate(value))
                 }
             } else {
-                messages.add("Unknown property: $field")
+                messages.add("Missing property: $field")
             }
         }
 

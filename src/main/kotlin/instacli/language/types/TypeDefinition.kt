@@ -10,7 +10,7 @@ import instacli.language.CommandFormatException
 import instacli.language.ScriptContext
 
 data class TypeDefinition(
-    val base: String? = "object",
+    val base: String? = null,
     val properties: ObjectProperties? = null,
     @JsonProperty("list of")
     val listOf: TypeReference? = null,

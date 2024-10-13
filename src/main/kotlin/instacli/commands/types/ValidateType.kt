@@ -28,9 +28,7 @@ private fun validate(data: JsonNode, type: Type) {
     val messages = type.validate(data)
 
     if (messages.isNotEmpty()) {
-        val validationErrors = messages.map {
-            TextNode(it)
-        }.toJson()
+        val validationErrors = messages.map { TextNode(it) }.toJson()
 
         throw InstacliCommandError("Type validation", "Type validation errors", validationErrors)
     }
@@ -43,11 +41,4 @@ private fun getType(typeData: JsonNode, context: ScriptContext): Type {
     val type = typeRef.resolveTypes(context)
 
     return type
-//    if (typeData is TextNode) {
-//        val typeName = typeData.textValue()
-//        return BuiltinTypes.types[typeName]
-//            ?: context.getType(typeName)
-//            ?: throw InstacliCommandError("Unknown type:  ${typeData.textValue()}")
-//    }
-//
 }

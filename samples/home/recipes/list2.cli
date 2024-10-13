@@ -1,0 +1,7 @@
+Script info: Shows list of recipes
+
+Store:
+  file: db/sample.db
+  table: recipes
+  query:
+    where: ""

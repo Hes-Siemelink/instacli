@@ -25,7 +25,7 @@ class MissingParameterException(
     InstacliLanguageException(message) {
 }
 
-class InstacliImplementationException(message: String, data: JsonNode? = null, cause: Throwable?) :
+class InstacliImplementationException(message: String, data: JsonNode? = null, cause: Throwable? = null) :
     InstacliLanguageException(message, data, cause)
 
 open class InstacliCommandError(message: String, val error: ErrorData = ErrorData(message = message)) :
