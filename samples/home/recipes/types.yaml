@@ -4,10 +4,11 @@ Recipe:
     title:
       description: Title
     ingredients:
-      description: Ingredients
+      description: List of ingredients
       type:
         list of: Ingredient
-    steps: string
+    steps:
+      description: Instructions
 
 Ingredient:
   base: object

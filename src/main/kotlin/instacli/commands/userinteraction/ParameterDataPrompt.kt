@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.BooleanNode.FALSE
 import com.fasterxml.jackson.databind.node.BooleanNode.TRUE
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import com.github.kinquirer.core.Choice
 import instacli.language.CommandFormatException
-import instacli.language.InstacliImplementationException
 import instacli.language.types.ObjectProperties
+import instacli.language.types.ParameterData
 import instacli.language.types.PropertyDefinition
 import instacli.language.types.TypeReference
 import instacli.util.Json
-import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 
 
@@ -75,11 +75,18 @@ private fun PropertyDefinition.promptByType(message: String, typeReference: Type
 
     val type = typeReference.definition ?: error("Unresolved type reference: ${typeReference.name}")
 
+    // Primitive types
+
     return when {
         type.properties != null -> type.properties.promptObject()
-        type.listOf != null -> throw InstacliImplementationException(
-            "Type list not supported yet:\n${Yaml.mapper.writeValueAsString(type)}"
-        )
+        type.listOf != null -> promptList(message, type.listOf)
+        type.base != null -> {
+            when (type.base) {
+                "boolean" -> return promptBoolean(message)
+                "string" -> return promptText(message)
+                else -> throw CommandFormatException("Base type not supported: ${type.base}")
+            }
+        }
 
         else -> throw CommandFormatException("Type not supported: $type")
     }
@@ -131,3 +138,28 @@ private fun JsonNode.onlyWith(field: String?): JsonNode {
 }
 
 
+private fun promptList(message: String, type: TypeReference): ArrayNode {
+    val list = Json.newArray()
+
+    val name = type.name ?: "item"
+    val add = TextNode("Add new $name")
+    val done = TextNode("Done")
+
+    while (true) {
+
+        val choice = ParameterData(
+            enum = listOf(add, done)
+        ).promptChoice(message)
+
+        if (choice == done) {
+            break
+        }
+
+        val item = ParameterData(
+            type = type
+        ).promptByType("Enter new item", type)
+        list.add(item)
+    }
+
+    return list
+}
