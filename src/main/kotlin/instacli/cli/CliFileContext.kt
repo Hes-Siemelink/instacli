@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
-import instacli.language.types.BuiltinTypes
 import instacli.language.types.Type
-import instacli.language.types.TypeDefinition
+import instacli.language.types.TypeSpecification
+import instacli.language.types.TypeRegistry
 import instacli.util.toDomainObject
 import java.nio.file.Files
 import java.nio.file.Path
@@ -59,8 +59,10 @@ class CliFileContext(
     private val importedFileCommands: Map<String, CliFile> by lazy { findImportedCommands() }
     private val subdirectoryCommands: Map<String, DirectoryInfo> by lazy { findSubcommands() }
 
-    private val types: MutableMap<String, Type> by lazy {
-        loadTypes()
+    override val types: TypeRegistry by lazy {
+        TypeRegistry().apply {
+            loadTypes(info)
+        }
     }
 
     override fun getCommandHandler(command: String): CommandHandler {
@@ -88,15 +90,6 @@ class CliFileContext(
 
         // No handler found for command
         throw CliScriptingException("Unknown command: $command")
-    }
-
-    override fun getType(name: String): Type? {
-        return BuiltinTypes.types[name]
-            ?: types[name]
-    }
-
-    override fun registerType(name: String, type: Type) {
-        types[name] = type
     }
 
     private fun findLocalFileCommands(): Map<String, CliFile> {
@@ -158,18 +151,17 @@ class CliFileContext(
         val command = asCliCommand(rawCommand)
         return subdirectoryCommands[command]
     }
+}
 
-    private fun loadTypes(): MutableMap<String, Type> {
-        val types = mutableMapOf<String, Type>()
-
-        // Load types from directory
-        for ((name, type) in info.types.fields()) {
-            types[name] = type.toDomainObject(TypeDefinition::class)
-        }
-
-        return types
+/**
+ * Load types from directory.
+ */
+private fun TypeRegistry.loadTypes(info: DirectoryInfo) {
+    for ((name, type) in info.types.fields()) {
+        registerType(Type(name, type.toDomainObject(TypeSpecification::class)))
     }
 }
+
 
 private fun Path.hasCliCommands(): Boolean {
     return Files.walk(this).anyMatch() { file ->

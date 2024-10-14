@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import instacli.language.types.ObjectDefinition
 import instacli.language.types.ParameterData
 import instacli.language.types.PropertyDefinition
-import instacli.language.types.TypeReference
+import instacli.language.types.TypeSpecification
 
 data class ScriptInfoData(
     val description: String? = null,
     val input: Map<String, ParameterData>? = null,
     @JsonProperty("input type")
-    val inputType: TypeReference? = null,
+    val inputType: TypeSpecification? = null,
     val hidden: Boolean = false,
     @JsonProperty("instacli-spec")
     val instacliSpec: String? = null
@@ -21,5 +21,5 @@ data class ScriptInfoData(
     constructor(textValue: String) : this(description = textValue)
 
     override val properties: Map<String, PropertyDefinition>
-        get() = input ?: inputType?.definition?.properties?.properties ?: emptyMap()
+        get() = input ?: inputType?.properties?.properties ?: emptyMap()
 }

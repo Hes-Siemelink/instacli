@@ -11,7 +11,7 @@ import instacli.language.CommandFormatException
 import instacli.language.types.ObjectProperties
 import instacli.language.types.ParameterData
 import instacli.language.types.PropertyDefinition
-import instacli.language.types.TypeReference
+import instacli.language.types.TypeSpecification
 import instacli.util.Json
 import instacli.util.toDisplayYaml
 
@@ -64,16 +64,15 @@ private fun PropertyDefinition.promptChoice(message: String, multiple: Boolean =
     return answer.onlyWith(valueProperty)
 }
 
-private fun PropertyDefinition.promptByType(message: String, typeReference: TypeReference): JsonNode {
+private fun PropertyDefinition.promptByType(message: String, type: TypeSpecification): JsonNode {
 
     // Primitive types
-    when (typeReference.name) {
+    when (type.name) {
         "boolean" -> return promptBoolean(message)
         "string" -> return promptText(message)
         // TODO support other primitive types
     }
 
-    val type = typeReference.definition ?: error("Unresolved type reference: ${typeReference.name}")
 
     // Primitive types
 
@@ -138,7 +137,7 @@ private fun JsonNode.onlyWith(field: String?): JsonNode {
 }
 
 
-private fun promptList(message: String, type: TypeReference): ArrayNode {
+private fun promptList(message: String, type: TypeSpecification): ArrayNode {
     val list = Json.newArray()
 
     val name = type.name ?: "item"

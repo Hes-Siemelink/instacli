@@ -3,7 +3,6 @@ package instacli.language.types
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.infoString
-import instacli.language.ScriptContext
 
 interface ObjectDefinition {
     val properties: Map<String, PropertyDefinition>
@@ -33,17 +32,17 @@ fun ObjectDefinition.toDisplayString(): String {
 
 data class ObjectProperties(
     @get:JsonAnyGetter
-    override val properties: Map<String, PropertyData> = mutableMapOf()
-) : Type, ObjectDefinition {
+    override val properties: Map<String, PropertySpecification> = mutableMapOf()
+) : ObjectDefinition {
 
-    override fun validate(data: JsonNode): List<String> {
+    fun validate(data: JsonNode): List<String> {
         val messages = mutableListOf<String>()
 
         for (field in properties.keys) {
             if (data.has(field)) {
                 val parameter = properties[field]
                 val value = data[field]
-                parameter?.type?.definition?.let { type ->
+                parameter?.type?.let { type ->
                     messages.addAll(type.validate(value))
                 }
             } else {
@@ -53,8 +52,4 @@ data class ObjectProperties(
 
         return messages
     }
-}
-
-fun ObjectProperties.resolveTypes(context: ScriptContext): ObjectProperties {
-    return ObjectProperties(properties.mapValues { it.value.resolveTypes(context) })
 }

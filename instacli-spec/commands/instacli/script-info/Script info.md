@@ -140,8 +140,8 @@ See [Prompt Properties](../user-interaction/Prompt.md#prompt-properties) for a f
 ## Variables and conditions
 
 You can define input depending on other input properties being set. The properties that are being referred to need to be
-defined before the property that is using them. You can to them as part of the `${input}` variable, for
-example `${input.otherVariable}`.
+defined before the property that is using them. You can to them as part of the `${input}` variable, for example
+`${input.otherVariable}`.
 
 This example uses the ${input.switch} to determine which variable will be part of the input. By setting `switch` to `a`,
 the `property-A` is set but not `property-B`.
@@ -223,8 +223,8 @@ Script info:
 
 You can define the input and output of a Script as types.
 
-First you need to define the types in the file, and then you can use them in the script. Types are defined in the
-file `types.yaml`, in the same directory as the script.
+First you need to define the types in the file, and then you can use them in the script. Types are defined in the file
+`types.yaml`, in the same directory as the script.
 
 ```yaml file:types.yaml
 FullName:
@@ -250,8 +250,7 @@ Code example: Define script input and output with types
 
 Script info:
   description: Get name details
-  input type:
-    type: FullName
+  input type: FullName
 ```
 
 <!-- yaml instacli after

@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.toCondition
-import instacli.language.ScriptContext
 
 abstract class PropertyDefinition {
 
     abstract val description: String?
     abstract val default: JsonNode?
-    abstract val type: TypeReference?
+    abstract val type: TypeSpecification?
     abstract val secret: Boolean
     abstract val enum: List<JsonNode>?
     abstract val select: String
@@ -31,11 +30,11 @@ abstract class PropertyDefinition {
 /**
  * Used in type definitions to define properties
  */
-data class PropertyData(
+data class PropertySpecification(
 
     override val description: String? = null,
     override val default: JsonNode? = null,
-    override val type: TypeReference? = null,
+    override val type: TypeSpecification? = null,
     override val secret: Boolean = false,
     override val enum: List<JsonNode>? = null,
     override val select: String = "single",
@@ -52,7 +51,22 @@ data class PropertyData(
 ) : PropertyDefinition() {
 
     @JsonCreator
-    constructor(textValue: String) : this(type = TypeReference(textValue)) // Defaults to type name reference
+    constructor(textValue: String) : this(type = TypeSpecification(textValue)) // Defaults to type name reference
+
+    fun withType(type: TypeSpecification?): PropertySpecification {
+        return PropertySpecification(
+            description = description,
+            default = default,
+            type = type,
+            secret = secret,
+            enum = enum,
+            select = select,
+            displayProperty = displayProperty,
+            valueProperty = valueProperty,
+            condition = condition,
+            shortOption = shortOption
+        )
+    }
 }
 
 /**
@@ -62,7 +76,7 @@ data class ParameterData(
 
     override val description: String? = null,
     override val default: JsonNode? = null,
-    override val type: TypeReference? = null,
+    override val type: TypeSpecification? = null,
     override val secret: Boolean = false,
     override val enum: List<JsonNode>? = null,
     override val select: String = "single",
@@ -80,23 +94,4 @@ data class ParameterData(
 
     @JsonCreator
     constructor(textValue: String) : this(description = textValue)  // Defaults to description
-}
-
-
-fun PropertyData.resolveTypes(context: ScriptContext): PropertyData {
-
-    val actualType = type?.resolveTypes(context)?.toTypeReference()
-
-    return PropertyData(
-        description = description,
-        default = default,
-        type = actualType,
-        secret = secret,
-        enum = enum,
-        select = select,
-        displayProperty = displayProperty,
-        valueProperty = valueProperty,
-        condition = condition,
-        shortOption = shortOption
-    )
 }

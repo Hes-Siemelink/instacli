@@ -5,8 +5,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.language.*
 import instacli.language.types.Type
-import instacli.language.types.TypeReference
-import instacli.language.types.resolveTypes
+import instacli.language.types.TypeSpecification
+import instacli.language.types.resolveWith
+import instacli.language.types.validate
 import instacli.util.*
 
 object ValidateType : CommandHandler("Validate type", "instacli/schema"), ObjectHandler {
@@ -25,7 +26,7 @@ object ValidateType : CommandHandler("Validate type", "instacli/schema"), Object
 
 private fun validate(data: JsonNode, type: Type) {
 
-    val messages = type.validate(data)
+    val messages = type.definition.validate(data)
 
     if (messages.isNotEmpty()) {
         val validationErrors = messages.map { TextNode(it) }.toJson()
@@ -36,9 +37,7 @@ private fun validate(data: JsonNode, type: Type) {
 
 private fun getType(typeData: JsonNode, context: ScriptContext): Type {
 
-    val typeRef = typeData.toDomainObject(TypeReference::class)
+    val type = typeData.toDomainObject(TypeSpecification::class)
 
-    val type = typeRef.resolveTypes(context)
-
-    return type
+    return type.resolveWith(context.types)
 }

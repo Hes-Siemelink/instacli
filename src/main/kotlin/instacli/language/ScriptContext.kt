@@ -3,6 +3,7 @@ package instacli.language
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.language.types.Type
+import instacli.language.types.TypeRegistry
 import instacli.util.Json
 import java.nio.file.Path
 
@@ -15,10 +16,9 @@ interface ScriptContext {
     val workingDir: Path
     val output: JsonNode?
     var error: InstacliCommandError?
+    val types: TypeRegistry
 
     fun getCommandHandler(command: String): CommandHandler
-    fun getType(name: String): Type?
-    fun registerType(name: String, type: Type)
     fun clone(): ScriptContext
 }
 

@@ -8,8 +8,8 @@ import instacli.commands.toCondition
 import instacli.commands.userinteraction.prompt
 import instacli.language.*
 import instacli.language.types.ObjectDefinition
-import instacli.language.types.TypeReference
-import instacli.language.types.resolveTypes
+import instacli.language.types.TypeSpecification
+import instacli.language.types.resolveWith
 import instacli.util.Json
 import instacli.util.toDomainObject
 
@@ -42,11 +42,11 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
 
 private fun handleInputType(
     providedInput: ObjectNode,
-    inputType: TypeReference,
+    inputType: TypeSpecification,
     context: ScriptContext
 ): ObjectNode {
 
-    val input = inputType.resolveTypes(context)
+    val input = inputType.resolveWith(context.types).definition
 
     if (input.properties != null) {
         handleInput(providedInput, input.properties, context)
