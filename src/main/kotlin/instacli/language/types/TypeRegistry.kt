@@ -23,82 +23,105 @@ class TypeRegistry {
     }
 }
 
-fun TypeSpecification.resolveWith(registry: TypeRegistry): Type {
-
-    return when {
-
-        name != null -> {
-            val type = (registry.getType(name) ?: throw CliScriptingException("Type not found: $name"))
-            Type(name, type.definition.resolveTypes(registry))
-        }
-
-        else -> {
-            Type("anonymous", this.resolveTypes(registry))
-        }
-    }
+fun TypeSpecification.resolve(registry: TypeRegistry): Type {
+    return Resolver(registry).resolve(this)
 }
 
-fun TypeSpecification.resolveTypes(registry: TypeRegistry): TypeSpecification {
+private class Resolver(val registry: TypeRegistry, val seen: MutableSet<String> = mutableSetOf()) {
 
-    return when {
+    fun resolve(type: TypeSpecification): Type {
+        return when {
 
-        base == Type.OBJECT || properties != null -> {
-            resolveObject(registry)
-        }
+            type.name != null -> {
+                val foundType =
+                    (registry.getType(type.name) ?: throw CliScriptingException("Type not found: ${type.name}"))
+                seen.add(type.name)
+                foundType.definition = resolveDefinition(foundType.definition)
+                foundType
+            }
 
-        base == Type.ARRAY || listOf != null -> {
-            resolveArray(registry)
-        }
-
-        base != null -> {
-            // Primitive type, no resolution needed
-            this
-        }
-
-        else -> {
-            throw IllegalStateException("Invalid type definition")
+            else -> {
+                Type("anonymous", resolveDefinition(type))
+            }
         }
     }
-}
 
-fun TypeSpecification.resolveObject(registry: TypeRegistry): TypeSpecification {
+    fun resolveDefinition(type: TypeSpecification): TypeSpecification {
 
-    val actualBase = base ?: Type.OBJECT
-    if (actualBase != Type.OBJECT) {
-        throw CommandFormatException("With properties defined on a type, base must be 'object', but was: '$base'")
+        return when {
+
+            type.base == Type.OBJECT || type.properties != null -> {
+                resolveObject(type)
+            }
+
+            type.base == Type.ARRAY || type.listOf != null -> {
+                resolveArray(type)
+            }
+
+            type.base != null -> {
+                // Primitive type, no resolution needed
+                type
+            }
+
+            else -> {
+                throw IllegalStateException("Invalid type definition")
+            }
+        }
     }
 
-    if (listOf != null) {
-        throw CommandFormatException("With properties defined on a type, 'list of' must not be defined")
+    fun resolveObject(type: TypeSpecification): TypeSpecification {
+
+        val actualBase = type.base ?: Type.OBJECT
+
+        // TODO Move validation somewhere else
+        if (actualBase != Type.OBJECT) {
+            throw CommandFormatException("With properties defined on a type, base must be 'object', but was: '${type.base}'")
+        }
+        if (type.listOf != null) {
+            throw CommandFormatException("With properties defined on a type, 'list of' must not be defined")
+        }
+
+        val resolvedProperties = resolveProperties(type.properties)
+
+        return TypeSpecification(base = actualBase, properties = resolvedProperties)
     }
 
-    val resolvedProperties = properties?.resolveTypes(registry) ?: ObjectProperties()
+    fun resolveArray(type: TypeSpecification): TypeSpecification {
+        val actualBase = type.base ?: Type.ARRAY
 
-    return TypeSpecification(base = actualBase, properties = resolvedProperties)
-}
+        // TODO Move validation somewhere else
+        if (actualBase != Type.ARRAY) {
+            throw CommandFormatException("With list defined on a type, base must be 'array', but was: '${type.base}'")
+        }
+        if (type.properties != null) {
+            throw CommandFormatException("With list defined on a type, 'properties' must not be defined")
+        }
 
-fun TypeSpecification.resolveArray(registry: TypeRegistry): TypeSpecification {
-    val actualBase = base ?: Type.ARRAY
-    if (actualBase != Type.ARRAY) {
-        throw CommandFormatException("With list defined on a type, base must be 'array', but was: '$base'")
+        val resolvedListOf = type.listOf?.resolve(registry)?.definition
+
+        return TypeSpecification(base = actualBase, listOf = resolvedListOf)
     }
 
-    if (properties != null) {
-        throw CommandFormatException("With list defined on a type, 'properties' must not be defined")
+
+    fun resolveProperties(obj: ObjectProperties?): ObjectProperties {
+        obj ?: return ObjectProperties()
+
+        return ObjectProperties(obj.properties.mapValues { resolveProperty(it.value) })
     }
 
-    val resolvedListOf = listOf?.resolveWith(registry)?.definition
+    fun resolveProperty(property: PropertySpecification): PropertySpecification {
 
-    return TypeSpecification(base = actualBase, listOf = resolvedListOf)
-}
+        if (property.type == null) {
+            return property
+        }
 
-fun ObjectProperties.resolveTypes(registry: TypeRegistry): ObjectProperties {
-    return ObjectProperties(properties.mapValues { it.value.resolveTypes(registry) })
-}
+        if (seen.contains(property.type.name)) {
+            val foundType = registry.getType(property.type.name!!)!!
+            return property.withType(foundType.definition)
+        }
 
-fun PropertySpecification.resolveTypes(registry: TypeRegistry): PropertySpecification {
+        val actualType = resolve(property.type).definition
 
-    val actualType = type?.resolveWith(registry)?.definition
-
-    return withType(actualType)
+        return property.withType(actualType)
+    }
 }

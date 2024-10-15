@@ -134,3 +134,15 @@ Validate type:
 
 Expected error:
   Type validation: Validation should fail because the property name is expected in the Person type
+
+---
+Test case: Recursive object
+
+Validate type:
+  item:
+    name: Alice
+    child:
+      name: Bob
+      child:
+        name: Charlie
+  type: Recursive Type

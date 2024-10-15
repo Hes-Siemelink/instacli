@@ -9,7 +9,7 @@ import instacli.commands.userinteraction.prompt
 import instacli.language.*
 import instacli.language.types.ObjectDefinition
 import instacli.language.types.TypeSpecification
-import instacli.language.types.resolveWith
+import instacli.language.types.resolve
 import instacli.util.Json
 import instacli.util.toDomainObject
 
@@ -46,7 +46,7 @@ private fun handleInputType(
     context: ScriptContext
 ): ObjectNode {
 
-    val input = inputType.resolveWith(context.types).definition
+    val input = inputType.resolve(context.types).definition
 
     if (input.properties != null) {
         handleInput(providedInput, input.properties, context)

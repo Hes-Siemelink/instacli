@@ -1,7 +1,7 @@
 package instacli.language.types
 
-class Type(val name: String, val definition: TypeSpecification = TypeSpecification(base = name)) {
-    
+class Type(val name: String, var definition: TypeSpecification = TypeSpecification(base = name)) {
+
     companion object {
         const val STRING = "string"
         const val BOOLEAN = "boolean"
