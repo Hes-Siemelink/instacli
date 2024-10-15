@@ -110,6 +110,19 @@ Expected error:
   Type validation: Validation should fail because the property name is expected in the Person type
 
 ---
+Test case: Optional property
+
+Validate type:
+  item:
+    name-x: Alice
+  type:
+    base: object
+    properties:
+      name:
+        type: string
+        optional: true
+
+---
 Test case: Faulty list
 
 Validate type:

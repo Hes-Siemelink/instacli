@@ -8,6 +8,7 @@ import instacli.commands.toCondition
 abstract class PropertyDefinition {
 
     abstract val description: String?
+    abstract val optional: Boolean
     abstract val default: JsonNode?
     abstract val type: TypeSpecification?
     abstract val secret: Boolean
@@ -33,6 +34,7 @@ abstract class PropertyDefinition {
 data class PropertySpecification(
 
     override val description: String? = null,
+    override val optional: Boolean = false,
     override val default: JsonNode? = null,
     override val type: TypeSpecification? = null,
     override val secret: Boolean = false,
@@ -56,6 +58,7 @@ data class PropertySpecification(
     fun withType(type: TypeSpecification?): PropertySpecification {
         return PropertySpecification(
             description = description,
+            optional = optional,
             default = default,
             type = type,
             secret = secret,
@@ -75,6 +78,7 @@ data class PropertySpecification(
 data class ParameterData(
 
     override val description: String? = null,
+    override val optional: Boolean = false,
     override val default: JsonNode? = null,
     override val type: TypeSpecification? = null,
     override val secret: Boolean = false,

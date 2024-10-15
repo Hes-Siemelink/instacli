@@ -38,14 +38,14 @@ data class ObjectProperties(
     fun validate(data: JsonNode): List<String> {
         val messages = mutableListOf<String>()
 
-        for (field in properties.keys) {
+        for ((field, definition) in properties) {
             if (data.has(field)) {
                 val parameter = properties[field]
                 val value = data[field]
                 parameter?.type?.let { type ->
                     messages.addAll(type.validate(value))
                 }
-            } else {
+            } else if (!definition.optional) {
                 messages.add("Missing property: $field")
             }
         }
