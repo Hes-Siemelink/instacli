@@ -16,10 +16,11 @@ object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, Delaye
 
     fun evaluate(data: ObjectNode, context: ScriptContext): JsonNode? {
 
-        val thenBranch = data.remove("then") ?: throw CommandFormatException("Expected field 'then'.")
-        val elseBranch: JsonNode? = data.remove("else")
+        val workingCopy = data.deepCopy()
+        val thenBranch = workingCopy.remove("then") ?: throw CommandFormatException("Expected field 'then'.")
+        val elseBranch: JsonNode? = workingCopy.remove("else")
 
-        val condition = data.resolve(context).toCondition()
+        val condition = workingCopy.resolve(context).toCondition()
 
         return if (condition.isTrue()) {
             thenBranch
