@@ -11,9 +11,10 @@ kotlin {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
-        url = uri("https://jitpack.io")
+        url = uri("https://repo1.maven.org")
     }
 }
 
