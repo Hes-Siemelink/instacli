@@ -2,7 +2,6 @@ package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.language.types.Type
 import instacli.language.types.TypeRegistry
 import instacli.util.Json
 import java.nio.file.Path

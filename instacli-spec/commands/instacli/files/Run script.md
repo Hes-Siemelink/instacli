@@ -1,6 +1,7 @@
 # Command: Run script
 
-Use **Run script** to run another Instacli script. See also [Instacli files as commands](Instacli files as commands.md)
+Use **Run script** to run another Instacli script. See
+also [Instacli files as commands](Instacli%20files%20as%20commands.md)
 
 | Content type | Supported |
 |--------------|-----------|

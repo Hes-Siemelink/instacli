@@ -81,7 +81,7 @@ class InstacliMain(
             }
         }
 
-        throw CliInvocationException("Could not find command: ${fileName}")
+        throw CliInvocationException("Could not find command: $fileName")
     }
 
     private fun invokeFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {
@@ -201,7 +201,7 @@ fun InstacliLanguageException.reportError(printStackTrace: Boolean) {
             System.err.print("\nCaused by: ")
             cause?.printStackTrace()
         } else {
-            System.err.println("\nCaused by: ${cause}")
+            System.err.println("\nCaused by: $cause")
         }
     }
 

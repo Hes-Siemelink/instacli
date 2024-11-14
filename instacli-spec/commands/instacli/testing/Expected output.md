@@ -12,8 +12,8 @@
 
 ## Basic usage
 
-**Expected output** is a shortcut for [Assert that](Assert that.md#object-equals) equality, comparing
-against `${output}`
+**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against
+`${output}`
 
 It works for simple values
 

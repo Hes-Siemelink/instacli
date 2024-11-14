@@ -81,8 +81,8 @@ private fun PropertyDefinition.promptByType(message: String, type: TypeSpecifica
         type.listOf != null -> promptList(message, type.listOf)
         type.base != null -> {
             when (type.base) {
-                "boolean" -> return promptBoolean(message)
-                "string" -> return promptText(message)
+                "boolean" -> promptBoolean(message)
+                "string" -> promptText(message)
                 else -> throw CommandFormatException("Base type not supported: ${type.base}")
             }
         }

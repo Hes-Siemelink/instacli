@@ -29,8 +29,8 @@ Hello world
 
 Instacli files are just Yaml.
 
-Instacli files have `.cli` file extension. Within Instacli, the convention is that `.yaml` files are for static data
-and `.cli` files are Instacli scripts that contain commands. Tip: Map your editor to recognize `.cli`
+Instacli files have `.cli` file extension. Within Instacli, the convention is that `.yaml` files are for static data and
+`.cli` files are Instacli scripts that contain commands. Tip: Map your editor to recognize `.cli`
 as `.yaml`.
 
 Instacli files being Yaml has its pros and cons.
@@ -196,7 +196,7 @@ Output:
 ```
 
 The output is stored in the `${output}` variable. When invoking instacli with the
-**[--output](Command%20line%20options.md#--output)** option, it will be printed:
+**[--output](../cli/Command%20line%20options.md#--output)** option, it will be printed:
 
 ```commandline cli
 cli --output hello.cli

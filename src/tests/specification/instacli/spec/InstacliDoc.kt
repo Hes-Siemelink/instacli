@@ -26,7 +26,7 @@ class InstacliDoc(val document: Path) {
                     }
 
                     YamlScriptAfter -> {
-                        if (scripts.size == 0) {
+                        if (scripts.isEmpty()) {
                             continue
                         }
                         scripts[scripts.size - 1] = scripts[scripts.size - 1] + "\n" + block.getContent()

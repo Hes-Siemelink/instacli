@@ -102,7 +102,7 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
 
 fun normalize(option: String): String {
     var index = 0
-    while (option.length > index + 1 && option.get(index) == '-') {
+    while (option.length > index + 1 && option[index] == '-') {
         index++
     }
     return option.substring(index)

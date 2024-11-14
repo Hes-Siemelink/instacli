@@ -483,7 +483,7 @@ Assert that:
 
 In fact, all tests for the Instacli language and commands are written in Instacli itself and can be found in the
 **[instacli-spec](instacli-spec)** directory, in the `tests` subfolders.. For example, take a look at
-the [tests for assertions](instacli-spec/commands/testing/tests/Assert%20tests.cli)
+the [tests for assertions](instacli-spec/commands/instacli/testing/tests/Assert%20tests.cli)
 
 ## Documenting Instacli
 

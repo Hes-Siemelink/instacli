@@ -7,24 +7,24 @@ class CliCommandLineOptionsTest {
 
     @Test
     fun noFlag() {
-        instacli.cli.noFlag("-home") shouldBe "home"
-        instacli.cli.noFlag("--home") shouldBe "home"
-        instacli.cli.noFlag("---home") shouldBe "home"
-        instacli.cli.noFlag("---home-dir") shouldBe "home-dir"
-        instacli.cli.noFlag("home-dir") shouldBe "home-dir"
+        noFlag("-home") shouldBe "home"
+        noFlag("--home") shouldBe "home"
+        noFlag("---home") shouldBe "home"
+        noFlag("---home-dir") shouldBe "home-dir"
+        noFlag("home-dir") shouldBe "home-dir"
     }
 
     @Test
     fun isFlag() {
-        instacli.cli.isFlag("-h") shouldBe true
-        instacli.cli.isFlag("--home") shouldBe true
-        instacli.cli.isFlag("home") shouldBe false
-        instacli.cli.isFlag("home-dir") shouldBe false
+        isFlag("-h") shouldBe true
+        isFlag("--home") shouldBe true
+        isFlag("home") shouldBe false
+        isFlag("home-dir") shouldBe false
     }
 
     @Test
     fun toParameterMap() {
-        instacli.cli.toParameterMap(
+        toParameterMap(
             listOf(
                 "--home",
                 "~",

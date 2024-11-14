@@ -88,8 +88,8 @@ Simple Instacli example scripts
 Hello, World!
 ```
 
-You can also run in [non-interactive mode](Command line options.md#--non-interactive). In that case the script will just
-print the list of available commands and exit.
+You can also run in [non-interactive mode](Command%20line%20options.md#--non-interactive). In that case the script will
+just print the list of available commands and exit.
 
 Once you know which script you want to execute, simply chain them as commands on the command line. For example, to
 execute the `greet.cli` script in the `basic` directory, do:

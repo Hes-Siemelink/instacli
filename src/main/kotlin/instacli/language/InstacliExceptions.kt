@@ -10,8 +10,7 @@ open class InstacliLanguageException(
     cause: Throwable? = null,
     var context: String? = null
 ) :
-    Exception(message, cause) {
-}
+    Exception(message, cause)
 
 class CommandFormatException(message: String) : InstacliLanguageException(message)
 
@@ -22,8 +21,7 @@ class MissingParameterException(
     val name: String,
     val parameters: ObjectDefinition
 ) :
-    InstacliLanguageException(message) {
-}
+    InstacliLanguageException(message)
 
 class InstacliImplementationException(message: String, data: JsonNode? = null, cause: Throwable? = null) :
     InstacliLanguageException(message, data, cause)

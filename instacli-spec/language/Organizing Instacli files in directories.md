@@ -166,7 +166,7 @@ Script info:
 ### Importing files from another directory
 
 Out-of-the-box, you
-can [call a script from within the same directory](Anatomy%20of%20Instacli%20files.md#calling-another-instacli-script)
+can [call a script from within the same directory](Organizing%20Instacli%20files%20in%20directories.md#calling-another-instacli-script)
 as a regular Instacli command.
 
 To call a script from another directory, you can import it in the `.instacli.yaml` file. This will import it for all

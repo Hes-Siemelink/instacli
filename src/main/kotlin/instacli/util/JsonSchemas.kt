@@ -12,7 +12,7 @@ object JsonSchemas {
     private val schemas = mutableMapOf<String, JsonSchema?>()
 
     val factory: JsonSchemaFactory = JsonSchemaFactory.getInstance(VersionFlag.V202012) {
-        it.schemaMappers() { schemaMappers ->
+        it.schemaMappers { schemaMappers ->
             schemaMappers.mapPrefix("https://instacli.spec.it/v1/commands", "classpath:commands")
         }
     }

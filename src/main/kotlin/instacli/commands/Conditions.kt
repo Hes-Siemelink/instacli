@@ -66,8 +66,8 @@ class Empty(private val node: JsonNode) : Condition {
     override fun isTrue(): Boolean =
         when (node) {
             is NullNode -> true
-            is ArrayNode -> node.isEmpty()
-            is ObjectNode -> node.isEmpty()
+            is ArrayNode -> node.isEmpty
+            is ObjectNode -> node.isEmpty
             is NumericNode -> node.asInt() == 0
             is ValueNode -> node.textValue() == null || node.textValue().isEmpty()
             else -> node.isEmpty

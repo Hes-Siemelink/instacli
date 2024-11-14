@@ -48,7 +48,7 @@ fun JsonNode.toPath(context: ScriptContext, directory: Path? = null): Path {
             } else if (contains("resource")) {
                 this["resource"].toPath(context, context.scriptDir)
             } else {
-                throw CliScriptingException("Expected either 'file' or 'resource' property.");
+                throw CliScriptingException("Expected either 'file' or 'resource' property.")
             }
         }
 

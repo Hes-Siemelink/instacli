@@ -165,7 +165,7 @@ fun remove(doc: JsonNode, path: String): JsonNode {
         doc.at(parentPath)
     }
 
-    if (parent.isMissingNode()) {
+    if (parent.isMissingNode) {
         throw IllegalArgumentException("Path does not exist: $path")
     }
 

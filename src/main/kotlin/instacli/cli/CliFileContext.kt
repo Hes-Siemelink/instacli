@@ -5,8 +5,8 @@ import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
 import instacli.language.types.Type
-import instacli.language.types.TypeSpecification
 import instacli.language.types.TypeRegistry
+import instacli.language.types.TypeSpecification
 import instacli.util.toDomainObject
 import java.nio.file.Files
 import java.nio.file.Path
@@ -164,7 +164,7 @@ private fun TypeRegistry.loadTypes(info: DirectoryInfo) {
 
 
 private fun Path.hasCliCommands(): Boolean {
-    return Files.walk(this).anyMatch() { file ->
+    return Files.walk(this).anyMatch { file ->
         !file.isDirectory() && file.name.endsWith(CLI_FILE_EXTENSION)
     }
 }

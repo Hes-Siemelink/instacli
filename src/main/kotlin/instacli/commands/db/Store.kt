@@ -47,9 +47,9 @@ private fun query(
     val select = if (command.query.select.isEmpty()) {
         "json"
     } else {
-        command.query.select.map { column ->
+        command.query.select.joinToString(", ") { column ->
             column.asJsonSelect()
-        }.joinToString(", ")
+        }
     }
     val where = command.query.where?.let {
         " where ${it.expandJsonColumns()}"
