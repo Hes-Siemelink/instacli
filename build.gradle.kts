@@ -57,7 +57,7 @@ testing {
             }
         }
 
-        val specificationTest by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("specificationTest") {
 
             dependencies {
                 implementation(project())
@@ -79,7 +79,7 @@ testing {
             }
         }
 
-        val integrationTest by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("integrationTest") {
 
             dependencies {
                 implementation(project())
