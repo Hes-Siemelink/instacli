@@ -1,0 +1,5 @@
+# Build system
+/.idea
+/.gradle
+/build
+/out

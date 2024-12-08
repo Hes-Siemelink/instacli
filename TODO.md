@@ -1,11 +1,13 @@
 # On my mind
 
+* Easyspec - as a base project
+
+# Actually build something
+
 * Home Recipes
     * Store stuff on file system with a construct like Connect to
     * Store stuff on sqlite using same construct
     * Edit lists
-* Add tests for samples
-    * Test script for a directory, using multiple commands
 
 # Installable artifact
 
@@ -15,9 +17,46 @@
 * Go?
 * Compile to WASM
 
+# Easyspec
+
+* Extract into a separate module:
+    * Markdown doc
+    * Cli tests
+    * Schema stuff
+    * Http server
+    * ...what's left not to extract?
+* Naming
+    * Easyspec
+    * Quickspec
+    * Spec.it
+    * Markdown Spec
+    * Markdown Spec With Yaml
+    * yamldownspec
+    * swym
+* Run Markdown from cli
+* Add tests for samples
+    * Test script for a directory, using multiple commands
+
+```
+easyspec
+   implementation
+     kotlin
+       src
+       gradle
+   spec
+     language
+     library (commands)
+   samples
+instacli
+  implementation
+  spec
+    cli
+    library
+  samples
+```
+
 # Instacli language
 
-* Run Markdown from cli
 * Configuring connections out of the box with packaged instacli scripts
 * Error reporting
     * Proper "StackTrace"
@@ -69,12 +108,6 @@
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
   explicitly. For example: content type, variable replacement yes/no, etc.
-* Spec.it - Extract into a separate module:
-    * Markdown doc
-    * Cli tests
-    * Schema stuff
-    * Http server
-    * ...what's left not to extract?
 * HouseApp
 * Run Release templates
 * Instacli as glue
