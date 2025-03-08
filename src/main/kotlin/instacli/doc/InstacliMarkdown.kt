@@ -1,15 +1,14 @@
-package instacli.spec
+package instacli.doc
 
-import instacli.util.addNotNull
 import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.io.path.readLines
 
-class InstacliDoc(val document: Path) {
+class InstacliMarkdown(val document: Path) {
 
     private val blocks = mutableListOf<Block>()
 
-    val codeExamples: List<String>
+    val instacliYamlBlocks: List<String>
         get() {
             val scripts = mutableListOf<String>()
             var beforeBuffer = ""
@@ -37,12 +36,9 @@ class InstacliDoc(val document: Path) {
         }
 
     val helperFiles: Map<String, String>
-        get() {
-            return blocks.filter { it.type == YamlFile }
-                .associate {
-                    (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent()
-                }
-        }
+        get() = blocks
+            .filter { it.type == YamlFile }
+            .associate { (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent() }
 
     val commandExamples: List<CommandExample>
         get() {
@@ -51,8 +47,8 @@ class InstacliDoc(val document: Path) {
             for (block in blocks) {
                 when (block.type) {
                     CommandInvocation -> {
-                        commands.addNotNull(currentCommand)
                         currentCommand = CommandExample(block.getContent(), directory = block.getDirectory()?.toPath())
+                        commands.add(currentCommand)
                     }
 
                     CommandInput -> {
@@ -64,7 +60,6 @@ class InstacliDoc(val document: Path) {
                     }
                 }
             }
-            commands.addNotNull(currentCommand)
 
             return commands
         }
@@ -98,25 +93,29 @@ class InstacliDoc(val document: Path) {
             MainText // Should be last
         )
 
-        fun scan(document: Path): InstacliDoc {
+        fun scan(document: Path): InstacliMarkdown {
 
-            val doc = InstacliDoc(document)
+            val doc = InstacliMarkdown(document)
             var currentBlock = doc.addBlock(MainText)
             for (line in document.readLines()) {
-                if (currentBlock.type == MainText) {
-                    val startBlockType = blockTypes.firstOrNull {
-                        line.startsWith(it.firstLinePrefix)
+                when {
+                    currentBlock.type == MainText -> {
+                        val startBlockType = blockTypes.firstOrNull {
+                            line.startsWith(it.firstLinePrefix)
+                        }
+
+                        if (startBlockType == null || startBlockType == MainText) {
+                            currentBlock.lines.add(line)
+                        } else {
+                            currentBlock = doc.addBlock(startBlockType, line)
+                        }
                     }
 
-                    if (startBlockType == null || startBlockType == MainText) {
-                        currentBlock.lines.add(line)
-                    } else {
-                        currentBlock = doc.addBlock(startBlockType, line)
-                    }
-                } else {
-                    if (line.startsWith(currentBlock.type.lastLinePrefix)) {
+                    line.startsWith(currentBlock.type.lastLinePrefix) -> {
                         currentBlock = doc.addBlock(MainText)
-                    } else {
+                    }
+
+                    else -> {
                         currentBlock.lines.add(line)
                     }
                 }
@@ -130,6 +129,7 @@ class InstacliDoc(val document: Path) {
 private fun String.toPath(): Path {
     return Path.of(this)
 }
+
 
 open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: String = "```")
 

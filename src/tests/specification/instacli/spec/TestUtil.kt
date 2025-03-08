@@ -13,6 +13,8 @@ import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.commands.userinteraction.TestPrompt
 import instacli.commands.userinteraction.UserPrompt
+import instacli.doc.CommandExample
+import instacli.doc.InstacliMarkdown
 import instacli.language.*
 import instacli.util.IO
 import instacli.util.Yaml
@@ -124,14 +126,14 @@ fun Path.getCodeExamples(): List<DynamicNode> {
     if (isDirectory()) {
         val documents = Files.walk(this).filter { it.name.endsWith(".md") }
         return documents.map { doc ->
-            dynamicContainer(doc.name, InstacliDoc.scan(doc).getCodeExamples())
+            dynamicContainer(doc.name, InstacliMarkdown.scan(doc).getCodeExamples())
         }.toList()
     } else {
-        return InstacliDoc.scan(this).getCodeExamples()
+        return InstacliMarkdown.scan(this).getCodeExamples()
     }
 }
 
-private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
+private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
 
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
@@ -148,7 +150,7 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
     }
 
     // Generate tests
-    val codeExampleTests = codeExamples
+    val instacliTests = instacliYamlBlocks
         .map {
             Script.from(it).toTest(document, CliFileContext(testDir), credentials)
         }
@@ -157,7 +159,7 @@ private fun InstacliDoc.getCodeExamples(): List<DynamicTest> {
         it.toTest(document, dir)
     }
 
-    return codeExampleTests + cliInvocationTests
+    return instacliTests + cliInvocationTests
 }
 
 private fun Script.toTest(document: Path, context: ScriptContext, credentials: CredentialsFile): DynamicTest {

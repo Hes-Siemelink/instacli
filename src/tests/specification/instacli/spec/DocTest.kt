@@ -2,6 +2,8 @@ package instacli.spec
 
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.InstacliMain
+import instacli.doc.CommandExample
+import instacli.doc.InstacliMarkdown
 import instacli.util.IO
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
@@ -13,13 +15,13 @@ val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("language/Writing Instacli docu
 
 class DocTest {
 
-    private val doc = InstacliDoc.scan(REFERENCE_DOC)
+    private val doc = InstacliMarkdown.scan(REFERENCE_DOC)
 
     @Test
     fun `Code examples`() {
-        doc.codeExamples.size shouldBe 4
-        doc.codeExamples[0] shouldContain "Code example: An Instacli snippet inside Markdown"
-        doc.codeExamples[2] shouldContain "Stock answers:"
+        doc.instacliYamlBlocks.size shouldBe 4
+        doc.instacliYamlBlocks[0] shouldContain "Code example: An Instacli snippet inside Markdown"
+        doc.instacliYamlBlocks[2] shouldContain "Stock answers:"
     }
 
     @Test
