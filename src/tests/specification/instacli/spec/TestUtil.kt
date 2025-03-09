@@ -1,10 +1,7 @@
 package instacli.spec
 
 import com.fasterxml.jackson.databind.node.ObjectNode
-import instacli.cli.CliFile
-import instacli.cli.CliFileContext
-import instacli.cli.InstacliMain
-import instacli.cli.reportError
+import instacli.cli.*
 import instacli.commands.connections.Credentials
 import instacli.commands.connections.CredentialsFile
 import instacli.commands.connections.setCredentials
@@ -124,7 +121,7 @@ fun Script.getText(commandHandler: CommandHandler): String {
 
 fun Path.getCodeExamples(): List<DynamicNode> {
     if (isDirectory()) {
-        val documents = Files.walk(this).filter { it.name.endsWith(".md") }
+        val documents = Files.walk(this).filter { it.name.endsWith(CLI_MARKDOWN_EXTENSION) }
         return documents.map { doc ->
             dynamicContainer(doc.name, InstacliMarkdown.scan(doc).getCodeExamples())
         }.toList()

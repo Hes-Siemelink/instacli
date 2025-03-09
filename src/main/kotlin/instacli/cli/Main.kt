@@ -193,7 +193,7 @@ class InstacliMain(
 }
 
 fun getCliFile(file: Path): CliFile {
-    if (file.name.endsWith("md")) {
+    if (file.name.endsWith(CLI_MARKDOWN_EXTENSION)) {
         val script = Script.from(
             InstacliMarkdown.scan(file).instacliYamlBlocks.map { Yaml.parse(it) }
         )
