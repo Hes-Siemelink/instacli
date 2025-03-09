@@ -22,17 +22,11 @@ class CliFile(
     override fun execute(data: JsonNode, context: ScriptContext): JsonNode? {
         val input = mutableMapOf(INPUT_VARIABLE to data)
         val localContext = CliFileContext(cliFile, context, variables = input)
-        return run(localContext)
+
+        return script.run(localContext)
     }
 
     fun run(context: ScriptContext = CliFileContext(cliFile)): JsonNode? {
-        return try {
-            script.runScript(context)
-        } catch (a: Break) {
-            a.output
-        } catch (e: InstacliLanguageException) {
-            e.context = context.cliFile.name
-            throw e
-        }
+        return script.run(context)
     }
 }

@@ -6,6 +6,6 @@ import instacli.language.*
 
 object Do : CommandHandler("Do", "instacli/control-flow"), ObjectHandler, DelayedResolver {
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return data.runScript(context)
+        return data.run(context)
     }
 }

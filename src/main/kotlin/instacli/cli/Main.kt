@@ -96,7 +96,7 @@ class InstacliMain(
 
         context.addInputVariables(options.commandParameters)
 
-        val output = cliFile.run(context)
+        val output = cliFile.script.run(context)
 
         when (options.printOutput) {
             YAML -> this.output.printOutput(output.toDisplayYaml())

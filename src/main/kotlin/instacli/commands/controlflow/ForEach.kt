@@ -33,7 +33,7 @@ object ForEach : CommandHandler("For each", "instacli/control-flow"), ObjectHand
             val copy = body.deepCopy()
 
             // Execute
-            val result = copy.runScript(context)
+            val result = copy.run(context)
 
             result?.let {
                 when (output) {

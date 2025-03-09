@@ -17,12 +17,12 @@ object When : CommandHandler("When", "instacli/control-flow"), ArrayHandler, Del
 
             //  'else' matches first, so make sure it is the last entry
             ifStatement.get("else")?.let { elseBranch ->
-                return elseBranch.runScript(context)
+                return elseBranch.run(context)
             }
 
             // Execute matching 'if' and exit
             If.evaluate(ifStatement, context)?.let { branch ->
-                return branch.runScript(context)
+                return branch.run(context)
             }
         }
         return null

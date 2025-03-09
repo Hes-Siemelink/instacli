@@ -21,7 +21,7 @@ object OnError : CommandHandler("On error", "instacli/errors"), ObjectHandler, D
         context.variables["error"] = Yaml.mapper.valueToTree(error.error)
         context.error = null
 
-        errorHandlingSection.runScript(context)
+        errorHandlingSection.run(context)
 
         context.variables.remove("error")
     }

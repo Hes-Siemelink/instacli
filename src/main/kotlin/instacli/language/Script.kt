@@ -5,6 +5,7 @@ import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.scriptinfo.ScriptInfoData
 import instacli.util.Yaml
 import instacli.util.toDomainObject
+import kotlin.io.path.name
 
 data class Command(val name: String, val data: JsonNode)
 
@@ -14,7 +15,18 @@ class Script(val commands: List<Command>) {
         getScriptInfo()
     }
 
-    fun runScript(context: ScriptContext): JsonNode? {
+    fun run(context: ScriptContext): JsonNode? {
+        return try {
+            runCommands(context)
+        } catch (a: Break) {
+            a.output
+        } catch (e: InstacliLanguageException) {
+            e.context = e.context ?: context.cliFile.name
+            throw e
+        }
+    }
+
+    fun runCommands(context: ScriptContext): JsonNode? {
         var output: JsonNode? = null
 
         for (command in commands) {
@@ -65,8 +77,8 @@ private fun toCommandList(scriptNode: JsonNode): List<Command> {
     return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
 }
 
-fun JsonNode.runScript(context: ScriptContext): JsonNode? {
-    return Script.from(this).runScript(context)
+fun JsonNode.run(context: ScriptContext): JsonNode? {
+    return Script.from(this).runCommands(context)
 }
 
 class Break(val output: JsonNode) : Exception()

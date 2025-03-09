@@ -11,7 +11,7 @@ object If : CommandHandler("If", "instacli/control-flow"), ObjectHandler, Delaye
 
         val branch = evaluate(data, context)
 
-        return branch?.runScript(context)
+        return branch?.run(context)
     }
 
     fun evaluate(data: ObjectNode, context: ScriptContext): JsonNode? {

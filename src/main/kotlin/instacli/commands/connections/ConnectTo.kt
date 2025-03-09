@@ -26,7 +26,7 @@ object ConnectTo : CommandHandler("Connect to", "instacli/connections"), ValueHa
             }
 
             else -> {
-                return connectScript.runScript(context)
+                return connectScript.run(context)
             }
         }
     }

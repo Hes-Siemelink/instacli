@@ -13,7 +13,7 @@ object Repeat : CommandHandler("Repeat", "instacli/control-flow"), ObjectHandler
 
         var finished = false
         while (!finished) {
-            val result = data.deepCopy().runScript(context) ?: context.output
+            val result = data.deepCopy().run(context) ?: context.output
 
             if (until is ObjectNode) {
                 val conditon = until.deepCopy().resolve(context).toCondition()

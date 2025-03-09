@@ -60,7 +60,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
         dynamicTest(script.getText(TestCase), cliFile.toUri()) {
             context.error = null
             try {
-                script.runScript(context)
+                script.run(context)
             } catch (a: Break) {
                 a.output
             } catch (e: InstacliCommandError) {
@@ -166,7 +166,7 @@ private fun Script.toTest(document: Path, context: ScriptContext, credentials: C
 
     return dynamicTest(getText(CodeExample), document.toUri()) {
         try {
-            runScript(context)
+            run(context)
         } catch (a: Break) {
             a.output
         } catch (e: InstacliCommandError) {

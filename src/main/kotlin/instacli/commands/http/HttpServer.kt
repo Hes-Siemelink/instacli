@@ -93,12 +93,12 @@ private fun handleRequest(
             }
 
             data.script != null -> {
-                data.script.runScript(localContext)
+                data.script.run(localContext)
             }
 
             data.file != null -> {
-                val script = localContext.scriptDir.resolve(data.file)
-                CliFile(script).run(localContext)
+                val file = localContext.scriptDir.resolve(data.file)
+                CliFile(file).run(localContext)
             }
 
             else -> {
