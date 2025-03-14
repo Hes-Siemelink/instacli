@@ -1,6 +1,8 @@
 # On my mind
 
 * Easyspec - as a base project
+* Support markdown cli everywhere
+* Pass strings to scripts (check)
 
 # Actually build something
 
@@ -81,6 +83,12 @@ instacli
       into code'.
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
+* New command: User confirmation; for simple Yes/no prompts
+* Shell command:
+    * options to echo command
+    * options to echo stdout and stderr.
+    * Option to mask secrets
+    * Pass environment variables
 
 # Code improvements
 

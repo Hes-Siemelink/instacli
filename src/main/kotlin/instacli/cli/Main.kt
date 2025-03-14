@@ -231,6 +231,9 @@ fun InstacliCommandError.reportError() {
     if (message != error.message) {
         System.err.println(error.message)
     }
-    val details = Json.newObject().set<JsonNode>(error.type, error.data)
-    System.err.println(details.toDisplayYaml())
+
+    if (error.data != null) {
+        val details = Json.newObject().set<JsonNode>(error.type, error.data)
+        System.err.println(details.toDisplayYaml())
+    }
 }

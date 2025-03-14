@@ -70,8 +70,8 @@ The default value is a suggestion that is printed but can be overwritten by the 
 
 ## Asking for a password
 
-When asking for a password, the user prompt will mask the input that the user is typing in if you indicate it to
-have `secret: true`.
+When asking for a password, the user prompt will mask the input that the user is typing in if you indicate it to have
+`secret: true`.
 
 <!-- yaml instacli before
 Stock answers:
