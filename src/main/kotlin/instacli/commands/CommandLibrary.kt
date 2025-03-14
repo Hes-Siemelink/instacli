@@ -17,14 +17,10 @@ import instacli.commands.schema.ValidateType
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.shell.Shell
 import instacli.commands.testing.*
+import instacli.commands.userinteraction.Confirm
 import instacli.commands.userinteraction.Prompt
 import instacli.commands.userinteraction.PromptObject
-import instacli.commands.util.Base64Decode
-import instacli.commands.util.Base64Encode
-import instacli.commands.util.Print
-import instacli.commands.util.PrintJson
-import instacli.commands.util.ToJson
-import instacli.commands.util.Wait
+import instacli.commands.util.*
 import instacli.commands.variables.As
 import instacli.commands.variables.Output
 import instacli.language.CommandHandler

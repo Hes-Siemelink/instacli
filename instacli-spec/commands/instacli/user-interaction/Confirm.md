@@ -16,13 +16,13 @@ With **Confirmation**, you can ask the user a question.
 
 <!-- yaml instacli before
 Stock answers:
-  Continue: "Yes"
+  Do you want to continue?: "Yes"
 -->
 
 ```yaml instacli
 Code example: Simple confirmation message
 
-Confirm: Continue
+Confirm: Do you want to continue?
 
 Print: Thank you for confirming!
 ```
