@@ -30,7 +30,7 @@ object Confirm : CommandHandler("Confirm", "instacli/user-interaction"), ValueHa
         val answer = confirmationDialog.prompt()
 
         if (answer == no) {
-            throw InstacliCommandError("No confirmation -- stopping.")
+            throw InstacliCommandError("No confirmation -- action canceled.")
         }
 
         return answer

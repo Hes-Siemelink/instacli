@@ -3,6 +3,7 @@
 * Easyspec - as a base project
 * Support markdown cli everywhere
 * Pass strings to scripts (check)
+* AI to generate scripts
 
 # Actually build something
 

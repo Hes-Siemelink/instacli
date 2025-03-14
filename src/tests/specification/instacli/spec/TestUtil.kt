@@ -46,7 +46,7 @@ fun Path.getTestCases(): List<DynamicNode> {
  * Gets all individual test cases in a script file as a dynamic tests.
  */
 fun CliFile.getTestCases(): List<DynamicTest> {
-    val context = CliFileContext(cliFile)
+    val context = CliFileContext(file)
 
     val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
 
@@ -57,7 +57,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
     context.setCredentials(credentials)
 
     return script.getTestCases().map { script ->
-        dynamicTest(script.getText(TestCase), cliFile.toUri()) {
+        dynamicTest(script.getText(TestCase), file.toUri()) {
             context.error = null
             try {
                 script.run(context)
@@ -121,7 +121,7 @@ fun Script.getText(commandHandler: CommandHandler): String {
 
 fun Path.getCodeExamples(): List<DynamicNode> {
     if (isDirectory()) {
-        val documents = Files.walk(this).filter { it.name.endsWith(CLI_MARKDOWN_EXTENSION) }
+        val documents = Files.walk(this).filter { it.name.endsWith(MARKDOWN_EXTENSION) }
         return documents.map { doc ->
             dynamicContainer(doc.name, InstacliMarkdown.scan(doc).getCodeExamples())
         }.toList()

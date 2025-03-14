@@ -3,11 +3,9 @@ package instacli.cli
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.OutputOption.JSON
 import instacli.cli.OutputOption.YAML
-import instacli.doc.InstacliMarkdown
 import instacli.language.*
 import instacli.language.types.toDisplayString
 import instacli.util.Json
-import instacli.util.Yaml
 import instacli.util.toDisplayJson
 import instacli.util.toDisplayYaml
 import java.nio.file.Path
@@ -64,7 +62,7 @@ class InstacliMain(
         if (file.isDirectory()) {
             invokeDirectory(file, options.commands.drop(1), context, options)
         } else {
-            val cliFile = getCliFile(file)
+            val cliFile = CliFile(file)
             invokeFile(cliFile, context, options)
         }
     }
@@ -190,16 +188,6 @@ class InstacliMain(
             return 0
         }
     }
-}
-
-fun getCliFile(file: Path): CliFile {
-    if (file.name.endsWith(CLI_MARKDOWN_EXTENSION)) {
-        val script = Script.from(
-            InstacliMarkdown.scan(file).instacliYamlBlocks.map { Yaml.parse(it) }
-        )
-        return CliFile(file, script)
-    }
-    return CliFile(file)
 }
 
 fun InstacliLanguageException.reportError(printStackTrace: Boolean) {
