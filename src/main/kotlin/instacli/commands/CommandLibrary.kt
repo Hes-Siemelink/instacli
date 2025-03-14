@@ -64,6 +64,7 @@ object CommandLibrary {
         OnErrorType,
 
         // User interaction
+        Confirm,
         Prompt,
         PromptObject,
 
