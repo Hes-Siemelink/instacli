@@ -33,3 +33,23 @@ This will ask for user input on the command line:
 ? Do you want to continue? Yes
 Thank you for confirming!
 ```
+
+## Handling rejection
+
+When a user says no, the **Confirm** command will raise on error. You can catch this error with an `On error` block.
+
+<!-- yaml instacli before
+Stock answers:
+  Are you sure?: "No"
+-->
+
+```yaml instacli
+Code example: Not confirmed
+
+Confirm: Are you sure?
+
+On error:
+  Exit: Not confirmed
+
+Expected output: Script will not reach this point
+```
