@@ -35,14 +35,14 @@ object IO {
         }
     }
 
-    private fun rewireSystemOut(): Pair<PrintStream, ByteArrayOutputStream> {
+    fun rewireSystemOut(): Pair<PrintStream, ByteArrayOutputStream> {
         val original = System.out
         val capturedOutput = ByteArrayOutputStream()
         System.setOut(PrintStream(capturedOutput))
         return Pair(original, capturedOutput)
     }
 
-    private fun rewireSystemErr(): Pair<PrintStream, ByteArrayOutputStream> {
+    fun rewireSystemErr(): Pair<PrintStream, ByteArrayOutputStream> {
         val original = System.err
         val capturedOutput = ByteArrayOutputStream()
         System.setErr(PrintStream(capturedOutput))

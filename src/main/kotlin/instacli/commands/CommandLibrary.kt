@@ -41,6 +41,7 @@ object CommandLibrary {
         CodeExample,
         AssertEquals,
         AssertThat,
+        ExpectedConsoleOutput,
         ExpectedOutput,
         ExpectedError,
         StockAnswers,
