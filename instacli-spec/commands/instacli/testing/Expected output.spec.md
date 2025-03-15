@@ -18,7 +18,7 @@
 It works for simple values
 
 ```yaml instacli
-Code example: Expect output to be a simpel value
+Code example: Expect output to be a simple value
 
 Output: one
 

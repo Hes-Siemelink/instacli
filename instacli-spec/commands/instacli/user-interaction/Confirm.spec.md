@@ -8,7 +8,7 @@
 | List         | no        |
 | Object       | no        |
 
-[Prompt.schema.yaml](schema/Prompt.schema.yaml)
+[Confirm.schema.yaml](schema/Confirm.schema.yaml)
 
 ## Basic usage
 
