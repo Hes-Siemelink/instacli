@@ -21,7 +21,7 @@ cli hello-world.cli
 
 And get the expected output:
 
-```cli output
+```output
 Hello world
 ```
 
@@ -63,7 +63,7 @@ Print: Hello ${output}!
 
 When storing this in a file `prompt.cli` and running it with the following command,
 
-<!-- cli input
+<!-- input
 What is your name?: Hes
 -->
 
@@ -73,7 +73,7 @@ cli prompt.cli
 
 you would get the following:
 
-```cli output
+```output
 ? What is your name? Hes
 Hello Hes!
 ```
@@ -140,7 +140,7 @@ When running it with the `--help` flag, the description is printed:
 cli --help simple-greeting.cli
 ```
 
-```cli output
+```output
 Prints a simple greeting
 ```
 
@@ -163,7 +163,7 @@ It has input parameter `name`:
 cli --help greeting.cli
 ```
 
-```cli output
+```output
 Prints a personalized greeting
 
 Options:
@@ -176,7 +176,7 @@ And you can invoke it as follows.
 cli greeting.cli --name Bob
 ```
 
-```cli output
+```output
 Hello Bob!
 ```
 
@@ -202,7 +202,7 @@ The output is stored in the `${output}` variable. When invoking instacli with th
 cli --output hello.cli
 ```
 
-```cli output
+```output
 a: one
 b: two
 c: three

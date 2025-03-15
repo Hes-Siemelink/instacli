@@ -149,7 +149,7 @@ To show how to invoke the command line `cli` command, use the following syntax:
 
 Then followed by a block that contains the output:
 
-    ```cli output
+    ```output
     Instacli -- Instantly create CLI applications with light scripting!
     
     Usage:
@@ -161,7 +161,7 @@ Then followed by a block that contains the output:
 Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
 like  [Stock answers](../commands/instacli/testing/Stock%20answers.md)
 
-    <!-- cli input
+    <!-- input
     Enter your name: Hes
     Select a language: English
     -->
@@ -180,7 +180,7 @@ Followed by:
 
 ---
 
-```cli output
+```output
 Instacli -- Instantly create CLI applications with light scripting!
 
 Usage:

@@ -206,7 +206,7 @@ It is not included in the directory listing:
 cli --help .
 ```
 
-```cli output
+```output
 No commands available.
 ```
 

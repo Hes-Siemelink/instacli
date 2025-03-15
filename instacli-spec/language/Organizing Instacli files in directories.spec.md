@@ -22,7 +22,7 @@ to see some more descriptions
 cli --help basic
 ```
 
-```cli output
+```output
 Simple Instacli example scripts
 
 Available commands:
@@ -41,7 +41,7 @@ cli basic greet
 
 With the expected output:
 
-```cli output
+```output
 Hello, World!
 ```
 
@@ -133,7 +133,7 @@ The information is printed when displaying help for the directory:
 cli --help .
 ```
 
-```cli output
+```output
 This is an example directory
 
 Available commands:

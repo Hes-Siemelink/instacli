@@ -10,7 +10,7 @@ When running `cli` or `cli --help`, the global options will be printed
 cli
 ```
 
-```cli output
+```output
 Instacli -- Instantly create CLI applications with light scripting!
 
 Usage:
@@ -43,7 +43,7 @@ cli hello.cli
 
 And you will see this output:
 
-```cli output
+```output
 Hello from Instacli!
 ```
 
@@ -53,7 +53,7 @@ You can omit the `.cli` extension to make it look more like a "cli command":
 cli hello
 ```
 
-```cli output
+```output
 Hello from Instacli!
 ```
 
@@ -100,7 +100,7 @@ cli basic greet
 
 This will give the expected output:
 
-```cli output
+```output
 Hello, World!
 ```
 
@@ -114,7 +114,7 @@ Some scripts take input. Use the [--help](Command%20line%20options.md#--help) op
 cli --help basic greet
 ```
 
-```cli output
+```output
 Prints a greeting
 
 Options:
@@ -129,7 +129,7 @@ cli basic greet --name Alice
 
 This will print:
 
-```cli output
+```output
 Hello, Alice!
 ```
 
@@ -150,7 +150,7 @@ cli basic create-greeting --name Bob
 
 The output is empty:
 
-```cli output
+```output
 ```
 
 We will only see the output when passing the `--output` parameter, or its shortcut `-o`:
@@ -159,7 +159,7 @@ We will only see the output when passing the `--output` parameter, or its shortc
 cli -o basic create-greeting --name Bob
 ```
 
-```cli output
+```output
 Hello Bob!
 ```
 

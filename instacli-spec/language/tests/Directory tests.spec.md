@@ -21,7 +21,7 @@ cli --help empty
 
 Will say:
 
-```cli output
+```output
 This is an example directory
 
 No commands available.

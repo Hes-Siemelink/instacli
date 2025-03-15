@@ -172,8 +172,8 @@ object YamlScriptAfter : BlockType("<!-- yaml instacli after", "-->")
 object YamlScript : BlockType("```yaml instacli")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
-object CommandInput : BlockType("<!-- cli input", "-->")
-object CommandOutput : BlockType("```cli output")
+object CommandInput : BlockType("<!-- input", "-->")
+object CommandOutput : BlockType("```output")
 
 data class CommandExample(
     val command: String,

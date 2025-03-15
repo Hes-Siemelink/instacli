@@ -46,12 +46,12 @@ cli greetings.cli
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
 printed.
 
-<!-- cli input
+<!-- input
 Your name: Hes
 Select a language: English
 -->
 
-```cli output
+```output
 ? Your name Hes
 ? Select a language 
  ❯ ◉ English
@@ -69,7 +69,7 @@ cli --help greetings.cli
 
 Will print:
 
-```cli output
+```output
 Multi-language greeting
 
 Options:
@@ -85,7 +85,7 @@ cli greetings.cli --name Hes --language Spanish
 
 And we get the result in Spanish:
 
-```cli output
+```output
 ¡Hola Hes!
 ```
 
@@ -163,7 +163,7 @@ cli hello.cli
 
 And it will print the expected message:
 
-```cli output
+```output
 Hello from Instacli!
 ```
 
@@ -206,7 +206,7 @@ This will automatically generate a command description and command line options:
 cli --help simple-options.cli
 ```
 
-```cli output
+```output
 Call Acme
 
 Options:
@@ -235,7 +235,7 @@ Script info:
 cli --help input-options.cli
 ```
 
-```cli output
+```output
 Different input options
 
 Options:
@@ -250,12 +250,12 @@ input.
 cli input-options.cli
 ```
 
-<!-- cli input
+<!-- input
 Username: Hes
 Password: Secret
 -->
 
-```cli output
+```output
 ? Username Hes
 ? Password ********
 ```
@@ -341,11 +341,11 @@ Run it and you will be presented with an interactive selector:
 cli prompt.cli
 ```
 
-<!-- cli input
+<!-- input
 Select a language: English
 -->
 
-```cli output
+```output
 ? Select a language 
  ❯ ◉ English
    ◯ Spanish

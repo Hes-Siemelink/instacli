@@ -11,7 +11,7 @@ When running `cli` or `cli --help`, the global options will be printed
 cli
 ```
 
-```cli output
+```output
 Instacli -- Instantly create CLI applications with light scripting!
 
 Usage:
@@ -29,14 +29,14 @@ Global options:
 
 The `--help` option prints help on a script or directory and then exits. No scripts are run.
 
-For this example we run from the **[samples](/samples)** directory. It contains a directory `basic`. Let's use
-the `--help` option to see what Instacli commands it contains
+For this example we run from the **[samples](/samples)** directory. It contains a directory `basic`. Let's use the
+`--help` option to see what Instacli commands it contains
 
 ```commandline cli directory:samples
 cli --help basic
 ```
 
-```cli output
+```output
 Simple Instacli example scripts
 
 Available commands:
@@ -54,7 +54,7 @@ line options it supports
 cli --help basic greet
 ```
 
-```cli output
+```output
 Prints a greeting
 
 Options:
@@ -69,14 +69,14 @@ cli basic greet --name Alice
 
 With the expected output:
 
-```cli output
+```output
 Hello, Alice!
 ```
 
 ### --output
 
-Some Instacli commands will produce output. By default, Instacli does not print the output. You can turn it on with
-the `--output` option.
+Some Instacli commands will produce output. By default, Instacli does not print the output. You can turn it on with the
+`--output` option.
 
 For example, the **[greet](/samples/basic/greet.cli)** script uses a **Print** command to show the greeting, whereas
 **[create-greeting](/samples/basic/create-greeting.cli)** does not print anything but creates output to be used by
@@ -90,7 +90,7 @@ cli basic create-greeting --name Bob
 
 Output:
 
-```cli output
+```output
 ```
 
 We will see the output when passing the `--output` parameter, or its shortcut `-o`:
@@ -99,7 +99,7 @@ We will see the output when passing the `--output` parameter, or its shortcut `-
 cli -o basic create-greeting --name Bob
 ```
 
-```cli output
+```output
 Hello Bob!
 ```
 
@@ -111,7 +111,7 @@ To show the output in the script in Json format, use `--output-json` or the shor
 cli --output-json basic create-greeting --name Bob
 ```
 
-```cli output
+```output
 "Hello Bob!"
 ```
 
@@ -148,7 +148,7 @@ If we pass `--non-interactive` however, the script will just print the list of a
 cli --non-interactive basic
 ```
 
-```cli output
+```output
 Simple Instacli example scripts
 
 Available commands:
@@ -165,11 +165,11 @@ When calling a script with a missing parameter in interactive mode, you will get
 cli basic create-greeting
 ```
 
-<!-- cli input
+<!-- input
 Your name: ""
 -->
 
-```cli output
+```output
 ? Your name
 ```
 
@@ -179,7 +179,7 @@ In non-interactive mode, the script will fail with an error message
 cli -q basic create-greeting
 ```
 
-```cli output
+```output
 Missing parameter: --name
 
 Options:
@@ -203,7 +203,7 @@ Without debug mode you get the following error message
 cli script-with-error.cli
 ```
 
-```cli output
+```output
 Instacli scripting error
 
 Caused by: java.net.URISyntaxException: Illegal character in opaque part at index 5: http:\\localhost
