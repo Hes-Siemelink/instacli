@@ -39,8 +39,8 @@ Print:
   greeting: Hello, World!
 ```
 
-may print
+should print
 
     greeting: "Hello, World!"
 
-as that is equivalent Yaml.
+or equivalent Yaml. The exact format may vary depending on the Yaml library used by the implementation.
