@@ -11,7 +11,7 @@ import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.Test
 import java.nio.file.Path
 
-val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("language/Writing Instacli documentation.md")
+val REFERENCE_DOC: Path = TestPaths.SPEC.resolve("language/Writing Instacli documentation.spec.md")
 
 class DocTest {
 

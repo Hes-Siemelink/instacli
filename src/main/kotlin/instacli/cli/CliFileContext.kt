@@ -16,7 +16,7 @@ import kotlin.io.path.name
 
 const val CLI_SCRIPT_EXTENSION = ".cli"
 const val CLI_MARKDOWN_SCRIPT_EXTENSION = ".cli.md"
-const val MARKDOWN_EXTENSION = ".md"
+const val MARKDOWN_SPEC_EXTENSION = ".spec.md"
 
 /**
  * Context for running an Instacli script inside a directory.

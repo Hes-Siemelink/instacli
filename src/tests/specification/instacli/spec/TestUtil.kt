@@ -121,7 +121,7 @@ fun Script.getText(commandHandler: CommandHandler): String {
 
 fun Path.getCodeExamples(): List<DynamicNode> {
     if (isDirectory()) {
-        val documents = Files.walk(this).filter { it.name.endsWith(MARKDOWN_EXTENSION) }
+        val documents = Files.walk(this).filter { it.name.endsWith(MARKDOWN_SPEC_EXTENSION) }
         return documents.map { doc ->
             dynamicContainer(doc.name, InstacliMarkdown.scan(doc).getCodeExamples())
         }.toList()
