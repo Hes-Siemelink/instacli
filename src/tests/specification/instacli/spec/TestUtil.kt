@@ -10,8 +10,8 @@ import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.commands.userinteraction.TestPrompt
 import instacli.commands.userinteraction.UserPrompt
-import instacli.doc.CommandExample
 import instacli.doc.InstacliMarkdown
+import instacli.doc.UsageExample
 import instacli.language.*
 import instacli.util.IO
 import instacli.util.Yaml
@@ -147,9 +147,9 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
     }
 
     // Generate tests
-    val instacliTests = instacliYamlBlocks
+    val instacliTests = scriptExamples
         .map {
-            Script.from(it).toTest(document, CliFileContext(testDir), credentials)
+            Script.from(it.content).toTest(document, CliFileContext(testDir), credentials)
         }
     val cliInvocationTests = commandExamples.map {
         val dir = it.directory ?: testDir
@@ -185,13 +185,14 @@ private fun Script.toTest(document: Path, context: ScriptContext, credentials: C
 // Command line examples
 //
 
-private fun CommandExample.toTest(document: Path, testDir: Path): DynamicTest {
+private fun UsageExample.toTest(document: Path, testDir: Path): DynamicTest {
     return dynamicTest("$ $command", document.toUri()) {
         testCommand(testDir)
     }
 }
 
-fun CommandExample.testCommand(testDir: Path) {
+fun UsageExample.testCommand(testDir: Path) {
+    System.err.println("Testing command: $command")
     val line = command.split("\\s+".toRegex())
     line.first() shouldBe "cli"
     val args = line.drop(1).toTypedArray()

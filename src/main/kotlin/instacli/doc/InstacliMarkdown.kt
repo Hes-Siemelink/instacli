@@ -8,61 +8,59 @@ class InstacliMarkdown(val document: Path) {
 
     private val blocks = mutableListOf<Block>()
 
-    val instacliYamlBlocks: List<String>
-        get() {
-            val scripts = mutableListOf<String>()
-            var beforeBuffer = ""
-
-            for (block in blocks) {
-                when (block.type) {
-                    YamlScriptBefore -> {
-                        beforeBuffer += block.getContent() + "\n"
-                    }
-
-                    YamlScript -> {
-                        scripts.add(beforeBuffer + block.getContent())
-                        beforeBuffer = ""
-                    }
-
-                    YamlScriptAfter -> {
-                        if (scripts.isEmpty()) {
-                            continue
-                        }
-                        scripts[scripts.size - 1] = scripts[scripts.size - 1] + "\n" + block.getContent()
-                    }
-                }
-            }
-            return scripts
-        }
-
     val helperFiles: Map<String, String>
         get() = blocks
             .filter { it.type == YamlFile }
             .associate { (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent() }
 
-    val commandExamples: List<CommandExample>
-        get() {
-            val commands = mutableListOf<CommandExample>()
-            var currentCommand: CommandExample? = null
-            for (block in blocks) {
-                when (block.type) {
-                    CommandInvocation -> {
-                        currentCommand = CommandExample(block.getContent(), directory = block.getDirectory()?.toPath())
-                        commands.add(currentCommand)
-                    }
+    val scriptExamples: List<UsageExample>
+        get() = getExamples(YamlScript)
 
-                    CommandInput -> {
-                        currentCommand?.input = block.getContent()
-                    }
+    val commandExamples: List<UsageExample>
+        get() = getExamples(CommandInvocation)
 
-                    CommandOutput -> {
-                        currentCommand?.output = block.getContent()
-                    }
+
+    fun getExamples(type: BlockType): List<UsageExample> {
+        val all = mutableListOf<UsageExample>()
+        var current: UsageExample? = null
+        var beforeBuffer = StringBuilder()
+        for (block in blocks) {
+            when (block.type) {
+                type -> {
+                    val content = beforeBuffer.append(block.getContent())
+                    beforeBuffer = StringBuilder()
+                    current = UsageExample(content.toString(), directory = block.getDirectory()?.toPath())
+                    all.add(current)
+                }
+
+                Input -> {
+                    current?.input = block.getContent()
+                }
+
+                Output -> {
+                    current?.output = block.getContent()
+                }
+
+                // TODO: Check if we use and really need multiple 'before' and 'after' blocks
+                Before -> {
+                    beforeBuffer.append(block.getContent())
+                    beforeBuffer.append("\n")
+                }
+
+                After -> {
+                    current ?: continue
+                    current.after = (current.after ?: "") + "\n" + block.getContent()
+                }
+
+                // Clean up context when encountering a block of a different type
+                CommandInvocation, YamlScript, YamlFile -> {
+                    beforeBuffer = StringBuilder()
                 }
             }
-
-            return commands
         }
+
+        return all
+    }
 
     fun get(type: BlockType): List<Block> {
         return blocks.filter { it.type == type }
@@ -84,12 +82,12 @@ class InstacliMarkdown(val document: Path) {
 
         private val blockTypes: List<BlockType> = listOf(
             YamlFile,
-            YamlScriptBefore,
+            Before,
             YamlScript,
-            YamlScriptAfter,
+            After,
             CommandInvocation,
-            CommandInput,
-            CommandOutput,
+            Input,
+            Output,
             MainText // Should be last
         )
 
@@ -167,17 +165,22 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 }
 
 object MainText : BlockType()
-object YamlScriptBefore : BlockType("<!-- yaml instacli before", "-->")
-object YamlScriptAfter : BlockType("<!-- yaml instacli after", "-->")
+object Before : BlockType("<!-- yaml instacli before", "-->")
+object After : BlockType("<!-- yaml instacli after", "-->")
 object YamlScript : BlockType("```yaml instacli")
 object YamlFile : BlockType("```yaml file")
 object CommandInvocation : BlockType("```commandline cli")
-object CommandInput : BlockType("<!-- input", "-->")
-object CommandOutput : BlockType("```output")
+object Input : BlockType("<!-- input", "-->")
+object Output : BlockType("```output")
 
-data class CommandExample(
+data class UsageExample(
     val command: String,
-    var output: String? = null,
+    val directory: Path? = null,
     var input: String? = null,
-    val directory: Path? = null
-)
+    var output: String? = null,
+    var before: String? = null,
+    var after: String? = null
+) {
+    val content: String
+        get() = (before ?: "") + command + (after ?: "")
+}

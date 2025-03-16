@@ -2,8 +2,8 @@ package instacli.spec
 
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.InstacliMain
-import instacli.doc.CommandExample
 import instacli.doc.InstacliMarkdown
+import instacli.doc.UsageExample
 import instacli.util.IO
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
@@ -19,9 +19,9 @@ class DocTest {
 
     @Test
     fun `Code examples`() {
-        doc.instacliYamlBlocks.size shouldBe 4
-        doc.instacliYamlBlocks[0] shouldContain "Code example: An Instacli snippet inside Markdown"
-        doc.instacliYamlBlocks[2] shouldContain "Stock answers:"
+        doc.scriptExamples.size shouldBe 4
+        doc.scriptExamples[0].command shouldContain "Code example: An Instacli snippet inside Markdown"
+        doc.scriptExamples[2].content shouldContain "Stock answers:"
     }
 
     @Test
@@ -47,7 +47,7 @@ class DocTest {
         output.trim() shouldBe doc.commandExamples[0].output?.trim()
     }
 
-    private fun testCliCommand(command: CommandExample) {
+    private fun testCliCommand(command: UsageExample) {
         val line = command.command.split("\\s+".toRegex())
         line.first() shouldBe "cli"
         val options = CliCommandLineOptions(line.drop(1))
