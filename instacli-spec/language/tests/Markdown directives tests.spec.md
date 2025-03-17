@@ -35,7 +35,7 @@ More interesting output
 In markdown, you tell Instacli to check the output of the last command by using the ` ```output` directive.
 
     ```output
-    More interesting output FAIL
+    More interesting output
     ```
 
 ```yaml instacli

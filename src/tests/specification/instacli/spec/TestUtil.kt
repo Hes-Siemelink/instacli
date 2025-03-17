@@ -1,11 +1,13 @@
 package instacli.spec
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.cli.*
 import instacli.commands.connections.Credentials
 import instacli.commands.connections.CredentialsFile
 import instacli.commands.connections.setCredentials
 import instacli.commands.testing.CodeExample
+import instacli.commands.testing.ExpectedConsoleOutput
 import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.commands.userinteraction.TestPrompt
@@ -14,6 +16,7 @@ import instacli.doc.InstacliMarkdown
 import instacli.doc.UsageExample
 import instacli.language.*
 import instacli.util.IO
+import instacli.util.Json
 import instacli.util.Yaml
 import instacli.util.toDisplayYaml
 import io.kotest.matchers.shouldBe
@@ -149,7 +152,7 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
     // Generate tests
     val instacliTests = scriptExamples
         .map {
-            Script.from(it.content).toTest(document, CliFileContext(testDir), credentials)
+            toTest(document, it, CliFileContext(testDir), credentials)
         }
     val cliInvocationTests = commandExamples.map {
         val dir = it.directory ?: testDir
@@ -159,14 +162,29 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
     return instacliTests + cliInvocationTests
 }
 
-private fun Script.toTest(document: Path, context: ScriptContext, credentials: CredentialsFile): DynamicTest {
+private fun toTest(
+    document: Path,
+    example: UsageExample,
+    context: ScriptContext,
+    credentials: CredentialsFile
+): DynamicTest {
 
     context.setCredentials(credentials)
     UserPrompt.default = TestPrompt
 
-    return dynamicTest(getText(CodeExample), document.toUri()) {
+    val check: JsonNode? = example.getOutputCheckerScript()
+    val scriptNodes = if (check != null) {
+        Yaml.parseAsFile(example.content) + listOf(check)
+    } else {
+        Yaml.parseAsFile(example.content)
+    }
+
+    val script = Script.from(scriptNodes)
+    val title = script.getText(CodeExample)
+
+    return dynamicTest(title, document.toUri()) {
         try {
-            run(context)
+            script.run(context)
         } catch (a: Break) {
             a.output
         } catch (e: InstacliCommandError) {
@@ -179,6 +197,12 @@ private fun Script.toTest(document: Path, context: ScriptContext, credentials: C
             throw e
         }
     }
+}
+
+private fun UsageExample.getOutputCheckerScript(): JsonNode? {
+    val expectedOutput = output ?: return null
+
+    return Json.newObject(ExpectedConsoleOutput.name, expectedOutput)
 }
 
 //

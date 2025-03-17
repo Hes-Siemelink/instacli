@@ -21,7 +21,7 @@ class DocTest {
     fun `Code examples`() {
         doc.scriptExamples.size shouldBe 4
         doc.scriptExamples[0].command shouldContain "Code example: An Instacli snippet inside Markdown"
-        doc.scriptExamples[2].content shouldContain "Stock answers:"
+        doc.scriptExamples[2].before shouldContain "Stock answers:"
     }
 
     @Test

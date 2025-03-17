@@ -18,14 +18,12 @@ Use **Print** to print a message to the console
 Code example: Print a message
 
 Print: Hello, World!
-
-Expected console output: Hello, World!
 ```
 
 This will print
 
 ```output
-Hello, World!  FAIL
+Hello, World!
 ```
 
 ## Printing Yaml

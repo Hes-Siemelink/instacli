@@ -19,18 +19,20 @@ class InstacliMarkdown(val document: Path) {
     val commandExamples: List<UsageExample>
         get() = getExamples(CommandInvocation)
 
-
-    fun getExamples(type: BlockType): List<UsageExample> {
+    private fun getExamples(type: BlockType): List<UsageExample> {
         val all = mutableListOf<UsageExample>()
         var current: UsageExample? = null
-        var beforeBuffer = StringBuilder()
+        var before: String? = null
         for (block in blocks) {
             when (block.type) {
                 type -> {
-                    val content = beforeBuffer.append(block.getContent())
-                    beforeBuffer = StringBuilder()
-                    current = UsageExample(content.toString(), directory = block.getDirectory()?.toPath())
+                    current = UsageExample(
+                        block.getContent(),
+                        directory = block.getDirectory()?.toPath(),
+                        before = before
+                    )
                     all.add(current)
+                    before = null
                 }
 
                 Input -> {
@@ -41,20 +43,19 @@ class InstacliMarkdown(val document: Path) {
                     current?.output = block.getContent()
                 }
 
-                // TODO: Check if we use and really need multiple 'before' and 'after' blocks
                 Before -> {
-                    beforeBuffer.append(block.getContent())
-                    beforeBuffer.append("\n")
+                    before = block.getContent() + "\n"
                 }
 
                 After -> {
                     current ?: continue
-                    current.after = (current.after ?: "") + "\n" + block.getContent()
+                    current.after = "\n" + block.getContent()
                 }
 
                 // Clean up context when encountering a block of a different type
                 CommandInvocation, YamlScript, YamlFile -> {
-                    beforeBuffer = StringBuilder()
+                    current = null
+                    before = null
                 }
             }
         }
