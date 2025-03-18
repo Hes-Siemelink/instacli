@@ -67,11 +67,9 @@ instacli
 * Core
     * Define commands in Instacli
     * Secrets
-    * Raw and live / Apply variables
     * Properly handle: null, empty, boolean, int
 * Docs
     * Run CLI command as 'semi-interactive': print mock output and exit.
-    * Check with Running instacli and command line examples.
 * Http
     * Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai
       only checks if something has been set as Http defaults
@@ -79,7 +77,6 @@ instacli
       into code'.
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
-* New command: User confirmation; for simple Yes/no prompts
 * Shell command:
     * options to echo command
     * options to echo stdout and stderr.
@@ -92,11 +89,6 @@ instacli
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
     * Support modules
-* Tiered tests
-    * Level 0: Bootstrap
-    * Level 1: Core functionality
-    * Level 2: Nice to haves
-    * Level 3: Edge cases
 * Improve slow startup
     * Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
     * Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
