@@ -1,6 +1,5 @@
 # On my mind
 
-* Document literate programming style with cli scripts in markdown
 * Pass strings to scripts (check)
 * AI to generate scripts
 
@@ -69,6 +68,7 @@ instacli
     * Secrets
     * Properly handle: null, empty, boolean, int
 * Docs
+    * Document literate programming style with cli scripts in markdown
     * Run CLI command as 'semi-interactive': print mock output and exit.
 * Http
     * Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai
@@ -82,9 +82,6 @@ instacli
     * options to echo stdout and stderr.
     * Option to mask secrets
     * Pass environment variables
-
-# Code improvements
-
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
@@ -93,7 +90,6 @@ instacli
     * Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
     * Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
     * Or rewrite as Go or TypeScript
-* Serialize more Kotlin like
 
 # Bugs
 

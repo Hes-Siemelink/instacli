@@ -1,3 +1,5 @@
+# Digital.ai Platform Login
+
 This is the script to connect to Digital.ai Platform.
 
 ```yaml instacli
