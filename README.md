@@ -403,8 +403,8 @@ Hello from Instacli!
 ```
 
 Some commands work directly with the output variable. This helps in having a more declarative and readable script. For
-example, you don;t need to pass the `${output}` variable to the [**Expected output
-**](instacli-spec/commands/instacli/testing/Expected%20output.spec.md) command.
+example, you don;t need to pass the `${output}` variable to the **[Expected output
+](instacli-spec/commands/instacli/testing/Expected%20output.spec.md)** command.
 
 ```yaml instacli
 Code example: Implicit output variable
@@ -414,8 +414,8 @@ GET: http://localhost:2525/hello
 Expected output: Hello from Instacli!
 ```
 
-If you are going to use the output variable later on, best practice is to assign it to a named variable using [**As
-**](instacli-spec/commands/instacli/variables/As.spec.md).
+If you are going to use the output variable later on, best practice is to assign it to a named variable using **[As
+](instacli-spec/commands/instacli/variables/As.spec.md)**.
 
 ```yaml instacli
 Code example: Assign output to a named variable

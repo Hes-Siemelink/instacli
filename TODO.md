@@ -1,7 +1,6 @@
 # On my mind
 
-* Easyspec - as a base project
-* Support markdown cli everywhere
+* Document literate programming style with cli scripts in markdown
 * Pass strings to scripts (check)
 * AI to generate scripts
 
@@ -30,13 +29,9 @@
     * ...what's left not to extract?
 * Naming
     * Easyspec
+    * Easyspec.ai
     * Quickspec
     * Spec.it
-    * Markdown Spec
-    * Markdown Spec With Yaml
-    * yamldownspec
-    * swym
-* Run Markdown from cli
 * Add tests for samples
     * Test script for a directory, using multiple commands
 
