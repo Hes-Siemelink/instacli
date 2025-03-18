@@ -13,7 +13,7 @@ Executes a block of code until a condition is satisfied.
 ## Basic usage
 
 **Repeat** repeats a bunch of commands until the condition specified in `Until` is reached.
-See [conditions](../testing/Assert%20that.md#conditions).
+See [conditions](../testing/Assert%20that.spec.md#conditions).
 
 ```yaml instacli
 Code example: Count to five

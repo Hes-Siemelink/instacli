@@ -12,7 +12,7 @@ Error handling in CLI scripts
 
 ## Basic usage
 
-Use **[Error](Error.md)** to raise an error with a speicifc identifie and **On error** to handle it.
+Use **[Error](Error.spec.md)** to raise an error with a speicifc identifie and **On error** to handle it.
 
 ```yaml instacli
 Code example: Error handling

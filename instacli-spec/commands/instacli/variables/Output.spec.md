@@ -86,7 +86,7 @@ Output: Hello ${input.name}!
 
 ## Output in For each
 
-Use **Output** with [For each](../control-flow/For%20each.md) to transform a list:
+Use **Output** with [For each](../control-flow/For%20each.spec.md) to transform a list:
 
 ```yaml instacli
 Code example: Transform a list with For each and Output

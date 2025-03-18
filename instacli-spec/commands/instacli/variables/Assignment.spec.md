@@ -24,8 +24,8 @@ Assert equals:
 
 ## Use JSON path notation
 
-When you only want a part of the output, you can't use [As](As.md) to capture the variable. In that case, use
-the `${..}:` assignment to indicate the part of the output that you want.
+When you only want a part of the output, you can't use [As](As.spec.md) to capture the variable. In that case, use the
+`${..}:` assignment to indicate the part of the output that you want.
 
 ```yaml instacli
 Code example: Get part of the output into a variable

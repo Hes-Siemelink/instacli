@@ -124,7 +124,7 @@ separator helps you to visually divide sections in your code if placed strategic
 ### Script info
 
 You can specify the description of your script with the
-**[Script info](../commands/instacli/script-info/Script%20info.md)** command.
+**[Script info](../commands/instacli/script-info/Script%20info.spec.md)** command.
 
 Take this file `simple-greeting.cli`:
 
@@ -180,11 +180,11 @@ cli greeting.cli --name Bob
 Hello Bob!
 ```
 
-For more information, refer to the **[Script info](../commands/instacli/script-info/Script%20info.md)** command.
+For more information, refer to the **[Script info](../commands/instacli/script-info/Script%20info.spec.md)** command.
 
 ### Script output
 
-You can set the output of the script with the **[Output](../commands/instacli/variables/Output.md)** command.
+You can set the output of the script with the **[Output](../commands/instacli/variables/Output.spec.md)** command.
 
 For example, with script `hello.cli`
 
@@ -196,7 +196,7 @@ Output:
 ```
 
 The output is stored in the `${output}` variable. When invoking instacli with the
-**[--output](../cli/Command%20line%20options.md#--output)** option, it will be printed:
+**[--output](../cli/Command%20line%20options.spec.md#--output)** option, it will be printed:
 
 ```commandline cli
 cli --output hello.cli

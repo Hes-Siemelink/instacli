@@ -1,6 +1,6 @@
 # Command: Prompt object
 
-`Promp object` is like [Prompt](Prompt.md), but asks mutlitple questions
+`Promp object` is like [Prompt](Prompt.spec.md), but asks mutlitple questions
 
 | Content type | Supported |
 |--------------|-----------|
@@ -40,7 +40,7 @@ Hello Juan, Pérez!
 
 ## Prompt properties
 
-You can specify various properties: See [Prompt Properties](Prompt.md#prompt-properties)
+You can specify various properties: See [Prompt Properties](Prompt.spec.md#prompt-properties)
 
 * `description`: The question to ask the user.
 * `default`: The default value

@@ -1,7 +1,7 @@
 # Command: Assert that
 
-`Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.md)
-and [Repeat](../control-flow/Repeat.md)
+`Assert that` executes a condition. Conditions can also be used in other commands like [If](../control-flow/If.spec.md)
+and [Repeat](../control-flow/Repeat.spec.md)
 
 | Content type | Supported |
 |--------------|-----------|

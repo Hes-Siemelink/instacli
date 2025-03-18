@@ -12,7 +12,7 @@
 
 ## Basic usage
 
-**Expected output** is a shortcut for [Assert that](Assert%20that.md#object-equals) equality, comparing against
+**Expected output** is a shortcut for [Assert that](Assert%20that.spec.md#object-equals) equality, comparing against
 `${output}`
 
 It works for simple values

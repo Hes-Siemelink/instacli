@@ -118,7 +118,8 @@ Run the "Hello world" example:
 cli samples/hello.cli
 ```
 
-See [Running instacli files](instacli-spec/cli/Running%20Instacli%20files.md) for more information on the `cli` command.
+See [Running instacli files](instacli-spec/cli/Running%20Instacli%20files.spec.md) for more information on the `cli`
+command.
 
 ## Explore
 

@@ -1,7 +1,7 @@
 # Command: Http request defaults
 
 `Http request defaults` sets the default parameters for all subsequent HTTP commands
-like [GET](GET.md), [POST](POST.md), etc.
+like [GET](GET.spec.md), [POST](POST.spec.md), etc.
 
 | Content type | Supported |
 |--------------|-----------|

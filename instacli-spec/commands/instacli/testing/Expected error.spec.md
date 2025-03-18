@@ -23,8 +23,8 @@ Error: PANIC
 Expected error: We should have an error
 ```
 
-The behavior is useful in tests, where [On error](../errors/On%20error.md) swallows the exception but doesn't raise a
-flag when there was _no_ error.
+The behavior is useful in tests, where [On error](../errors/On%20error.spec.md) swallows the exception but doesn't raise
+a flag when there was _no_ error.
 
 ## Checking for a specific error
 
@@ -41,7 +41,7 @@ Expected error:
   13: We should have an error
 ```
 
-Like [On error type](../errors/On%20error%20type.md), the `any` error type is a catch-all.
+Like [On error type](../errors/On%20error%20type.spec.md), the `any` error type is a catch-all.
 
 ```yaml instacli
 Code example: Check for an expected error

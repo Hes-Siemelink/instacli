@@ -112,5 +112,5 @@ Assert equals:
 
 ## Add to output
 
-Use **[Append](Append.md)** to add something to the `${output}` variable.
+Use **[Append](Append.spec.md)** to add something to the `${output}` variable.
 

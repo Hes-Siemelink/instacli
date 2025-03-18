@@ -13,7 +13,7 @@ Configures credentials for an endpoint and saves it in the user's preferences.
 ## Basic usage
 
 With **Create credentials** you can store user credentials to connect to an endpoint. Retrieve them with
-the [Get credentials](Get%20credentials.md) command.
+the [Get credentials](Get%20credentials.spec.md) command.
 
 ```yaml instacli
 Code example: Create credentials for an endpoint

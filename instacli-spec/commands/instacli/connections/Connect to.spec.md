@@ -14,7 +14,7 @@ the scenes.
 ## Basic usage
 
 **Connect to** takes a symbolic name and usually
-configures [Http request defaults](../http/Http%20request%20defaults.md) for subsequent REST API calls.
+configures [Http request defaults](../http/Http%20request%20defaults.spec.md) for subsequent REST API calls.
 
 A script would look like this:
 

@@ -159,7 +159,7 @@ Then followed by a block that contains the output:
     ```
 
 Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
-like  [Stock answers](../commands/instacli/testing/Stock%20answers.md)
+like  [Stock answers](../commands/instacli/testing/Stock%20answers.spec.md)
 
     <!-- input
     Enter your name: Hes

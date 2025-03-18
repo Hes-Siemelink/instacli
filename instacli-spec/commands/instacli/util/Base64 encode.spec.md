@@ -1,6 +1,6 @@
 # Command: Base64 encode
 
-Use `Base64 encode` to encode stuff. See [Base64 decode](Base64%20decode.md).
+Use `Base64 encode` to encode stuff. See [Base64 decode](Base64%20decode.spec.md).
 
 | Content type | Supported |
 |--------------|-----------|

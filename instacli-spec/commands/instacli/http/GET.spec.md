@@ -44,7 +44,7 @@ Expected output:
 
 ## Using Http request defaults
 
-By using [Http request defaults](Http%20request%20defaults.md), you can set the properties that are common to all
+By using [Http request defaults](Http%20request%20defaults.spec.md), you can set the properties that are common to all
 requests in advance
 
 ```yaml instacli

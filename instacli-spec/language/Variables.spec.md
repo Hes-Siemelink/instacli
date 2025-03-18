@@ -79,8 +79,8 @@ Add:
 Expected output: 2
 ```
 
-This uses the built-in **[Expected output](../commands/instacli/testing/Expected%20output.md)** command that makes the
-script more readable.
+This uses the built-in **[Expected output](../commands/instacli/testing/Expected%20output.spec.md)** command that makes
+the script more readable.
 
 The output variable behaves as any variable. You can also set it:
 
@@ -92,7 +92,7 @@ ${output}: Hello
 Expected output: Hello
 ```
 
-In fact, there is another shortcut for that: the **[Output](../commands/instacli/variables/Output.md)** command.
+In fact, there is another shortcut for that: the **[Output](../commands/instacli/variables/Output.spec.md)** command.
 
 ```yaml instacli
 Code example: Setting the output variable with 'Output'
@@ -119,7 +119,7 @@ Expected output: Hello
 If you want to do something with the output variable, it is dangerous to use it directly because any subsequent command
 may change it.
 
-Use the **[As](../commands/instacli/variables/As.md)** command to capture the output in another variable.
+Use the **[As](../commands/instacli/variables/As.spec.md)** command to capture the output in another variable.
 
 ```yaml instacli
 Code example: Store output in another variable
@@ -194,7 +194,7 @@ Output: Hello ${input.name}!
 ```
 
 Now you can call it with input and retrieve the output. In the following example we use the name of the script as a
-command. (See **[Instacli files as commands](../commands/instacli/files/Instacli%20files%20as%20commands.md)**)
+command. (See **[Instacli files as commands](../commands/instacli/files/Instacli%20files%20as%20commands.spec.md)**)
 
 ```yaml instacli
 Code example: Input and output when calling a script

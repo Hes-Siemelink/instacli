@@ -12,8 +12,8 @@
 
 ## Basic usage
 
-**If** is used with the [conditions](../testing/Assert%20that.md#conditions) defined
-in [Assert that](../testing/Assert%20that.md) and if a condition holds, the commands under `then` are executed
+**If** is used with the [conditions](../testing/Assert%20that.spec.md#conditions) defined
+in [Assert that](../testing/Assert%20that.spec.md) and if a condition holds, the commands under `then` are executed
 
 ```yaml instacli
 Code example: Simple if
@@ -66,7 +66,7 @@ Expected output:
   - 2
 ```
 
-If you only want to match one, use [When](When.md)
+If you only want to match one, use [When](When.spec.md)
 
 ```yaml instacli
 Code example: Multiple conditions in When
