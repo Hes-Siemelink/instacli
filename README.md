@@ -171,13 +171,13 @@ Hello from Instacli!
 
 Tired of remembering the exact curl syntax or forgetting which tab had that request that worked in Postman?
 
-Simply write your request as-code with Instacli:
+Simply write your [GET](instacli-spec/commands/instacli/http/GET.spec.md) request as-code with Instacli:
 
 ```yaml instacli
 GET: http://localhost:2525/greetings
 ```
 
-Here's a POST:
+Here's a [POST](instacli-spec/commands/instacli/http/POST.spec.md):
 
 ```yaml instacli
 POST:
@@ -216,7 +216,9 @@ Options:
 
 ## Input options
 
-Instacli allows you to specify the type and format of input properties. Here's an example file `input-options.cli`
+Instacli allows you to specify the type and format
+of [input properties](instacli-spec/commands/instacli/user-interaction/Prompt.spec.md#prompt-properties). Here's an
+example file `input-options.cli`
 
 ```yaml file:input-options.cli
 Script info:
@@ -262,7 +264,7 @@ Password: Secret
 
 ## Subcommand support
 
-Easily povide subcommand support by organizing your cli files in directories.
+Easily provide subcommand support by organizing your cli files in directories.
 
 For example, to run the greeting example from the [samples](samples) directory, you can write
 
@@ -319,7 +321,7 @@ Available commands:
 
 ## User interaction
 
-Easily construct user prompts with Instacli.
+Easily construct [user prompts](instacli-spec/commands/instacli/user-interaction/Prompt.spec.md) with Instacli.
 
 Here's an example of how to ask the user to pick something from a list, in a file called `prompt.cli`:
 
@@ -335,7 +337,7 @@ Print:
   You selected: ${output}
 ```
 
-Run it and you will be presented with an interactive selector:
+You will be presented with an interactive selector when running it:
 
 ```commandline cli
 cli prompt.cli
@@ -356,23 +358,26 @@ You selected: English
 
 ## Variables
 
-Define variables in `${...}` syntax and pick and choose content using the path notation.
+Define [variables](instacli-spec/language/Variables.spec.md) in `${...}` syntax and pick and choose content using the
+path notation.
 
 ```yaml instacli
+Code example: Define a variable
+
 ${var}:
   name: my variable
   content:
-    1: one
-    2: two
+    a: one
+    b: two
 
 Print: ${var.content}
 ```
 
 will print
 
-```
-1: one
-2: two
+```output
+a: one
+b: two
 ```
 
 ## The output variable
@@ -384,22 +389,37 @@ This makes it easy to pick up in a subsequent command
 For example
 
 ```yaml instacli
+Code example: Using the output variable
+
 GET: http://localhost:2525/greetings
 
 Print: ${output}
 ```
 
-Some commands work directly with the output variable. This helps in having a more declarative and readable script
+Will print the output of the GET request:
+
+```output
+Hello from Instacli!
+```
+
+Some commands work directly with the output variable. This helps in having a more declarative and readable script. For
+example, you don;t need to pass the `${output}` variable to the [**Expected output
+**](instacli-spec/commands/instacli/testing/Expected%20output.spec.md) command.
 
 ```yaml instacli
+Code example: Implicit output variable
+
 GET: http://localhost:2525/hello
 
 Expected output: Hello from Instacli!
 ```
 
-If you are going to use the output variable explicitly, best practice is to assign it to a named variable using **As**
+If you are going to use the output variable later on, best practice is to assign it to a named variable using [**As
+**](instacli-spec/commands/instacli/variables/As.spec.md).
 
 ```yaml instacli
+Code example: Assign output to a named variable
+
 GET: http://localhost:2525/hello
 As: ${result}
 
@@ -409,10 +429,13 @@ Print:
 
 ## Http Server
 
-For quick API prototyping, Instacli will run an HTTP server for you. Define some endpoints and back them by Instacli
-scripts:
+For quick API prototyping, Instacli will run
+an [HTTP server](instacli-spec/commands/instacli/http/Http%20server.spec.md) for you. Define some endpoints and back
+them by Instacli scripts:
 
 ```yaml instacli
+Code example: Running an HTTP server
+
 Http server:
   port: 2525
   endpoints:
@@ -429,9 +452,11 @@ the Instacli documentation and test suite.
 
 Instacli supports various programming logic constructs, like 'if', 'repeat', 'for each'
 
-This is what an If-statement looks like:
+This is what an [**If**](instacli-spec/commands/instacli/control-flow/If.spec.md) statement looks like:
 
 ```yaml instacli
+Code example: If statement
+
 If:
   item: this
   equals: that
@@ -441,9 +466,12 @@ If:
 
 ## For each
 
-With 'for each' you can loop over collections and do stuff.
+With [**For each**](instacli-spec/commands/instacli/control-flow/For%20each.spec.md) you can loop over collections and
+do stuff.
 
 ```yaml instacli
+Code example: For each statement
+
 For each:
   ${name} in:
     - Alice
@@ -452,10 +480,21 @@ For each:
   Print: Hello ${name}!
 ```
 
-You can use **For each** to transform a list into something else, like the `map()` function in some programming
-languages.
+Output:
+
+```output
+Hello Alice!
+Hello Bob!
+Hello Carol!
+```
+
+You can use **For each**
+to [transform a list](instacli-spec/commands/instacli/control-flow/For%20each.spec.md#transform-a-list) into something
+else, like the `map()` function in some programming languages.
 
 ```yaml instacli
+Code example: For each to transform a list
+
 For each:
   ${name} in:
     - Alice
@@ -482,7 +521,7 @@ Assert that:
 ```
 
 In fact, all tests for the Instacli language and commands are written in Instacli itself and can be found in the
-**[instacli-spec](instacli-spec)** directory, in the `tests` subfolders.. For example, take a look at
+**[instacli-spec](instacli-spec)** directory, in the `tests` subfolders. For example, take a look at
 the [tests for assertions](instacli-spec/commands/instacli/testing/tests/Assert%20tests.cli)
 
 ## Documenting Instacli
@@ -501,6 +540,7 @@ Here's an example of Instacli documentation:
     Print: Hello from Instacli!
     ```
 
-For new features, I often write the documentation first, then see the test suite fail, and then write the implementation
-for it.
+You can do 'Spec-driven development' with Instacli. For new features, write the documentation first, then run it. Since
+you haven't implemented anything yet, the test suite will fail. Then write the implementation, and once the tests are
+green, you're done!
 
