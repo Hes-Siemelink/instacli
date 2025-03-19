@@ -91,7 +91,7 @@ And we get the result in Spanish:
 
 # Documentation
 
-All of Instacli is defined in the [instacli-spec](instacli-spec).
+All of Instacli is defined in the **[instacli-spec](instacli-spec)**.
 
 * [CLI](instacli-spec/cli/README.md) defines the `cli` shell command
 * [Language](instacli-spec/language/README.md) defines the structure of the Instacli scripting language
@@ -123,7 +123,7 @@ command.
 
 ## Explore
 
-There are more examples in the [samples](samples) directory - check them out!
+There are more examples in the **[samples](samples)** directory - check them out!
 
 Explore them all with the command:
 
@@ -150,7 +150,7 @@ Instacli has two main ideas:
 
 ## Hello world
 
-This is the simplest Instacli progam, [hello.cli](samples/hello.cli):
+This is the simplest Instacli progam, **[hello.cli](samples/hello.cli)**:
 
 ```yaml file:hello.cli
 Print: Hello from Instacli!
@@ -172,13 +172,13 @@ Hello from Instacli!
 
 Tired of remembering the exact curl syntax or forgetting which tab had that request that worked in Postman?
 
-Simply write your [GET](instacli-spec/commands/instacli/http/GET.spec.md) request as-code with Instacli:
+Simply write your **[GET](instacli-spec/commands/instacli/http/GET.spec.md)** request as-code with Instacli:
 
 ```yaml instacli
 GET: http://localhost:2525/greetings
 ```
 
-Here's a [POST](instacli-spec/commands/instacli/http/POST.spec.md):
+Here's a **[POST](instacli-spec/commands/instacli/http/POST.spec.md)**:
 
 ```yaml instacli
 POST:
@@ -267,7 +267,7 @@ Password: Secret
 
 Easily provide subcommand support by organizing your cli files in directories.
 
-For example, to run the greeting example from the [samples](samples) directory, you can write
+For example, to run the greeting example from the **[samples](samples)** directory, you can write
 
 ```commandline
 cli samples basic greet
@@ -453,7 +453,7 @@ the Instacli documentation and test suite.
 
 Instacli supports various programming logic constructs, like 'if', 'repeat', 'for each'
 
-This is what an [**If**](instacli-spec/commands/instacli/control-flow/If.spec.md) statement looks like:
+This is what an **[If](instacli-spec/commands/instacli/control-flow/If.spec.md)** statement looks like:
 
 ```yaml instacli
 Code example: If statement
@@ -467,7 +467,7 @@ If:
 
 ## For each
 
-With [**For each**](instacli-spec/commands/instacli/control-flow/For%20each.spec.md) you can loop over collections and
+With **[For each](instacli-spec/commands/instacli/control-flow/For%20each.spec.md)** you can loop over collections and
 do stuff.
 
 ```yaml instacli
