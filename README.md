@@ -392,7 +392,7 @@ For example
 ```yaml instacli
 Code example: Using the output variable
 
-GET: http://localhost:2525/greetings
+GET: http://localhost:2525/hello
 
 Print: ${output}
 ```
