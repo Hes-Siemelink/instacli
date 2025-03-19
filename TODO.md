@@ -94,7 +94,6 @@ instacli
 # Bugs
 
 * CommandLibrary should store commands in canonical form: all lower case and spaces
-* Instacli scripting error caused by: java.nio.file.NoSuchFileException: /Users/hes/.instacli/credentials.yaml
 
 # Where to take it
 

@@ -11,6 +11,7 @@ import instacli.util.Json
 import instacli.util.Yaml
 import instacli.util.updateWith
 import java.nio.file.Path
+import kotlin.io.path.createDirectories
 import kotlin.io.path.createFile
 import kotlin.io.path.exists
 
@@ -25,6 +26,7 @@ object Credentials {
             val content = Yaml.readFile(file)
             CredentialsFile(file).updateWith(content)
         } else {
+            file.parent.createDirectories()
             file.createFile()
             CredentialsFile(file).save()
         }
