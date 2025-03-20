@@ -1,6 +1,6 @@
-## Organizing multiple Instacli files in directories
+## Organizing Instacli files in directories
 
-With multiple files in a directory, you can run the directory as a cli command. The Instacli scripts will be
+With one or more files in a directory, you can run the directory as a cli command. The Instacli scripts will be
 subcommands.
 
 For this example we run from the **[samples](/samples)** directory. It contains a directory `basic` with the following
@@ -15,8 +15,8 @@ output.cli
 simple-question.cli
 ```
 
-We can now run **basic** as a cli command with subcommands for each of the files. First, let's use the `--help` option
-to see some more descriptions
+We can now run `basic` as a cli command with subcommands for each of the files. First, let's use the `--help` option to
+see some more descriptions
 
 ```commandline cli directory:samples
 cli --help basic
