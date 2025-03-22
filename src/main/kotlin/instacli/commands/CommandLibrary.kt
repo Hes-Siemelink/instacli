@@ -122,6 +122,7 @@ object CommandLibrary {
         Store
     )
 
+    // TODO Store commands in canonical form: all lower case and spaces
     private fun commandMap(vararg commands: CommandHandler): Map<String, CommandHandler> {
         return commands.associateBy { it.name }
     }

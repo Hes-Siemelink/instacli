@@ -1,7 +1,8 @@
 # On my mind
 
-* Pass strings to scripts (check)
-* AI to generate scripts
+* Learn how to write Go
+* Learn how to use AI
+* AI to generate scripts: notebook type interaction to write scripts
 
 # Actually build something
 
@@ -34,66 +35,63 @@
 * Add tests for samples
     * Test script for a directory, using multiple commands
 
-```
-easyspec
-   implementation
-     kotlin
-       src
-       gradle
-   spec
-     language
-     library (commands)
-   samples
-instacli
-  implementation
-  spec
-    cli
-    library
-  samples
-```
-
 # Instacli language
 
+## Core
+
+* Proper "StackTrace"
+* Define commands in Instacli
+* Secrets
+* Properly handle: null, empty, boolean, int
+
+## Types
+
+* Document types
+* Define array and string types in type system
+* Define 'output type' on Script info
+* Turn types into JSON schema
+* Refactor types and directory info
+
+## Docs
+
+* Document literate programming style with cli scripts in markdown
+* Run CLI command as 'semi-interactive': print mock output and exit.
+
+## Http
+
 * Configuring connections out of the box with packaged instacli scripts
-* Error reporting
-    * Proper "StackTrace"
-* Types
-    * Document types
-    * Define array and string types in type system
-    * Define 'output type' on Script info
-    * Turn types into JSON schema
-    * Refactor types and directory info
-* Core
-    * Define commands in Instacli
-    * Secrets
-    * Properly handle: null, empty, boolean, int
-* Docs
-    * Document literate programming style with cli scripts in markdown
-    * Run CLI command as 'semi-interactive': print mock output and exit.
-* Http
-    * Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai
-      only checks if something has been set as Http defaults
-    * Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn
-      into code'.
+* Clean up Connect to: be smart about multiple connections and tokens. Currently `connect-to` script in Digital.ai only
+  checks if something has been set as Http defaults
+* Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn into
+  code'.
+
+## Files & execution
+
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
+
+* Pass strings to scripts (check)
+
 * Shell command:
     * options to echo command
     * options to echo stdout and stderr.
     * Option to mask secrets
     * Pass environment variables
+
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
     * Support modules
-* Improve slow startup
-    * Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
-    * Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
-    * Or rewrite as Go or TypeScript
+
+## Improve slow startup
+
+* Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
+* Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
+* Or rewrite as Go or TypeScript
 
 # Bugs
 
-* CommandLibrary should store commands in canonical form: all lower case and spaces
+*
 
 # Where to take it
 
