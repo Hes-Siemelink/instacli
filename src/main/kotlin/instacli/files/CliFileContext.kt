@@ -1,4 +1,4 @@
-package instacli.cli
+package instacli.files
 
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.commands.CommandLibrary

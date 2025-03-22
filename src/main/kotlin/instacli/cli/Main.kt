@@ -3,6 +3,8 @@ package instacli.cli
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.cli.OutputOption.JSON
 import instacli.cli.OutputOption.YAML
+import instacli.files.CliFile
+import instacli.files.CliFileContext
 import instacli.language.*
 import instacli.language.types.toDisplayString
 import instacli.util.Json

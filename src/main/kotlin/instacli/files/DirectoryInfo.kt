@@ -1,10 +1,10 @@
-package instacli.cli
+package instacli.files
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
 import instacli.language.CommandInfo
 import instacli.util.Json
-import instacli.util.Yaml.mapper
+import instacli.util.Yaml
 import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.name
@@ -31,7 +31,7 @@ class DirectoryInfo : CommandInfo {
         fun load(dir: Path): DirectoryInfo {
             val infoFile = dir.resolve(".instacli.yaml")
             val info = if (infoFile.exists()) {
-                mapper.readValue(infoFile.toFile())
+                Yaml.mapper.readValue(infoFile.toFile())
             } else {
                 DirectoryInfo()
             }
@@ -43,7 +43,7 @@ class DirectoryInfo : CommandInfo {
 
             val typesFile = dir.resolve("types.yaml")
             if (typesFile.exists()) {
-                info.types = mapper.readValue(typesFile.toFile())
+                info.types = Yaml.mapper.readValue(typesFile.toFile())
             }
 
             return info

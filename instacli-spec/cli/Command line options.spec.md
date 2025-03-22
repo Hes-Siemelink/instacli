@@ -237,7 +237,7 @@ Caused by: java.net.URISyntaxException: Illegal character in opaque part at inde
 	at instacli.script.CommandExecutionKt.runSingleCommand(CommandExecution.kt:59)
 	at instacli.script.CommandExecutionKt.runCommand(CommandExecution.kt:20)
 	at instacli.script.Script.runScript(Script.kt:23)
-	at instacli.cli.CliFile.run(CliFile.kt:30)
+	at instacli.files.CliFile.run(CliFile.kt:30)
 	at instacli.cli.InstacliMain.invokeFile(Main.kt:88)
 	at instacli.cli.InstacliMain.run(Main.kt:61)
 	at instacli.cli.InstacliMain.run$default(Main.kt:39)

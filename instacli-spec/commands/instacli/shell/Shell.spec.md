@@ -43,4 +43,3 @@ Shell:
 
 Expected output: Hello World
 ```
-

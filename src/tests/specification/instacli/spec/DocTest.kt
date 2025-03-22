@@ -2,8 +2,8 @@ package instacli.spec
 
 import instacli.cli.CliCommandLineOptions
 import instacli.cli.InstacliMain
-import instacli.doc.InstacliMarkdown
-import instacli.doc.UsageExample
+import instacli.files.InstacliMarkdown
+import instacli.files.UsageExample
 import instacli.util.IO
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe

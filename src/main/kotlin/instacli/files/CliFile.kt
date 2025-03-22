@@ -1,7 +1,6 @@
-package instacli.cli
+package instacli.files
 
 import com.fasterxml.jackson.databind.JsonNode
-import instacli.doc.InstacliMarkdown
 import instacli.language.*
 import instacli.util.Yaml
 import java.nio.file.Path

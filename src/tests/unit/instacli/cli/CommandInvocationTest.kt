@@ -1,6 +1,7 @@
 package instacli.cli
 
 import instacli.TestPaths
+import instacli.files.DirectoryInfo
 import instacli.language.CommandInfo
 import instacli.language.Script
 import io.kotest.matchers.shouldBe

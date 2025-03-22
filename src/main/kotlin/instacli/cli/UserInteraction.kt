@@ -4,6 +4,7 @@ import com.github.kinquirer.KInquirer
 import com.github.kinquirer.components.ListViewOptions
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
+import instacli.files.DirectoryInfo
 import instacli.language.CommandInfo
 import instacli.language.Script
 import instacli.language.types.ObjectDefinition

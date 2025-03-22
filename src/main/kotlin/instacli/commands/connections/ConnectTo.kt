@@ -2,8 +2,8 @@ package instacli.commands.connections
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.cli.CliFile
-import instacli.cli.CliFileContext
+import instacli.files.CliFile
+import instacli.files.CliFileContext
 import instacli.language.*
 import kotlin.io.path.name
 

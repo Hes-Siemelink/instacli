@@ -1,4 +1,4 @@
-package instacli.doc
+package instacli.files
 
 import java.io.PrintStream
 import java.nio.file.Path
