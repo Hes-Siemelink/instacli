@@ -9,3 +9,6 @@
 .instacli
 
 install-cloud-connector.sh
+
+# Aider
+.aider.*
