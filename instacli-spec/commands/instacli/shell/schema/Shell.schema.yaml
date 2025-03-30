@@ -4,9 +4,23 @@ oneOf:
   - type: string
 
   - type: object
-    required:
-      - resource
     properties:
+      command:
+        type: string
       resource:
         type: string
+      show command:
+        type: boolean
+        default: false
+      show output:
+        type: boolean
+        default: false
+      capture:
+        type: boolean
+        default: true
+    oneOf:
+      - required:
+          - command
+      - required:
+          - resource
     additionalProperties: false

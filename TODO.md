@@ -8,13 +8,12 @@
 
 ## For live deployments demo:
 
-* Replace: use ${output} if 'in' is empty
-* Echo output of shell command
 * Shell: make sure text output is processed without quotes
 * Pass environment variables to shell command
     * SCRIPT_DIR
     * REPO_DIR
     * INSTACLI_ROOT_DIR
+* Shell: Stream output of shell command
 * Shell: option to capture output as yaml.
 * Use first sentence after title for Script info in markdown cli
 * ENV variables support in Shell
@@ -90,10 +89,9 @@
 * Pass strings to scripts (check)
 
 * Shell command:
-    * options to echo command
-    * options to echo stdout and stderr.
     * Option to mask secrets
     * Pass environment variables
+    * Calling it in a different directory
 
 * Code organization
     * Versioning and auto-upgrading of commands
@@ -108,7 +106,12 @@
 
 # Bugs
 
-*
+* 'before' snippets die when there are multiple commands
+  <!-- yaml instacli before
+  Print: One
+  ---
+  Print: Two
+  -->
 
 # Where to take it
 
