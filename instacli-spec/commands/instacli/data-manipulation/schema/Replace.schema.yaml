@@ -10,11 +10,10 @@ properties:
       - string
       - array
       - object
-  replace with:
+  with:
     type: string
 
 required:
   - text
-  - in
-  - replace with
+  - with
 additionalProperties: false

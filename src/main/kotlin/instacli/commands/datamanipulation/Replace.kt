@@ -13,8 +13,10 @@ object Replace : CommandHandler("Replace", "instacli/data-manipulation"), Object
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode {
 
         val text = data.getParameter("text")
-        val source = data.getParameter("in")
-        val replacement = data.getParameter("replace with")
+        val source = data["in"] ?: context.output ?: throw InstacliCommandError(
+            "Replace needs 'in' parameter or non-null output variable."
+        )
+        val replacement = data.getParameter("with")
 
         val result = replace(source, text, replacement)
 

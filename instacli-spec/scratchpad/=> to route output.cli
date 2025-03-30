@@ -4,7 +4,7 @@ Add:
   - 3
 => Replace:
   find: 3
-  replace with: 5
+  with: 5
 =>: ${total}
 
 Expected output: 12

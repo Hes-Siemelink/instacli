@@ -20,7 +20,7 @@ Code example: Output variable is automatically set
 Replace:
   text: me
   in: Hello me
-  replace with: World!
+  with: World!
 
 # Prints Hello World!
 Print: ${output}

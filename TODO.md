@@ -1,8 +1,25 @@
 # On my mind
 
+* Snippets: script with title, description, input, output, example
 * Learn how to write Go
 * Learn how to use AI
 * AI to generate scripts: notebook type interaction to write scripts
+* Document Json Patch (uses RFC 6902)
+
+## For live deployments demo:
+
+* Replace: use ${output} if 'in' is empty
+* Echo output of shell command
+* Shell: make sure text output is processed without quotes
+* Pass environment variables to shell command
+    * SCRIPT_DIR
+    * REPO_DIR
+    * INSTACLI_ROOT_DIR
+* Shell: option to capture output as yaml.
+* Use first sentence after title for Script info in markdown cli
+* ENV variables support in Shell
+* No stacktrace when Expected output fails
+* Add 'Write file' command
 
 # Actually build something
 

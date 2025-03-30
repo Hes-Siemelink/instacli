@@ -3,7 +3,7 @@ Test case: Replace in text
 Replace:
   text: me
   in: Hello me
-  replace with: World
+  with: World
 
 Expected output: Hello World
 
@@ -16,7 +16,7 @@ Replace:
     - one
     - two
     - three
-  replace with: a
+  with: a
 
 Expected output:
   - ane
@@ -34,7 +34,7 @@ Replace:
         kitchen: vinyl
         bathroom: vinyl
         living room: wood
-  replace with: tiles
+  with: tiles
 
 Expected output:
   building:
