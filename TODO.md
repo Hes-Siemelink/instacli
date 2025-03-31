@@ -8,12 +8,10 @@
 
 ## For live deployments demo:
 
-* Shell: make sure text output is processed without quotes
 * Pass environment variables to shell command
     * SCRIPT_DIR
     * REPO_DIR
     * INSTACLI_ROOT_DIR
-* Shell: Stream output of shell command
 * Shell: option to capture output as yaml.
 * Use first sentence after title for Script info in markdown cli
 * ENV variables support in Shell
@@ -59,6 +57,7 @@
 * Define commands in Instacli
 * Secrets
 * Properly handle: null, empty, boolean, int
+* Also use ` ```output` directive in markdown execution to check expected output
 
 ## Types
 
@@ -81,12 +80,14 @@
 * Built-in OAuth. It's kinda cool that you can do it in Instacli but not that you should... Makes the script 'turn into
   code'.
 
-## Files & execution
+## Shell & Files
 
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
 
 * Pass strings to scripts (check)
+    * Quotes and nested quotes
+    * For example JSON
 
 * Shell command:
     * Option to mask secrets

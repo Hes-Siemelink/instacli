@@ -83,7 +83,7 @@ Output: original output
 
 Shell:
   command: echo Hello World
-  capture: false
+  capture output: false
 
 Expected output: original output
 ```

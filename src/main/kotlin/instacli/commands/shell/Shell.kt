@@ -106,6 +106,7 @@ data class ShellCommand(
     @JsonProperty("show command")
     val showCommand: Boolean = false,
 
+    @JsonProperty("capture output")
     val capture: Boolean = true,
 )
 

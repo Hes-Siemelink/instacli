@@ -15,7 +15,7 @@ oneOf:
       show output:
         type: boolean
         default: false
-      capture:
+      capture output:
         type: boolean
         default: true
     oneOf:

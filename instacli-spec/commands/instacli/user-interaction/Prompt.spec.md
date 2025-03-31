@@ -34,17 +34,6 @@ This will ask for user input on the command line:
 Hello Hes!
 ```
 
-## Prompt properties
-
-You can specify various properties:
-
-* `description`: The question to ask the user.
-* `default`: The default value
-* `type`: The type of input: `select one`, `select multiple` or `password`
-* `enum`: a list of objects to choose from. This will render a dropdown list when presented to the user.
-* `display property`: the field to display when passing a list of objects to `enum`
-* `value property`: if passing an object to `enum`, the result will be the value of this field and not the entire object
-
 ## Using a default value
 
 Syntax for using a default value
