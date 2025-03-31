@@ -1,0 +1,4 @@
+Shell:
+  resource: sh count.sh
+  show output: true
+  capture output: false

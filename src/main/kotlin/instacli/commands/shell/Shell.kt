@@ -58,16 +58,26 @@ private fun execute(
         if (showCommand) {
             ShellScript(dryRun = showCommand).command(arguments[0], arguments.drop(1))
         }
-        
-        // TODO Stream output with ShellScript.commandSequence
-        val output = ShellScript(workingDir.toFile()).command(arguments[0], arguments.drop(1))
 
-        if (showOutput) {
-            println(output)
+        // TODO Stream output with ShellScript.commandSequence
+//        val output = ShellScript(workingDir.toFile()).command(arguments[0], arguments.drop(1))
+        val output = ShellScript(workingDir.toFile()).commandSequence(arguments[0], arguments.drop(1))
+
+        val buffer = StringBuilder()
+        output.forEach { line ->
+            if (captureOutput) {
+                if (!buffer.isEmpty()) {
+                    buffer.append("\n")
+                }
+                buffer.append(line)
+            }
+            if (showOutput) {
+                println(line)
+            }
         }
 
         return if (captureOutput) {
-            TextNode(output)
+            TextNode(buffer.toString())
         } else {
             null
         }
