@@ -9,17 +9,25 @@ import kotlin.io.path.name
 class CliFile(val file: Path) : CommandInfo, CommandHandler(asScriptCommand(file.name), null), AnyHandler {
 
     override val name: String = asCliCommand(file.name)
-    override val description: String by lazy { script.info?.description ?: asScriptCommand(name) }
+    override val description: String by lazy {
+        markdown?.description
+            ?: script.info?.description
+            ?: asScriptCommand(name)
+    }
     override val hidden: Boolean by lazy { script.info?.hidden == true }
     override val instacliSpec: String by lazy { script.info?.instacliSpec ?: "unknown" }
 
     val script by lazy { Script.from(scriptNodes) }
     private val scriptNodes: List<JsonNode> by lazy {
-        if (file.name.endsWith(CLI_MARKDOWN_SCRIPT_EXTENSION)) {
-            val document = InstacliMarkdown.scan(file)
-            document.scriptExamples.map { Yaml.parse(it.content) }
+        markdown?.scriptExamples?.map { Yaml.parse(it.content) }
+            ?: Yaml.parse(file)
+    }
+
+    val markdown: InstacliMarkdown? by lazy {
+        if (file.isMarkdownScript()) {
+            InstacliMarkdown.scan(file)
         } else {
-            Yaml.parse(file)
+            null
         }
     }
 
@@ -33,4 +41,8 @@ class CliFile(val file: Path) : CommandInfo, CommandHandler(asScriptCommand(file
     fun run(context: ScriptContext = CliFileContext(file)): JsonNode? {
         return script.run(context)
     }
+}
+
+private fun Path.isMarkdownScript(): Boolean {
+    return this.name.endsWith(CLI_MARKDOWN_SCRIPT_EXTENSION)
 }

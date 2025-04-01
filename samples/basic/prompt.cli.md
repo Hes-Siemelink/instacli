@@ -1,8 +1,6 @@
-# Simple prompt example
+# Prompt example
 
-```yaml instacli
-Script info: Simple interactive prompt
-```
+Simple interactive prompt
 
 ## User interaction
 

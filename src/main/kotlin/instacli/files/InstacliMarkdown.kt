@@ -6,7 +6,7 @@ import kotlin.io.path.readLines
 
 class InstacliMarkdown(val document: Path) {
 
-    private val blocks = mutableListOf<Block>()
+    val blocks = mutableListOf<Block>()
 
     val helperFiles: Map<String, String>
         get() = blocks
@@ -18,6 +18,17 @@ class InstacliMarkdown(val document: Path) {
 
     val commandExamples: List<UsageExample>
         get() = getExamples(CommandInvocation)
+
+    val description: String? by lazy {
+        // Get first main block
+        val mainBlock = blocks.firstOrNull { it.type == MainText }
+
+        // Get first lines of the block that is not a Markdown header, comment or code block
+        mainBlock?.lines?.firstOrNull { line ->
+            !line.startsWith("#") && !line.startsWith("<!--") && !line.startsWith("```") && line.isNotBlank()
+        }
+    }
+
 
     private fun getExamples(type: BlockType): List<UsageExample> {
         val all = mutableListOf<UsageExample>()

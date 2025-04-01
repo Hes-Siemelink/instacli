@@ -29,12 +29,27 @@ class DirectoryInfo : CommandInfo {
 
     companion object {
         fun load(dir: Path): DirectoryInfo {
-            val infoFile = dir.resolve(".instacli.yaml")
-            val info = if (infoFile.exists()) {
-                Yaml.mapper.readValue(infoFile.toFile())
+            val readme = dir.resolve("README.md")
+            val instacliYaml = dir.resolve(".instacli.yaml")
+
+            val info = if (readme.exists()) {
+                val doc = InstacliMarkdown.scan(readme)
+                val yaml = doc.blocks.filter { it.type == YamlScript }
+                if (yaml.isEmpty()) {
+                    DirectoryInfo().apply {
+                        description = doc.description ?: ""
+                    }
+                } else {
+                    val content = yaml.joinToString("\n") { it.getContent() }
+                    Yaml.mapper.readValue(content)
+                }
+
+            } else if (instacliYaml.exists()) {
+                Yaml.mapper.readValue(instacliYaml.toFile())
             } else {
                 DirectoryInfo()
             }
+
             info.dir = dir
 
             if (info.name.isEmpty()) {

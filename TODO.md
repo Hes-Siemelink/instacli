@@ -8,15 +8,16 @@
 
 ## For live deployments demo:
 
+* Use first sentence after title for Script info in markdown cli
 * Pass environment variables to shell command
     * SCRIPT_DIR
     * REPO_DIR
     * INSTACLI_ROOT_DIR
 * Shell: option to capture output as yaml.
-* Use first sentence after title for Script info in markdown cli
 * ENV variables support in Shell
 * No stacktrace when Expected output fails
 * Add 'Write file' command
+* Run spec.md like tests with file, before, after directives
 
 # Actually build something
 
