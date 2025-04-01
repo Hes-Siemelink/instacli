@@ -53,17 +53,16 @@ private fun execute(
 ): TextNode? {
     val arguments = tokenizeCommandLine(commandLine)
 
+    val buffer = StringBuilder()
     try {
 
         if (showCommand) {
             ShellScript(dryRun = showCommand).command(arguments[0], arguments.drop(1))
         }
 
-        // TODO Stream output with ShellScript.commandSequence
-//        val output = ShellScript(workingDir.toFile()).command(arguments[0], arguments.drop(1))
+        // Stream command output
         val output = ShellScript(workingDir.toFile()).commandSequence(arguments[0], arguments.drop(1))
 
-        val buffer = StringBuilder()
         output.forEach { line ->
             if (captureOutput) {
                 if (!buffer.isEmpty()) {
@@ -85,6 +84,7 @@ private fun execute(
     } catch (e: ShellCommandNotFoundException) {
         throw InstacliCommandError("shell", "Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}")
     } catch (e: ShellRunException) {
+        println(buffer.toString()) // Print Stderr
         throw InstacliCommandError("shell", e.message!!, Json.newObject("exitCode", e.exitCode.toString()))
     }
 }

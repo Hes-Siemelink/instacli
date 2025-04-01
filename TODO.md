@@ -8,7 +8,6 @@
 
 ## For live deployments demo:
 
-* Use first sentence after title for Script info in markdown cli
 * Pass environment variables to shell command
     * SCRIPT_DIR
     * REPO_DIR

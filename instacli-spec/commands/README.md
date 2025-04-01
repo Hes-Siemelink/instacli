@@ -53,6 +53,7 @@ Overview of standard commands in Instacli.
 
 ### User interaction
 
+* [Confirm](instacli/user-interaction/Confirm.spec.md) - Asks the user for confirmation
 * [Prompt](instacli/user-interaction/Prompt.spec.md) - Asks the user for input with an interactive prompt
 * [Prompt object](instacli/user-interaction/Prompt%20object.spec.md) - Asks multiple questions and stores the answers
   into one object
