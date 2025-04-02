@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import com.lordcodes.turtle.ShellCommandNotFoundException
-import com.lordcodes.turtle.ShellRunException
-import com.lordcodes.turtle.ShellScript
 import instacli.language.*
 import instacli.util.Json
 import instacli.util.toDomainObject
+import java.io.FileNotFoundException
+import java.io.IOException
 import java.nio.file.Path
 
 object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHandler {
@@ -57,11 +56,12 @@ private fun execute(
     try {
 
         if (showCommand) {
-            ShellScript(dryRun = showCommand).command(arguments[0], arguments.drop(1))
+            print(commandLine)
         }
 
-        // Stream command output
-        val output = ShellScript(workingDir.toFile()).commandSequence(arguments[0], arguments.drop(1))
+        val output = streamCommand(
+            arguments, workingDir
+        )
 
         output.forEach { line ->
             if (captureOutput) {
@@ -81,11 +81,8 @@ private fun execute(
             null
         }
 
-    } catch (e: ShellCommandNotFoundException) {
+    } catch (e: FileNotFoundException) {
         throw InstacliCommandError("shell", "Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}")
-    } catch (e: ShellRunException) {
-        println(buffer.toString()) // Print Stderr
-        throw InstacliCommandError("shell", e.message!!, Json.newObject("exitCode", e.exitCode.toString()))
     }
 }
 
@@ -106,6 +103,43 @@ fun tokenizeCommandLine(line: String): List<String> {
     return arguments
 }
 
+fun streamCommand(
+    command: List<String> = listOf(),
+    workingDirectory: Path? = null,
+): Sequence<String> {
+
+    return try {
+        val processBuilder = ProcessBuilder(listOf())
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.PIPE)
+            .redirectErrorStream(true)
+            .command(command)
+        workingDirectory?.let {
+            processBuilder.directory(it.toFile())
+        }
+        val process = processBuilder.start()
+
+        sequence {
+            yieldAll(process.inputStream.bufferedReader().lineSequence())
+
+            val exitCode = process.waitFor()
+            if (exitCode != 0) {
+                throw InstacliCommandError(
+                    "shell",
+                    "Shell command failed",
+                    Json.newObject("exitCode", exitCode.toString())
+                )
+
+            }
+        }
+    } catch (exception: IOException) {
+        if (exception.message?.contains("Cannot run program") == true) {
+            throw FileNotFoundException()
+        }
+        throw exception
+    }
+}
+
 data class ShellCommand(
     val command: String? = null,
     val resource: String? = null,
@@ -119,4 +153,3 @@ data class ShellCommand(
     @JsonProperty("capture output")
     val capture: Boolean = true,
 )
-

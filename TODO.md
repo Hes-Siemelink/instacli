@@ -12,11 +12,12 @@
     * SCRIPT_DIR
     * REPO_DIR
     * INSTACLI_ROOT_DIR
-* Shell: option to capture output as yaml.
-* ENV variables support in Shell
-* No stacktrace when Expected output fails
 * Add 'Write file' command
+* Tokenize shell command
+* Shell: option to capture output as yaml.
+* No stacktrace when Expected output fails
 * Run spec.md like tests with file, before, after directives
+* Document changes for README.md and cli.md
 
 # Actually build something
 

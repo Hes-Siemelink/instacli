@@ -32,8 +32,7 @@ dependencies {
     implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")
     implementation("org.jline:jline:3.27.+")
     implementation("org.fusesource.jansi:jansi:2.4.1")
-    implementation("com.lordcodes.turtle:turtle:0.10.0")
-    implementation("io.javalin:javalin:6.3.+")
+    implementation("io.javalin:javalin:6.5.+")
     implementation("org.xerial:sqlite-jdbc:3.47.0.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
