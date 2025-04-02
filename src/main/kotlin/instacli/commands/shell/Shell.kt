@@ -31,7 +31,7 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
             context.scriptDir
         }
 
-        return execute(commandLine, dir, commandData.showCommand, commandData.showOutput, commandData.capture)
+        return execute(commandLine, dir, commandData)
     }
 }
 
@@ -46,66 +46,47 @@ private fun ObjectNode.getBooleanParameter(field: String, default: Boolean): Boo
 private fun execute(
     commandLine: String,
     workingDir: Path,
-    showCommand: Boolean = false,
-    showOutput: Boolean = false,
-    captureOutput: Boolean = true
+    info: ShellCommand = ShellCommand()
 ): TextNode? {
-    val arguments = tokenizeCommandLine(commandLine)
 
     val buffer = StringBuilder()
     try {
 
-        if (showCommand) {
+        if (info.showCommand) {
             print(commandLine)
         }
 
         val output = streamCommand(
-            arguments, workingDir
+            commandLine, workingDir, info.env
         )
 
         output.forEach { line ->
-            if (captureOutput) {
+            if (info.captureOutput) {
                 if (!buffer.isEmpty()) {
                     buffer.append("\n")
                 }
                 buffer.append(line)
             }
-            if (showOutput) {
+            if (info.showOutput) {
                 println(line)
             }
         }
 
-        return if (captureOutput) {
+        return if (info.captureOutput) {
             TextNode(buffer.toString())
         } else {
             null
         }
 
-    } catch (e: FileNotFoundException) {
-        throw InstacliCommandError("shell", "Command ${arguments[0]} not found in ${workingDir.toAbsolutePath()}")
+    } catch (e: IOException) {
+        throw InstacliCommandError("shell", e.toString())
     }
-}
-
-fun tokenizeCommandLine(line: String): List<String> {
-    val arguments = mutableListOf<String>()
-    var lastWord = ""
-    var quote = false
-    for (ch in line) {
-        if (ch == '"') quote = !quote
-        if (ch == ' ' && !quote) {
-            arguments.add(lastWord)
-            lastWord = ""
-        } else
-            lastWord += ch
-    }
-    arguments.add(lastWord)
-
-    return arguments
 }
 
 fun streamCommand(
-    command: List<String> = listOf(),
+    command: String,
     workingDirectory: Path? = null,
+    env: Map<String, String> = emptyMap()
 ): Sequence<String> {
 
     return try {
@@ -113,10 +94,20 @@ fun streamCommand(
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .redirectErrorStream(true)
-            .command(command)
+            .command(listOf("/bin/bash", "-c", command))
+
+        // Set working dir
         workingDirectory?.let {
             processBuilder.directory(it.toFile())
         }
+
+        // Set environment variables
+        val processEnv = processBuilder.environment()
+        env.forEach { (key, value) ->
+            processEnv[key] = value
+        }
+
+        // Start process
         val process = processBuilder.start()
 
         sequence {
@@ -151,5 +142,7 @@ data class ShellCommand(
     val showCommand: Boolean = false,
 
     @JsonProperty("capture output")
-    val capture: Boolean = true,
+    val captureOutput: Boolean = true,
+
+    val env: Map<String, String> = emptyMap()
 )

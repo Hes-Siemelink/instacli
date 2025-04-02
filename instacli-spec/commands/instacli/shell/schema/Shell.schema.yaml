@@ -18,6 +18,8 @@ oneOf:
       capture output:
         type: boolean
         default: true
+      env:
+        type: object
     oneOf:
       - required:
           - command

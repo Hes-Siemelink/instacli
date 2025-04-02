@@ -88,6 +88,21 @@ Shell:
 Expected output: original output
 ```
 
+## Passing Environment variables
+
+You can pass variables to the shell command by using the `env` parameter.
+
+```yaml instacli
+Code example: Environment variables
+
+Shell:
+  command: echo Hello $NAME
+  env:
+    NAME: Alice
+
+Expected output: Hello Alice
+```
+
 ## Calling a script next to your Instacli file
 
 Shell commands are executed in the current working directory from where you launched the script. Sometimes it useful to
