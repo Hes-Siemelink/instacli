@@ -15,23 +15,27 @@ import java.nio.file.Path
 object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return execute(data.textValue(), context.workingDir)
+        val info = ShellCommand()
+        info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
+
+        return execute(data.textValue(), context.workingDir, info)
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val commandData = data.toDomainObject(ShellCommand::class)
+        val info = data.toDomainObject(ShellCommand::class)
+        info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
 
-        val commandLine = commandData.command
-            ?: commandData.resource
+        val commandLine = info.command
+            ?: info.resource
             ?: throw CommandFormatException("Specify shell command in either 'command' or 'resource' property")
 
-        val dir = if (commandData.command != null) {
+        val dir = if (info.command != null) {
             context.workingDir
         } else {
             context.scriptDir
         }
 
-        return execute(commandLine, dir, commandData)
+        return execute(commandLine, dir, info)
     }
 }
 
@@ -78,7 +82,11 @@ private fun execute(
             null
         }
 
+    } catch (e: InstacliCommandError) {
+        print(buffer.toString())
+        throw e
     } catch (e: IOException) {
+        print(buffer.toString())
         throw InstacliCommandError("shell", e.toString())
     }
 }
@@ -144,5 +152,5 @@ data class ShellCommand(
     @JsonProperty("capture output")
     val captureOutput: Boolean = true,
 
-    val env: Map<String, String> = emptyMap()
+    val env: MutableMap<String, String> = mutableMapOf()
 )

@@ -124,3 +124,15 @@ Shell:
 
 Expected output: Hello World
 ```
+
+## Using SCRIPT_DIR
+
+You can achieve the same by using the `SCRIPT_DIR` variable.
+
+```yaml instacli
+Code example: Use SCRIPT_DIR
+
+Shell: sh $SCRIPT_DIR/hello.sh
+
+Expected output: Hello World
+```
