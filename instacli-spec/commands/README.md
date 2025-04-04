@@ -71,6 +71,7 @@ Overview of standard commands in Instacli.
 
 * [Read file](instacli/files/Read%20file.spec.md) - Loads Yaml or Json from a file
 * [Save as](instacli/files/Save%20as.spec.md) - Saves content to a file as Yaml
+* [Temp file](instacli/files/Temp%20file.spec.md) - Saves content to a temporary file
 * [Run script](instacli/files/Run%20script.spec.md) - Runs another Instacli script
 * [Instacli files as commands](instacli/files/Instacli%20files%20as%20commands.spec.md) - To run any instacli file in
   the same directory as a regular command
