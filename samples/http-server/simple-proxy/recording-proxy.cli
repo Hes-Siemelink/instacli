@@ -26,7 +26,7 @@ Http server:
           GET:
             headers: ${request.headers}
             path: ${request.path}?${request.query}
-          Save as: ${storageDir}/${request.path}/${request.query}/GET
+          Write file: ${storageDir}/${request.path}/${request.query}/GET
 
       post:
         script:
@@ -34,7 +34,7 @@ Http server:
             headers: ${request.headers}
             path: ${request.path}
             body: ${request.body}
-          Save as: ${storageDir}/${request.path}/${request.query}/POST
+          Write file: ${storageDir}/${request.path}/${request.query}/POST
 
       patch:
         script:
@@ -42,7 +42,7 @@ Http server:
             headers: ${request.headers}
             path: ${request.path}
             body: ${request.body}
-          Save as: ${storageDir}/${request.path}/${request.query}/PATCH
+          Write file: ${storageDir}/${request.path}/${request.query}/PATCH
 
       put:
         script:
@@ -50,7 +50,7 @@ Http server:
             headers: ${request.headers}
             path: ${request.path}
             body: ${request.body}
-          Save as: ${storageDir}/${request.path}/${request.query}/PUT
+          Write file: ${storageDir}/${request.path}/${request.query}/PUT
 
       delete:
         script:

@@ -7,4 +7,4 @@ Read file: db/recipes.yaml
 
 Append: ${input}
 
-Save as: db/recipes.yaml
+Write file: db/recipes.yaml

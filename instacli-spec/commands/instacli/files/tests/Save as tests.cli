@@ -4,7 +4,7 @@ Output:
   test: true
   something: else
 
-Save as: out/save-as-test.yaml
+Write file: out/save-as-test.yaml
 
 Read file: out/save-as-test.yaml
 

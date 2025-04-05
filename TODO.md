@@ -8,15 +8,11 @@
 
 ## For live deployments demo:
 
-* Pass environment variables to shell command
-    * SCRIPT_DIR
-    * REPO_DIR
-    * INSTACLI_ROOT_DIR
 * Add 'Write file' command
-* Tokenize shell command
+* Run ` ```commandline` directives as Shell
+* Run spec.md like tests with file, before, after directives
 * Shell: option to capture output as yaml.
 * No stacktrace when Expected output fails
-* Run spec.md like tests with file, before, after directives
 * Document changes for README.md and cli.md
 
 # Actually build something
@@ -86,13 +82,11 @@
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
 
-* Pass strings to scripts (check)
-    * Quotes and nested quotes
-    * For example JSON
+* Pass environment variables to shell command
+    * SCRIPT_ROOT_DIR
 
 * Shell command:
     * Option to mask secrets
-    * Pass environment variables
     * Calling it in a different directory
 
 * Code organization

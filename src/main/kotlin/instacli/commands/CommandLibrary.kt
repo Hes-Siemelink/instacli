@@ -10,8 +10,8 @@ import instacli.commands.errors.OnError
 import instacli.commands.errors.OnErrorType
 import instacli.commands.files.ReadFile
 import instacli.commands.files.RunScript
-import instacli.commands.files.SaveAs
 import instacli.commands.files.TempFile
+import instacli.commands.files.WriteFile
 import instacli.commands.http.*
 import instacli.commands.schema.ValidateSchema
 import instacli.commands.schema.ValidateType
@@ -87,7 +87,7 @@ object CommandLibrary {
 
         // Files
         ReadFile,
-        SaveAs,
+        WriteFile,
         TempFile,
 
         // Call other scripts

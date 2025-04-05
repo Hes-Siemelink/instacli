@@ -10,7 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.createParentDirectories
 
-object SaveAs : CommandHandler("Save as", "instacli/files"), ValueHandler {
+object WriteFile : CommandHandler("Write file", "instacli/files"), ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
