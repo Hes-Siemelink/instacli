@@ -34,7 +34,7 @@ class DirectoryInfo : CommandInfo {
 
             val info = if (readme.exists()) {
                 val doc = InstacliMarkdown.scan(readme)
-                val yaml = doc.blocks.filter { it.type == YamlScript }
+                val yaml = doc.blocks.filter { it.type == YamlInstacli }
                 if (yaml.isEmpty()) {
                     DirectoryInfo().apply {
                         description = doc.description ?: ""

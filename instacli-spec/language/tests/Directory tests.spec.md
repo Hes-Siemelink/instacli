@@ -8,7 +8,6 @@ This is what happens when you run `cli` in an empty directory.
 
 The `.instacli.yaml` file for the `empty` directory:
 
-```commandline
 ```yaml file:empty/.instacli.yaml
 Script info: This is an example directory
 ```
@@ -44,8 +43,6 @@ Output: Hello
 ```
 
 You can import the say-something script by way of the `.instacli.yaml` file in the `main` directory:
-
-```commandline
 
 ```yaml file:main/.instacli.yaml
 Script info: Main directory

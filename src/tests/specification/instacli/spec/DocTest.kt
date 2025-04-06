@@ -33,18 +33,18 @@ class DocTest {
 
     @Test
     fun `Command line invocation`() {
-        doc.commandExamples.size shouldBe 1
-        doc.commandExamples[0].command shouldBe "cli --help"
-        doc.commandExamples[0].output shouldContain "Instantly create CLI applications with light scripting!"
+        doc.instacliCommandExamples.size shouldBe 1
+        doc.instacliCommandExamples[0].command shouldBe "cli --help"
+        doc.instacliCommandExamples[0].output shouldContain "Instantly create CLI applications with light scripting!"
     }
 
     @Test
     fun `Example cli command test`() {
         val output = IO.captureSystemOut {
-            testCliCommand(doc.commandExamples[0])
+            testCliCommand(doc.instacliCommandExamples[0])
         }
 
-        output.trim() shouldBe doc.commandExamples[0].output?.trim()
+        output.trim() shouldBe doc.instacliCommandExamples[0].output?.trim()
     }
 
     private fun testCliCommand(command: UsageExample) {

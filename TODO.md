@@ -8,7 +8,6 @@
 
 ## For live deployments demo:
 
-* Add 'Write file' command
 * Run ` ```commandline` directives as Shell
 * Run spec.md like tests with file, before, after directives
 * Shell: option to capture output as yaml.

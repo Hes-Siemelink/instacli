@@ -154,7 +154,7 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
         .map {
             toTest(document, it, CliFileContext(testDir), credentials)
         }
-    val cliInvocationTests = commandExamples.map {
+    val cliInvocationTests = instacliCommandExamples.map {
         val dir = it.directory ?: testDir
         it.toTest(document, dir)
     }

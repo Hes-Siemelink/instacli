@@ -14,10 +14,10 @@ class InstacliMarkdown(val document: Path) {
             .associate { (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent() }
 
     val scriptExamples: List<UsageExample>
-        get() = getExamples(YamlScript)
+        get() = getExamples(YamlInstacli)
 
-    val commandExamples: List<UsageExample>
-        get() = getExamples(CommandInvocation)
+    val instacliCommandExamples: List<UsageExample>
+        get() = getExamples(CommandLineCli)
 
     val description: String? by lazy {
         // Get first main block
@@ -54,17 +54,17 @@ class InstacliMarkdown(val document: Path) {
                     current?.output = block.getContent()
                 }
 
-                Before -> {
+                YamlInstacliBefore -> {
                     before = block.getContent() + "\n"
                 }
 
-                After -> {
+                YamlInstacliAfter -> {
                     current ?: continue
                     current.after = "\n" + block.getContent()
                 }
 
                 // Clean up context when encountering a block of a different type
-                CommandInvocation, YamlScript, YamlFile -> {
+                CommandLineCli, YamlInstacli, YamlFile -> {
                     current = null
                     before = null
                 }
@@ -94,10 +94,11 @@ class InstacliMarkdown(val document: Path) {
 
         private val blockTypes: List<BlockType> = listOf(
             YamlFile,
-            Before,
-            YamlScript,
-            After,
-            CommandInvocation,
+            YamlInstacliBefore,
+            YamlInstacli,
+            YamlInstacliAfter,
+            CommandLineCli,
+            CommandLine,
             Input,
             Output,
             MainText // Should be last
@@ -177,11 +178,12 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
 }
 
 object MainText : BlockType()
-object Before : BlockType("<!-- yaml instacli before", "-->")
-object After : BlockType("<!-- yaml instacli after", "-->")
-object YamlScript : BlockType("```yaml instacli")
+object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
+object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
+object YamlInstacli : BlockType("```yaml instacli")
 object YamlFile : BlockType("```yaml file")
-object CommandInvocation : BlockType("```commandline cli")
+object CommandLineCli : BlockType("```commandline cli")
+object CommandLine : BlockType("```commandline")
 object Input : BlockType("<!-- input", "-->")
 object Output : BlockType("```output")
 
