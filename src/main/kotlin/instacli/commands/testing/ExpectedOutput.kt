@@ -3,7 +3,9 @@ package instacli.commands.testing
 import com.fasterxml.jackson.databind.JsonNode
 import instacli.language.AnyHandler
 import instacli.language.CommandHandler
+import instacli.language.InstacliCommandError
 import instacli.language.ScriptContext
+import instacli.util.Json
 
 object ExpectedOutput : CommandHandler("Expected output", "instacli/testing"), AnyHandler {
 
@@ -12,7 +14,10 @@ object ExpectedOutput : CommandHandler("Expected output", "instacli/testing"), A
         val output = context.output
 
         if (output != data) {
-            throw AssertionError("Unexpected output.\nExpected: ${data}\nOutput:   $output")
+            val error = Json.newObject()
+            error.set<JsonNode>("expected", data)
+            error.set<JsonNode>("actual", output)
+            throw InstacliCommandError("Output", "Unexpected output.", error)
         }
 
         return null

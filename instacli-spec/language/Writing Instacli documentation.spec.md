@@ -9,7 +9,9 @@ and then how they will show up in the document. The instacli build will pick up 
 
 ## Code examples
 
-You can define Instacli code examples with the **\`\`\`yaml instacli** markdown construct.
+You can define Instacli code examples with the ` ```yaml instacli` markdown construct.
+
+### Markdown format
 
     ```yaml instacli
     Code example: An Instacli snippet inside Markdown
@@ -17,17 +19,13 @@ You can define Instacli code examples with the **\`\`\`yaml instacli** markdown 
     Print: Hello from Instacli!
     ```
 
-This will show as:
-
----
+### Display example
 
 ```yaml instacli
 Code example: An Instacli snippet inside Markdown
 
 Print: Hello from Instacli!
 ```
-
----
 
 ## Hidden setup code
 
@@ -51,8 +49,10 @@ Print: Hello, ${name}!
 When reading the example, a reader may be distracted by the **Stock answers** bit. That is not what this code example is
 about. It would be great if could hide it in someway.
 
-You can do so by putting the code that we need but don't want to show in an HTML comment that is marked as **yaml
-instacli before**
+You can do so by putting the code that we need but don't want to show in an HTML comment starting with
+`<!-- yaml instacli before`
+
+### Markdown format
 
     <!-- yaml instacli before
     Stock answers:
@@ -68,9 +68,9 @@ instacli before**
     Print: Hello, ${name}!
     ```
 
-Now the example looks a lot cleaner:
+### Display example
 
----
+Now the example looks a lot cleaner:
 
 <!-- yaml instacli before
 Stock answers:
@@ -86,7 +86,7 @@ As: ${name}
 Print: Hello, ${name}!
 ```
 
----
+## Cleanup code
 
 You can also provide hidden cleanup code with `<!-- yaml instacli after`. The yaml code will be appended to the last
 code example defined by `yaml instacli`
@@ -96,7 +96,7 @@ code example defined by `yaml instacli`
 Sometimes you need to have a helper file in order for the example to work. You can define a helper file with **```yaml
 file:[filename]**
 
-Here's an example:
+### Markdown format
 
     You can define the data in an external file `data.yaml`:
 
@@ -115,9 +115,7 @@ Here's an example:
     
     Print: Value is ${data.key}
 
-This wil show as:
-
----
+### Display example
 
 You can define the data in an external file `data.yaml`:
 
@@ -137,9 +135,9 @@ As: ${data}
 Print: Value is ${data.key} 
 ```
 
----
+## Documenting the `cli` command
 
-## Command line invocations
+### Markdown format
 
 To show how to invoke the command line `cli` command, use the following syntax:
 
@@ -166,19 +164,15 @@ like  [Stock answers](../commands/instacli/testing/Stock%20answers.spec.md)
     Select a language: English
     -->
 
-This will show as:
+### Display example
 
----
+This will show as:
 
 ```commandline cli
 cli --help
 ```
 
----
-
 Followed by:
-
----
 
 ```output
 Instacli -- Instantly create CLI applications with light scripting!
@@ -194,4 +188,43 @@ Global options:
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
 
----
+## Inline shell examples
+
+When you have an inline command line example, use the `commandline` directive.
+
+### Markdown format
+
+Write the shell command in a code block:
+
+    ```commandline
+    echo Hello
+    ```
+
+Instacli will execute this command using the [Shell](../commands/instacli/shell/Shell.spec.md) command. In other words,
+this is equivalent to:
+
+    ```yaml instacli
+    Shell: echo Hello
+    ```
+
+You can also provide the output of the command in a block:
+
+    ```output
+    Hello
+    ```
+
+<!-- FIXME! Breaks doc test
+    ### Display example
+    
+    This will show as
+    
+    ```commandline
+    echo Hello
+    ```
+    
+    with output
+    
+    ```output
+    Hello
+    ```
+-->

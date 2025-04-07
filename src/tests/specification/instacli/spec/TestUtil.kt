@@ -36,7 +36,7 @@ import kotlin.io.path.writeText
 
 fun Path.getTestCases(): List<DynamicNode> {
     if (isDirectory()) {
-        val pages = Files.walk(this).filter { it.name.endsWith(".cli") }
+        val pages = Files.walk(this).filter { it.name.endsWith(CLI_SCRIPT_EXTENSION) }
         return pages.map { file ->
             dynamicContainer(file.name, CliFile(file).getTestCases())
         }.toList()
@@ -59,7 +59,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
 
     context.setCredentials(credentials)
 
-    return script.getTestCases().map { script ->
+    return script.splitTestCases().map { script ->
         dynamicTest(script.getText(TestCase), file.toUri()) {
             context.error = null
             try {
@@ -82,7 +82,7 @@ fun CliFile.getTestCases(): List<DynamicTest> {
 /**
  * Gets all test cases in a script as a separate CliScript.
  */
-fun Script.getTestCases(): List<Script> {
+fun Script.splitTestCases(): List<Script> {
 
     val allTests = mutableListOf<Script>()
 

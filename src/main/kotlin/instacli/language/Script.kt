@@ -1,13 +1,21 @@
 package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.scriptinfo.ScriptInfoData
+import instacli.commands.shell.Shell
+import instacli.commands.shell.ShellCommand
+import instacli.commands.testing.ExpectedOutput
+import instacli.commands.testing.StockAnswers
+import instacli.files.*
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 import kotlin.io.path.name
 
 data class Command(val name: String, val data: JsonNode)
+
+class Break(val output: JsonNode) : Exception()
 
 class Script(val commands: List<Command>) {
 
@@ -64,7 +72,7 @@ class Script(val commands: List<Command>) {
         }
 
         fun from(content: String): Script {
-            return from(Yaml.parseAsFile(content))
+            return Script(toCommandList(content))
         }
     }
 }
@@ -77,8 +85,46 @@ private fun toCommandList(scriptNode: JsonNode): List<Command> {
     return scriptNode.fields().asSequence().map { Command(it.key, it.value) }.toList()
 }
 
+private fun toCommandList(script: String): List<Command> {
+    return toCommandList(Yaml.parseAsFile(script))
+}
+
 fun JsonNode.run(context: ScriptContext): JsonNode? {
     return Script.from(this).runCommands(context)
 }
 
-class Break(val output: JsonNode) : Exception()
+fun InstacliMarkdown.toScript(): Script {
+
+    val commands = mutableListOf<Command>()
+    for (block in blocks) {
+        when (block.type) {
+            MainText -> {}
+            YamlInstacliBefore, YamlInstacliAfter, YamlInstacli -> {
+                commands.addAll(toCommandList(block.getContent()))
+            }
+
+            YamlFile -> {}
+            CommandLineCli -> {}
+            CommandLine -> {
+                val command = ShellCommand(command = block.getContent(), showOutput = true)
+                commands.add(
+                    Command(Shell.name, Yaml.mapper.valueToTree(command))
+                )
+            }
+
+            Input -> {
+                commands.add(
+                    Command(StockAnswers.name, Yaml.parse(block.getContent()))
+                )
+            }
+
+            Output -> {
+                commands.add(
+                    Command(ExpectedOutput.name, TextNode(block.getContent()))
+                )
+            }
+        }
+    }
+
+    return Script(commands)
+}

@@ -141,3 +141,22 @@
     * Why not try "Exception Driven Programming". But: you can't _start_ with the exceptions.
     * Define the happy path as declarative as possible. Build the exception flow around it?
     * Mold the language to have fewer exceptions: be declarative, idempotent
+
+# Model for 'Script'
+
+CliFile
+
+- Parse file
+- Run it Script
+- List of commands
+- Execute
+- Metadata from parsing ScriptInfo InstacliMarkdown
+- Logical list of blocks parsed out of markdown
+- Metadata from parsing markdown text
+- No execution logic
+- No Instacli commands Missing:
+- Metadata like Script info
+- Transforming markdown blocks into commands TestUtil
+- Checking input and output
+- Creating helper files in temp directory
+- Running command line cli
