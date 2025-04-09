@@ -7,7 +7,7 @@ in [instacli-command-line-options.yaml](instacli-command-line-options.yaml) and 
 
 When running `cli` or `cli --help`, the global options will be printed
 
-```commandline cli
+```shell cli
 cli
 ```
 
@@ -32,7 +32,7 @@ The `--help` option prints help on a script or directory and then exits. No scri
 For this example we run from the **[samples](/samples)** directory. It contains a directory `basic`. Let's use the
 `--help` option to see what Instacli commands it contains
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli --help basic
 ```
 
@@ -50,7 +50,7 @@ Available commands:
 Using `--help` on the **[greet](/samples/basic/greet.cli)** command will give us a description and show which command
 line options it supports
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli --help basic greet
 ```
 
@@ -63,7 +63,7 @@ Options:
 
 With that information we can call it with a parameter that is specific to that command:
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli basic greet --name Alice
 ```
 
@@ -84,7 +84,7 @@ another script.
 
 Running `create-greeting` like this will show nothing
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli basic create-greeting --name Bob
 ```
 
@@ -95,7 +95,7 @@ Output:
 
 We will see the output when passing the `--output` parameter, or its shortcut `-o`:
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli -o basic create-greeting --name Bob
 ```
 
@@ -107,7 +107,7 @@ Hello Bob!
 
 To show the output in the script in Json format, use `--output-json` or the shortcut  `-j`:
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli --output-json basic create-greeting --name Bob
 ```
 
@@ -125,7 +125,7 @@ The net effect is that the script will stop when user interaction is required
 
 For example, run Instacli on a directory will pop up a command chooser:
 
-```commandline
+```shell
 cli basic
 ```
 
@@ -144,7 +144,7 @@ After choosing a command with cursor keys and enter, ths script will continue.
 
 If we pass `--non-interactive` however, the script will just print the list of available commands and exit:
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli --non-interactive basic
 ```
 
@@ -161,7 +161,7 @@ Available commands:
 
 When calling a script with a missing parameter in interactive mode, you will get a question on the command line.
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli basic create-greeting
 ```
 
@@ -175,7 +175,7 @@ Your name: ""
 
 In non-interactive mode, the script will fail with an error message
 
-```commandline cli directory:samples
+```shell cli directory:samples
 cli -q basic create-greeting
 ```
 
@@ -199,7 +199,7 @@ GET: http:\\localhost  # Malformed URL - not caught by Instacli runtime
 
 Without debug mode you get the following error message
 
-```commandline cli
+```shell cli
 cli script-with-error.cli
 ```
 
@@ -216,7 +216,7 @@ In script-with-error.cli:
 With the `--debug` option you will see more of the internals. For example, the Kotlin stacktrace. This can be useful for
 debugging the implementation.
 
-```commandline cli
+```shell cli
 cli --debug script-with-error.cli
 ```
 

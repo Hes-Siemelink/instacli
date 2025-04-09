@@ -32,7 +32,7 @@ Print: Hello ${output.firstName} ${output.lastName}!
 
 This will ask two questions and then print the result:
 
-```commandline
+```shell
 ? First name Juan
 ? Last name Pérez
 Hello Juan, Pérez!

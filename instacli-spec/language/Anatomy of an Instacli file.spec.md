@@ -15,7 +15,7 @@ commands start with a capital letter.
 
 If we store it in a file `hello-world.cli`, we can run it with the following command:
 
-```commandline cli
+```shell cli
 cli hello-world.cli
 ```
 
@@ -63,7 +63,7 @@ Print: Hello ${output}!
 
 When storing this in a file `prompt.cli` and running it with the following command,
 
-```commandline cli
+```shell cli
 cli prompt.cli
 ```
 
@@ -136,7 +136,7 @@ Print: Hi there!
 
 When running it with the `--help` flag, the description is printed:
 
-```commandline cli
+```shell cli
 cli --help simple-greeting.cli
 ```
 
@@ -159,7 +159,7 @@ Print: Hello ${input.name}!
 
 It has input parameter `name`:
 
-```commandline cli
+```shell cli
 cli --help greeting.cli
 ```
 
@@ -172,7 +172,7 @@ Options:
 
 And you can invoke it as follows.
 
-```commandline cli
+```shell cli
 cli greeting.cli --name Bob
 ```
 
@@ -198,7 +198,7 @@ Output:
 The output is stored in the `${output}` variable. When invoking instacli with the
 **[--output](../cli/Command%20line%20options.spec.md#--output)** option, it will be printed:
 
-```commandline cli
+```shell cli
 cli --output hello.cli
 ```
 

@@ -39,7 +39,7 @@ Print: ${output}
 
 Run the script with this command:
 
-```commandline cli
+```shell cli
 cli greetings.cli
 ```
 
@@ -63,7 +63,7 @@ Hi Hes!
 
 You can specify the parameters as arguments. Find out what to pass with the `--help` option:
 
-```commandline cli
+```shell cli
 cli --help greetings.cli
 ```
 
@@ -79,7 +79,7 @@ Options:
 
 We can call the example again with the parameters filled in:
 
-```commandline cli
+```shell cli
 cli greetings.cli --name Hes --language Spanish
 ```
 
@@ -105,7 +105,7 @@ The Instacli implementation is in Kotlin.
 
 * Install a current JDK
 
-```commandline
+```shell
 ./gradlew build
 alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 ```
@@ -114,7 +114,7 @@ alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 
 Run the "Hello world" example:
 
-```commandline
+```shell
 cli samples/hello.cli
 ```
 
@@ -127,13 +127,13 @@ There are more examples in the **[samples](samples)** directory - check them out
 
 Explore them all with the command:
 
-```commandline
+```shell
 cli samples
 ```
 
 The following example will provide an interactive experience and connect to the Spotify API:
 
-```commandline
+```shell
 cli samples/spotify
 ```
 
@@ -158,7 +158,7 @@ Print: Hello from Instacli!
 
 Invoke it with
 
-```commandline cli
+```shell cli
 cli hello.cli
 ```
 
@@ -203,7 +203,7 @@ Script info:
 
 This will automatically generate a command description and command line options:
 
-```commandline cli
+```shell cli
 cli --help simple-options.cli
 ```
 
@@ -234,7 +234,7 @@ Script info:
       short option: p
 ```
 
-```commandline cli
+```shell cli
 cli --help input-options.cli
 ```
 
@@ -249,7 +249,7 @@ Options:
 By default, Instacli runs in interactive mode. If there are unknown commandline options, the user is prompted to give
 input.
 
-```commandline cli
+```shell cli
 cli input-options.cli
 ```
 
@@ -269,7 +269,7 @@ Easily provide subcommand support by organizing your cli files in directories.
 
 For example, to run the greeting example from the **[samples](samples)** directory, you can write
 
-```commandline
+```shell
 cli samples basic greet
 ```
 
@@ -281,7 +281,7 @@ Hello, World!
 
 You can interactively select which command to run.
 
-```commandline
+```shell
 cli samples
 ```
 
@@ -301,7 +301,7 @@ samples has several subcommands.
 
 Use the `-q` option for non-interacivte mode
 
-```commandline
+```shell
 cli -q samples
 ```
 
@@ -340,7 +340,7 @@ Print:
 
 You will be presented with an interactive selector when running it:
 
-```commandline cli
+```shell cli
 cli prompt.cli
 ```
 

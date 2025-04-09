@@ -29,7 +29,7 @@ Print: Hello ${output}!
 
 This will ask for user input on the command line:
 
-```commandline
+```shell
 ? What is your name? Hes
 Hello Hes!
 ```
@@ -53,7 +53,7 @@ Prompt:
 
 The default value is a suggestion that is printed but can be overwritten by the user
 
-```commandline
+```shell
 ? What is your name? World_
 ```
 
@@ -77,7 +77,7 @@ Prompt:
 
 will display as:
 
-```commandline
+```shell
 ? What is your password? ***
 ```
 
@@ -103,7 +103,7 @@ Prompt:
 
 The user can user the cursor keys to interactively select an item from a list, confirming the choice by hitting enter.
 
-```commandline
+```shell
 ? What is your favorite color? 
  ❯ Red
    Green
@@ -133,7 +133,7 @@ Prompt:
 
 Here you can select the items you want by hitting the spacebar, before confirming with enter:
 
-```commandline
+```shell
 ? What are your favorite colors? 
    ◉ Red
  ❯ ◉ Green
@@ -170,7 +170,7 @@ Print:
 
 Here's an example to show how that works:
 
-```commandline
+```shell
 ? Select a user Alice
 You chose:
   name: Alice
@@ -205,7 +205,7 @@ Print:
 
 Here's the result of that:
 
-```commandline
+```shell
 ? Select a user Alice
 You chose: 123
 ```

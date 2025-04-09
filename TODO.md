@@ -8,7 +8,7 @@
 
 ## For live deployments demo:
 
-* Run ` ```commandline` directives as Shell
+* Run ` ```shell` directives as Shell
 * Run spec.md like tests with file, before, after directives
 * Shell: option to capture output as yaml.
 * No stacktrace when Expected output fails

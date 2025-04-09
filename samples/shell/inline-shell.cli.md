@@ -1,12 +1,12 @@
 # Shell example
 
-You can write a markdown file with shell commands inside ` ```commandline` blocks.
+You can write a markdown file with shell commands inside ` ```shell` blocks.
 
 Instacli will execute these commands.
 
 For example:
 
-```commandline
+```shell
 echo Hello
 ```
 

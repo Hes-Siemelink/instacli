@@ -14,7 +14,7 @@ Script info: This is an example directory
 
 There are no scripts in the `empty` directory.
 
-```commandline cli
+```shell cli
 cli --help empty
 ```
 
@@ -52,7 +52,7 @@ imports:
 
 Then the `helper` script will be available in the main directory, but will not show up when printing the contents
 
-```commandline cli
+```shell cli
 cli --help main
 ```
 

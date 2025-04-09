@@ -30,7 +30,7 @@ Script info: A script containing a code example
 When running Instacli from the command line with the `cli` command, this is the description that is given. For example,
 when listing the commands in a directory
 
-```commandline
+```shell
 $ cli script-info-samples 
 Script info usage examples
 
@@ -83,7 +83,7 @@ When running this, there are three possibilities
 
 Use `cli --help` to see the description of the parameters
 
-```commandline
+```shell
 $ cli --help script-info-samples/input
 A script with input parameters
 
@@ -202,7 +202,7 @@ Output: Something useful
 
 It is not included in the directory listing:
 
-```commandline cli
+```shell cli
 cli --help .
 ```
 

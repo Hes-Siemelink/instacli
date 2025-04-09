@@ -17,7 +17,7 @@ class InstacliMarkdown(val document: Path) {
         get() = getExamples(YamlInstacli)
 
     val instacliCommandExamples: List<UsageExample>
-        get() = getExamples(CommandLineCli)
+        get() = getExamples(ShellCli)
 
     val description: String? by lazy {
         // Get first main block
@@ -64,7 +64,7 @@ class InstacliMarkdown(val document: Path) {
                 }
 
                 // Clean up context when encountering a block of a different type
-                CommandLineCli, YamlInstacli, YamlFile -> {
+                ShellCli, YamlInstacli, YamlFile -> {
                     current = null
                     before = null
                 }
@@ -97,8 +97,8 @@ class InstacliMarkdown(val document: Path) {
             YamlInstacliBefore,
             YamlInstacli,
             YamlInstacliAfter,
-            CommandLineCli,
-            CommandLine,
+            ShellCli,
+            Shell,
             Input,
             Output,
             MainText // Should be last
@@ -182,8 +182,8 @@ object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
 object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
 object YamlInstacli : BlockType("```yaml instacli")
 object YamlFile : BlockType("```yaml file")
-object CommandLineCli : BlockType("```commandline cli")
-object CommandLine : BlockType("```commandline")
+object ShellCli : BlockType("```shell cli")
+object Shell : BlockType("```shell")
 object Input : BlockType("<!-- input", "-->")
 object Output : BlockType("```output")
 

@@ -141,7 +141,7 @@ Print: Value is ${data.key}
 
 To show how to invoke the command line `cli` command, use the following syntax:
 
-    ```commandline cli
+    ```shell cli
     cli --help
     ```
 
@@ -168,7 +168,7 @@ like  [Stock answers](../commands/instacli/testing/Stock%20answers.spec.md)
 
 This will show as:
 
-```commandline cli
+```shell cli
 cli --help
 ```
 
@@ -190,13 +190,13 @@ Global options:
 
 ## Inline shell examples
 
-When you have an inline command line example, use the `commandline` directive.
+When you have an inline command line example, use the ` ```shell` directive.
 
 ### Markdown format
 
 Write the shell command in a code block:
 
-    ```commandline
+    ```shell
     echo Hello
     ```
 
@@ -218,7 +218,7 @@ You can also provide the output of the command in a block:
     
     This will show as
     
-    ```commandline
+    ```shell
     echo Hello
     ```
     

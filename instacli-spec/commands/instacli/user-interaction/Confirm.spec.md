@@ -29,7 +29,7 @@ Print: Thank you for confirming!
 
 This will ask for user input on the command line:
 
-```commandline
+```shell
 ? Do you want to continue? Yes
 Thank you for confirming!
 ```

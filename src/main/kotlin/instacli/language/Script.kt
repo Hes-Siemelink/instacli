@@ -104,8 +104,8 @@ fun InstacliMarkdown.toScript(): Script {
             }
 
             YamlFile -> {}
-            CommandLineCli -> {}
-            CommandLine -> {
+            ShellCli -> {}
+            Shell -> {
                 val command = ShellCommand(command = block.getContent(), showOutput = true)
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))
