@@ -34,7 +34,7 @@ object StandardInput : UserInput {
                 nonCursor = "   ",
             )
         )
-        println("---")
+//        println("---")
         return selectedCommand
     }
 }

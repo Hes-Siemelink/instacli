@@ -24,9 +24,9 @@ Expected output:
   loaded: true
 
 ---
-Test case: Run script from working directory (short way)
+Test case: Run script from same directory (short way)
 
-Run script: instacli-spec/commands/instacli/files/tests/greet.cli
+Run script: greet.cli
 
 Expected output: Hello world!
 

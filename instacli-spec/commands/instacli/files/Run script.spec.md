@@ -13,13 +13,34 @@ also [Instacli files as commands](Instacli%20files%20as%20commands.spec.md)
 
 ## Basic usage
 
+Suppose you have a cli file `do-something.cli`
+
+```yaml file:do-something.cli
+Output: Something done!
+```
+
+Then you can call it from another Instacli file using **Run script**.
+
+Pass the name of the script in the current working directory as a single text parameter.
+
+```yaml instacli
+Code example: Call another instacli
+
+Run script: do-something.cli
+
+Expected output: Something done!
+```
+
+## Passing input parameters
+
 Suppose you have a cli file `create-greeting.cli`
 
 ```yaml file:create-greeting.cli
 Output: Hello ${input.name}!
 ```
 
-Then you can call it from another Instacli file using **Run script**.
+To call it with **Run script**, you can pass the input parameters in the `input` property. The script name is passed in
+the `resource` property.
 
 ```yaml instacli
 Code example: Call another instacli file
@@ -32,9 +53,6 @@ Run script:
 
 Expected output: Hello Alice!
 ```
-
-The values under  `${input}` will be passed as input to the script that you call. For example, the value for `name`,
-Alice, will be available as `${input.name}` in the target script.
 
 ## Finding the script
 
@@ -54,15 +72,3 @@ Run script:
 Expected output: Hello Clarice!
 ```
 
-As a shortcut, you can pass the name of the script in the current working directory as a single text parameter. But in
-that case, it is not possible to pass input parameters
-
-```yaml instacli
-Code example: Call another instacli file from working dir without input
-
-Run script: samples/basic/output.cli
-
-Expected output:
-  text: Hello World!
-  status: All good
-```

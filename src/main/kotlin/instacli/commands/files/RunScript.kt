@@ -19,7 +19,7 @@ object RunScript : CommandHandler("Run script", "instacli.files"), ObjectHandler
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
-        val file = data.toPath(context)
+        val file = data.toPath(context, context.scriptDir)
 
         return handleCommand(CliFile(file), Json.newObject(), context)
     }

@@ -211,8 +211,7 @@ c: three
 You also get it when calling a script from another script:
 
 ```yaml instacli
-Run script:
-  resource: hello.cli
+Run script: hello.cli
 
 Expected output:
   a: one

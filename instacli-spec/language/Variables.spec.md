@@ -151,8 +151,7 @@ If we call this script from another script, we get the result in the`${output}` 
 ```yaml instacli
 Code example: Get the output of another script
 
-Run script:
-  resource: simple-greeting.cli
+Run script: simple-greeting.cli
 
 Expected output: Hello World!
 ```
