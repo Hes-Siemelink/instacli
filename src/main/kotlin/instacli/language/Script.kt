@@ -8,7 +8,9 @@ import instacli.commands.shell.Shell
 import instacli.commands.shell.ShellCommand
 import instacli.commands.testing.ExpectedOutput
 import instacli.commands.testing.StockAnswers
-import instacli.files.*
+import instacli.files.InstacliMarkdown
+import instacli.files.MarkdownBlock
+import instacli.files.MarkdownBlock.*
 import instacli.util.Yaml
 import instacli.util.toDomainObject
 import kotlin.io.path.name
@@ -105,7 +107,7 @@ fun InstacliMarkdown.toScript(): Script {
 
             YamlFile -> {}
             ShellCli -> {}
-            Shell -> {
+            MarkdownBlock.Shell -> {
                 val command = ShellCommand(command = block.getContent(), showOutput = true)
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))

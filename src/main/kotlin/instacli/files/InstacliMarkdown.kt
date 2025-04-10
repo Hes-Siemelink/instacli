@@ -1,12 +1,13 @@
 package instacli.files
 
+import instacli.files.MarkdownBlock.*
 import java.io.PrintStream
 import java.nio.file.Path
 import kotlin.io.path.readLines
 
 class InstacliMarkdown(val document: Path) {
 
-    val blocks = mutableListOf<Block>()
+    val blocks = mutableListOf<MarkdownBlock>()
 
     val helperFiles: Map<String, String>
         get() = blocks
@@ -74,12 +75,12 @@ class InstacliMarkdown(val document: Path) {
         return all
     }
 
-    fun get(type: BlockType): List<Block> {
+    fun get(type: BlockType): List<MarkdownBlock> {
         return blocks.filter { it.type == type }
     }
 
-    private fun addBlock(type: BlockType, headerLine: String = ""): Block {
-        val block = Block(type, headerLine)
+    private fun addBlock(type: BlockType, headerLine: String = ""): MarkdownBlock {
+        val block = MarkdownBlock(type, headerLine)
         blocks.add(block)
         return block
     }
@@ -147,7 +148,11 @@ open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: Strin
 val FILE_REGEX = Regex("file:(\\S+)")
 val DIRECTORY_REGEX = Regex("directory:(\\S+)")
 
-class Block(val type: BlockType, val headerLine: String = "", val lines: MutableList<String> = mutableListOf()) {
+class MarkdownBlock(
+    val type: BlockType,
+    val headerLine: String = "",
+    val lines: MutableList<String> = mutableListOf()
+) {
     fun getFilename(): String? {
         val fileMatch = FILE_REGEX.find(headerLine)
         return fileMatch?.groupValues?.get(1)
@@ -175,17 +180,17 @@ class Block(val type: BlockType, val headerLine: String = "", val lines: Mutable
             out.println(type.lastLinePrefix)
         }
     }
-}
 
-object MainText : BlockType()
-object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
-object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
-object YamlInstacli : BlockType("```yaml instacli")
-object YamlFile : BlockType("```yaml file")
-object ShellCli : BlockType("```shell cli")
-object Shell : BlockType("```shell")
-object Input : BlockType("<!-- input", "-->")
-object Output : BlockType("```output")
+    object MainText : BlockType()
+    object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
+    object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
+    object YamlInstacli : BlockType("```yaml instacli")
+    object YamlFile : BlockType("```yaml file")
+    object ShellCli : BlockType("```shell cli")
+    object Shell : BlockType("```shell")
+    object Input : BlockType("<!-- input", "-->")
+    object Output : BlockType("```output")
+}
 
 data class UsageExample(
     val command: String,

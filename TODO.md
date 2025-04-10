@@ -8,11 +8,12 @@
 
 ## For live deployments demo:
 
-* Run ` ```shell` directives as Shell
 * Run spec.md like tests with file, before, after directives
 * Shell: option to capture output as yaml.
 * No stacktrace when Expected output fails
 * Document changes for README.md and cli.md
+* BUG: $SCRIPT_DIR doesn't work
+* BUG: shell error is not caught by On error. (When installing k3d runner without k3d)
 
 # Actually build something
 

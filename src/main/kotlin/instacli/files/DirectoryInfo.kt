@@ -2,6 +2,7 @@ package instacli.files
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
+import instacli.files.MarkdownBlock.YamlInstacli
 import instacli.language.CommandInfo
 import instacli.util.Json
 import instacli.util.Yaml
