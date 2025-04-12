@@ -52,11 +52,13 @@ private fun handleInput(
     context: ScriptContext,
     input: ObjectDefinition
 ) {
-    
+
     for ((name, info) in input.properties.entries) {
 
         // Already exists
         if (context.getInputVariables().contains(name)) {
+            // Copy variable to top level
+            context.variables[name] = context.getInputVariables()[name]
             continue
         }
 
@@ -66,10 +68,10 @@ private fun handleInput(
         }
 
         // Find answer
-        val answer = when {
+        val answer: JsonNode = when {
 
             // Get default value
-            info.default != null -> info.default
+            info.default != null -> info.default!!
 
             // Ask user
             context.interactive -> info.prompt(name)
@@ -80,7 +82,9 @@ private fun handleInput(
                 input
             )
         }
+        
         context.getInputVariables().set<JsonNode>(name, answer)
+        context.variables[name] = answer
     }
 }
 

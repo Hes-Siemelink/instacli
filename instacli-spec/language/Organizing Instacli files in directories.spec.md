@@ -98,7 +98,7 @@ Script info:
   input:
     name: Your name
 
-Output: Hello ${input.name}!
+Output: Hello ${name}!
 ```
 
 We can now call it as `Create greeting` from a script in the same directory:

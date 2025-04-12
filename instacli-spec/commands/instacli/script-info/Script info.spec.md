@@ -30,7 +30,7 @@ Script info: A script containing a code example
 When running Instacli from the command line with the `cli` command, this is the description that is given. For example,
 when listing the commands in a directory
 
-```shell
+```commandline
 $ cli script-info-samples 
 Script info usage examples
 
@@ -51,7 +51,8 @@ You will need this when specifying input parameters, see below.
 
 ## Definition of input parameters
 
-If the script uses input parameters, you can define them in **Script info** with the `input` property.
+If the script uses input parameters, you can define them in **Script info** with the `input` property. They will be
+exposed as variables in the script.
 
 <!-- yaml instacli before
 ${input}:
@@ -65,11 +66,8 @@ ${input}:
     input:
       name: The name to greet
 
-  Print: Hello, ${input.name}!
+  Print: Hello, ${name}!
 ```
-
-The most common way is to define a set of properties with a description. You do this with the `properties` field. You
-could also define string or array input.
 
 When running this, there are three possibilities
 
@@ -103,6 +101,27 @@ ${input}:
 
 ```yaml instacli
 Code example: Define input with multiple variables
+
+Script info:
+  input:
+    greeting: What is your greeting?
+    name: What is your name?
+
+Print: ${greeting}, ${name}!
+```
+
+## The input variable
+
+Input parameters are also stored in the `${input}` variable.
+
+<!-- yaml instacli before
+${input}:
+   greeting: Hello
+   name: world
+-->
+
+```yaml instacli
+Code example: Input with direct variable access
 
 Script info:
   input:

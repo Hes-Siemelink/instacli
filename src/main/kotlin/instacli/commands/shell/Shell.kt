@@ -57,7 +57,7 @@ private fun execute(
     try {
 
         if (info.showCommand) {
-            print(commandLine)
+            println(commandLine)
         }
 
         val output = streamCommand(

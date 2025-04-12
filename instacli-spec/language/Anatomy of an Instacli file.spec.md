@@ -154,7 +154,7 @@ Script info:
   input:
     name: Your name
 
-Print: Hello ${input.name}!
+Print: Hello ${name}!
 ```
 
 It has input parameter `name`:
