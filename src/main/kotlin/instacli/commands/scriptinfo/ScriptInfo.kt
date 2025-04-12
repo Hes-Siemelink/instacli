@@ -10,7 +10,6 @@ import instacli.language.*
 import instacli.language.types.ObjectDefinition
 import instacli.language.types.TypeSpecification
 import instacli.language.types.resolve
-import instacli.util.Json
 import instacli.util.toDomainObject
 
 object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
@@ -22,51 +21,42 @@ object ScriptInfo : CommandHandler("Script info", "instacli/script-info"),
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val scriptInfoData = data.toDomainObject(ScriptInfoData::class)
-        val providedInput: ObjectNode = context.variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
 
-        return when {
-            scriptInfoData.input != null -> {
-                handleInput(providedInput, scriptInfoData, context)
-            }
-
-            scriptInfoData.inputType != null -> {
-                handleInputType(providedInput, scriptInfoData.inputType, context)
-            }
-
-            else -> {
-                providedInput
-            }
+        if (scriptInfoData.input != null) {
+            handleInput(context, scriptInfoData)
         }
+
+        if (scriptInfoData.inputType != null) {
+            handleInputType(context, scriptInfoData.inputType)
+        }
+
+        return context.getInputVariables()
     }
 }
 
 private fun handleInputType(
-    providedInput: ObjectNode,
-    inputType: TypeSpecification,
-    context: ScriptContext
-): ObjectNode {
+    context: ScriptContext,
+    inputType: TypeSpecification
+) {
 
     val input = inputType.resolve(context.types).definition
 
     if (input.properties != null) {
-        handleInput(providedInput, input.properties, context)
+        handleInput(context, input.properties)
     } else {
         // TODO handle array and simple types
     }
-
-    return providedInput
 }
 
 private fun handleInput(
-    providedInput: ObjectNode,
-    input: ObjectDefinition,
-    context: ScriptContext
-): ObjectNode {
-
+    context: ScriptContext,
+    input: ObjectDefinition
+) {
+    
     for ((name, info) in input.properties.entries) {
 
         // Already exists
-        if (providedInput.contains(name)) {
+        if (context.getInputVariables().contains(name)) {
             continue
         }
 
@@ -90,10 +80,8 @@ private fun handleInput(
                 input
             )
         }
-        providedInput.set<JsonNode>(name, answer)
+        context.getInputVariables().set<JsonNode>(name, answer)
     }
-
-    return providedInput
 }
 
 private fun conditionValid(condition: JsonNode?, context: ScriptContext): Boolean {

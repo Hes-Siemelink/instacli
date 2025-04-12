@@ -47,6 +47,11 @@ fun JsonNode.asArray(): ArrayNode {
     }
 }
 
+fun ObjectNode.add(vars: Map<String, String>) {
+    for (variable in vars) {
+        this.set<JsonNode>(variable.key, TextNode(variable.value))
+    }
+}
 
 fun <T : Any> JsonNode.toDomainObject(dataClass: KClass<T>): T {
     return Json.mapper.treeToValue(this, dataClass.java)

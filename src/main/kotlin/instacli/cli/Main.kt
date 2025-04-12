@@ -8,6 +8,7 @@ import instacli.files.CliFileContext
 import instacli.language.*
 import instacli.language.types.toDisplayString
 import instacli.util.Json
+import instacli.util.add
 import instacli.util.toDisplayJson
 import instacli.util.toDisplayYaml
 import java.nio.file.Path
@@ -94,7 +95,7 @@ class InstacliMain(
             return
         }
 
-        context.addInputVariables(options.commandParameters)
+        context.getInputVariables().add(options.commandParameters)
 
         val output = cliFile.script.run(context)
 

@@ -1,7 +1,7 @@
 package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.ObjectNode
 import instacli.language.types.TypeRegistry
 import instacli.util.Json
 import java.nio.file.Path
@@ -21,12 +21,8 @@ interface ScriptContext {
     fun clone(): ScriptContext
 }
 
-fun ScriptContext.addInputVariables(vars: Map<String, String>) {
-    val input = Json.newObject()
-    for (variable in vars) {
-        input.set<JsonNode>(variable.key, TextNode(variable.value))
-    }
-    variables[INPUT_VARIABLE] = input
+fun ScriptContext.getInputVariables(): ObjectNode {
+    return variables.getOrPut(INPUT_VARIABLE) { Json.newObject() } as ObjectNode
 }
 
 const val INPUT_VARIABLE = "input"
