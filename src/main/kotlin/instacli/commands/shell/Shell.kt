@@ -77,7 +77,7 @@ private fun execute(
         }
 
         return if (info.captureOutput) {
-            TextNode(buffer.toString())
+            TextNode(buffer.trim().toString())
         } else {
             null
         }
