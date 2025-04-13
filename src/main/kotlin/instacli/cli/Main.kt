@@ -70,22 +70,22 @@ class InstacliMain(
         }
     }
 
-    private fun targetFile(fileName: String): Path {
+    private fun targetFile(filename: String): Path {
         // Command is filename
-        workingDir.resolve(fileName).let {
+        workingDir.resolve(filename).let {
             if (it.exists()) {
                 return it
             }
         }
 
         // Append '.cli'
-        workingDir.resolve("$fileName.cli").let {
+        workingDir.resolve("$filename.cli").let {
             if (it.exists()) {
                 return it
             }
         }
 
-        throw CliInvocationException("Could not find command: $fileName")
+        throw CliInvocationException("Could not find command: $filename")
     }
 
     private fun invokeFile(cliFile: CliFile, context: CliFileContext, options: CliCommandLineOptions) {

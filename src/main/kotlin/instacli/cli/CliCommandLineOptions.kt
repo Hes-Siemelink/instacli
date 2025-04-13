@@ -66,11 +66,11 @@ private fun CommandLineParameters.getOutputOption(): OutputOption = when {
     else -> OutputOption.NONE
 }
 
-private enum class ArgType { GLOBAL_OPTIONS, FILE_NAME, COMMAND_ARGS }
+private enum class ArgType { GLOBAL_OPTIONS, FILENAME, COMMAND_ARGS }
 
 private fun splitArguments(args: List<String>): Triple<List<String>, List<String>, List<String>> {
     val globalArgs = mutableListOf<String>()
-    val fileNames = mutableListOf<String>()
+    val filenames = mutableListOf<String>()
     val commandArgs = mutableListOf<String>()
 
     var state = GLOBAL_OPTIONS
@@ -80,15 +80,15 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
             if (isFlag(argument)) {
                 globalArgs.add(normalize(argument))
             } else {
-                state = FILE_NAME
+                state = FILENAME
             }
         }
 
-        if (state == FILE_NAME) {
+        if (state == FILENAME) {
             if (isFlag(argument)) {
                 state = COMMAND_ARGS
             } else {
-                fileNames.add(argument)
+                filenames.add(argument)
             }
         }
 
@@ -97,7 +97,7 @@ private fun splitArguments(args: List<String>): Triple<List<String>, List<String
         }
     }
 
-    return Triple(globalArgs, fileNames, commandArgs)
+    return Triple(globalArgs, filenames, commandArgs)
 }
 
 fun normalize(option: String): String {

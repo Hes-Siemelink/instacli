@@ -17,8 +17,8 @@ import kotlin.io.path.exists
 
 object Credentials {
 
-    const val FILE_NAME = "credentials.yaml"
-    private val DEFAULT_FILE: Path = InstacliPaths.INSTACLI_HOME.resolve(FILE_NAME)
+    const val FILENAME = "credentials.yaml"
+    private val DEFAULT_FILE: Path = InstacliPaths.INSTACLI_HOME.resolve(FILENAME)
 
     fun fromFile(file: Path = DEFAULT_FILE): CredentialsFile {
 
@@ -42,11 +42,11 @@ fun CredentialsFile.save(): CredentialsFile {
 }
 
 fun ScriptContext.setCredentials(credentials: CredentialsFile) {
-    session[Credentials.FILE_NAME] = credentials
+    session[Credentials.FILENAME] = credentials
 }
 
 fun ScriptContext.getCredentials(): CredentialsFile {
-    return session.getOrPut(Credentials.FILE_NAME) {
+    return session.getOrPut(Credentials.FILENAME) {
         Credentials.fromFile()
     } as CredentialsFile
 }

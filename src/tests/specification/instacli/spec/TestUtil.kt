@@ -71,7 +71,7 @@ private fun tempCredentials(): CredentialsFile {
 
 private fun tempCredentials(testDir: Path, localCredentials: Boolean): CredentialsFile {
     return if (localCredentials) {
-        Credentials.fromFile(testDir.resolve(Credentials.FILE_NAME))
+        Credentials.fromFile(testDir.resolve(Credentials.FILENAME))
     } else {
         CredentialsFile()
     }
@@ -133,7 +133,7 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
         Files.createDirectories(targetFile.parent)
         targetFile.writeText(it.value)
     }
-    val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILE_NAME))
+    val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILENAME))
 
     // Generate tests
     val instacliTests = scriptExamples
