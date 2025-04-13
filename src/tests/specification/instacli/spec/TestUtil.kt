@@ -24,6 +24,7 @@ import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
+import org.junit.jupiter.api.function.Executable
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
@@ -51,69 +52,58 @@ fun Path.getTestCases(): List<DynamicNode> {
 fun CliFile.getTestCases(): List<DynamicTest> {
     val context = CliFileContext(file)
 
+    context.setCredentials(tempCredentials())
+
+    return script.splitTestCases().map { script ->
+        dynamicTest(script.getTitle(TestCase), file.toUri(), TestCaseRunner(context, script))
+    }
+}
+
+private fun tempCredentials(): CredentialsFile {
     val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
 
     val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
     tempFile.toFile().deleteOnExit()
     credentials.file = tempFile
 
-    context.setCredentials(credentials)
+    return credentials
+}
 
-    return script.splitTestCases().map { script ->
-        dynamicTest(script.getText(TestCase), file.toUri()) {
-            context.error = null
-            try {
-                script.run(context)
-            } catch (a: Break) {
-                a.output
-            } catch (e: InstacliCommandError) {
-                e.error.data?.let {
-                    println(it.toDisplayYaml())
-                }
-                throw e
-            } catch (e: InstacliLanguageException) {
-                e.reportError(printStackTrace = false)
-                throw e
+private fun tempCredentials(testDir: Path, localCredentials: Boolean): CredentialsFile {
+    return if (localCredentials) {
+        Credentials.fromFile(testDir.resolve(Credentials.FILE_NAME))
+    } else {
+        CredentialsFile()
+    }
+}
+
+
+class TestCaseRunner(
+    val context: ScriptContext,
+    val script: Script
+) : Executable {
+
+    override fun execute() {
+        context.error = null
+        try {
+            script.run(context)
+        } catch (a: Break) {
+            a.output
+        } catch (e: InstacliCommandError) {
+            e.error.data?.let {
+                println(it.toDisplayYaml())
             }
+            throw e
+        } catch (e: InstacliLanguageException) {
+            e.reportError(printStackTrace = false)
+            throw e
         }
     }
 }
 
-/**
- * Gets all test cases in a script as a separate CliScript.
- */
-fun Script.splitTestCases(): List<Script> {
-
-    val allTests = mutableListOf<Script>()
-
-    var currentCase = mutableListOf<Command>()
-    var testCaseFound = false
-    for (command in commands) {
-        if (command.name == TestCase.name) {
-            if (!testCaseFound) {
-                // Ignore everything before the first 'Test case' command
-                testCaseFound = true
-            } else {
-                // Add everything that was recorded since the 'Test case' command
-                allTests.add(Script(currentCase))
-            }
-            currentCase = mutableListOf()
-        }
-
-        currentCase.add(command)
-    }
-
-    // Add the last test case
-    if (testCaseFound) {
-        allTests.add(Script(currentCase))
-    }
-
-    return allTests
-}
-
-fun Script.getText(commandHandler: CommandHandler): String {
+fun Script.getTitle(commandHandler: CommandHandler): String {
     val command = commands.find {
-        it.name == commandHandler.name
+        it.name == TestCase.name
     }
     return command?.data?.textValue() ?: commandHandler.name
 }
@@ -143,11 +133,7 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
         Files.createDirectories(targetFile.parent)
         targetFile.writeText(it.value)
     }
-    val credentials = if (helperFiles.containsKey(Credentials.FILE_NAME)) {
-        Credentials.fromFile(testDir.resolve(Credentials.FILE_NAME))
-    } else {
-        CredentialsFile()
-    }
+    val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILE_NAME))
 
     // Generate tests
     val instacliTests = scriptExamples
@@ -180,23 +166,9 @@ private fun toTest(
     }
 
     val script = Script.from(scriptNodes)
-    val title = script.getText(CodeExample)
+    val title = script.getTitle(CodeExample)
 
-    return dynamicTest(title, document.toUri()) {
-        try {
-            script.run(context)
-        } catch (a: Break) {
-            a.output
-        } catch (e: InstacliCommandError) {
-            e.error.data?.let {
-                println(it.toDisplayYaml())
-            }
-            throw e
-        } catch (e: InstacliLanguageException) {
-            e.reportError(printStackTrace = false)
-            throw e
-        }
-    }
+    return dynamicTest(title, document.toUri(), TestCaseRunner(context, script))
 }
 
 private fun UsageExample.getOutputCheckerScript(): JsonNode? {

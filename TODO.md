@@ -8,8 +8,12 @@
 
 ## For live deployments demo:
 
+* !!! Make sure TestUtil and cli command run directives in the same way
+* Document: Shell 'show command' and 'show output' options in directive
+* Find a way to confirm default input parameters vs. just taking them for granted. Interactive mode would trigger
+  confirmation?
 * Shell: option to capture output as yaml.
-* Document changes for README.md and cli.md
+* Clean up Exceptions and error handling
 * BUG: $SCRIPT_DIR doesn't work
 * BUG: shell error is not caught by On error. (When installing k3d runner without k3d)
 * BUG: First line of output is not captured if shell script asks for user input => command appears to hang

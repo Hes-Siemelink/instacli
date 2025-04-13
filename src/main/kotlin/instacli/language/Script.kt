@@ -8,6 +8,7 @@ import instacli.commands.shell.Shell
 import instacli.commands.shell.ShellCommand
 import instacli.commands.testing.ExpectedOutput
 import instacli.commands.testing.StockAnswers
+import instacli.commands.testing.TestCase
 import instacli.files.InstacliMarkdown
 import instacli.files.MarkdownBlock
 import instacli.files.MarkdownBlock.*
@@ -136,4 +137,36 @@ fun InstacliMarkdown.toScript(): Script {
     }
 
     return Script(commands)
+}
+
+/**
+ * Gets all test cases as a separate script
+ */
+fun Script.splitTestCases(): List<Script> {
+
+    val allTests = mutableListOf<Script>()
+
+    var currentCase = mutableListOf<Command>()
+    var testCaseFound = false
+    for (command in commands) {
+        if (command.name == TestCase.name) {
+            if (!testCaseFound) {
+                // Ignore everything before the first 'Test case' command
+                testCaseFound = true
+            } else {
+                // Add everything that was recorded since the 'Test case' command
+                allTests.add(Script(currentCase))
+            }
+            currentCase = mutableListOf()
+        }
+
+        currentCase.add(command)
+    }
+
+    // Add the last test case
+    if (testCaseFound) {
+        allTests.add(Script(currentCase))
+    }
+
+    return allTests
 }
