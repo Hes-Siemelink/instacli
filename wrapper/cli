@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+##############################################################################
+##
+##  Instacli wrapper script for Linux/Darwin
+##
+##############################################################################
+
+die ( ) {
+    echo "$*"
+    exit 1
+}
+
+# Check if Java is installed
+command -v java &> /dev/null || die "Please install Java"
+
+# Detecting program dir
+PROG_DIR="$(cd "$(dirname "${0:-$PWD}")" 2>/dev/null 1>&2 && pwd)"
+
+# Get version and download URL
+source "${PROG_DIR}/.instacli/wrapper.conf" || die "Could not read .instacli/wrapper.conf"
+
+# Find target location
+INSTACLI_HOME="${HOME}/.instacli/lib"
+if [ ! -d "${INSTACLI_HOME}" ] ; then
+  mkdir -p "${INSTACLI_HOME}" || die "Could not create wrapper home at: $INSTACLI_HOME"
+fi
+
+# Download instacli jar if it does not exist
+INSTACLI_JAR="${INSTACLI_HOME}/instacli-${INSTACLI_VERSION}.jar"
+if [ ! -f "${INSTACLI_JAR}" ] ; then
+  echo "Downloading Instacli to ${INSTACLI_JAR}"
+  DOWNLOAD_URL="${INSTACLI_BASE_URL}/${INSTACLI_VERSION}/instacli-${INSTACLI_VERSION}.jar"
+  curl -fLsSo "${INSTACLI_JAR}.$$" "${DOWNLOAD_URL}" || die "Could not download instacli jar from: $DOWNLOAD_URL"
+  mv "${INSTACLI_JAR}.$$" "${INSTACLI_JAR}" || die "Could not move instacli jar to home folder"
+fi
+
+# Run Instacli
+exec java -jar ${INSTACLI_JAR} "$@"
