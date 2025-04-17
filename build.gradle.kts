@@ -1,5 +1,5 @@
 group = "hes.instacli"
-version = "0.3.2-SNAPSHOT"
+version = "0.3.2"
 
 plugins {
     kotlin("jvm") version "2.0.21"
@@ -129,7 +129,7 @@ githubRelease {
     token(System.getenv("GITHUB_TOKEN"))
     repo = "instacli"
     owner = "Hes-Siemelink"
-    tagName = "instacli/${project.version}"
+    tagName = "${project.version}"
     releaseName = "Instacli ${project.version}"
     targetCommitish = "main"
     body = "Release of Instacli ${project.version}"
