@@ -4,6 +4,7 @@ version = "0.3.0"
 plugins {
     kotlin("jvm") version "2.0.21"
     kotlin("plugin.serialization") version "2.0.21"
+    id("com.github.breadmoirai.github-release") version "2.5.2"
 }
 
 kotlin {
@@ -118,4 +119,22 @@ tasks.jar {
         from(zipTree(file.absoluteFile))
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+//
+// Release
+//
+
+githubRelease {
+    token(System.getenv("GITHUB_TOKEN"))
+    repo = "instacli"
+    owner = "Hes-Siemelink"
+    tagName = "instacli/${project.version}"
+    releaseName = "Instacli ${project.version}"
+    targetCommitish = "main"
+    body = "Release of Instacli ${project.version}"
+    draft = false
+    prerelease = false
+    overwrite = true
+    releaseAssets(file("build/libs/instacli-${project.version}.jar"))
 }
