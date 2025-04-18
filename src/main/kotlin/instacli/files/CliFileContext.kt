@@ -49,6 +49,12 @@ class CliFileContext(
         }
     }
 
+    override val tempDir: Path by lazy {
+        val dir = Files.createTempDirectory("instacli-")!!
+        dir.toFile().deleteOnExit()
+        dir
+    }
+
     override val output: JsonNode?
         get() = variables[OUTPUT_VARIABLE]
     override var error: InstacliCommandError? = null

@@ -13,6 +13,7 @@ interface ScriptContext {
     val cliFile: Path
     val scriptDir: Path
     val workingDir: Path
+    val tempDir: Path
     val output: JsonNode?
     var error: InstacliCommandError?
     val types: TypeRegistry

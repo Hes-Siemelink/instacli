@@ -8,25 +8,44 @@ import instacli.language.CommandHandler
 import instacli.language.ObjectHandler
 import instacli.language.ScriptContext
 import instacli.language.ValueHandler
+import instacli.language.getParameter
 import instacli.util.toDisplayYaml
 import java.nio.file.Files
+import java.nio.file.Path
 
 object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        return createTempFile(data.toDisplayYaml())
+        val filename = data.get("filename")?.asText()
+        val content = data.getParameter("content")
+
+        val destinationFile = tempFile(context.tempDir, filename)
+
+        Files.writeString(destinationFile, content.toDisplayYaml())
+
+        return destinationFile.toJson()
     }
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        return createTempFile(data.toDisplayYaml())
+        val destinationFile = tempFile(context.tempDir)
+
+        Files.writeString(destinationFile, data.toDisplayYaml())
+
+        return destinationFile.toJson()
     }
 
-    fun createTempFile(data: String): JsonNode? {
-        val destinationFile = Files.createTempFile("instacli-temp-file-", "")
-        destinationFile.toFile().deleteOnExit()
+    private fun Path.toJson(): TextNode {
+        return TextNode(this.toAbsolutePath().toString())
+    }
 
-        Files.writeString(destinationFile, data)
+    fun tempFile(dir: Path, filename: String? = null): Path {
+        val tempFile = if (filename == null) {
+            Files.createTempFile(dir, "instacli-temp-file-", "")
+        } else {
+            dir.resolve(filename)
+        }
+        tempFile.toFile().deleteOnExit()
 
-        return TextNode(destinationFile.toAbsolutePath().toString())
+        return tempFile
     }
 }

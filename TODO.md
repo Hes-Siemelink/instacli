@@ -9,6 +9,10 @@
 ## For live deployments demo:
 
 * !!! Make sure TestUtil and cli command run directives in the same way
+* Temp file
+    * Shell command gets option for current directory
+    * Cli context has temp dir variable
+    * Option to set temp dir variable on shell directive
 * Document: Shell 'show command' and 'show output' options in directive
 * Find a way to confirm default input parameters vs. just taking them for granted. Interactive mode would trigger
   confirmation?
