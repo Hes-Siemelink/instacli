@@ -156,4 +156,17 @@ data class ShellCommand(
     val captureOutput: Boolean = true,
 
     val env: MutableMap<String, String> = mutableMapOf()
-)
+) {
+
+    companion object {
+        fun fromBlock(content: String, options: String): ShellCommand {
+            val showOutput = options.contains("show_output:false")
+            val showCommand = options.contains("show_command:true")
+            return ShellCommand(
+                command = content,
+                showOutput = showOutput,
+                showCommand = showCommand
+            )
+        }
+    }
+}

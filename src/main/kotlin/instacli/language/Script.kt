@@ -10,7 +10,6 @@ import instacli.commands.testing.ExpectedOutput
 import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.files.InstacliMarkdown
-import instacli.files.MarkdownBlock
 import instacli.files.MarkdownBlock.*
 import instacli.util.Yaml
 import instacli.util.toDomainObject
@@ -108,15 +107,8 @@ fun InstacliMarkdown.toScript(): Script {
 
             YamlFile -> {}
             ShellCli -> {}
-            MarkdownBlock.ShellBlock -> {
-                // XXX make nice and document
-                val showOutput = !block.headerLine.contains("show_output=false")
-                val showCommand = block.headerLine.contains("show_command=true")
-                val command = ShellCommand(
-                    command = block.getContent(),
-                    showOutput = showOutput,
-                    showCommand = showCommand
-                )
+            ShellBlock -> {
+                val command = ShellCommand.fromBlock(block.getContent(), block.headerLine)
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))
                 )
