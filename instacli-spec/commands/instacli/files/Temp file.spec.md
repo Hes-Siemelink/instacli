@@ -33,7 +33,7 @@ The file will be deleted when the script ends.
 
 ## Temp file with name
 
-You can also specify a name for the temporary file.
+You can also specify a name for the temporary file. The file will be created in the `SCRIPT_TEMP_DIR` directory.
 
 ```yaml instacli
 Code example: Temporary file with specified name
@@ -44,8 +44,7 @@ Temp file:
     My content
 As: ${temp}
 
-Print: ${temp}
-Read file: ${temp}
+Read file: ${SCRIPT_TEMP_DIR}/myfile.txt
 
 Expected output: |
   My content

@@ -108,7 +108,7 @@ fun InstacliMarkdown.toScript(): Script {
 
             YamlFile -> {}
             ShellCli -> {}
-            MarkdownBlock.Shell -> {
+            MarkdownBlock.ShellBlock -> {
                 // XXX make nice and document
                 val showOutput = !block.headerLine.contains("show_output=false")
                 val showCommand = block.headerLine.contains("show_command=true")

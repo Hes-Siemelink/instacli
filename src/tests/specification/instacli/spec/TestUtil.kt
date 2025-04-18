@@ -103,7 +103,7 @@ class TestCaseRunner(
 
 fun Script.getTitle(commandHandler: CommandHandler): String {
     val command = commands.find {
-        it.name == TestCase.name
+        it.name == commandHandler.name
     }
     return command?.data?.textValue() ?: commandHandler.name
 }

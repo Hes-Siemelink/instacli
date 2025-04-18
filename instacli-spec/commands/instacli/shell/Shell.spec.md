@@ -38,11 +38,40 @@ Expected output: Hello
 
 This option is needed if you want to pass multiple parameters, like `show output` (see below).
 
+## Working directory
+
+You can set the working directory with the `cd` property.
+
+```yaml instacli
+Code example: Shell command with dir
+
+Shell:
+  cd: /tmp
+  command: echo Hello
+```
+
+One example is to use the `SCRIPT_TEMP_DIR` variable to set the working directory to the temporary directory of the
+script. this is where temp files are stored.
+
+```yaml instacli
+Code example: Shell command with SCRIPT_TEMP_DIR
+
+Temp file:
+  filename: temp.txt
+  content: Hello
+
+Shell:
+  cd: ${SCRIPT_TEMP_DIR}
+  command: cat temp.txt
+
+Expected output: Hello
+```
+
 ## Displaying the output
 
 By the default, the console output is hidden. Show it with the `show output` parameter:
 
-```yaml instacli
+  ```yaml instacli
 Code example: Show the output of a shell command on the console
 
 Shell:

@@ -9,6 +9,8 @@ oneOf:
         type: string
       resource:
         type: string
+      cd:
+        type: string
       show command:
         type: boolean
         default: false

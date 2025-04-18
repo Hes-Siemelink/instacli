@@ -1,6 +1,7 @@
 package instacli.files
 
 import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.CommandLibrary
 import instacli.commands.variables.AssignVariable
 import instacli.language.*
@@ -52,6 +53,9 @@ class CliFileContext(
     override val tempDir: Path by lazy {
         val dir = Files.createTempDirectory("instacli-")!!
         dir.toFile().deleteOnExit()
+        // XXX Since it is a lazy property, the temp dir is not always available to the script.
+        // However, having a lazy property creating a temp dir for every script run
+        variables[SCRIPT_TEMP_DIR_VARIABLE] = TextNode(dir.toAbsolutePath().toString())
         dir
     }
 

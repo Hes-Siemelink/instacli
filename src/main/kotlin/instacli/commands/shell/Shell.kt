@@ -29,7 +29,9 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
             ?: info.resource
             ?: throw CommandFormatException("Specify shell command in either 'command' or 'resource' property")
 
-        val dir = if (info.command != null) {
+        val dir = if (info.cd != null) {
+            Path.of(info.cd)
+        } else if (info.command != null) {
             context.workingDir
         } else {
             context.scriptDir
@@ -142,6 +144,7 @@ fun streamCommand(
 data class ShellCommand(
     val command: String? = null,
     val resource: String? = null,
+    val cd: String? = null,
 
     @JsonProperty("show output")
     val showOutput: Boolean = false,
