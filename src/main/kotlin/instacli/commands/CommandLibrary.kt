@@ -16,6 +16,7 @@ import instacli.commands.http.*
 import instacli.commands.schema.ValidateSchema
 import instacli.commands.schema.ValidateType
 import instacli.commands.scriptinfo.ScriptInfo
+import instacli.commands.shell.Cli
 import instacli.commands.shell.Shell
 import instacli.commands.testing.*
 import instacli.commands.userinteraction.Confirm
@@ -91,6 +92,7 @@ object CommandLibrary {
         TempFile,
 
         // Call other scripts
+        Cli,
         RunScript,
         Shell,
 
