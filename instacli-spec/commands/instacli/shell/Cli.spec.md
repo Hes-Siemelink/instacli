@@ -33,3 +33,26 @@ Expected console output: |
     --non-interactive, -q   Indicate that Instacli should not prompt for user input
     --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
 ```
+
+## Specifying the working dir
+
+Use the long format to specify the working directory. This is useful when you want to run a command in a different
+directory than the one where the script is located.
+
+```yaml instacli
+Code example: Cli in a different directory
+
+Cli:
+  command: cli -q basic
+  cd: samples
+
+Expected console output: |
+  Simple Instacli example scripts
+
+  Available commands:
+    create-greeting   Creates a greeting and puts it in the output
+    greet             Prints a greeting
+    multiple-choice   Interaction example
+    output            Sets test output
+    prompt            Simple interactive prompt
+```

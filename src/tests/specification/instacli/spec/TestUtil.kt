@@ -1,26 +1,17 @@
 package instacli.spec
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
-import instacli.cli.InstacliMain
 import instacli.cli.reportError
 import instacli.commands.connections.Credentials
 import instacli.commands.connections.CredentialsFile
 import instacli.commands.connections.setCredentials
 import instacli.commands.testing.CodeExample
-import instacli.commands.testing.ExpectedConsoleOutput
-import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.commands.userinteraction.TestPrompt
 import instacli.commands.userinteraction.UserPrompt
 import instacli.files.*
 import instacli.language.*
-import instacli.util.IO
-import instacli.util.Json
-import instacli.util.Yaml
 import instacli.util.toDisplayYaml
-import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
@@ -29,23 +20,38 @@ import org.junit.jupiter.api.function.Executable
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.isDirectory
+import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
 import kotlin.io.path.writeText
 
 //
-// Instacli tests
+// All
 //
 
-fun Path.getTestCases(): List<DynamicNode> {
+fun Path.getTests(): List<DynamicNode> {
     if (isDirectory()) {
-        val pages = Files.walk(this).filter { it.name.endsWith(CLI_SCRIPT_EXTENSION) }
-        return pages.map { file ->
-            dynamicContainer(file.name, CliFile(file).getTestCases())
-        }.toList()
+        return listDirectoryEntries().mapNotNull {
+            val tests = it.getTests()
+            if (tests.isEmpty()) {
+                null
+            } else {
+                dynamicContainer(it.name, tests)
+            }
+        }
     } else {
-        return CliFile(this).getTestCases()
+        if (name.endsWith(CLI_SCRIPT_EXTENSION)) {
+            return CliFile(this).getTestCases()
+        } else if (name.endsWith(MARKDOWN_SPEC_EXTENSION)) {
+            return CliFile(this).getCodeExamples()
+        }
     }
+    return emptyList()
 }
+
+
+//
+// Instacli tests
+//
 
 /**
  * Gets all individual test cases in a script file as a dynamic tests.
@@ -103,6 +109,9 @@ class TestCaseRunner(
 }
 
 fun Script.getTitle(commandHandler: CommandHandler): String {
+    if (title != null) {
+        return title!!
+    }
     val command = commands.find {
         it.name == commandHandler.name
     }
@@ -113,25 +122,16 @@ fun Script.getTitle(commandHandler: CommandHandler): String {
 // Code examples in Markdown files
 //
 
-fun Path.getCodeExamples(): List<DynamicNode> {
-    if (isDirectory()) {
-        val documents = Files.walk(this).filter { it.name.endsWith(MARKDOWN_SPEC_EXTENSION) }
-        return documents.map { doc ->
-            dynamicContainer(doc.name, InstacliMarkdown.scan(doc).getCodeExamples())
-        }.toList()
-    } else {
-        return InstacliMarkdown.scan(this).getCodeExamples()
-    }
-}
-
-private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
+fun CliFile.getCodeExamples(): List<DynamicTest> {
 
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
     val context = CliFileContext(testDir)
     context.variables[SCRIPT_TEMP_DIR_VARIABLE] =
         TextNode(testDir.toAbsolutePath().toString()) // XXX encapsulate TEMP_DIR in ScriptContext
-    
+
+    val helperFiles = markdown?.helperFiles ?: emptyMap()
+
     helperFiles.forEach {
         println("Helper file: ${it.key}")
         val targetFile = testDir.resolve(it.key)
@@ -140,100 +140,31 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
     }
     val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILENAME))
 
-    // Generate tests
-    val instacliTests = scriptExamples
-        .map {
-            toTest(document, it, context, credentials)
+    val scripts = splitMarkdown()
+    val instacliTests: List<DynamicTest> = scripts
+        .mapNotNull {
+            toTestFromScript(file, it, context, credentials)
         }
-    val cliInvocationTests = instacliCommandExamples.map {
-        val dir = it.directory ?: testDir
-        it.toTest(document, dir)
-    }
 
-    return instacliTests + cliInvocationTests
+    return instacliTests
 }
 
-private fun toTest(
+private fun toTestFromScript(
     document: Path,
-    example: UsageExample,
+    script: Script,
     context: ScriptContext,
     credentials: CredentialsFile
-): DynamicTest {
+): DynamicTest? {
+
+    // Filter out sections that don't have any commands
+    if (script.commands.isEmpty()) {
+        return null
+    }
 
     context.setCredentials(credentials)
     UserPrompt.default = TestPrompt
 
-    val check: JsonNode? = example.getOutputCheckerScript()
-    val scriptNodes = if (check != null) {
-        Yaml.parseAsFile(example.content) + listOf(check)
-    } else {
-        Yaml.parseAsFile(example.content)
-    }
-
-    val script = Script.from(scriptNodes)
     val title = script.getTitle(CodeExample)
 
     return dynamicTest(title, document.toUri(), TestCaseRunner(context, script))
-}
-
-private fun UsageExample.getOutputCheckerScript(): JsonNode? {
-    val expectedOutput = output ?: return null
-
-    return Json.newObject(ExpectedConsoleOutput.name, expectedOutput)
-}
-
-//
-// Command line examples
-//
-
-private fun UsageExample.toTest(document: Path, testDir: Path): DynamicTest {
-    return dynamicTest("$ $command", document.toUri()) {
-        testCommand(testDir)
-    }
-}
-
-fun UsageExample.testCommand(testDir: Path) {
-    System.err.println("Testing command: $command")
-    val line = command.split("\\s+".toRegex())
-    line.first() shouldBe "cli"
-    val args = line.drop(1).toTypedArray()
-
-    prepareInput(input, testDir)
-
-    println("$ $command")
-
-    val (stdout, stderr) = IO.captureSystemOutAndErr {
-        InstacliMain.main(args, workingDir = testDir)
-    }
-
-    println(stdout)
-    System.err.println(stderr)
-
-    output?.let {
-        val out = stdout.trim()
-        val err = stderr.trim()
-        val combined = buildString {
-            if (out.isEmpty()) {
-                append(err)
-            } else {
-                append(out)
-                if (err.isNotEmpty()) {
-                    append("\n")
-                    append(err)
-                }
-            }
-        }
-        combined shouldBe it.trim()
-    }
-}
-
-fun prepareInput(input: String?, testDir: Path) {
-    input ?: return
-
-    val inputYaml = Yaml.parse(input)
-    if (inputYaml !is ObjectNode) {
-        return
-    }
-
-    StockAnswers.execute(inputYaml, CliFileContext(testDir))
 }

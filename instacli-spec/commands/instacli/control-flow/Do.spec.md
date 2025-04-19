@@ -30,7 +30,7 @@ Do:
 
 This will give the following output:
 
-```shell
+```output
 Hello
 World!
 ```

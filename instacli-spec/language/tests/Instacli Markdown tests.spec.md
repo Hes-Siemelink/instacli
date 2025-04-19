@@ -10,7 +10,7 @@ Hidden code blocks that become before actual code may contain a script that cont
 ${one}: one
 ---
 ${two}: two
---->
+-->
 
 ```yaml instacli
 Test case: Hidden before block with dividers

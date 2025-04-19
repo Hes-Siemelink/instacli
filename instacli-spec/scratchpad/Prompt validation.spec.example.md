@@ -16,9 +16,8 @@ Sometimes you need to validate the user input before proceeding with the script.
 
 With **Prompt**, you can ask the user a question.
 
-<!-- yaml instacli before
-Stock answers:
-  What is your name?: Hes
+<!-- input
+What is your name?: Hes
 -->
 
 ```yaml instacli

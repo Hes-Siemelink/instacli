@@ -56,7 +56,7 @@ You can do so by putting the code that we need but don't want to show in an HTML
 
     <!-- yaml instacli before
     Stock answers:
-    What is your name?: Alice
+        What is your name?: Alice
     -->
 
     ```yaml instacli
@@ -213,18 +213,18 @@ You can also provide the output of the command in a block:
     Hello
     ```
 
-<!-- FIXME! Breaks doc test
-    ### Display example
-    
-    This will show as
-    
-    ```shell
-    echo Hello
-    ```
-    
-    with output
-    
-    ```output
-    Hello
-    ```
--->
+### Display example
+
+This will show as
+
+```shell
+echo Hello
+```
+
+with output
+
+```output
+Hello
+```
+
+<!-- FIXME document ```shell ignore -->

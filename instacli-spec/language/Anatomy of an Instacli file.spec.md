@@ -63,13 +63,13 @@ Print: Hello ${output}!
 
 When storing this in a file `prompt.cli` and running it with the following command,
 
-```shell cli
-cli prompt.cli
-```
-
 <!-- input
 What is your name?: Hes
 -->
+
+```shell cli
+cli prompt.cli
+```
 
 you would get the following:
 

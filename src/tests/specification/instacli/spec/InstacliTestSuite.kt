@@ -14,20 +14,14 @@ class InstacliTestSuite {
     }
 
     @TestFactory
-    fun `Tests in Instacli spec`(): List<DynamicNode> {
-        return TestPaths.SPEC.getTestCases()
+    fun `Main README_md`(): List<DynamicNode> {
+        return CliFile(TestPaths.README).getCodeExamples()
     }
 
     @TestFactory
-    fun `Code examples in Instacli spec`(): List<DynamicNode> {
-        return TestPaths.SPEC.getCodeExamples()
+    fun `instacli-spec`(): List<DynamicNode> {
+        return TestPaths.SPEC.getTests()
     }
-
-    @TestFactory
-    fun `Code examples in main README`(): List<DynamicNode> {
-        return TestPaths.README.getCodeExamples()
-    }
-
 
     companion object {
 

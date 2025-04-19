@@ -10,10 +10,9 @@ As-code, but without the complexity of actual code.
 
 Get a flavor of Instacli with this example file `greetings.cli`:
 
-<!-- yaml instacli before
-${input}:
-    name: Hes
-    language: English
+<!-- input
+Your name: Hes
+Select a language: English
 -->
 
 ```yaml file:greetings.cli
@@ -105,7 +104,7 @@ The Instacli implementation is in Kotlin.
 
 * Install a current JDK
 
-```shell
+```shell ignore
 ./gradlew build
 alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 ```
@@ -114,7 +113,7 @@ alias cli="java -jar `pwd`/build/libs/instacli-*.jar"
 
 Run the "Hello world" example:
 
-```shell
+```shell ignore
 cli samples/hello.cli
 ```
 
@@ -127,13 +126,13 @@ There are more examples in the **[samples](samples)** directory - check them out
 
 Explore them all with the command:
 
-```shell
+```shell ignore
 cli samples
 ```
 
 The following example will provide an interactive experience and connect to the Spotify API:
 
-```shell
+```shell ignore
 cli samples/spotify
 ```
 
@@ -246,17 +245,19 @@ Options:
   --password, -p   Password
 ```
 
+## Interactive mode
+
 By default, Instacli runs in interactive mode. If there are unknown commandline options, the user is prompted to give
 input.
-
-```shell cli
-cli input-options.cli
-```
 
 <!-- input
 Username: Hes
 Password: Secret
 -->
+
+```shell cli
+cli input-options.cli
+```
 
 ```output
 ? Username Hes
@@ -269,7 +270,7 @@ Easily provide subcommand support by organizing your cli files in directories.
 
 For example, to run the greeting example from the **[samples](samples)** directory, you can write
 
-```shell
+```shell cli directory:.
 cli samples basic greet
 ```
 
@@ -281,7 +282,7 @@ Hello, World!
 
 You can interactively select which command to run.
 
-```shell
+```shell ignore
 cli samples
 ```
 
@@ -301,7 +302,7 @@ samples has several subcommands.
 
 Use the `-q` option for non-interacivte mode
 
-```shell
+```shell cli directory:.
 cli -q samples
 ```
 

@@ -63,7 +63,7 @@ In the samples directory, there is a subdirectory **[basic](/samples/basic)** wi
 
 Running Instacli on a directory will pop up a command chooser.
 
-```shell
+```shell ignore
 cli basic
 ```
 

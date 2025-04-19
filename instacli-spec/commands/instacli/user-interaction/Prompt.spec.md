@@ -14,9 +14,8 @@
 
 With **Prompt**, you can ask the user a question.
 
-<!-- yaml instacli before
-Stock answers:
-  What is your name?: Hes
+<!-- input
+What is your name?: Hes
 -->
 
 ```yaml instacli
@@ -29,7 +28,7 @@ Print: Hello ${output}!
 
 This will ask for user input on the command line:
 
-```shell
+```output
 ? What is your name? Hes
 Hello Hes!
 ```
@@ -38,9 +37,8 @@ Hello Hes!
 
 Syntax for using a default value
 
-<!-- yaml instacli before
-Stock answers:
-  What is your name?: Hes
+<!-- input
+What is your name?: World
 -->
 
 ```yaml instacli
@@ -53,8 +51,8 @@ Prompt:
 
 The default value is a suggestion that is printed but can be overwritten by the user
 
-```shell
-? What is your name? World_
+```output
+? What is your name? World
 ```
 
 ## Asking for a password
@@ -62,9 +60,8 @@ The default value is a suggestion that is printed but can be overwritten by the 
 When asking for a password, the user prompt will mask the input that the user is typing in if you indicate it to have
 `secret: true`.
 
-<!-- yaml instacli before
-Stock answers:
-  What is your password?: ssh
+<!-- input
+What is your password?: ssh
 -->
 
 ```yaml instacli
@@ -77,17 +74,16 @@ Prompt:
 
 will display as:
 
-```shell
-? What is your password? ***
+```output
+? What is your password? ********
 ```
 
 ## Choosing from a list
 
 You can ask for one item of a list:
 
-<!-- yaml instacli before
-Stock answers:
-  What is your favorite color?: Red
+<!-- input
+What is your favorite color?: Red
 -->
 
 ```yaml instacli
@@ -103,20 +99,19 @@ Prompt:
 
 The user can user the cursor keys to interactively select an item from a list, confirming the choice by hitting enter.
 
-```shell
+```output
 ? What is your favorite color? 
- ❯ Red
-   Green
-   Blue
+ ❯ ◉ Red
+   ◯ Green
+   ◯ Blue
 ```
 
 Or multiple:
 
-<!-- yaml instacli before
-Stock answers:
-  What are your favorite colors?:
-    - Red
-    - Green
+<!-- input
+What are your favorite colors?:
+- Red
+- Green
 -->
 
 ```yaml instacli
@@ -133,10 +128,10 @@ Prompt:
 
 Here you can select the items you want by hitting the spacebar, before confirming with enter:
 
-```shell
+```output
 ? What are your favorite colors? 
-   ◉ Red
- ❯ ◉ Green
+ ❯ ◉ Red
+   ◉ Green
    ◯ Blue
 ```
 
@@ -145,9 +140,8 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 You can pass entire objects as choices into  `enum`. Then you need to specify the field that will be used to select the
 object with the `display property` field. The entire object will be given as output.
 
-<!-- yaml instacli before
-Stock answers:
-  Select a user: Alice
+<!-- input
+Select a user: Alice
 -->
 
 ```yaml instacli
@@ -170,18 +164,22 @@ Print:
 
 Here's an example to show how that works:
 
-```shell
-? Select a user Alice
+```output
+? Select a user 
+ ❯ ◉ Alice
+   ◯ Bob
+
 You chose:
   name: Alice
   id: 123
 ```
 
+## Choosing only a field from an object
+
 If you are only interested in a single field form an object, you can specify that with `value property`.
 
-<!-- yaml instacli before
-Stock answers:
-  Select a user: Alice
+<!-- input
+Select a user: Alice
 -->
 
 ```yaml instacli
@@ -205,8 +203,11 @@ Print:
 
 Here's the result of that:
 
-```shell
-? Select a user Alice
+```output
+? Select a user 
+ ❯ ◉ Alice
+   ◯ Bob
+
 You chose: 123
 ```
 

@@ -1,6 +1,7 @@
 package instacli.util
 
 import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 import java.io.PrintStream
 
 object IO {
@@ -34,18 +35,33 @@ object IO {
             System.setErr(originalErr)
         }
     }
-
+    
     fun rewireSystemOut(): Pair<PrintStream, ByteArrayOutputStream> {
         val original = System.out
-        val capturedOutput = ByteArrayOutputStream()
-        System.setOut(PrintStream(capturedOutput))
-        return Pair(original, capturedOutput)
+        val copy = ByteArrayOutputStream()
+        System.setOut(dualStream(original, copy))
+        return Pair(original, copy)
     }
 
     fun rewireSystemErr(): Pair<PrintStream, ByteArrayOutputStream> {
         val original = System.err
-        val capturedOutput = ByteArrayOutputStream()
-        System.setErr(PrintStream(capturedOutput))
-        return Pair(original, capturedOutput)
+        val copy = ByteArrayOutputStream()
+        System.setErr(dualStream(original, copy))
+        return Pair(original, copy)
+    }
+
+    private fun dualStream(
+        original: PrintStream,
+        byteArrayOutputStream: ByteArrayOutputStream
+    ): PrintStream {
+        val customOut = PrintStream(object : OutputStream() {
+            override fun write(b: Int) {
+                original.write(b) // Write to the console
+                byteArrayOutputStream.write(b) // Write to the ByteArrayOutputStream
+            }
+        })
+        return customOut
     }
 }
+
+

@@ -125,7 +125,7 @@ The net effect is that the script will stop when user interaction is required
 
 For example, run Instacli on a directory will pop up a command chooser:
 
-```shell
+```shell ignore
 cli basic
 ```
 
@@ -161,13 +161,13 @@ Available commands:
 
 When calling a script with a missing parameter in interactive mode, you will get a question on the command line.
 
-```shell cli directory:samples
-cli basic create-greeting
-```
-
 <!-- input
 Your name: ""
 -->
+
+```shell cli directory:samples
+cli basic create-greeting
+```
 
 ```output
 ? Your name

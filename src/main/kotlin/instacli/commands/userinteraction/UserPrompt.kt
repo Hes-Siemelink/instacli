@@ -73,14 +73,24 @@ private fun KInquirer.renderInput(message: String, answer: String = ""): String 
 //    ◯ Banana
 //    ◯ Cake
 //    ◯ Drizzle
-private fun KInquirer.renderInput(message: String, choices: List<Choice<JsonNode>>, answer: String): String =
+private fun KInquirer.renderInput(
+    message: String,
+    choices: List<Choice<JsonNode>>,
+    answer: List<Choice<JsonNode>>
+): String =
     buildString {
         append("? ")
         append(message)
         append(" \n")
+        var first = true
         choices.forEach { choice ->
-            if (choice.displayName == answer) {
-                append(" ❯ ◉ ")
+            if (answer.contains(choice)) {
+                if (first) {
+                    append(" ❯ ◉ ")
+                    first = false
+                } else {
+                    append("   ◉ ")
+                }
             } else {
                 append("   ◯ ")
             }
@@ -121,7 +131,7 @@ object TestPrompt : UserPrompt {
             val result = ArrayNode(JsonNodeFactory.instance)
             selection.forEach { result.add(it.data) }
 
-            println(KInquirer.renderInput(message, selection.toString()))
+            println(KInquirer.renderInput(message, choices, selection))
 
             return result
 
@@ -130,7 +140,7 @@ object TestPrompt : UserPrompt {
                 selectedAnswer.textValue() == it.displayName
             } ?: throw CliScriptingException("Prerecorded choice '$selectedAnswer' not found in provided list.")
 
-            println(KInquirer.renderInput(message, choices, selection.displayName))
+            println(KInquirer.renderInput(message, choices, listOf(selection)))
 
             return selection.data
         }

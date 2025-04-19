@@ -14,10 +14,9 @@
 
 Use **Prompt object** to fire multiple questions at once and capture the answers in the output variable.
 
-<!-- yaml instacli before
-Stock answers:
-  First name: Juan
-  Last name: Pérez
+<!-- input
+First name: Juan
+Last name: Pérez
 -->
 
 ```yaml instacli
@@ -32,10 +31,10 @@ Print: Hello ${output.firstName} ${output.lastName}!
 
 This will ask two questions and then print the result:
 
-```shell
+```output
 ? First name Juan
 ? Last name Pérez
-Hello Juan, Pérez!
+Hello Juan Pérez!
 ```
 
 ## Prompt properties
@@ -51,10 +50,9 @@ You can specify various properties: See [Prompt Properties](Prompt.spec.md#promp
 
 Here's an example:
 
-<!-- yaml instacli before
-Stock answers:
-  Email address: info@example.com
-  Choose a color: Red
+<!-- input
+Email address: info@example.com
+Choose a color: Red
 -->
 
 ```yaml instacli

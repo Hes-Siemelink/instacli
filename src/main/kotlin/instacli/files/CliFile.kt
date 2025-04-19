@@ -18,11 +18,11 @@ class CliFile(val file: Path) : CommandInfo, CommandHandler(asScriptCommand(file
     override val instacliSpec: String by lazy { script.info?.instacliSpec ?: "unknown" }
 
     val script by lazy {
-        markdown?.toScript()
+        markdown?.blocks?.toScript()
             ?: Script.from(scriptNodes)
     }
     private val scriptNodes: List<JsonNode> by lazy { Yaml.parse(file) }
-    
+
     val markdown: InstacliMarkdown? by lazy {
         if (file.isMarkdownScript()) {
             InstacliMarkdown.scan(file)
@@ -44,5 +44,34 @@ class CliFile(val file: Path) : CommandInfo, CommandHandler(asScriptCommand(file
 }
 
 private fun Path.isMarkdownScript(): Boolean {
-    return this.name.endsWith(CLI_MARKDOWN_SCRIPT_EXTENSION) || this.name.endsWith(MARKDOWN_SPEC_EXTENSION)
+    return this.name.endsWith(".md")
+}
+
+fun CliFile.splitMarkdown(): List<Script> {
+
+    val all = mutableListOf<List<MarkdownBlock>>()
+
+    val document = markdown ?: return listOf()
+
+    var currentCase = mutableListOf<MarkdownBlock>()
+    for (block in document.blocks) {
+        when (block.type) {
+            MarkdownBlock.Header -> {
+                // Add previous case
+                if (currentCase.isNotEmpty()) {
+                    all.add(currentCase)
+                }
+                currentCase = mutableListOf(block)
+            }
+
+            else -> {
+                currentCase.add(block)
+            }
+        }
+    }
+
+    // Add the last one
+    all.add(currentCase)
+
+    return all.map { it.toScript() }
 }

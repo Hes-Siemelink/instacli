@@ -1,14 +1,21 @@
 # On my mind
 
-* Snippets: script with title, description, input, output, example
+* !!! Make sure TestUtil and cli command run directives in the same way
+    * Capture System.in and System.out properly at command execution level? Or is that too much overhead to do always?
+    * Check Output or Console output in directives like ```output script ```output stderr ?
+    * Filter empty files from test suite, like helper files and files from 'scratchpad`
 * Learn how to write Go
 * Learn how to use AI
 * AI to generate scripts: notebook type interaction to write scripts
 * Document Json Patch (uses RFC 6902)
 
+## Refactor tests cases
+
+* Fix all fixmes
+* Rename <!-- input -->> to <!-- answers -->
+
 ## For live deployments demo:
 
-* !!! Make sure TestUtil and cli command run directives in the same way
 * Temp file
     * Option to set temp dir variable on shell directive
 * Document: Shell 'show command' and 'show output' options in directive

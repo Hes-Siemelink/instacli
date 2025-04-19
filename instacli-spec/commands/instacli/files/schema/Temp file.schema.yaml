@@ -8,7 +8,7 @@ oneOf:
       filename:
         type: string
       content:
-        type: string
+        type: any
     required:
       - content
     additionalProperties: false

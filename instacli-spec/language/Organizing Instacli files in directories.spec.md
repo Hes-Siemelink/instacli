@@ -66,7 +66,7 @@ prompt. This is a great way to explore the commands and subcommands!
 
 <!-- Insert gif here -->
 
-```shell
+```shell cli
 cli basic       
 ```
 

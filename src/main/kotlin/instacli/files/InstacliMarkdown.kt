@@ -14,65 +14,14 @@ class InstacliMarkdown(val document: Path) {
             .filter { it.type == YamlFile }
             .associate { (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent() }
 
-    val scriptExamples: List<UsageExample>
-        get() = getExamples(YamlInstacli)
-
-    val instacliCommandExamples: List<UsageExample>
-        get() = getExamples(ShellCli)
-
     val description: String? by lazy {
-        // Get first main block
-        val mainBlock = blocks.firstOrNull { it.type == MainText }
+        // Get first text block
+        val mainBlock = blocks.firstOrNull { it.type == Text && it.lines.isNotEmpty() }
 
         // Get first lines of the block that is not a Markdown header, comment or code block
         mainBlock?.lines?.firstOrNull { line ->
             !line.startsWith("#") && !line.startsWith("<!--") && !line.startsWith("```") && line.isNotBlank()
         }
-    }
-
-
-    private fun getExamples(type: BlockType): List<UsageExample> {
-        val all = mutableListOf<UsageExample>()
-        var current: UsageExample? = null
-        var before: String? = null
-        for (block in blocks) {
-            when (block.type) {
-                type -> {
-                    current = UsageExample(
-                        block.getContent(),
-                        directory = block.getDirectory()?.toPath(),
-                        before = before
-                    )
-                    all.add(current)
-                    before = null
-                }
-
-                Input -> {
-                    current?.input = block.getContent()
-                }
-
-                Output -> {
-                    current?.output = block.getContent()
-                }
-
-                YamlInstacliBefore -> {
-                    before = block.getContent() + "\n"
-                }
-
-                YamlInstacliAfter -> {
-                    current ?: continue
-                    current.after = "\n" + block.getContent()
-                }
-
-                // Clean up context when encountering a block of a different type
-                ShellCli, YamlInstacli, YamlFile -> {
-                    current = null
-                    before = null
-                }
-            }
-        }
-
-        return all
     }
 
     fun get(type: BlockType): List<MarkdownBlock> {
@@ -102,21 +51,22 @@ class InstacliMarkdown(val document: Path) {
             ShellBlock,
             Input,
             Output,
-            MainText // Should be last
+            Header,
+            Text // Should be last
         )
 
         fun scan(document: Path): InstacliMarkdown {
 
             val doc = InstacliMarkdown(document)
-            var currentBlock = doc.addBlock(MainText)
+            var currentBlock = doc.addBlock(Text)
             for (line in document.readLines()) {
                 when {
-                    currentBlock.type == MainText -> {
+                    currentBlock.type == Text -> {
                         val startBlockType = blockTypes.firstOrNull {
                             line.startsWith(it.firstLinePrefix)
                         }
 
-                        if (startBlockType == null || startBlockType == MainText) {
+                        if (startBlockType == null || startBlockType == Text) {
                             currentBlock.lines.add(line)
                         } else {
                             currentBlock = doc.addBlock(startBlockType, line)
@@ -124,7 +74,7 @@ class InstacliMarkdown(val document: Path) {
                     }
 
                     line.startsWith(currentBlock.type.lastLinePrefix) -> {
-                        currentBlock = doc.addBlock(MainText)
+                        currentBlock = doc.addBlock(Text)
                     }
 
                     else -> {
@@ -143,7 +93,7 @@ private fun String.toPath(): Path {
 }
 
 
-open class BlockType(val firstLinePrefix: String = "", val lastLinePrefix: String = "```")
+open class BlockType(val firstLinePrefix: String, val lastLinePrefix: String)
 
 val FILE_REGEX = Regex("file:(\\S+)")
 val DIRECTORY_REGEX = Regex("directory:(\\S+)")
@@ -181,25 +131,14 @@ class MarkdownBlock(
         }
     }
 
-    object MainText : BlockType()
+    object Text : BlockType("", "```")
+    object Header : BlockType("#", "")
     object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
     object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
-    object YamlInstacli : BlockType("```yaml instacli")
-    object YamlFile : BlockType("```yaml file")
-    object ShellCli : BlockType("```shell cli")
-    object ShellBlock : BlockType("```shell")
+    object YamlInstacli : BlockType("```yaml instacli", "```")
+    object YamlFile : BlockType("```yaml file", "```")
+    object ShellCli : BlockType("```shell cli", "```")
+    object ShellBlock : BlockType("```shell", "```")
     object Input : BlockType("<!-- input", "-->")
-    object Output : BlockType("```output")
-}
-
-data class UsageExample(
-    val command: String,
-    val directory: Path? = null,
-    var input: String? = null,
-    var output: String? = null,
-    var before: String? = null,
-    var after: String? = null
-) {
-    val content: String
-        get() = (before ?: "") + command + (after ?: "")
+    object Output : BlockType("```output", "```")
 }

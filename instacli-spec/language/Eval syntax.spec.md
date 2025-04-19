@@ -66,16 +66,6 @@ Expected output: 29
 
 Note that you can 'unfold' this example to make it more linear and less nested:
 
-<!-- yaml instacli before
-${cast}:
-  - first name: Romeo
-    last name: Montague
-    age: 16
-  - first name: Juliet
-    last name: Capulet
-    age: 13
--->
-
 ```yaml instacli
 Code example: Alternative to nesting
 

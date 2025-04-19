@@ -14,9 +14,8 @@
 
 With **Confirmation**, you can ask the user a question.
 
-<!-- yaml instacli before
-Stock answers:
-  Do you want to continue?: "Yes"
+<!-- input
+Do you want to continue?: "Yes"
 -->
 
 ```yaml instacli
@@ -29,8 +28,11 @@ Print: Thank you for confirming!
 
 This will ask for user input on the command line:
 
-```shell
-? Do you want to continue? Yes
+```output
+? Do you want to continue? 
+ ❯ ◉ Yes
+   ◯ No
+
 Thank you for confirming!
 ```
 
@@ -38,9 +40,8 @@ Thank you for confirming!
 
 When a user says no, the **Confirm** command will raise on error. You can catch this error with an `On error` block.
 
-<!-- yaml instacli before
-Stock answers:
-  Are you sure?: "No"
+<!-- input
+Are you sure?: "No"
 -->
 
 ```yaml instacli

@@ -67,17 +67,15 @@ Shell:
 Expected output: Hello
 ```
 
-# XXX FIXME
+You can write it in short form
 
-    You can write it in short form
-    
-    ```shell cd:${SCRIPT_TEMP_DIR}
-    cat temp.txt temp.txt
-    ```
-    
-    ```output
-    HelloHello
-    ```
+```shell cd:${SCRIPT_TEMP_DIR}
+cat temp.txt temp.txt
+```
+
+```output
+HelloHello
+```
 
 ## Displaying the output
 

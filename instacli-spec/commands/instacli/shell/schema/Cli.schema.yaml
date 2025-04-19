@@ -1,4 +1,14 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 
-type: string
+oneOf:
+  - type: string
 
+  - type: object
+    properties:
+      command:
+        type: string
+      cd:
+        type: string
+    required:
+      - command
+    additionalProperties: false

@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.scriptinfo.ScriptInfoData
+import instacli.commands.shell.Cli
+import instacli.commands.shell.CliData
 import instacli.commands.shell.Shell
 import instacli.commands.shell.ShellCommand
-import instacli.commands.testing.ExpectedOutput
+import instacli.commands.testing.ExpectedConsoleOutput
 import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
-import instacli.files.InstacliMarkdown
+import instacli.files.MarkdownBlock
 import instacli.files.MarkdownBlock.*
 import instacli.util.Yaml
 import instacli.util.toDomainObject
@@ -19,7 +21,7 @@ data class Command(val name: String, val data: JsonNode)
 
 class Break(val output: JsonNode) : Exception()
 
-class Script(val commands: List<Command>) {
+class Script(val commands: List<Command>, val title: String? = null) {
 
     val info: ScriptInfoData? by lazy {
         getScriptInfo()
@@ -27,7 +29,9 @@ class Script(val commands: List<Command>) {
 
     fun run(context: ScriptContext): JsonNode? {
         return try {
-            runCommands(context)
+            ExpectedConsoleOutput.captureSystemOutAndErr(context) {
+                runCommands(context)
+            }
         } catch (a: Break) {
             a.output
         } catch (e: InstacliLanguageException) {
@@ -95,19 +99,31 @@ fun JsonNode.run(context: ScriptContext): JsonNode? {
     return Script.from(this).runCommands(context)
 }
 
-fun InstacliMarkdown.toScript(): Script {
+fun List<MarkdownBlock>.toScript(): Script {
 
     val commands = mutableListOf<Command>()
-    for (block in blocks) {
+    var title: String? = null
+    for (block in this) {
         when (block.type) {
-            MainText -> {}
+            Header -> {
+                title = block.headerLine.substring(block.headerLine.indexOf(' ')).trim()
+            }
+
             YamlInstacliBefore, YamlInstacliAfter, YamlInstacli -> {
                 commands.addAll(toCommandList(block.getContent()))
             }
 
             YamlFile -> {}
-            ShellCli -> {}
+            ShellCli -> {
+                val command = CliData.fromBlock(block)
+                commands.add(
+                    Command(Cli.name, Yaml.mapper.valueToTree(command))
+                )
+            }
+
             ShellBlock -> {
+                if (block.headerLine.contains("ignore")) continue
+
                 val command = ShellCommand.fromBlock(block.getContent(), block.headerLine)
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))
@@ -122,13 +138,13 @@ fun InstacliMarkdown.toScript(): Script {
 
             Output -> {
                 commands.add(
-                    Command(ExpectedOutput.name, TextNode(block.getContent()))
+                    Command(ExpectedConsoleOutput.name, TextNode(block.getContent()))
                 )
             }
         }
     }
 
-    return Script(commands)
+    return Script(commands, title)
 }
 
 /**
