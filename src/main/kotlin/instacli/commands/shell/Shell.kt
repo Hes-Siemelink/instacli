@@ -158,14 +158,21 @@ data class ShellCommand(
     val env: MutableMap<String, String> = mutableMapOf()
 ) {
 
+
     companion object {
+
+        // Regex that captures "cd:VALUE" where value is non-space characters
+        val cdRegex = Regex("cd:(\\S+)")
+
         fun fromBlock(content: String, options: String): ShellCommand {
             val showOutput = options.contains("show_output:false")
             val showCommand = options.contains("show_command:true")
+            val cd = cdRegex.find(options)?.groupValues?.get(1)
             return ShellCommand(
                 command = content,
                 showOutput = showOutput,
-                showCommand = showCommand
+                showCommand = showCommand,
+                cd = cd
             )
         }
     }
