@@ -50,14 +50,17 @@ class CliFileContext(
         }
     }
 
-    override val tempDir: Path by lazy {
-        val dir = Files.createTempDirectory("instacli-")!!
-        dir.toFile().deleteOnExit()
-        // XXX Since it is a lazy property, the temp dir is not always available to the script.
-        // However, having a lazy property creating a temp dir for every script run
-        variables[SCRIPT_TEMP_DIR_VARIABLE] = TextNode(dir.toAbsolutePath().toString())
-        dir
-    }
+    override val tempDir: Path
+        get() {
+            return if (variables.containsKey(SCRIPT_TEMP_DIR_VARIABLE)) {
+                Path.of(variables[SCRIPT_TEMP_DIR_VARIABLE]!!.textValue())
+            } else {
+                Files.createTempDirectory("instacli-").apply {
+                    toFile().deleteOnExit()
+                    variables[SCRIPT_TEMP_DIR_VARIABLE] = TextNode(toAbsolutePath().toString())
+                }
+            }
+        }
 
     override val output: JsonNode?
         get() = variables[OUTPUT_VARIABLE]

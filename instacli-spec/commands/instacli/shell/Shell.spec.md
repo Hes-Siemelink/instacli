@@ -67,11 +67,23 @@ Shell:
 Expected output: Hello
 ```
 
+# XXX FIXME
+
+    You can write it in short form
+    
+    ```shell cd:${SCRIPT_TEMP_DIR}
+    cat temp.txt temp.txt
+    ```
+    
+    ```output
+    HelloHello
+    ```
+
 ## Displaying the output
 
 By the default, the console output is hidden. Show it with the `show output` parameter:
 
-  ```yaml instacli
+```yaml instacli
 Code example: Show the output of a shell command on the console
 
 Shell:

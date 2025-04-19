@@ -2,6 +2,7 @@ package instacli.spec
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
 import instacli.cli.InstacliMain
 import instacli.cli.reportError
 import instacli.commands.connections.Credentials
@@ -91,7 +92,7 @@ class TestCaseRunner(
             a.output
         } catch (e: InstacliCommandError) {
             e.error.data?.let {
-                println(it.toDisplayYaml())
+                System.err.println(it.toDisplayYaml())
             }
             throw e
         } catch (e: InstacliLanguageException) {
@@ -127,6 +128,10 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
 
     // Set up test dir with helper files from document
     val testDir = Files.createTempDirectory("instacli-")
+    val context = CliFileContext(testDir)
+    context.variables[SCRIPT_TEMP_DIR_VARIABLE] =
+        TextNode(testDir.toAbsolutePath().toString()) // XXX encapsulate TEMP_DIR in ScriptContext
+    
     helperFiles.forEach {
         println("Helper file: ${it.key}")
         val targetFile = testDir.resolve(it.key)
@@ -138,7 +143,7 @@ private fun InstacliMarkdown.getCodeExamples(): List<DynamicTest> {
     // Generate tests
     val instacliTests = scriptExamples
         .map {
-            toTest(document, it, CliFileContext(testDir), credentials)
+            toTest(document, it, context, credentials)
         }
     val cliInvocationTests = instacliCommandExamples.map {
         val dir = it.directory ?: testDir
