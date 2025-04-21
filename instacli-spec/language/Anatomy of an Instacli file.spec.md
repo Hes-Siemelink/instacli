@@ -63,7 +63,7 @@ Print: Hello ${output}!
 
 When storing this in a file `prompt.cli` and running it with the following command,
 
-<!-- input
+<!-- answers
 What is your name?: Hes
 -->
 

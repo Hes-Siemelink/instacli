@@ -161,7 +161,7 @@ Available commands:
 
 When calling a script with a missing parameter in interactive mode, you will get a question on the command line.
 
-<!-- input
+<!-- answers
 Your name: ""
 -->
 

@@ -139,6 +139,6 @@ class MarkdownBlock(
     object YamlFile : BlockType("```yaml file", "```")
     object ShellCli : BlockType("```shell cli", "```")
     object ShellBlock : BlockType("```shell", "```")
-    object Input : BlockType("<!-- input", "-->")
+    object Input : BlockType("<!-- answers", "-->")
     object Output : BlockType("```output", "```")
 }

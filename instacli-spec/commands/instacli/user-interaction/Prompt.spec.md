@@ -14,7 +14,7 @@
 
 With **Prompt**, you can ask the user a question.
 
-<!-- input
+<!-- answers
 What is your name?: Hes
 -->
 
@@ -37,7 +37,7 @@ Hello Hes!
 
 Syntax for using a default value
 
-<!-- input
+<!-- answers
 What is your name?: World
 -->
 
@@ -60,7 +60,7 @@ The default value is a suggestion that is printed but can be overwritten by the 
 When asking for a password, the user prompt will mask the input that the user is typing in if you indicate it to have
 `secret: true`.
 
-<!-- input
+<!-- answers
 What is your password?: ssh
 -->
 
@@ -82,7 +82,7 @@ will display as:
 
 You can ask for one item of a list:
 
-<!-- input
+<!-- answers
 What is your favorite color?: Red
 -->
 
@@ -108,7 +108,7 @@ The user can user the cursor keys to interactively select an item from a list, c
 
 Or multiple:
 
-<!-- input
+<!-- answers
 What are your favorite colors?:
 - Red
 - Green
@@ -140,7 +140,7 @@ Here you can select the items you want by hitting the spacebar, before confirmin
 You can pass entire objects as choices into  `enum`. Then you need to specify the field that will be used to select the
 object with the `display property` field. The entire object will be given as output.
 
-<!-- input
+<!-- answers
 Select a user: Alice
 -->
 
@@ -178,7 +178,7 @@ You chose:
 
 If you are only interested in a single field form an object, you can specify that with `value property`.
 
-<!-- input
+<!-- answers
 Select a user: Alice
 -->
 

@@ -16,7 +16,7 @@ Sometimes you need to validate the user input before proceeding with the script.
 
 With **Prompt**, you can ask the user a question.
 
-<!-- input
+<!-- answers
 What is your name?: Hes
 -->
 

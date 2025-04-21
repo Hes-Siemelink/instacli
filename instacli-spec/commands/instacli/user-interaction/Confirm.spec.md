@@ -14,7 +14,7 @@
 
 With **Confirmation**, you can ask the user a question.
 
-<!-- input
+<!-- answers
 Do you want to continue?: "Yes"
 -->
 
@@ -40,7 +40,7 @@ Thank you for confirming!
 
 When a user says no, the **Confirm** command will raise on error. You can catch this error with an `On error` block.
 
-<!-- input
+<!-- answers
 Are you sure?: "No"
 -->
 

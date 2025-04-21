@@ -9,11 +9,6 @@
 * AI to generate scripts: notebook type interaction to write scripts
 * Document Json Patch (uses RFC 6902)
 
-## Refactor tests cases
-
-* Fix all fixmes
-* Rename <!-- input -->> to <!-- answers -->
-
 ## For live deployments demo:
 
 * Temp file

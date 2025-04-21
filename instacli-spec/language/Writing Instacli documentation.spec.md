@@ -156,10 +156,10 @@ Then followed by a block that contains the output:
     Options:
     ```
 
-Provide input using an HTML comment marked as `cli input`. Inside the comment, define the answers to questions
+Provide input using an HTML comment starting with `<!-- answers`. Inside the comment, define the answers to questions
 like  [Stock answers](../commands/instacli/testing/Stock%20answers.spec.md)
 
-    <!-- input
+    <!-- answers
     Enter your name: Hes
     Select a language: English
     -->

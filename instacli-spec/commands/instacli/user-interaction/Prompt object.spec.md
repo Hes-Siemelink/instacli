@@ -14,7 +14,7 @@
 
 Use **Prompt object** to fire multiple questions at once and capture the answers in the output variable.
 
-<!-- input
+<!-- answers
 First name: Juan
 Last name: Pérez
 -->
@@ -50,7 +50,7 @@ You can specify various properties: See [Prompt Properties](Prompt.spec.md#promp
 
 Here's an example:
 
-<!-- input
+<!-- answers
 Email address: info@example.com
 Choose a color: Red
 -->

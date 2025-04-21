@@ -10,11 +10,6 @@ As-code, but without the complexity of actual code.
 
 Get a flavor of Instacli with this example file `greetings.cli`:
 
-<!-- input
-Your name: Hes
-Select a language: English
--->
-
 ```yaml file:greetings.cli
 Script info:
   description: Multi-language greeting
@@ -38,6 +33,11 @@ Print: ${output}
 
 Run the script with this command:
 
+<!-- answers
+Your name: Hes
+Select a language: English
+-->
+
 ```shell cli
 cli greetings.cli
 ```
@@ -45,7 +45,7 @@ cli greetings.cli
 When running it, we get prompted for input before a POST request is made to the server. The greeting that we get back is
 printed.
 
-<!-- input
+<!-- answers
 Your name: Hes
 Select a language: English
 -->
@@ -250,7 +250,7 @@ Options:
 By default, Instacli runs in interactive mode. If there are unknown commandline options, the user is prompted to give
 input.
 
-<!-- input
+<!-- answers
 Username: Hes
 Password: Secret
 -->
@@ -345,7 +345,7 @@ You will be presented with an interactive selector when running it:
 cli prompt.cli
 ```
 
-<!-- input
+<!-- answers
 Select a language: English
 -->
 
