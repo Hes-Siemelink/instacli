@@ -26,7 +26,7 @@ Instacli Sample Server:
 
 You can retrieve the default credentials with the following snippet:
 
-```yaml instacli
+```yaml FIXME instacli -- there was a hack in TestUtil to use mock credentials specified above but now it doesn't work anymore
 Code example: Get default credentials for an endpoint
 
 Get credentials: Instacli Sample Server

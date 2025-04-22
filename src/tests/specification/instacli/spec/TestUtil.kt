@@ -22,7 +22,6 @@ import java.nio.file.Path
 import kotlin.io.path.isDirectory
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
-import kotlin.io.path.writeText
 
 //
 // All
@@ -132,12 +131,7 @@ fun CliFile.getCodeExamples(): List<DynamicTest> {
 
     val helperFiles = markdown?.helperFiles ?: emptyMap()
 
-    helperFiles.forEach {
-        println("Helper file: ${it.key}")
-        val targetFile = testDir.resolve(it.key)
-        Files.createDirectories(targetFile.parent)
-        targetFile.writeText(it.value)
-    }
+    // FIXME remove temp credentials logic
     val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILENAME))
 
     val scripts = splitMarkdown()

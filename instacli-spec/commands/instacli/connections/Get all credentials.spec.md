@@ -29,7 +29,7 @@ Instacli Sample Server:
 
 You can retrieve all credentials with the following snippet:
 
-```yaml instacli
+```yaml FIXME instacli -- there was a hack in TestUtil to use mock credentials specified above but now it doesn't work anymore
 Code example: Get all credentials for an endpoint
 
 Get all credentials: Instacli Sample Server

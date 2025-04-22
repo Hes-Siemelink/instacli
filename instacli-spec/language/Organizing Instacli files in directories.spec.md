@@ -66,7 +66,7 @@ prompt. This is a great way to explore the commands and subcommands!
 
 <!-- Insert gif here -->
 
-```shell cli
+```shell ignore
 cli basic       
 ```
 
@@ -123,7 +123,7 @@ data.
 
 Add a `.instacli.yaml` file to the directory to give a description to the current directory.
 
-```yaml
+```yaml file:.instacli.yaml
 Script info: This is an example directory
 ```
 
@@ -138,7 +138,6 @@ This is an example directory
 
 Available commands:
   create-greeting   Creates a greeting
-  say-something     Say something
 ```
 
 ### Hidden directory
@@ -174,7 +173,7 @@ scripts in that directory.
 
 For example, if we have the file `helper/say-something.cli`:
 
-```yaml file:say-something.cli
+```yaml file:helper/say-something.cli
 Output: Something ${input.what}
 ```
 
@@ -187,15 +186,27 @@ imports:
   - helper/say-something.cli
 ```
 
-Then you can call it like this from your script:
+Then you can call it like this from your script `call-helper.cli`:
 
-```yaml instacli
+```yaml file:call-helper.cli
 Code example: Calling a script that was imported from another directory
 
 Say something:
   what: funny
 
 Expected output: Something funny
+```
+
+Run it
+
+```shell cli
+cli -o call-helper
+```
+
+And it will output:
+
+```output
+Something funny
 ```
 
 ### Specifying connection data

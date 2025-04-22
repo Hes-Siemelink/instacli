@@ -56,7 +56,7 @@ class InstacliMain(
         // Create context based on the file and options.
         // A parent context can be passed for testing scenarios.
         val context = if (parent == null) {
-            CliFileContext(file, interactive = options.interactive)
+            CliFileContext(file, interactive = options.interactive, workingDir = workingDir)
         } else {
             CliFileContext(file, parent)
         }

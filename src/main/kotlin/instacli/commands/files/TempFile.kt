@@ -1,23 +1,33 @@
 package instacli.commands.files
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.language.*
 import instacli.util.toDisplayYaml
+import instacli.util.toDomainObject
 import java.nio.file.Files
 import java.nio.file.Path
 
-object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, ValueHandler {
+object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, ValueHandler, DelayedResolver {
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
-        val filename = data.get("filename")?.asText()
-        val content = data.getParameter("content")
+        val options = data.toDomainObject(TempFileData::class)
+        val content = if (options.content is ObjectNode) {
+            options.content.deepCopy()
+        } else {
+            options.content
+        }
+        val copy = if (options.resolve) {
+            content.resolve(context)
+        } else {
+            content
+        }
+        val destinationFile = tempFile(context.tempDir, options.filename)
 
-        val destinationFile = tempFile(context.tempDir, filename)
-
-        Files.writeString(destinationFile, content.toDisplayYaml())
+        Files.writeString(destinationFile, copy.toDisplayYaml())
 
         return destinationFile.toJson()
     }
@@ -38,10 +48,19 @@ object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, 
         val tempFile = if (filename == null) {
             Files.createTempFile(dir, "instacli-temp-file-", "")
         } else {
-            dir.resolve(filename)
+            dir.resolve(filename).apply {
+                Files.createDirectories(parent)
+            }
         }
         tempFile.toFile().deleteOnExit()
 
         return tempFile
     }
 }
+
+data class TempFileData(
+    val filename: String? = null,
+    @JsonProperty("resolve variables")
+    val resolve: Boolean = false,
+    val content: JsonNode
+)

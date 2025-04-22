@@ -2,6 +2,8 @@ package instacli.language
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
+import instacli.commands.files.TempFile
+import instacli.commands.files.TempFileData
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.scriptinfo.ScriptInfoData
 import instacli.commands.shell.Cli
@@ -113,28 +115,38 @@ fun List<MarkdownBlock>.toScript(): Script {
                 commands.addAll(toCommandList(block.getContent()))
             }
 
-            YamlFile -> {}
+            YamlFile -> {
+                val data = TempFileData(
+                    filename = block.getOption("file"),
+                    content = TextNode(block.getContent()),
+                    resolve = false
+                )
+                commands.add(
+                    Command(TempFile.name, Yaml.mapper.valueToTree(data))
+                )
+            }
+
             ShellCli -> {
-                val command = CliData(
+                val data = CliData(
                     command = block.getContent(),
                     cd = block.getOption("cd")
                 )
                 commands.add(
-                    Command(Cli.name, Yaml.mapper.valueToTree(command))
+                    Command(Cli.name, Yaml.mapper.valueToTree(data))
                 )
             }
 
             ShellBlock -> {
                 if (block.headerLine.contains("ignore")) continue
 
-                val command = ShellCommand(
+                val data = ShellCommand(
                     command = block.getContent(),
                     showOutput = block.getOption("show_output")?.toBoolean() ?: true,
                     showCommand = block.getOption("show_command:")?.toBoolean() ?: false,
                     cd = block.getOption("cd")
                 )
                 commands.add(
-                    Command(Shell.name, Yaml.mapper.valueToTree(command))
+                    Command(Shell.name, Yaml.mapper.valueToTree(data))
                 )
             }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.readValue
 import instacli.files.MarkdownBlock.YamlInstacli
 import instacli.language.CommandInfo
+import instacli.util.IO.isTempDir
 import instacli.util.Json
 import instacli.util.Yaml
 import java.nio.file.Path
@@ -71,9 +72,15 @@ object InstacliDirectories {
     val directories = mutableMapOf<Path, DirectoryInfo>()
 
     fun get(dir: Path): DirectoryInfo {
-        val key = dir.toAbsolutePath().normalize()
-        return directories.getOrPut(key) {
+        return if (dir.isTempDir()) {
+            // Do not cache directories that are made on the fly by scripts
             DirectoryInfo.load(dir)
+        } else {
+            val key = dir.toAbsolutePath().normalize()
+            directories.getOrPut(key) {
+                DirectoryInfo.load(dir)
+            }
         }
     }
+
 }

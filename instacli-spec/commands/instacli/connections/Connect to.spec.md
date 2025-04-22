@@ -16,14 +16,14 @@ the scenes.
 **Connect to** takes a symbolic name and usually
 configures [Http request defaults](../http/Http%20request%20defaults.spec.md) for subsequent REST API calls.
 
-A script would look like this:
+A script `connect-to.cli` would look like this:
 
 <!-- yaml instacli before
 Http request defaults:
   url: http://localhost:2525
 -->
 
-```yaml instacli
+```yaml file:connect-to.cli
 Code example: Use a connection
 
 Connect to: Instacli Samples
@@ -54,6 +54,22 @@ Here's an example connection script:
 Http request defaults:
   url: http://localhost:2525
 ```
+
+Now we can run it
+
+```shell cli
+cli -o connect-to
+```
+
+and it will output:
+
+```output
+- 1
+- 2
+- 3
+```
+
+## More examples
 
 This is a very simple example, but you can put more in this script. For example, managing user credentials, obtaining a
 session token, etc. See the [samples](../../../../samples) directory for some real world examples, for example on how to

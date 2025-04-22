@@ -3,6 +3,8 @@ package instacli.util
 import java.io.ByteArrayOutputStream
 import java.io.OutputStream
 import java.io.PrintStream
+import java.nio.file.Path
+import java.nio.file.Paths
 
 object IO {
     fun captureSystemOut(doThis: () -> Unit): String {
@@ -35,7 +37,7 @@ object IO {
             System.setErr(originalErr)
         }
     }
-    
+
     fun rewireSystemOut(): Pair<PrintStream, ByteArrayOutputStream> {
         val original = System.out
         val copy = ByteArrayOutputStream()
@@ -61,6 +63,12 @@ object IO {
             }
         })
         return customOut
+    }
+
+    val TEMP_DIR: Path = Paths.get(System.getProperty("java.io.tmpdir")).toAbsolutePath().normalize()
+
+    fun Path.isTempDir(): Boolean {
+        return toAbsolutePath().normalize().startsWith(TEMP_DIR)
     }
 }
 
