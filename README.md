@@ -270,7 +270,7 @@ Easily provide subcommand support by organizing your cli files in directories.
 
 For example, to run the greeting example from the **[samples](samples)** directory, you can write
 
-```shell cli directory:.
+```shell cli cd:.
 cli samples basic greet
 ```
 
@@ -302,7 +302,7 @@ samples has several subcommands.
 
 Use the `-q` option for non-interacivte mode
 
-```shell cli directory:.
+```shell cli cd:.
 cli -q samples
 ```
 

@@ -32,7 +32,7 @@ The `--help` option prints help on a script or directory and then exits. No scri
 For this example we run from the **[samples](/samples)** directory. It contains a directory `basic`. Let's use the
 `--help` option to see what Instacli commands it contains
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli --help basic
 ```
 
@@ -50,7 +50,7 @@ Available commands:
 Using `--help` on the **[greet](/samples/basic/greet.cli)** command will give us a description and show which command
 line options it supports
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli --help basic greet
 ```
 
@@ -63,7 +63,7 @@ Options:
 
 With that information we can call it with a parameter that is specific to that command:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic greet --name Alice
 ```
 
@@ -84,7 +84,7 @@ another script.
 
 Running `create-greeting` like this will show nothing
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic create-greeting --name Bob
 ```
 
@@ -95,7 +95,7 @@ Output:
 
 We will see the output when passing the `--output` parameter, or its shortcut `-o`:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli -o basic create-greeting --name Bob
 ```
 
@@ -107,7 +107,7 @@ Hello Bob!
 
 To show the output in the script in Json format, use `--output-json` or the shortcut  `-j`:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli --output-json basic create-greeting --name Bob
 ```
 
@@ -144,7 +144,7 @@ After choosing a command with cursor keys and enter, ths script will continue.
 
 If we pass `--non-interactive` however, the script will just print the list of available commands and exit:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli --non-interactive basic
 ```
 
@@ -165,7 +165,7 @@ When calling a script with a missing parameter in interactive mode, you will get
 Your name: ""
 -->
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic create-greeting
 ```
 
@@ -175,7 +175,7 @@ cli basic create-greeting
 
 In non-interactive mode, the script will fail with an error message
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli -q basic create-greeting
 ```
 

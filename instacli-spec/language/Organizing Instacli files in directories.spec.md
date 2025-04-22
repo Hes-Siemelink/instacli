@@ -18,7 +18,7 @@ simple-question.cli
 We can now run `basic` as a cli command with subcommands for each of the files. First, let's use the `--help` option to
 see some more descriptions
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli --help basic
 ```
 
@@ -35,7 +35,7 @@ Available commands:
 
 We can now invoke the **greet** command like this:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic greet
 ```
 
@@ -47,15 +47,15 @@ Hello, World!
 
 Note that it's optional to specify the `.cli` extension. The following three commands are equivalent:
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic greet
 ```
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic greet.cli
 ```
 
-```shell cli directory:samples
+```shell cli cd:samples
 cli basic/greet.cli
 ```
 
