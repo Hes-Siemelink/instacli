@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
-import instacli.files.MarkdownBlock
 import instacli.language.*
 import instacli.util.Json
 import instacli.util.toDomainObject
@@ -149,19 +148,4 @@ data class ShellCommand(
     val captureOutput: Boolean = true,
 
     val env: MutableMap<String, String> = mutableMapOf()
-) {
-    companion object {
-
-        fun fromBlock(block: MarkdownBlock): ShellCommand {
-            val showOutput = block.getOption("show_output")?.toBoolean() ?: true
-            val showCommand = block.getOption("show_command:")?.toBoolean() ?: false
-            val cd = block.getOption("cd")
-            return ShellCommand(
-                command = block.getContent(),
-                showOutput = showOutput,
-                showCommand = showCommand,
-                cd = cd
-            )
-        }
-    }
-}
+)

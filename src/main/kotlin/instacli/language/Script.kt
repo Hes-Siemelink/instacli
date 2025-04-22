@@ -115,7 +115,10 @@ fun List<MarkdownBlock>.toScript(): Script {
 
             YamlFile -> {}
             ShellCli -> {
-                val command = CliData.fromBlock(block)
+                val command = CliData(
+                    command = block.getContent(),
+                    cd = block.getOption("cd")
+                )
                 commands.add(
                     Command(Cli.name, Yaml.mapper.valueToTree(command))
                 )
@@ -124,7 +127,12 @@ fun List<MarkdownBlock>.toScript(): Script {
             ShellBlock -> {
                 if (block.headerLine.contains("ignore")) continue
 
-                val command = ShellCommand.fromBlock(block)
+                val command = ShellCommand(
+                    command = block.getContent(),
+                    showOutput = block.getOption("show_output")?.toBoolean() ?: true,
+                    showCommand = block.getOption("show_command:")?.toBoolean() ?: false,
+                    cd = block.getOption("cd")
+                )
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))
                 )

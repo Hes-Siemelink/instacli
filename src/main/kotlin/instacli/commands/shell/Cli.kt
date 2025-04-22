@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.InstacliMain
 import instacli.commands.testing.ExpectedConsoleOutput
-import instacli.files.MarkdownBlock
 import instacli.language.CommandHandler
 import instacli.language.ObjectHandler
 import instacli.language.ScriptContext
@@ -21,7 +20,6 @@ object Cli : CommandHandler("Cli", "instacli/shell"), ValueHandler, ObjectHandle
 
         return runCli(context, data.asText())
     }
-
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val info = data.toDomainObject(CliData::class)
@@ -48,15 +46,4 @@ object Cli : CommandHandler("Cli", "instacli/shell"), ValueHandler, ObjectHandle
 data class CliData(
     val command: String,
     val cd: String? = null,
-) {
-    companion object {
-
-        fun fromBlock(block: MarkdownBlock): CliData {
-            val cd = block.getOption("cd")
-            return CliData(
-                command = block.getContent(),
-                cd = cd
-            )
-        }
-    }
-}
+)
