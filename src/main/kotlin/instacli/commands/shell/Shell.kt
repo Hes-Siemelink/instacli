@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
+import instacli.files.MarkdownBlock
 import instacli.language.*
 import instacli.util.Json
 import instacli.util.toDomainObject
@@ -151,15 +152,12 @@ data class ShellCommand(
 ) {
     companion object {
 
-        // Regex that captures "cd:VALUE" where value is non-space characters
-        val cdRegex = Regex("cd:(\\S+)")
-
-        fun fromBlock(content: String, options: String): ShellCommand {
-            val showOutput = !options.contains("show_output:false")
-            val showCommand = options.contains("show_command:true")
-            val cd = cdRegex.find(options)?.groupValues?.get(1)
+        fun fromBlock(block: MarkdownBlock): ShellCommand {
+            val showOutput = block.getOption("show_output")?.toBoolean() ?: true
+            val showCommand = block.getOption("show_command:")?.toBoolean() ?: false
+            val cd = block.getOption("cd")
             return ShellCommand(
-                command = content,
+                command = block.getContent(),
                 showOutput = showOutput,
                 showCommand = showCommand,
                 cd = cd

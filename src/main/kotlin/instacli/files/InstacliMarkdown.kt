@@ -12,7 +12,9 @@ class InstacliMarkdown(val document: Path) {
     val helperFiles: Map<String, String>
         get() = blocks
             .filter { it.type == YamlFile }
-            .associate { (it.getFilename() ?: error("No file specified for ${it.getContent()}")) to it.getContent() }
+            .associate {
+                (it.getOption("file") ?: error("No file specified for ${it.getContent()}")) to it.getContent()
+            }
 
     val description: String? by lazy {
         // Get first text block
@@ -95,22 +97,15 @@ private fun String.toPath(): Path {
 
 open class BlockType(val firstLinePrefix: String, val lastLinePrefix: String)
 
-val FILE_REGEX = Regex("file:(\\S+)")
-val DIRECTORY_REGEX = Regex("directory:(\\S+)")
-
 class MarkdownBlock(
     val type: BlockType,
     val headerLine: String = "",
     val lines: MutableList<String> = mutableListOf()
 ) {
-    fun getFilename(): String? {
-        val fileMatch = FILE_REGEX.find(headerLine)
-        return fileMatch?.groupValues?.get(1)
-    }
 
-    fun getDirectory(): String? {
-        val fileMatch = DIRECTORY_REGEX.find(headerLine)
-        return fileMatch?.groupValues?.get(1)
+    fun getOption(option: String): String? {
+        val optionMatch = Regex("$option:(\\S+)").find(headerLine)
+        return optionMatch?.groupValues?.get(1)
     }
 
     fun getContent(): String {

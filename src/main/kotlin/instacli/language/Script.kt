@@ -124,7 +124,7 @@ fun List<MarkdownBlock>.toScript(): Script {
             ShellBlock -> {
                 if (block.headerLine.contains("ignore")) continue
 
-                val command = ShellCommand.fromBlock(block.getContent(), block.headerLine)
+                val command = ShellCommand.fromBlock(block)
                 commands.add(
                     Command(Shell.name, Yaml.mapper.valueToTree(command))
                 )

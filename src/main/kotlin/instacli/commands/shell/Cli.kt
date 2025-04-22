@@ -52,7 +52,7 @@ data class CliData(
     companion object {
 
         fun fromBlock(block: MarkdownBlock): CliData {
-            val cd = block.getDirectory()
+            val cd = block.getOption("directory")
             return CliData(
                 command = block.getContent(),
                 cd = cd

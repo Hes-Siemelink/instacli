@@ -1,9 +1,5 @@
 # On my mind
 
-* !!! Make sure TestUtil and cli command run directives in the same way
-    * Capture System.in and System.out properly at command execution level? Or is that too much overhead to do always?
-    * Check Output or Console output in directives like ```output script ```output stderr ?
-    * Filter empty files from test suite, like helper files and files from 'scratchpad`
 * Learn how to write Go
 * Learn how to use AI
 * AI to generate scripts: notebook type interaction to write scripts
@@ -92,10 +88,6 @@
 * Pass environment variables to shell command
     * SCRIPT_ROOT_DIR
 
-* Shell command:
-    * Option to mask secrets
-    * Calling it in a different directory
-
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
@@ -108,13 +100,6 @@
 * Or rewrite as Go or TypeScript
 
 # Bugs
-
-* 'before' snippets die when there are multiple commands
-  <!-- yaml instacli before
-  Print: One
-  ---
-  Print: Two
-  -->
 
 # Where to take it
 
@@ -149,22 +134,3 @@
     * Why not try "Exception Driven Programming". But: you can't _start_ with the exceptions.
     * Define the happy path as declarative as possible. Build the exception flow around it?
     * Mold the language to have fewer exceptions: be declarative, idempotent
-
-# Model for 'Script'
-
-CliFile
-
-- Parse file
-- Run it Script
-- List of commands
-- Execute
-- Metadata from parsing ScriptInfo InstacliMarkdown
-- Logical list of blocks parsed out of markdown
-- Metadata from parsing markdown text
-- No execution logic
-- No Instacli commands Missing:
-- Metadata like Script info
-- Transforming markdown blocks into commands TestUtil
-- Checking input and output
-- Creating helper files in temp directory
-- Running command line cli

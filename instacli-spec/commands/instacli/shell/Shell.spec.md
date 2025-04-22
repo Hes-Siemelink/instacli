@@ -69,9 +69,17 @@ Expected output: Hello
 
 You can write it in short form
 
+    ```shell cd:${SCRIPT_TEMP_DIR}
+    cat temp.txt temp.txt
+    ```
+
+This will display as:
+
 ```shell cd:${SCRIPT_TEMP_DIR}
 cat temp.txt temp.txt
 ```
+
+And give the output:
 
 ```output
 HelloHello
