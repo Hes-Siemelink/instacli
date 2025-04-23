@@ -14,7 +14,7 @@ Gets the default credentials for an endpoint.
 
 With **Get credentials** you get the default connection details for a certain endpoint.
 
-Given the following list of credentials in `~/.instacli/credentials.yaml`:
+Given the following list of credentials in `~/.instacli/credentials2.yaml`:
 
 ```yaml file:credentials.yaml
 Instacli Sample Server:
@@ -24,9 +24,13 @@ Instacli Sample Server:
       password: admin
 ```
 
+<!-- yaml instacli before
+Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
+-->
+
 You can retrieve the default credentials with the following snippet:
 
-```yaml FIXME instacli -- there was a hack in TestUtil to use mock credentials specified above but now it doesn't work anymore
+```yaml instacli
 Code example: Get default credentials for an endpoint
 
 Get credentials: Instacli Sample Server

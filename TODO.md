@@ -1,5 +1,12 @@
 # On my mind
 
+## Test util
+
+* Add Credentials command that takes credentials from a local file and update tests and documentation
+* Review documentation
+
+## In general
+
 * Learn how to write Go
 * Learn how to use AI
 * AI to generate scripts: notebook type interaction to write scripts

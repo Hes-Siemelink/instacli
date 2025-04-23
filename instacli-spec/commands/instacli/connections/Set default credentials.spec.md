@@ -28,6 +28,11 @@ Instacli Sample Server:
       password: user
 ```
 
+<!-- yaml instacli before
+Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
+-->
+
+
 You can set the default credentials with the following snippet:
 
 ```yaml instacli

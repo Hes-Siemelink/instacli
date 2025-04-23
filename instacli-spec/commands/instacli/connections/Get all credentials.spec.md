@@ -27,6 +27,11 @@ Instacli Sample Server:
       password: user
 ```
 
+<!-- yaml instacli before
+Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
+-->
+
+
 You can retrieve all credentials with the following snippet:
 
 ```yaml FIXME instacli -- there was a hack in TestUtil to use mock credentials specified above but now it doesn't work anymore

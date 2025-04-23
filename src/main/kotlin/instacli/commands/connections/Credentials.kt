@@ -2,11 +2,15 @@ package instacli.commands.connections
 
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.cli.InstacliPaths
+import instacli.language.CommandHandler
 import instacli.language.ScriptContext
+import instacli.language.ValueHandler
 import instacli.util.Json
 import instacli.util.Yaml
 import instacli.util.updateWith
@@ -15,7 +19,7 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.createFile
 import kotlin.io.path.exists
 
-object Credentials {
+object Credentials : CommandHandler("Credentials", "instacli/shell"), ValueHandler {
 
     const val FILENAME = "credentials.yaml"
     private val DEFAULT_FILE: Path = InstacliPaths.INSTACLI_HOME.resolve(FILENAME)
@@ -30,6 +34,13 @@ object Credentials {
             file.createFile()
             CredentialsFile(file).save()
         }
+    }
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        val credentials = fromFile(Path.of(data.textValue()).toAbsolutePath())
+        context.setCredentials(credentials)
+
+        return null
     }
 }
 

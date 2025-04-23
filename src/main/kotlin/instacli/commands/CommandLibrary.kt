@@ -108,12 +108,13 @@ object CommandLibrary {
         HttpServer,
 
         // Account connections
-        GetCredentials,
         ConnectTo,
         CreateCredentials,
-        GetAllCredentials,
-        SetDefaultCredentials,
+        Credentials,
         DeleteCredentials,
+        GetAllCredentials,
+        GetCredentials,
+        SetDefaultCredentials,
 
         // JSON Schema
         ValidateSchema,

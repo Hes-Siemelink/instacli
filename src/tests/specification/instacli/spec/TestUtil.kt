@@ -129,15 +129,10 @@ fun CliFile.getCodeExamples(): List<DynamicTest> {
     context.variables[SCRIPT_TEMP_DIR_VARIABLE] =
         TextNode(testDir.toAbsolutePath().toString()) // XXX encapsulate TEMP_DIR in ScriptContext
 
-    val helperFiles = markdown?.helperFiles ?: emptyMap()
-
-    // FIXME remove temp credentials logic
-    val credentials = tempCredentials(testDir, helperFiles.containsKey(Credentials.FILENAME))
-
     val scripts = splitMarkdown()
     val instacliTests: List<DynamicTest> = scripts
         .mapNotNull {
-            toTestFromScript(file, it, context, credentials)
+            toTestFromScript(file, it, context)
         }
 
     return instacliTests
@@ -147,7 +142,6 @@ private fun toTestFromScript(
     document: Path,
     script: Script,
     context: ScriptContext,
-    credentials: CredentialsFile
 ): DynamicTest? {
 
     // Filter out sections that don't have any commands
@@ -155,7 +149,6 @@ private fun toTestFromScript(
         return null
     }
 
-    context.setCredentials(credentials)
     UserPrompt.default = TestPrompt
 
     val title = script.getTitle(CodeExample)

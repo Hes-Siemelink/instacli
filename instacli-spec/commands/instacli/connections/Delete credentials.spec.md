@@ -27,6 +27,11 @@ Instacli Sample Server:
       password: user
 ```
 
+<!-- yaml instacli before
+Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
+-->
+
+
 You can delete Test account 2 with the following snippet:
 
 ```yaml instacli

@@ -15,6 +15,10 @@ Configures credentials for an endpoint and saves it in the user's preferences.
 With **Create credentials** you can store user credentials to connect to an endpoint. Retrieve them with
 the [Get credentials](Get%20credentials.spec.md) command.
 
+<!-- yaml instacli before
+Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
+-->
+
 ```yaml instacli
 Code example: Create credentials for an endpoint
 
@@ -29,9 +33,9 @@ Create credentials:
 The endpoint is identified by the `target` parameter. You can put arbitrary data in the `credentials` section, but it
 should have a `name` field to identify it,
 
-The account data is stored in the `~/.instacli/credentials.yaml` file:
+The account data is stored in the `~/.instacli/credentials.yaml` file like this:
 
-```yaml file:credentials.yaml
+```yaml
 Instacli Sample Server:
   credentials:
     - name: Test account
