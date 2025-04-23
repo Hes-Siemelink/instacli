@@ -78,6 +78,7 @@ Overview of standard commands in Instacli.
 
 ### Shell
 
+* [Cli](instacli/shell/Cli.spec.md) - Executes the Instacli command
 * [Shell](instacli/shell/Shell.spec.md) - Executes a shell command
 
 ## REST API interaction
@@ -102,6 +103,8 @@ Overview of standard commands in Instacli.
 * [Connect to](instacli/connections/Connect%20to.spec.md) - Sets up a connection to a named endpoint
 * [Create credentials](instacli/connections/Create%20credentials.spec.md) - Configures a credentials for an endpoint and
   saves it in the user's preferences.
+* [Credentials](instacli/connections/Credentials.spec.md) - Use a different credentials file than the default one from
+  the home directory
 * [Get credentials](instacli/connections/Get%20credentials.spec.md) - Gets the default credentials for an endpoint
 * [Get all credentials](instacli/connections/Get%20all%20credentials.spec.md) - Gets all credential for an endpoint
 * [Set default credentials](instacli/connections/Set%20default%20credentials.spec.md) - Sets the default credentials for

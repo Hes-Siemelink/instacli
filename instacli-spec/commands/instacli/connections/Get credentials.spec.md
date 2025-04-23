@@ -14,7 +14,7 @@ Gets the default credentials for an endpoint.
 
 With **Get credentials** you get the default connection details for a certain endpoint.
 
-Given the following list of credentials in `~/.instacli/credentials2.yaml`:
+Given the following list of credentials in `~/.instacli/credentials.yaml`:
 
 ```yaml file:credentials.yaml
 Instacli Sample Server:
