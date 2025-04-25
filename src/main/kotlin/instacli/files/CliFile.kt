@@ -49,11 +49,11 @@ private fun Path.isMarkdownScript(): Boolean {
 
 fun CliFile.splitMarkdown(): List<Script> {
 
-    val all = mutableListOf<List<MarkdownBlock>>()
-
     val document = markdown ?: return listOf()
 
+    val all = mutableListOf<List<MarkdownBlock>>()
     var currentCase = mutableListOf<MarkdownBlock>()
+
     for (block in document.blocks) {
         when (block.type) {
             MarkdownBlock.Header -> {

@@ -25,6 +25,9 @@ import kotlin.io.path.name
 //
 
 fun Path.getTests(): List<DynamicNode> {
+
+    UserPrompt.default = TestPrompt
+
     if (isDirectory()) {
         return listDirectoryEntries().mapNotNull {
             val tests = it.getTests()
@@ -42,22 +45,6 @@ fun Path.getTests(): List<DynamicNode> {
         }
     }
     return emptyList()
-}
-
-
-//
-// Instacli tests
-//
-
-/**
- * Gets all individual test cases in a script file as a dynamic tests.
- */
-fun CliFile.getTestCases(): List<DynamicTest> {
-    val context = CliFileContext(file)
-    
-    return script.splitTestCases().map { script ->
-        dynamicTest(script.getTitle(TestCase), file.toUri(), TestCaseRunner(context, script))
-    }
 }
 
 class TestCaseRunner(
@@ -83,20 +70,20 @@ class TestCaseRunner(
     }
 }
 
-fun Script.getTitle(commandHandler: CommandHandler): String {
-    if (title != null) {
-        return title!!
+/**
+ * Extracts the test cases from a script file as individual tests.
+ */
+fun CliFile.getTestCases(): List<DynamicTest> {
+    val context = CliFileContext(file)
+
+    return script.splitTestCases().map { script ->
+        dynamicTest(script.getTestTitle(TestCase), file.toUri(), TestCaseRunner(context, script))
     }
-    val command = commands.find {
-        it.name == commandHandler.name
-    }
-    return command?.data?.textValue() ?: commandHandler.name
 }
 
-//
-// Code examples in Markdown files
-//
-
+/**
+ * Extracts the yaml code from Markdown sections as individual tests.
+ */
 fun CliFile.getCodeExamples(): List<DynamicTest> {
 
     // Set up test dir with helper files from document
@@ -125,9 +112,17 @@ private fun toTestFromScript(
         return null
     }
 
-    UserPrompt.default = TestPrompt
-
-    val title = script.getTitle(CodeExample)
+    val title = script.getTestTitle(CodeExample)
 
     return dynamicTest(title, document.toUri(), TestCaseRunner(context, script))
+}
+
+fun Script.getTestTitle(commandHandler: CommandHandler): String {
+    if (title != null) {
+        return title!!
+    }
+    val command = commands.find {
+        it.name == commandHandler.name
+    }
+    return command?.data?.textValue() ?: commandHandler.name
 }
