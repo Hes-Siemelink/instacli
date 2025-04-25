@@ -62,6 +62,10 @@ class CliFileContext(
             }
         }
 
+    fun setTempDir(dir: Path) {
+        variables[SCRIPT_TEMP_DIR_VARIABLE] = TextNode(dir.toAbsolutePath().toString())
+    }
+
     override val output: JsonNode?
         get() = variables[OUTPUT_VARIABLE]
     override var error: InstacliCommandError? = null

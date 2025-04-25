@@ -4,10 +4,10 @@
 
 These topics define the basic infrastructure of Instacli scripts.
 
-* [Anatomy of an Instacli file](Anatomy%20of%20an%20Instacli%20file.spec.md)
-* [Organizing Instacli files in directories](Organizing%20Instacli%20files%20in%20directories.spec.md)
+* [Instacli Yaml Scripts](Instacli%20Yaml%20Scripts.md)
 * [Variables](Variables.spec.md)
 * [Eval syntax](Eval%20syntax.spec.md)
+* [Organizing Instacli files in directories](Organizing%20Instacli%20files%20in%20directories.spec.md)
 
 ## Core library
 

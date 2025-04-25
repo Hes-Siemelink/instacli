@@ -1,15 +1,60 @@
-# Writing documentation for Instacli
+# Instacli Markdown Documents
 
-Documentation for Instacli is written in Markdown. You can add code examples to the document that the instacli build
-will run as unit tests. This way you can make sure that the code examples are valid.
+If by now you are getting accustomed to the fact that Instacli is Yaml, get ready for the kicker: Instacli scripts can
+also be written in Markdown!
 
-Note that this document serves as a reference document for testing, so the all examples in _this_ document are also
-tested automatically. In order for that to work, you will see examples twice: first how they are written in Markdown,
-and then how they will show up in the document. The instacli build will pick up the second one and test it.
+This way, we can freely mix code, data _and documentation_ in a single file. This is "literate programming": telling the
+story of what you want to do, while at the same time defining the executable code. This style is particularly useful for
+documentation, where you want to show the code and the output at the same time. Another use case are script files that
+can be read as manual pages.
+
+Here is an example of a Markdown file `hello.cli.md` that contains Instacli code:
+
+    # My Instacli script
+    
+    This is a simple Instacli script that prints a greeting.
+    
+    ```yaml instacli
+    Print: Hello world!
+    ```
+
+Your document will look like
+
+> # My Instacli script
+>
+>    This is a simple Instacli script that prints a greeting.
+>
+>    ```yaml instacli
+>    Print: Hello world!
+>    ```
+
+And when you run it, Instacli will execute the code in the `yaml instacli` block and print the output:
+
+```shell ignore
+cli hello.cli.md
+```
+
+```
+Hello world!
+```
+
+## Specifying Instacli in Instacli
+
+The Instacli specification itself is written in Instacli Markdown. All the documents are run as unit tests in the
+Instacli build, validating the code examples and test cases. This way we can make sure that the implementation of the
+specification is always correct!
+
+Note that all the examples in _this_ document are also tested automatically. In order for that to work, you will see
+examples twice: first we will show how they are written in Markdown, and then how they will show up in the document. The
+Instacli build will pick up the second form and test it.
+
+# Writing Instacli Markdown
+
+Here is an overview of the constructs you can use to embed Instacli code in Markdown documents.
 
 ## Code examples
 
-You can define Instacli code examples with the ` ```yaml instacli` markdown construct.
+You can define Instacli code examples with the ` ```yaml instacli` markdown code block directive.
 
 ### Markdown format
 

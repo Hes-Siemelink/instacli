@@ -1,6 +1,5 @@
 package instacli.spec
 
-import com.fasterxml.jackson.databind.node.TextNode
 import instacli.cli.reportError
 import instacli.commands.testing.CodeExample
 import instacli.commands.testing.TestCase
@@ -86,11 +85,11 @@ fun CliFile.getTestCases(): List<DynamicTest> {
  */
 fun CliFile.getCodeExamples(): List<DynamicTest> {
 
-    // Set up test dir with helper files from document
+    // Set up test dir
     val testDir = Files.createTempDirectory("instacli-")
+    testDir.toFile().deleteOnExit()
     val context = CliFileContext(testDir)
-    context.variables[SCRIPT_TEMP_DIR_VARIABLE] =
-        TextNode(testDir.toAbsolutePath().toString()) // XXX encapsulate TEMP_DIR in ScriptContext
+    context.setTempDir(testDir)
 
     val scripts = splitMarkdown()
     val instacliTests: List<DynamicTest> = scripts

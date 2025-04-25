@@ -1,4 +1,4 @@
-# Anatomy of Instacli files
+# Instacli Yaml Scripts
 
 ## What does a single Instacli script look like
 
@@ -27,31 +27,29 @@ Hello world
 
 ### It's all YAML
 
-Instacli files are just Yaml.
+Instacli scripts are just Yaml.
+
+The main idea is to blur the line between 'code' and 'data'. By having the data closer to code it makes it easier to
+adopt a declarative style: saying _what_ you want to happen rather than _how_ you want it to be carried out. In this
+style, you would have a higher 'data content' than 'logic content' in your scripts. Ideally, more than 50% of the script
+is data, and the logic is a smaller part. Then Yaml starts making sense as a format.
+
+By convention, commands start with a capital letter, for example `Print` or `Read file`, to distinguish them from data.
+
+Another advantage of Instacli syntax being Yaml is familiarity: if you have worked with Yaml before you know its
+structure (and pitfalls) already, and you get editor support out-of-the-box. It's also way easier for the implementation
+to parse it than a custom format.
 
 Instacli files have `.cli` file extension. Within Instacli, the convention is that `.yaml` files are for static data and
 `.cli` files are Instacli scripts that contain commands. Tip: Map your editor to recognize `.cli`
 as `.yaml`.
 
-Instacli files being Yaml has its pros and cons.
-
-The main idea is to blur the line between 'code' and 'data'. By having the 'data' closer to 'code' it makes it easier to
-adopt a declarative style: saying _what_ you want to happen rather than _how_ you want it to be carried out. In this
-style, you would have a higher 'data content' than 'logic content' in your scripts. Ideally, more than 50% of the script
-is 'data', and the 'logic' is a smaller part. Then Yaml starts making sense as a format.
-
-By convention, commands start with a capital letter, for example `Print` or `Read file`, to distinguish them from data.
-
-Another advantage of Instacli syntax being YAML is predictability: if you have worked with Yaml before you know its
-structure and pitfalls already, and you get editor support out-of-the-box. It's also way easier for the implementation
-to parse it than a custom format.
-
-Instacli does add some additional formatting on top of Yaml, for example the variable syntax `${..}`.
-
 Instacli's Yaml flavor does not rely on special Yaml features like directives. It is used as a human-friendly way of
 writing JSON.
 
-### Multiple commands and `---`
+Instacli does add some additional formatting on top of Yaml, for example the variable syntax `${..}`.
+
+### The command sequence
 
 You can have multiple commands in a file, and they will be executed in order:
 
@@ -78,7 +76,9 @@ you would get the following:
 Hello Hes!
 ```
 
-The commands in a file are just dictionary keys. We run into trouble if we want to use the same key again.
+### Multiple commands and `---`
+
+The commands in a Yaml file are just dictionary keys. We run into trouble if we want to use the same key again.
 
 For example, this won't work because it's invalid Yaml:
 
@@ -87,7 +87,7 @@ Print: Hello
 Print: Hello again!  # Invalid YAML!
 ```
 
-The solution is to add the YAML document separator `---`:
+The solution is to add the Yaml document separator `---`:
 
 ```yaml instacli
 Print: Hello
