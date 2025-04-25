@@ -67,7 +67,7 @@ fun ScriptContext.getCredentials(): CredentialsFile {
 // Data model
 //
 
-class CredentialsFile(@JsonIgnore var file: Path? = null) {
+class CredentialsFile(@JsonIgnore val file: Path? = null) {
     @JsonAnySetter
     var targetResources: MutableMap<String, TargetResource> = mutableMapOf()
 }

@@ -2,9 +2,6 @@ package instacli.spec
 
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.cli.reportError
-import instacli.commands.connections.Credentials
-import instacli.commands.connections.CredentialsFile
-import instacli.commands.connections.setCredentials
 import instacli.commands.testing.CodeExample
 import instacli.commands.testing.TestCase
 import instacli.commands.userinteraction.TestPrompt
@@ -57,32 +54,11 @@ fun Path.getTests(): List<DynamicNode> {
  */
 fun CliFile.getTestCases(): List<DynamicTest> {
     val context = CliFileContext(file)
-
-    context.setCredentials(tempCredentials())
-
+    
     return script.splitTestCases().map { script ->
         dynamicTest(script.getTitle(TestCase), file.toUri(), TestCaseRunner(context, script))
     }
 }
-
-private fun tempCredentials(): CredentialsFile {
-    val credentials = Credentials.fromFile(TestPaths.TEST_CREDENTIALS)
-
-    val tempFile = Files.createTempFile("instacli-connections-", ".yaml")
-    tempFile.toFile().deleteOnExit()
-    credentials.file = tempFile
-
-    return credentials
-}
-
-private fun tempCredentials(testDir: Path, localCredentials: Boolean): CredentialsFile {
-    return if (localCredentials) {
-        Credentials.fromFile(testDir.resolve(Credentials.FILENAME))
-    } else {
-        CredentialsFile()
-    }
-}
-
 
 class TestCaseRunner(
     val context: ScriptContext,

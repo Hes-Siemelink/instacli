@@ -2,7 +2,6 @@
 
 ## Test util
 
-* Add Credentials command that takes credentials from a local file and update tests and documentation
 * Review documentation
 
 ## In general
