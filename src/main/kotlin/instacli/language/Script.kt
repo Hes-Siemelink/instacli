@@ -150,7 +150,7 @@ fun List<MarkdownBlock>.toScript(): Script {
                 )
             }
 
-            Input -> {
+            Answers -> {
                 commands.add(
                     Command(StockAnswers.name, Yaml.parse(block.getContent()))
                 )

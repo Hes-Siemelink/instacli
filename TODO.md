@@ -3,6 +3,9 @@
 ## Test util
 
 * Review documentation
+    * Review "how to write scripts"
+    * Introduce ```markdown file: to test markdown snippets...
+    * Parse nested markdown
 
 ## In general
 

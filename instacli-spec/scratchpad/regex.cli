@@ -1,0 +1,29 @@
+Code example: Define a regex using a builder
+
+Regex:
+  - text: "${"
+  - group:
+      - one or more:
+          - not: "}"
+  - text: "}"
+
+
+Expected output: |
+  \$\{([^}]+)}
+
+---
+Regex:
+  - start of string
+  - text: //
+  - zero or more:
+      - whitespace
+  - group:
+      - name: comment
+      - zero or more
+        - any
+  - end of line
+
+
+Expected output: |
+  ^\/\/\s*(?<comment>.*)$
+

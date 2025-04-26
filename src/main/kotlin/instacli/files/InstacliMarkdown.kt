@@ -50,7 +50,7 @@ class InstacliMarkdown(val document: Path) {
             YamlInstacli,
             ShellCli,
             ShellBlock,
-            Input,
+            Answers,
             Output,
             Header,
             Text // Should be last
@@ -132,6 +132,6 @@ class MarkdownBlock(
     object YamlFile : BlockType("```yaml file", "```")
     object ShellCli : BlockType("```shell cli", "```")
     object ShellBlock : BlockType("```shell", "```")
-    object Input : BlockType("<!-- answers", "-->")
+    object Answers : BlockType("<!-- answers", "-->")
     object Output : BlockType("```output", "```")
 }
