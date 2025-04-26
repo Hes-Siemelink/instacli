@@ -46,9 +46,8 @@ class InstacliMarkdown(val document: Path) {
 
         private val blockTypes: List<BlockType> = listOf(
             YamlFile,
-            YamlInstacliBefore,
+            HiddenYamlInstacli,
             YamlInstacli,
-            YamlInstacliAfter,
             ShellCli,
             ShellBlock,
             Input,
@@ -128,8 +127,7 @@ class MarkdownBlock(
 
     object Text : BlockType("", "```")
     object Header : BlockType("#", "")
-    object YamlInstacliBefore : BlockType("<!-- yaml instacli before", "-->")
-    object YamlInstacliAfter : BlockType("<!-- yaml instacli after", "-->")
+    object HiddenYamlInstacli : BlockType("<!-- yaml instacli", "-->")
     object YamlInstacli : BlockType("```yaml instacli", "```")
     object YamlFile : BlockType("```yaml file", "```")
     object ShellCli : BlockType("```shell cli", "```")

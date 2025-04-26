@@ -111,7 +111,7 @@ fun List<MarkdownBlock>.toScript(): Script {
                 title = block.headerLine.substring(block.headerLine.indexOf(' ')).trim()
             }
 
-            YamlInstacliBefore, YamlInstacliAfter, YamlInstacli -> {
+            YamlInstacli, HiddenYamlInstacli -> {
                 commands.addAll(toCommandList(block.getContent()))
             }
 

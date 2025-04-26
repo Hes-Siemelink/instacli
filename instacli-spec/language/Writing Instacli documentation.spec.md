@@ -72,7 +72,7 @@ Code example: An Instacli snippet inside Markdown
 Print: Hello from Instacli!
 ```
 
-## Hidden setup code
+## Hidden code
 
 Sometimes a code example could become can become cluttered with setup code.
 
@@ -95,13 +95,12 @@ When reading the example, a reader may be distracted by the **Stock answers** bi
 about. It would be great if could hide it in someway.
 
 You can do so by putting the code that we need but don't want to show in an HTML comment starting with
-`<!-- yaml instacli before`
+`<!-- yaml instacli`
 
 ### Markdown format
 
-    <!-- yaml instacli before
-    Stock answers:
-        What is your name?: Alice
+    <!-- answers
+    What is your name?: Alice
     -->
 
     ```yaml instacli
@@ -117,9 +116,8 @@ You can do so by putting the code that we need but don't want to show in an HTML
 
 Now the example looks a lot cleaner:
 
-<!-- yaml instacli before
-Stock answers:
-    What is your name?: Alice
+<!-- answers
+What is your name?: Alice
 -->
 
 ```yaml instacli
@@ -131,10 +129,8 @@ As: ${name}
 Print: Hello, ${name}!
 ```
 
-## Cleanup code
-
-You can also provide hidden cleanup code with `<!-- yaml instacli after`. The yaml code will be appended to the last
-code example defined by `yaml instacli`
+You can also provide hidden cleanup code with `<!-- yaml instacli` when putting it after the code example that is being
+displayed. The yaml code will be appended to script.
 
 ## Files
 

@@ -44,8 +44,8 @@ call **Http server** multiple times, the endpoints you define are added to the s
 
 Then you define the **endpoints**. The format is inspired by OpenAPI definitions.
 
-First, you define a path, in this case `/hello`. On the path, you need a define a method handler, one
-of `get`, `post`, `put`, `patch` or `delete`. In this case we defined a `get`.
+First, you define a path, in this case `/hello`. On the path, you need a define a method handler, one of `get`, `post`,
+`put`, `patch` or `delete`. In this case we defined a `get`.
 
 Then you define a handler. There are three handler types
 
@@ -111,7 +111,7 @@ Http server:
         output: Hello ${input.name}
 ```
 
-<!-- yaml instacli after
+<!-- yaml instacli
 
 --- 
 Http server:
@@ -151,7 +151,7 @@ Expected output:
   - Hello Carol!
 ```
 
-<!-- yaml instacli after
+<!-- yaml instacli
 
 ---
 Http server:
@@ -192,7 +192,7 @@ GET: http://localhost:25001/greet?name=Alice
 Expected output: Hello Alice!
 ```
 
-<!-- yaml instacli after
+<!-- yaml instacli
 
 ---
 Http server:

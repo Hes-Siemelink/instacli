@@ -54,7 +54,7 @@ You will need this when specifying input parameters, see below.
 If the script uses input parameters, you can define them in **Script info** with the `input` property. They will be
 exposed as variables in the script.
 
-<!-- yaml instacli before
+<!-- yaml instacli
 ${input}:
  name: world
 -->
@@ -93,7 +93,7 @@ Input parameters:
 
 You can define multiple input parameters at once.
 
-<!-- yaml instacli before
+<!-- yaml instacli
 ${input}:
    greeting: Hello
    name: world
@@ -114,7 +114,7 @@ Print: ${greeting}, ${name}!
 
 Input parameters are also stored in the `${input}` variable.
 
-<!-- yaml instacli before
+<!-- yaml instacli
 ${input}:
    greeting: Hello
    name: world
@@ -165,7 +165,7 @@ defined before the property that is using them. You can to them as part of the `
 This example uses the ${input.switch} to determine which variable will be part of the input. By setting `switch` to `a`,
 the `property-A` is set but not `property-B`.
 
-<!-- yaml instacli before
+<!-- yaml instacli
 ${input}: { }
 -->
 
@@ -258,7 +258,7 @@ FullName:
 
 Then you can use the types in the script:
 
-<!-- yaml instacli before
+<!-- yaml instacli
 ${input}:
   first_name: Alice
   last_name: Wonderland
@@ -272,7 +272,7 @@ Script info:
   input type: FullName
 ```
 
-<!-- yaml instacli after
+<!-- yaml instacli
 Output: Hello, ${input.first_name} ${input.last_name}
 
 Expected output: Hello, Alice Wonderland

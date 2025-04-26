@@ -18,7 +18,7 @@ configures [Http request defaults](../http/Http%20request%20defaults.spec.md) fo
 
 A script `connect-to.cli` would look like this:
 
-<!-- yaml instacli before
+<!-- yaml instacli
 Http request defaults:
   url: http://localhost:2525
 -->

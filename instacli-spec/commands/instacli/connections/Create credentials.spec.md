@@ -15,7 +15,7 @@ Configures credentials for an endpoint and saves it in the user's preferences.
 With **Create credentials** you can store user credentials to connect to an endpoint. Retrieve them with
 the [Get credentials](Get%20credentials.spec.md) command.
 
-<!-- yaml instacli before
+<!-- yaml instacli
 Credentials: ${SCRIPT_TEMP_DIR}/credentials.yaml
 -->
 
