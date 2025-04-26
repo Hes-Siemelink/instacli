@@ -10,8 +10,8 @@ import instacli.commands.shell.Cli
 import instacli.commands.shell.CliData
 import instacli.commands.shell.Shell
 import instacli.commands.shell.ShellCommand
+import instacli.commands.testing.Answers
 import instacli.commands.testing.ExpectedConsoleOutput
-import instacli.commands.testing.StockAnswers
 import instacli.commands.testing.TestCase
 import instacli.files.MarkdownBlock
 import instacli.files.MarkdownBlock.*
@@ -150,9 +150,9 @@ fun List<MarkdownBlock>.toScript(): Script {
                 )
             }
 
-            Answers -> {
+            MarkdownBlock.Answers -> {
                 commands.add(
-                    Command(StockAnswers.name, Yaml.parse(block.getContent()))
+                    Command(Answers.name, Yaml.parse(block.getContent()))
                 )
             }
 

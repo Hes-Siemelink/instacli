@@ -169,7 +169,7 @@ the `property-A` is set but not `property-B`.
 ${input}: { }
 -->
 
-<!-- TODO Make this run in interactive mode, so we can use 'Stock answers' for a more compelling example. --> 
+<!-- TODO Make this run in interactive mode, so we can use 'Answers' for a more compelling example. --> 
 
 ```yaml instacli
 Code example: Script info with variables and conditions

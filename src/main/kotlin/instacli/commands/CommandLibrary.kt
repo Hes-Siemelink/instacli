@@ -46,7 +46,7 @@ object CommandLibrary {
         ExpectedConsoleOutput,
         ExpectedOutput,
         ExpectedError,
-        StockAnswers,
+        Answers,
 
         // Control flow
         Do,

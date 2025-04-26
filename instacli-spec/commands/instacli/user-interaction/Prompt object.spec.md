@@ -1,6 +1,6 @@
 # Command: Prompt object
 
-`Promp object` is like [Prompt](Prompt.spec.md), but asks mutlitple questions
+`Prompt object` is like [Prompt](Prompt.spec.md), but asks multiple questions
 
 | Content type | Supported |
 |--------------|-----------|
@@ -80,7 +80,7 @@ In the following example, there will only a prompt for variable a, and not for v
 ```yaml instacli
 Code example: Prompt object, but not all
 
-Stock answers:
+Answers:
   Value for a: Abracadabra
   Value for b: Borobudur
 
@@ -116,7 +116,7 @@ This example will prompt which variable to set, and depending on the result will
 ```yaml instacli
 Code example: Prompt object, with conditions
 
-Stock answers:
+Answers:
   Choose which variable to set, a or b: a
   Value for a: Abracadabra
   Value for b: Borobudur

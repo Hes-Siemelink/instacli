@@ -10,7 +10,7 @@ import com.github.kinquirer.components.promptInput
 import com.github.kinquirer.components.promptInputPassword
 import com.github.kinquirer.components.promptListObject
 import com.github.kinquirer.core.Choice
-import instacli.commands.testing.StockAnswers
+import instacli.commands.testing.Answers
 import instacli.language.CliScriptingException
 import instacli.util.Yaml
 import instacli.util.toDisplayYaml
@@ -103,7 +103,7 @@ object TestPrompt : UserPrompt {
 
     override fun prompt(message: String, default: String, password: Boolean): JsonNode {
 
-        val answer: JsonNode = StockAnswers.recordedAnswers[message] ?: if (default.isNotEmpty()) {
+        val answer: JsonNode = Answers.recordedAnswers[message] ?: if (default.isNotEmpty()) {
             TextNode(default)
         } else {
             TextNode("")
@@ -121,7 +121,7 @@ object TestPrompt : UserPrompt {
     override fun select(message: String, choices: List<Choice<JsonNode>>, multiple: Boolean): JsonNode {
 
         val selectedAnswer =
-            StockAnswers.recordedAnswers[message] ?: throw IllegalStateException("No prerecorded answer for '$message'")
+            Answers.recordedAnswers[message] ?: throw IllegalStateException("No prerecorded answer for '$message'")
 
         if (multiple) {
             val set = selectedAnswer.map { it.textValue() }

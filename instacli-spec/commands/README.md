@@ -48,8 +48,7 @@ Overview of standard commands in Instacli.
 * [Code example](instacli/testing/Code%20example.spec.md) - Marks example code
 * [Expected output](instacli/testing/Expected%20output.spec.md) - Tests the output variable against a given value
 * [Expected error](instacli/testing/Expected%20error.spec.md) - Tests if an error was raised
-* [Stock answers](instacli/testing/Stock%20answers.spec.md) - Prerecords answers for prompts, so they can pass automated
-  tests.
+* [Answers](instacli/testing/Answers.spec.md) - Prerecords answers for prompts, so they can pass automated tests.
 
 ### User interaction
 

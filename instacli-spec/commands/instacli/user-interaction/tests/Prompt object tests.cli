@@ -1,6 +1,6 @@
 Test case: Get multiple variables with Prompt object
 
-Stock answers:
+Answers:
   Value 1: 1
   Value 2: 2
 
@@ -15,7 +15,7 @@ Expected output:
 ---
 Test case: Prompt object, with conditions
 
-Stock answers:
+Answers:
   Choose which variable to set: a
   Value for a: a is set
   Value for b: b is set
@@ -43,7 +43,7 @@ Expected output:
 ---
 Test case: Boolean choice
 
-Stock answers:
+Answers:
   Enabled: "true"
 
 Prompt object:
@@ -59,7 +59,7 @@ Expected output:
 ---
 Test case: Use field name for prompt if there is no description
 
-Stock answers:
+Answers:
   name: Alice
 
 Prompt object:

@@ -83,13 +83,13 @@ Hello from Instacli!
 
 Sometimes a code example could become can become cluttered with setup code.
 
-For example, consider an interactive example. In order for the automated tests to run, we need to provide a stock
-answer:
+For example, consider an interactive example. In order for the automated tests to run, we need to provide an answer, so
+the test will not hang on input:
 
 ```yaml instacli
 Code example: Example with setup code
 
-Stock answers:
+Answers:
   What is your name?: Alice
 
 Prompt: What is your name?
@@ -98,7 +98,7 @@ As: ${name}
 Print: Hello, ${name}!
 ```
 
-When reading the example, a reader may be distracted by the **Stock answers** bit. That is not what this code example is
+When reading the example, a reader may be distracted by the **Answers** bit. That is not what this code example is
 about. It would be great if we could hide it somehow.
 
 The way to do this is to put the code that we don't want to show in an HTML comment starting with
@@ -107,7 +107,7 @@ The way to do this is to put the code that we don't want to show in an HTML comm
 ### Markdown format
 
     <!-- yaml instacli
-    Stock answers:
+    Answers:
       What is your name?: Alice
     -->
 
@@ -125,7 +125,7 @@ The way to do this is to put the code that we don't want to show in an HTML comm
 Now the example looks a lot cleaner:
 
 <!-- yaml instacli
-Stock answers:
+Answers:
   What is your name?: Alice
 -->
 
@@ -146,8 +146,8 @@ is displayed. The yaml code from the comment will be appended to script.
 ## Answers
 
 When writing documentation or tests, you may want to provide answers to questions that are asked in the code. You can do
-so by embedding the [**Stock answers**](../commands/instacli/testing/Stock%20answers.spec.md) command in a hidden code
-block. A more concise way of doing this is to use the `<!-- answers` HTML comment.
+so by embedding the [**Answers**](../commands/instacli/testing/Answers.spec.md) command in a hidden code block. A more
+concise way of doing this is to use the `<!-- answers` HTML comment.
 
 ### Markdown format
 

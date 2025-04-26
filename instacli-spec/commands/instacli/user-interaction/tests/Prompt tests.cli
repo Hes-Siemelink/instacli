@@ -1,6 +1,6 @@
 Test case: Simple question
 
-Stock answers:
+Answers:
   "What is your name?": Instacli
 
 Prompt: What is your name?
@@ -19,7 +19,7 @@ Expected output: "2"
 ---
 Test case: Multiple questions
 
-Stock answers:
+Answers:
   - "What is your name?": Instacli
 
 Prompt object:
@@ -35,7 +35,7 @@ Expected output:
 ---
 Test case: Select object from list
 
-Stock answers:
+Answers:
   Select account: dev
 
 Prompt:
@@ -60,7 +60,7 @@ Expected output:
 ---
 Test case: Select multiple items from list
 
-Stock answers:
+Answers:
   What flavors do you like?:
     - Coconut
     - Pineapple
@@ -81,7 +81,7 @@ Expected output:
 ---
 Test case: Select value field only
 
-Stock answers:
+Answers:
   Favorite channel: The News
 
 Prompt:
@@ -99,7 +99,7 @@ Expected output: 1
 ---
 Test case: Select multiple value fields
 
-Stock answers:
+Answers:
   Favorite channel:
     - The News
     - Sports Unlimited
@@ -124,7 +124,7 @@ Expected output:
 ---
 Test case: Prompt with custom type
 
-Stock answers:
+Answers:
   First name: Alice
   Last name: Zoe
 
