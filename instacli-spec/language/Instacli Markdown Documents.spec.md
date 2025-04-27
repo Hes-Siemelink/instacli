@@ -59,9 +59,6 @@ code blocks to execute.
 
 Here is an overview of the constructs you can use to embed Instacli code in Markdown documents.
 
-// Insert table with all the constructs. The first column has the markdown directive, the second column a link to the
-section in the document explaining it.
-
 | Markdown directive    | Description                                                                |
 |-----------------------|----------------------------------------------------------------------------|
 | ` ```yaml instacli`   | [Instacli code](#instacli-code)                                            | 
@@ -78,24 +75,24 @@ Define Instacli code with the ` ```yaml instacli` markdown block directive.
 
 ### Markdown format
 
-    ```yaml instacli
-    Code example: An Instacli snippet inside Markdown
-    
-    Print: Hello from Instacli!
-    ```
-
-### Display example
+~~~markdown
+Here is an Instacli code example:
 
 ```yaml instacli
 Code example: An Instacli snippet inside Markdown
 
 Print: Hello from Instacli!
 ```
+~~~
 
-Expected console output:
+### Display example
 
-```output
-Hello from Instacli!
+Here is an Instacli code example:
+
+```yaml instacli
+Code example: An Instacli snippet inside Markdown
+
+Print: Hello from Instacli!
 ```
 
 ## Hidden code
@@ -125,19 +122,21 @@ The way to do this is to put the code that we don't want to show in an HTML comm
 
 ### Markdown format
 
-    <!-- yaml instacli
-    Answers:
-      What is your name?: Alice
-    -->
+~~~markdown
+<!-- yaml instacli
+Answers:
+  What is your name?: Alice
+-->
 
-    ```yaml instacli
-    Code example: Example without setup code
+```yaml instacli
+Code example: Example without setup code
 
-    Prompt: What is your name?
-    As: ${name}
-    
-    Print: Hello, ${name}!
-    ```
+Prompt: What is your name?
+As: ${name}
+
+Print: Hello, ${name}!
+```
+~~~
 
 ### Display example
 
@@ -170,18 +169,20 @@ concise way of doing this is to use the `<!-- answers` HTML comment.
 
 ### Markdown format
 
-    <!-- answers
-    What is your name?: Alice
-    -->
+~~~markdown
+<!-- answers
+What is your name?: Alice
+-->
 
-    ```yaml instacli
-    Code example: Example with answers block
+```yaml instacli
+Code example: Example with answers block
 
-    Prompt: What is your name?
-    As: ${name}
-    
-    Print: Hello, ${name}!
-    ```
+Prompt: What is your name?
+As: ${name}
+
+Print: Hello, ${name}!
+```
+~~~
 
 ### Display example
 
@@ -212,19 +213,21 @@ shortcut for that.)
 
 ### Markdown format
 
-    The following snippet
+~~~markdown
+The following snippet
 
-    ```yaml instacli
-    Code example: Example with output check
+```yaml instacli
+Code example: Example with output check
 
-    Print: Hello, Alice!
-    ```
+Print: Hello, Alice!
+```
 
-    should produce the following output:
+should produce the following output:
 
-    ```output
-    Hello, Alice!
-    ```
+```output
+Hello, Alice!
+```
+~~~
 
 ### Display example
 
@@ -250,22 +253,25 @@ command.
 
 ### Markdown format
 
-    You can define the data in an external file `data.yaml`:
+~~~markdown
+You can define the data in an external file `data.yaml`:
 
-    ```yaml file:data.yaml
+```yaml file:data.yaml
+key: value
+```
+
+And then read it with **Read file**:
+
+```yaml instacli
+Code example: Read from a file
+
+Read file:
+    resource: data.yaml
+
+Expected output:
     key: value
-    ```
-    
-    And then read it with **Read file**:
-
-    ```yaml instacli
-    Code example: Read from a file
-
-    Read file:
-        resource: data.yaml
-
-    Expected output:
-        key: value
+```
+~~~
 
 ### Display example
 
@@ -305,15 +311,19 @@ The output of the shell command can be chacked with the ` ```ouput` directive.
 
 Write the shell command in a code block:
 
-    ```shell
-    echo Hello
-    ```
+~~~markdown
+```shell
+echo Hello
+```
+~~~
 
 And check the output with
 
-    ```output
-    Hello
-    ```
+~~~markdown
+```output
+Hello
+```
+~~~
 
 ### Display example
 
@@ -355,9 +365,11 @@ executed by Instacli.
 
 Write the shell command in a code block with `ignore`:
 
-    ```shell ignore
-    kill 1
-    ```
+~~~markdown
+```shell ignore
+kill 1
+```
+~~~
 
 Instacli will not execute this command.
 
@@ -385,20 +397,29 @@ See [Calling another script](Organizing%20Instacli%20files%20in%20directories.sp
 
 To show how to invoke the command line `cli` command, use the following syntax:
 
-    ```shell cli
-    cli --help
-    ```
+~~~markdown
+```shell cli
+cli --help
+```
+~~~
 
 Then followed by a block that contains the output:
 
-    ```output
-    Instacli -- Instantly create CLI applications with light scripting!
-    
-    Usage:
-       cli [options] file | directory
-    
-    Options:
-    ```
+~~~markdown
+```output
+Instacli -- Instantly create CLI applications with light scripting!
+
+Usage:
+   cli [global options] file | directory [command options]
+
+Global options:
+  --help, -h          Print help on a script or directory and does not run anything
+  --output, -o        Print the output at the end of the script in Yaml format
+  --output-json, -j   Print the output at the end of the script in Json format
+  --non-interactive, -q   Indicate that Instacli should not prompt for user input
+  --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
+```
+~~~
 
 ### Display example
 
