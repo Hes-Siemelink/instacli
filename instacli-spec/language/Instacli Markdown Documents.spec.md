@@ -14,17 +14,19 @@ a README file explaining what is going on.
 
 Here is an example of a Markdown file `hello.cli.md` that contains Instacli code:
 
-    # My Instacli script
-    
-    This is a simple Instacli script that prints a greeting.
-    
-    ```yaml instacli
-    Print: Hello world!
-    ```
+~~~markdown
+### My Instacli script
+
+This is a simple Instacli script that prints a greeting.
+
+```yaml instacli
+Print: Hello world!
+```
+~~~
 
 Your document will look like
 
-> # My Instacli script
+> ### My Instacli script
 >
 >    This is a simple Instacli script that prints a greeting.
 >
@@ -73,7 +75,7 @@ Here is an overview of the constructs you can use to embed Instacli code in Mark
 
 Define Instacli code with the ` ```yaml instacli` markdown block directive.
 
-### Markdown format
+#### Markdown format
 
 ~~~markdown
 Here is an Instacli code example:
@@ -85,7 +87,7 @@ Print: Hello from Instacli!
 ```
 ~~~
 
-### Display example
+#### Display example
 
 Here is an Instacli code example:
 
@@ -120,9 +122,11 @@ about. It would be great if we could hide it somehow.
 The way to do this is to put the code that we don't want to show in an HTML comment starting with
 `<!-- yaml instacli`.
 
-### Markdown format
+#### Markdown format
 
 ~~~markdown
+A cleaner looking example:
+
 <!-- yaml instacli
 Answers:
   What is your name?: Alice
@@ -138,13 +142,13 @@ Print: Hello, ${name}!
 ```
 ~~~
 
-### Display example
+#### Display example
 
-Now the example looks a lot cleaner:
+A cleaner looking example:
 
 <!-- yaml instacli
 Answers:
-  What is your name?: Alice
+    What is your name?: Alice
 -->
 
 ```yaml instacli
@@ -167,7 +171,7 @@ When writing documentation or tests, you may want to provide answers to question
 so by embedding the [**Answers**](../commands/instacli/testing/Answers.spec.md) command in a hidden code block. A more
 concise way of doing this is to use the `<!-- answers` HTML comment.
 
-### Markdown format
+#### Markdown format
 
 ~~~markdown
 <!-- answers
@@ -184,9 +188,7 @@ Print: Hello, ${name}!
 ```
 ~~~
 
-### Display example
-
-You won't notice the difference on how it is being displayed, but the markdown is a bit cleaner.
+#### Display example
 
 <!-- answers
 What is your name?: Alice
@@ -211,7 +213,7 @@ For checking the output of a command within a script, use the [**Expected output
 **](../commands/instacli/testing/Expected%20output.spec.md) command inside the script. (Note that there is no Markdown
 shortcut for that.)
 
-### Markdown format
+#### Markdown format
 
 ~~~markdown
 The following snippet
@@ -229,7 +231,7 @@ Hello, Alice!
 ```
 ~~~
 
-### Display example
+#### Display example
 
 The following snippet
 
@@ -251,7 +253,7 @@ Sometimes you need to have a helper file in order for the example to work. You c
 file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md)
 command.
 
-### Markdown format
+#### Markdown format
 
 ~~~markdown
 You can define the data in an external file `data.yaml`:
@@ -273,7 +275,7 @@ Expected output:
 ```
 ~~~
 
-### Display example
+#### Display example
 
 You can define the data in an external file `data.yaml`:
 
@@ -305,35 +307,33 @@ To execute a command in the shell, use the ` ```shell` directive.
 
 Instacli will execute this command using the [**Shell**](../commands/instacli/shell/Shell.spec.md) command.
 
-The output of the shell command can be chacked with the ` ```ouput` directive.
+The output of the shell command can be checked with the ` ```ouput` directive.
 
-### Markdown format
-
-Write the shell command in a code block:
+#### Markdown format
 
 ~~~markdown
+Execute the shell command:
+
 ```shell
 echo Hello
 ```
-~~~
 
-And check the output with
+And check the output:
 
-~~~markdown
 ```output
 Hello
 ```
 ~~~
 
-### Display example
+#### Display example
 
-This will show as
+Execute the shell command:
 
 ```shell
 echo Hello
 ```
 
-with output check
+And check the output:
 
 ```output
 Hello
@@ -361,27 +361,23 @@ the command from being executed.
 Using the shell directive this way, tools like GitHub will show it as a command shell command, but it will not be
 executed by Instacli.
 
-### Markdown format
-
-Write the shell command in a code block with `ignore`:
+#### Markdown format
 
 ~~~markdown
+Instacli will not execute this command:
+
 ```shell ignore
 kill 1
 ```
 ~~~
 
-Instacli will not execute this command.
+#### Display example
 
-### Display example
-
-This will show as
+Instacli will not execute this command:
 
 ```shell ignore
 kill 1
 ```
-
-and will not provide output.
 
 ## Invoking Instacli itself
 
@@ -393,19 +389,17 @@ This is useful for showing how to use the `cli` command from the shell and use t
 Within an Instacli script itself, there are better ways to invoke another script.
 See [Calling another script](Organizing%20Instacli%20files%20in%20directories.spec.md/#calling-another-instacli-script).
 
-### Markdown format
-
-To show how to invoke the command line `cli` command, use the following syntax:
+#### Markdown format
 
 ~~~markdown
+Show `cli` usage with the `--help` option:
+
 ```shell cli
 cli --help
 ```
-~~~
 
-Then followed by a block that contains the output:
+The output should be:
 
-~~~markdown
 ```output
 Instacli -- Instantly create CLI applications with light scripting!
 
@@ -421,15 +415,15 @@ Global options:
 ```
 ~~~
 
-### Display example
+#### Display example
 
-This will show as:
+Show `cli` usage with the `--help` option:
 
 ```shell cli
 cli --help
 ```
 
-Followed by:
+The output should be:
 
 ```output
 Instacli -- Instantly create CLI applications with light scripting!
@@ -447,17 +441,26 @@ Global options:
 
 ### Ignore option
 
-You can also use `ignore` on `shell cli`
+You can also use `ignore` on `shell cli`. This willl not trigger execution.
 
-    ```shell cli ignore
-    cli unknown-command
-    ```
+In the following example, `cli unknown-command` would raise an error, but this command is never executed by Instacli so
+we can continue safely.
 
-This will show as:
+#### Markdown format
+
+~~~markdown
+Instacli will not execute this command:
+
+```shell cli ignore
+cli unknown-command
+```
+~~~
+
+#### Display example
+
+Instacli will not execute this command:
 
 ```shell cli ignore
 cli unknown-command
 ```
 
-But will not trigger execution. In this case, `cli unknown-command` whould raise and error, but this command is never
-executed in the script. 
