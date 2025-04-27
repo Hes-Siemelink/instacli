@@ -3,11 +3,14 @@
 If by now you are getting accustomed to the fact that Instacli is Yaml, get ready for the kicker: Instacli scripts can
 also be written in Markdown!
 
-This way, we can freely mix code, data _and_documentation in a single file. This is "literate programming": telling the
-story of what you want to do, while at the same time defining the executable code. This style is particularly useful for
-specification, where you want to describe the desired behavior, show the code and the output and automatically test that
-they are correct. Another use case are script files, that are useful executables but where the source reads like a
-README file.
+This way, we can freely mix code, data _and_ documentation in a single file. Another way to llok at it is that in the
+documentation, you embed the code and data for your script. This style is
+called [literate programming](https://en.wikipedia.org/wiki/Literate_programming): telling the story of what you want to
+do, while at the same time defining the executable code that defines how to do it.
+
+This style is particularly useful for specification, where you want to describe the desired behavior, show the code and
+the output and automatically test that they are correct. Another use case are script files, where the source reads like
+a README file explaining what is going on.
 
 Here is an example of a Markdown file `hello.cli.md` that contains Instacli code:
 
@@ -39,11 +42,11 @@ cli hello.cli.md
 Hello world!
 ```
 
-## Specifying Instacli in Instacli
+## The Instacli specification is in Instacli!
 
 The Instacli specification itself is written in Instacli Markdown. All the documents in these directories are run as
 unit tests in the Instacli build, validating the code examples and test cases. This way we can make sure that the
-implementation of the specification is always correct!
+implementation of the specification is always up-to-date and correct!
 
 That means that all the examples in _this_ document are also tested automatically. But we also need to describe them. In
 order for that to work, you will see examples twice: first we will show how they are written in Markdown as a literal
@@ -51,7 +54,23 @@ code block, and then how they will show up in the document. The Instacli build w
 
 # Writing Instacli Markdown
 
+To write Instacli Markdown, just write a Markdown document like you would do normally. Instacli will pick up certain
+code blocks to execute.
+
 Here is an overview of the constructs you can use to embed Instacli code in Markdown documents.
+
+// Insert table with all the constructs. The first column has the markdown directive, the second column a link to the
+section in the document explaining it.
+
+| Markdown directive    | Description                                                                |
+|-----------------------|----------------------------------------------------------------------------|
+| ` ```yaml instacli`   | [Instacli code](#instacli-code)                                            | 
+| ` <!-- yaml instacli` | [Hidden code](#hidden-code)                                                | 
+| ` <!-- answers`       | [Predefined answers](#answers)                                             | 
+| ` ```output`          | [Checking output](#checking-output)                                        | 
+| ` ```yaml file`       | [Files](#files)                                                            | 
+| ` ```shell`           | [Shell commands](#shell-commands)                                          | 
+| ` ```shell cli`       | [Invoking Instacli itself](#invoking-instacli-itself-with-the-cli-command) | 
 
 ## Instacli code
 
@@ -143,7 +162,7 @@ Print: Hello, ${name}!
 You can also use `<!-- yaml instacli` to provide hidden cleanup code by putting a code block after the code example that
 is displayed. The yaml code from the comment will be appended to script.
 
-## Answers
+## Predefined answers
 
 When writing documentation or tests, you may want to provide answers to questions that are asked in the code. You can do
 so by embedding the [**Answers**](../commands/instacli/testing/Answers.spec.md) command in a hidden code block. A more
@@ -268,6 +287,12 @@ Expected output:
   key: value
 ```
 
+### Variables inside temp files
+
+When using the ` ```yaml file` directive, the contents are stored as-is and variables inside the file are not resolved.
+If you need dynamic content with variables and eval blocks, use [**Temp file
+**](../commands/instacli/tempfile/Temp%20file.spec.md) inside a script.
+
 ## Shell commands
 
 To execute a command in the shell, use the ` ```shell` directive.
@@ -346,7 +371,15 @@ kill 1
 
 and will not provide output.
 
-## Invoking Instacli itself with the `cli` command
+## Invoking Instacli itself
+
+You can also use the ` ```shell cli` directive to show how to invoke Instacli itself. This is equivalent to using the
+[**Cli**](../commands/instacli/shell/Cli.spec.md) command.
+
+This is useful for showing how to use the `cli` command from the shell and use the command line options.
+
+Within an Instacli script itself, there are better ways to invoke another script.
+See [Calling another script](Organizing%20Instacli%20files%20in%20directories.spec.md/#calling-another-instacli-script).
 
 ### Markdown format
 

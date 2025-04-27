@@ -49,3 +49,5 @@ Read file: ${SCRIPT_TEMP_DIR}/myfile.txt
 Expected output: |
   My content
 ```
+
+<!-- TODO document resolve -->
