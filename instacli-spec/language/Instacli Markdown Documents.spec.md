@@ -99,10 +99,10 @@ Print: Hello from Instacli!
 
 ## Hidden code
 
-Sometimes a code example could become can become cluttered with setup code.
+Sometimes a code example gets cluttered with setup code.
 
-For example, consider an interactive example. In order for the automated tests to run, we need to provide an answer, so
-the test will not hang on input:
+Consider this interactive example. In order for the automated tests to run, we need to provide an answer, so the test
+will not hang on input:
 
 ```yaml instacli
 Code example: Example with setup code
@@ -209,9 +209,9 @@ You can check the console output of a code block using the ` ```output` directiv
 command [**Expected console output**](../commands/instacli/testing/Expected%20console%20output.spec.md). If the output
 of the command is not the same as specified in the ` ````output` block, the script will fail.
 
-For checking the output of a command within a script, use the [**Expected output
-**](../commands/instacli/testing/Expected%20output.spec.md) command inside the script. (Note that there is no Markdown
-shortcut for that.)
+For checking the output of a command within a script, use the
+[**Expected output**](../commands/instacli/testing/Expected%20output.spec.md) command inside the script. Note: there is
+no Markdown shortcut for **Expected output**.
 
 #### Markdown format
 
@@ -241,7 +241,7 @@ Code example: Example with output check
 Print: Hello, Alice!
 ```
 
-should show the following output on the console:
+should produce the following output:
 
 ```output
 Hello, Alice!
@@ -249,9 +249,12 @@ Hello, Alice!
 
 ## Helper files
 
-Sometimes you need to have a helper file in order for the example to work. You can define a helper file with ` ```yaml
+If you need to have a helper file for the example to work, you can define one with ` ```yaml
 file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md)
 command.
+
+The file will be created in the temporary directory of the script. You can use the `${SCRIPT_TEMP_DIR}` variable to
+refer to this directory
 
 #### Markdown format
 
@@ -267,8 +270,7 @@ And then read it with **Read file**:
 ```yaml instacli
 Code example: Read from a file
 
-Read file:
-    resource: data.yaml
+Read file: ${SCRIPT_TEMP_DIR}/data.yaml
 
 Expected output:
     key: value
@@ -288,8 +290,7 @@ And then read it with **Read file**:
 ```yaml instacli
 Code example: Read from a file
 
-Read file:
-  resource: data.yaml
+Read file: ${SCRIPT_TEMP_DIR}/data.yaml
 
 Expected output:
   key: value
@@ -298,8 +299,8 @@ Expected output:
 ### Variables inside temp files
 
 When using the ` ```yaml file` directive, the contents are stored as-is and variables inside the file are not resolved.
-If you need dynamic content with variables and eval blocks, use [**Temp file
-**](../commands/instacli/tempfile/Temp%20file.spec.md) inside a script.
+If you need dynamic content with variables and eval blocks, use
+[**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md) inside a script.
 
 ## Shell commands
 
@@ -339,9 +340,9 @@ And check the output:
 Hello
 ```
 
-### Instacli equivalent
+### Yaml equivalent
 
-The above example is equivalent to the following Instacli code:
+The above example is equivalent to the following Instacli script in Yaml:
 
 ```yaml instacli
 Code example: Shell command with output check in Instacli
@@ -397,11 +398,13 @@ key: value
 There are two options to show the command and output of the shell command.
 
 `show_command:<boolean>` will show the command that is executed. The default is `false`. This is equivalent to using the
-[**Shell**](../commands/instacli/shell/Shell.spec.md) command with the `show_command` option.
+[**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-shell-command) command with the `show command`
+option.
 
 `show_output:<boolean>` will show and record the output of the command. The default is `true`. This is equivalent to
 using the
-[**Shell**](../commands/instacli/shell/Shell.spec.md) command with the `show_output` option (default here is `false`).
+[**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-output) command with the `show output` option. Note:
+the default for **Shell** is `false`.
 
 #### Markdown format
 
@@ -438,8 +441,7 @@ ls /tmp
 When you want to use the shell directive for display purposes only, you can use the `ignore` option. This will prevent
 the command from being executed.
 
-Using the shell directive this way, tools like GitHub will show it as a command shell command, but it will not be
-executed by Instacli.
+This way, tools like GitHub will show it as a shell command, but it will not be executed by Instacli.
 
 #### Markdown format
 
@@ -464,9 +466,9 @@ kill 1
 You can also use the ` ```shell cli` directive to show how to invoke Instacli itself. This is equivalent to using the
 [**Cli**](../commands/instacli/shell/Cli.spec.md) command.
 
-This is useful for showing how to use the `cli` command from the shell and use the command line options.
+This is useful for showing how to use the `cli` command and its command line options.
 
-Within an Instacli script itself, there are better ways to invoke another script.
+Note: Within an Instacli script itself, there are better ways to invoke another script.
 See [Calling another script](Organizing%20Instacli%20files%20in%20directories.spec.md/#calling-another-instacli-script).
 
 #### Markdown format
@@ -521,7 +523,7 @@ Global options:
 
 ### Setting the current directory
 
-Like ` ```shell`. you can set the current directory with the `cd` option. This is equivalent to using the
+Like ` ```shell`, you can set the current directory with the `cd` option. This is equivalent to using the
 [**Cli**](../commands/instacli/shell/Cli.spec.md) command with the `cd` option.
 
 The following example shows how to set the current directory to the temporary directory created by Instacli for the
@@ -539,7 +541,7 @@ Print: Hello world!
 And then run it:
 
 ```shell cli cd:${SCRIPT_TEMP_DIR}
-cli hello.cli
+cli hello
 ```
 
 The output should be:
@@ -560,7 +562,7 @@ Print: Hello world!
 And then run it:
 
 ```shell cli cd:${SCRIPT_TEMP_DIR}
-cli hello.cli
+cli hello
 ```
 
 The output should be:

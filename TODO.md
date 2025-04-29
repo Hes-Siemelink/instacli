@@ -110,6 +110,9 @@
 
 # Bugs
 
+* BUG: `cli "instacli-spec/language/Instacli Markdown Documents.spec.md"` has an error with duplicate console output
+  when running from the command line. It does run fine with TestUtil
+
 # Where to take it
 
 * Plaxolotl - cli scripts are just an interface to a portable execution format. This format has all the metadata defined
