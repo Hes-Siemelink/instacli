@@ -9,8 +9,9 @@ called [literate programming](https://en.wikipedia.org/wiki/Literate_programming
 do, while at the same time defining the executable code that defines how to do it.
 
 This style is particularly useful for specification, where you want to describe the desired behavior, show the code and
-the output and automatically test that they are correct. Another use case are script files, where the source reads like
-a README file explaining what is going on.
+the output and automatically test that they are correct.
+
+Another use case are script files, where the source reads like a README file explaining what is going on.
 
 Here is an example of a Markdown file `hello.cli.md` that contains Instacli code:
 
@@ -37,7 +38,7 @@ Your document will look like
 And when you run it, Instacli will execute the code in the `yaml instacli` block and print the output:
 
 ```shell ignore
-cli hello.cli.md
+cli hello
 ```
 
 ```
@@ -340,7 +341,7 @@ And check the output:
 Hello
 ```
 
-### Yaml equivalent
+#### Yaml equivalent
 
 The above example is equivalent to the following Instacli script in Yaml:
 
@@ -578,13 +579,22 @@ You can also use `ignore` on `shell cli`. This willl not trigger execution.
 In the following example, `cli unknown-command` would raise an error, but this command is never executed by Instacli so
 we can continue safely.
 
+<!-- yaml instacli
+Code example: Ignore shell command
+-->
+
 #### Markdown format
 
 ~~~markdown
 Instacli will not execute this command:
 
-```shell cli ignore
-cli unknown-command
+  ```shell cli ignore
+  cli unknown-command
+```
+
+So there should be no output:
+
+```output
 ```
 ~~~
 
@@ -596,3 +606,7 @@ Instacli will not execute this command:
 cli unknown-command
 ```
 
+So there should be no output:
+
+```output
+```

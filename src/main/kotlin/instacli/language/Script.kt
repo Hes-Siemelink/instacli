@@ -127,6 +127,8 @@ fun List<MarkdownBlock>.toScript(): Script {
             }
 
             ShellCli -> {
+                if (block.headerLine.contains("ignore")) continue
+
                 val data = CliData(
                     command = block.getContent(),
                     cd = block.getOption("cd")

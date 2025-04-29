@@ -11,11 +11,12 @@ import instacli.util.IO.rewireSystemOut
 import instacli.util.Json
 import instacli.util.toDisplayYaml
 import java.io.ByteArrayOutputStream
+import java.io.PrintStream
 
 object ExpectedConsoleOutput : CommandHandler("Expected console output", "instacli/testing"), ValueHandler {
 
-    const val OUT = "stdout"
-    const val ERR = "stderr"
+    private const val OUT = "stdout"
+    private const val ERR = "stderr"
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
 
@@ -45,7 +46,12 @@ object ExpectedConsoleOutput : CommandHandler("Expected console output", "instac
                 }
             }
         }
-        context.session[OUT] = combined
+
+        // Combine stdout and stderr into a new stream
+        val stream = ByteArrayOutputStream()
+        PrintStream(stream).print(combined)
+
+        context.session[OUT] = stream
 
         return combined
     }
@@ -71,8 +77,8 @@ object ExpectedConsoleOutput : CommandHandler("Expected console output", "instac
     }
 
     fun reset(context: ScriptContext) {
-        (context.session[OUT] as ByteArrayOutputStream).reset()
-        (context.session[ERR] as ByteArrayOutputStream).reset()
+        (context.session[OUT] as? ByteArrayOutputStream)?.reset()
+        (context.session[ERR] as? ByteArrayOutputStream)?.reset()
     }
 
 }

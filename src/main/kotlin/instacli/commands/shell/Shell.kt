@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import com.fasterxml.jackson.databind.node.ValueNode
+import instacli.commands.testing.ExpectedConsoleOutput
 import instacli.language.*
 import instacli.util.Json
 import instacli.util.toDomainObject
@@ -15,6 +16,9 @@ import java.nio.file.Path
 object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHandler {
 
     override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+
+        ExpectedConsoleOutput.reset(context)
+
         val info = ShellCommand()
         info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
 
@@ -22,6 +26,9 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
     }
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
+
+        ExpectedConsoleOutput.reset(context)
+
         val info = data.toDomainObject(ShellCommand::class)
         info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
 
