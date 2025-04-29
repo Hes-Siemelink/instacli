@@ -142,7 +142,7 @@ fun List<MarkdownBlock>.toScript(): Script {
                 val data = ShellCommand(
                     command = block.getContent(),
                     showOutput = block.getOption("show_output")?.toBoolean() ?: true,
-                    showCommand = block.getOption("show_command:")?.toBoolean() ?: false,
+                    showCommand = block.getOption("show_command")?.toBoolean() ?: false,
                     cd = block.getOption("cd")
                 )
                 commands.add(

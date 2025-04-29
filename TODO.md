@@ -143,3 +143,10 @@
     * Why not try "Exception Driven Programming". But: you can't _start_ with the exceptions.
     * Define the happy path as declarative as possible. Build the exception flow around it?
     * Mold the language to have fewer exceptions: be declarative, idempotent
+
+# Nerd badges 🦡
+
+* Code as-code
+* Towers of Hanoi
+* There is a half-baked version of Lisp in there somewhere.
+* Define Instacli in Instacli itself

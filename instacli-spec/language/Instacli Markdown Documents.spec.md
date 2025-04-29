@@ -52,7 +52,7 @@ implementation of the specification is always up-to-date and correct!
 
 That means that all the examples in _this_ document are also tested automatically. But we also need to describe them. In
 order for that to work, you will see examples twice: first we will show how they are written in Markdown as a literal
-code block, and then how they will show up in the document. The Instacli build will pick up the second form and test it.
+code block, and then how they will show up in the document.
 
 # Writing Instacli Markdown
 
@@ -61,15 +61,15 @@ code blocks to execute.
 
 Here is an overview of the constructs you can use to embed Instacli code in Markdown documents.
 
-| Markdown directive    | Description                                                                |
-|-----------------------|----------------------------------------------------------------------------|
-| ` ```yaml instacli`   | [Instacli code](#instacli-code)                                            | 
-| ` <!-- yaml instacli` | [Hidden code](#hidden-code)                                                | 
-| ` <!-- answers`       | [Predefined answers](#answers)                                             | 
-| ` ```output`          | [Checking output](#checking-output)                                        | 
-| ` ```yaml file`       | [Files](#files)                                                            | 
-| ` ```shell`           | [Shell commands](#shell-commands)                                          | 
-| ` ```shell cli`       | [Invoking Instacli itself](#invoking-instacli-itself-with-the-cli-command) | 
+| Description                                           | Markdown directive    |
+|-------------------------------------------------------|-----------------------|
+| [Instacli code](#instacli-code)                       | ` ```yaml instacli`   | 
+| [Hidden code](#hidden-code)                           | ` <!-- yaml instacli` | 
+| [Predefined answers](#answers)                        | ` <!-- answers`       | 
+| [Checking output](#checking-output)                   | ` ```output`          | 
+| [Helper files](#helper-files)                         | ` ```yaml file`       | 
+| [Shell commands](#shell-commands)                     | ` ```shell`           | 
+| [Invoking Instacli itself](#invoking-instacli-itself) | ` ```shell cli`       | 
 
 ## Instacli code
 
@@ -247,7 +247,7 @@ should show the following output on the console:
 Hello, Alice!
 ```
 
-## Files
+## Helper files
 
 Sometimes you need to have a helper file in order for the example to work. You can define a helper file with ` ```yaml
 file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md)
@@ -353,6 +353,86 @@ Shell:
 Expected console output: Hello
 ```
 
+### Setting the current directory
+
+Set the current directory with the `cd` option. This is equivalent to using the
+[**Shell**](../commands/instacli/shell/Shell.spec.md) command with the `cd` option.
+
+The following example shows how to set the current directory to the temporary directory created by Instacli for the
+execution of the current script. This is where temporary files are stored that are created with ` ```yaml file` or
+`Temp file`.
+
+#### Markdown format
+
+~~~markdown
+The following snippet shows the contents of the file we created previously:
+
+```shell cd:${SCRIPT_TEMP_DIR}
+cat data.yaml
+```
+
+The output should be:
+
+```output
+key: value
+```
+~~~
+
+#### Display example
+
+The following snippet shows the contents of the file we created previously:
+
+```shell cd:${SCRIPT_TEMP_DIR}
+cat data.yaml
+```
+
+The output should be:
+
+```output
+key: value
+```
+
+### Options to show command and output
+
+There are two options to show the command and output of the shell command.
+
+`show_command:<boolean>` will show the command that is executed. The default is `false`. This is equivalent to using the
+[**Shell**](../commands/instacli/shell/Shell.spec.md) command with the `show_command` option.
+
+`show_output:<boolean>` will show and record the output of the command. The default is `true`. This is equivalent to
+using the
+[**Shell**](../commands/instacli/shell/Shell.spec.md) command with the `show_output` option (default here is `false`).
+
+#### Markdown format
+
+~~~markdown
+Show shell command but not the output:
+
+```shell show_command:true show_output:false
+ls /tmp
+```
+
+The output should be:
+
+```output
+ls /tmp
+```
+~~~
+
+#### Display example
+
+Show shell command but not the output:
+
+```shell show_command:true show_output:false
+ls /tmp
+```
+
+The output should be:
+
+```output
+ls /tmp
+```
+
 ### Shell ignore
 
 When you want to use the shell directive for display purposes only, you can use the `ignore` option. This will prevent
@@ -437,6 +517,56 @@ Global options:
   --output-json, -j   Print the output at the end of the script in Json format
   --non-interactive, -q   Indicate that Instacli should not prompt for user input
   --debug, -d         Run in debug mode. Prints stacktraces when an error occurs.
+```
+
+### Setting the current directory
+
+Like ` ```shell`. you can set the current directory with the `cd` option. This is equivalent to using the
+[**Cli**](../commands/instacli/shell/Cli.spec.md) command with the `cd` option.
+
+The following example shows how to set the current directory to the temporary directory created by Instacli for the
+execution of the current script. This is where temporary files are stored that are created with ` ```yaml file`.
+
+#### Markdown format
+
+~~~markdown
+Create a file `hello.cli`:
+
+```yaml file:hello.cli
+Print: Hello world!
+```
+
+And then run it:
+
+```shell cli cd:${SCRIPT_TEMP_DIR}
+cli hello.cli
+```
+
+The output should be:
+
+```output
+Hello world!
+```
+~~~
+
+#### Display example
+
+Create a file `hello.cli`:
+
+```yaml file:hello.cli
+Print: Hello world!
+```
+
+And then run it:
+
+```shell cli cd:${SCRIPT_TEMP_DIR}
+cli hello.cli
+```
+
+The output should be:
+
+```output
+Hello world!
 ```
 
 ### Ignore option
