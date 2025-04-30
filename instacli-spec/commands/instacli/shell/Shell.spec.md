@@ -69,13 +69,13 @@ Expected output: Hello
 
 You can write it in short form
 
-    ```shell cd:${SCRIPT_TEMP_DIR}
+    ```shell cd=${SCRIPT_TEMP_DIR}
     cat temp.txt temp.txt
     ```
 
 This will display as:
 
-```shell cd:${SCRIPT_TEMP_DIR}
+```shell cd=${SCRIPT_TEMP_DIR}
 cat temp.txt temp.txt
 ```
 
@@ -157,7 +157,7 @@ have a helper script next to your Instacli file. Then you would use the `resourc
 
 Suppose you have a shell script `hello.sh`
 
-```yaml file:hello.sh
+```yaml file=hello.sh
 echo "Hello World"
 ```
 

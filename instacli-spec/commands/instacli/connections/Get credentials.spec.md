@@ -16,7 +16,7 @@ With **Get credentials** you get the default connection details for a certain en
 
 Given the following list of credentials in `~/.instacli/credentials.yaml`:
 
-```yaml file:credentials.yaml
+```yaml file=credentials.yaml
 Instacli Sample Server:
   credentials:
     - name: Test account

@@ -15,7 +15,7 @@ also [Instacli files as commands](Instacli%20files%20as%20commands.spec.md)
 
 Suppose you have a cli file `do-something.cli`
 
-```yaml file:do-something.cli
+```yaml file=do-something.cli
 Output: Something done!
 ```
 
@@ -35,7 +35,7 @@ Expected output: Something done!
 
 Suppose you have a cli file `create-greeting.cli`
 
-```yaml file:create-greeting.cli
+```yaml file=create-greeting.cli
 Output: Hello ${input.name}!
 ```
 

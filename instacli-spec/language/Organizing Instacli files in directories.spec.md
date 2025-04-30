@@ -18,7 +18,7 @@ simple-question.cli
 We can now run `basic` as a cli command with subcommands for each of the files. First, let's use the `--help` option to
 see some more descriptions
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli --help basic
 ```
 
@@ -35,7 +35,7 @@ Available commands:
 
 We can now invoke the **greet** command like this:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic greet
 ```
 
@@ -47,15 +47,15 @@ Hello, World!
 
 Note that it's optional to specify the `.cli` extension. The following three commands are equivalent:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic greet
 ```
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic greet.cli
 ```
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic/greet.cli
 ```
 
@@ -92,7 +92,7 @@ style".
 
 For example, suppose we have a file `create-greeting.cli`, that creates a greeting and puts it in the output:
 
-```yaml file:create-greeting.cli
+```yaml file=create-greeting.cli
 Script info:
   description: Creates a greeting
   input:
@@ -123,7 +123,7 @@ data.
 
 Add a `.instacli.yaml` file to the directory to give a description to the current directory.
 
-```yaml file:.instacli.yaml
+```yaml file=.instacli.yaml
 Script info: This is an example directory
 ```
 
@@ -146,7 +146,7 @@ You can hide the directory from the interactive command chooser by setting the `
 
 For example take the following `.instacli.yaml` file in the `subcommand` directory:
 
-```yaml file:subcommand/.instacli.yaml
+```yaml file=subcommand/.instacli.yaml
 Script info:
   hiddent: true
 ```
@@ -173,13 +173,13 @@ scripts in that directory.
 
 For example, if we have the file `helper/say-something.cli`:
 
-```yaml file:helper/say-something.cli
+```yaml file=helper/say-something.cli
 Output: Something ${input.what}
 ```
 
 And we have it in the `.instacli.yaml` file as follows:
 
-```yaml file:.instacli.yaml
+```yaml file=.instacli.yaml
 Script info: This is an example directory
 
 imports:
@@ -188,7 +188,7 @@ imports:
 
 Then you can call it like this from your script `call-helper.cli`:
 
-```yaml file:call-helper.cli
+```yaml file=call-helper.cli
 Code example: Calling a script that was imported from another directory
 
 Say something:

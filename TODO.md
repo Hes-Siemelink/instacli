@@ -1,7 +1,5 @@
 # On my mind
 
-* Replace `show_output:false` with `show_output=false`
-
 ## In general
 
 * Learn how to write Go

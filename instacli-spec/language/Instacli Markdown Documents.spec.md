@@ -251,7 +251,7 @@ Hello, Alice!
 ## Helper files
 
 If you need to have a helper file for the example to work, you can define one with ` ```yaml
-file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/files/Temp%20file.spec.md)
+file=[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/files/Temp%20file.spec.md)
 command.
 
 The file will be created in the temporary directory of the script. You can use the `${SCRIPT_TEMP_DIR}` variable to
@@ -262,7 +262,7 @@ refer to this directory
 ~~~markdown
 You can define the data in an external file `data.yaml`:
 
-```yaml file:data.yaml
+```yaml file=data.yaml
 key: value
 ```
 
@@ -282,7 +282,7 @@ Expected output:
 
 You can define the data in an external file `data.yaml`:
 
-```yaml file:data.yaml
+```yaml file=data.yaml
 key: value
 ```
 
@@ -369,7 +369,7 @@ execution of the current script. This is where temporary files are stored that a
 ~~~markdown
 The following snippet shows the contents of the file we created previously:
 
-```shell cd:${SCRIPT_TEMP_DIR}
+```shell cd=${SCRIPT_TEMP_DIR}
 cat data.yaml
 ```
 
@@ -384,7 +384,7 @@ key: value
 
 The following snippet shows the contents of the file we created previously:
 
-```shell cd:${SCRIPT_TEMP_DIR}
+```shell cd=${SCRIPT_TEMP_DIR}
 cat data.yaml
 ```
 
@@ -402,7 +402,7 @@ There are two options to show the command and output of the shell command.
 [**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-shell-command) command with the `show command`
 option.
 
-`show_output:<boolean>` will show and record the output of the command. The default is `true`. This is equivalent to
+`show_output=<boolean>` will show and record the output of the command. The default is `true`. This is equivalent to
 using the
 [**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-output) command with the `show output` option. Note:
 the default for **Shell** is `false`.
@@ -412,7 +412,7 @@ the default for **Shell** is `false`.
 ~~~markdown
 Show shell command but not the output:
 
-```shell show_command:true show_output:false
+```shell show_command=true show_output=false
 ls /tmp
 ```
 
@@ -427,7 +427,7 @@ ls /tmp
 
 Show shell command but not the output:
 
-```shell show_command:true show_output:false
+```shell show_command=true show_output=false
 ls /tmp
 ```
 
@@ -535,13 +535,13 @@ execution of the current script. This is where temporary files are stored that a
 ~~~markdown
 Create a file `hello.cli`:
 
-```yaml file:hello.cli
+```yaml file=hello.cli
 Print: Hello world!
 ```
 
 And then run it:
 
-```shell cli cd:${SCRIPT_TEMP_DIR}
+```shell cli cd=${SCRIPT_TEMP_DIR}
 cli hello
 ```
 
@@ -556,13 +556,13 @@ Hello world!
 
 Create a file `hello.cli`:
 
-```yaml file:hello.cli
+```yaml file=hello.cli
 Print: Hello world!
 ```
 
 And then run it:
 
-```shell cli cd:${SCRIPT_TEMP_DIR}
+```shell cli cd=${SCRIPT_TEMP_DIR}
 cli hello
 ```
 

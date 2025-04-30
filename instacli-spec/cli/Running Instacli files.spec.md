@@ -31,13 +31,13 @@ For more information on the options, see [Command line options](Command%20line%2
 In the **[samples](/samples)** directory, there is a file **[hello.cli](/samples/hello.cli)** that contains a simple "
 Hello World" command:
 
-```yaml file:hello.cli
+```yaml file=hello.cli
 Print: Hello from Instacli!
 ```
 
 After [installing Instacli](/README.md#build--run), run it with the following command
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli hello.cli
 ```
 
@@ -49,7 +49,7 @@ Hello from Instacli!
 
 You can omit the `.cli` extension to make it look more like a "cli command":
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli hello
 ```
 
@@ -94,7 +94,7 @@ will just print the list of available commands and exit.
 Once you know which script you want to execute, simply chain them as commands on the command line. For example, to
 execute the `greet.cli` script in the `basic` directory, do:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic greet
 ```
 
@@ -111,7 +111,7 @@ Hello, World!
 Some scripts take input. Use the [--help](Command%20line%20options.spec.md#--help) option to list the supported
 parameters
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli --help basic greet
 ```
 
@@ -124,7 +124,7 @@ Options:
 
 With that information we can give the script some custom input:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic greet --name Alice
 ```
 
@@ -145,7 +145,7 @@ another script.
 
 Running `create-greeting` like this will show nothing:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli basic create-greeting --name Bob
 ```
 
@@ -156,7 +156,7 @@ The output is empty:
 
 We will only see the output when passing the `--output` parameter, or its shortcut `-o`:
 
-```shell cli cd:samples
+```shell cli cd=samples
 cli -o basic create-greeting --name Bob
 ```
 

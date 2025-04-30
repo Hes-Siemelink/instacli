@@ -23,7 +23,7 @@ Http request defaults:
   url: http://localhost:2525
 -->
 
-```yaml file:connect-to.cli
+```yaml file=connect-to.cli
 Code example: Use a connection
 
 Connect to: Instacli Samples
@@ -39,7 +39,7 @@ Expected output:
 In order for this to work, you need to configure a _connection script_ for the **Instacli Samples** endpoint. You do
 this in the  `.instacli.yaml` file in the same directory
 
-```yaml file:.instacli.yaml
+```yaml file=.instacli.yaml
 connections:
   Instacli Samples: connect.cli
 ```
@@ -49,7 +49,7 @@ to know the user credentials and other connection logic.
 
 Here's an example connection script:
 
-```yaml file:connect.cli
+```yaml file=connect.cli
 # Set up endpoint for subsequent HTTP calls
 Http request defaults:
   url: http://localhost:2525

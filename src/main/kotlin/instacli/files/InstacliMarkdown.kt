@@ -103,7 +103,7 @@ class MarkdownBlock(
 ) {
 
     fun getOption(option: String): String? {
-        val optionMatch = Regex("$option:(\\S+)").find(headerLine)
+        val optionMatch = Regex("$option=(\\S+)").find(headerLine)
         return optionMatch?.groupValues?.get(1)
     }
 

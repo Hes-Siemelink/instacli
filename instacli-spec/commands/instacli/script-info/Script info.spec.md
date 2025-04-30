@@ -211,7 +211,7 @@ info**.
 
 For example, consider the file `helper.cli`:
 
-```yaml file:helper.cli
+```yaml file=helper.cli
 Script info:
   description: Helper script
   hidden: true
@@ -245,7 +245,7 @@ You can define the input and output of a Script as types.
 First you need to define the types in the file, and then you can use them in the script. Types are defined in the file
 `types.yaml`, in the same directory as the script.
 
-```yaml file:types.yaml
+```yaml file=types.yaml
 FullName:
   base: object
   properties:

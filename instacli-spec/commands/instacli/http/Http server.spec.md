@@ -165,7 +165,7 @@ You can also specify an Instacli file to run.
 
 Suppose you have a file `greet.cli`
 
-```yaml file:greet.cli
+```yaml file=greet.cli
 Script info:
   description: Creates a greeting
   input:

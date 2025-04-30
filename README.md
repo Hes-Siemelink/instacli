@@ -10,7 +10,7 @@ As-code, but without the complexity of actual code.
 
 Get a flavor of Instacli with this example file `greetings.cli`:
 
-```yaml file:greetings.cli
+```yaml file=greetings.cli
 Script info:
   description: Multi-language greeting
   input:
@@ -151,7 +151,7 @@ Instacli has two main ideas:
 
 This is the simplest Instacli progam, **[hello.cli](samples/hello.cli)**:
 
-```yaml file:hello.cli
+```yaml file=hello.cli
 Print: Hello from Instacli!
 ```
 
@@ -192,7 +192,7 @@ POST:
 
 Define all command-line options in Yaml. Take this file `simple-options.cli`
 
-```yaml file:simple-options.cli
+```yaml file=simple-options.cli
 Script info:
   description: Call Acme
   input:
@@ -220,7 +220,7 @@ Instacli allows you to specify the type and format
 of [input properties](instacli-spec/commands/instacli/user-interaction/Prompt.spec.md#prompt-properties). Here's an
 example file `input-options.cli`
 
-```yaml file:input-options.cli
+```yaml file=input-options.cli
 Script info:
   description: Different input options
   input:
@@ -270,7 +270,7 @@ Easily provide subcommand support by organizing your cli files in directories.
 
 For example, to run the greeting example from the **[samples](samples)** directory, you can write
 
-```shell cli cd:.
+```shell cli cd=.
 cli samples basic greet
 ```
 
@@ -302,7 +302,7 @@ samples has several subcommands.
 
 Use the `-q` option for non-interacivte mode
 
-```shell cli cd:.
+```shell cli cd=.
 cli -q samples
 ```
 
@@ -327,7 +327,7 @@ Easily construct [user prompts](instacli-spec/commands/instacli/user-interaction
 
 Here's an example of how to ask the user to pick something from a list, in a file called `prompt.cli`:
 
-```yaml file:prompt.cli 
+```yaml file=prompt.cli 
 Prompt:
   description: Select a language
   enum:

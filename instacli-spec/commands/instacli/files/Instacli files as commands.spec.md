@@ -12,7 +12,7 @@ You can run any instacli file in the same directory as a regular command
 
 Suppose you have a cli file `generate-greeting.cli`
 
-```yaml file:generate-greeting.cli
+```yaml file=generate-greeting.cli
 Output: Hello ${input.name}!
 ```
 

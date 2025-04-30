@@ -34,7 +34,7 @@ You can also load the schema from a file.
 
 Suppose you have the data in a file called `myschema.json`
 
-```yaml file:myschema.json
+```yaml file=myschema.json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "string",

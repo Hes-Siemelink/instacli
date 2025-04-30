@@ -17,7 +17,7 @@ for [Get credentials](Get%20credentials.spec.md) when there are multiple availab
 
 Given the following connections in `~/.instacli/credentials.yaml`:
 
-```yaml file:credentials.yaml
+```yaml file=credentials.yaml
 Instacli Sample Server:
   credentials:
     - name: Test account 1

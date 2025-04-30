@@ -6,7 +6,7 @@
 
 This is the simplest Instacli file:
 
-```yaml file:hello-world.cli
+```yaml file=hello-world.cli
 Print: Hello world
 ```
 
@@ -53,7 +53,7 @@ Instacli does add some additional formatting on top of Yaml, for example the var
 
 You can have multiple commands in a file, and they will be executed in order:
 
-```yaml file:prompt.cli
+```yaml file=prompt.cli
 Prompt: What is your name?
 
 Print: Hello ${output}!
@@ -128,7 +128,7 @@ You can specify the description of your script with the
 
 Take this file `simple-greeting.cli`:
 
-```yaml file:simple-greeting.cli
+```yaml file=simple-greeting.cli
 Script info: Prints a simple greeting
 
 Print: Hi there!
@@ -148,7 +148,7 @@ Prints a simple greeting
 
 **Script info** is also used to specify input parameters. Here's `greet.cli`:
 
-```yaml file:greeting.cli
+```yaml file=greeting.cli
 Script info:
   description: Prints a personalized greeting
   input:
@@ -188,7 +188,7 @@ You can set the output of the script with the **[Output](../commands/instacli/va
 
 For example, with script `hello.cli`
 
-```yaml file:hello.cli
+```yaml file=hello.cli
 Output:
   a: one
   b: two

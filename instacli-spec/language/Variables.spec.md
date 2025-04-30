@@ -140,7 +140,7 @@ The **Output** command is often used at the end of a script to explicitly set th
 
 Suppose you have a file `simple-greeting.cli`
 
-```yaml file:simple-greeting.cli
+```yaml file=simple-greeting.cli
 Script info: A simple greeting
 
 Output: Hello World!
@@ -180,7 +180,7 @@ Assert equals:
 
 Take a look at the example file `greet.cli` to see how you can define input and output of a script.
 
-```yaml file:greet.cli
+```yaml file=greet.cli
 Code example: Input and output when defining a script
 
 Script info:
