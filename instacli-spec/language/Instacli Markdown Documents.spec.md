@@ -66,7 +66,7 @@ Here is an overview of the constructs you can use to embed Instacli code in Mark
 |-------------------------------------------------------|-----------------------|
 | [Instacli code](#instacli-code)                       | ` ```yaml instacli`   | 
 | [Hidden code](#hidden-code)                           | ` <!-- yaml instacli` | 
-| [Predefined answers](#answers)                        | ` <!-- answers`       | 
+| [Predefined answers](#predefined-answers)             | ` <!-- answers`       | 
 | [Checking output](#checking-output)                   | ` ```output`          | 
 | [Helper files](#helper-files)                         | ` ```yaml file`       | 
 | [Shell commands](#shell-commands)                     | ` ```shell`           | 
@@ -251,7 +251,7 @@ Hello, Alice!
 ## Helper files
 
 If you need to have a helper file for the example to work, you can define one with ` ```yaml
-file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md)
+file:[filename]`. This is a shortcut for the [**Temp file**](../commands/instacli/files/Temp%20file.spec.md)
 command.
 
 The file will be created in the temporary directory of the script. You can use the `${SCRIPT_TEMP_DIR}` variable to
@@ -301,7 +301,7 @@ Expected output:
 
 When using the ` ```yaml file` directive, the contents are stored as-is and variables inside the file are not resolved.
 If you need dynamic content with variables and eval blocks, use
-[**Temp file**](../commands/instacli/tempfile/Temp%20file.spec.md) inside a script.
+[**Temp file**](../commands/instacli/files/Temp%20file.spec.md) inside a script.
 
 ## Shell commands
 
@@ -470,7 +470,7 @@ You can also use the ` ```shell cli` directive to show how to invoke Instacli it
 This is useful for showing how to use the `cli` command and its command line options.
 
 Note: Within an Instacli script itself, there are better ways to invoke another script.
-See [Calling another script](Organizing%20Instacli%20files%20in%20directories.spec.md/#calling-another-instacli-script).
+See [Calling another script](Organizing%20Instacli%20files%20in%20directories.spec.md#calling-another-instacli-script).
 
 #### Markdown format
 

@@ -1,11 +1,6 @@
 # On my mind
 
-## Test util
-
-* Review documentation
-    * Review "how to write scripts"
-    * Introduce ```markdown file: to test markdown snippets...
-    * Parse nested markdown
+* Replace `show_output:false` with `show_output=false`
 
 ## In general
 
