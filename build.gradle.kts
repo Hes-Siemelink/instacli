@@ -2,7 +2,7 @@ import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.plugins.jvm.JvmTestSuite
 
 group = "hes.instacli"
-version = "0.4.1-SNAPSHOT"
+version = "0.4.1"
 
 plugins {
     kotlin("jvm") version "2.0.21"
