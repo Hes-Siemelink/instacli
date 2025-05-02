@@ -1,6 +1,5 @@
 package instacli.commands.files
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
@@ -15,6 +14,18 @@ object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, 
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val options = data.toDomainObject(TempFileData::class)
+
+        return createTempFile(context, options)
+    }
+
+    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
+        return createTempFile(context, TempFileData(content = data))
+    }
+
+    private fun createTempFile(
+        context: ScriptContext,
+        options: TempFileData
+    ): TextNode {
         val content = if (options.content is ObjectNode) {
             options.content.deepCopy()
         } else {
@@ -28,14 +39,6 @@ object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, 
         val destinationFile = tempFile(context.tempDir, options.filename)
 
         Files.writeString(destinationFile, copy.toDisplayYaml())
-
-        return destinationFile.toJson()
-    }
-
-    override fun execute(data: ValueNode, context: ScriptContext): JsonNode? {
-        val destinationFile = tempFile(context.tempDir)
-
-        Files.writeString(destinationFile, data.toDisplayYaml())
 
         return destinationFile.toJson()
     }
@@ -60,7 +63,6 @@ object TempFile : CommandHandler("Temp file", "instacli/files"), ObjectHandler, 
 
 data class TempFileData(
     val filename: String? = null,
-    @JsonProperty("resolve variables")
-    val resolve: Boolean = false,
+    val resolve: Boolean = true,
     val content: JsonNode
 )

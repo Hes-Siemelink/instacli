@@ -7,7 +7,7 @@ oneOf:
     properties:
       filename:
         type: string
-      resolve variables:
+      resolve:
         type: boolean
       content:
         type: any

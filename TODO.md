@@ -103,8 +103,8 @@
 
 # Bugs
 
-* BUG: `cli "instacli-spec/language/Instacli Markdown Documents.spec.md"` has an error with duplicate console output
-  when running from the command line. It does run fine with TestUtil
+* BUG: Unknown variable error when using a variable in a script that is not defined in the Script Info -- see goodbye
+  example in TempFile spec.
 
 # Where to take it
 

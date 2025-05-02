@@ -42,7 +42,6 @@ Temp file:
   filename: myfile.txt
   content: |
     My content
-As: ${temp}
 
 Read file: ${SCRIPT_TEMP_DIR}/myfile.txt
 
@@ -50,4 +49,43 @@ Expected output: |
   My content
 ```
 
-<!-- TODO document resolve -->
+## Resolve variables
+
+You can use variables in the content of the temporary file. The variables will be resolved when the file is created.
+
+```yaml instacli
+Code example: Temporary file with variables
+
+${name}: Carol
+
+Temp file: |
+  My name is ${name}
+As: ${temp}
+
+Read file: ${temp}
+
+Expected output: |
+  My name is Carol
+```
+
+In some cases, you don't want to resolve the variables in the content of the temporary file. You can use the `resolve`
+property to control this.
+
+```yaml instacli
+Code example: Temporary file with variables not resolved
+
+Temp file:
+  filename: goodbye.cli
+  resolve: false
+  content:
+    Script info:
+      input:
+        name: Person to say goodbye to
+    Output: Adios ${name}
+As: ${temp}
+
+Goodbye:
+  name: Daniel
+
+Expected output: Adios Daniel
+```

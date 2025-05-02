@@ -300,8 +300,60 @@ Expected output:
 ### Variables inside temp files
 
 When using the ` ```yaml file` directive, the contents are stored as-is and variables inside the file are not resolved.
-If you need dynamic content with variables and eval blocks, use
-[**Temp file**](../commands/instacli/files/Temp%20file.spec.md) inside a script.
+
+If you need dynamic content with variables and eval blocks, use the `resolve=[boolean]` option.
+
+This is equivalent to using the
+[**Temp file**](../commands/instacli/files/Temp%20file.spec.md) command with the `resolve` option. Note that for the
+` ```yaml file` directive, the default is `false`, where is for **Temp file** the default is `true`.
+
+#### Markdown format
+
+~~~markdown
+Suppose you have defined a variable inside a Yaml script:
+
+```yaml instacli
+${value}: large
+```
+
+You can use the variable value by when creating a file `config.yaml` by specifying `resolve=true`:
+
+```yaml file=config.yaml resolve=true
+size: ${value}
+```
+
+When we read it, we will see that the value was resolved:
+
+```yaml instacli
+Read file: ${SCRIPT_TEMP_DIR}/config.yaml
+
+Expected output:
+    size: large
+```
+~~~
+
+#### Display example
+
+Suppose you have defined a variable inside a Yaml script:
+
+```yaml instacli
+${value}: large
+```
+
+You can use the variable value by when creating a file `config.yaml` by specifying `resolve=true`:
+
+```yaml file=config.yaml resolve=true
+size: ${value}
+```
+
+When we read it, we will see that the value was resolved:
+
+```yaml instacli
+Read file: ${SCRIPT_TEMP_DIR}/config.yaml
+
+Expected output:
+  size: large
+```
 
 ## Shell commands
 
@@ -398,11 +450,11 @@ key: value
 
 There are two options to show the command and output of the shell command.
 
-`show_command:<boolean>` will show the command that is executed. The default is `false`. This is equivalent to using the
+`show_command=[boolean]` will show the command that is executed. The default is `false`. This is equivalent to using the
 [**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-shell-command) command with the `show command`
 option.
 
-`show_output=<boolean>` will show and record the output of the command. The default is `true`. This is equivalent to
+`show_output=[boolean]` will show and record the output of the command. The default is `true`. This is equivalent to
 using the
 [**Shell**](../commands/instacli/shell/Shell.spec.md#displaying-the-output) command with the `show output` option. Note:
 the default for **Shell** is `false`.
