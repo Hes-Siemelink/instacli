@@ -1,5 +1,5 @@
 group = "hes.instacli"
-version = "0.4.2-SNAPSHOT"
+version = "0.4.2"
 
 plugins {
     kotlin("jvm") version "2.0.21"
@@ -137,4 +137,8 @@ githubRelease {
     prerelease = false
     overwrite = true
     releaseAssets(file("build/libs/instacli-${project.version}.jar"))
+}
+
+tasks.named("githubRelease") {
+    dependsOn(tasks.named("build"))
 }
