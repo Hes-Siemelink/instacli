@@ -1,5 +1,5 @@
 group = "hes.instacli"
-version = "0.4.3-SNAPSHOT"
+version = "0.4.3"
 
 plugins {
     kotlin("jvm") version "2.0.21"
@@ -141,4 +141,8 @@ githubRelease {
 
 tasks.named("githubRelease") {
     dependsOn(tasks.named("build"))
+}
+
+tasks.register("release") {
+    dependsOn("clean", "githubRelease")
 }
