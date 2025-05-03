@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ValueNode
 import instacli.commands.testing.ExpectedConsoleOutput
 import instacli.language.*
 import instacli.util.Json
+import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -19,8 +20,7 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
 
         ExpectedConsoleOutput.reset(context)
 
-        val info = ShellCommand()
-        info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
+        val info = createCommandInfo(context)
 
         return execute(data.textValue(), context.workingDir, info)
     }
@@ -29,8 +29,7 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
 
         ExpectedConsoleOutput.reset(context)
 
-        val info = data.toDomainObject(ShellCommand::class)
-        info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
+        val info = createCommandInfo(context, data)
 
         val commandLine = info.command
             ?: info.resource
@@ -45,6 +44,24 @@ object Shell : CommandHandler("Shell", "instacli/shell"), ObjectHandler, ValueHa
         }
 
         return execute(commandLine, dir, info)
+    }
+
+    private fun createCommandInfo(
+        context: ScriptContext,
+        data: ObjectNode? = null
+    ): ShellCommand {
+
+        val info = data?.toDomainObject(ShellCommand::class) ?: ShellCommand()
+
+        // Expose script variables to shell
+        context.variables.forEach { (key, value) ->
+            info.env[key] = value.toDisplayYaml()
+        }
+
+        // Expose dir where script is located
+        info.env["SCRIPT_DIR"] = context.scriptDir.toAbsolutePath().toString()
+
+        return info
     }
 }
 

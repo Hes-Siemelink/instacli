@@ -135,9 +135,24 @@ Shell:
 Expected output: original output
 ```
 
+## Using variables
+
+All variables from your script are available in the shell command.
+
+```yaml instacli
+Code example: Exposed variables
+
+${name}: Alice
+
+Shell:
+  command: echo Hello $name
+
+Expected output: Hello Alice
+```
+
 ## Passing Environment variables
 
-You can pass variables to the shell command by using the `env` parameter.
+You can set environment variables for the shell explicitly using the `env` parameter.
 
 ```yaml instacli
 Code example: Environment variables

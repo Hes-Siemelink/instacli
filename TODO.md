@@ -144,5 +144,5 @@
 
 * Code as-code
 * Towers of Hanoi
-* There is a half-baked version of Lisp in there somewhere.
+* Made it a Lisp by adding 30 lines of code.
 * Define Instacli in Instacli itself
