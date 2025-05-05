@@ -59,13 +59,13 @@ Code example: Temporary file with variables
 ${name}: Carol
 
 Temp file: |
-  My name is ${name}
+  Hello ${name}
 As: ${temp}
 
 Read file: ${temp}
 
 Expected output: |
-  My name is Carol
+  Hello Carol
 ```
 
 In some cases, you don't want to resolve the variables in the content of the temporary file. You can use the `resolve`
@@ -78,10 +78,7 @@ Temp file:
   filename: goodbye.cli
   resolve: false
   content:
-    Script info:
-      input:
-        name: Person to say goodbye to
-    Output: Adios ${name}
+    Output: Adios ${input.name}
 As: ${temp}
 
 Goodbye:

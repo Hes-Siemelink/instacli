@@ -9,16 +9,10 @@
 
 ## For live deployments demo:
 
-* Temp file
-    * Option to set temp dir variable on shell directive
-* Document: Shell 'show command' and 'show output' options in directive
 * Find a way to confirm default input parameters vs. just taking them for granted. Interactive mode would trigger
   confirmation?
 * Shell: option to capture output as yaml.
 * Clean up Exceptions and error handling
-* BUG: $SCRIPT_DIR doesn't work
-* BUG: shell error is not caught by On error. (When installing k3d runner without k3d)
-* BUG: First line of output is not captured if shell script asks for user input => command appears to hang
 
 # Actually build something
 
@@ -60,6 +54,8 @@
 * Secrets
 * Properly handle: null, empty, boolean, int
 * Also use ` ```output` directive in markdown execution to check expected output
+* Convert to yaml
+* Stream and pipe output as Yaml array of lines
 
 ## Types
 
@@ -87,9 +83,6 @@
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
 
-* Pass environment variables to shell command
-    * SCRIPT_ROOT_DIR
-
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
@@ -98,13 +91,13 @@
 ## Improve slow startup
 
 * Jackson is slow on Kotlin: https://github.com/FasterXML/jackson-module-kotlin/issues/69
+* Jackson Jr?
 * Alternative Yaml lib: https://github.com/pwall567/kjson-yaml
 * Or rewrite as Go or TypeScript
 
 # Bugs
 
-* BUG: Unknown variable error when using a variable in a script that is not defined in the Script Info -- see goodbye
-  example in TempFile spec.
+* BUG: First line of output is not captured if shell script asks for user input => command appears to hang
 
 # Where to take it
 

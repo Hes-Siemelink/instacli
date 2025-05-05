@@ -198,3 +198,20 @@ Shell: sh $SCRIPT_DIR/hello.sh
 
 Expected output: Hello World
 ```
+
+## Error handling
+
+Errors in the shell command can be caught by the On error command.
+
+```yaml instacli
+Code example: Handle shell errors
+
+Shell: exit 1
+
+Output: Error was ignored
+
+On error:
+  Output: Error was handled
+
+Expected output: Error was handled
+```
