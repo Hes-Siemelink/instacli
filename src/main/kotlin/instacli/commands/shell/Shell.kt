@@ -146,7 +146,6 @@ fun streamCommand(
                     "Shell command failed",
                     Json.newObject("exitCode", exitCode.toString())
                 )
-
             }
         }
     } catch (exception: IOException) {
