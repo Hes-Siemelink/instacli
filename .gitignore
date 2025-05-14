@@ -10,5 +10,9 @@
 
 install-cloud-connector.sh
 
-# Aider
+# AI tooling
 .aider.*
+.specstory/*
+.cursorindexingignore
+# SpecStory explanation file
+.specstory/.what-is-this.md
