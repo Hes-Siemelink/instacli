@@ -115,12 +115,12 @@ If:
 
 ### All, Any and Not
 
-**all**, **any** and **not** are container condition that take other conditions as a subcondition.
+The conditions **all**, **any** and **not** take other conditions as a subcondition.
 
-The condition **all** is a logical AND.
+The **all** condition is a logical AND.
 
 ```yaml instacli
-Code example: All condition
+Code example: All conditions
 
 Assert that:
   all:
@@ -130,7 +130,7 @@ Assert that:
       equals: two
 ```
 
-The condition **any** is a logical OR.
+The **any** condition is a logical OR.
 
 ```yaml instacli
 Code example: Any condition
@@ -143,7 +143,7 @@ Assert that:
       equals: four
 ```
 
-The condition **not** is the negation
+The **not** condition is the negation
 
 ```yaml instacli
 Code example: Not condition
