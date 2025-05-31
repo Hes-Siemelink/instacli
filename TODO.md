@@ -1,18 +1,14 @@
 # On my mind
 
+## AI
+
+* Add MCP server support
+* https://github.com/JetBrains/koog
+
 ## In general
 
-* Learn how to write Go
-* Learn how to use AI
 * AI to generate scripts: notebook type interaction to write scripts
 * Document Json Patch (uses RFC 6902)
-
-## For live deployments demo:
-
-* Find a way to confirm default input parameters vs. just taking them for granted. Interactive mode would trigger
-  confirmation?
-* Shell: option to capture output as yaml.
-* Clean up Exceptions and error handling
 
 # Actually build something
 
@@ -49,13 +45,15 @@
 
 ## Core
 
+* Clean up Exceptions and error handling
 * Proper "StackTrace"
 * Define commands in Instacli
 * Secrets
 * Properly handle: null, empty, boolean, int
-* Also use ` ```output` directive in markdown execution to check expected output
 * Convert to yaml
 * Stream and pipe output as Yaml array of lines
+* Find a way to confirm default input parameters vs. just taking them for granted. Interactive mode would trigger
+  confirmation?
 
 ## Types
 
@@ -64,6 +62,7 @@
 * Define 'output type' on Script info
 * Turn types into JSON schema
 * Refactor types and directory info
+* Base on TypeScript types
 
 ## Docs
 
@@ -82,11 +81,11 @@
 
 * Support stdin:
   if (System.`in`.available() != 0) { val input = Yaml.mapper.readTree(System.`in`)}
-
 * Code organization
     * Versioning and auto-upgrading of commands
     * Review Script info on directories
     * Support modules
+* Shell: option to capture output as yaml.
 
 ## Improve slow startup
 

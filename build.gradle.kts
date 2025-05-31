@@ -1,5 +1,5 @@
 group = "hes.instacli"
-version = "0.4.5-SNAPSHOT"
+version = "0.5.0-SNAPSHOT"
 
 plugins {
     kotlin("jvm") version "2.1.10"
@@ -35,6 +35,10 @@ dependencies {
     implementation("org.fusesource.jansi:jansi:2.4.1")
     implementation("io.javalin:javalin:6.5.+")
     implementation("org.xerial:sqlite-jdbc:3.47.0.0")
+
+    // Model Context Protocol dependencies
+    implementation("io.modelcontextprotocol:kotlin-sdk:0.5.0")
+    implementation("io.github.oshai:kotlin-logging:5.0.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")

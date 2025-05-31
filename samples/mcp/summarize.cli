@@ -1,0 +1,10 @@
+Read file: sample.yaml
+
+For each:
+  ${item} in: ${output.features}
+  Output:
+    Event: ${item.properties.event}
+    Area: ${item.properties.areaDesc}
+    Severity: ${item.properties.severity}
+    Description: ${item.properties.description}
+    Instruction: ${item.properties.instruction}

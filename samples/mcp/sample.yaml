@@ -1,0 +1,213 @@
+'@context':
+- https://geojson.org/geojson-ld/geojson-context.jsonld
+- '@version': 1.1
+  wx: https://api.weather.gov/ontology#
+  '@vocab': https://api.weather.gov/ontology#
+type: FeatureCollection
+features:
+- id: https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e6885344fe52eb70a8e9c5c9e21cb587004b532b.001.1
+  type: Feature
+  geometry: null
+  properties:
+    '@id': https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e6885344fe52eb70a8e9c5c9e21cb587004b532b.001.1
+    '@type': wx:Alert
+    id: urn:oid:2.49.0.1.840.0.e6885344fe52eb70a8e9c5c9e21cb587004b532b.001.1
+    areaDesc: Western Passaic; Eastern Passaic; Hudson; Western Bergen; Eastern Bergen;
+      Western Essex; Eastern Essex; Western Union; Eastern Union; Orange; Putnam;
+      Rockland; Northern Westchester; Southern Westchester
+    geocode:
+      SAME:
+      - '034031'
+      - '034017'
+      - '034003'
+      - '034013'
+      - '034039'
+      - '036071'
+      - '036079'
+      - '036087'
+      - '036119'
+      UGC:
+      - NJZ002
+      - NJZ004
+      - NJZ006
+      - NJZ103
+      - NJZ104
+      - NJZ105
+      - NJZ106
+      - NJZ107
+      - NJZ108
+      - NYZ067
+      - NYZ068
+      - NYZ069
+      - NYZ070
+      - NYZ071
+    affectedZones:
+    - https://api.weather.gov/zones/forecast/NJZ002
+    - https://api.weather.gov/zones/forecast/NJZ004
+    - https://api.weather.gov/zones/forecast/NJZ006
+    - https://api.weather.gov/zones/forecast/NJZ103
+    - https://api.weather.gov/zones/forecast/NJZ104
+    - https://api.weather.gov/zones/forecast/NJZ105
+    - https://api.weather.gov/zones/forecast/NJZ106
+    - https://api.weather.gov/zones/forecast/NJZ107
+    - https://api.weather.gov/zones/forecast/NJZ108
+    - https://api.weather.gov/zones/forecast/NYZ067
+    - https://api.weather.gov/zones/forecast/NYZ068
+    - https://api.weather.gov/zones/forecast/NYZ069
+    - https://api.weather.gov/zones/forecast/NYZ070
+    - https://api.weather.gov/zones/forecast/NYZ071
+    references:
+    - '@id': https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2e6cc7a79356163be6f7df3e672fe1dd7179a609.001.1
+      identifier: urn:oid:2.49.0.1.840.0.2e6cc7a79356163be6f7df3e672fe1dd7179a609.001.1
+      sender: w-nws.webmaster@noaa.gov
+      sent: 2025-05-30T13:35:00-04:00
+    sent: 2025-05-30T21:30:00-04:00
+    effective: 2025-05-30T21:30:00-04:00
+    onset: 2025-05-30T21:30:00-04:00
+    expires: 2025-05-31T06:00:00-04:00
+    ends: 2025-05-31T11:00:00-04:00
+    status: Actual
+    messageType: Update
+    category: Met
+    severity: Severe
+    certainty: Possible
+    urgency: Future
+    event: Flood Watch
+    sender: w-nws.webmaster@noaa.gov
+    senderName: NWS Upton NY
+    headline: Flood Watch issued May 30 at 9:30PM EDT until May 31 at 11:00AM EDT
+      by NWS Upton NY
+    description: |-
+      * WHAT...Flooding caused by excessive rainfall continues to be
+      possible.
+
+      * WHERE...Portions of northeast New Jersey, including the following
+      areas, Eastern Bergen, Eastern Essex, Eastern Passaic, Eastern
+      Union, Hudson, Western Bergen, Western Essex, Western Passaic and
+      Western Union and southeast New York, including the following
+      areas, Northern Westchester, Orange, Putnam, Rockland and Southern
+      Westchester.
+
+      * WHEN...Through Saturday morning.
+
+      * IMPACTS...Excessive runoff may result in flooding of rivers,
+      creeks, streams, and other low-lying and flood-prone locations.
+      Creeks and streams may rise out of their banks. Flooding may occur
+      in poor drainage and urban areas.
+
+      * ADDITIONAL DETAILS...
+      - An area of low pressure will track across the region
+      overnight, likely bringing 1 to 2, and locally 3+, inches of
+      rainfall across the watch area. Rainfall rates may be as high
+      as 1 to 2 inches per hour in the heaviest and most persistent
+      rain. The main threat will be from 11pm  through 8am.
+      - http://www.weather.gov/safety/flood
+    instruction: |-
+      You should monitor later forecasts and be alert for possible Flood
+      Warnings. Those living in areas prone to flooding should be prepared
+      to take action should flooding develop.
+    response: Prepare
+    parameters:
+      AWIPSidentifier:
+      - FFAOKX
+      WMOidentifier:
+      - WGUS61 KOKX 310130
+      NWSheadline:
+      - FLOOD WATCH REMAINS IN EFFECT THROUGH SATURDAY MORNING
+      BLOCKCHANNEL:
+      - EAS
+      - NWEM
+      - CMAS
+      EAS-ORG:
+      - WXR
+      VTEC:
+      - /O.CON.KOKX.FA.A.0002.000000T0000Z-250531T1500Z/
+      eventEndingTime:
+      - 2025-05-31T11:00:00-04:00
+    scope: Public
+    code: IPAWSv1.0
+    language: en-US
+    web: http://www.weather.gov
+    eventCode:
+      SAME:
+      - FFA
+      NationalWeatherService:
+      - FAA
+- id: https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ac6728c33d0c3d0277d21def5f29883636056b6f.001.1
+  type: Feature
+  geometry: null
+  properties:
+    '@id': https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ac6728c33d0c3d0277d21def5f29883636056b6f.001.1
+    '@type': wx:Alert
+    id: urn:oid:2.49.0.1.840.0.ac6728c33d0c3d0277d21def5f29883636056b6f.001.1
+    areaDesc: Southwest Suffolk; Southeast Suffolk
+    geocode:
+      SAME:
+      - '036103'
+      UGC:
+      - NYZ080
+      - NYZ081
+    affectedZones:
+    - https://api.weather.gov/zones/forecast/NYZ080
+    - https://api.weather.gov/zones/forecast/NYZ081
+    references: []
+    sent: 2025-05-30T14:43:00-04:00
+    effective: 2025-05-30T14:43:00-04:00
+    onset: 2025-05-31T06:00:00-04:00
+    expires: 2025-05-31T07:00:00-04:00
+    ends: 2025-05-31T21:00:00-04:00
+    status: Actual
+    messageType: Alert
+    category: Met
+    severity: Moderate
+    certainty: Likely
+    urgency: Expected
+    event: Rip Current Statement
+    sender: w-nws.webmaster@noaa.gov
+    senderName: NWS Upton NY
+    headline: Rip Current Statement issued May 30 at 2:43PM EDT until May 31 at 9:00PM
+      EDT by NWS Upton NY
+    description: |-
+      * WHAT...Dangerous rip currents expected.
+
+      * WHERE...Southwest Suffolk and Southeast Suffolk Counties.
+
+      * WHEN...From Saturday morning through Saturday evening.
+
+      * IMPACTS...Life-threatening rip currents are likely for all
+      people entering the surf zone. Anyone visiting the beaches
+      should stay out of the surf. Rip currents can sweep even the
+      best swimmers away from shore into deeper water.
+    instruction: |-
+      If you enter the surf zone, always have a flotation device with
+      you and swim near a lifeguard. If caught in a rip current, relax
+      and float, and do not swim against the current. If able, swim in
+      a direction following the shoreline. If unable to escape, face
+      the shore and yell or wave for help.
+    response: Avoid
+    parameters:
+      AWIPSidentifier:
+      - CFWOKX
+      WMOidentifier:
+      - WHUS41 KOKX 301843
+      NWSheadline:
+      - HIGH RIP CURRENT RISK IN EFFECT FROM SATURDAY MORNING THROUGH SATURDAY EVENING
+      BLOCKCHANNEL:
+      - EAS
+      - NWEM
+      - CMAS
+      VTEC:
+      - /O.NEW.KOKX.RP.S.0003.250531T1000Z-250601T0100Z/
+      eventEndingTime:
+      - 2025-05-31T21:00:00-04:00
+    scope: Public
+    code: IPAWSv1.0
+    language: en-US
+    web: http://www.weather.gov
+    eventCode:
+      SAME:
+      - NWS
+      NationalWeatherService:
+      - RPS
+title: "Current watches, warnings, and advisories for New York"
+updated: 2025-05-31T04:00:00+00:00

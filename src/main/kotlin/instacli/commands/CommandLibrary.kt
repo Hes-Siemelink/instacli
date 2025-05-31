@@ -13,6 +13,7 @@ import instacli.commands.files.RunScript
 import instacli.commands.files.TempFile
 import instacli.commands.files.WriteFile
 import instacli.commands.http.*
+import instacli.commands.mcp.McpServer
 import instacli.commands.schema.ValidateSchema
 import instacli.commands.schema.ValidateType
 import instacli.commands.scriptinfo.ScriptInfo
@@ -124,7 +125,10 @@ object CommandLibrary {
 
         // Database
         SQLite,
-        Store
+        Store,
+
+        // AI
+        McpServer
     )
 
     // TODO Store commands in canonical form: all lower case and spaces

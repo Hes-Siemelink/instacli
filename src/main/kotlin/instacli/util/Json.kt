@@ -3,11 +3,9 @@ package instacli.util
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.node.ArrayNode
-import com.fasterxml.jackson.databind.node.JsonNodeFactory
-import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.databind.node.TextNode
+import com.fasterxml.jackson.databind.node.*
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import kotlinx.serialization.json.*
 import kotlin.reflect.KClass
 
 object Json {
@@ -107,4 +105,79 @@ abstract class JsonProcessor {
     open fun processOther(node: JsonNode): JsonNode {
         return node
     }
+}
+
+//
+// Kotlinx.serialization conversion
+//
+
+fun ObjectNode.toKotlinx(): JsonObject {
+    return buildJsonObject {
+        fields().forEach { (key, value) ->
+            put(key, value.toKotlinx())
+        }
+    }
+}
+
+private fun ArrayNode.toKotlinx(): JsonArray {
+    return buildJsonArray {
+        elements().forEach {
+            add(it.toKotlinx())
+        }
+    }
+}
+
+private fun JsonNode.toKotlinx(): JsonElement {
+    return when (this) {
+        is NullNode, is MissingNode -> JsonNull
+        is BooleanNode -> JsonPrimitive(booleanValue())
+        is NumericNode -> JsonPrimitive(numberValue())
+        is TextNode -> JsonPrimitive(textValue())
+        is ArrayNode -> this.toKotlinx()
+        is ObjectNode -> this.toKotlinx()
+        else -> throw IllegalArgumentException("Unknown JsonNode type: ${this.javaClass}")
+    }
+}
+
+//
+// Kotlinx.serialization => Jackson conversion
+//
+
+
+fun JsonObject.toJackson(nodeFactory: JsonNodeFactory = JsonNodeFactory.instance): ObjectNode {
+    val jacksonObject = nodeFactory.objectNode()
+    this.entries.forEach { (key, value) ->
+        jacksonObject.set<JsonNode>(key, value.toJackson(nodeFactory))
+    }
+    return jacksonObject
+}
+
+private fun JsonArray.toJackson(nodeFactory: JsonNodeFactory): ArrayNode {
+    val jacksonArray = nodeFactory.arrayNode(this.size)
+    this.forEach { element ->
+        jacksonArray.add(element.toJackson(nodeFactory))
+    }
+    return jacksonArray
+}
+
+fun JsonElement.toJackson(nodeFactory: JsonNodeFactory = JsonNodeFactory.instance): JsonNode {
+    return when (this) {
+        is JsonNull -> nodeFactory.nullNode()
+        is JsonObject -> this.toJackson(nodeFactory)
+        is JsonArray -> this.toJackson(nodeFactory)
+        is JsonPrimitive -> this.toJackson(nodeFactory)
+    }
+}
+
+private fun JsonPrimitive.toJackson(nodeFactory: JsonNodeFactory): JsonNode {
+    if (this.isString) {
+        return nodeFactory.textNode(this.content)
+    }
+    // Try to be as specific as possible with number types
+    this.longOrNull?.let { return nodeFactory.numberNode(it) }
+    this.doubleOrNull?.let { return nodeFactory.numberNode(it) }
+    this.booleanOrNull?.let { return nodeFactory.booleanNode(it) }
+
+    // Fallback for other potential primitive types
+    return nodeFactory.textNode(this.content)
 }

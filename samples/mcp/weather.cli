@@ -1,0 +1,42 @@
+Mcp server:
+  name: weather
+  version: "1.0.0"
+
+  tools:
+
+    hello:
+      description: Get a greeting
+      inputSchema:
+        name:
+          type: string
+          description: Your name
+      script:
+        Output: Hello ${input.name}!
+
+    get_alerts:
+      description: Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)
+      inputSchema:
+        state:
+          type: string
+          description: Two-letter US state code (e.g. CA, NY)
+      script:
+        GET: https://api.weather.gov/alerts/active/area/${input.state}
+        For each:
+          ${item} in: ${output.features}
+          Output:
+            Event: ${item.properties.event}
+            Area: ${item.properties.areaDesc}
+            Severity: ${item.properties.severity}
+            Description: ${item.properties.description}
+            Instruction: ${item.properties.instruction}
+
+    get_forecast:
+      description: Get weather forecast for a specific latitude/longitude
+      inputSchema:
+        latitude:
+          type: number
+        longitude:
+          type: number
+      script:
+        Output: Forecast not implemented yet
+
