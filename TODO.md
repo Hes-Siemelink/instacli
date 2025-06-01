@@ -1,8 +1,15 @@
 # On my mind
 
-## AI
+## MCP
 
 * Add MCP server support
+* Make MCP server like HTTP server. (Consistrent use of script, file, output, starting stoppping, port numbers etc)
+* Make MCP server composable in Yaml with 'Mcp tool' command.
+* TODOs in MCP server.
+* Process MCP result as list
+
+## AI agents
+
 * https://github.com/JetBrains/koog
 
 ## In general
@@ -97,6 +104,50 @@
 # Bugs
 
 * BUG: First line of output is not captured if shell script asks for user input => command appears to hang
+* BUG: Create connection doesn't work
+
+```shell
+hes@Mac samples % cli digitalai/release/login 
+Login to Digital.ai Release
+
+* Available commands: connect                     Logs in to Digital.ai Release
+
+Instacli scripting error
+
+Unknown command: Create Release connection
+
+In login:
+
+  If:
+    empty: "${endpoint}"
+    then:
+      Create Release connection: true
+      As: "${endpoint}"
+
+```
+
+* BUG: in select connection
+
+```shell
+Login to Digital.ai Release
+
+* Available commands: select-release-connection   Select the default connection
+? Select account to log in with * Create new account
+Please configure a connection to Digital.ai Release
+
+Instacli scripting error
+
+Caused by: java.lang.ClassCastException: class com.fasterxml.jackson.databind.node.TextNode cannot be cast to class com.fasterxml.jackson.databind.node.ObjectNode (com.fasterxml.jackson.databind.node.TextNode and com.fasterxml.jackson.databind.node.ObjectNode are in unnamed module of loader 'app')
+
+In create-release-connection.cli:
+
+  If:
+    empty: "${account.url}"
+    then:
+      Create release connection: ""
+      As: "${account}"
+
+```
 
 # Where to take it
 

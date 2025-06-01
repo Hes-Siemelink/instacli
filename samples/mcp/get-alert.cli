@@ -1,3 +1,14 @@
-GET:
-  url: https://api.weather.gov
-  path: /alerts/active/area/NY
+Script info:
+  input:
+    state: State code (e.g. NY)
+
+GET: https://api.weather.gov/alerts/active/area/${input.state}
+
+For each:
+  ${item} in: ${output.features}
+  Output:
+    Event: ${item.properties.event}
+    Area: ${item.properties.areaDesc}
+    Severity: ${item.properties.severity}
+    Description: ${item.properties.description}
+    Instruction: ${item.properties.instruction}

@@ -1,0 +1,20 @@
+Mcp server:
+  name: digitalai-release
+  version: "1.0.0"
+
+  tools:
+
+    change_task:
+      description: Change a task in Digital.ai Release
+      inputSchema:
+        task_id:
+          type: string
+          description: Full ID of the task to change
+        targetType:
+          type: string
+          description: New task type. For example, xlrelease.Task
+        task_properties:
+          type: object
+          description: Task details as JSON object
+      script: change-task.cli
+

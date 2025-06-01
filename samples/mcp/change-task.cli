@@ -1,0 +1,34 @@
+Connect to: Digital.ai Release
+
+Script info:
+  input:
+    task_id:
+      description: Full ID of the task to change
+    target_type:
+      description: New task type. For example, xlrelease.Task
+      default: jenkins.Build
+    task_properties:
+      description: New task details
+      default:
+        jobName: My Job
+
+---
+# Change task
+POST: /api/v1/tasks/${input.task_id}/changeType?targetType=${input.target_type}
+As: ${task}
+
+---
+# Update properties
+Add:
+  - id: ${task.pythonScript.id}
+    type: ${input.target_type}
+  - ${input.task_properties}
+As: ${script}
+
+PUT:
+  path: /api/v1/tasks/${input.task_id}
+  body:
+    id: ${input.task_id}
+    type: xlrelease.CustomScriptTask
+    title: ${task.title}
+    pythonScript: ${script}

@@ -30,6 +30,14 @@ Mcp server:
             Description: ${item.properties.description}
             Instruction: ${item.properties.instruction}
 
+    get_alerts2:
+      description: Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)
+      inputSchema:
+        state:
+          type: string
+          description: Two-letter US state code (e.g. CA, NY)
+      script: get-alert.cli
+
     get_forecast:
       description: Get weather forecast for a specific latitude/longitude
       inputSchema:

@@ -3,6 +3,8 @@ package instacli.commands.mcp
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.databind.node.TextNode
+import instacli.files.CliFile
 import instacli.language.*
 import instacli.util.toDisplayYaml
 import instacli.util.toDomainObject
@@ -71,8 +73,22 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
                 properties = tool.inputSchema.toKotlinx()
             ),
         ) { request ->
+            // Set up context for the tool execution
             localContext.variables[INPUT_VARIABLE] = request.arguments.toJackson()
-            val result = tool.script.run(localContext)
+
+            // Run script
+            val result: JsonNode? = if (tool.script is TextNode) {
+                // Local script file
+                val file = localContext.scriptDir.resolve(tool.script.textValue())
+                CliFile(file).run(localContext)
+            } else {
+                // Inline script
+                tool.script.run(localContext)
+            }
+
+            // Process result
+            // TODO handle lists
+            // TODO handle errors
             val output = result.toDisplayYaml()
             CallToolResult(content = listOf(TextContent(output)))
         }
@@ -90,6 +106,6 @@ data class McpServerInfo(
 data class ToolInfo(
     val description: String,
     val inputSchema: ObjectNode,
-    val script: ObjectNode
+    val script: JsonNode
 )
 
