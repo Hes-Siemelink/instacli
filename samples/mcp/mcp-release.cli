@@ -5,16 +5,30 @@ Mcp server:
   tools:
 
     change_task:
-      description: Change a task in Digital.ai Release
+      description: |
+        Change a task in Digital.ai Release. Use this tool to change the type of a task and provide it with new properties. 
+        For example, you can change a manual task to a Jenkins build task and provide the job name and other details.
+
       inputSchema:
+
         task_id:
           type: string
-          description: Full ID of the task to change
+          description: Full ID of the task to change. For example Applications/FolderSamplesAndTutorials/Release56424c393cb541cc92bb6eb41119f05c/Phase2437552/Task7479519
         targetType:
           type: string
-          description: New task type. For example, xlrelease.Task
+          description: New task type. For example, xlrelease.Task or jenkins.Build
+
         task_properties:
           type: object
-          description: Task details as JSON object
+          description: |
+            Task details as JSON object.
+            The properties are defined in the synthetic.xml of the target type.
+            
+            For example, if you are changing to a Jenkins build task, you can provide the job name: 
+            
+              {
+                "jobName": "My Job" 
+              }
+
       script: change-task.cli
 
