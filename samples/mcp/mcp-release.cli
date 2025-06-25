@@ -44,3 +44,22 @@ Mcp server:
           Digital.ai Release MCP Server
           Version: 1.0.0
           This server provides tools to interact with Digital.ai Release, including task management and automation.
+
+  prompts:
+    describe_task_change:
+      name: describe_task
+      description: |
+        Create a description for a task  This prompt can be used to explain what a task does..
+      arguments:
+        - name: task_yaml
+          description: Yaml description of the task
+          required: true
+      script:
+        Output: |
+          The task is described as follows:
+
+          ```yaml
+          ${input.task_yaml}
+          ```
+
+          Please provide a concise description of what this task does, its purpose, and any relevant information that can help understand its functionality.

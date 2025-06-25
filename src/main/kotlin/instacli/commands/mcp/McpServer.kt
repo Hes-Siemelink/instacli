@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.files.CliFile
 import instacli.language.*
-import instacli.util.toDisplayYaml
-import instacli.util.toDomainObject
-import instacli.util.toJackson
-import instacli.util.toKotlinx
+import instacli.util.*
 import io.ktor.utils.io.streams.*
 import io.modelcontextprotocol.kotlin.sdk.*
 import io.modelcontextprotocol.kotlin.sdk.server.Server
@@ -35,7 +32,8 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
             ServerOptions(
                 capabilities = ServerCapabilities(
                     tools = ServerCapabilities.Tools(listChanged = true),
-                    resources = ServerCapabilities.Resources(subscribe = false, listChanged = true)
+                    resources = ServerCapabilities.Resources(subscribe = false, listChanged = true),
+                    prompts = ServerCapabilities.Prompts(listChanged = true)
                 )
             )
         )
@@ -48,6 +46,9 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
             server.addResource(resourceURI, resource, context.clone())
         }
 
+        info.prompts.forEach { (promptName, prompt) ->
+            server.addPrompt(promptName, prompt, context.clone())
+        }
         // Listen to standard IO
         startBlockingStdioServer(server)
 
@@ -125,6 +126,44 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
             )
         }
     }
+
+    private fun Server.addPrompt(promptName: String, prompt: PromptInfo, localContext: ScriptContext) {
+        addPrompt(
+            name = promptName,
+            description = prompt.description,
+            arguments = prompt.arguments.map { argument ->
+                PromptArgument(
+                    name = argument.name,
+                    description = argument.description,
+                    required = argument.required
+                )
+            }
+        ) { request ->
+            // Set up context for the prompt execution
+            localContext.variables[INPUT_VARIABLE] = Json.newObject(request.arguments ?: emptyMap())
+
+            // Run script
+            val result: JsonNode? = if (prompt.script is TextNode) {
+                // Local script file
+                val file = localContext.scriptDir.resolve(prompt.script.textValue())
+                CliFile(file).run(localContext)
+            } else {
+                // Inline script
+                prompt.script.run(localContext)
+            }
+
+            // Process result
+            GetPromptResult(
+                "Description for ${request.name}",
+                messages = listOf(
+                    PromptMessage(
+                        role = Role.user,
+                        content = TextContent(result.toDisplayYaml())
+                    )
+                )
+            )
+        }
+    }
 }
 
 data class McpServerInfo(
@@ -135,7 +174,10 @@ data class McpServerInfo(
     val tools: MutableMap<String, ToolInfo> = mutableMapOf(),
 
     @JsonAnySetter
-    val resources: MutableMap<String, ResourceInfo> = mutableMapOf()
+    val resources: MutableMap<String, ResourceInfo> = mutableMapOf(),
+
+    @JsonAnySetter
+    val prompts: MutableMap<String, PromptInfo> = mutableMapOf()
 )
 
 data class ToolInfo(
@@ -151,3 +193,15 @@ data class ResourceInfo(
     val mimeType: String = "text/plain"
 )
 
+data class PromptInfo(
+    val name: String,
+    val description: String,
+    val arguments: List<PromptArgumentInfo>,
+    val script: JsonNode
+)
+
+data class PromptArgumentInfo(
+    val name: String,
+    val description: String,
+    val required: Boolean = true,
+)
