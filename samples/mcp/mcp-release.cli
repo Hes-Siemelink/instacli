@@ -32,3 +32,15 @@ Mcp server:
 
       script: change-task.cli
 
+  resources:
+    file://info.txt:
+      name: info.txt
+      description: |
+        This file contains information about the Digital.ai Release MCP server.
+        It is used to provide context and details about the server and its capabilities.
+      mimeType: text/plain
+      script:
+        Output: |
+          Digital.ai Release MCP Server
+          Version: 1.0.0
+          This server provides tools to interact with Digital.ai Release, including task management and automation.

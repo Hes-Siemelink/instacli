@@ -33,12 +33,19 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
                 version = info.version
             ),
             ServerOptions(
-                capabilities = ServerCapabilities(tools = ServerCapabilities.Tools(listChanged = true))
+                capabilities = ServerCapabilities(
+                    tools = ServerCapabilities.Tools(listChanged = true),
+                    resources = ServerCapabilities.Resources(subscribe = false, listChanged = true)
+                )
             )
         )
 
         info.tools.forEach { (toolName, tool) ->
             server.addTool(toolName, tool, context.clone())
+        }
+
+        info.resources.forEach { (resourceURI, resource) ->
+            server.addResource(resourceURI, resource, context.clone())
         }
 
         // Listen to standard IO
@@ -93,6 +100,31 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
             CallToolResult(content = listOf(TextContent(output)))
         }
     }
+
+    private fun Server.addResource(resourceURI: String, resource: ResourceInfo, localContext: ScriptContext) {
+        addResource(
+            uri = resourceURI,
+            name = resource.name,
+            description = resource.description,
+            mimeType = resource.mimeType
+        ) { request ->
+
+            val result: JsonNode? = if (resource.script is TextNode) {
+                // Local script file
+                val file = localContext.scriptDir.resolve(resource.script.textValue())
+                CliFile(file).run(localContext)
+            } else {
+                // Inline script
+                resource.script.run(localContext)
+            }
+
+            ReadResourceResult(
+                contents = listOf(
+                    TextResourceContents(result.toDisplayYaml(), request.uri, resource.mimeType)
+                )
+            )
+        }
+    }
 }
 
 data class McpServerInfo(
@@ -100,12 +132,22 @@ data class McpServerInfo(
     val version: String,
 
     @JsonAnySetter
-    val tools: MutableMap<String, ToolInfo> = mutableMapOf()
+    val tools: MutableMap<String, ToolInfo> = mutableMapOf(),
+
+    @JsonAnySetter
+    val resources: MutableMap<String, ResourceInfo> = mutableMapOf()
 )
 
 data class ToolInfo(
     val description: String,
     val inputSchema: ObjectNode,
     val script: JsonNode
+)
+
+data class ResourceInfo(
+    val name: String,
+    val description: String,
+    val script: JsonNode,
+    val mimeType: String = "text/plain"
 )
 
