@@ -14,7 +14,7 @@ Mcp server:
         task_id:
           type: string
           description: Full ID of the task to change. For example Applications/FolderSamplesAndTutorials/Release56424c393cb541cc92bb6eb41119f05c/Phase2437552/Task7479519
-        targetType:
+        target_type:
           type: string
           description: New task type. For example, xlrelease.Task or jenkins.Build
 
@@ -26,7 +26,7 @@ Mcp server:
             
             For example, if you are changing to a Jenkins build task, you can provide the job name: 
             
-              {
+              "task_properties": {
                 "jobName": "My Job" 
               }
 
@@ -46,8 +46,8 @@ Mcp server:
           This server provides tools to interact with Digital.ai Release, including task management and automation.
 
   prompts:
-    describe_task_change:
-      name: describe_task
+    create_task_description:
+      name: Create task description
       description: |
         Create a description for a task  This prompt can be used to explain what a task does..
       arguments:
