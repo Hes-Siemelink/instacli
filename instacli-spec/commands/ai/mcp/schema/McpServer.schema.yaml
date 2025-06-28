@@ -1,0 +1,86 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+
+type: object
+properties:
+  name:
+    type: string
+  version:
+    type: string
+  stop:
+    type: boolean
+  tools:
+    type: object
+    additionalProperties:
+        type: object
+        properties:
+          description:
+            type: string
+          inputSchema:
+            type: object
+          script:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: object
+        required:
+          - description
+          - script
+  resources:
+    type: object
+    additionalProperties:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          mimeType:
+            type: string
+          script:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: object
+        required:
+          - name
+          - description
+          - mimeType
+          - script
+  prompts:
+    type: object
+    additionalProperties:
+        type: object
+        properties:
+          name:
+            type: string
+          description:
+            type: string
+          arguments:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                required:
+                  type: boolean
+              required:
+                - name
+                - description
+          script:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: object
+        required:
+          - name
+          - description
+          - script
+required:
+  - name
+  - version

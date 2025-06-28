@@ -12,31 +12,45 @@ import io.modelcontextprotocol.kotlin.sdk.*
 import io.modelcontextprotocol.kotlin.sdk.server.Server
 import io.modelcontextprotocol.kotlin.sdk.server.ServerOptions
 import io.modelcontextprotocol.kotlin.sdk.server.StdioServerTransport
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.asSink
 import kotlinx.io.buffered
+import kotlin.io.path.name
 
 object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, DelayedResolver {
+
+    private val servers = mutableMapOf<String, Server>()
 
     override fun execute(data: ObjectNode, context: ScriptContext): JsonNode? {
         val info = data.toDomainObject(McpServerInfo::class)
 
+        // Stop server
+        if (info.stop) {
+            this.stopServer(info.name)
+            return null
+        }
+
         // TODO Resolve top level properties but not the scripts
 
-        val server = Server(
-            Implementation(
-                name = info.name,
-                version = info.version
-            ),
-            ServerOptions(
-                capabilities = ServerCapabilities(
-                    tools = ServerCapabilities.Tools(listChanged = true),
-                    resources = ServerCapabilities.Resources(subscribe = false, listChanged = true),
-                    prompts = ServerCapabilities.Prompts(listChanged = true)
+        val server = servers.getOrPut(info.name) {
+            println("Starting Instacli MCP Server for ${context.cliFile.name} with name ${info.name}")
+            Server(
+                Implementation(
+                    name = info.name,
+                    version = info.version
+                ),
+                ServerOptions(
+                    capabilities = ServerCapabilities(
+                        tools = ServerCapabilities.Tools(listChanged = true),
+                        resources = ServerCapabilities.Resources(subscribe = false, listChanged = true),
+                        prompts = ServerCapabilities.Prompts(listChanged = true)
+                    )
                 )
             )
-        )
+        }
 
         info.tools.forEach { (toolName, tool) ->
             server.addTool(toolName, tool, context.clone())
@@ -50,25 +64,32 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
             server.addPrompt(promptName, prompt, context.clone())
         }
         // Listen to standard IO
-        startBlockingStdioServer(server)
+        startServer(server)
 
         return null
     }
 
-    private fun startBlockingStdioServer(server: Server) {
+    private fun startServer(server: Server) {
         val transport = StdioServerTransport(
             System.`in`.asInput(),
             System.out.asSink().buffered()
         )
 
-        runBlocking {
+        // Launch the server in a separate coroutine scope so it doesn't block the main thread
+        val serverJob = CoroutineScope(Dispatchers.IO).launch {
             server.connect(transport)
-            val done = Job()
-            server.onClose {
-                done.complete()
-            }
-            done.join()
         }
+
+        server.onClose {
+            serverJob.cancel()
+        }
+    }
+
+    fun stopServer(name: String) {
+        runBlocking {
+            servers[name]?.close()
+        }
+        servers.remove(name)
     }
 
     private fun Server.addTool(toolName: String, tool: ToolInfo, localContext: ScriptContext) {
@@ -169,6 +190,7 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
 data class McpServerInfo(
     val name: String,
     val version: String,
+    val stop: Boolean = false,
 
     @JsonAnySetter
     val tools: MutableMap<String, ToolInfo> = mutableMapOf(),

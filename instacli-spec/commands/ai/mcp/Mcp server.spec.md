@@ -1,51 +1,45 @@
 # Command: Mcp server
 
-`Mcp server` starts an embedded MCP server. Use
-**MCP** to quickly prototype an MCP spec.
+`Mcp server` starts an MCP server.
 
 | Content type | Supported |
 |--------------|-----------|
 | Value        | no        |
-| List         | implicit  |
+| List         | no        |
 | Object       | yes       |
 
-[Mcp server.schema.yaml](schema/Mcp%20server.schema.yaml)
+[McpServer.schema.yaml](schema/McpServer.schema.yaml)
 
 ## Basic usage
 
-Set up an HTTP server by defining the port and endpoints.
+Use **Mcp server** to start a server with tools, resources and prompts.
 
-The following example defines an HTTP `GET` request on path `/hello` to return the text "Hello World!".
-
-```yaml TODO instacli
-Code example: Mcp server setup
+```yaml instacli
+Code example: Simple MCP server
 
 Mcp server:
-  port: 25002
-  name: weather
+  name: my-server
   version: "1.0.0"
   tools:
-    - get_alerts:
-        description: Get weather alerts for a US state. Input is Two-letter US state code (e.g. CA, NY)
-        inputSchema:
-          state:
-            type: string
-            description: Two-letter US state code (e.g. CA, NY)
-
-    - get_forecast:
-        description: Get weather forecast for a specific latitude/longitude
-        inputSchema:
-          latitude:
-            type: number
-          longitude:
-            type: number
-#        required: true
-
-# Test the server
-#GET: http://localhost:25001/hello
-
-#Expected output: Hello World!
+    hello:
+      description: Get a greeting
+      inputSchema:
+        name:
+          type: string
+          description: Your name
+      script:
+        Output: Hello ${input.name}!
 ```
 
-Let's break this down,
+### Stop the server
 
+Stop and remove the server with the `stop` command:
+
+```yaml instacli
+Code example: Stop server
+
+Mcp server:
+  name: my-server
+  version: "1.0.0"
+  stop: true
+```
