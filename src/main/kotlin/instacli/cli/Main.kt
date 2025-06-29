@@ -15,7 +15,6 @@ import java.nio.file.Path
 import kotlin.io.path.exists
 import kotlin.io.path.isDirectory
 import kotlin.io.path.name
-import kotlin.system.exitProcess
 
 object InstacliPaths {
     val INSTACLI_HOME: Path = Path.of(System.getProperty("user.home"), ".instacli")
@@ -24,8 +23,7 @@ object InstacliPaths {
 class CliInvocationException(message: String) : Exception(message)
 
 fun main(args: Array<String>) {
-    val status = InstacliMain.main(args)
-    exitProcess(status)
+    InstacliMain.main(args)
 }
 
 class InstacliMain(

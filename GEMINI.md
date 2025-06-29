@@ -58,4 +58,5 @@ When committing changes to the project, follow these rules:
       .cursor, GEMINI.md or similar), use exactly: `AI Context` as the summary. Do not mix these with other changes.
 - Content:
     - Each bullet or paragraph must be a separate `-m` argument.
-    - Do not use `\n` to separate topics within a single `-m` argument
+    - Do not use `\n` to separate topics within a single `-m` argument.
+    - Do not use backticks (`) in commit messages.

@@ -12,12 +12,11 @@ import io.modelcontextprotocol.kotlin.sdk.*
 import io.modelcontextprotocol.kotlin.sdk.server.Server
 import io.modelcontextprotocol.kotlin.sdk.server.ServerOptions
 import io.modelcontextprotocol.kotlin.sdk.server.StdioServerTransport
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.asSink
 import kotlinx.io.buffered
+import kotlin.concurrent.thread
 import kotlin.io.path.name
 
 object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, DelayedResolver {
@@ -63,33 +62,43 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
         info.prompts.forEach { (promptName, prompt) ->
             server.addPrompt(promptName, prompt, context.clone())
         }
+
         // Listen to standard IO
-        startServer(server)
+        startServer(info.name, server)
 
         return null
     }
 
-    private fun startServer(server: Server) {
+    private fun startServer(name: String, server: Server) {
         val transport = StdioServerTransport(
             System.`in`.asInput(),
             System.out.asSink().buffered()
         )
 
-        // Launch the server in a separate coroutine scope so it doesn't block the main thread
-        val serverJob = CoroutineScope(Dispatchers.IO).launch {
-            server.connect(transport)
-        }
+        thread(start = true, isDaemon = false, name = "MCP Server - $name") {
+            println("[${Thread.currentThread().name}] Starting server ")
+            runBlocking {
+                server.connect(transport)
 
-        server.onClose {
-            serverJob.cancel()
+                val done = Job()
+                server.onClose {
+                    done.complete()
+                }
+                if (servers.contains(name)) {
+                    done.join()
+                    println("[${Thread.currentThread().name}] Stopping server ")
+                } else {
+                    println("[${Thread.currentThread().name}] Server stopped before it could start")
+                }
+            }
         }
     }
 
     fun stopServer(name: String) {
+        val server = servers.remove(name) ?: return
         runBlocking {
-            servers[name]?.close()
+            server.close()
         }
-        servers.remove(name)
     }
 
     private fun Server.addTool(toolName: String, tool: ToolInfo, localContext: ScriptContext) {
@@ -227,3 +236,14 @@ data class PromptArgumentInfo(
     val description: String,
     val required: Boolean = true,
 )
+
+fun main() {
+    println("Hello from main thread: ${Thread.currentThread().name}")
+
+    thread(start = true, isDaemon = false) {
+        println("Hello from daemon thread: ${Thread.currentThread().name}")
+        Thread.sleep(3000)
+        println("Waited 3 seconds in daemon thread: ${Thread.currentThread().name}")
+    }
+
+}
