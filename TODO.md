@@ -110,7 +110,6 @@
 
 * BUG: First line of output is not captured if shell script asks for user input => command appears to hang
 * BUG: Create connection doesn't work
-* BUG: Connect to doesn't work if you have both README.md and .instacli.yaml in the same directory
 
 ```shell
 hes@Mac samples % cli digitalai/release/login 

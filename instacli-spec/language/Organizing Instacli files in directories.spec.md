@@ -140,6 +140,10 @@ Available commands:
   create-greeting   Creates a greeting
 ```
 
+If there is no `.instacli.yaml` file, or it doesn't have a description, Instacli will use the first sentence of the
+README.md file in the directory.
+<!-- TODO: Add example and test cases -->
+
 ### Hidden directory
 
 You can hide the directory from the interactive command chooser by setting the `hidden` property to `true`.
