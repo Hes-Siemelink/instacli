@@ -28,9 +28,10 @@ Mcp server:
             
               "task_properties": {
                 "jobName": "My Job" 
-              }
-
-      script: change-task.cli
+              }            
+      
+      
+      script: change-task.cli.md
 
   resources:
     file://info.txt:

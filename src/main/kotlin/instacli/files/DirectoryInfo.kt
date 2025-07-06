@@ -34,6 +34,7 @@ class DirectoryInfo : CommandInfo {
             val readme = dir.resolve("README.md")
             val instacliYaml = dir.resolve(".instacli.yaml")
 
+            // FIXME Doesn't work if you have both README.md and .instacli.yaml
             val info = if (readme.exists()) {
                 val doc = InstacliMarkdown.scan(readme)
                 val yaml = doc.blocks.filter { it.type == YamlInstacli }

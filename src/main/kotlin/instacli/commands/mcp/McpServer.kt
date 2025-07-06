@@ -17,7 +17,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.io.asSink
 import kotlinx.io.buffered
 import kotlin.concurrent.thread
-import kotlin.io.path.name
 
 object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, DelayedResolver {
 
@@ -35,7 +34,6 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
         // TODO Resolve top level properties but not the scripts
 
         val server = servers.getOrPut(info.name) {
-            println("Starting Instacli MCP Server for ${context.cliFile.name} with name ${info.name}")
             Server(
                 Implementation(
                     name = info.name,
@@ -76,7 +74,7 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
         )
 
         thread(start = true, isDaemon = false, name = "MCP Server - $name") {
-            println("[${Thread.currentThread().name}] Starting server ")
+            System.err.println("[${Thread.currentThread().name}] Starting server ")
             runBlocking {
                 server.connect(transport)
 
@@ -86,9 +84,9 @@ object McpServer : CommandHandler("Mcp server", "ai/mcp"), ObjectHandler, Delaye
                 }
                 if (servers.contains(name)) {
                     done.join()
-                    println("[${Thread.currentThread().name}] Stopping server ")
+                    System.err.println("[${Thread.currentThread().name}] Stopping server ")
                 } else {
-                    println("[${Thread.currentThread().name}] Server stopped before it could start")
+                    System.err.println("[${Thread.currentThread().name}] Server stopped before it could start")
                 }
             }
         }
@@ -236,14 +234,3 @@ data class PromptArgumentInfo(
     val description: String,
     val required: Boolean = true,
 )
-
-fun main() {
-    println("Hello from main thread: ${Thread.currentThread().name}")
-
-    thread(start = true, isDaemon = false) {
-        println("Hello from daemon thread: ${Thread.currentThread().name}")
-        Thread.sleep(3000)
-        println("Waited 3 seconds in daemon thread: ${Thread.currentThread().name}")
-    }
-
-}

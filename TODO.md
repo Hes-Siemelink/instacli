@@ -2,8 +2,7 @@
 
 ## MCP
 
-* Add MCP server support
-* Make MCP server like HTTP server. (Consistrent use of script, file, output, starting stoppping, port numbers etc)
+* Make MCP server like HTTP server. (Consistent use of script, file, output, starting stoppping, port numbers etc)
 * Make MCP server composable in Yaml with 'Mcp tool' command.
 * TODOs in MCP server.
 * Process MCP result as list
@@ -11,6 +10,12 @@
 ## AI agents
 
 * https://github.com/JetBrains/koog
+* Move `Script info: input` to top level of script for better AI processing. Names:
+    * `Input` -- nice and clean name but it is not literally input, it is more like a schema
+    * `Input schema`
+    * `Input parameters`
+    * `Input variables`
+    * `Script input`
 
 ## In general
 
@@ -28,9 +33,9 @@
 
 * Produce a clean, lightweight, native library
 * Node / TypeScript?
+* Compile to WASM
 * Kotlin native? => Use Pure Kotlin libraries
 * Go?
-* Compile to WASM
 
 # Easyspec
 
@@ -41,8 +46,8 @@
     * Http server
     * ...what's left not to extract?
 * Naming
-    * Easyspec
     * Easyspec.ai
+    * Easyspec
     * Quickspec
     * Spec.it
 * Add tests for samples
@@ -105,6 +110,7 @@
 
 * BUG: First line of output is not captured if shell script asks for user input => command appears to hang
 * BUG: Create connection doesn't work
+* BUG: Connect to doesn't work if you have both README.md and .instacli.yaml in the same directory
 
 ```shell
 hes@Mac samples % cli digitalai/release/login 
