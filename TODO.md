@@ -1,5 +1,7 @@
 # On my mind
 
+* Check command browser on Windows
+
 ## MCP
 
 * Make MCP server like HTTP server. (Consistent use of script, file, output, starting stoppping, port numbers etc)

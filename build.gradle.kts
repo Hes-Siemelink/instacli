@@ -2,8 +2,8 @@ group = "hes.instacli"
 version = "0.5.0-SNAPSHOT"
 
 plugins {
-    kotlin("jvm") version "2.1.10"
-    kotlin("plugin.serialization") version "2.1.10"
+    kotlin("jvm") version "2.1.20"
+    kotlin("plugin.serialization") version "2.1.20"
     id("com.github.breadmoirai.github-release") version "2.5.2"
 }
 
@@ -33,7 +33,7 @@ dependencies {
     implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")
     implementation("org.jline:jline:3.27.+")
     implementation("org.fusesource.jansi:jansi:2.4.1")
-    implementation("io.javalin:javalin:6.5.+")
+    implementation("io.javalin:javalin:6.7.+")
     implementation("org.xerial:sqlite-jdbc:3.47.0.0")
 
     // Model Context Protocol dependencies
