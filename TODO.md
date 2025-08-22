@@ -1,6 +1,12 @@
 # On my mind
 
+* Use `$:` as an alias to `Shell` command
+* Multi-line shell support
+* Lift 'Script input' out of 'Script info'
+* Support 'default' parameter to support text parameters in commands that are instacli scripts
+* Support 'list execution' for commands that are instacli scripts
 * Check command browser on Windows
+* Command browser should support ESC character to go a level up or exit
 
 ## MCP
 

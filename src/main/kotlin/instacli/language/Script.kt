@@ -13,6 +13,7 @@ import instacli.commands.shell.ShellCommand
 import instacli.commands.testing.Answers
 import instacli.commands.testing.ExpectedConsoleOutput
 import instacli.commands.testing.TestCase
+import instacli.commands.util.Print
 import instacli.files.MarkdownBlock
 import instacli.files.MarkdownBlock.*
 import instacli.util.Yaml
@@ -155,6 +156,12 @@ fun List<MarkdownBlock>.toScript(): Script {
             MarkdownBlock.Answers -> {
                 commands.add(
                     Command(Answers.name, Yaml.parse(block.getContent()))
+                )
+            }
+
+            Quote -> {
+                commands.add(
+                    Command(Print.name, TextNode(block.getContent()))
                 )
             }
 

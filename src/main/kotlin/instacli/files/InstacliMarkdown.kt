@@ -62,6 +62,17 @@ class InstacliMarkdown(val document: Path) {
             var currentBlock = doc.addBlock(Text)
             for (line in document.readLines()) {
                 when {
+                    // Quote is a special case because it is indicated by a prefix on every line
+                    line.startsWith(Quote.firstLinePrefix) -> {
+                        if (currentBlock.type == Text) {
+                            currentBlock = doc.addBlock(Quote)
+                        }
+                        if (currentBlock.type == Quote) {
+                            currentBlock.lines.add(line.removePrefix(Quote.firstLinePrefix))
+                        }
+                    }
+
+                    // Text is the container type of other block types
                     currentBlock.type == Text -> {
                         val startBlockType = blockTypes.firstOrNull {
                             line.startsWith(it.firstLinePrefix)
@@ -74,10 +85,12 @@ class InstacliMarkdown(val document: Path) {
                         }
                     }
 
+                    // When a block ends, return to Text
                     line.startsWith(currentBlock.type.lastLinePrefix) -> {
                         currentBlock = doc.addBlock(Text)
                     }
 
+                    // Otherwise, add the line to the current block
                     else -> {
                         currentBlock.lines.add(line)
                     }
@@ -134,4 +147,5 @@ class MarkdownBlock(
     object ShellBlock : BlockType("```shell", "```")
     object Answers : BlockType("<!-- answers", "-->")
     object Output : BlockType("```output", "```")
+    object Quote : BlockType("> ", "")
 }

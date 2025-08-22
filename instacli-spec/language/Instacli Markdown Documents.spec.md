@@ -248,6 +248,42 @@ should produce the following output:
 Hello, Alice!
 ```
 
+### Printing to the console
+
+When writing an Instacli script you can use the `>` quote character to print to the console, as a shortcut for using the
+[**Print**](../commands/instacli/misc/Print.spec.md) command.
+
+
+<!-- yaml instacli
+Code example: "Print with > character"
+-->
+
+#### Markdown format
+
+~~~markdown
+While running a script, you can print to the console with the `>` character:
+
+> Script is running
+
+So that should be in the output:
+
+```output
+Script is running
+```
+~~~
+
+#### Display example
+
+While running a script, you can print to the console with the `>` character:
+
+> Script is running
+
+So that should be in the output:
+
+```output
+Script is running
+```
+
 ## Helper files
 
 If you need to have a helper file for the example to work, you can define one with ` ```yaml
