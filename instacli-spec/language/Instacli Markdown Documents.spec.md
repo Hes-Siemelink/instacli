@@ -248,7 +248,7 @@ should produce the following output:
 Hello, Alice!
 ```
 
-### Printing to the console
+## Printing to the console
 
 When writing an Instacli script you can use the `>` quote character to print to the console, as a shortcut for using the
 [**Print**](../commands/instacli/util/Print.spec.md) command.

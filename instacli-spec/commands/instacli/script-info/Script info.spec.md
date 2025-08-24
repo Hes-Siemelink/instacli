@@ -49,161 +49,7 @@ Script info:
 
 You will need this when specifying input parameters, see below.
 
-## Definition of input parameters
-
-If the script uses input parameters, you can define them in **Script info** with the `input` property. They will be
-exposed as variables in the script.
-
-<!-- yaml instacli
-${input}:
- name: world
--->
-
- ```yaml instacli
-  Code example: Script info with input
-
-  Script info:
-    input:
-      name: The name to greet
-
-  Print: Hello, ${name}!
-```
-
-When running this, there are three possibilities
-
-1. The variable `${name}` is provided as input. In that case all is good and nothing happens.
-2. The variable `${name}` is not provided, and the script is run in interactive mode. Then the user is prompted with the
-   questions **What is your name?** and the result is stored in the `${name}` variable.
-3. The variable `${name}` is not provided, and the script is not run in interactive mode. Then an error is thrown and
-   the script is aborted.
-
-## Cli help
-
-Use `cli --help` to see the description of the parameters
-
-```
-$ cli --help script-info-samples/input
-A script with input parameters
-
-Input parameters:
-  --name       The name to greet
-```
-
-## Multiple variables
-
-You can define multiple input parameters at once.
-
-<!-- yaml instacli
-${input}:
-   greeting: Hello
-   name: world
--->
-
-```yaml instacli
-Code example: Define input with multiple variables
-
-Script info:
-  input:
-    greeting: What is your greeting?
-    name: What is your name?
-
-Print: ${greeting}, ${name}!
-```
-
-## The input variable
-
-Input parameters are also stored in the `${input}` variable.
-
-<!-- yaml instacli
-${input}:
-   greeting: Hello
-   name: world
--->
-
-```yaml instacli
-Code example: Input with direct variable access
-
-Script info:
-  input:
-    greeting: What is your greeting?
-    name: What is your name?
-
-Print: ${input.greeting}, ${input.name}!
-```
-
-## More properties
-
-You can specify various properties on the input parameters.
-
-* `description`: The question to ask the user.
-* `default`: The default value
-* `type`: The type of input: `select one`, `select multiple` or `password`
-* `enum`: a list of objects to choose from. This will render a dropdown list when presented to the user.
-* `display property`: the field to display when passing a list of objects to `enum`
-* `value property`: if passing an object to `enum`, the result will be the value of this field and not the entire object
-
-For example:
-
-```yaml instacli
-Code example: Input with default value
-
-Script info:
-  input:
-    name:
-      description: What is your name?
-      default: World
-```
-
-See [Prompt Properties](../user-interaction/Prompt.spec.md#prompt-properties) for a full description.
-
-## Variables and conditions
-
-You can define input depending on other input properties being set. The properties that are being referred to need to be
-defined before the property that is using them. You can to them as part of the `${input}` variable, for example
-`${input.otherVariable}`.
-
-This example uses the ${input.switch} to determine which variable will be part of the input. By setting `switch` to `a`,
-the `property-A` is set but not `property-B`.
-
-<!-- yaml instacli
-${input}: { }
--->
-
-<!-- TODO Make this run in interactive mode, so we can use 'Answers' for a more compelling example. --> 
-
-```yaml instacli
-Code example: Script info with variables and conditions
-
-Script info:
-  description: A script with a choice
-  input:
-
-    switch:
-      description: Choose a or b
-      default: a
-
-    property-A:
-      description: What is the value for A?
-      condition:
-        item: ${input.switch}
-        equals: a
-      default: Ananas
-
-    property-B:
-      description: What is the value for B?
-      condition:
-        item: ${input.switch}
-        equals: b
-      default: Bologna
-
-Assert equals:
-  actual: ${input}
-  expected:
-    switch: a
-    property-A: Ananas
-```
-
-### Hidden commands
+## Hidden commands
 
 When invoking Instacli interactively, `cli --help` will show the contents of the directory as commands. If you don't
 want to expose a script this way, for example a helper script, then you can hide it with the `hide` property in **Script
@@ -229,18 +75,26 @@ cli --help .
 No commands available.
 ```
 
-### Instacli version
+## Instacli version
 
 You can indicate the version of the Instacli spec that the script is using.
 
 ```yaml instacli
 Script info:
-  instacli-spec: v0.1
+  instacli-spec: 0.5.1
 ```
 
-## Using types
+## Script input
 
-You can define the input and output of a Script as types.
+You can define the input of a Script with the `input` property. This is an old way of defining input parameters. Use
+the [Input parameters](Input%20parameters.spec.md) command instead.
+
+### Using types
+
+As an alternative, you can define the input and output of a Script as types.
+
+> [!NOTE]
+> This is an experimental feature, and may change in future versions of Instacli.
 
 First you need to define the types in the file, and then you can use them in the script. Types are defined in the file
 `types.yaml`, in the same directory as the script.

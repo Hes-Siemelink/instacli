@@ -1,0 +1,41 @@
+Test case: Input parameters go into input variable
+
+Input parameters:
+  name:
+    default: world
+
+Assert equals:
+  actual: ${input}
+  expected:
+    name: world
+
+---
+Test case: Input parameters with conditional flow and variables
+
+${input}: { }
+
+Input parameters:
+
+  switch:
+    description: Choose a or b
+    default: a
+
+  property-A:
+    description: What is the value for A?
+    condition:
+      item: ${input.switch}
+      equals: a
+    default: Ananas
+
+  property-B:
+    description: What is the value for B?
+    condition:
+      item: ${input.switch}
+      equals: b
+    default: Bologna
+
+Assert equals:
+  actual: ${input}
+  expected:
+    switch: a
+    property-A: Ananas

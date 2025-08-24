@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.TextNode
 import instacli.commands.files.TempFile
 import instacli.commands.files.TempFileData
+import instacli.commands.scriptinfo.InputParameterData
+import instacli.commands.scriptinfo.InputParameters
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.scriptinfo.ScriptInfoData
 import instacli.commands.shell.Cli
@@ -66,9 +68,20 @@ class Script(val commands: List<Command>, val title: String? = null) {
     }
 
     private fun getScriptInfo(): ScriptInfoData? {
-        val command = commands.find { it.name == ScriptInfo.name } ?: return null
+        val scriptInfoCommand = commands.find { it.name == ScriptInfo.name } ?: return null
+        val scriptInfoData = scriptInfoCommand.data.toDomainObject(ScriptInfoData::class)
 
-        return command.data.toDomainObject(ScriptInfoData::class)
+        val inputParameterCommand = commands.find { it.name == InputParameters.name }
+
+        return if (inputParameterCommand != null) {
+            // Merge with data from InputParameters
+            val inputParams = inputParameterCommand.data.toDomainObject(InputParameterData::class)
+            val mergedInput = (scriptInfoData.input ?: emptyMap()) + (inputParams.properties)
+            scriptInfoData.copy(input = mergedInput)
+        } else {
+            scriptInfoData
+        }
+
     }
 
     companion object {

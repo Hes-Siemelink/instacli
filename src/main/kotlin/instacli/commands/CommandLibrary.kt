@@ -16,6 +16,7 @@ import instacli.commands.http.*
 import instacli.commands.mcp.McpServer
 import instacli.commands.schema.ValidateSchema
 import instacli.commands.schema.ValidateType
+import instacli.commands.scriptinfo.InputParameters
 import instacli.commands.scriptinfo.ScriptInfo
 import instacli.commands.shell.Cli
 import instacli.commands.shell.Shell
@@ -33,6 +34,7 @@ object CommandLibrary {
     val commands = commandMap(
 
         // Script definition
+        InputParameters,
         ScriptInfo,
 
         // Variables

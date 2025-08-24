@@ -13,14 +13,15 @@ Get a flavor of Instacli with this example file `greetings.cli`:
 ```yaml file=greetings.cli
 Script info:
   description: Multi-language greeting
-  input:
-    name: Your name
-    language:
-      description: Select a language
-      enum:
-        - English
-        - Spanish
-        - Dutch
+
+Input parameters:
+  name: Your name
+  language:
+    description: Select a language
+    enum:
+      - English
+      - Spanish
+      - Dutch
 
 POST:
   url: http://localhost:2525/greeting
@@ -195,9 +196,10 @@ Define all command-line options in Yaml. Take this file `simple-options.cli`
 ```yaml file=simple-options.cli
 Script info:
   description: Call Acme
-  input:
-    user: Username
-    language: Preferred language
+
+Input parameters:
+  user: Username
+  language: Preferred language
 ```
 
 This will automatically generate a command description and command line options:
@@ -223,14 +225,15 @@ example file `input-options.cli`
 ```yaml file=input-options.cli
 Script info:
   description: Different input options
-  input:
-    user:
-      description: Username
-      short option: u
-    password:
-      description: Password
-      secret: true
-      short option: p
+
+Input parameters:
+  user:
+    description: Username
+    short option: u
+  password:
+    description: Password
+    secret: true
+    short option: p
 ```
 
 ```shell cli
