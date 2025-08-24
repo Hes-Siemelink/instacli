@@ -1,5 +1,5 @@
 group = "hes.instacli"
-version = "0.5.1-SNAPSHOT"
+version = "0.5.1"
 
 plugins {
     kotlin("jvm") version "2.1.20"
