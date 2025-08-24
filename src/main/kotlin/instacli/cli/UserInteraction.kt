@@ -7,7 +7,6 @@ import com.github.kinquirer.core.Choice
 import instacli.files.DirectoryInfo
 import instacli.language.CommandInfo
 import instacli.language.Script
-import instacli.language.types.ObjectDefinition
 import instacli.language.types.toDisplayString
 
 interface UserInput {
@@ -66,21 +65,19 @@ object StandardOutput : ConsoleOutput {
 
     override fun printScriptInfo(script: Script) {
 
-        if (script.info?.description != null) {
-            println(script.info?.description)
+        val info = script.info
+
+        info.description?.let {
+            println(it)
         }
 
-        printInputParameters(script)
-    }
-
-    private fun printInputParameters(script: Script) {
-
-        val inputData: ObjectDefinition = script.info ?: return
-
-        if (inputData.properties.isEmpty()) return
-
-        println("\nOptions:")
-        println(inputData.toDisplayString())
+        if (info.properties.isNotEmpty()) {
+            info.description?.let {
+                println()
+            }
+            println("Options:")
+            println(info.toDisplayString())
+        }
     }
 
     override fun printUsage(globalOptions: CommandLineParameters) {

@@ -28,7 +28,7 @@ class Break(val output: JsonNode) : Exception()
 
 class Script(val commands: List<Command>, val title: String? = null) {
 
-    val info: ScriptInfoData? by lazy {
+    val info: ScriptInfoData by lazy {
         getScriptInfo()
     }
 
@@ -67,9 +67,9 @@ class Script(val commands: List<Command>, val title: String? = null) {
         return output
     }
 
-    private fun getScriptInfo(): ScriptInfoData? {
-        val scriptInfoCommand = commands.find { it.name == ScriptInfo.name } ?: return null
-        val scriptInfoData = scriptInfoCommand.data.toDomainObject(ScriptInfoData::class)
+    private fun getScriptInfo(): ScriptInfoData {
+        val scriptInfoCommand = commands.find { it.name == ScriptInfo.name }
+        val scriptInfoData = scriptInfoCommand?.data?.toDomainObject(ScriptInfoData::class) ?: ScriptInfoData(title)
 
         val inputParameterCommand = commands.find { it.name == InputParameters.name }
 
@@ -81,7 +81,6 @@ class Script(val commands: List<Command>, val title: String? = null) {
         } else {
             scriptInfoData
         }
-
     }
 
     companion object {
