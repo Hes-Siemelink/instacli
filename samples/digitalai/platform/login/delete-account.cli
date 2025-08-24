@@ -1,9 +1,10 @@
 Script info:
   description: Deletes a connection
-  input:
-    target:
-      description: Target service
-      default: Digital.ai Platform
+
+Input parameters:
+  target:
+    description: Target service
+    default: Digital.ai Platform
 
 ---
 Get all credentials: ${input.target}

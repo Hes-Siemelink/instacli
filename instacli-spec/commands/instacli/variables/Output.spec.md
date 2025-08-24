@@ -74,12 +74,10 @@ Here's an example of a script that defines the input and then makes it clear wha
 ```yaml instacli
 Code example: Define input and output in a script
 
-Script info:
-  description: Create a greeting
-  input:
-    name:
-      description: Person to greet
-      default: Nobody
+Input parameters:
+  name:
+    description: Person to greet
+    default: Nobody
 
 Output: Hello ${input.name}!
 ```

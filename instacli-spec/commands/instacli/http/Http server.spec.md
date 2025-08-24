@@ -166,10 +166,10 @@ You can also specify an Instacli file to run.
 Suppose you have a file `greet.cli`
 
 ```yaml file=greet.cli
-Script info:
-  description: Creates a greeting
-  input:
-    name: Your name
+Script info: Creates a greeting
+
+Input parameters:
+  name: Your name
 
 Output: Hello ${input.name}!
 ```

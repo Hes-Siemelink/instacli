@@ -146,13 +146,13 @@ Prints a simple greeting
 
 ### Defining script input
 
-**Script info** is also used to specify input parameters. Here's `greet.cli`:
+**Input parameters** is used to specify the script's input. Here's `greet.cli`:
 
 ```yaml file=greeting.cli
-Script info:
-  description: Prints a personalized greeting
-  input:
-    name: Your name
+Script info: Prints a personalized greeting
+
+Input parameters:
+  name: Your name
 
 Print: Hello ${name}!
 ```

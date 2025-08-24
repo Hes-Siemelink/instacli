@@ -1,7 +1,8 @@
 Script info:
   description: Deletes accounts from Digital.ai Platform
-  input:
-    name: Account name (leave empty to show all accounts)
+
+Input parameters:
+  name: Account name (leave empty to show all accounts)
 
 ---
 Connect to: Digital.ai Platform

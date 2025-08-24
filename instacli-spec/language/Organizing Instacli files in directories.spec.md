@@ -93,10 +93,10 @@ style".
 For example, suppose we have a file `create-greeting.cli`, that creates a greeting and puts it in the output:
 
 ```yaml file=create-greeting.cli
-Script info:
-  description: Creates a greeting
-  input:
-    name: Your name
+Script info: Creates a greeting
+
+Input parameters:
+  name: Your name
 
 Output: Hello ${name}!
 ```

@@ -2,13 +2,14 @@ Print: Please configure a connection to Digital.ai Release
 
 Script info:
   description: Configures a new connection
-  input:
-    url: Digital.ai Release URL
-    username: Username
-    password:
-      description: Password
-      secret: true
-    name: Account name
+
+Input parameters:
+  url: Digital.ai Release URL
+  username: Username
+  password:
+    description: Password
+    secret: true
+  name: Account name
 
 Create credentials:
   target: Digital.ai Release

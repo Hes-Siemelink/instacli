@@ -1,7 +1,7 @@
-Script info:
-  description: Echos the input
-  input:
-    text: Input that becomes output
+Script info: Echos the input
+
+Input parameters:
+  text: Input that becomes output
 
 ---
 Output: ${input.text}

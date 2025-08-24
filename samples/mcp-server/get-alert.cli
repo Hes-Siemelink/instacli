@@ -1,6 +1,7 @@
-Script info:
-  input:
-    state: State code (e.g. NY)
+Script info: Get active weather alerts for a US state
+
+Input parameters:
+  state: State code (e.g. NY)
 
 GET: https://api.weather.gov/alerts/active/area/${input.state}
 

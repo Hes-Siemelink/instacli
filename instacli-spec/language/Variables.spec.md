@@ -158,17 +158,17 @@ Expected output: Hello World!
 
 ## The input variable
 
-The input of a script defined in the **Script info** section will be stored in the `${input}` variable
+The input of a script defined in the **Input parameters** section will be stored in the `${input}` variable
 
 ```yaml instacli
 Code example: Populating the input variable
 
-Script info:
-  description: Creates a greeting
-  input:
-    name:
-      description: Your name
-      default: World
+Script info: Creates a greeting
+
+Input parameters:
+  name:
+    description: Your name
+    default: World
 
 Assert equals:
   actual: ${input}
@@ -183,11 +183,11 @@ Take a look at the example file `greet.cli` to see how you can define input and 
 ```yaml file=greet.cli
 Code example: Input and output when defining a script
 
-Script info:
-  description: Creates a greeting
-  input:
-    name:
-      description: Your name
+Script info: Creates a greeting
+
+Input parameters:
+  name:
+    description: Your name
 
 Output: Hello ${input.name}!
 ```

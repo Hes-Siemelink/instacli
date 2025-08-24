@@ -1,8 +1,9 @@
 Script info:
   description: Get complete results by getting all paginated ones.
-  input:
-    url: Spotify url to GET
   hidden: true
+
+Input parameters:
+  url: Spotify url to GET
 
 ---
 ${all}: [ ]

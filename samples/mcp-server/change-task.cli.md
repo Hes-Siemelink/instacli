@@ -20,20 +20,19 @@ the [mcp-relelese.cli](mcp-release.cli) server specification. Technically you ca
 it makes it easier the test the script in isolation and reuse it in other contexts.
 
 ```yaml instacli
-Script info:
-  input:
+Input parameters:
 
-    task_id:
-      description: Full ID of the task to change
+  task_id:
+    description: Full ID of the task to change
 
-    target_type:
-      description: New task type. For example, xlrelease.Task
-      default: jenkins.Build
+  target_type:
+    description: New task type. For example, xlrelease.Task
+    default: jenkins.Build
 
-    task_properties:
-      description: New task details
-      default:
-        jobName: My Job
+  task_properties:
+    description: New task details
+    default:
+      jobName: My Job
 ```
 
 ## REST API calls

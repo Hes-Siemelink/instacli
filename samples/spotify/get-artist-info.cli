@@ -1,7 +1,7 @@
-Script info:
-  description: Finds an artist
-  input:
-    name: Name of the artist
+Script info: Finds an artist
+
+Input parameters:
+  name: Name of the artist
 
 ---
 Connect to: Spotify
