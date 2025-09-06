@@ -1,13 +1,13 @@
 # On my mind
 
-* Lift 'Input schema' out of 'Script info'
-* Resolve difference between Input schema and Prompt for default values.
-    * Use two terms: 'default' (for Input schema only -- no confirmation) and 'suggestion' or 'example' (for Prompt and
-      Input schema)
-    * Or: Use additional boolean 'confirm-default' on Input schema
+* Resolve difference between Input parameters and Prompt for default values. Use two terms:
+    - 'default' for Input parameters only -- no confirmation
+    - 'placeholder' for both that will display the value for confirmation. (Alternative names: 'suggestion', '
+      example', 'hint')
+    - When putting 'default' on Prompt it will act as a placeholder
+
 * Support 'default' parameter to support text parameters in commands that are instacli scripts
 * Support 'list execution' for commands that are instacli scripts
-* Use `$:` as an alias to `Shell` command
 * Multi-line shell support
 * Check command browser on Windows
 * Command browser should support ESC character to go a level up or exit
