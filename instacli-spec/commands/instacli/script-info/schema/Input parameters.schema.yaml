@@ -1,6 +1,0 @@
-$id: "https://instacli.spec.it/v1/commands/instacli/script-info/Input_parameters"
-$schema: https://json-schema.org/draft/2020-12/schema
-
-type: object
-additionalProperties:
-  $ref: "/v1/commands/instacli/ParameterData.schema.yaml"

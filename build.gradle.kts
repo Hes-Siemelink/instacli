@@ -21,28 +21,12 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.+")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.+")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.+")
-    implementation("com.networknt:json-schema-validator:1.4.0")
-    implementation("io.ktor:ktor-client-core:3.0.+")
-    implementation("io.ktor:ktor-client-java:3.0+")
-    implementation("io.ktor:ktor-client-auth:3.0+")
-    implementation("org.slf4j:slf4j-simple:2.0.+")
-    implementation("com.github.kotlin-inquirer:kotlin-inquirer:0.1.0")
-    implementation("org.jline:jline:3.27.+")
-    implementation("org.fusesource.jansi:jansi:2.4.1")
-    implementation("io.javalin:javalin:6.7.+")
-    implementation("org.xerial:sqlite-jdbc:3.47.0.0")
-
-    // Model Context Protocol dependencies
-    implementation("io.modelcontextprotocol:kotlin-sdk:0.6.0")
-    implementation("io.github.oshai:kotlin-logging:5.0.0")
+    
+    // SpecScript library dependency (provides all the command implementations)
+    implementation("hes.specscript:specscript:0.6.0-SNAPSHOT")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
-    testImplementation("net.pwall.json:json-kotlin-schema:0.47")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
 }
@@ -82,47 +66,27 @@ testing {
                 }
             }
         }
-
-        register<JvmTestSuite>("integrationTest") {
-
-            dependencies {
-                implementation(project())
-            }
-
-            sources {
-                java {
-                    setSrcDirs(listOf("src/tests/integration"))
-                }
-            }
-
-            targets {
-                all {
-                    testTask.configure {
-                        shouldRunAfter(test)
-                    }
-                }
-            }
-        }
     }
 }
 
-
-tasks.named("check") {
-    dependsOn(testing.suites.named("specificationTest"))
+tasks.test {
+    useJUnitPlatform()
 }
 
-//
-// Executable jar file
-//
-
 tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
     manifest {
         attributes["Main-Class"] = "instacli.cli.MainKt"
     }
-    configurations["compileClasspath"].forEach { file: File ->
-        from(zipTree(file.absoluteFile))
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    
+    from(sourceSets.main.get().output)
+    
+    // Include all runtime dependencies (SpecScript + its transitive dependencies)
+    dependsOn(configurations.runtimeClasspath)
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
 }
 
 //
@@ -130,13 +94,9 @@ tasks.jar {
 //
 
 githubRelease {
-    token(System.getenv("GITHUB_TOKEN"))
-    repo = "instacli"
+    token(provider { System.getenv("GITHUB_TOKEN") })
     owner = "Hes-Siemelink"
-    tagName = "${project.version}"
-    releaseName = "Instacli ${project.version}"
-    targetCommitish = "main"
-    body = "Release of Instacli ${project.version}"
+    repo = "instacli"
     draft = false
     prerelease = false
     overwrite = true
@@ -148,5 +108,5 @@ tasks.named("githubRelease") {
 }
 
 tasks.register("release") {
-    dependsOn("clean", "githubRelease")
+    dependsOn(tasks.named("test"), tasks.named("specificationTest"), tasks.named("githubRelease"))
 }

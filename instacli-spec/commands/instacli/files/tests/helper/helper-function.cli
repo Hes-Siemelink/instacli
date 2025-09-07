@@ -1,8 +1,0 @@
-Script info:
-  description: A simple helper function, to be called from another script
-
-Input parameters:
-  name:
-    default: world
-
-Output: Thanks for your help, ${input.name}!

@@ -1,7 +1,0 @@
-Test case: Append to empty output
-
-Append:
-  something: new
-
-Expected output:
-  something: new

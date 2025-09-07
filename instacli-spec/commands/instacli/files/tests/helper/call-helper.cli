@@ -1,9 +1,0 @@
-Script info:
-  description: A helper function that calls another helper function
-
-Input parameters:
-  name:
-    default: world
-
-Helper function:
-  name: ${input.name}
