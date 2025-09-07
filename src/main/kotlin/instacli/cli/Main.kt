@@ -1,10 +1,10 @@
 package instacli.cli
 
-import specscript.cli.InstacliMain
+import specscript.cli.SpecScriptMain
 
 /**
  * Minimal CLI bootstrap that delegates to SpecScript library.
  */
 fun main(args: Array<String>) {
-    System.exit(InstacliMain.main(args))
+    System.exit(SpecScriptMain.main(args))
 }
