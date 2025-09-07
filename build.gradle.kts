@@ -21,9 +21,11 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    
-    // SpecScript library dependency (provides all the command implementations)
+
     implementation("hes.specscript:specscript:0.6.0-SNAPSHOT")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.+")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.17.+")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.+")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
@@ -75,13 +77,13 @@ tasks.test {
 
 tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    
+
     manifest {
         attributes["Main-Class"] = "instacli.cli.MainKt"
     }
-    
+
     from(sourceSets.main.get().output)
-    
+
     // Include all runtime dependencies (SpecScript + its transitive dependencies)
     dependsOn(configurations.runtimeClasspath)
     from({
