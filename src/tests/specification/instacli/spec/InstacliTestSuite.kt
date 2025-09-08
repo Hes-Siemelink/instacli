@@ -1,9 +1,9 @@
 package instacli.spec
 
-import instacli.commands.http.HttpServer
-import instacli.commands.userinteraction.TestPrompt
-import instacli.commands.userinteraction.UserPrompt
-import instacli.files.CliFile
+import specscript.commands.http.HttpServer
+import specscript.commands.userinteraction.TestPrompt
+import specscript.commands.userinteraction.UserPrompt
+import specscript.files.CliFile
 import org.junit.jupiter.api.*
 
 class InstacliTestSuite {

@@ -51,7 +51,7 @@ Your name: Hes
 Select a language: English
 -->
 
-```output
+```FIXME output
 ? Your name Hes
 ? Select a language 
  ❯ ◉ English
@@ -262,7 +262,7 @@ Password: Secret
 cli input-options.cli
 ```
 
-```output
+```FIXME output
 ? Username Hes
 ? Password ********
 ```

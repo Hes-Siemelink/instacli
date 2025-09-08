@@ -75,6 +75,10 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.named("check") {
+    dependsOn(testing.suites.named("specificationTest"))
+}
+
 tasks.jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 

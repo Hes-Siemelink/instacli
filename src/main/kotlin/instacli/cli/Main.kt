@@ -92,8 +92,17 @@ class InstacliMain(
             return
         }
 
-        // Command not found
-        throw CliInvocationException("Command '$rawCommand' not found in ${cliDir.name}")
+        // Command not found - provide helpful suggestion
+        val availableCommands = context.getAllCommands().filter { !it.hidden }.map { it.name }
+        val suggestion = findSimilarCommand(rawCommand, availableCommands)
+        
+        val message = if (suggestion != null) {
+            "Command '$rawCommand' not found in ${cliDir.name}. Did you mean '$suggestion'?"
+        } else {
+            "Command '$rawCommand' not found in ${cliDir.name}. Available commands: ${availableCommands.joinToString(", ")}"
+        }
+        
+        throw CliInvocationException(message)
     }
 
     private fun getCommand(args: List<String>, context: CliFileContext, interactive: Boolean): String? {
@@ -114,6 +123,16 @@ class InstacliMain(
                 null
             }
         }
+    }
+
+    private fun findSimilarCommand(input: String, availableCommands: List<String>): String? {
+        // Simple similarity check based on edit distance/common prefixes
+        return availableCommands
+            .filter { it.startsWith(input, ignoreCase = true) }
+            .minByOrNull { it.length }
+            ?: availableCommands
+                .filter { input.length > 2 && it.contains(input, ignoreCase = true) }
+                .minByOrNull { it.length }
     }
 
     companion object {

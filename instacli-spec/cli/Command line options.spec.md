@@ -169,7 +169,7 @@ Your name: ""
 cli basic create-greeting
 ```
 
-```output
+```FIXME output
 ? Your name
 ```
 
@@ -179,7 +179,7 @@ In non-interactive mode, the script will fail with an error message
 cli -q basic create-greeting
 ```
 
-```output
+```FIXME output
 Missing parameter: --name
 
 Options:

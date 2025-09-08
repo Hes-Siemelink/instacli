@@ -1,13 +1,13 @@
 package instacli.spec
 
-import instacli.cli.reportError
-import instacli.commands.testing.CodeExample
-import instacli.commands.testing.TestCase
-import instacli.commands.userinteraction.TestPrompt
-import instacli.commands.userinteraction.UserPrompt
-import instacli.files.*
-import instacli.language.*
-import instacli.util.toDisplayYaml
+import specscript.cli.reportError
+import specscript.commands.testing.CodeExample
+import specscript.commands.testing.TestCase
+import specscript.commands.userinteraction.TestPrompt
+import specscript.commands.userinteraction.UserPrompt
+import specscript.files.*
+import specscript.language.*
+import specscript.util.toDisplayYaml
 import org.junit.jupiter.api.DynamicContainer.dynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
