@@ -38,7 +38,7 @@ Thank you for confirming!
 
 ## Handling rejection
 
-When a user says no, the **Confirm** command will raise on error. You can catch this error with an `On error` block.
+When a user says no, the **Confirm** command will raise an error. You can catch this error with an `On error` block.
 
 <!-- answers
 Are you sure?: "No"
@@ -53,4 +53,28 @@ On error:
   Exit: Not confirmed
 
 Expected output: Script will not reach this point
+```
+
+# Non-interactive mode
+
+When running in non-interactive mode, **Confirm** commands are skipped silently.
+
+Suppose you have the file `headless.cli`:
+
+```yaml file=headless.cli
+Confirm: Are you there?
+
+Print: Thank you for NOT confirming!
+```
+
+If you run it headless you will not get the confirmation prompt.
+
+```shell cli
+cli --non-interactive headless.cli
+```
+
+will print
+
+```output
+Thank you for NOT confirming!
 ```

@@ -22,9 +22,14 @@ object Confirm : CommandHandler("Confirm", "instacli/user-interaction"), ValueHa
 
         val question = data.toDisplayYaml()
 
+        // Skip confirmation if running in non-interactive mode
+        if (!context.interactive) {
+            return yes
+        }
+
         val confirmationDialog = ParameterData(
             description = question,
-            enum = listOf(yes, no)
+            enum = listOf(yes, no),
         )
 
         val answer = confirmationDialog.prompt()

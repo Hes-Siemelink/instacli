@@ -88,7 +88,7 @@ fun CliFile.getCodeExamples(): List<DynamicTest> {
     // Set up test dir
     val testDir = Files.createTempDirectory("instacli-")
     testDir.toFile().deleteOnExit()
-    val context = CliFileContext(testDir)
+    val context = CliFileContext(testDir, interactive = true)
     context.setTempDir(testDir)
 
     val scripts = splitMarkdown()
