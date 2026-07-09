@@ -29,7 +29,7 @@ object Confirm : CommandHandler("Confirm", "instacli/user-interaction"), ValueHa
 
         val confirmationDialog = ParameterData(
             description = question,
-            enum = listOf(yes, no),
+            enum = listOf(yes, no)
         )
 
         val answer = confirmationDialog.prompt()
